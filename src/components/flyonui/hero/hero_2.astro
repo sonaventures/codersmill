@@ -5,7 +5,7 @@
 
   <div class="py-16">
     <div class="mx-auto flex max-w-7xl justify-between gap-6 px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col gap-7 lg:max-w-md xl:max-w-xl">
+      <div class="flex min-w-0 flex-col gap-7 lg:max-w-md xl:max-w-xl">
         <div class="border-canvas-01-border rounded-lg flex w-fit flex-wrap items-center justify-center gap-4 border px-4 py-1.5">
           <p class="text-ink-01 font-semibold uppercase max-md:hidden">
             Compatible With:
@@ -69,11 +69,9 @@
           Components Library
         </h1>
         <p class="text-lg">
-          FlyonUI is an open-source Tailwind CSS library withsemantic classes
-          <span class="font-semibold">semantic classes</span>
-          andpowerful JS plugins
-          <span class="font-semibold">powerful JS plugins</span>. Includes UI
-          examples, templates, a Figma design system, and more…
+          FlyonUI is an open-source Tailwind CSS library with semantic classes
+          and powerful JS plugins. Includes UI examples, templates, a Figma
+          design system, and more…
         </p>
 
         <div class="flex gap-4 max-sm:flex-col md:items-center">
@@ -102,11 +100,11 @@
           </a>
           <div
             x-data="{ message: '', async copy() { try { await navigator.clipboard.writeText(this.$refs.command.textContent.trim()); this.message = 'Copied to clipboard.' } catch (error) { console.error('Unable to copy the command.', error); this.message = 'Unable to copy. Select the command and copy it manually.' } } }"
-            class="border-canvas-01-border bg-canvas-01 relative inline-flex w-max items-center gap-1 rounded-sm border p-0.75"
+            class="border-canvas-01-border bg-canvas-01 relative inline-flex w-full max-w-fit items-center gap-1 rounded-sm border p-0.75"
           >
             <code
               x-ref="command"
-              class="text-ink-01 px-2 font-mono text-lg font-medium"
+              class="text-ink-01 min-w-0 overflow-x-auto px-2 font-mono text-sm font-medium sm:text-lg"
             >
               npm i -D flyonui@latest
             </code>
@@ -127,11 +125,11 @@
         </div>
       </div>
 
-      <div class="relative size-full max-lg:hidden">
+      <div class="relative hidden min-w-0 flex-1 lg:block">
         <img
           src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/hero/widgets.png"
           alt="Gradient BG"
-          class="pointer-events-none absolute -end-25 top-20 scale-145 xl:end-25"
+          class="pointer-events-none absolute inset-e-0 top-20 w-full object-contain"
         />
       </div>
     </div>

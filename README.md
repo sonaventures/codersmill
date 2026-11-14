@@ -33,10 +33,9 @@ as unsupported, as are components with slots. Reopen the project folder after
 changing a component.
 
 The hero examples in `src/components/flyonui/hero/` use Section 01 theme
-colors and the shared layout header. Their sample links, email forms, and
-purchase actions are not connected. Alpine powers local interactions such as
-the meal carousel, quantity selector, and copy button. `hero_14.astro` is
-empty and needs content before it can be used.
+colors and the shared layout header. Their sample links, forms, and purchase
+actions are not connected. Alpine powers local interactions such as the meal
+carousel, quantity selector, and copy button.
 
 The template pages share `src/styles/template/template.css`, which uses
 Tailwind utilities and keeps the individual page styles scoped. Inline styles
