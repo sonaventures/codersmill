@@ -1,7 +1,7 @@
 @reference "../global.css";
 /* Color family editor */
 .palette-editor.palette-editor {
-  @apply grid max-w-[70rem] gap-8 py-[3rem_5rem];
+  @apply grid max-w-280 gap-8 py-[3rem_5rem];
 }
 .palette-editor header,
 .palette-editor section,
@@ -15,21 +15,21 @@
   @apply wrap-anywhere;
 }
 .palette-editor button:not(:where(.family-row *)) {
-  @apply w-[fit-content] p-[0.65rem_1rem];
+  @apply w-fit p-[0.65rem_1rem];
   border: 1px solid var(--accent-page-border);
   @apply rounded-[0.4rem];
   background: var(--accent-page-canvas);
-  @apply cursor-pointer text-[color:var(--accent-page-text)];
+  @apply cursor-pointer text-accent-page-text;
 }
 .palette-editor button:not(:where(.family-row *)):disabled {
   @apply cursor-not-allowed opacity-[0.55];
 }
 .palette-editor input:not([type="file"]),
 .palette-editor select {
-  @apply max-w-[24rem] p-[0.6rem];
+  @apply max-w-96 p-[0.6rem];
   border: 1px solid var(--canvas-page-border);
   background: var(--canvas-page);
-  @apply text-[color:var(--ink-page)];
+  @apply text-ink-page;
 }
 .palette-editor .editor-toolbar {
   @apply flex flex-wrap items-center gap-4;
@@ -41,7 +41,7 @@
   @apply hidden;
 }
 .palette-editor .shade-grid {
-  @apply grid grid-cols-[repeat(auto-fit,_minmax(min(100%,_16rem),_1fr))] gap-3;
+  @apply grid grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] gap-3;
 }
 .palette-editor .shade-grid label {
   @apply flex items-center gap-2;
@@ -72,21 +72,21 @@
 }
 /* Theme template */
 .theme-lab.theme-lab {
-  @apply py-[clamp(3rem,_7vw,_6rem)];
+  @apply py-[clamp(3rem,7vw,6rem)];
 }
 .theme-lab .lab-intro {
-  @apply max-w-[52rem] py-[1rem_clamp(3rem,_7vw,_6rem)];
+  @apply max-w-208 py-[1rem_clamp(3rem,7vw,6rem)];
 }
 .theme-lab .lab-eyebrow,
 .theme-lab .sample-kicker {
-  @apply m-[0_0_0.75rem] text-[0.72rem] font-[750] tracking-[0.16em] text-[color:var(--ink-page-highlight)] uppercase;
+  @apply m-[0_0_0.75rem] text-[0.72rem] font-[750] tracking-[0.16em] text-ink-page-highlight uppercase;
 }
 .theme-lab .lab-intro h1 {
-  @apply m-0 font-display text-[clamp(3rem,_8vw,_6rem)] leading-[0.98] font-semibold tracking-[-0.045em] text-[color:var(--ink-page-first-header)];
+  @apply m-0 font-display text-[clamp(3rem,8vw,6rem)] leading-[0.98] font-semibold tracking-[-0.045em] text-ink-page-first-header;
 }
 .theme-lab .lab-intro > p:not(.lab-eyebrow),
 .theme-lab .lab-section-heading > p:not(.lab-eyebrow) {
-  @apply max-w-[45rem] text-[1.05rem] leading-[1.7] text-[color:var(--ink-page-muted)];
+  @apply max-w-180 text-[1.05rem] leading-[1.7] text-ink-page-muted;
 }
 .theme-lab .lab-actions,
 .theme-lab .component-sample {
@@ -107,45 +107,45 @@
   transform: translateY(-1px);
 }
 .theme-lab .lab-button-primary {
-  @apply border-[color:var(--cta-01)];
+  @apply border-cta-01;
   background: var(--cta-01);
-  @apply text-[color:var(--ink-page-dark)];
+  @apply text-ink-page-dark;
 }
 .theme-lab .lab-button-secondary {
-  @apply border-[color:var(--accent-page-border)];
+  @apply border-accent-page-border;
   background: var(--canvas-page);
-  @apply text-[color:var(--accent-page-focus)];
+  @apply text-accent-page-focus;
 }
 .theme-lab .accent-option-button {
-  @apply border-[color:var(--button-border)];
+  @apply border-(--button-border);
   background: var(--button-canvas);
-  @apply text-[color:var(--button-text)];
+  @apply text-(--button-text);
 }
 .theme-lab .accent-option-button:focus-visible {
   outline: 3px solid var(--button-focus);
-  @apply outline-offset-[3px];
+  @apply outline-offset-3;
 }
 .theme-lab .lab-section {
-  @apply py-[clamp(2.5rem,_6vw,_5rem)];
+  @apply py-[clamp(2.5rem,6vw,5rem)];
   border-top: 1px solid var(--canvas-page-border);
 }
 .theme-lab .lab-section-heading {
   @apply mb-7;
 }
 .theme-lab .lab-section-heading h2 {
-  @apply m-0 font-display text-[clamp(2rem,_4vw,_3rem)] font-[550] tracking-[-0.03em] text-[color:var(--ink-page-first-header)];
+  @apply m-0 font-display text-[clamp(2rem,4vw,3rem)] font-[550] tracking-[-0.03em] text-ink-page-first-header;
 }
 .theme-lab .canvas-grid,
 .theme-lab .accent-grid,
 .theme-lab .ink-grid {
-  @apply grid grid-cols-[repeat(auto-fit,_minmax(min(100%,_15rem),_1fr))] gap-4;
+  @apply grid grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))] gap-4;
 }
 .theme-lab .canvas-card {
-  @apply min-h-[15rem];
+  @apply min-h-60;
   border: 1px solid var(--sample-border);
   @apply rounded-[0.8rem];
   background: var(--sample-canvas);
-  @apply p-[1.4rem] text-[color:var(--sample-ink)];
+  @apply p-[1.4rem] text-(--sample-ink);
   box-shadow: 0 0.7rem 1.8rem
     color-mix(in oklch, var(--sample-shadow) 8%, transparent);
 }
@@ -156,10 +156,10 @@
   @apply leading-[1.6];
 }
 .theme-lab .canvas-card .sample-kicker {
-  @apply text-[color:var(--sample-ink)] opacity-[0.82];
+  @apply text-(--sample-ink) opacity-[0.82];
 }
 .theme-lab .canvas-card-link {
-  @apply mt-4 inline-flex items-center gap-[0.35rem] font-bold text-[color:var(--sample-ink)];
+  @apply mt-4 inline-flex items-center gap-[0.35rem] font-bold text-(--sample-ink);
   text-decoration-color: var(--accent-page-focus);
   text-underline-offset: 0.2em;
 }
@@ -182,29 +182,29 @@
 }
 .theme-lab .canvas-sample-button:focus-visible {
   outline: 3px solid var(--accent-page-focus);
-  @apply outline-offset-[2px];
+  @apply outline-offset-2;
 }
 .theme-lab .canvas-sample-button-primary {
-  @apply border-[color:var(--cta-01)];
+  @apply border-cta-01;
   background: var(--cta-01);
-  @apply text-[color:var(--ink-page-dark)];
+  @apply text-ink-page-dark;
 }
 .theme-lab .canvas-sample-button-secondary {
-  @apply border-[color:var(--sample-accent-border)];
+  @apply border-(--sample-accent-border);
   background: var(--sample-accent-canvas);
-  @apply text-[color:var(--sample-accent-text)];
+  @apply text-(--sample-accent-text);
 }
 .theme-lab .lab-inline-link {
-  @apply font-bold text-[color:var(--accent-page-focus)];
+  @apply font-bold text-accent-page-focus;
   text-underline-offset: 0.2em;
 }
 .theme-lab .accent-card {
   border: 1px solid var(--canvas-01-border);
   @apply rounded-[0.8rem];
   background: var(--canvas-01);
-  @apply p-5 text-[color:var(--ink-page)];
+  @apply p-5 text-ink-page;
   outline-color: var(--sample-accent-focus);
-  @apply outline-offset-[3px];
+  @apply outline-offset-3;
 }
 .theme-lab .accent-card:focus-within {
   outline: 2px solid var(--sample-accent-focus);
@@ -217,13 +217,13 @@
   border: 1px solid var(--sample-accent-border);
   @apply rounded-[999px];
   background: var(--sample-accent-canvas);
-  @apply p-[0.5rem_0.9rem] text-[color:var(--sample-accent-text)];
+  @apply p-[0.5rem_0.9rem] text-(--sample-accent-text);
   font: inherit;
   @apply text-[0.85rem] font-bold;
 }
 .theme-lab .accent-action:focus-visible {
   outline: 3px solid var(--sample-accent-focus);
-  @apply outline-offset-[2px];
+  @apply outline-offset-2;
 }
 .theme-lab .token-chips {
   @apply my-[1.2rem_0.75rem] flex gap-[0.45rem];
@@ -246,12 +246,12 @@
   @apply p-[1.2rem];
 }
 .theme-lab .ink-card-inverse {
-  @apply border-[color:var(--canvas-footer-border)];
+  @apply border-canvas-footer-border;
   background: var(--canvas-footer);
-  @apply text-[color:var(--ink-inverse)];
+  @apply text-ink-inverse;
 }
 .theme-lab .ink-card-inverse .sample-kicker {
-  @apply text-[color:var(--ink-inverse)];
+  @apply text-ink-inverse;
 }
 
 .theme-lab .ink-sample-inverse {
@@ -279,17 +279,17 @@
   @apply grid gap-[0.8rem];
 }
 .theme-lab .palette-row {
-  @apply grid grid-cols-[minmax(9rem,_0.7fr)_2fr] items-center gap-4;
+  @apply grid grid-cols-[minmax(9rem,0.7fr)_2fr] items-center gap-4;
   border: 1px solid var(--canvas-page-border);
-  @apply rounded-[0.75rem];
+  @apply rounded-xl;
   background: var(--canvas-01);
   @apply p-4;
 }
 .theme-lab .palette-row h3 {
-  @apply m-0 text-[0.9rem] text-[color:var(--ink-page)];
+  @apply m-0 text-[0.9rem] text-ink-page;
 }
 .theme-lab .palette-swatches {
-  @apply grid grid-cols-[repeat(6,_minmax(2rem,_1fr))] gap-2;
+  @apply grid grid-cols-[repeat(6,minmax(2rem,1fr))] gap-2;
 }
 .theme-lab .palette-swatch {
   @apply grid justify-items-center gap-[0.35rem];
@@ -300,24 +300,24 @@
   @apply rounded-[0.35rem];
 }
 .theme-lab .palette-swatch code {
-  @apply text-[0.68rem] text-[color:var(--ink-page-muted)];
+  @apply text-[0.68rem] text-ink-page-muted;
 }
 .theme-lab .component-sample {
-  @apply min-h-[8rem];
+  @apply min-h-32;
   border: 1px solid var(--canvas-page-border);
   @apply rounded-[0.8rem];
   background: var(--canvas-01);
-  @apply p-[clamp(1rem,_3vw,_2rem)];
+  @apply p-[clamp(1rem,3vw,2rem)];
 }
 .theme-lab .hover-card-grid {
-  @apply grid grid-cols-[repeat(auto-fit,_minmax(min(100%,_16rem),_1fr))] gap-4;
+  @apply grid grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] gap-4;
 }
 .theme-lab .hover-card {
-  @apply flex min-h-[18rem] flex-col items-start;
+  @apply flex min-h-72 flex-col items-start;
   border: 1px solid var(--card-border);
   @apply rounded-[0.9rem];
   background: var(--card-canvas);
-  @apply p-6 text-[color:var(--card-ink)] no-underline;
+  @apply p-6 text-(--card-ink) no-underline;
   box-shadow: 0 0.7rem 1.8rem
     color-mix(in oklch, var(--card-shadow) 8%, transparent);
   transition:
@@ -327,36 +327,36 @@
 }
 .theme-lab .hover-card:is(:hover, :focus-visible) {
   transform: translateY(-0.3rem);
-  @apply border-[color:var(--card-border)];
+  @apply border-(--card-border);
   outline: 3px solid var(--card-focus);
-  @apply outline-offset-[3px];
+  @apply outline-offset-3;
   box-shadow: 0 1rem 2rem
     color-mix(in oklch, var(--card-shadow) 16%, transparent);
 }
 .theme-lab .hover-card-number {
-  @apply text-[0.78rem] font-extrabold tracking-[0.12em] text-[color:var(--card-ink)];
+  @apply text-[0.78rem] font-extrabold tracking-[0.12em] text-(--card-ink);
 }
 .theme-lab .hover-card-label {
-  @apply mt-[1.6rem] text-[0.72rem] font-[750] tracking-[0.12em] text-[color:var(--card-ink)] uppercase opacity-[0.82];
+  @apply mt-[1.6rem] text-[0.72rem] font-[750] tracking-[0.12em] text-(--card-ink) uppercase opacity-[0.82];
 }
 .theme-lab .hover-card-title {
   @apply mt-[0.45rem] font-display text-[1.7rem] leading-[1.1] font-semibold;
 }
 .theme-lab .hover-card-description {
-  @apply mt-3 text-[0.92rem] leading-[1.6] text-[color:var(--card-ink)] opacity-[0.86];
+  @apply mt-3 text-[0.92rem] leading-[1.6] text-(--card-ink) opacity-[0.86];
 }
 .theme-lab .hover-card-action {
-  @apply mt-[auto] flex w-full justify-between pt-[1.3rem] text-[0.88rem] font-[750] text-[color:var(--card-ink)];
+  @apply mt-auto flex w-full justify-between pt-[1.3rem] text-[0.88rem] font-[750] text-(--card-ink);
 }
 .theme-lab .hover-card-action span {
-  @apply text-[color:var(--card-focus)];
+  @apply text-(--card-focus);
 }
 .theme-lab .sample-form {
-  @apply grid grid-cols-[repeat(2,_minmax(0,_1fr))] gap-5;
+  @apply grid grid-cols-2 gap-5;
   border: 1px solid var(--canvas-01-border);
   @apply rounded-[0.9rem];
   background: var(--canvas-01);
-  @apply p-[clamp(1.25rem,_4vw,_2.25rem)];
+  @apply p-[clamp(1.25rem,4vw,2.25rem)];
   box-shadow: 0 0.7rem 1.8rem
     color-mix(in oklch, var(--canvas-01-shadow) 8%, transparent);
 }
@@ -365,7 +365,7 @@
 }
 .theme-lab .form-field > label,
 .theme-lab .form-options legend {
-  @apply text-[0.88rem] font-bold text-[color:var(--ink-page)];
+  @apply text-[0.88rem] font-bold text-ink-page;
 }
 .theme-lab
   .form-field
@@ -374,26 +374,26 @@
   border: 1px solid var(--canvas-page-border);
   @apply rounded-[0.55rem];
   background: var(--canvas-page);
-  @apply p-[0.75rem_0.85rem] text-[color:var(--ink-page)];
+  @apply p-[0.75rem_0.85rem] text-ink-page;
   font: inherit;
 }
 .theme-lab .form-field textarea {
-  @apply min-h-[8rem] resize-y;
+  @apply min-h-32 resize-y;
 }
 .theme-lab .form-field :is(input, select, textarea):focus-visible {
-  @apply border-[color:var(--accent-page-focus)];
+  @apply border-accent-page-focus;
   outline: 3px solid
     color-mix(in oklch, var(--accent-page-focus) 35%, transparent);
-  @apply outline-offset-[2px];
+  @apply outline-offset-2;
 }
 .theme-lab .form-field :is(input, textarea)::placeholder {
-  @apply text-[color:var(--ink-page-muted)] opacity-[0.85];
+  @apply text-ink-page-muted opacity-[0.85];
 }
 .theme-lab .field-hint {
-  @apply m-0 text-[0.78rem] leading-[1.45] text-[color:var(--ink-page-muted)];
+  @apply m-0 text-[0.78rem] leading-[1.45] text-ink-page-muted;
 }
 .theme-lab .form-options {
-  @apply grid-cols-[repeat(2,_minmax(0,_1fr))] gap-[0.75rem_1rem];
+  @apply grid-cols-2 gap-[0.75rem_1rem];
   border: 1px solid var(--canvas-page-border);
   @apply rounded-[0.6rem] p-[0.8rem_1rem_1rem];
 }
@@ -401,7 +401,7 @@
   @apply px-1;
 }
 .theme-lab .choice-label {
-  @apply flex items-center gap-[0.6rem] text-[0.88rem] leading-[1.45] text-[color:var(--ink-page)];
+  @apply flex items-center gap-[0.6rem] text-[0.88rem] leading-[1.45] text-ink-page;
 }
 .theme-lab .choice-label input {
   @apply h-4 w-4 flex-none;
@@ -414,7 +414,7 @@
   @apply flex flex-wrap gap-3;
 }
 .theme-lab .sr-only {
-  @apply absolute h-[1px] w-[1px] overflow-hidden;
+  @apply absolute h-px w-px overflow-hidden;
   clip: rect(0, 0, 0, 0);
   @apply whitespace-nowrap;
   clip-path: inset(50%);
@@ -451,31 +451,31 @@
 /* Theme Maker */
 .selector-shell [data-studio-chrome] {
   background: var(--canvas-page);
-  @apply text-[color:var(--ink-page)];
+  @apply text-ink-page;
 }
 .selector-shell.selector-shell {
   --selector-panel-width: 360px;
-  @apply w-[calc(100%_-_var(--selector-panel-width))];
+  @apply w-[calc(100%-var(--selector-panel-width))];
 }
 .selector-shell.selector-shell {
-  @apply pb-[calc(5rem_+_var(--selector-scroll-space,_0px))];
+  @apply pb-[calc(5rem+var(--selector-scroll-space,0px))];
 }
 .selector-shell .selector-eyebrow {
-  @apply text-[0.7rem] font-bold tracking-[0.14em] text-[color:var(--ink-page)] uppercase;
+  @apply text-[0.7rem] font-bold tracking-[0.14em] text-ink-page uppercase;
 }
 .selector-shell .selector-workspace {
-  @apply grid grid-cols-[minmax(0,_1fr)] gap-7;
+  @apply grid grid-cols-[minmax(0,1fr)] gap-7;
   align-items: start;
 }
 .selector-shell .preview-column {
   @apply min-w-0;
 }
 .selector-shell .sample-container {
-  @apply mx-auto w-full max-w-[var(--breakpoint-lg)] px-6;
+  @apply mx-auto w-full max-w-(--breakpoint-lg) px-6;
 }
 .selector-shell [data-region] {
   background: var(--sample-background);
-  @apply text-[color:var(--sample-text)];
+  @apply text-(--sample-text);
 }
 .selector-shell .sample-header > .sample-container {
   @apply flex flex-wrap items-center justify-between gap-4 py-6;
@@ -490,13 +490,13 @@
   @apply min-w-0;
 }
 .selector-shell .sample-navigation > ul {
-  @apply m-0 grid list-none grid-cols-[repeat(4,_minmax(0,_1fr))] gap-1 p-0;
+  @apply m-0 grid list-none grid-cols-4 gap-1 p-0;
 }
 .selector-shell .sample-navigation details {
   @apply relative;
 }
 .selector-shell .sample-navigation summary {
-  @apply flex cursor-pointer list-none items-center justify-between gap-[0.35rem] rounded-[0.25rem] p-[0.65rem_0.4rem] text-[0.75rem] font-[650] text-[color:var(--sample-text)];
+  @apply flex cursor-pointer list-none items-center justify-between gap-[0.35rem] rounded-sm p-[0.65rem_0.4rem] text-[0.75rem] font-[650] text-(--sample-text);
 }
 .selector-shell .sample-navigation summary::-webkit-details-marker {
   @apply hidden;
@@ -510,10 +510,10 @@
 .selector-shell .sample-navigation summary:hover,
 .selector-shell .sample-navigation details[open] summary {
   background: var(--sample-primary);
-  @apply text-[color:var(--sample-primaryText)];
+  @apply text-(--sample-primaryText);
 }
 .selector-shell .sample-submenu {
-  @apply absolute top-[calc(100%_+_0.25rem)] left-[0] z-[2] m-0 w-[min(12rem,_70vw)] list-none p-[0.35rem];
+  @apply absolute top-[calc(100%+0.25rem)] left-0 z-2 m-0 w-[min(12rem,70vw)] list-none p-[0.35rem];
   border: 1px solid var(--sample-accentBorder);
   @apply rounded-[0.35rem];
   background: var(--sample-background);
@@ -521,19 +521,19 @@
     color-mix(in srgb, var(--sample-shadow) 15%, transparent);
 }
 .selector-shell .sample-navigation > ul > li:nth-child(n + 3) .sample-submenu {
-  @apply right-[0] left-[auto];
+  @apply right-0 left-auto;
 }
 .selector-shell .sample-submenu a {
-  @apply block rounded-[0.2rem] p-[0.7rem] text-[0.8rem] text-[color:var(--sample-text)] no-underline;
+  @apply block rounded-[0.2rem] p-[0.7rem] text-[0.8rem] text-(--sample-text) no-underline;
 }
 .selector-shell .sample-submenu a:hover {
   background: var(--sample-primary);
-  @apply text-[color:var(--sample-primaryText)];
+  @apply text-(--sample-primaryText);
 }
 .selector-shell .sample-navigation summary:focus-visible,
 .selector-shell .sample-submenu a:focus-visible {
   outline: 2px solid var(--sample-accentFocus);
-  @apply outline-offset-[2px];
+  @apply outline-offset-2;
 }
 .selector-shell .sample-content {
   @apply grid;
@@ -548,27 +548,27 @@
   @apply m-0;
 }
 .selector-shell .sample-section {
-  @apply py-[clamp(1.25rem,_3vw,_3rem)];
+  @apply py-[clamp(1.25rem,3vw,3rem)];
 }
 .selector-shell .sample-kicker {
   @apply text-[0.65rem] font-bold tracking-[0.12em] uppercase;
 }
 .selector-shell .sample-page h1 {
-  @apply m-[1rem_0] font-display text-[clamp(2rem,_3.2vw,_3.5rem)] leading-[1.05] tracking-[-0.025em] text-[color:var(--sample-h1)];
+  @apply m-[1rem_0] font-display text-[clamp(2rem,3.2vw,3.5rem)] leading-[1.05] tracking-tight text-(--sample-h1);
 }
 .selector-shell .sample-page h2,
 .selector-shell .sample-footer h2 {
-  @apply mb-[0.85rem] font-display text-[1.55rem] leading-[1.2] text-[color:var(--sample-h2)];
+  @apply mb-[0.85rem] font-display text-[1.55rem] leading-[1.2] text-(--sample-h2);
 }
 .selector-shell .sample-page h3:not(.sample-card h3) {
-  @apply mb-3 text-[1rem] font-[650] text-[color:var(--sample-h3)];
+  @apply mb-3 text-[1rem] font-[650] text-(--sample-h3);
 }
 .selector-shell .sample-section p:not(.sample-kicker):not(.sample-card p),
 .selector-shell .sample-footer p {
   @apply text-[0.85rem] leading-[1.75];
 }
 .selector-shell .sample-copy {
-  @apply max-w-[39rem];
+  @apply max-w-156;
 }
 .selector-shell .sample-buttons {
   @apply mt-6 flex flex-wrap gap-[0.6rem];
@@ -580,25 +580,25 @@
 }
 .selector-shell .sample-buttons button:not([data-cta]):hover {
   background: var(--sample-accentFocus);
-  @apply text-[color:var(--sample-primaryText)];
+  @apply text-(--sample-primaryText);
 }
 .selector-shell .sample-buttons button:focus-visible {
   outline: 3px solid var(--sample-accentFocus);
-  @apply outline-offset-[3px];
+  @apply outline-offset-3;
 }
 .selector-shell .sample-primary {
   background: var(--sample-primary);
-  @apply text-[color:var(--sample-primaryText)];
+  @apply text-(--sample-primaryText);
 }
 .selector-shell .sample-secondary {
   background: var(--sample-secondary);
-  @apply text-[color:var(--sample-secondaryText)];
+  @apply text-(--sample-secondaryText);
 }
 .selector-shell .sample-buttons [data-cta="primary"] {
-  @apply border-[color:var(--cta-01)];
+  @apply border-cta-01;
 }
 .selector-shell .sample-buttons [data-cta="secondary"] {
-  @apply border-[color:var(--cta-02)];
+  @apply border-cta-02;
 }
 .selector-shell .sample-buttons [data-cta]:hover {
   filter: brightness(0.95);
@@ -612,18 +612,18 @@
   @apply py-10;
 }
 .selector-shell .selector-panel {
-  @apply fixed top-[var(--selector-header-offset,_0px)] right-[0] z-[10] h-[calc(100dvh_-_var(--selector-header-offset,_0px))] w-[var(--selector-panel-width)] overflow-y-auto p-6;
+  @apply fixed top-(--selector-header-offset,0px) right-0 z-10 h-[calc(100dvh-var(--selector-header-offset,0px))] w-(--selector-panel-width) overflow-y-auto p-6;
   border: 1px solid var(--canvas-page-border);
-  @apply rounded-[0];
+  @apply rounded-none;
   background: var(--canvas-page);
 }
 .selector-shell .panel-heading h2,
 .selector-shell .saved-groups h2 {
-  @apply m-[0.4rem_0_0.6rem] font-display text-[1.7rem] text-[color:var(--ink-page-second-header)];
+  @apply m-[0.4rem_0_0.6rem] font-display text-[1.7rem] text-ink-page-second-header;
 }
 .selector-shell .panel-heading > p:last-child,
 .selector-shell .control-hint {
-  @apply mb-4 text-[0.75rem] leading-[1.6] text-[color:var(--ink-page)];
+  @apply mb-4 text-[0.75rem] leading-[1.6] text-ink-page;
 }
 .selector-shell .selector-panel label,
 .selector-shell .palette-picker label,
@@ -637,23 +637,23 @@
   border: 1px solid var(--canvas-page-border);
   @apply rounded-[0.35rem];
   background: var(--canvas-page);
-  @apply mb-[0.7rem] text-[0.8rem] text-[color:var(--ink-page)];
+  @apply mb-[0.7rem] text-[0.8rem] text-ink-page;
 }
 .selector-shell .color-fields {
   @apply m-[1rem_0] p-0;
   border: 0;
 }
 .selector-shell .color-field {
-  @apply mb-2 grid grid-cols-[1.5rem_minmax(0,_1fr)] items-center gap-2 p-[0.65rem];
+  @apply mb-2 grid grid-cols-[1.5rem_minmax(0,1fr)] items-center gap-2 p-[0.65rem];
   border: 1px solid var(--canvas-page-border);
   @apply cursor-pointer rounded-[0.4rem];
 }
 .selector-shell .color-field:hover {
-  @apply border-[color:var(--accent-page-focus)];
+  @apply border-accent-page-focus;
 }
 .selector-shell .color-field[data-active="true"],
 .selector-shell .color-field:focus-within {
-  @apply border-[color:var(--accent-page-focus)];
+  @apply border-accent-page-focus;
   box-shadow: inset 0 0 0 1px var(--accent-page-focus);
   background: color-mix(
     in srgb,
@@ -665,12 +665,12 @@
   @apply col-span-full m-0 cursor-pointer font-normal;
 }
 .selector-shell .color-field code {
-  @apply col-span-full text-[0.7rem] wrap-anywhere text-[color:var(--ink-page)];
+  @apply col-span-full text-[0.7rem] wrap-anywhere text-ink-page;
 }
 .selector-shell .role-swatch {
   @apply h-6 w-6;
   border: 1px solid var(--canvas-page-border);
-  @apply rounded-[0.25rem];
+  @apply rounded-sm;
 }
 .selector-shell .role-swatch[data-transparent="true"],
 .selector-shell .palette-swatches button[data-palette-solid="none"] {
@@ -691,11 +691,11 @@
   @apply m-0 min-w-0;
 }
 .selector-shell .palette-picker {
-  @apply fixed left-[calc((100%_-_var(--selector-panel-width))_/_2)];
+  @apply fixed left-[calc((100%-var(--selector-panel-width))/2)];
   transform: translateX(-50%);
-  @apply bottom-[1rem] z-[20] w-[calc(100%_-_var(--selector-panel-width)_-_2rem)];
+  @apply bottom-4 z-20 w-[calc(100%-var(--selector-panel-width)-2rem)];
   border: 1px solid var(--canvas-page-border);
-  @apply rounded-[0.75rem];
+  @apply rounded-xl;
   background: var(--canvas-page);
   box-shadow: 0 8px 32px
     color-mix(in srgb, var(--canvas-page-shadow) 25%, transparent);
@@ -704,10 +704,10 @@
   @apply cursor-pointer p-[0.5rem_0.75rem] text-[0.85rem] font-[650];
 }
 .selector-shell .palette-picker summary span {
-  @apply float-right text-[0.7rem] leading-[1.25rem] font-normal text-[color:var(--ink-page)];
+  @apply float-right text-[0.7rem] leading-5 font-normal text-ink-page;
 }
 .selector-shell .palette-content {
-  @apply max-h-[min(38rem,_calc(100dvh_-_7rem))] overflow-y-auto p-[0_0.75rem_0.25rem];
+  @apply max-h-[min(38rem,calc(100dvh-7rem))] overflow-y-auto p-[0_0.75rem_0.25rem];
 }
 .selector-shell .palette-content > .control-hint {
   @apply mb-1;
@@ -716,11 +716,11 @@
   @apply overflow-x-auto;
 }
 .selector-shell .palette-toolbar {
-  @apply grid min-w-[54rem] grid-cols-[minmax(0,_0.95fr)_minmax(0,_1.05fr)] gap-3 p-[0.25rem_0.25rem_1.4rem];
+  @apply grid min-w-216 grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] gap-3 p-[0.25rem_0.25rem_1.4rem];
   align-items: end;
 }
 .selector-shell .palette-dropdowns {
-  @apply grid min-w-0 grid-cols-[repeat(3,_minmax(0,_1fr))] gap-2;
+  @apply grid min-w-0 grid-cols-3 gap-2;
 }
 .selector-shell .palette-dropdowns label {
   @apply mb-1 text-[0.65rem] whitespace-nowrap;
@@ -730,28 +730,28 @@
   text-overflow: ellipsis;
 }
 .selector-shell .palette-swatches {
-  @apply grid auto-cols-[minmax(0,_1fr)] grid-flow-col gap-1;
+  @apply grid auto-cols-fr grid-flow-col gap-1;
 }
 .selector-shell .palette-swatches button {
   @apply relative h-8 min-w-0;
   border: 1px solid var(--canvas-page-border);
-  @apply cursor-pointer rounded-[0.25rem];
+  @apply cursor-pointer rounded-sm;
 }
 .selector-shell .palette-swatches button[aria-pressed="true"] {
   outline: 3px solid var(--accent-page-focus);
-  @apply outline-offset-[2px];
+  @apply outline-offset-2;
 }
 .selector-shell .palette-swatches span {
-  @apply absolute top-[100%] left-[50%];
+  @apply absolute top-full left-[50%];
   transform: translateX(-50%);
-  @apply pt-[0.2rem] text-[0.6rem] text-[color:var(--ink-page)];
+  @apply pt-[0.2rem] text-[0.6rem] text-ink-page;
 }
 .selector-shell .color-field input[type="text"] {
   @apply col-span-full w-full min-w-0;
   border: 1px solid var(--canvas-page-border);
-  @apply rounded-[0.25rem] p-[0.3rem];
+  @apply rounded-sm p-[0.3rem];
   background: var(--canvas-page);
-  @apply text-[color:var(--ink-page)];
+  @apply text-ink-page;
   font-family: monospace;
   @apply text-[0.75rem];
 }
@@ -760,21 +760,21 @@
 .selector-shell .palette-picker select:focus-visible,
 .selector-shell .palette-picker summary:focus-visible {
   outline: 2px solid var(--accent-page-focus);
-  @apply outline-offset-[2px];
+  @apply outline-offset-2;
 }
 .selector-shell .color-field input[aria-invalid="true"] {
-  @apply border-[color:var(--accent-page-focus)];
+  @apply border-accent-page-focus;
   outline: 2px solid var(--accent-page-focus);
 }
 .selector-shell .control-button {
   border: 1px solid var(--accent-page-border);
   @apply rounded-[0.35rem];
   background: var(--canvas-page);
-  @apply cursor-pointer p-[0.6rem_0.7rem] text-[0.75rem] font-[650] text-[color:var(--ink-page)];
+  @apply cursor-pointer p-[0.6rem_0.7rem] text-[0.75rem] font-[650] text-ink-page;
 }
 .selector-shell .control-primary {
   background: var(--accent-page-canvas);
-  @apply text-[color:var(--accent-page-text)];
+  @apply text-accent-page-text;
 }
 .selector-shell .control-button:disabled {
   @apply cursor-not-allowed opacity-[0.45];
@@ -815,10 +815,10 @@
     @apply w-full;
   }
   .selector-shell .selector-workspace {
-    @apply grid-cols-[minmax(0,_1fr)];
+    @apply grid-cols-[minmax(0,1fr)];
   }
   .selector-shell .selector-panel {
-    @apply static h-[auto] w-[auto] rounded-[0.75rem];
+    @apply static h-auto w-auto rounded-xl;
   }
   .selector-shell .sample-two-columns {
     @apply grid-cols-[1fr] gap-4;
