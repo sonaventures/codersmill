@@ -20,6 +20,10 @@ npm run build
 
 ## Theme Maker
 
+The template pages share `src/styles/template/template.css`, which uses
+Tailwind utilities and keeps the individual page styles scoped. Inline styles
+provide dynamic theme and palette values for the previews.
+
 Use `/template/colors/` (linked from the theme template) to add or remove
 11-shade color families directly in `src/styles/themes/colors.css`. Select the
 `websitebuilder` project folder (the folder containing `src` and `public`), not
