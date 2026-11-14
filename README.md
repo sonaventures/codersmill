@@ -28,8 +28,9 @@ are accessed locally. Enter numeric OKLCH values for each shade, or import a CSS
 file with custom properties such as `--color-ocean-50: oklch(97% 0.01 240);`
 through `--color-ocean-950`. The import fills the form without saving; review
 the name and shades and select **Add family** to write them. CSS files with
-multiple complete families offer a family selector. The editor
-checks `src`, `public`, and this browser's saved style groups before removal
+multiple complete families offer a family selector. Built-in Tailwind family
+names are reserved; the editor manages only custom families. The editor checks
+`src`, `public`, and this browser's saved style groups before removal
 and blocks explicit references it finds there. It cannot detect dynamically
 constructed references or inspect groups in other browsers or exported files
 outside those directories. Refresh the theme template or Theme Maker after a
@@ -59,9 +60,10 @@ viewport height as the header scrolls out of view.
 The header uses compact typography and spacing, with a centered theme toggle
 and right-aligned theme template and color editor links.
 
-The Controls use the custom Tailwind palette ramps defined in
-`src/styles/themes/colors.css` (the standard Tailwind colors are disabled by
-this theme). Semantic tokens are grouped by area in the Tailwind mappings, light
+The controls include Tailwind's built-in color ramps and the custom ramps in
+`src/styles/themes/colors.css`. The site's light and dark semantic defaults use
+the closest built-in Tailwind colors to the previous custom palette, so custom
+families can be removed when no longer referenced. Semantic tokens are grouped by area in the Tailwind mappings, light
 defaults, and dark overrides, keeping each area's Canvas, Accent, Ink, and
 navigation roles together. Choose an area, a target role, and a palette family, then click a
 shade. You can also choose any palette color directly in a role's dropdown.
@@ -70,7 +72,7 @@ through `06`). Saved style groups retain their existing section assignments;
 page-heading token names are unchanged.
 The compact palette spans the preview space at the bottom while scrolling, clear
 of the controls sidebar. The area, target role, and family dropdowns share one row
-with all shades, including white and black. The title and theme description sit
+with all shades, including white, black, and none. The title and theme description sit
 above the row. Click **Tailwind palette** to collapse or reopen it; on narrow
 screens the controls scroll horizontally without wrapping.
 Selecting an editing area refreshes its current-theme color controls and brings
@@ -82,7 +84,7 @@ focus that color. The active block is highlighted; dropdowns and hex inputs
 remain directly editable. Focusing a control synchronizes the floating palette's
 area, target role, family, and selected shade. Brand/CTA controls select the
 page-wide area. Theme defaults follow the currently resolved theme shade;
-white/black and custom hex colors are identified without guessing a family.
+white/black, none, and custom hex colors are identified without guessing a family.
 
 Controls are grouped by **Canvas**, **Accent**, and **Ink**, showing the actual
 semantic tokens: `canvas-page`, `accent-page-*`, `ink-page-*`, then
@@ -95,9 +97,11 @@ the same fallback; dedicated card tokens can be overridden independently.
 Shared card text and secondary-button overrides remain preview-only.
 Page canvas has the same three cards, using `canvas-page-card-01` through
 `canvas-page-card-03` and their border/shadow variants.
-**Theme default** follows the site's theme token; explicit colors
-store references such as `var(--color-magical-merlin-500)`, not flattened hex
-values. **Custom hex** remains available.
+**Theme default** follows the site's light/dark theme token; explicit colors
+store references such as `var(--color-sky-500)`, not flattened hex values.
+**None** sets a transparent color, including for text and borders; it does not
+revert to the theme default. For visibility, transparent page-wide overrides
+affect the sample but not the studio controls or header. **Custom hex** remains available.
 Only the selected area's groups are shown and labeled with that area: selecting
 Section 1 shows Canvas, Accent, and Ink for Section 1, not the global brand/CTA
 controls. The palette's assignment list is filtered the same way. Card canvas,
@@ -134,8 +138,9 @@ palette. A group includes both themes.
 receive a numeric suffix. Storage is local to this browser and origin, so export
 a backup before clearing browser data or moving to another device. Invalid
 imports are rejected without changing saved groups.
-Exports use format version 5. Existing version 1 hex and version 2/3/4 theme groups
-still load/import, retaining their area colors. Versions 1–3 adopt theme defaults
+Exports use format version 6. Existing version 1 hex and version 2/3/4/5 theme groups
+still load/import, retaining their explicit area colors. Assignments set to
+**Theme default** now follow the new Tailwind-based defaults. Versions 1–3 adopt theme defaults
 for the hero area; versions 1/2 also adopt theme defaults for brand and CTA controls.
 Older groups' shared card backgrounds are copied to all three cards, preserving
 card text. Their new card borders and shadows follow the section defaults.

@@ -125,7 +125,8 @@ if (root) {
     for (const element of pageCanvases) {
       for (const { key, token } of globalColorRoles) {
         const color = colors.global[key];
-        if (color === "theme") element.style.removeProperty(`--${token}`);
+        if (color === "theme" || (element !== page && color === "transparent"))
+          element.style.removeProperty(`--${token}`);
         else element.style.setProperty(`--${token}`, color);
       }
     }
@@ -136,7 +137,11 @@ if (root) {
           : [get<HTMLElement>(`[data-region="${region}"]`)];
       for (const element of elements) {
         for (const { key: role } of regionColorRoles) {
-          const color = colors[region][role];
+          const selected = colors[region][role];
+          const color =
+            region === "page" && element !== page && selected === "transparent"
+              ? "theme"
+              : selected;
           const token = semanticToken(region, role);
           if (token) {
             if (color === "theme") element.style.removeProperty(`--${token}`);
@@ -175,10 +180,14 @@ if (root) {
       const token = semanticToken(editingArea(), key);
       get<HTMLElement>(`[data-role-token="${key}"]`).textContent =
         token ?? "Preview-only override";
-      get<HTMLElement>(`[data-role-swatch="${key}"]`).style.backgroundColor =
-        isGlobalColorRole(key)
-          ? getComputedStyle(page).getPropertyValue(`--${token}`).trim()
-          : computed.getPropertyValue(`--sample-${key}`).trim();
+      const swatch = get<HTMLElement>(`[data-role-swatch="${key}"]`);
+      swatch.dataset.transparent = String(color === "transparent");
+      swatch.style.backgroundColor =
+        color === "transparent"
+          ? ""
+          : isGlobalColorRole(key)
+            ? getComputedStyle(page).getPropertyValue(`--${token}`).trim()
+            : computed.getPropertyValue(`--sample-${key}`).trim();
     }
     get<HTMLElement>("#theme-context").textContent =
       `Editing ${currentTheme()} theme. Use the site theme switch to edit the other theme.`;
@@ -215,11 +224,13 @@ if (root) {
     );
     paletteFamily.value =
       family?.key ??
-      (color === "var(--color-white)" || color === "var(--color-black)"
-        ? "neutral"
-        : color.startsWith("#")
-          ? "custom"
-          : "theme");
+      (color === "transparent"
+        ? "none"
+        : color === "var(--color-white)" || color === "var(--color-black)"
+          ? "solid"
+          : color.startsWith("#")
+            ? "custom"
+            : "theme");
     renderPalette();
   }
 
@@ -239,7 +250,7 @@ if (root) {
     );
     if (
       !family &&
-      !["neutral", "custom", "theme"].includes(paletteFamily.value)
+      !["solid", "none", "custom", "theme"].includes(paletteFamily.value)
     ) {
       throw new Error("Unknown palette family.");
     }
@@ -264,10 +275,13 @@ if (root) {
       button.setAttribute("aria-label", token);
       button.setAttribute("aria-pressed", String(selected === value));
     }
-    for (const color of ["white", "black"]) {
+    for (const color of ["white", "black", "none"]) {
       get<HTMLButtonElement>(`[data-palette-solid="${color}"]`).setAttribute(
         "aria-pressed",
-        String(selected === `var(--color-${color})`),
+        String(
+          selected ===
+            (color === "none" ? "transparent" : `var(--color-${color})`),
+        ),
       );
     }
   }

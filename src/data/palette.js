@@ -1,6 +1,28 @@
+import tailwindColors from "tailwindcss/colors";
+
 export const paletteShades = [
   50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950,
 ];
+
+export const builtinPaletteFamilies = Object.entries(tailwindColors)
+  .filter(
+    ([, values]) =>
+      typeof values === "object" &&
+      values !== null &&
+      paletteShades.every((shade) => typeof values[shade] === "string"),
+  )
+  .map(([key]) => ({
+    key,
+    label: key[0].toUpperCase() + key.slice(1),
+  }));
+
+export function allPaletteFamilies(customFamilies) {
+  const builtins = new Set(builtinPaletteFamilies.map(({ key }) => key));
+  return [
+    ...builtinPaletteFamilies,
+    ...customFamilies.filter(({ key }) => !builtins.has(key)),
+  ];
+}
 
 const namePattern = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/;
 const blockPattern = /@theme\s+static\s*\{([^{}]*)\}/;
@@ -93,6 +115,13 @@ export function addPalette(css, name, values) {
   if (!namePattern.test(name))
     throw new Error(
       "Use a lowercase family name with letters, numbers, and hyphens.",
+    );
+  if (
+    builtinPaletteFamilies.some(({ key }) => key === name) ||
+    ["custom", "theme", "none", "solid"].includes(name)
+  )
+    throw new Error(
+      `The ${name} family name is reserved for the default palette.`,
     );
   if (families.some(({ key }) => key === name))
     throw new Error(`The ${name} family already exists.`);

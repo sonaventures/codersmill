@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/layout.astro";
 import css from "../../styles/themes/colors.css?raw";
-import { readPalette } from "../../data/palette.js";
+import { allPaletteFamilies, readPalette } from "../../data/palette.js";
 
 const canvasSamples = [
   {
@@ -109,9 +109,9 @@ const accents = [
   { label: "01", prefix: "accent-01" },
   { label: "02", prefix: "accent-02" },
   { label: "03", prefix: "accent-03" },
-  { label: "04 · Yellow Mana", prefix: "accent-04" },
-  { label: "05 · Magical Merlin", prefix: "accent-05" },
-  { label: "06 · Maniac Mansion", prefix: "accent-06" },
+  { label: "04", prefix: "accent-04" },
+  { label: "05", prefix: "accent-05" },
+  { label: "06", prefix: "accent-06" },
   { label: "Contrast", prefix: "accent-contrast" },
 ];
 
@@ -134,7 +134,7 @@ const inkGroups = [
   },
 ];
 
-const palettes = readPalette(css);
+const palettes = allPaletteFamilies(readPalette(css));
 
 const hoverCards = canvasSamples.map(
   ({ label, canvas, border, shadow, ink }, index) => ({
@@ -364,8 +364,8 @@ const shades = [50, 200, 400, 600, 800, 950];
         <p class="lab-eyebrow">04 / Source palettes</p>
         <h2 id="ramps-title">Color ramps</h2>
         <p>
-          These are the new named palette colors feeding the semantic theme
-          tokens. Shade labels are shown below each swatch.
+          Explore Tailwind's default colors and the custom palette families.
+          Shade labels are shown below each swatch.
         </p>
       </div>
       <div class="palette-list">

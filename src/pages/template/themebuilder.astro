@@ -8,7 +8,6 @@ import {
   colorRoles,
   defaultColorReference,
   isColorRoleVisible,
-  paletteColors,
   paletteFamilies,
   paletteShades,
   regions,
@@ -318,6 +317,7 @@ const sampleMenu = [
                       <option value="theme" selected>
                         Theme default
                       </option>
+                      <option value="transparent">None (transparent)</option>
                       <option value="custom">Custom hex…</option>
                       <optgroup label="Neutrals">
                         {["white", "black"].map((color) => (
@@ -328,13 +328,11 @@ const sampleMenu = [
                       </optgroup>
                       {paletteFamilies.map(({ key: family, label }) => (
                         <optgroup label={label}>
-                          {paletteColors
-                            .filter((color) => color.startsWith(`${family}-`))
-                            .map((color) => (
-                              <option value={`var(--color-${color})`}>
-                                {color}
-                              </option>
-                            ))}
+                          {paletteShades.map((shade) => (
+                            <option value={`var(--color-${family}-${shade})`}>
+                              {family}-{shade}
+                            </option>
+                          ))}
                         </optgroup>
                       ))}
                     </select>
@@ -468,7 +466,10 @@ const sampleMenu = [
                   <option value="theme" disabled>
                     Theme default / no matching palette
                   </option>
-                  <option value="neutral">White / black</option>
+                  <option value="none" disabled>
+                    None / transparent
+                  </option>
+                  <option value="solid">White / black</option>
                   {paletteFamilies.map(({ key, label }) => (
                     <option value={key}>{label}</option>
                   ))}
@@ -484,11 +485,11 @@ const sampleMenu = [
                 <button
                   type="button"
                   data-palette-shade={shade}
-                  data-palette-value={`var(--color-maniac-mansion-${shade})`}
-                  style={`background:var(--color-maniac-mansion-${shade})`}
-                  aria-label={`maniac-mansion-${shade}`}
+                  data-palette-value={`var(--color-slate-${shade})`}
+                  style={`background:var(--color-slate-${shade})`}
+                  aria-label={`slate-${shade}`}
                   aria-pressed="false"
-                  title={`maniac-mansion-${shade}`}
+                  title={`slate-${shade}`}
                 >
                   <span>{shade}</span>
                 </button>
@@ -506,6 +507,16 @@ const sampleMenu = [
                   <span>{color}</span>
                 </button>
               ))}
+              <button
+                type="button"
+                data-palette-solid="none"
+                data-palette-value="transparent"
+                aria-label="None (transparent)"
+                aria-pressed="false"
+                title="None (transparent)"
+              >
+                <span>none</span>
+              </button>
             </div>
           </div>
         </div>
@@ -851,6 +862,21 @@ const sampleMenu = [
     height: 1.5rem;
     border: 1px solid var(--canvas-page-border);
     border-radius: 0.25rem;
+  }
+  .role-swatch[data-transparent="true"],
+  .palette-swatches button[data-palette-solid="none"] {
+    background-image:
+      linear-gradient(45deg, #bbb 25%, transparent 25%),
+      linear-gradient(-45deg, #bbb 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #bbb 75%),
+      linear-gradient(-45deg, transparent 75%, #bbb 75%);
+    background-color: #fff;
+    background-size: 0.6rem 0.6rem;
+    background-position:
+      0 0,
+      0 0.3rem,
+      0.3rem -0.3rem,
+      -0.3rem 0;
   }
   .color-field select {
     min-width: 0;

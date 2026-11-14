@@ -33,6 +33,25 @@ test("style groups round-trip independent area palettes", () => {
   assert.notEqual(restored.themes.dark.section3.text, "#abcdef");
 });
 
+test("transparent selections and Tailwind colors round-trip in both themes", () => {
+  const saved = group();
+  saved.themes.light.page.background = "transparent";
+  saved.themes.light.global.brandFirst = "transparent";
+  saved.themes.light.section3.secondaryText = "transparent";
+  saved.themes.dark.section3.card03Border = "transparent";
+  saved.themes.dark.page.background = "var(--color-sky-500)";
+  const json = serializeStyleGroups([saved]);
+  assert.equal(JSON.parse(json).version, 6);
+  assert.deepEqual(parseStyleGroups(json), [saved]);
+
+  const old = group();
+  old.themes.light.page.background = "var(--color-magical-merlin-500)";
+  assert.deepEqual(
+    parseStyleGroups(JSON.stringify({ version: 5, groups: [old] })),
+    [old],
+  );
+});
+
 test("imports reject incomplete palettes and unsafe CSS values", () => {
   const incomplete = group();
   delete incomplete.themes.light.footer;
@@ -50,7 +69,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":6,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":7,"groups":[]}']) {
     assert.throws(() => parseStyleGroups(json));
   }
   assert.throws(
@@ -111,7 +130,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 5);
+  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 6);
 });
 
 test("brand and CTA assignments are page-wide and round-trip independently by theme", () => {

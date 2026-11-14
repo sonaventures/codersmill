@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   addPalette,
+  builtinPaletteFamilies,
   findPaletteReferences,
   isOklch,
   paletteShades,
@@ -35,6 +36,8 @@ test("adds and removes a complete family without changing other CSS", () => {
 test("rejects incomplete families, duplicate names, and unsafe colors", () => {
   assert.throws(() => addPalette(css, "bad name", shades), /lowercase/);
   assert.throws(() => addPalette(css, "iguana", shades), /already exists/);
+  assert.throws(() => addPalette(css, "sky", shades), /reserved/);
+  assert.throws(() => addPalette(css, "none", shades), /reserved/);
   assert.throws(() => addPalette(css, "new", shades.slice(1)), /every shade/);
   assert.throws(
     () => addPalette(css, "new", [...shades.slice(1), "red;display:none"]),
@@ -50,6 +53,18 @@ test("rejects incomplete families, duplicate names, and unsafe colors", () => {
     "--color-new-50: oklch(62.6% 0.128 243.6); --other-token: red;",
   );
   assert.throws(() => removePalette(unsafe, "new"), /shares a line/);
+});
+
+test("default site colors do not reference the editable custom families", () => {
+  assert.ok(builtinPaletteFamilies.some(({ key }) => key === "sky"));
+  assert.ok(builtinPaletteFamilies.some(({ key }) => key === "neutral"));
+  for (const { key } of readPalette(css)) {
+    assert.equal(
+      findPaletteReferences(removePalette(css, key), key),
+      false,
+      key,
+    );
+  }
 });
 
 test("imports complete named and unnamed OKLCH CSS families", () => {
@@ -116,9 +131,11 @@ test("the theme selector accepts only the currently configured families", () => 
   try {
     setPaletteFamilies(readPalette(addPalette(css, "ocean-blue", shades)));
     assert.ok(paletteColors.includes("ocean-blue-500"));
+    assert.ok(paletteColors.includes("sky-500"));
     assert.equal(isColorValue("var(--color-ocean-blue-500)"), true);
     setPaletteFamilies(readPalette(css));
     assert.equal(isColorValue("var(--color-ocean-blue-500)"), false);
+    assert.equal(isColorValue("var(--color-sky-500)"), true);
   } finally {
     setPaletteFamilies(original);
   }

@@ -1,3 +1,5 @@
+import { allPaletteFamilies } from "./palette.js";
+
 export const globalColorRoles = [
   {
     key: "brandFirst",
@@ -143,16 +145,17 @@ export const roleGroups = [
   { key: "ink", label: "Ink" },
 ] as const;
 
-export const paletteFamilies: { key: string; label: string }[] = [
-  { key: "maniac-mansion", label: "Maniac Mansion" },
-  { key: "iguana", label: "Iguana" },
-  { key: "cardamom", label: "Cardamom" },
-  { key: "court-bouillon", label: "Court Bouillon" },
-  { key: "yellow-mana", label: "Yellow Mana" },
-  { key: "magical-merlin", label: "Magical Merlin" },
-  { key: "baby-blue", label: "Baby Blue" },
-  { key: "dark-rift", label: "Dark Rift" },
-];
+export const paletteFamilies: { key: string; label: string }[] =
+  allPaletteFamilies([
+    { key: "maniac-mansion", label: "Maniac Mansion" },
+    { key: "iguana", label: "Iguana" },
+    { key: "cardamom", label: "Cardamom" },
+    { key: "court-bouillon", label: "Court Bouillon" },
+    { key: "yellow-mana", label: "Yellow Mana" },
+    { key: "magical-merlin", label: "Magical Merlin" },
+    { key: "baby-blue", label: "Baby Blue" },
+    { key: "dark-rift", label: "Dark Rift" },
+  ]);
 export const paletteShades = [
   50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950,
 ] as const;
@@ -165,13 +168,14 @@ export const paletteColors = [
 ];
 
 export function setPaletteFamilies(families: { key: string; label: string }[]) {
-  paletteFamilies.splice(0, paletteFamilies.length, ...families);
+  const allFamilies = allPaletteFamilies(families);
+  paletteFamilies.splice(0, paletteFamilies.length, ...allFamilies);
   paletteColors.splice(
     0,
     paletteColors.length,
     "white",
     "black",
-    ...families.flatMap(({ key }) =>
+    ...allFamilies.flatMap(({ key }) =>
       paletteShades.map((shade) => `${key}-${shade}`),
     ),
   );
@@ -304,6 +308,7 @@ export function isColorValue(value: unknown): value is string {
   return (
     typeof value === "string" &&
     (value === "theme" ||
+      value === "transparent" ||
       /^#[0-9a-f]{6}$/i.test(value) ||
       paletteColors.some((color) => value === `var(--color-${color})`))
   );
@@ -333,12 +338,13 @@ export function parseStyleGroups(json: string): StyleGroup[] {
       data.version !== 2 &&
       data.version !== 3 &&
       data.version !== 4 &&
-      data.version !== 5) ||
+      data.version !== 5 &&
+      data.version !== 6) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1, 2, 3, 4, or 5 style-group file with up to 100 groups.",
+      "Expected a version 1, 2, 3, 4, 5, or 6 style-group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -436,5 +442,5 @@ export function parseStyleGroups(json: string): StyleGroup[] {
 }
 
 export function serializeStyleGroups(groups: StyleGroup[]): string {
-  return JSON.stringify({ version: 5, groups }, null, 2);
+  return JSON.stringify({ version: 6, groups }, null, 2);
 }
