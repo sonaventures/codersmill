@@ -1,0 +1,210 @@
+---
+import Layout from "../../layouts/layout.astro";
+import StudioHeader from "../../components/StudioHeader.astro";
+import { paletteShades } from "../../data/palette.js";
+---
+
+<Layout
+  title="Color Family Editor"
+  description="Add and remove source color families."
+  showFooter={false}
+>
+  <StudioHeader
+    slot="header"
+    title="Color family editor"
+    description="Add and remove color families for your design system."
+    otherHref="/template/themebuilder/"
+    otherLabel="Theme Maker"
+    constrainWidth={true}
+    linksRight={true}
+  />
+  <section class="palette-editor container" data-palette-editor>
+    <header>
+      <p>
+        Choose the <strong>websitebuilder project folder</strong>, not the CSS
+        file or its themes folder. The editor finds and saves changes to
+        <code>src/styles/themes/colors.css</code> inside that folder.
+      </p>
+      <p>
+        This requires a browser that supports the File System Access API, such
+        as Chrome or Edge, and a secure connection or localhost. Files are read
+        locally and are not uploaded.
+      </p>
+    </header>
+
+    <div class="editor-toolbar">
+      <button type="button" id="open-project">
+        Choose project folder
+      </button>
+      <span id="project-name">No project selected</span>
+    </div>
+    <p id="editor-status" role="status" aria-live="polite">
+      Select the websitebuilder project folder to begin.
+    </p>
+    <div id="editor-content" hidden>
+      <section aria-labelledby="add-title">
+        <h2 id="add-title">Add a color family</h2>
+        <p>
+          Enter an OKLCH color for each shade, or import a CSS file containing
+          the 50 through 950 custom properties. Review the values before saving.
+        </p>
+        <form id="add-family">
+          <label for="import-ramp">Import a color ramp (.css)</label>
+          <input id="import-ramp" type="file" accept=".css,text/css" />
+          <p>
+            For example: <code>--color-ocean-50: oklch(97% 0.01 240);</code>
+          </p>
+          <div id="import-family-control" hidden>
+            <label for="import-family">Imported family</label>
+            <select id="import-family"></select>
+          </div>
+          <label for="family-name">Family name</label>
+          <input
+            id="family-name"
+            name="family"
+            required
+            pattern="[a-z][a-z0-9]*(?:-[a-z0-9]+)*"
+            maxlength="60"
+            placeholder="ocean-blue"
+          />
+          <p>Use lowercase letters, numbers, and hyphens.</p>
+          <div class="shade-grid">
+            {paletteShades.map((shade) => (
+              <label>
+                <span>{shade}</span>
+                <span
+                  class="shade-swatch"
+                  data-shade-swatch={shade}
+                  aria-hidden="true"
+                ></span>
+                <input
+                  type="text"
+                  name={`shade-${shade}`}
+                  required
+                  placeholder="oklch(62.6% 0.128 243.6)"
+                  aria-label={`Shade ${shade}`}
+                />
+              </label>
+            ))}
+          </div>
+          <button type="submit">Add family</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="families-title">
+        <h2 id="families-title">Current families</h2>
+        <p>
+          Removal is blocked when the family is explicitly referenced in project
+          source, public files, or this browser's saved style groups.
+          Dynamically constructed references, groups in other browsers, and
+          external files cannot be checked.
+        </p>
+        <div id="family-list"></div>
+      </section>
+    </div>
+    <script>
+      import "../../scripts/palette-editor.js";
+    </script>
+  </section>
+</Layout>
+
+<style>
+  .palette-editor {
+    display: grid;
+    gap: 2rem;
+    padding-block: 3rem 5rem;
+    max-width: 70rem;
+  }
+  header,
+  section,
+  form {
+    display: grid;
+    gap: 1rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  code {
+    overflow-wrap: anywhere;
+  }
+  button {
+    width: fit-content;
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--accent-page-border);
+    border-radius: 0.4rem;
+    background: var(--accent-page-canvas);
+    color: var(--accent-page-text);
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+  input:not([type="file"]),
+  select {
+    max-width: 24rem;
+    padding: 0.6rem;
+    border: 1px solid var(--canvas-page-border);
+    background: var(--canvas-page);
+    color: var(--ink-page);
+  }
+  .editor-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  #editor-content {
+    display: grid;
+    gap: 3rem;
+  }
+  #editor-content[hidden] {
+    display: none;
+  }
+  .shade-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 0.75rem;
+  }
+  .shade-grid label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .shade-grid label > span:first-child {
+    min-width: 2rem;
+  }
+  .shade-swatch {
+    width: 2rem;
+    height: 2rem;
+    flex: none;
+    border: 1px solid var(--canvas-page-border);
+  }
+  .shade-grid input {
+    min-width: 0;
+    width: 100%;
+  }
+  #import-family-control:not([hidden]) {
+    display: grid;
+    gap: 0.5rem;
+  }
+  #family-list :global(.family-row) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--canvas-page-border);
+  }
+  #family-list :global(.family-swatches) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+  #family-list :global(.family-swatch) {
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 1px solid var(--canvas-page-border);
+  }
+</style>

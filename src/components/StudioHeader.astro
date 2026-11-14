@@ -1,0 +1,154 @@
+---
+import Header from "./SiteHeader.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  otherHref: string;
+  otherLabel: string;
+  constrainWidth?: boolean;
+  linksRight?: boolean;
+}
+
+const {
+  title,
+  description,
+  otherHref,
+  otherLabel,
+  constrainWidth = false,
+  linksRight = false,
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    "studio-header",
+    {
+      "studio-header-constrained": constrainWidth,
+      "studio-header-links-right": linksRight,
+    },
+  ]}
+  data-studio-header
+  data-studio-chrome
+>
+  <Header title="Design System / Color Studio">
+    <div class="studio-intro">
+      <h1>{title}</h1>
+      <p>{description}</p>
+    </div>
+    <div slot="actions" class="studio-links">
+      <a class="studio-link" href="/template/template/">
+        Back to theme template &rarr;
+      </a>
+      <a class="studio-link" href={otherHref}>
+        {otherLabel} &rarr;
+      </a>
+    </div>
+  </Header>
+</div>
+
+<style>
+  .studio-header {
+    background: var(--canvas-page);
+    color: var(--ink-page);
+  }
+  .studio-header :global(.site-header) {
+    background: var(--canvas-page);
+    color: var(--ink-page);
+    border-color: var(--canvas-page-border);
+    box-shadow: 0 8px 24px
+      color-mix(in srgb, var(--canvas-page-shadow) 5%, transparent);
+  }
+  .studio-header :global(.theme-toggle) {
+    background: var(--accent-page-canvas);
+    color: var(--accent-page-text);
+    border-color: var(--accent-page-border);
+  }
+  .studio-header :global(.theme-toggle:hover) {
+    background: var(--accent-page-focus);
+  }
+  .studio-header :global(.theme-toggle:focus-visible) {
+    outline-color: var(--accent-page-focus);
+  }
+  .studio-header :global(.header-inner) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    width: calc(100% - 3rem);
+    max-width: none;
+    min-height: 0;
+    padding-block: 0.65rem;
+  }
+  .studio-header-constrained :global(.header-inner) {
+    max-width: 80rem;
+  }
+  .studio-header :global(.header-inner > div:first-child) {
+    min-width: 0;
+  }
+  .studio-header :global(.header-actions) {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .studio-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .studio-header-links-right :global(.header-actions) {
+    display: contents;
+  }
+  .studio-header-links-right :global(.theme-switcher) {
+    grid-column: 2;
+  }
+  .studio-header-links-right .studio-links {
+    grid-column: 3;
+    justify-self: end;
+    justify-content: flex-end;
+  }
+  .studio-header :global(.header-inner > div:first-child > span) {
+    font-size: 0.7rem;
+    color: var(--ink-page);
+  }
+  .studio-intro h1 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--ink-page-first-header);
+    line-height: 1.1;
+    margin: 0.15rem 0 0.25rem;
+  }
+  .studio-intro p {
+    color: var(--ink-page);
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+  .studio-link {
+    font-size: 0.75rem;
+    color: var(--accent-page-focus);
+    white-space: nowrap;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+  @media (max-width: 760px) {
+    .studio-header :global(.header-inner) {
+      display: flex;
+      width: calc(100% - 2rem);
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+    }
+    .studio-header :global(.header-inner > div:first-child) {
+      flex-basis: 100%;
+    }
+    .studio-header :global(.header-actions) {
+      width: 100%;
+    }
+    .studio-header-links-right :global(.header-actions) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 0.5rem;
+    }
+    .studio-header-links-right .studio-links {
+      grid-column: 1 / -1;
+      max-width: 100%;
+    }
+  }
+</style>

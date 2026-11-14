@@ -1,0 +1,1143 @@
+---
+import Layout from "../../layouts/layout.astro";
+import css from "../../styles/themes/colors.css?raw";
+import { readPalette } from "../../data/palette.js";
+
+const canvasSamples = [
+  {
+    label: "Brand primary",
+    canvas: "canvas-brand-primary",
+    border: "canvas-brand-primary-border",
+    shadow: "canvas-brand-primary-shadow",
+    ink: "ink-page",
+    accent: "accent-05",
+  },
+  {
+    label: "Brand secondary",
+    canvas: "canvas-brand-secondary",
+    border: "canvas-brand-secondary-border",
+    shadow: "canvas-brand-secondary-shadow",
+    ink: "ink-page",
+    accent: "accent-02",
+  },
+  {
+    label: "Brand tertiary",
+    canvas: "canvas-brand-tertiary",
+    border: "canvas-brand-tertiary-border",
+    shadow: "canvas-brand-tertiary-shadow",
+    ink: "ink-page",
+    accent: "accent-06",
+  },
+  {
+    label: "Page",
+    canvas: "canvas-page",
+    border: "canvas-page-border",
+    shadow: "canvas-page-shadow",
+    ink: "ink-page",
+  },
+  {
+    label: "01",
+    canvas: "canvas-01",
+    border: "canvas-01-border",
+    shadow: "canvas-01-shadow",
+    ink: "ink-page",
+  },
+  {
+    label: "02",
+    canvas: "canvas-02",
+    border: "canvas-02-border",
+    shadow: "canvas-02-shadow",
+    ink: "ink-page",
+  },
+  {
+    label: "03",
+    canvas: "canvas-03",
+    border: "canvas-03-border",
+    shadow: "canvas-03-shadow",
+    ink: "ink-page",
+  },
+  {
+    label: "04",
+    canvas: "canvas-04",
+    border: "canvas-04-border",
+    shadow: "canvas-04-shadow",
+    ink: "ink-page",
+  },
+  {
+    label: "05",
+    canvas: "canvas-05",
+    border: "canvas-05-border",
+    shadow: "canvas-05-shadow",
+    ink: "ink-page",
+  },
+  {
+    label: "06",
+    canvas: "canvas-06",
+    border: "canvas-06-border",
+    shadow: "canvas-06-shadow",
+    ink: "ink-page",
+  },
+  {
+    label: "Contrast",
+    canvas: "canvas-contrast",
+    border: "canvas-contrast-border",
+    shadow: "canvas-contrast-shadow",
+    ink: "accent-contrast-text",
+  },
+  {
+    label: "Header",
+    canvas: "canvas-header",
+    border: "canvas-header-border",
+    shadow: "canvas-header-shadow",
+    ink: "ink-page",
+    accent: "accent-header",
+  },
+  {
+    label: "Footer",
+    canvas: "canvas-footer",
+    border: "canvas-footer-border",
+    shadow: "canvas-footer-shadow",
+    ink: "ink-inverse",
+    accent: "accent-footer",
+  },
+];
+
+const accents = [
+  { label: "Page", prefix: "accent-page" },
+  { label: "Header", prefix: "accent-header" },
+  { label: "Footer", prefix: "accent-footer" },
+  { label: "01", prefix: "accent-01" },
+  { label: "02", prefix: "accent-02" },
+  { label: "03", prefix: "accent-03" },
+  { label: "04 · Yellow Mana", prefix: "accent-04" },
+  { label: "05 · Magical Merlin", prefix: "accent-05" },
+  { label: "06 · Maniac Mansion", prefix: "accent-06" },
+  { label: "Contrast", prefix: "accent-contrast" },
+];
+
+const inkGroups = [
+  {
+    label: "Page",
+    prefix: "ink-page",
+    headings: ["first-header", "second-header", "third-header", "forth-header"],
+  },
+  { label: "01", prefix: "ink-01", headings: ["h1", "h2", "h3", "h4"] },
+  { label: "02", prefix: "ink-02", headings: ["h1", "h2", "h3", "h4"] },
+  { label: "03", prefix: "ink-03", headings: ["h1", "h2", "h3", "h4"] },
+  { label: "04", prefix: "ink-04", headings: ["h1", "h2", "h3", "h4"] },
+  { label: "05", prefix: "ink-05", headings: ["h1", "h2", "h3", "h4"] },
+  { label: "06", prefix: "ink-06", headings: ["h1", "h2", "h3", "h4"] },
+  {
+    label: "Contrast",
+    prefix: "ink-contrast",
+    headings: ["h1", "h2", "h3", "h4"],
+  },
+];
+
+const palettes = readPalette(css);
+
+const hoverCards = canvasSamples.map(
+  ({ label, canvas, border, shadow, ink }, index) => ({
+    number: String(index + 1).padStart(2, "0"),
+    label: `${label} canvas`,
+    title: `${label} card`,
+    description: `Preview ${canvas} as an interactive card background.`,
+    canvas,
+    border,
+    shadow,
+    ink,
+  }),
+);
+
+const shades = [50, 200, 400, 600, 800, 950];
+---
+
+<Layout
+  title="Theme Template"
+  description="A live preview of the Exclusive Group semantic color tokens in light and dark themes."
+>
+  <section class="theme-lab container" aria-labelledby="theme-lab-title">
+    <header class="lab-intro">
+      <p class="lab-eyebrow">Design system / color lab</p>
+      <h1 id="theme-lab-title">Theme template</h1>
+      <p>
+        Preview the semantic color roles and palette ramps in context. Use the
+        theme control in the header to compare light and dark mode.
+      </p>
+      <div class="lab-actions">
+        <a class="lab-button lab-button-primary" href="/template/themebuilder/">
+          Open Theme Maker
+        </a>
+        <a class="lab-button lab-button-secondary" href="/template/colors/">
+          Edit color families
+        </a>
+        <a class="lab-button lab-button-primary" href="#semantic-canvases">
+          Explore theme tokens
+        </a>
+        <a class="lab-button lab-button-secondary" href="#palette-ramps">
+          View color ramps
+        </a>
+      </div>
+    </header>
+
+    <section
+      class="lab-section"
+      id="semantic-canvases"
+      aria-labelledby="canvases-title"
+    >
+      <div class="lab-section-heading">
+        <p class="lab-eyebrow">01 / Semantic tokens</p>
+        <h2 id="canvases-title">Canvases in context</h2>
+        <p>
+          Compare brand-primary, brand-secondary, and brand-tertiary canvases
+          with the numbered, page, contrast, header, and footer treatments. Each
+          panel pairs its canvas and border with contextual ink and actions.
+        </p>
+      </div>
+      <div class="canvas-grid">
+        {canvasSamples.map(
+          ({ label, canvas, border, shadow, ink, accent = "accent-01" }) => (
+            <article
+              class="canvas-card"
+              style={`--sample-canvas:var(--${canvas});--sample-border:var(--${border});--sample-shadow:var(--${shadow});--sample-ink:var(--${ink});--sample-accent-canvas:var(--${accent}-canvas);--sample-accent-text:var(--${accent}-text);--sample-accent-border:var(--${accent}-border)`}
+            >
+              <p class="sample-kicker">Canvas / {label}</p>
+              <h3>A clear, readable layer</h3>
+              <p>
+                Supporting copy shows how body text and borders read on this
+                canvas.
+              </p>
+              <div class="canvas-card-actions">
+                <button
+                  class="canvas-sample-button canvas-sample-button-primary"
+                  type="button"
+                >
+                  Primary action
+                </button>
+                <button
+                  class="canvas-sample-button canvas-sample-button-secondary"
+                  type="button"
+                >
+                  Secondary
+                </button>
+              </div>
+              <a class="canvas-card-link" href="#accent-tokens">
+                Sample link <span aria-hidden="true">→</span>
+              </a>
+            </article>
+          ),
+        )}
+      </div>
+    </section>
+
+    <section
+      class="lab-section"
+      id="accent-tokens"
+      aria-labelledby="accents-title"
+    >
+      <div class="lab-section-heading">
+        <p class="lab-eyebrow">02 / Accent tokens</p>
+        <h2 id="accents-title">Accents, borders, and focus</h2>
+        <p>
+          Accent sets color action buttons, icons, and focus states; canvases
+          remain responsible for component backgrounds.
+        </p>
+      </div>
+      <div class="accent-grid">
+        {accents.map(({ label, prefix }) => (
+          <article
+            class="accent-card"
+            style={`--sample-accent-canvas:var(--${prefix}-canvas,transparent);--sample-accent-text:var(--${prefix}-text,var(--ink-page));--sample-accent-border:var(--${prefix}-border,var(--canvas-page-border));--sample-accent-focus:var(--${prefix}-focus,var(--brand-01))`}
+          >
+            <p class="sample-kicker">{label} accent</p>
+            <p class="accent-card-copy">
+              Accent colors are reserved for actions, icons, and focus rings.
+            </p>
+            <button class="accent-action" type="button">
+              <span aria-hidden="true">✦</span> Action
+            </button>
+            <div
+              class="token-chips"
+              aria-label={`${label} accent color tokens`}
+            >
+              {[
+                { label: "canvas", property: "canvas" },
+                { label: "text", property: "text" },
+                { label: "border", property: "border" },
+                { label: "focus", property: "focus" },
+              ].map(({ label: tokenLabel, property }) => (
+                <span
+                  class="token-chip"
+                  title={`--${prefix}-${tokenLabel}`}
+                  style={`background-color:var(--${prefix}-${property},var(--brand-01))`}
+                >
+                  <span class="sr-only">{tokenLabel}</span>
+                </span>
+              ))}
+            </div>
+            <code>--{prefix}-*</code>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="lab-section" aria-labelledby="ink-title">
+      <div class="lab-section-heading">
+        <p class="lab-eyebrow">03 / Ink tokens</p>
+        <h2 id="ink-title">Type hierarchy</h2>
+        <p>
+          Compare base, dark, muted, highlighted, and heading inks for every
+          group, plus inverse ink on a dark canvas.
+        </p>
+      </div>
+      <div class="ink-grid">
+        {inkGroups.map(({ label, prefix, headings }) => (
+          <article class="ink-card">
+            <p class="sample-kicker">{label} ink</p>
+            <p
+              class="ink-sample ink-sample-base"
+              style={`color:var(--${prefix})`}
+            >
+              Base ink <code>--{prefix}</code>
+            </p>
+            <p
+              class="ink-sample ink-sample-dark"
+              style={`color:var(--${prefix}-dark)`}
+            >
+              Dark ink <code>--{prefix}-dark</code>
+            </p>
+            <p
+              class="ink-sample ink-sample-h1"
+              style={`color:var(--${prefix}-${headings[0]})`}
+            >
+              Heading one
+            </p>
+            <p
+              class="ink-sample ink-sample-h2"
+              style={`color:var(--${prefix}-${headings[1]})`}
+            >
+              Heading two
+            </p>
+            <p
+              class="ink-sample ink-sample-h3"
+              style={`color:var(--${prefix}-${headings[2]})`}
+            >
+              Heading three
+            </p>
+            <p
+              class="ink-sample ink-sample-h4"
+              style={`color:var(--${prefix}-${headings[3]})`}
+            >
+              Heading four
+            </p>
+            <p
+              class="ink-support"
+              style={`color:var(--${prefix}-muted,var(--ink-page-muted))`}
+            >
+              Muted supporting text · <code>--{prefix}-muted</code>
+            </p>
+            <p
+              class="ink-support"
+              style={`color:var(--${prefix}-highlight,var(--ink-page-highlight))`}
+            >
+              Highlight text · <code>--{prefix}-highlight</code>
+            </p>
+          </article>
+        ))}
+        <article class="ink-card ink-card-inverse">
+          <p class="sample-kicker">Inverse ink</p>
+          <p class="ink-sample ink-sample-h1" style="color:var(--ink-inverse)">
+            Inverse text
+          </p>
+          <p class="ink-support">For text on dark canvases.</p>
+          <code>--ink-inverse</code>
+        </article>
+      </div>
+    </section>
+
+    <section
+      class="lab-section"
+      id="palette-ramps"
+      aria-labelledby="ramps-title"
+    >
+      <div class="lab-section-heading">
+        <p class="lab-eyebrow">04 / Source palettes</p>
+        <h2 id="ramps-title">Color ramps</h2>
+        <p>
+          These are the new named palette colors feeding the semantic theme
+          tokens. Shade labels are shown below each swatch.
+        </p>
+      </div>
+      <div class="palette-list">
+        {palettes.map(({ label, key }) => (
+          <article class="palette-row">
+            <h3>{label}</h3>
+            <div class="palette-swatches">
+              {shades.map((shade) => (
+                <div class="palette-swatch">
+                  <span
+                    class="palette-color"
+                    style={`background-color:var(--color-${key}-${shade})`}
+                    aria-label={`${label} ${shade}`}
+                  />
+                  <code>{shade}</code>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="lab-section" aria-labelledby="components-title">
+      <div class="lab-section-heading">
+        <p class="lab-eyebrow">05 / Component check</p>
+        <h2 id="components-title">Common controls</h2>
+        <p>
+          Compare primary and secondary actions, then preview buttons using
+          every accent set.
+        </p>
+      </div>
+      <div class="component-sample">
+        <a class="lab-button lab-button-primary" href="#semantic-canvases">
+          Primary action
+        </a>
+        <a class="lab-button lab-button-secondary" href="#accent-tokens">
+          Secondary action
+        </a>
+        <a class="lab-inline-link" href="#palette-ramps">
+          Text link <span aria-hidden="true">↗</span>
+        </a>
+        <button class="lab-button lab-button-primary" type="button">
+          Button state
+        </button>
+        {accents.map(({ label, prefix }) => (
+          <button
+            class="lab-button accent-option-button"
+            type="button"
+            style={`--button-canvas:var(--${prefix}-canvas,var(--canvas-page));--button-text:var(--${prefix}-text,var(--accent-page-text));--button-border:var(--${prefix}-border,var(--accent-page-border));--button-focus:var(--${prefix}-focus,var(--accent-page-focus))`}
+          >
+            {label} accent
+          </button>
+        ))}
+      </div>
+    </section>
+
+    <section
+      class="lab-section"
+      id="hover-cards"
+      aria-labelledby="hover-cards-title"
+    >
+      <div class="lab-section-heading">
+        <p class="lab-eyebrow">06 / Interactive states</p>
+        <h2 id="hover-cards-title">Cards with hover</h2>
+        <p>
+          Compare all six numbered canvases, plus the page, contrast, header,
+          and footer treatments. Hover or keyboard-focus a card to preview its
+          border, shadow, and focus ring.
+        </p>
+      </div>
+      <div class="hover-card-grid">
+        {hoverCards.map(
+          ({
+            number,
+            label,
+            title,
+            description,
+            canvas,
+            border,
+            shadow,
+            ink,
+          }) => (
+            <a
+              class="hover-card"
+              href="#sample-form"
+              style={`--card-canvas:var(--${canvas});--card-border:var(--${border});--card-shadow:var(--${shadow});--card-ink:var(--${ink});--card-focus:var(--accent-page-focus);--card-action:var(--accent-page-focus)`}
+            >
+              <span class="hover-card-number">{number}</span>
+              <span class="hover-card-label">{label}</span>
+              <span class="hover-card-title">{title}</span>
+              <span class="hover-card-description">{description}</span>
+              <span class="hover-card-action">
+                Explore card <span aria-hidden="true">↗</span>
+              </span>
+            </a>
+          ),
+        )}
+      </div>
+    </section>
+
+    <section
+      class="lab-section"
+      id="sample-form"
+      aria-labelledby="sample-form-title"
+    >
+      <div class="lab-section-heading">
+        <p class="lab-eyebrow">07 / Form components</p>
+        <h2 id="sample-form-title">Sample form</h2>
+        <p>
+          Check text fields, selection controls, and keyboard focus against the
+          current theme. This sample does not submit data.
+        </p>
+      </div>
+      <form class="sample-form">
+        <div class="form-field">
+          <label for="sample-name">Full name</label>
+          <input
+            id="sample-name"
+            name="name"
+            type="text"
+            placeholder="Jordan Lee"
+            autocomplete="name"
+          />
+        </div>
+        <div class="form-field">
+          <label for="sample-email">Email address</label>
+          <input
+            id="sample-email"
+            name="email"
+            type="email"
+            placeholder="jordan@example.com"
+            autocomplete="email"
+            aria-describedby="sample-email-hint"
+          />
+          <p class="field-hint" id="sample-email-hint">
+            We'll only use this to respond to your message.
+          </p>
+        </div>
+        <div class="form-field">
+          <label for="sample-topic">Topic</label>
+          <select id="sample-topic" name="topic">
+            <option value="">Choose a topic</option>
+            <option value="general">General question</option>
+            <option value="partnership">Partnership</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+        <fieldset class="form-field form-options">
+          <legend>Preferred contact</legend>
+          <label class="choice-label">
+            <input type="radio" name="contact" value="email" checked />
+            Email
+          </label>
+          <label class="choice-label">
+            <input type="radio" name="contact" value="phone" />
+            Phone
+          </label>
+        </fieldset>
+        <div class="form-field form-field-wide">
+          <label for="sample-message">Message</label>
+          <textarea
+            id="sample-message"
+            name="message"
+            rows="4"
+            placeholder="How can we help?"
+          ></textarea>
+        </div>
+        <label class="choice-label form-field-wide">
+          <input type="checkbox" name="updates" />
+          Send me occasional group updates.
+        </label>
+        <div class="form-actions form-field-wide">
+          <button class="btn btn-filled" type="button">
+            Preview primary
+          </button>
+          <button class="btn btn-outline" type="reset">
+            Reset fields
+          </button>
+        </div>
+      </form>
+    </section>
+  </section>
+</Layout>
+
+<style>
+  .theme-lab {
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+
+  .lab-intro {
+    max-width: 52rem;
+    padding-block: 1rem clamp(3rem, 7vw, 6rem);
+  }
+
+  .lab-eyebrow,
+  .sample-kicker {
+    margin: 0 0 0.75rem;
+    color: var(--ink-page-highlight);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .lab-intro h1 {
+    margin: 0;
+    color: var(--ink-page-first-header);
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+  }
+
+  .lab-intro > p:not(.lab-eyebrow),
+  .lab-section-heading > p:not(.lab-eyebrow) {
+    max-width: 45rem;
+    color: var(--ink-page-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .lab-actions,
+  .component-sample {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+  }
+
+  .lab-button {
+    display: inline-flex;
+    min-height: 2.9rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 0.7rem 1.25rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition:
+      filter 150ms ease,
+      transform 150ms ease;
+  }
+
+  .lab-button:hover {
+    filter: brightness(0.94);
+    transform: translateY(-1px);
+  }
+
+  .lab-button-primary {
+    border-color: var(--cta-01);
+    background: var(--cta-01);
+    color: var(--ink-page-dark);
+  }
+
+  .lab-button-secondary {
+    border-color: var(--accent-page-border);
+    background: var(--canvas-page);
+    color: var(--accent-page-focus);
+  }
+
+  .accent-option-button {
+    border-color: var(--button-border);
+    background: var(--button-canvas);
+    color: var(--button-text);
+  }
+
+  .accent-option-button:focus-visible {
+    outline: 3px solid var(--button-focus);
+    outline-offset: 3px;
+  }
+
+  .lab-section {
+    padding-block: clamp(2.5rem, 6vw, 5rem);
+    border-top: 1px solid var(--canvas-page-border);
+  }
+
+  .lab-section-heading {
+    margin-bottom: 1.75rem;
+  }
+
+  .lab-section-heading h2 {
+    margin: 0;
+    color: var(--ink-page-first-header);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 550;
+    letter-spacing: -0.03em;
+  }
+
+  .canvas-grid,
+  .accent-grid,
+  .ink-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: 1rem;
+  }
+
+  .canvas-card {
+    min-height: 15rem;
+    border: 1px solid var(--sample-border);
+    border-radius: 0.8rem;
+    background: var(--sample-canvas);
+    padding: 1.4rem;
+    color: var(--sample-ink);
+    box-shadow: 0 0.7rem 1.8rem
+      color-mix(in oklch, var(--sample-shadow) 8%, transparent);
+  }
+
+  .canvas-card h3 {
+    margin: 1.6rem 0 0.6rem;
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    line-height: 1.15;
+  }
+
+  .canvas-card > p:not(.sample-kicker) {
+    line-height: 1.6;
+  }
+
+  .canvas-card .sample-kicker {
+    color: var(--sample-ink);
+    opacity: 0.82;
+  }
+
+  .canvas-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 1rem;
+    color: var(--sample-ink);
+    font-weight: 700;
+    text-decoration-color: var(--accent-page-focus);
+    text-underline-offset: 0.2em;
+  }
+
+  .canvas-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.25rem;
+  }
+
+  .canvas-sample-button {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 0.55rem 0.85rem;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      filter 150ms ease,
+      transform 150ms ease;
+  }
+
+  .canvas-sample-button:hover {
+    filter: brightness(0.94);
+    transform: translateY(-1px);
+  }
+
+  .canvas-sample-button:focus-visible {
+    outline: 3px solid var(--accent-page-focus);
+    outline-offset: 2px;
+  }
+
+  .canvas-sample-button-primary {
+    border-color: var(--cta-01);
+    background: var(--cta-01);
+    color: var(--ink-page-dark);
+  }
+
+  .canvas-sample-button-secondary {
+    border-color: var(--sample-accent-border);
+    background: var(--sample-accent-canvas);
+    color: var(--sample-accent-text);
+  }
+
+  .lab-inline-link {
+    color: var(--accent-page-focus);
+    font-weight: 700;
+    text-underline-offset: 0.2em;
+  }
+
+  .accent-card {
+    border: 1px solid var(--canvas-01-border);
+    border-radius: 0.8rem;
+    background: var(--canvas-01);
+    padding: 1.25rem;
+    color: var(--ink-page);
+    outline-color: var(--sample-accent-focus);
+    outline-offset: 3px;
+  }
+
+  .accent-card:focus-within {
+    outline: 2px solid var(--sample-accent-focus);
+  }
+
+  .accent-card-copy {
+    min-height: 3.2rem;
+    line-height: 1.6;
+  }
+
+  .accent-action {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--sample-accent-border);
+    border-radius: 999px;
+    background: var(--sample-accent-canvas);
+    padding: 0.5rem 0.9rem;
+    color: var(--sample-accent-text);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .accent-action:focus-visible {
+    outline: 3px solid var(--sample-accent-focus);
+    outline-offset: 2px;
+  }
+
+  .token-chips {
+    display: flex;
+    gap: 0.45rem;
+    margin-block: 1.2rem 0.75rem;
+  }
+
+  .token-chip {
+    width: 2rem;
+    aspect-ratio: 1;
+    border: 1px solid
+      color-mix(in oklch, var(--sample-accent-text) 25%, transparent);
+    border-radius: 0.4rem;
+  }
+
+  .accent-card code,
+  .ink-support code {
+    font-size: 0.72rem;
+    opacity: 0.78;
+  }
+
+  .ink-card {
+    border: 1px solid var(--canvas-page-border);
+    border-radius: 0.8rem;
+    background: var(--canvas-01);
+    padding: 1.2rem;
+  }
+
+  .ink-card-inverse {
+    border-color: var(--canvas-footer-border);
+    background: var(--canvas-footer);
+    color: var(--ink-inverse);
+  }
+
+  .ink-card-inverse .sample-kicker {
+    color: var(--ink-inverse);
+  }
+
+  .ink-sample {
+    margin: 0.8rem 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .ink-sample-h1 {
+    font-size: 1.7rem;
+  }
+
+  .ink-sample-h2 {
+    font-size: 1.4rem;
+  }
+
+  .ink-sample-h3 {
+    font-size: 1.15rem;
+  }
+
+  .ink-sample-h4 {
+    font-size: 1rem;
+  }
+
+  .ink-support {
+    margin-block: 0.55rem;
+    font-size: 0.82rem;
+  }
+
+  .palette-list {
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .palette-row {
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.7fr) 2fr;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid var(--canvas-page-border);
+    border-radius: 0.75rem;
+    background: var(--canvas-01);
+    padding: 1rem;
+  }
+
+  .palette-row h3 {
+    margin: 0;
+    color: var(--ink-page);
+    font-size: 0.9rem;
+  }
+
+  .palette-swatches {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(2rem, 1fr));
+    gap: 0.5rem;
+  }
+
+  .palette-swatch {
+    display: grid;
+    justify-items: center;
+    gap: 0.35rem;
+  }
+
+  .palette-color {
+    width: 100%;
+    min-height: 2.5rem;
+    border: 1px solid color-mix(in oklch, var(--ink-page) 14%, transparent);
+    border-radius: 0.35rem;
+  }
+
+  .palette-swatch code {
+    color: var(--ink-page-muted);
+    font-size: 0.68rem;
+  }
+
+  .component-sample {
+    min-height: 8rem;
+    border: 1px solid var(--canvas-page-border);
+    border-radius: 0.8rem;
+    background: var(--canvas-01);
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .hover-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 1rem;
+  }
+
+  .hover-card {
+    display: flex;
+    min-height: 18rem;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid var(--card-border);
+    border-radius: 0.9rem;
+    background: var(--card-canvas);
+    padding: 1.5rem;
+    color: var(--card-ink);
+    text-decoration: none;
+    box-shadow: 0 0.7rem 1.8rem
+      color-mix(in oklch, var(--card-shadow) 8%, transparent);
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .hover-card:is(:hover, :focus-visible) {
+    transform: translateY(-0.3rem);
+    border-color: var(--card-border);
+    outline: 3px solid var(--card-focus);
+    outline-offset: 3px;
+    box-shadow: 0 1rem 2rem
+      color-mix(in oklch, var(--card-shadow) 16%, transparent);
+  }
+
+  .hover-card-number {
+    color: var(--card-ink);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+  }
+
+  .hover-card-label {
+    margin-top: 1.6rem;
+    color: var(--card-ink);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.82;
+  }
+
+  .hover-card-title {
+    margin-top: 0.45rem;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  .hover-card-description {
+    margin-top: 0.75rem;
+    color: var(--card-ink);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    opacity: 0.86;
+  }
+
+  .hover-card-action {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 1.3rem;
+    color: var(--card-ink);
+    font-size: 0.88rem;
+    font-weight: 750;
+  }
+
+  .hover-card-action span {
+    color: var(--card-focus);
+  }
+
+  .sample-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    border: 1px solid var(--canvas-01-border);
+    border-radius: 0.9rem;
+    background: var(--canvas-01);
+    padding: clamp(1.25rem, 4vw, 2.25rem);
+    box-shadow: 0 0.7rem 1.8rem
+      color-mix(in oklch, var(--canvas-01-shadow) 8%, transparent);
+  }
+
+  .form-field {
+    display: grid;
+    min-width: 0;
+    align-content: start;
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .form-field > label,
+  .form-options legend {
+    color: var(--ink-page);
+    font-size: 0.88rem;
+    font-weight: 700;
+  }
+
+  .form-field
+    :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+    width: 100%;
+    min-height: 3rem;
+    border: 1px solid var(--canvas-page-border);
+    border-radius: 0.55rem;
+    background: var(--canvas-page);
+    padding: 0.75rem 0.85rem;
+    color: var(--ink-page);
+    font: inherit;
+  }
+
+  .form-field textarea {
+    min-height: 8rem;
+    resize: vertical;
+  }
+
+  .form-field :is(input, select, textarea):focus-visible {
+    border-color: var(--accent-page-focus);
+    outline: 3px solid
+      color-mix(in oklch, var(--accent-page-focus) 35%, transparent);
+    outline-offset: 2px;
+  }
+
+  .form-field :is(input, textarea)::placeholder {
+    color: var(--ink-page-muted);
+    opacity: 0.85;
+  }
+
+  .field-hint {
+    margin: 0;
+    color: var(--ink-page-muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .form-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1rem;
+    border: 1px solid var(--canvas-page-border);
+    border-radius: 0.6rem;
+    padding: 0.8rem 1rem 1rem;
+  }
+
+  .form-options legend {
+    padding-inline: 0.25rem;
+  }
+
+  .choice-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink-page);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .choice-label input {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+    accent-color: var(--brand-01);
+  }
+
+  .form-field-wide {
+    grid-column: 1 / -1;
+  }
+
+  .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  @media (max-width: 600px) {
+    .palette-row {
+      grid-template-columns: 1fr;
+    }
+
+    .palette-swatches {
+      gap: 0.35rem;
+    }
+
+    .sample-form {
+      grid-template-columns: 1fr;
+    }
+
+    .form-field-wide {
+      grid-column: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lab-button,
+    .hover-card,
+    .canvas-sample-button {
+      transition: none;
+    }
+
+    .hover-card:is(:hover, :focus-visible),
+    .canvas-sample-button:hover {
+      transform: none;
+    }
+  }
+</style>

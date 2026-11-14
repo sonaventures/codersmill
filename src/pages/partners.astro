@@ -1,0 +1,43 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import Layout from "../layouts/layout.astro";
+import { pageDescriptions, partners } from "../data/group";
+---
+
+<Layout title="Partners" description={pageDescriptions.partners}>
+  <PageIntro
+    eyebrow="Relationships"
+    title="Partners"
+    description="Information about partner relationships will be added when it is available."
+  />
+
+  <section class="container content-section" aria-labelledby="partners-title">
+    {partners.length > 0 ? (
+      <div class="company-grid">
+        {partners.map(({ name, summary, websiteUrl }) => (
+          <article class="company-card">
+            <h2>{name}</h2>
+            <p>{summary}</p>
+            {websiteUrl && (
+              <a class="text-link" href={websiteUrl}>
+                Visit website <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <span class="empty-state-mark" aria-hidden="true">
+          —
+        </span>
+        <p class="eyebrow">Partner information</p>
+        <h2 id="partners-title">Details are pending</h2>
+        <p>
+          Partner profiles and a contact route have not been provided. No form
+          or unsupported contact information is shown here.
+        </p>
+      </div>
+    )}
+  </section>
+</Layout>

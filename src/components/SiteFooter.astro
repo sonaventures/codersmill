@@ -1,0 +1,27 @@
+---
+import { navigation } from "../data/group";
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-intro">
+      <a class="footer-wordmark" href="/">
+        Exclusive Group
+      </a>
+      <p>A shared directory for the companies listed here.</p>
+    </div>
+    <nav aria-label="Footer">
+      <ul class="footer-links">
+        {navigation.map(({ label, href }) => (
+          <li>
+            <a href={href}>{label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <p>© {new Date().getFullYear()} Exclusive Group</p>
+    <p>Company links and additional details are added as they are provided.</p>
+  </div>
+</footer>

@@ -1,0 +1,51 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import Layout from "../layouts/layout.astro";
+import { navigation, pageDescriptions } from "../data/group";
+---
+
+<Layout description={pageDescriptions.home}>
+  <PageIntro
+    eyebrow="Exclusive Group"
+    title="A central place to explore the group."
+    description="Find the companies listed with Exclusive Group and explore the information currently available."
+  />
+
+  <section class="container home-overview" aria-labelledby="overview-title">
+    <div class="section-heading">
+      <p class="eyebrow">Explore</p>
+      <h2 id="overview-title">The directory</h2>
+      <p>
+        Browse the company directory, or visit the other sections for project,
+        partner, and group information as it becomes available.
+      </p>
+    </div>
+    <div class="section-link-grid">
+      {navigation
+        .filter(({ label }) => label !== "Home")
+        .map(({ label, href }, index) => (
+          <a class="section-link-card" href={href}>
+            <span class="card-index">0{index + 1}</span>
+            <span class="card-title">{label}</span>
+            <span class="card-arrow" aria-hidden="true">
+              ↗
+            </span>
+          </a>
+        ))}
+    </div>
+  </section>
+
+  <section class="home-note">
+    <div class="container home-note-inner">
+      <p class="eyebrow">A note on this directory</p>
+      <p>
+        Company website destinations and additional group details have not yet
+        been provided. Pending information is identified clearly throughout the
+        site.
+      </p>
+      <a class="text-link" href="/companies/">
+        View listed companies <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</Layout>

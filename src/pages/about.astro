@@ -1,0 +1,26 @@
+---
+import PageIntro from "../components/PageIntro.astro";
+import Layout from "../layouts/layout.astro";
+import { pageDescriptions } from "../data/group";
+---
+
+<Layout title="About" description={pageDescriptions.about}>
+  <PageIntro
+    eyebrow="About"
+    title="Exclusive Group"
+    description="This site provides a shared directory for the companies listed with Exclusive Group."
+  />
+
+  <section class="container content-section about-copy">
+    <p class="eyebrow">About the group</p>
+    <h2>More information is still to come.</h2>
+    <p>
+      Beyond the company names shown in the directory, background, structure,
+      and shared activities have not yet been provided. This page will be
+      updated when verified information is available.
+    </p>
+    <a class="text-link" href="/companies/">
+      Explore the companies <span aria-hidden="true">→</span>
+    </a>
+  </section>
+</Layout>

@@ -1,0 +1,17 @@
+@layer components {
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border px-6 text-[0.95rem] font-semibold no-underline transition-[background-color,border-color,color,transform] duration-180 ease-[ease] hover:-translate-y-0.5;
+  }
+
+  .btn-filled {
+    @apply border-cta-01 bg-cta-01 text-ink-page-dark hover:brightness-95;
+  }
+
+  .btn-outline {
+    @apply border-accent-01-border bg-transparent text-accent-page-focus hover:bg-accent-01-canvas;
+  }
+
+  .btn-group {
+    @apply mt-10 flex flex-wrap gap-3;
+  }
+}

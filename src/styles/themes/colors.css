@@ -1,0 +1,923 @@
+/* Primitive ramps: use these to build semantic tokens, not directly in components. */
+@theme static {
+  --color-*: initial;
+  --color-white: #fff;
+  --color-black: #000;
+
+  --color-maniac-mansion-50: oklch(97.7% 0.006 234.8);
+  --color-maniac-mansion-100: oklch(91.8% 0.012 234.8);
+  --color-maniac-mansion-200: oklch(80.5% 0.027 234.8);
+  --color-maniac-mansion-300: oklch(65.4% 0.044 234.8);
+  --color-maniac-mansion-400: oklch(45.7% 0.063 234.8);
+  --color-maniac-mansion-500: oklch(33.6% 0.071 234.8);
+  --color-maniac-mansion-600: oklch(32.4% 0.069 235.2);
+  --color-maniac-mansion-700: oklch(31.3% 0.065 234.8);
+  --color-maniac-mansion-800: oklch(30.2% 0.055 234.8);
+  --color-maniac-mansion-900: oklch(29.5% 0.043 234.8);
+  --color-maniac-mansion-950: oklch(27.9% 0.029 234.8);
+  --color-iguana-50: oklch(97.7% 0.005 112.6);
+  --color-iguana-100: oklch(94.3% 0.011 112.6);
+  --color-iguana-200: oklch(87.7% 0.023 112.6);
+  --color-iguana-300: oklch(79% 0.038 112.6);
+  --color-iguana-400: oklch(67.6% 0.055 112.6);
+  --color-iguana-500: oklch(60.6% 0.061 112.6);
+  --color-iguana-600: oklch(53.2% 0.064 112.6);
+  --color-iguana-700: oklch(47.2% 0.056 112.6);
+  --color-iguana-800: oklch(41.2% 0.047 112.6);
+  --color-iguana-900: oklch(37.2% 0.037 112.6);
+  --color-iguana-950: oklch(27.9% 0.025 112.6);
+  --color-cardamom-50: oklch(97.7% 0.005 111.8);
+  --color-cardamom-100: oklch(95.4% 0.012 111.8);
+  --color-cardamom-200: oklch(91.1% 0.026 111.8);
+  --color-cardamom-300: oklch(85.4% 0.042 111.8);
+  --color-cardamom-400: oklch(77.8% 0.061 111.8);
+  --color-cardamom-500: oklch(73.2% 0.068 111.8);
+  --color-cardamom-600: oklch(62.9% 0.071 111.8);
+  --color-cardamom-700: oklch(54.7% 0.063 111.8);
+  --color-cardamom-800: oklch(46.3% 0.053 111.8);
+  --color-cardamom-900: oklch(40.8% 0.041 111.8);
+  --color-cardamom-950: oklch(27.9% 0.028 111.8);
+  --color-court-bouillon-50: oklch(97.7% 0.006 111.3);
+  --color-court-bouillon-100: oklch(96.5% 0.013 111.3);
+  --color-court-bouillon-200: oklch(94.2% 0.028 111.3);
+  --color-court-bouillon-300: oklch(91.1% 0.046 111.3);
+  --color-court-bouillon-400: oklch(87.1% 0.067 111.3);
+  --color-court-bouillon-500: oklch(84.7% 0.075 111.3);
+  --color-court-bouillon-600: oklch(71.8% 0.078 111.3);
+  --color-court-bouillon-700: oklch(61.5% 0.069 111.3);
+  --color-court-bouillon-800: oklch(51% 0.058 111.3);
+  --color-court-bouillon-900: oklch(44.1% 0.045 111.3);
+  --color-court-bouillon-950: oklch(27.9% 0.031 111.3);
+  --color-yellow-mana-50: oklch(97% 0.08 107.8);
+  --color-yellow-mana-100: oklch(94.4% 0.179 107.8);
+  --color-yellow-mana-200: oklch(89.4% 0.193 107.8);
+  --color-yellow-mana-300: oklch(82.8% 0.178 107.8);
+  --color-yellow-mana-400: oklch(74.1% 0.16 107.8);
+  --color-yellow-mana-500: oklch(68.8% 0.148 107.8);
+  --color-yellow-mana-600: oklch(59.5% 0.128 107.8);
+  --color-yellow-mana-700: oklch(52.1% 0.112 107.8);
+  --color-yellow-mana-800: oklch(44.5% 0.096 107.8);
+  --color-yellow-mana-900: oklch(39.6% 0.085 107.8);
+  --color-yellow-mana-950: oklch(27.9% 0.06 107.6);
+  --color-magical-merlin-50: oklch(97.7% 0.01 243.6);
+  --color-magical-merlin-100: oklch(94.5% 0.022 243.6);
+  --color-magical-merlin-200: oklch(88.3% 0.048 243.6);
+  --color-magical-merlin-300: oklch(80% 0.079 243.6);
+  --color-magical-merlin-400: oklch(69.2% 0.115 243.6);
+  --color-magical-merlin-500: oklch(62.6% 0.128 243.6);
+  --color-magical-merlin-600: oklch(54.7% 0.134 243.6);
+  --color-magical-merlin-700: oklch(48.4% 0.118 243.6);
+  --color-magical-merlin-800: oklch(42% 0.099 243.6);
+  --color-magical-merlin-900: oklch(37.8% 0.078 243.6);
+  --color-magical-merlin-950: oklch(27.9% 0.053 243.6);
+  --color-baby-blue-50: oklch(97.7% 0.007 239.6);
+  --color-baby-blue-100: oklch(96.5% 0.015 239.6);
+  --color-baby-blue-200: oklch(94.1% 0.031 239.5);
+  --color-baby-blue-300: oklch(91% 0.049 239.5);
+  --color-baby-blue-400: oklch(86.9% 0.072 239.5);
+  --color-baby-blue-500: oklch(84.4% 0.085 239.6);
+  --color-baby-blue-600: oklch(71.6% 0.089 239.6);
+  --color-baby-blue-700: oklch(61.3% 0.078 239.6);
+  --color-baby-blue-800: oklch(50.9% 0.066 239.6);
+  --color-baby-blue-900: oklch(44% 0.051 239.6);
+  --color-baby-blue-950: oklch(27.9% 0.035 239.6);
+  --color-dark-rift-50: oklch(97.7% 0.003 252.2);
+  --color-dark-rift-100: oklch(94.6% 0.008 252.2);
+  --color-dark-rift-200: oklch(88.8% 0.016 252.2);
+  --color-dark-rift-300: oklch(80.9% 0.027 252.2);
+  --color-dark-rift-400: oklch(70.7% 0.039 252.2);
+  --color-dark-rift-500: oklch(64.4% 0.043 252.2);
+  --color-dark-rift-600: oklch(53.5% 0.045 252.2);
+  --color-dark-rift-700: oklch(44.7% 0.04 252.2);
+  --color-dark-rift-800: oklch(35.7% 0.033 252.2);
+  --color-dark-rift-900: oklch(29.9% 0.026 252.2);
+  --color-dark-rift-950: oklch(16.1% 0.018 252.2);
+
+  --font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Arial Narrow", "Liberation Sans Narrow", sans-serif;
+}
+
+/* Exposes the semantic roles as Tailwind color utilities. */
+@theme inline {
+  /* Brand */
+  --color-brand-01: var(--brand-01);
+  --color-brand-02: var(--brand-02);
+  --color-brand-03: var(--brand-03);
+  --color-brand-04: var(--brand-04);
+  --color-brand-05: var(--brand-05);
+  --color-brand-06: var(--brand-06);
+
+  /* CTA */
+  --color-cta-01: var(--cta-01);
+  --color-cta-02: var(--cta-02);
+
+  /* Brand primary canvas */
+  --color-canvas-brand-primary: var(--canvas-brand-primary);
+  --color-canvas-brand-primary-border: var(--canvas-brand-primary-border);
+  --color-canvas-brand-primary-shadow: var(--canvas-brand-primary-shadow);
+
+  /* Brand secondary canvas */
+  --color-canvas-brand-secondary: var(--canvas-brand-secondary);
+  --color-canvas-brand-secondary-border: var(--canvas-brand-secondary-border);
+  --color-canvas-brand-secondary-shadow: var(--canvas-brand-secondary-shadow);
+
+  /* Brand tertiary canvas */
+  --color-canvas-brand-tertiary: var(--canvas-brand-tertiary);
+  --color-canvas-brand-tertiary-border: var(--canvas-brand-tertiary-border);
+  --color-canvas-brand-tertiary-shadow: var(--canvas-brand-tertiary-shadow);
+
+  /* Inverse ink */
+  --color-ink-inverse: var(--ink-inverse);
+
+  /* Page */
+  --color-canvas-page: var(--canvas-page);
+  --color-canvas-page-border: var(--canvas-page-border);
+  --color-canvas-page-shadow: var(--canvas-page-shadow);
+  --color-canvas-page-card-01: var(--canvas-page-card-01, var(--canvas-page));
+  --color-canvas-page-card-01-border: var(
+    --canvas-page-card-01-border,
+    var(--canvas-page-border)
+  );
+  --color-canvas-page-card-01-shadow: var(
+    --canvas-page-card-01-shadow,
+    var(--canvas-page-shadow)
+  );
+  --color-canvas-page-card-02: var(--canvas-page-card-02, var(--canvas-page));
+  --color-canvas-page-card-02-border: var(
+    --canvas-page-card-02-border,
+    var(--canvas-page-border)
+  );
+  --color-canvas-page-card-02-shadow: var(
+    --canvas-page-card-02-shadow,
+    var(--canvas-page-shadow)
+  );
+  --color-canvas-page-card-03: var(--canvas-page-card-03, var(--canvas-page));
+  --color-canvas-page-card-03-border: var(
+    --canvas-page-card-03-border,
+    var(--canvas-page-border)
+  );
+  --color-canvas-page-card-03-shadow: var(
+    --canvas-page-card-03-shadow,
+    var(--canvas-page-shadow)
+  );
+  --color-accent-page-canvas: var(--accent-page-canvas);
+  --color-accent-page-text: var(--accent-page-text);
+  --color-accent-page-border: var(--accent-page-border);
+  --color-accent-page-focus: var(--accent-page-focus);
+  --color-ink-page: var(--ink-page);
+  --color-ink-page-dark: var(--ink-page-dark);
+  --color-ink-page-highlight: var(--ink-page-highlight);
+  --color-ink-page-muted: var(--ink-page-muted);
+  --color-ink-page-first-header: var(--ink-page-first-header);
+  --color-ink-page-second-header: var(--ink-page-second-header);
+  --color-ink-page-third-header: var(--ink-page-third-header);
+  --color-ink-page-forth-header: var(--ink-page-forth-header);
+
+  /* Header */
+  --color-canvas-header: var(--canvas-header);
+  --color-canvas-header-border: var(--canvas-header-border);
+  --color-canvas-header-shadow: var(--canvas-header-shadow);
+  --color-accent-header-canvas: var(--accent-header-canvas);
+  --color-accent-header-text: var(--accent-header-text);
+  --color-accent-header-border: var(--accent-header-border);
+  --color-accent-header-focus: var(--accent-header-focus);
+  --color-ink-header: var(--ink-header);
+  --color-ink-header-h1: var(--ink-header-h1);
+  --color-ink-header-h2: var(--ink-header-h2);
+  --color-ink-header-h3: var(--ink-header-h3);
+  --color-nav-header-sitenav-top: var(--nav-header-sitenav-top);
+  --color-nav-header-sitenav-submenu-title: var(
+    --nav-header-sitenav-submenu-title
+  );
+  --color-nav-header-sitenav-submenu-header: var(
+    --nav-header-sitenav-submenu-header
+  );
+  --color-nav-header-sitenav-item: var(--nav-header-sitenav-item);
+
+  /* Hero */
+  --color-canvas-hero: var(--canvas-hero);
+  --color-canvas-hero-border: var(--canvas-hero-border);
+  --color-canvas-hero-shadow: var(--canvas-hero-shadow);
+  --color-accent-hero-canvas: var(--accent-hero-canvas);
+  --color-accent-hero-text: var(--accent-hero-text);
+  --color-accent-hero-border: var(--accent-hero-border);
+  --color-accent-hero-focus: var(--accent-hero-focus);
+  --color-ink-hero: var(--ink-hero);
+  --color-ink-hero-dark: var(--ink-hero-dark);
+  --color-ink-hero-highlight: var(--ink-hero-highlight);
+  --color-ink-hero-muted: var(--ink-hero-muted);
+  --color-ink-hero-h1: var(--ink-hero-h1);
+  --color-ink-hero-h2: var(--ink-hero-h2);
+  --color-ink-hero-h3: var(--ink-hero-h3);
+  --color-ink-hero-h4: var(--ink-hero-h4);
+
+  /* Section 01 */
+  --color-canvas-01: var(--canvas-01);
+  --color-canvas-01-border: var(--canvas-01-border);
+  --color-canvas-01-shadow: var(--canvas-01-shadow);
+  --color-canvas-01-card-01: var(--canvas-01-card-01, var(--canvas-01));
+  --color-canvas-01-card-01-border: var(
+    --canvas-01-card-01-border,
+    var(--canvas-01-border)
+  );
+  --color-canvas-01-card-01-shadow: var(
+    --canvas-01-card-01-shadow,
+    var(--canvas-01-shadow)
+  );
+  --color-canvas-01-card-02: var(--canvas-01-card-02, var(--canvas-01));
+  --color-canvas-01-card-02-border: var(
+    --canvas-01-card-02-border,
+    var(--canvas-01-border)
+  );
+  --color-canvas-01-card-02-shadow: var(
+    --canvas-01-card-02-shadow,
+    var(--canvas-01-shadow)
+  );
+  --color-canvas-01-card-03: var(--canvas-01-card-03, var(--canvas-01));
+  --color-canvas-01-card-03-border: var(
+    --canvas-01-card-03-border,
+    var(--canvas-01-border)
+  );
+  --color-canvas-01-card-03-shadow: var(
+    --canvas-01-card-03-shadow,
+    var(--canvas-01-shadow)
+  );
+  --color-accent-01-canvas: var(--accent-01-canvas);
+  --color-accent-01-text: var(--accent-01-text);
+  --color-accent-01-border: var(--accent-01-border);
+  --color-accent-01-focus: var(--accent-01-focus);
+  --color-ink-01: var(--ink-01);
+  --color-ink-01-dark: var(--ink-01-dark);
+  --color-ink-01-highlight: var(--ink-01-highlight);
+  --color-ink-01-muted: var(--ink-01-muted);
+  --color-ink-01-h1: var(--ink-01-h1);
+  --color-ink-01-h2: var(--ink-01-h2);
+  --color-ink-01-h3: var(--ink-01-h3);
+  --color-ink-01-h4: var(--ink-01-h4);
+
+  /* Section 02 */
+  --color-canvas-02: var(--canvas-02);
+  --color-canvas-02-border: var(--canvas-02-border);
+  --color-canvas-02-shadow: var(--canvas-02-shadow);
+  --color-canvas-02-card-01: var(--canvas-02-card-01, var(--canvas-02));
+  --color-canvas-02-card-01-border: var(
+    --canvas-02-card-01-border,
+    var(--canvas-02-border)
+  );
+  --color-canvas-02-card-01-shadow: var(
+    --canvas-02-card-01-shadow,
+    var(--canvas-02-shadow)
+  );
+  --color-canvas-02-card-02: var(--canvas-02-card-02, var(--canvas-02));
+  --color-canvas-02-card-02-border: var(
+    --canvas-02-card-02-border,
+    var(--canvas-02-border)
+  );
+  --color-canvas-02-card-02-shadow: var(
+    --canvas-02-card-02-shadow,
+    var(--canvas-02-shadow)
+  );
+  --color-canvas-02-card-03: var(--canvas-02-card-03, var(--canvas-02));
+  --color-canvas-02-card-03-border: var(
+    --canvas-02-card-03-border,
+    var(--canvas-02-border)
+  );
+  --color-canvas-02-card-03-shadow: var(
+    --canvas-02-card-03-shadow,
+    var(--canvas-02-shadow)
+  );
+  --color-accent-02-canvas: var(--accent-02-canvas);
+  --color-accent-02-text: var(--accent-02-text);
+  --color-accent-02-border: var(--accent-02-border);
+  --color-accent-02-focus: var(--accent-02-focus);
+  --color-ink-02: var(--ink-02);
+  --color-ink-02-dark: var(--ink-02-dark);
+  --color-ink-02-highlight: var(--ink-02-highlight);
+  --color-ink-02-muted: var(--ink-02-muted);
+  --color-ink-02-h1: var(--ink-02-h1);
+  --color-ink-02-h2: var(--ink-02-h2);
+  --color-ink-02-h3: var(--ink-02-h3);
+  --color-ink-02-h4: var(--ink-02-h4);
+
+  /* Section 03 */
+  --color-canvas-03: var(--canvas-03);
+  --color-canvas-03-border: var(--canvas-03-border);
+  --color-canvas-03-shadow: var(--canvas-03-shadow);
+  --color-canvas-03-card-01: var(--canvas-03-card-01, var(--canvas-03));
+  --color-canvas-03-card-01-border: var(
+    --canvas-03-card-01-border,
+    var(--canvas-03-border)
+  );
+  --color-canvas-03-card-01-shadow: var(
+    --canvas-03-card-01-shadow,
+    var(--canvas-03-shadow)
+  );
+  --color-canvas-03-card-02: var(--canvas-03-card-02, var(--canvas-03));
+  --color-canvas-03-card-02-border: var(
+    --canvas-03-card-02-border,
+    var(--canvas-03-border)
+  );
+  --color-canvas-03-card-02-shadow: var(
+    --canvas-03-card-02-shadow,
+    var(--canvas-03-shadow)
+  );
+  --color-canvas-03-card-03: var(--canvas-03-card-03, var(--canvas-03));
+  --color-canvas-03-card-03-border: var(
+    --canvas-03-card-03-border,
+    var(--canvas-03-border)
+  );
+  --color-canvas-03-card-03-shadow: var(
+    --canvas-03-card-03-shadow,
+    var(--canvas-03-shadow)
+  );
+  --color-accent-03-canvas: var(--accent-03-canvas);
+  --color-accent-03-text: var(--accent-03-text);
+  --color-accent-03-border: var(--accent-03-border);
+  --color-accent-03-focus: var(--accent-03-focus);
+  --color-ink-03: var(--ink-03);
+  --color-ink-03-dark: var(--ink-03-dark);
+  --color-ink-03-highlight: var(--ink-03-highlight);
+  --color-ink-03-muted: var(--ink-03-muted);
+  --color-ink-03-h1: var(--ink-03-h1);
+  --color-ink-03-h2: var(--ink-03-h2);
+  --color-ink-03-h3: var(--ink-03-h3);
+  --color-ink-03-h4: var(--ink-03-h4);
+
+  /* Section 04 */
+  --color-canvas-04: var(--canvas-04);
+  --color-canvas-04-border: var(--canvas-04-border);
+  --color-canvas-04-shadow: var(--canvas-04-shadow);
+  --color-canvas-04-card-01: var(--canvas-04-card-01, var(--canvas-04));
+  --color-canvas-04-card-01-border: var(
+    --canvas-04-card-01-border,
+    var(--canvas-04-border)
+  );
+  --color-canvas-04-card-01-shadow: var(
+    --canvas-04-card-01-shadow,
+    var(--canvas-04-shadow)
+  );
+  --color-canvas-04-card-02: var(--canvas-04-card-02, var(--canvas-04));
+  --color-canvas-04-card-02-border: var(
+    --canvas-04-card-02-border,
+    var(--canvas-04-border)
+  );
+  --color-canvas-04-card-02-shadow: var(
+    --canvas-04-card-02-shadow,
+    var(--canvas-04-shadow)
+  );
+  --color-canvas-04-card-03: var(--canvas-04-card-03, var(--canvas-04));
+  --color-canvas-04-card-03-border: var(
+    --canvas-04-card-03-border,
+    var(--canvas-04-border)
+  );
+  --color-canvas-04-card-03-shadow: var(
+    --canvas-04-card-03-shadow,
+    var(--canvas-04-shadow)
+  );
+  --color-accent-04-canvas: var(--accent-04-canvas);
+  --color-accent-04-text: var(--accent-04-text);
+  --color-accent-04-border: var(--accent-04-border);
+  --color-accent-04-focus: var(--accent-04-focus);
+  --color-ink-04: var(--ink-04);
+  --color-ink-04-dark: var(--ink-04-dark);
+  --color-ink-04-highlight: var(--ink-04-highlight);
+  --color-ink-04-muted: var(--ink-04-muted);
+  --color-ink-04-h1: var(--ink-04-h1);
+  --color-ink-04-h2: var(--ink-04-h2);
+  --color-ink-04-h3: var(--ink-04-h3);
+  --color-ink-04-h4: var(--ink-04-h4);
+
+  /* Section 05 */
+  --color-canvas-05: var(--canvas-05);
+  --color-canvas-05-border: var(--canvas-05-border);
+  --color-canvas-05-shadow: var(--canvas-05-shadow);
+  --color-canvas-05-card-01: var(--canvas-05-card-01, var(--canvas-05));
+  --color-canvas-05-card-01-border: var(
+    --canvas-05-card-01-border,
+    var(--canvas-05-border)
+  );
+  --color-canvas-05-card-01-shadow: var(
+    --canvas-05-card-01-shadow,
+    var(--canvas-05-shadow)
+  );
+  --color-canvas-05-card-02: var(--canvas-05-card-02, var(--canvas-05));
+  --color-canvas-05-card-02-border: var(
+    --canvas-05-card-02-border,
+    var(--canvas-05-border)
+  );
+  --color-canvas-05-card-02-shadow: var(
+    --canvas-05-card-02-shadow,
+    var(--canvas-05-shadow)
+  );
+  --color-canvas-05-card-03: var(--canvas-05-card-03, var(--canvas-05));
+  --color-canvas-05-card-03-border: var(
+    --canvas-05-card-03-border,
+    var(--canvas-05-border)
+  );
+  --color-canvas-05-card-03-shadow: var(
+    --canvas-05-card-03-shadow,
+    var(--canvas-05-shadow)
+  );
+  --color-accent-05-canvas: var(--accent-05-canvas);
+  --color-accent-05-text: var(--accent-05-text);
+  --color-accent-05-border: var(--accent-05-border);
+  --color-accent-05-focus: var(--accent-05-focus);
+  --color-ink-05: var(--ink-05);
+  --color-ink-05-dark: var(--ink-05-dark);
+  --color-ink-05-highlight: var(--ink-05-highlight);
+  --color-ink-05-muted: var(--ink-05-muted);
+  --color-ink-05-h1: var(--ink-05-h1);
+  --color-ink-05-h2: var(--ink-05-h2);
+  --color-ink-05-h3: var(--ink-05-h3);
+  --color-ink-05-h4: var(--ink-05-h4);
+
+  /* Section 06 */
+  --color-canvas-06: var(--canvas-06);
+  --color-canvas-06-border: var(--canvas-06-border);
+  --color-canvas-06-shadow: var(--canvas-06-shadow);
+  --color-canvas-06-card-01: var(--canvas-06-card-01, var(--canvas-06));
+  --color-canvas-06-card-01-border: var(
+    --canvas-06-card-01-border,
+    var(--canvas-06-border)
+  );
+  --color-canvas-06-card-01-shadow: var(
+    --canvas-06-card-01-shadow,
+    var(--canvas-06-shadow)
+  );
+  --color-canvas-06-card-02: var(--canvas-06-card-02, var(--canvas-06));
+  --color-canvas-06-card-02-border: var(
+    --canvas-06-card-02-border,
+    var(--canvas-06-border)
+  );
+  --color-canvas-06-card-02-shadow: var(
+    --canvas-06-card-02-shadow,
+    var(--canvas-06-shadow)
+  );
+  --color-canvas-06-card-03: var(--canvas-06-card-03, var(--canvas-06));
+  --color-canvas-06-card-03-border: var(
+    --canvas-06-card-03-border,
+    var(--canvas-06-border)
+  );
+  --color-canvas-06-card-03-shadow: var(
+    --canvas-06-card-03-shadow,
+    var(--canvas-06-shadow)
+  );
+  --color-accent-06-canvas: var(--accent-06-canvas);
+  --color-accent-06-text: var(--accent-06-text);
+  --color-accent-06-border: var(--accent-06-border);
+  --color-accent-06-focus: var(--accent-06-focus);
+  --color-ink-06: var(--ink-06);
+  --color-ink-06-dark: var(--ink-06-dark);
+  --color-ink-06-highlight: var(--ink-06-highlight);
+  --color-ink-06-muted: var(--ink-06-muted);
+  --color-ink-06-h1: var(--ink-06-h1);
+  --color-ink-06-h2: var(--ink-06-h2);
+  --color-ink-06-h3: var(--ink-06-h3);
+  --color-ink-06-h4: var(--ink-06-h4);
+
+  /* Contrast */
+  --color-canvas-contrast: var(--canvas-contrast);
+  --color-canvas-contrast-border: var(--canvas-contrast-border);
+  --color-canvas-contrast-shadow: var(--canvas-contrast-shadow);
+  --color-accent-contrast-canvas: var(--accent-contrast-canvas);
+  --color-accent-contrast-text: var(--accent-contrast-text);
+  --color-accent-contrast-border: var(--accent-contrast-border);
+  --color-accent-contrast-focus: var(--accent-contrast-focus);
+  --color-ink-contrast: var(--ink-contrast);
+  --color-ink-contrast-dark: var(--ink-contrast-dark);
+  --color-ink-contrast-highlight: var(--ink-contrast-highlight);
+  --color-ink-contrast-muted: var(--ink-contrast-muted);
+  --color-ink-contrast-h1: var(--ink-contrast-h1);
+  --color-ink-contrast-h2: var(--ink-contrast-h2);
+  --color-ink-contrast-h3: var(--ink-contrast-h3);
+  --color-ink-contrast-h4: var(--ink-contrast-h4);
+
+  /* Footer */
+  --color-canvas-footer: var(--canvas-footer);
+  --color-canvas-footer-border: var(--canvas-footer-border);
+  --color-canvas-footer-shadow: var(--canvas-footer-shadow);
+  --color-accent-footer-canvas: var(--accent-footer-canvas);
+  --color-accent-footer-text: var(--accent-footer-text);
+  --color-accent-footer-border: var(--accent-footer-border);
+  --color-accent-footer-focus: var(--accent-footer-focus);
+  --color-ink-footer: var(--ink-footer);
+  --color-ink-footer-h1: var(--ink-footer-h1);
+  --color-ink-footer-h2: var(--ink-footer-h2);
+  --color-ink-footer-h3: var(--ink-footer-h3);
+  --color-nav-footer-item: var(--nav-footer-item);
+}
+
+:root {
+  /* Brand */
+  --brand-01: var(--color-magical-merlin-500);
+  --brand-02: var(--color-cardamom-700);
+  --brand-03: var(--color-iguana-500);
+  --brand-04: var(--color-court-bouillon-700);
+  --brand-05: var(--color-yellow-mana-700);
+  --brand-06: var(--color-maniac-mansion-500);
+
+  /* CTA */
+  --cta-01: var(--color-yellow-mana-400);
+  --cta-02: var(--color-cardamom-700);
+
+  /* Brand primary canvas */
+  --canvas-brand-primary: var(--color-magical-merlin-50);
+  --canvas-brand-primary-border: var(--color-magical-merlin-200);
+  --canvas-brand-primary-shadow: var(--color-dark-rift-900);
+
+  /* Brand secondary canvas */
+  --canvas-brand-secondary: var(--color-cardamom-50);
+  --canvas-brand-secondary-border: var(--color-cardamom-200);
+  --canvas-brand-secondary-shadow: var(--color-dark-rift-900);
+
+  /* Brand tertiary canvas */
+  --canvas-brand-tertiary: var(--color-iguana-50);
+  --canvas-brand-tertiary-border: var(--color-iguana-200);
+  --canvas-brand-tertiary-shadow: var(--color-dark-rift-900);
+
+  /* Inverse ink */
+  --ink-inverse: var(--color-baby-blue-50);
+
+  /* Page */
+  --canvas-page: var(--color-baby-blue-50);
+  --canvas-page-border: var(--color-baby-blue-200);
+  --canvas-page-shadow: var(--color-dark-rift-900);
+  --accent-page-canvas: var(--canvas-page);
+  --accent-page-text: var(--color-dark-rift-900);
+  --accent-page-border: var(--color-baby-blue-300);
+  --accent-page-focus: var(--color-magical-merlin-500);
+  --ink-page: var(--color-dark-rift-900);
+  --ink-page-dark: var(--color-dark-rift-950);
+  --ink-page-highlight: var(--color-magical-merlin-500);
+  --ink-page-muted: var(--color-dark-rift-700);
+  --ink-page-first-header: var(--color-magical-merlin-900);
+  --ink-page-second-header: var(--color-cardamom-900);
+  --ink-page-third-header: var(--color-court-bouillon-900);
+  --ink-page-forth-header: var(--color-maniac-mansion-900);
+
+  /* Header */
+  --canvas-header: var(--color-baby-blue-50);
+  --canvas-header-border: var(--color-baby-blue-200);
+  --canvas-header-shadow: var(--color-dark-rift-900);
+  --accent-header-canvas: var(--color-magical-merlin-50);
+  --accent-header-text: var(--color-magical-merlin-900);
+  --accent-header-border: var(--color-magical-merlin-200);
+  --accent-header-focus: var(--color-magical-merlin-500);
+  --ink-header: var(--ink-page);
+  --ink-header-h1: var(--ink-page-first-header);
+  --ink-header-h2: var(--ink-page-second-header);
+  --ink-header-h3: var(--ink-page-third-header);
+  --nav-header-sitenav-top: var(--color-dark-rift-900);
+  --nav-header-sitenav-submenu-title: var(--color-magical-merlin-800);
+  --nav-header-sitenav-submenu-header: var(--color-dark-rift-700);
+  --nav-header-sitenav-item: var(--color-dark-rift-700);
+
+  /* Hero */
+  --canvas-hero-start: var(--color-magical-merlin-950);
+  --canvas-hero-middle: var(--color-magical-merlin-800);
+  --canvas-hero-end: var(--color-dark-rift-900);
+  --canvas-hero: var(--canvas-hero-start);
+  --canvas-hero-border: var(--color-magical-merlin-700);
+  --canvas-hero-shadow: var(--color-dark-rift-950);
+  --accent-hero-glow: var(--cta-01);
+  --accent-hero-canvas: var(--color-yellow-mana-400);
+  --accent-hero-text: var(--color-dark-rift-950);
+  --accent-hero-border: var(--color-yellow-mana-300);
+  --accent-hero-focus: var(--color-yellow-mana-200);
+  --ink-hero: var(--color-baby-blue-100);
+  --ink-hero-dark: var(--color-baby-blue-50);
+  --ink-hero-highlight: var(--color-yellow-mana-300);
+  --ink-hero-muted: var(--color-baby-blue-300);
+  --ink-hero-h1: var(--color-baby-blue-50);
+  --ink-hero-h2: var(--color-baby-blue-100);
+  --ink-hero-h3: var(--color-baby-blue-200);
+  --ink-hero-h4: var(--color-baby-blue-300);
+
+  /* Section 01 */
+  --canvas-01: var(--color-baby-blue-100);
+  --canvas-01-border: var(--color-baby-blue-300);
+  --canvas-01-shadow: var(--color-dark-rift-900);
+  --accent-01-canvas: var(--color-magical-merlin-50);
+  --accent-01-text: var(--color-magical-merlin-900);
+  --accent-01-border: var(--color-magical-merlin-200);
+  --accent-01-focus: var(--color-magical-merlin-500);
+  --ink-01: var(--color-magical-merlin-800);
+  --ink-01-dark: var(--color-magical-merlin-950);
+  --ink-01-highlight: var(--color-magical-merlin-500);
+  --ink-01-muted: var(--color-magical-merlin-700);
+  --ink-01-h1: var(--color-magical-merlin-950);
+  --ink-01-h2: var(--color-magical-merlin-900);
+  --ink-01-h3: var(--color-magical-merlin-800);
+  --ink-01-h4: var(--color-magical-merlin-700);
+
+  /* Section 02 */
+  --canvas-02: var(--color-cardamom-100);
+  --canvas-02-border: var(--color-cardamom-300);
+  --canvas-02-shadow: var(--color-dark-rift-900);
+  --accent-02-canvas: var(--color-cardamom-50);
+  --accent-02-text: var(--color-cardamom-900);
+  --accent-02-border: var(--color-cardamom-200);
+  --accent-02-focus: var(--color-cardamom-700);
+  --ink-02: var(--color-cardamom-800);
+  --ink-02-dark: var(--color-cardamom-950);
+  --ink-02-highlight: var(--color-cardamom-500);
+  --ink-02-muted: var(--color-cardamom-700);
+  --ink-02-h1: var(--color-cardamom-950);
+  --ink-02-h2: var(--color-cardamom-900);
+  --ink-02-h3: var(--color-cardamom-800);
+  --ink-02-h4: var(--color-cardamom-700);
+
+  /* Section 03 */
+  --canvas-03: var(--color-court-bouillon-100);
+  --canvas-03-border: var(--color-court-bouillon-300);
+  --canvas-03-shadow: var(--color-dark-rift-900);
+  --accent-03-canvas: var(--color-court-bouillon-50);
+  --accent-03-text: var(--color-court-bouillon-900);
+  --accent-03-border: var(--color-court-bouillon-200);
+  --accent-03-focus: var(--color-court-bouillon-700);
+  --ink-03: var(--color-court-bouillon-800);
+  --ink-03-dark: var(--color-court-bouillon-950);
+  --ink-03-highlight: var(--color-court-bouillon-500);
+  --ink-03-muted: var(--color-court-bouillon-700);
+  --ink-03-h1: var(--color-court-bouillon-950);
+  --ink-03-h2: var(--color-court-bouillon-900);
+  --ink-03-h3: var(--color-court-bouillon-800);
+  --ink-03-h4: var(--color-court-bouillon-700);
+
+  /* Section 04 */
+  --canvas-04: var(--color-yellow-mana-50);
+  --canvas-04-border: var(--color-yellow-mana-200);
+  --canvas-04-shadow: var(--color-dark-rift-900);
+  --accent-04-canvas: var(--color-yellow-mana-50);
+  --accent-04-text: var(--color-yellow-mana-900);
+  --accent-04-border: var(--color-yellow-mana-200);
+  --accent-04-focus: var(--color-yellow-mana-700);
+  --ink-04: var(--color-yellow-mana-800);
+  --ink-04-dark: var(--color-yellow-mana-950);
+  --ink-04-highlight: var(--color-yellow-mana-600);
+  --ink-04-muted: var(--color-yellow-mana-700);
+  --ink-04-h1: var(--color-yellow-mana-950);
+  --ink-04-h2: var(--color-yellow-mana-900);
+  --ink-04-h3: var(--color-yellow-mana-800);
+  --ink-04-h4: var(--color-yellow-mana-700);
+
+  /* Section 05 */
+  --canvas-05: var(--color-magical-merlin-50);
+  --canvas-05-border: var(--color-magical-merlin-200);
+  --canvas-05-shadow: var(--color-dark-rift-900);
+  --accent-05-canvas: var(--color-magical-merlin-50);
+  --accent-05-text: var(--color-magical-merlin-900);
+  --accent-05-border: var(--color-magical-merlin-200);
+  --accent-05-focus: var(--color-magical-merlin-500);
+  --ink-05: var(--color-magical-merlin-800);
+  --ink-05-dark: var(--color-magical-merlin-950);
+  --ink-05-highlight: var(--color-magical-merlin-600);
+  --ink-05-muted: var(--color-magical-merlin-700);
+  --ink-05-h1: var(--color-magical-merlin-950);
+  --ink-05-h2: var(--color-magical-merlin-900);
+  --ink-05-h3: var(--color-magical-merlin-800);
+  --ink-05-h4: var(--color-magical-merlin-700);
+
+  /* Section 06 */
+  --canvas-06: var(--color-maniac-mansion-50);
+  --canvas-06-border: var(--color-maniac-mansion-200);
+  --canvas-06-shadow: var(--color-dark-rift-900);
+  --accent-06-canvas: var(--color-maniac-mansion-50);
+  --accent-06-text: var(--color-maniac-mansion-900);
+  --accent-06-border: var(--color-maniac-mansion-200);
+  --accent-06-focus: var(--color-maniac-mansion-500);
+  --ink-06: var(--color-maniac-mansion-800);
+  --ink-06-dark: var(--color-maniac-mansion-950);
+  --ink-06-highlight: var(--color-maniac-mansion-500);
+  --ink-06-muted: var(--color-maniac-mansion-700);
+  --ink-06-h1: var(--color-maniac-mansion-950);
+  --ink-06-h2: var(--color-maniac-mansion-900);
+  --ink-06-h3: var(--color-maniac-mansion-800);
+  --ink-06-h4: var(--color-maniac-mansion-700);
+
+  /* Contrast */
+  --canvas-contrast: var(--color-dark-rift-900);
+  --canvas-contrast-border: var(--color-dark-rift-700);
+  --canvas-contrast-shadow: var(--color-dark-rift-950);
+  --accent-contrast-canvas: var(--color-maniac-mansion-900);
+  --accent-contrast-text: var(--color-baby-blue-50);
+  --accent-contrast-border: var(--color-maniac-mansion-700);
+  --accent-contrast-focus: var(--color-maniac-mansion-500);
+  --ink-contrast: var(--color-maniac-mansion-800);
+  --ink-contrast-dark: var(--color-maniac-mansion-950);
+  --ink-contrast-highlight: var(--color-maniac-mansion-500);
+  --ink-contrast-muted: var(--color-maniac-mansion-700);
+  --ink-contrast-h1: var(--color-maniac-mansion-950);
+  --ink-contrast-h2: var(--color-maniac-mansion-900);
+  --ink-contrast-h3: var(--color-maniac-mansion-800);
+  --ink-contrast-h4: var(--color-maniac-mansion-700);
+
+  /* Footer */
+  --canvas-footer: var(--color-magical-merlin-950);
+  --canvas-footer-border: var(--color-magical-merlin-800);
+  --canvas-footer-shadow: var(--color-dark-rift-950);
+  --accent-footer-canvas: var(--color-cardamom-50);
+  --accent-footer-text: var(--color-cardamom-900);
+  --accent-footer-border: var(--color-cardamom-200);
+  --accent-footer-focus: var(--color-cardamom-700);
+  --ink-footer: var(--ink-inverse);
+  --ink-footer-h1: var(--ink-inverse);
+  --ink-footer-h2: var(--ink-inverse);
+  --ink-footer-h3: var(--ink-inverse);
+  --nav-footer-item: var(--color-baby-blue-200);
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  /* Brand */
+  --brand-01: var(--color-magical-merlin-300);
+  --brand-02: var(--color-cardamom-300);
+  --brand-03: var(--color-iguana-300);
+  --brand-04: var(--color-court-bouillon-300);
+  --brand-05: var(--color-yellow-mana-300);
+  --brand-06: var(--color-maniac-mansion-300);
+
+  /* CTA */
+  --cta-01: var(--color-yellow-mana-300);
+  --cta-02: var(--color-cardamom-300);
+
+  /* Brand primary canvas */
+  --canvas-brand-primary: var(--color-magical-merlin-950);
+  --canvas-brand-primary-border: var(--color-magical-merlin-800);
+  --canvas-brand-primary-shadow: var(--color-dark-rift-950);
+
+  /* Brand secondary canvas */
+  --canvas-brand-secondary: var(--color-cardamom-950);
+  --canvas-brand-secondary-border: var(--color-cardamom-800);
+  --canvas-brand-secondary-shadow: var(--color-dark-rift-950);
+
+  /* Brand tertiary canvas */
+  --canvas-brand-tertiary: var(--color-iguana-950);
+  --canvas-brand-tertiary-border: var(--color-iguana-800);
+  --canvas-brand-tertiary-shadow: var(--color-dark-rift-950);
+
+  /* Inverse ink */
+  --ink-inverse: var(--color-baby-blue-100);
+
+  /* Page */
+  --canvas-page: var(--color-dark-rift-900);
+  --canvas-page-border: var(--color-dark-rift-700);
+  --canvas-page-shadow: var(--color-dark-rift-950);
+  --accent-page-text: var(--color-baby-blue-100);
+  --accent-page-border: var(--color-dark-rift-700);
+  --accent-page-focus: var(--color-magical-merlin-300);
+  --ink-page: var(--color-baby-blue-100);
+  --ink-page-dark: var(--color-dark-rift-950);
+  --ink-page-highlight: var(--color-baby-blue-300);
+  --ink-page-muted: var(--color-baby-blue-300);
+  --ink-page-first-header: var(--color-magical-merlin-200);
+  --ink-page-second-header: var(--color-cardamom-200);
+  --ink-page-third-header: var(--color-court-bouillon-200);
+  --ink-page-forth-header: var(--color-maniac-mansion-200);
+
+  /* Header */
+  --canvas-header: var(--color-dark-rift-900);
+  --canvas-header-border: var(--color-dark-rift-700);
+  --canvas-header-shadow: var(--color-dark-rift-950);
+  --accent-header-canvas: var(--color-magical-merlin-950);
+  --accent-header-text: var(--color-magical-merlin-100);
+  --accent-header-border: var(--color-magical-merlin-800);
+  --accent-header-focus: var(--color-magical-merlin-300);
+  --nav-header-sitenav-top: var(--color-baby-blue-100);
+  --nav-header-sitenav-submenu-title: var(--color-magical-merlin-200);
+  --nav-header-sitenav-submenu-header: var(--color-baby-blue-300);
+  --nav-header-sitenav-item: var(--color-baby-blue-200);
+
+  /* Section 01 */
+  --canvas-01: var(--color-dark-rift-800);
+  --canvas-01-border: var(--color-dark-rift-600);
+  --canvas-01-shadow: var(--color-dark-rift-950);
+  --accent-01-canvas: var(--color-magical-merlin-950);
+  --accent-01-text: var(--color-magical-merlin-100);
+  --accent-01-border: var(--color-magical-merlin-800);
+  --accent-01-focus: var(--color-magical-merlin-300);
+  --ink-01: var(--color-magical-merlin-200);
+  --ink-01-dark: var(--color-magical-merlin-50);
+  --ink-01-highlight: var(--color-magical-merlin-300);
+  --ink-01-muted: var(--color-magical-merlin-300);
+  --ink-01-h1: var(--color-magical-merlin-100);
+  --ink-01-h2: var(--color-magical-merlin-200);
+  --ink-01-h3: var(--color-magical-merlin-300);
+  --ink-01-h4: var(--color-magical-merlin-400);
+
+  /* Section 02 */
+  --canvas-02: var(--color-cardamom-900);
+  --canvas-02-border: var(--color-cardamom-700);
+  --canvas-02-shadow: var(--color-dark-rift-950);
+  --accent-02-canvas: var(--color-cardamom-950);
+  --accent-02-text: var(--color-cardamom-100);
+  --accent-02-border: var(--color-cardamom-800);
+  --accent-02-focus: var(--color-cardamom-300);
+  --ink-02: var(--color-cardamom-200);
+  --ink-02-dark: var(--color-cardamom-50);
+  --ink-02-highlight: var(--color-cardamom-300);
+  --ink-02-muted: var(--color-cardamom-300);
+  --ink-02-h1: var(--color-cardamom-100);
+  --ink-02-h2: var(--color-cardamom-200);
+  --ink-02-h3: var(--color-cardamom-300);
+  --ink-02-h4: var(--color-cardamom-400);
+
+  /* Section 03 */
+  --canvas-03: var(--color-court-bouillon-900);
+  --canvas-03-border: var(--color-court-bouillon-700);
+  --canvas-03-shadow: var(--color-dark-rift-950);
+  --accent-03-canvas: var(--color-court-bouillon-950);
+  --accent-03-text: var(--color-court-bouillon-100);
+  --accent-03-border: var(--color-court-bouillon-800);
+  --accent-03-focus: var(--color-court-bouillon-300);
+  --ink-03: var(--color-court-bouillon-200);
+  --ink-03-dark: var(--color-court-bouillon-50);
+  --ink-03-highlight: var(--color-court-bouillon-300);
+  --ink-03-muted: var(--color-court-bouillon-300);
+  --ink-03-h1: var(--color-court-bouillon-100);
+  --ink-03-h2: var(--color-court-bouillon-200);
+  --ink-03-h3: var(--color-court-bouillon-300);
+  --ink-03-h4: var(--color-court-bouillon-400);
+
+  /* Section 04 */
+  --canvas-04: var(--color-yellow-mana-950);
+  --canvas-04-border: var(--color-yellow-mana-800);
+  --canvas-04-shadow: var(--color-dark-rift-950);
+  --accent-04-canvas: var(--color-yellow-mana-950);
+  --accent-04-text: var(--color-yellow-mana-100);
+  --accent-04-border: var(--color-yellow-mana-800);
+  --accent-04-focus: var(--color-yellow-mana-300);
+  --ink-04: var(--color-yellow-mana-200);
+  --ink-04-dark: var(--color-yellow-mana-50);
+  --ink-04-highlight: var(--color-yellow-mana-300);
+  --ink-04-muted: var(--color-yellow-mana-200);
+  --ink-04-h1: var(--color-yellow-mana-100);
+  --ink-04-h2: var(--color-yellow-mana-200);
+  --ink-04-h3: var(--color-yellow-mana-300);
+  --ink-04-h4: var(--color-yellow-mana-400);
+
+  /* Section 05 */
+  --canvas-05: var(--color-magical-merlin-950);
+  --canvas-05-border: var(--color-magical-merlin-800);
+  --canvas-05-shadow: var(--color-dark-rift-950);
+  --accent-05-canvas: var(--color-magical-merlin-950);
+  --accent-05-text: var(--color-magical-merlin-100);
+  --accent-05-border: var(--color-magical-merlin-800);
+  --accent-05-focus: var(--color-magical-merlin-300);
+  --ink-05: var(--color-magical-merlin-200);
+  --ink-05-dark: var(--color-magical-merlin-50);
+  --ink-05-highlight: var(--color-magical-merlin-300);
+  --ink-05-muted: var(--color-magical-merlin-300);
+  --ink-05-h1: var(--color-magical-merlin-100);
+  --ink-05-h2: var(--color-magical-merlin-200);
+  --ink-05-h3: var(--color-magical-merlin-300);
+  --ink-05-h4: var(--color-magical-merlin-400);
+
+  /* Section 06 */
+  --canvas-06: var(--color-maniac-mansion-950);
+  --canvas-06-border: var(--color-maniac-mansion-800);
+  --canvas-06-shadow: var(--color-dark-rift-950);
+  --accent-06-canvas: var(--color-maniac-mansion-950);
+  --accent-06-text: var(--color-maniac-mansion-100);
+  --accent-06-border: var(--color-maniac-mansion-800);
+  --accent-06-focus: var(--color-maniac-mansion-300);
+  --ink-06: var(--color-maniac-mansion-200);
+  --ink-06-dark: var(--color-maniac-mansion-50);
+  --ink-06-highlight: var(--color-maniac-mansion-300);
+  --ink-06-muted: var(--color-maniac-mansion-300);
+  --ink-06-h1: var(--color-maniac-mansion-100);
+  --ink-06-h2: var(--color-maniac-mansion-200);
+  --ink-06-h3: var(--color-maniac-mansion-300);
+  --ink-06-h4: var(--color-maniac-mansion-400);
+
+  /* Contrast */
+  --canvas-contrast: var(--color-baby-blue-100);
+  --canvas-contrast-border: var(--color-baby-blue-300);
+  --canvas-contrast-shadow: var(--color-dark-rift-950);
+  --accent-contrast-canvas: var(--color-maniac-mansion-200);
+  --accent-contrast-text: var(--color-maniac-mansion-950);
+  --accent-contrast-border: var(--color-maniac-mansion-400);
+  --accent-contrast-focus: var(--color-maniac-mansion-200);
+  --ink-contrast: var(--color-maniac-mansion-200);
+  --ink-contrast-dark: var(--color-maniac-mansion-50);
+  --ink-contrast-highlight: var(--color-maniac-mansion-300);
+  --ink-contrast-muted: var(--color-maniac-mansion-300);
+  --ink-contrast-h1: var(--color-maniac-mansion-100);
+  --ink-contrast-h2: var(--color-maniac-mansion-200);
+  --ink-contrast-h3: var(--color-maniac-mansion-300);
+  --ink-contrast-h4: var(--color-maniac-mansion-400);
+
+  /* Footer */
+  --canvas-footer: var(--color-dark-rift-950);
+  --canvas-footer-border: var(--color-dark-rift-800);
+  --canvas-footer-shadow: var(--color-dark-rift-950);
+  --accent-footer-canvas: var(--color-cardamom-950);
+  --accent-footer-text: var(--color-cardamom-100);
+  --accent-footer-border: var(--color-cardamom-800);
+  --accent-footer-focus: var(--color-cardamom-300);
+  --nav-footer-item: var(--color-baby-blue-200);
+
+  color-scheme: dark;
+}
