@@ -1,0 +1,103 @@
+---
+import Layout from "../../layouts/layout.astro";
+---
+
+<Layout
+  title="Page Builder"
+  description="Create pages from the project's Astro components."
+>
+  <section class="container grid max-w-5xl gap-8 py-12" data-page-builder>
+    <header class="grid gap-3">
+      <h1 class="font-display text-4xl font-semibold">Page Builder</h1>
+      <p>
+        Choose your websitebuilder project folder to create a page in
+        <code>src/pages/pagebuilder</code>. The layout adds the site header and
+        footer automatically.
+      </p>
+      <p>
+        Folder access requires Chrome or Edge on localhost or HTTPS. Files stay
+        on your computer.
+      </p>
+    </header>
+
+    <div class="flex flex-wrap items-center gap-4">
+      <button class="btn btn-filled" type="button" id="open-page-project">
+        Choose project folder
+      </button>
+      <span id="page-project-name">No project selected</span>
+    </div>
+    <p id="page-builder-status" role="status" aria-live="polite">
+      Choose the project folder to begin.
+    </p>
+    <a id="created-page-link" class="text-accent-page-focus underline" hidden>
+      Open the new page
+    </a>
+
+    <form id="page-builder-form" hidden>
+      <fieldset id="page-builder-fields" class="grid gap-6">
+        <div class="grid gap-2">
+          <label for="page-name" class="font-semibold">
+            Page name
+          </label>
+          <input
+            id="page-name"
+            required
+            maxlength="120"
+            placeholder="For example, Our Services"
+            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+          />
+          <p id="page-path" class="text-sm" aria-live="polite">
+            Enter a name to see the file path.
+          </p>
+        </div>
+        <div class="grid gap-2">
+          <label for="page-description" class="font-semibold">
+            Page description (optional)
+          </label>
+          <textarea
+            id="page-description"
+            rows="2"
+            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+          ></textarea>
+        </div>
+        <div class="grid gap-2">
+          <label for="available-components" class="font-semibold">
+            Available components
+          </label>
+          <p class="text-sm">
+            Components with unsupported properties or slots are listed but
+            cannot be added.
+          </p>
+          <select
+            id="available-components"
+            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+          ></select>
+          <button
+            class="btn btn-outline justify-self-start"
+            type="button"
+            id="add-component"
+          >
+            Add component
+          </button>
+        </div>
+        <section class="grid gap-3" aria-labelledby="selected-components-title">
+          <h2 id="selected-components-title" class="font-display text-2xl">
+            Components in page order
+          </h2>
+          <p id="selected-components-empty">No components added yet.</p>
+          <ol id="selected-components" class="grid list-none gap-4 p-0"></ol>
+        </section>
+        <button
+          class="btn btn-filled justify-self-start"
+          type="submit"
+          id="create-page"
+        >
+          Create page
+        </button>
+      </fieldset>
+    </form>
+  </section>
+  <script>
+    import "../../scripts/page-builder.js";
+  </script>
+</Layout>

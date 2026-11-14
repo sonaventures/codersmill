@@ -20,11 +20,23 @@ npm run build
 
 ## Theme Maker
 
+Use `/pagebuilder/pagebuilder/` to create an Astro page from components. Choose
+the project folder in Chrome or Edge on localhost or HTTPS, enter a page name,
+and add, reorder, or remove components. The generated file is saved under
+`src/pages/pagebuilder/` without overwriting an existing file or duplicating an
+existing page route. The layout adds the site header and footer. The builder
+discovers `.astro` components under
+`src/components`, excluding header and footer components. It supports required
+and optional `string`, `number`, and `boolean` properties declared directly in
+an `interface Props`; components using other property declarations are listed
+as unsupported, as are components with slots. Reopen the project folder after
+changing a component.
+
 The template pages share `src/styles/template/template.css`, which uses
 Tailwind utilities and keeps the individual page styles scoped. Inline styles
 provide dynamic theme and palette values for the previews.
 
-Use `/template/colors/` (linked from the theme template) to add or remove
+Use `/themebuilder/colors/` (linked from the theme template) to add or remove
 11-shade color families directly in `src/styles/themes/colors.css`. Select the
 `websitebuilder` project folder (the folder containing `src` and `public`), not
 the CSS file or `themes` folder, in Chrome or Edge on localhost or HTTPS; files
@@ -42,7 +54,7 @@ change to see the updated palette.
 The Color Editor uses the same `xl`-width studio header as Theme Maker, with
 links aligned to the right, and omits the site footer.
 
-Open `/template/themebuilder/` (also linked from `/template/template/`) to preview
+Open `/themebuilder/themebuilder/` (also linked from `/template/`) to preview
 color combinations. The left sample includes a header, footer, and six sections
 with heading levels, paragraphs, two buttons, and three independently styled
 cards in every section and on Page canvas. Section 05 also includes a two-column layout.

@@ -1,8 +1,8 @@
 ---
-import Layout from "../../layouts/layout.astro";
-import "../../styles/template/template.css";
-import css from "../../styles/themes/colors.css?raw";
-import { allPaletteFamilies, readPalette } from "../../data/palette.js";
+import Layout from "../layouts/layout.astro";
+import "../styles/template/template.css";
+import css from "../styles/themes/colors.css?raw";
+import { allPaletteFamilies, readPalette } from "../data/palette.js";
 
 const canvasSamples = [
   {
@@ -166,11 +166,20 @@ const shades = [50, 200, 400, 600, 800, 950];
         theme control in the header to compare light and dark mode.
       </p>
       <div class="lab-actions">
-        <a class="lab-button lab-button-primary" href="/template/themebuilder/">
+        <a
+          class="lab-button lab-button-primary"
+          href="/themebuilder/themebuilder/"
+        >
           Open Theme Maker
         </a>
-        <a class="lab-button lab-button-secondary" href="/template/colors/">
+        <a class="lab-button lab-button-secondary" href="/themebuilder/colors/">
           Edit color families
+        </a>
+        <a
+          class="lab-button lab-button-secondary"
+          href="/pagebuilder/pagebuilder/"
+        >
+          Open Page Builder
         </a>
         <a class="lab-button lab-button-primary" href="#semantic-canvases">
           Explore theme tokens
