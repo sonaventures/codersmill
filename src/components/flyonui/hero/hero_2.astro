@@ -1,0 +1,139 @@
+<section class="bg-canvas-01 text-ink-01 relative min-h-screen overflow-hidden">
+  <p class="px-4 pt-3 text-center text-xs text-ink-01-muted">
+    Sample content: links and actions are not connected.
+  </p>
+
+  <div class="py-16">
+    <div class="mx-auto flex max-w-7xl justify-between gap-6 px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col gap-7 lg:max-w-md xl:max-w-xl">
+        <div class="border-canvas-01-border rounded-lg flex w-fit flex-wrap items-center justify-center gap-4 border px-4 py-1.5">
+          <p class="text-ink-01 font-semibold uppercase max-md:hidden">
+            Compatible With:
+          </p>
+          <div class="flex items-center justify-center gap-4">
+            <a
+              role="link"
+              aria-disabled="true"
+              tabindex="0"
+              title="Sample link: destination not configured"
+            >
+              <img
+                src="https://cdn.flyonui.com/fy-assets/icons/html-icon.png"
+                alt="HTML logo"
+                class="h-8"
+              />
+            </a>
+            <a
+              role="link"
+              aria-disabled="true"
+              tabindex="0"
+              title="Sample link: destination not configured"
+            >
+              <img
+                src="https://cdn.flyonui.com/fy-assets/icons/react-icon.png"
+                alt="React Logo"
+                class="h-8"
+              />
+            </a>
+            <a
+              role="link"
+              aria-disabled="true"
+              tabindex="0"
+              title="Sample link: destination not configured"
+            >
+              <img
+                src="https://cdn.flyonui.com/fy-assets/icons/vue-vite-icon.png"
+                alt="Vue logo"
+                class="h-8"
+              />
+            </a>
+            <span
+              title="Integrates with other frameworks"
+              aria-label="Integrates with other frameworks"
+            >
+              +
+            </span>
+          </div>
+        </div>
+        <h1 class="text-3xl leading-[1.15] font-bold md:text-4xl lg:text-5xl text-ink-01-h1">
+          The{" "}
+          <span
+            x-data="{ words: ['Easiest', 'Effortless', 'Seamless'], index: 0, init() { if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.timer = setInterval(() => { this.index = (this.index + 1) % this.words.length }, 2500) }, destroy() { clearInterval(this.timer) } }"
+            x-text="words[index]"
+          >
+            Easiest
+          </span>
+          <br />
+          Tailwind CSS
+          <br />
+          Components Library
+        </h1>
+        <p class="text-lg">
+          FlyonUI is an open-source Tailwind CSS library withsemantic classes
+          <span class="font-semibold">semantic classes</span>
+          andpowerful JS plugins
+          <span class="font-semibold">powerful JS plugins</span>. Includes UI
+          examples, templates, a Figma design system, and more…
+        </p>
+
+        <div class="flex gap-4 max-sm:flex-col md:items-center">
+          <a
+            role="link"
+            aria-disabled="true"
+            tabindex="0"
+            title="Sample link: destination not configured"
+            class="btn btn-filled w-fit"
+          >
+            Get Started
+            <svg
+              width="18"
+              height="14"
+              viewBox="0 0 18 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M13.6783 11.0372L9.65442 5.82376C9.24779 5.29691 8.44959 5.30685 8.0562 5.84365L4.43062 10.791C4.24226 11.048 3.94268 11.1999 3.62402 11.1999H2.49548C1.66785 11.1999 1.19846 10.2519 1.70018 9.59366L8.05352 1.25842C8.45167 0.73607 9.2367 0.732843 9.63913 1.2519L16.2769 9.81346C16.7864 10.4705 16.3181 11.4262 15.4866 11.4262H14.4699C14.16 11.4262 13.8676 11.2825 13.6783 11.0372ZM9.62329 10.1552L11.1844 12.0259C11.7278 12.6771 11.2648 13.6666 10.4166 13.6666H7.45051C6.62615 13.6666 6.15586 12.7253 6.65092 12.0661L8.05591 10.1954C8.4432 9.67974 9.2101 9.66009 9.62329 10.1552Z"
+                fill="var(--ink-page-dark)"
+              />
+            </svg>
+          </a>
+          <div
+            x-data="{ message: '', async copy() { try { await navigator.clipboard.writeText(this.$refs.command.textContent.trim()); this.message = 'Copied to clipboard.' } catch (error) { console.error('Unable to copy the command.', error); this.message = 'Unable to copy. Select the command and copy it manually.' } } }"
+            class="border-canvas-01-border bg-canvas-01 relative inline-flex w-max items-center gap-1 rounded-sm border p-0.75"
+          >
+            <code
+              x-ref="command"
+              class="text-ink-01 px-2 font-mono text-lg font-medium"
+            >
+              npm i -D flyonui@latest
+            </code>
+            <button
+              type="button"
+              class="btn btn-outline min-h-8 px-3"
+              x-on:click="copy()"
+              aria-label="Copy command"
+            >
+              ⧉
+            </button>
+            <span
+              class="text-ink-01-muted absolute top-full left-0 mt-1 text-xs"
+              aria-live="polite"
+              x-text="message"
+            ></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative size-full max-lg:hidden">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/hero/widgets.png"
+          alt="Gradient BG"
+          class="pointer-events-none absolute -end-25 top-20 scale-145 xl:end-25"
+        />
+      </div>
+    </div>
+  </div>
+</section>
