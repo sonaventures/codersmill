@@ -1,0 +1,593 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
+      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Experience Our Excellence
+      </h2>
+      <p class="text-ink-01-muted text-xl">
+        A portfolio that highlights our dedication to innovation, quality, and
+        meaningful solutions.
+      </p>
+    </div>
+    <!-- Portfolio Cards Tabs -->
+    <div
+      class="flex flex-col items-center gap-8"
+      x-id="['portfolio-tab', 'portfolio-panel']"
+      x-data="portfolioTabs('application', ['application', 'branding', 'graphic-design', 'photography', 'promotion'])"
+    >
+      <nav
+        class="flex max-w-full overflow-x-auto border-b border-canvas-01-border"
+        aria-label="Tabs"
+        role="tablist"
+        aria-orientation="horizontal"
+        x-on:keydown="move($event)"
+      >
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="application"
+          x-bind:id="$id('portfolio-tab', 'application')"
+          x-bind:aria-controls="$id('portfolio-panel', 'application')"
+          x-bind:aria-selected="active === 'application'"
+          x-bind:tabindex="active === 'application' ? 0 : -1"
+          x-bind:class="active === 'application' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'application'"
+        >
+          Application
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="branding"
+          x-bind:id="$id('portfolio-tab', 'branding')"
+          x-bind:aria-controls="$id('portfolio-panel', 'branding')"
+          x-bind:aria-selected="active === 'branding'"
+          x-bind:tabindex="active === 'branding' ? 0 : -1"
+          x-bind:class="active === 'branding' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'branding'"
+        >
+          Branding
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="graphic-design"
+          x-bind:id="$id('portfolio-tab', 'graphic-design')"
+          x-bind:aria-controls="$id('portfolio-panel', 'graphic-design')"
+          x-bind:aria-selected="active === 'graphic-design'"
+          x-bind:tabindex="active === 'graphic-design' ? 0 : -1"
+          x-bind:class="active === 'graphic-design' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'graphic-design'"
+        >
+          Graphic Design
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="photography"
+          x-bind:id="$id('portfolio-tab', 'photography')"
+          x-bind:aria-controls="$id('portfolio-panel', 'photography')"
+          x-bind:aria-selected="active === 'photography'"
+          x-bind:tabindex="active === 'photography' ? 0 : -1"
+          x-bind:class="active === 'photography' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'photography'"
+        >
+          Photography
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="promotion"
+          x-bind:id="$id('portfolio-tab', 'promotion')"
+          x-bind:aria-controls="$id('portfolio-panel', 'promotion')"
+          x-bind:aria-selected="active === 'promotion'"
+          x-bind:tabindex="active === 'promotion' ? 0 : -1"
+          x-bind:class="active === 'promotion' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'promotion'"
+        >
+          Promotion
+        </button>
+      </nav>
+      <div>
+        <!-- Tab : Application -->
+        <div
+          role="tabpanel"
+          x-show="active === 'application'"
+          x-bind:id="$id('portfolio-panel', 'application')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'application')"
+          tabindex="0"
+        >
+          <div class="grid gap-6">
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 md:grid-rows-2 lg:grid-cols-5">
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none md:col-span-2 md:row-span-2 lg:col-span-3"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-35.png"
+                    alt="Virtual Reality"
+                    class="object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">January 15, 2023</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Virtual Reality
+                  </h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none lg:col-span-2"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-34.png"
+                    alt="Urban Landscape"
+                    class="h-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">December 20, 2022</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Urban Landscapes
+                  </h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none lg:col-span-2"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-33.png"
+                    alt="Portrait Photography"
+                    class="h-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">November 30, 2022</p>
+                  <h5 class="text-lg font-semibold text-white">Emma Johnson</h5>
+                </div>
+              </a>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none md:col-span-1 lg:row-span-2"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-32.png"
+                    alt="Yoga App"
+                    class="h-full w-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">September 5, 2022</p>
+                  <h5 class="text-lg font-semibold text-white">Yoga App</h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none md:col-span-1 lg:col-span-2 lg:row-span-2"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-31.png"
+                    alt="Tech Innovation"
+                    class="h-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">October 10, 2022</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Tech Innovations
+                  </h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl md relative overflow-hidden shadow-none"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-30.png"
+                    alt="Music Festival"
+                    class="w-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">November 25, 2022</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Echo Music Festival
+                  </h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl md relative overflow-hidden shadow-none"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-29.png"
+                    alt="Augmented Reality"
+                    class="w-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">September 5, 2022</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Augmented Reality
+                  </h5>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab : Branding -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'branding'"
+          x-bind:id="$id('portfolio-panel', 'branding')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'branding')"
+          tabindex="0"
+        >
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
+            <div class="grid gap-6 sm:max-md:grid-cols-2 md:col-span-2">
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-34.png"
+                    alt="Creative Innovation"
+                    class="h-full w-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">January 25, 2025</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Creative Innovation
+                  </h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-33.png"
+                    alt="Digital Artistry"
+                    class="h-full w-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">January 28, 2025</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Digital Artistry
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <a
+              href="#"
+              class="block rounded-xl relative overflow-hidden shadow-none md:col-span-3"
+            >
+              <figure class="h-full">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-35.png"
+                  alt="Modern Architecture"
+                  class="object-cover"
+                />
+              </figure>
+              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+              <div class="absolute bottom-6 left-6 space-y-2">
+                <p class="text-xs text-white">January 30, 2025</p>
+                <h5 class="text-lg font-semibold text-white">
+                  Modern Architecture
+                </h5>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tab : Graphic Design -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'graphic-design'"
+          x-bind:id="$id('portfolio-panel', 'graphic-design')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'graphic-design')"
+          tabindex="0"
+        >
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+            <a
+              href="#"
+              class="block rounded-xl relative overflow-hidden shadow-none md:col-span-2 lg:col-span-1 lg:row-span-2"
+            >
+              <figure class="h-full max-lg:max-h-158">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-32.png"
+                  alt="Design Innovation"
+                  class="h-full w-full object-cover"
+                />
+              </figure>
+              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+              <div class="absolute bottom-6 left-6 space-y-2">
+                <p class="text-xs text-white">January 25, 2025</p>
+                <h5 class="text-lg font-semibold text-white">
+                  Design Innovation
+                </h5>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="block rounded-xl relative overflow-hidden shadow-none md:row-span-2 lg:col-span-2"
+            >
+              <figure class="h-full">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-31.png"
+                  alt="Creative Studio"
+                  class="h-full w-full object-cover"
+                />
+              </figure>
+              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+              <div class="absolute bottom-6 left-6 space-y-2">
+                <p class="text-xs text-white">January 27, 2025</p>
+                <h5 class="text-lg font-semibold text-white">
+                  Creative Studio
+                </h5>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="block rounded-xl relative overflow-hidden shadow-none"
+            >
+              <figure class="h-full">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-30.png"
+                  alt="Digital Workspace"
+                  class="object-cover"
+                />
+              </figure>
+              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+              <div class="absolute bottom-6 left-6 space-y-2">
+                <p class="text-xs text-white">January 29, 2025</p>
+                <h5 class="text-lg font-semibold text-white">
+                  Digital Workspace
+                </h5>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="block rounded-xl relative overflow-hidden shadow-none"
+            >
+              <figure class="h-full">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-29.png"
+                  alt="Modern Architecture"
+                  class="object-cover"
+                />
+              </figure>
+              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+              <div class="absolute bottom-6 left-6 space-y-2">
+                <p class="text-xs text-white">January 30, 2025</p>
+                <h5 class="text-lg font-semibold text-white">
+                  Modern Architecture
+                </h5>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tab : Photography -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'photography'"
+          x-bind:id="$id('portfolio-panel', 'photography')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'photography')"
+          tabindex="0"
+        >
+          <div class="grid gap-6">
+            <a
+              href="#"
+              class="block rounded-xl relative overflow-hidden shadow-none"
+            >
+              <figure class="h-full">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-35.png"
+                  alt="Creative Innovation"
+                  class="object-cover"
+                />
+              </figure>
+              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+              <div class="absolute bottom-6 left-6 space-y-2">
+                <p class="text-xs text-white">March 15, 2024</p>
+                <h5 class="text-lg font-semibold text-white">
+                  Creative Innovation
+                </h5>
+              </div>
+            </a>
+
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none md:col-span-2 lg:col-span-1 lg:row-span-2"
+              >
+                <figure class="h-full max-lg:max-h-158">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-32.png"
+                    alt="Digital Studio"
+                    class="h-full w-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">June 24, 2024</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Digital Studio
+                  </h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none md:row-span-2 lg:col-span-2"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-31.png"
+                    alt="Modern Workspace"
+                    class="h-full w-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">August 31, 2024</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Modern Workspace
+                  </h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-30.png"
+                    alt="Design Portfolio"
+                    class="object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">October 17, 2024</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Design Portfolio
+                  </h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-29.png"
+                    alt="Visual Architecture"
+                    class="object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">December 28, 2024</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Visual Architecture
+                  </h5>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab : Promotion -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'promotion'"
+          x-bind:id="$id('portfolio-panel', 'promotion')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'promotion')"
+          tabindex="0"
+        >
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-5">
+            <div class="grid gap-6 md:col-span-2">
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-34.png"
+                    alt="Creative Studio"
+                    class="h-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">March 14, 2024</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Creative Studio
+                  </h5>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="block rounded-xl relative overflow-hidden shadow-none"
+              >
+                <figure class="h-full">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-33.png"
+                    alt="Digital Workspace"
+                    class="h-full object-cover"
+                  />
+                </figure>
+                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+                <div class="absolute bottom-6 left-6 space-y-2">
+                  <p class="text-xs text-white">May 23, 2024</p>
+                  <h5 class="text-lg font-semibold text-white">
+                    Digital Workspace
+                  </h5>
+                </div>
+              </a>
+            </div>
+            <a
+              href="#"
+              class="block rounded-xl relative overflow-hidden shadow-none md:col-span-3"
+            >
+              <figure class="h-full">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-31.png"
+                  alt="Modern Innovation"
+                  class="object-cover"
+                />
+              </figure>
+              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-black/85"></div>
+              <div class="absolute bottom-6 left-6 space-y-2">
+                <p class="text-xs text-white">July 31, 2024</p>
+                <h5 class="text-lg font-semibold text-white">
+                  Modern Innovation
+                </h5>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

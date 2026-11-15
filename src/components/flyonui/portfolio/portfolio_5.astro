@@ -1,0 +1,358 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
+      <p class="text-ink-01-highlight text-sm font-medium uppercase">
+        Our Portfolio
+      </p>
+      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Our Work Speaks for Itself
+      </h2>
+      <p class="text-ink-01-muted text-xl">
+        Explore a carefully curated collection of our finest projects, where
+        creativity seamlessly blends with functionality to deliver impactful
+        solutions, drive meaningful results, and set new benchmarks in
+        innovation.
+      </p>
+    </div>
+    <!-- Portfolio Cards Tabs -->
+    <div
+      class="flex flex-col items-center gap-8"
+      x-id="['portfolio-tab', 'portfolio-panel']"
+      x-data="portfolioTabs('all-projects', ['all-projects', 'branding', 'design', 'marketing', 'development'])"
+    >
+      <nav
+        class="flex max-w-full overflow-x-auto border-b border-canvas-01-border"
+        aria-label="Tabs"
+        role="tablist"
+        aria-orientation="horizontal"
+        x-on:keydown="move($event)"
+      >
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="all-projects"
+          x-bind:id="$id('portfolio-tab', 'all-projects')"
+          x-bind:aria-controls="$id('portfolio-panel', 'all-projects')"
+          x-bind:aria-selected="active === 'all-projects'"
+          x-bind:tabindex="active === 'all-projects' ? 0 : -1"
+          x-bind:class="active === 'all-projects' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'all-projects'"
+        >
+          All Projects
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="branding"
+          x-bind:id="$id('portfolio-tab', 'branding')"
+          x-bind:aria-controls="$id('portfolio-panel', 'branding')"
+          x-bind:aria-selected="active === 'branding'"
+          x-bind:tabindex="active === 'branding' ? 0 : -1"
+          x-bind:class="active === 'branding' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'branding'"
+        >
+          Branding
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="design"
+          x-bind:id="$id('portfolio-tab', 'design')"
+          x-bind:aria-controls="$id('portfolio-panel', 'design')"
+          x-bind:aria-selected="active === 'design'"
+          x-bind:tabindex="active === 'design' ? 0 : -1"
+          x-bind:class="active === 'design' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'design'"
+        >
+          Design
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="marketing"
+          x-bind:id="$id('portfolio-tab', 'marketing')"
+          x-bind:aria-controls="$id('portfolio-panel', 'marketing')"
+          x-bind:aria-selected="active === 'marketing'"
+          x-bind:tabindex="active === 'marketing' ? 0 : -1"
+          x-bind:class="active === 'marketing' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'marketing'"
+        >
+          Marketing
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="development"
+          x-bind:id="$id('portfolio-tab', 'development')"
+          x-bind:aria-controls="$id('portfolio-panel', 'development')"
+          x-bind:aria-selected="active === 'development'"
+          x-bind:tabindex="active === 'development' ? 0 : -1"
+          x-bind:class="active === 'development' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'development'"
+        >
+          Development
+        </button>
+      </nav>
+
+      <div>
+        <!-- Tab 1 : All Projects -->
+        <div
+          role="tabpanel"
+          x-show="active === 'all-projects'"
+          x-bind:id="$id('portfolio-panel', 'all-projects')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'all-projects')"
+          tabindex="0"
+        >
+          <div class="grid gap-6 sm:grid-cols-2">
+            <!-- Project 1 -->
+            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+              <figure>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-22.png"
+                  alt="Optimize Cloud Costs"
+                />
+              </figure>
+              <div class="flex flex-col p-6 max-w-80 gap-4">
+                <h5 class="text-lg font-semibold text-ink-01-h3">
+                  Optimize Cloud Costs
+                </h5>
+                <p>
+                  Reduce AWS/GCP expenses with smart scaling and resource
+                  management techniques.
+                </p>
+                <div class="flex flex-wrap">
+                  <a href="#" class="btn btn-outline">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Project 2 -->
+            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+              <figure>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-15.png"
+                  alt="Secure Python Coding"
+                />
+              </figure>
+              <div class="flex flex-col p-6 max-w-80 gap-4">
+                <h5 class="text-lg font-semibold text-ink-01-h3">
+                  Secure Python Coding
+                </h5>
+                <p>
+                  Implement OWASP guidelines to write secure, vulnerability-free
+                  Python applications effortlessly.
+                </p>
+                <div class="flex flex-wrap">
+                  <a href="#" class="btn btn-outline">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Project 3 -->
+            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+              <figure>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-14.png"
+                  alt="CI/CD Best Practices"
+                />
+              </figure>
+              <div class="flex flex-col p-6 max-w-80 gap-4">
+                <h5 class="text-lg font-semibold text-ink-01-h3">
+                  CI/CD Best Practices
+                </h5>
+                <p>
+                  Enhance deployment efficiency using Jenkins, GitLab, and
+                  automated testing strategies.
+                </p>
+                <div class="flex flex-wrap">
+                  <a href="#" class="btn btn-outline">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Project 4 -->
+            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+              <figure>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-13.png"
+                  alt="Kubernetes Monitoring"
+                />
+              </figure>
+              <div class="flex flex-col p-6 max-w-80 gap-4">
+                <h5 class="text-lg font-semibold text-ink-01-h3">
+                  Kubernetes Monitoring
+                </h5>
+                <p>
+                  Leverage Prometheus and Grafana for seamless cluster
+                  performance tracking.
+                </p>
+                <div class="flex flex-wrap">
+                  <a href="#" class="btn btn-outline">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2 : Branding -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'branding'"
+          x-bind:id="$id('portfolio-panel', 'branding')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'branding')"
+          tabindex="0"
+        >
+          <div class="grid gap-6 sm:grid-cols-2">
+            <!-- Project 1 -->
+            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+              <figure>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-22.png"
+                  alt="engaging blog"
+                  class="w-full"
+                />
+              </figure>
+              <div class="flex flex-col p-6 max-w-80 gap-4">
+                <h5 class="text-lg font-semibold text-ink-01-h3">
+                  Engaging Blog Series
+                </h5>
+                <p>
+                  An application designed for travelers that helps users find
+                  and book.
+                </p>
+                <div class="flex flex-wrap">
+                  <a href="#" class="btn btn-outline">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3 : Design -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'design'"
+          x-bind:id="$id('portfolio-panel', 'design')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'design')"
+          tabindex="0"
+        >
+          <div class="grid gap-6 sm:grid-cols-2">
+            <!-- Project 1 -->
+            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+              <figure>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-15.png"
+                  alt="Design guidelines"
+                />
+              </figure>
+              <div class="flex flex-col p-6 max-w-80 gap-4">
+                <h5 class="text-lg font-semibold text-ink-01-h3">
+                  Design Guidelines
+                </h5>
+                <p>
+                  A detailed documentation of design principles and patterns for
+                  maintaining brand consistency.
+                </p>
+                <div class="flex flex-wrap">
+                  <a href="#" class="btn btn-outline">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4 : Marketing -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'marketing'"
+          x-bind:id="$id('portfolio-panel', 'marketing')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'marketing')"
+          tabindex="0"
+        >
+          <div class="grid gap-6 sm:grid-cols-2">
+            <!-- Project 1 -->
+            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+              <figure>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-14.png"
+                  alt="Email Analytics"
+                />
+              </figure>
+              <div class="flex flex-col p-6 max-w-80 gap-4">
+                <h5 class="text-lg font-semibold text-ink-01-h3">
+                  Email Marketing Suite
+                </h5>
+                <p>
+                  Advanced email campaign management tool for creating,
+                  tracking, communications.
+                </p>
+                <div class="flex flex-wrap">
+                  <a href="#" class="btn btn-outline">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 5 : Development -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'development'"
+          x-bind:id="$id('portfolio-panel', 'development')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'development')"
+          tabindex="0"
+        >
+          <div class="grid gap-6 sm:grid-cols-2">
+            <!-- Project 1 -->
+            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+              <figure>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-13.png"
+                  alt="Cloud Architecture"
+                />
+              </figure>
+              <div class="flex flex-col p-6 max-w-80 gap-4">
+                <h5 class="text-lg font-semibold text-ink-01-h3">
+                  Cloud Architecture
+                </h5>
+                <p>
+                  A scalable AWS cloud architecture implementation with
+                  automated deployment pipelines.
+                </p>
+                <div class="flex flex-wrap">
+                  <a href="#" class="btn btn-outline">
+                    View Details
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

@@ -1,4 +1,7 @@
 @import "tailwindcss" theme(static);
+@import "tailwindcss-intersect";
 @import "./themes/colors.css";
 @import "./utilities/base.css";
 @import "./utilities/buttons.css";
+
+@plugin "tailwindcss-motion";

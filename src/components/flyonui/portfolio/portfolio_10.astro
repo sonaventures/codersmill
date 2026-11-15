@@ -1,0 +1,973 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
+      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Transforming Visions into Reality
+      </h2>
+      <p class="text-ink-01-muted text-xl">
+        Explore our diverse portfolio of projects that push boundaries and
+        inspire change.
+      </p>
+    </div>
+    <!-- Portfolio Cards Tabs -->
+    <div
+      class="flex flex-col items-center gap-8"
+      x-id="['portfolio-tab', 'portfolio-panel']"
+      x-data="portfolioTabs('application', ['application', 'branding', 'graphic-design', 'photography', 'promotion'])"
+    >
+      <nav
+        class="flex max-w-full overflow-x-auto border-b border-canvas-01-border"
+        aria-label="Tabs"
+        role="tablist"
+        aria-orientation="horizontal"
+        x-on:keydown="move($event)"
+      >
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="application"
+          x-bind:id="$id('portfolio-tab', 'application')"
+          x-bind:aria-controls="$id('portfolio-panel', 'application')"
+          x-bind:aria-selected="active === 'application'"
+          x-bind:tabindex="active === 'application' ? 0 : -1"
+          x-bind:class="active === 'application' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'application'"
+        >
+          Application
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="branding"
+          x-bind:id="$id('portfolio-tab', 'branding')"
+          x-bind:aria-controls="$id('portfolio-panel', 'branding')"
+          x-bind:aria-selected="active === 'branding'"
+          x-bind:tabindex="active === 'branding' ? 0 : -1"
+          x-bind:class="active === 'branding' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'branding'"
+        >
+          Branding
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="graphic-design"
+          x-bind:id="$id('portfolio-tab', 'graphic-design')"
+          x-bind:aria-controls="$id('portfolio-panel', 'graphic-design')"
+          x-bind:aria-selected="active === 'graphic-design'"
+          x-bind:tabindex="active === 'graphic-design' ? 0 : -1"
+          x-bind:class="active === 'graphic-design' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'graphic-design'"
+        >
+          Graphic Design
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="photography"
+          x-bind:id="$id('portfolio-tab', 'photography')"
+          x-bind:aria-controls="$id('portfolio-panel', 'photography')"
+          x-bind:aria-selected="active === 'photography'"
+          x-bind:tabindex="active === 'photography' ? 0 : -1"
+          x-bind:class="active === 'photography' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'photography'"
+        >
+          Photography
+        </button>
+        <button
+          type="button"
+          class="shrink-0 border-b-2 px-4 py-3 font-medium text-nowrap"
+          role="tab"
+          x-ref="promotion"
+          x-bind:id="$id('portfolio-tab', 'promotion')"
+          x-bind:aria-controls="$id('portfolio-panel', 'promotion')"
+          x-bind:aria-selected="active === 'promotion'"
+          x-bind:tabindex="active === 'promotion' ? 0 : -1"
+          x-bind:class="active === 'promotion' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-on:click="active = 'promotion'"
+        >
+          Promotion
+        </button>
+      </nav>
+
+      <div class="w-full">
+        <!-- Tab Application -->
+        <div
+          role="tabpanel"
+          x-show="active === 'application'"
+          x-bind:id="$id('portfolio-panel', 'application')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'application')"
+          tabindex="0"
+        >
+          <div class="relative w-full" x-data="portfolioCarousel()">
+            <div class="overflow-hidden rounded-xl">
+              <div
+                class="flex snap-x snap-mandatory gap-4 overflow-x-auto"
+                x-ref="track"
+                x-on:scroll="refresh()"
+              >
+                <!-- Slide 1 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-2.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Tech Innovations
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Application
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 2 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-21.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Dashboard Insights
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Analytics & Reports
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 3 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-3.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Tiktok
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Entertainment
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 4 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-25.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Fitness
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Health & Wellness
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 5 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-5.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Expense Tracker
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Finance
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Navigation -->
+            <div class="mt-10 flex items-center justify-center gap-6">
+              <button
+                type="button"
+                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                aria-label="Previous portfolio page"
+                x-on:click="go(page - 1)"
+                x-bind:disabled="page === 0"
+              >
+                <span aria-hidden="true">‹</span>
+              </button>
+              <div class="flex items-center justify-center gap-2">
+                <template x-for="number in pages" x-bind:key="number">
+                  <button
+                    type="button"
+                    class="size-4 rounded-full"
+                    x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                    x-bind:aria-label="'Go to portfolio page ' + number"
+                    x-bind:aria-current="page === number - 1 ? 'true' : null"
+                    x-on:click="go(number - 1)"
+                  ></button>
+                </template>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                aria-label="Next portfolio page"
+                x-on:click="go(page + 1)"
+                x-bind:disabled="page >= pages - 1"
+              >
+                <span aria-hidden="true">›</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Branding -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'branding'"
+          x-bind:id="$id('portfolio-panel', 'branding')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'branding')"
+          tabindex="0"
+        >
+          <div class="relative w-full" x-data="portfolioCarousel()">
+            <div class="overflow-hidden rounded-xl">
+              <div
+                class="flex snap-x snap-mandatory gap-4 overflow-x-auto"
+                x-ref="track"
+                x-on:scroll="refresh()"
+              >
+                <!-- Slide 1 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-18.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Personalized care
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Healthcare
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 2 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-1.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Sofa & Chair
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Furniture
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 3 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-8.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Food
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Restaurant
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 4 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-20.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Relify
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        E-commerce
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 5 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-11.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Smart Travel
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Wearable Tech
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Navigation -->
+            <div class="mt-10 flex items-center justify-center gap-6">
+              <button
+                type="button"
+                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                aria-label="Previous portfolio page"
+                x-on:click="go(page - 1)"
+                x-bind:disabled="page === 0"
+              >
+                <span aria-hidden="true">‹</span>
+              </button>
+              <div class="flex items-center justify-center gap-2">
+                <template x-for="number in pages" x-bind:key="number">
+                  <button
+                    type="button"
+                    class="size-4 rounded-full"
+                    x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                    x-bind:aria-label="'Go to portfolio page ' + number"
+                    x-bind:aria-current="page === number - 1 ? 'true' : null"
+                    x-on:click="go(number - 1)"
+                  ></button>
+                </template>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                aria-label="Next portfolio page"
+                x-on:click="go(page + 1)"
+                x-bind:disabled="page >= pages - 1"
+              >
+                <span aria-hidden="true">›</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Graphic Design -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'graphic-design'"
+          x-bind:id="$id('portfolio-panel', 'graphic-design')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'graphic-design')"
+          tabindex="0"
+        >
+          <div class="relative w-full" x-data="portfolioCarousel()">
+            <div class="overflow-hidden rounded-xl">
+              <div
+                class="flex snap-x snap-mandatory gap-4 overflow-x-auto"
+                x-ref="track"
+                x-on:scroll="refresh()"
+              >
+                <!-- Slide 1 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-26.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Finance
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Visual reports made simple
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 2 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-6.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Dashboard Insights
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Creative Planning
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 3 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-17.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Modern UI Systems
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Clean, crisp, data-driven
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 4 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-23.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Travel App Aesthetics
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Explore with stunning UI
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 5 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-19.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Smart Finance Design
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Track, manage, and shine
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <!-- Navigation -->
+              <div class="mt-10 flex items-center justify-center gap-6">
+                <button
+                  type="button"
+                  class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                  aria-label="Previous portfolio page"
+                  x-on:click="go(page - 1)"
+                  x-bind:disabled="page === 0"
+                >
+                  <span aria-hidden="true">‹</span>
+                </button>
+                <div class="flex items-center justify-center gap-2">
+                  <template x-for="number in pages" x-bind:key="number">
+                    <button
+                      type="button"
+                      class="size-4 rounded-full"
+                      x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                      x-bind:aria-label="'Go to portfolio page ' + number"
+                      x-bind:aria-current="page === number - 1 ? 'true' : null"
+                      x-on:click="go(number - 1)"
+                    ></button>
+                  </template>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                  aria-label="Next portfolio page"
+                  x-on:click="go(page + 1)"
+                  x-bind:disabled="page >= pages - 1"
+                >
+                  <span aria-hidden="true">›</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Photography -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'photography'"
+          x-bind:id="$id('portfolio-panel', 'photography')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'photography')"
+          tabindex="0"
+        >
+          <div class="relative w-full" x-data="portfolioCarousel()">
+            <div class="overflow-hidden rounded-xl">
+              <div
+                class="flex snap-x snap-mandatory gap-4 overflow-x-auto"
+                x-ref="track"
+                x-on:scroll="refresh()"
+              >
+                <!-- Slide 1 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-33.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Creative Expression
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Design Meets Photography
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 2 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-32.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Natural Beauty
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Serenity in Nature
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 3 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-30.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Rhythm in Motion
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Energy Behind Beats
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 4 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-29.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Virtual Adventures
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Exploring New Realms
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 5 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-14.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Focused Creativity
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Ideas in Motion
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Navigation -->
+            <div class="mt-10 flex items-center justify-center gap-6">
+              <button
+                type="button"
+                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                aria-label="Previous portfolio page"
+                x-on:click="go(page - 1)"
+                x-bind:disabled="page === 0"
+              >
+                <span aria-hidden="true">‹</span>
+              </button>
+              <div class="flex items-center justify-center gap-2">
+                <template x-for="number in pages" x-bind:key="number">
+                  <button
+                    type="button"
+                    class="size-4 rounded-full"
+                    x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                    x-bind:aria-label="'Go to portfolio page ' + number"
+                    x-bind:aria-current="page === number - 1 ? 'true' : null"
+                    x-on:click="go(number - 1)"
+                  ></button>
+                </template>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                aria-label="Next portfolio page"
+                x-on:click="go(page + 1)"
+                x-bind:disabled="page >= pages - 1"
+              >
+                <span aria-hidden="true">›</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab Promotion -->
+        <div
+          role="tabpanel"
+          x-cloak
+          x-show="active === 'promotion'"
+          x-bind:id="$id('portfolio-panel', 'promotion')"
+          x-bind:aria-labelledby="$id('portfolio-tab', 'promotion')"
+          tabindex="0"
+        >
+          <div class="relative w-full" x-data="portfolioCarousel()">
+            <div class="overflow-hidden rounded-xl">
+              <div
+                class="flex snap-x snap-mandatory gap-4 overflow-x-auto"
+                x-ref="track"
+                x-on:scroll="refresh()"
+              >
+                <!-- Slide 1 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-28.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Smart Finance
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Manage Your Wealth
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 2 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-27.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Event Discovery
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Stay Informed, Join Now
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 3 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-24.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Focused Productivity
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Achieve Your Goals
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 4 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-10.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Health Revolution
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Innovative Medical Aid
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- Slide 5 -->
+                <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1rem)/2)] md:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]">
+                  <a
+                    href="#"
+                    class="block rounded-xl group relative shadow-none"
+                  >
+                    <figure>
+                      <img
+                        src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-9.png"
+                        alt="overlay image"
+                        class="rounded-xl h-71 w-full object-cover"
+                      />
+                    </figure>
+                    <div class="bg-black/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
+                      <div class="text-lg font-semibold text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Data at Fingertips
+                      </div>
+                      <div class="mt-1 text-xs text-white opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                        Track, Analyze, Grow
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Navigation -->
+            <div class="mt-10 flex items-center justify-center gap-6">
+              <button
+                type="button"
+                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                aria-label="Previous portfolio page"
+                x-on:click="go(page - 1)"
+                x-bind:disabled="page === 0"
+              >
+                <span aria-hidden="true">‹</span>
+              </button>
+              <div class="flex items-center justify-center gap-2">
+                <template x-for="number in pages" x-bind:key="number">
+                  <button
+                    type="button"
+                    class="size-4 rounded-full"
+                    x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                    x-bind:aria-label="'Go to portfolio page ' + number"
+                    x-bind:aria-current="page === number - 1 ? 'true' : null"
+                    x-on:click="go(number - 1)"
+                  ></button>
+                </template>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                aria-label="Next portfolio page"
+                x-on:click="go(page + 1)"
+                x-bind:disabled="page >= pages - 1"
+              >
+                <span aria-hidden="true">›</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>
