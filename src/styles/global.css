@@ -5,3 +5,4 @@
 @import "./utilities/buttons.css";
 
 @plugin "tailwindcss-motion";
+@plugin "@iconify/tailwind4";

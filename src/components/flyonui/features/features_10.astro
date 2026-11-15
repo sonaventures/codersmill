@@ -1,0 +1,256 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Top Section -->
+    <div class="mb-11 flex flex-col-reverse items-center justify-between gap-9 lg:flex-row">
+      <!-- Text Content -->
+      <div class="max-w-3xl">
+        <div class="mb-6 space-y-4">
+          <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+            Features that you need.
+          </h2>
+          <p class="text-ink-01-muted text-xl">
+            Discover a suite of essential features designed to enhance your
+            experience. Enjoy customizable settings, real-time notifications,
+            and integrated support tools to streamline your workflow and keep
+            you productive.
+          </p>
+        </div>
+
+        <nav
+          class="flex bg-ink-01/10 rounded-lg w-fit space-x-1 overflow-x-auto p-0.5 max-md:w-full max-md:flex-col"
+          aria-label="Tabs"
+          role="tablist"
+          aria-orientation="horizontal"
+        >
+          <button
+            type="button"
+            class="btn btn-outline active-tab:bg-accent-01-focus active-tab:text-white hover:text-ink-01-highlight active hover:bg-transparent"
+            id="tabs-segment-item-1"
+            data-tab="#tabs-segment-1"
+            aria-controls="tabs-segment-1"
+            role="tab"
+            aria-selected="true"
+          >
+            <span class="icon-[tabler--upload] size-5"></span>
+            Upload Files
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline active-tab:bg-accent-01-focus active-tab:text-white hover:text-ink-01-highlight hover:bg-transparent"
+            id="tabs-segment-item-2"
+            data-tab="#tabs-segment-2"
+            aria-controls="tabs-segment-2"
+            role="tab"
+            aria-selected="false"
+          >
+            <span class="icon-[tabler--bell-ringing] size-5"></span>
+            Email Notifications
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline active-tab:bg-accent-01-focus active-tab:text-white hover:text-ink-01-highlight hover:bg-transparent"
+            id="tabs-segment-item-3"
+            data-tab="#tabs-segment-3"
+            aria-controls="tabs-segment-3"
+            role="tab"
+            aria-selected="false"
+          >
+            <span class="icon-[tabler--shield-check] size-5"></span>
+            Field Validations
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline active-tab:bg-accent-01-focus active-tab:text-white hover:text-ink-01-highlight hover:bg-transparent"
+            id="tabs-segment-item-4"
+            data-tab="#tabs-segment-4"
+            aria-controls="tabs-segment-4"
+            role="tab"
+            aria-selected="false"
+          >
+            <span class="icon-[tabler--message-circle] size-5"></span>
+            Auto Responses
+          </button>
+        </nav>
+      </div>
+
+      <!-- Logo/Brand Image -->
+      <div class="mx-auto flex">
+        <div class="relative flex size-35 items-center justify-center">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/logo/logo.png"
+              class="size-30"
+              alt="brand-logo"
+            />
+          </div>
+          <div class="absolute inset-0">
+            <div class="absolute inset-10 animate-ping rounded-3xl border-2 border-violet-500"></div>
+            <div class="absolute inset-8 animate-ping rounded-3xl border-2 border-violet-500/40"></div>
+            <div class="absolute inset-6 animate-ping rounded-3xl border-2 border-violet-500/20"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <!-- Tab 1 Content -->
+      <div
+        id="tabs-segment-1"
+        role="tabpanel"
+        aria-labelledby="tabs-segment-item-1"
+      >
+        <div class="flex flex-col items-center justify-between gap-11 lg:flex-row">
+          <div class="flex w-full flex-col gap-6 lg:w-2xl">
+            <button class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas">
+              <span class="icon-[tabler--cloud-upload] size-6.5" size-5></span>
+            </button>
+            <span class="text-ink-01-highlight font-medium uppercase">
+              Upload Files
+            </span>
+            <h3 class="text-ink-01-h3 text-2xl font-semibold">
+              Upload files Easy-peasy
+            </h3>
+            <p class="text-ink-01-muted text-base">
+              Effortlessly upload your files using our intuitive drag-and-drop
+              interface or by simply clicking to select files. Enjoy a secure,
+              fast upload process with real-time progress indicators and
+              automatic file type validation for a seamless experience.
+            </p>
+            <a href="#" class="btn btn-filled w-fit rounded-full">
+              See Documentation
+              <span class="icon-[tabler--chevron-right] size-5" size-5></span>
+            </a>
+          </div>
+
+          <div class="size-full md:size-1/2">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/features/features-13-1.png"
+              alt="Effortless connectivity for all your systems"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2 Content -->
+      <div
+        id="tabs-segment-2"
+        class="hidden"
+        role="tabpanel"
+        aria-labelledby="tabs-segment-item-2"
+      >
+        <div class="flex flex-col items-center justify-between gap-11 lg:flex-row">
+          <div class="flex w-full flex-col gap-6 lg:w-2xl">
+            <button class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas">
+              <span class="icon-[tabler--mail-opened] size-6.5" size-5></span>
+            </button>
+            <span class="text-ink-01-highlight font-medium uppercase">
+              Email Notifications
+            </span>
+            <h3 class="text-ink-01-h3 text-2xl font-semibold">
+              Email Notification Super simple!
+            </h3>
+            <p class="text-ink-01-muted text-base">
+              You can easily upload your files through our user-friendly
+              drag-and-drop feature or by clicking to choose files. Experience a
+              secure and speedy upload process with real-time progress updates
+              and automatic validation of file types for a smooth experience.
+            </p>
+            <a href="#" class="btn btn-filled w-fit rounded-full">
+              See Documentation
+              <span class="icon-[tabler--chevron-right] size-5" size-5></span>
+            </a>
+          </div>
+
+          <div class="size-full md:size-1/2">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/features/features-13-2.png"
+              alt="Effortless connectivity for all your systems"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3 Content -->
+      <div
+        id="tabs-segment-3"
+        class="hidden"
+        role="tabpanel"
+        aria-labelledby="tabs-segment-item-3"
+      >
+        <div class="flex flex-col items-center justify-between gap-11 lg:flex-row">
+          <div class="flex w-full flex-col gap-6 lg:w-2xl">
+            <button class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas">
+              <span class="icon-[tabler--shield-check] size-6.5" size-5></span>
+            </button>
+            <span class="text-ink-01-highlight font-medium uppercase">
+              Field Validations
+            </span>
+            <h3 class="text-ink-01-h3 text-2xl font-semibold">
+              Validation Alert Please check all fields!
+            </h3>
+            <p class="text-ink-01-muted text-base">
+              You can easily upload your files through our user-friendly
+              drag-and-drop feature or by clicking to choose files. Experience a
+              secure and speedy upload process with real-time progress updates
+              and automatic validation of file types for a smooth experience.
+            </p>
+            <a href="#" class="btn btn-filled w-fit rounded-full">
+              See Documentation
+              <span class="icon-[tabler--chevron-right] size-5" size-5></span>
+            </a>
+          </div>
+
+          <div class="size-full md:size-1/2">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/features/features-13-3.png"
+              alt="Effortless connectivity for all your systems"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4 Content -->
+      <div
+        id="tabs-segment-4"
+        class="hidden"
+        role="tabpanel"
+        aria-labelledby="tabs-segment-item-4"
+      >
+        <div class="flex flex-col items-center justify-between gap-11 lg:flex-row">
+          <div class="flex w-full flex-col gap-6 lg:w-2xl">
+            <button class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas">
+              <span
+                class="icon-[tabler--message-circle] size-6.5"
+                size-5
+              ></span>
+            </button>
+            <span class="text-ink-01-highlight font-medium uppercase">
+              Auto Responses
+            </span>
+            <h3 class="text-ink-01-h3 text-2xl font-semibold">
+              Check fields for accuracy!
+            </h3>
+            <p class="text-ink-01-muted text-base">
+              Thank you for reaching out! You can quickly upload your files
+              using our simple drag-and-drop feature or by selecting files with
+              a click. Enjoy a fast and secure upload process with real-time
+              progress updates and automatic file type validation for a
+              hassle-free experience.
+            </p>
+            <a href="#" class="btn btn-filled w-fit rounded-full">
+              See Documentation
+              <span class="icon-[tabler--chevron-right] size-5" size-5></span>
+            </a>
+          </div>
+
+          <div class="size-full md:size-1/2">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/features/features-13-4.png"
+              alt="Effortless connectivity for all your systems"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
