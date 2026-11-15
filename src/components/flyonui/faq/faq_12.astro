@@ -1,0 +1,1089 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div
+    class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+    x-data="{ tab: 'general', tabs: ['shipping', 'tools', 'general', 'payment', 'returns'], move(event) { let index = this.tabs.indexOf(this.tab); if (event.key === 'ArrowRight') index = (index + 1) % this.tabs.length; else if (event.key === 'ArrowLeft') index = (index + this.tabs.length - 1) % this.tabs.length; else if (event.key === 'Home') index = 0; else if (event.key === 'End') index = this.tabs.length - 1; else return; event.preventDefault(); this.tab = this.tabs[index]; this.$nextTick(() => this.$refs[this.tab].focus()); } }"
+  >
+    <!-- FAQ Header -->
+    <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
+      <h2 class="text-ink-01-h2 text-2xl font-bold md:text-3xl lg:text-4xl">
+        <span class="relative z-1">
+          Common Questions
+          <span class="from-ink-01-highlight absolute inset-s-0 bottom-1 -z-1 h-0.5 w-full bg-linear-to-r to-transparent to-98%"></span>
+        </span>{" "}
+        <span class="font-semibold">Answered</span>
+      </h2>
+      <p class="text-ink-01-muted text-xl">
+        Levarage artificial intelligence algorithms to provide users with
+        valuable insights
+      </p>
+    </div>
+    <!-- Pills Navigation -->
+    <nav
+      class="mb-11 flex space-x-6 overflow-x-auto py-2 max-sm:flex-col max-sm:items-center max-sm:space-y-1 sm:justify-center"
+      aria-label="FAQ Categories"
+      role="tablist"
+      aria-orientation="horizontal"
+      x-on:keydown="move($event)"
+    >
+      <button
+        type="button"
+        class="min-w-34 rounded-xl border-2 p-6 transition-colors"
+        id="shipping-tab"
+        x-ref="shipping"
+        aria-controls="shipping-content"
+        role="tab"
+        x-bind:aria-selected="tab === 'shipping'"
+        x-bind:tabindex="tab === 'shipping' ? 0 : -1"
+        x-bind:class="tab === 'shipping' ? 'border-accent-01-focus bg-accent-01-focus text-ink-inverse shadow-md shadow-canvas-01-shadow/30' : 'border-transparent bg-accent-01-canvas hover:bg-accent-01-focus/20 hover:text-ink-01-highlight'"
+        x-on:click="tab = 'shipping'"
+      >
+        <span class="flex flex-col items-center gap-4">
+          <span class="icon-[solar--cart-large-2-bold-duotone] size-11"></span>
+          <span class="text-lg font-medium">Shipping</span>
+        </span>
+      </button>
+      <button
+        type="button"
+        class="min-w-34 rounded-xl border-2 p-6 transition-colors"
+        id="tools-tab"
+        x-ref="tools"
+        aria-controls="tools-content"
+        role="tab"
+        x-bind:aria-selected="tab === 'tools'"
+        x-bind:tabindex="tab === 'tools' ? 0 : -1"
+        x-bind:class="tab === 'tools' ? 'border-accent-01-focus bg-accent-01-focus text-ink-inverse shadow-md shadow-canvas-01-shadow/30' : 'border-transparent bg-accent-01-canvas hover:bg-accent-01-focus/20 hover:text-ink-01-highlight'"
+        x-on:click="tab = 'tools'"
+      >
+        <span class="flex flex-col items-center gap-4">
+          <span class="icon-[solar--settings-bold-duotone] size-11"></span>
+          <span class="text-lg font-medium">Tools</span>
+        </span>
+      </button>
+      <button
+        type="button"
+        class="min-w-34 rounded-xl border-2 p-6 transition-colors"
+        id="general-tab"
+        x-ref="general"
+        aria-controls="general-content"
+        role="tab"
+        x-bind:aria-selected="tab === 'general'"
+        x-bind:tabindex="tab === 'general' ? 0 : -1"
+        x-bind:class="tab === 'general' ? 'border-accent-01-focus bg-accent-01-focus text-ink-inverse shadow-md shadow-canvas-01-shadow/30' : 'border-transparent bg-accent-01-canvas hover:bg-accent-01-focus/20 hover:text-ink-01-highlight'"
+        x-on:click="tab = 'general'"
+      >
+        <span class="flex flex-col items-center gap-4">
+          <span class="icon-[solar--folder-bold] size-11"></span>
+          <span class="text-lg font-medium">General</span>
+        </span>
+      </button>
+      <button
+        type="button"
+        class="min-w-34 rounded-xl border-2 p-6 transition-colors"
+        id="payment-tab"
+        x-ref="payment"
+        aria-controls="payments-content"
+        role="tab"
+        x-bind:aria-selected="tab === 'payment'"
+        x-bind:tabindex="tab === 'payment' ? 0 : -1"
+        x-bind:class="tab === 'payment' ? 'border-accent-01-focus bg-accent-01-focus text-ink-inverse shadow-md shadow-canvas-01-shadow/30' : 'border-transparent bg-accent-01-canvas hover:bg-accent-01-focus/20 hover:text-ink-01-highlight'"
+        x-on:click="tab = 'payment'"
+      >
+        <span class="flex flex-col items-center gap-4">
+          <span class="icon-[solar--hand-money-bold-duotone] size-11"></span>
+          <span class="text-lg font-medium">Payments</span>
+        </span>
+      </button>
+      <button
+        type="button"
+        class="min-w-34 rounded-xl border-2 p-6 transition-colors"
+        id="returns-tab"
+        x-ref="returns"
+        aria-controls="returns-content"
+        role="tab"
+        x-bind:aria-selected="tab === 'returns'"
+        x-bind:tabindex="tab === 'returns' ? 0 : -1"
+        x-bind:class="tab === 'returns' ? 'border-accent-01-focus bg-accent-01-focus text-ink-inverse shadow-md shadow-canvas-01-shadow/30' : 'border-transparent bg-accent-01-canvas hover:bg-accent-01-focus/20 hover:text-ink-01-highlight'"
+        x-on:click="tab = 'returns'"
+      >
+        <span class="flex flex-col items-center gap-4">
+          <span class="icon-[solar--benzene-ring-bold] size-11"></span>
+          <span class="text-lg font-medium">Returns</span>
+        </span>
+      </button>
+    </nav>
+
+    <!-- Tab Content -->
+    <div>
+      <!-- Shipping Tab -->
+      <div
+        id="shipping-content"
+        role="tabpanel"
+        aria-labelledby="shipping-tab"
+        class="mx-auto"
+        tabindex="0"
+        x-cloak
+        x-show="tab === 'shipping'"
+      >
+        <div class="grid gap-5 md:grid-cols-2">
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="shipping-1"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="shipping-1-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  What shipping options do you offer?
+                </span>
+              </button>
+              <div
+                id="shipping-1-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="shipping-1"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    We offer standard, expedited, and express shipping options
+                    to suit your needs.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="shipping-2"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="shipping-2-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  How much does shipping cost?
+                </span>
+              </button>
+              <div
+                id="shipping-2-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="shipping-2"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Shipping costs vary depending on the weight, size, and
+                    destination of your order. You can view the exact cost
+                    during checkout.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="shipping-3"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="shipping-3-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Do you offer international shipping?
+                </span>
+              </button>
+              <div
+                id="shipping-3-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="shipping-3"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Yes, we ship internationally to many countries. Shipping
+                    fees and delivery times vary based on the destination.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="shipping-4"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="shipping-4-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Can I track my shipment?
+                </span>
+              </button>
+              <div
+                id="shipping-4-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="shipping-4"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Yes, once your order has shipped, you will receive a
+                    tracking number to monitor the progress of your delivery.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tools Tab -->
+      <div
+        id="tools-content"
+        role="tabpanel"
+        aria-labelledby="tools-tab"
+        class="mx-auto"
+        tabindex="0"
+        x-cloak
+        x-show="tab === 'tools'"
+      >
+        <div class="grid gap-5 md:grid-cols-2">
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="tools-1"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="tools-1-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  How can I access the tools?
+                </span>
+              </button>
+              <div
+                id="tools-1-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="tools-1"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    You can access our tools directly through our website or by
+                    downloading the respective apps for desktop or mobile
+                    devices.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="tools-2"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="tools-2-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Do you offer support for using the tools?
+                </span>
+              </button>
+              <div
+                id="tools-2-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="tools-2"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Yes, we provide customer support through live chat, email,
+                    and detailed documentation to help you get the most out of
+                    our tools.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="tools-3"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="tools-3-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  How do I update the tools?
+                </span>
+              </button>
+              <div
+                id="tools-3-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="tools-3"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Most tools update automatically. If an update is needed, you
+                    will be notified, and you can manually update through your
+                    account settings.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="tools-4"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="tools-4-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Can I use the tools offline?
+                </span>
+              </button>
+              <div
+                id="tools-4-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="tools-4"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Some of our tools offer offline capabilities, while others
+                    require an internet connection for full functionality.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- General Tab -->
+      <div
+        id="general-content"
+        role="tabpanel"
+        aria-labelledby="general-tab"
+        class="mx-auto"
+        tabindex="0"
+        x-show="tab === 'general'"
+      >
+        <div class="grid gap-5 md:grid-cols-2">
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="general-1"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="general-1-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  What does your company do?
+                </span>
+              </button>
+              <div
+                id="general-1-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="general-1"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    We offer a range of travel services, including flight
+                    bookings, hotel reservations, tour
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="general-2"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="general-2-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  How do I get started?
+                </span>
+              </button>
+              <div
+                id="general-2-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="general-2"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    To get started, simply sign up on our platform, explore
+                    available options, and book your trip easily online.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="general-3"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="general-3-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  How much do your services cost?
+                </span>
+              </button>
+              <div
+                id="general-3-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="general-3"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Our services vary in price depending on the destination,
+                    accommodation, and travel dates. You can find specific
+                    pricing.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="general-4"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="general-4-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Is there a free trial or demo available?
+                </span>
+              </button>
+              <div
+                id="general-4-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="general-4"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Offers a 10-day free trial with no credit card required,
+                    along with live demos for personalized walkthroughs.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Payments Tab -->
+      <div
+        id="payments-content"
+        role="tabpanel"
+        aria-labelledby="payment-tab"
+        class="mx-auto"
+        tabindex="0"
+        x-cloak
+        x-show="tab === 'payment'"
+      >
+        <div class="grid gap-5 md:grid-cols-2">
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="payment-1"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="payment-1-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Can I get a refund?
+                </span>
+              </button>
+              <div
+                id="payment-1-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="payment-1"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Refunds are available according to our refund policy, which
+                    you can view on our website. Please contact support for
+                    assistance.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="payment-2"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="payment-2-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  What payment methods do you accept?
+                </span>
+              </button>
+              <div
+                id="payment-2-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="payment-2"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    We accept major credit and debit cards, PayPal, and bank
+                    transfers for all transactions.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="payment-3"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="payment-3-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Can I pay in installments?
+                </span>
+              </button>
+              <div
+                id="payment-3-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="payment-3"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Yes, we offer installment plans for certain services. Please
+                    check at checkout or contact our support for more details.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="payment-4"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="payment-4-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Do you charge sales tax or VAT?
+                </span>
+              </button>
+              <div
+                id="payment-4-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="payment-4"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Sales tax or VAT will be applied based on your location and
+                    the type of product or service purchased.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Returns Tab -->
+      <div
+        id="returns-content"
+        role="tabpanel"
+        aria-labelledby="returns-tab"
+        class="mx-auto"
+        tabindex="0"
+        x-cloak
+        x-show="tab === 'returns'"
+      >
+        <div class="grid gap-5 md:grid-cols-2">
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="return-1"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="return-1-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  What is your return policy?
+                </span>
+              </button>
+              <div
+                id="return-1-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="return-1"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    You can return items within 30 days of purchase for a full
+                    refund and the item must be in unused condition.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="return-2"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="return-2-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Are returns free?
+                </span>
+              </button>
+              <div
+                id="return-2-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="return-2"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    Returns are free if you're within the return window,
+                    otherwise, return shipping fees apply.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="return-3"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="return-3-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Can I return opened items?
+                </span>
+              </button>
+              <div
+                id="return-3-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="return-3"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    We only accept unopened and unused items for returns. Opened
+                    items can only be returned if they are defective or damaged.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="border-canvas-01-border rounded-xl border"
+              x-data="{ open: true }"
+            >
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center gap-x-2.5 px-5 pt-4 pb-2 text-start"
+                id="return-4"
+                x-on:click="open = !open"
+                x-bind:aria-expanded="open.toString()"
+                aria-controls="return-4-panel"
+              >
+                <span class="bg-accent-01-focus/10 text-ink-01-highlight grid size-5 shrink-0 place-items-center rounded-full">
+                  <span
+                    class="icon-[tabler--plus] size-5 shrink-0"
+                    x-cloak
+                    x-show="!open"
+                  ></span>
+                  <span
+                    class="icon-[tabler--minus] size-5 shrink-0"
+                    x-show="open"
+                  ></span>
+                </span>
+                <span class="text-ink-01 hover:text-ink-01-highlight">
+                  Do I need to pay for return shipping?
+                </span>
+              </button>
+              <div
+                id="return-4-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="return-4"
+                x-show="open"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted ms-7">
+                    If the return is due to a defect or our mistake, we’ll cover
+                    the shipping cost.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

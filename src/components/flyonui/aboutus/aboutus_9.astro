@@ -1,0 +1,189 @@
+<!-- About Us Section -->
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center">
+      <!-- Heading with Badge and Text -->
+      <div class="mb-6 flex flex-col items-center gap-4 text-center">
+        <div>
+          <span class="inline-flex w-fit items-center rounded-full border border-accent-01-border bg-accent-01-canvas px-3 py-1 text-xs font-medium text-accent-01-text">
+            About us
+          </span>
+        </div>
+        <p class="text-ink-01-muted max-w-6xl text-xl">
+          Our journey highlights the strength of collaboration and
+          determination. Together, we have tackled obstacles, rejoiced in our
+          successes, and crafted a tale of progress and achievement.
+        </p>
+        <div class="mt-2">
+          <a href="#" class="btn btn-filled">
+            Read more
+            <span class="icon-[tabler--arrow-right] size-5 rtl:rotate-180"></span>
+          </a>
+        </div>
+      </div>
+      <!-- Tabs Navigation -->
+      <div
+        class="flex flex-col items-center gap-12 md:gap-16 lg:gap-24"
+        x-id="['about-tab', 'about-panel']"
+        x-data="{ tab: 'mission', tabs: ['story', 'mission', 'vision'], move(event) { let index = this.tabs.indexOf(this.tab); if (event.key === 'ArrowRight') index = (index + 1) % this.tabs.length; else if (event.key === 'ArrowLeft') index = (index + this.tabs.length - 1) % this.tabs.length; else if (event.key === 'Home') index = 0; else if (event.key === 'End') index = this.tabs.length - 1; else return; event.preventDefault(); this.tab = this.tabs[index]; this.$nextTick(() => this.$refs[this.tab].focus()); } }"
+      >
+        <nav
+          class="flex overflow-x-auto border-b border-canvas-01-border"
+          aria-label="About Us Tabs"
+          role="tablist"
+          aria-orientation="horizontal"
+          x-on:keydown="move($event)"
+        >
+          <button
+            type="button"
+            class="border-b-2 px-4 py-3 font-medium text-nowrap"
+            x-ref="story"
+            x-bind:id="$id('about-tab', 'story')"
+            x-bind:aria-controls="$id('about-panel', 'story')"
+            x-bind:aria-selected="tab === 'story'"
+            x-bind:tabindex="tab === 'story' ? 0 : -1"
+            x-bind:class="tab === 'story' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+            x-on:click="tab = 'story'"
+            role="tab"
+          >
+            Our Story
+          </button>
+          <button
+            type="button"
+            class="border-b-2 px-4 py-3 font-medium text-nowrap"
+            x-ref="mission"
+            x-bind:id="$id('about-tab', 'mission')"
+            x-bind:aria-controls="$id('about-panel', 'mission')"
+            x-bind:aria-selected="tab === 'mission'"
+            x-bind:tabindex="tab === 'mission' ? 0 : -1"
+            x-bind:class="tab === 'mission' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+            x-on:click="tab = 'mission'"
+            role="tab"
+          >
+            Our Mission
+          </button>
+          <button
+            type="button"
+            class="border-b-2 px-4 py-3 font-medium text-nowrap"
+            x-ref="vision"
+            x-bind:id="$id('about-tab', 'vision')"
+            x-bind:aria-controls="$id('about-panel', 'vision')"
+            x-bind:aria-selected="tab === 'vision'"
+            x-bind:tabindex="tab === 'vision' ? 0 : -1"
+            x-bind:class="tab === 'vision' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+            x-on:click="tab = 'vision'"
+            role="tab"
+          >
+            Our vision
+          </button>
+        </nav>
+        <!-- Tab Content -->
+        <div>
+          <!-- Right Column - Content -->
+          <div
+            x-cloak
+            x-show="tab === 'story'"
+            x-bind:id="$id('about-panel', 'story')"
+            x-bind:aria-labelledby="$id('about-tab', 'story')"
+            class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2"
+            role="tabpanel"
+            tabindex="0"
+          >
+            <!-- Left Column - Image -->
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/about/about-12.png"
+              alt="Our Story"
+              class="h-full min-h-52 w-full rounded-xl object-cover"
+            />
+            <div class="space-y-6">
+              <h3 class="text-ink-01-h3 text-2xl font-medium">
+                Our story begins with a passion for excellence
+              </h3>
+              <p class="text-ink-01-muted">
+                We started with a small team of dedicated professionals
+                committed to making a difference. Through years of hard work and
+                perseverance, we've grown into a community of innovators and
+                problem-solvers. Our journey has been marked by continuous
+                learning, adaptation, and a relentless pursuit of quality in
+                everything we do.
+              </p>
+              <a href="#" class="btn btn-filled">
+                Learn more
+                <span class="icon-[tabler--arrow-right] size-5 rtl:rotate-180"></span>
+              </a>
+            </div>
+          </div>
+          <div
+            x-show="tab === 'mission'"
+            x-bind:id="$id('about-panel', 'mission')"
+            x-bind:aria-labelledby="$id('about-tab', 'mission')"
+            class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2"
+            role="tabpanel"
+            tabindex="0"
+          >
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/about/about-13.png"
+              alt="Our Mission"
+              class="h-full min-h-52 w-full rounded-xl object-cover"
+            />
+            <div class="space-y-6">
+              <h3 class="text-ink-01-h3 text-2xl font-medium">
+                We're all about creating awesome resources that help you
+                succeed!
+              </h3>
+              <p class="text-ink-01-muted">
+                We understand the immense importance of high-quality educational
+                materials in fostering effective learning experiences. That's
+                why we are deeply committed to supporting educators in their
+                vital roles. Our mission is to provide our users with
+                exceptional resources, comprehensive tools, and steadfast
+                support, ensuring they have everything they need to thrive in
+                their teaching endeavors. We believe that by empowering
+                educators with the best materials and assistance, we can
+                significantly enhance the learning journey for students
+                everywhere.
+              </p>
+              <a href="#" class="btn btn-filled">
+                Get started
+                <span class="icon-[tabler--arrow-right] size-5 rtl:rotate-180"></span>
+              </a>
+            </div>
+          </div>
+          <div
+            x-cloak
+            x-show="tab === 'vision'"
+            x-bind:id="$id('about-panel', 'vision')"
+            x-bind:aria-labelledby="$id('about-tab', 'vision')"
+            class="grid grid-cols-1 items-center gap-16 lg:grid-cols-2"
+            role="tabpanel"
+            tabindex="0"
+          >
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/about/about-2.png"
+              alt="Our Vision"
+              class="h-full min-h-52 w-full rounded-xl object-cover"
+            />
+            <div class="space-y-6">
+              <h3 class="text-ink-01-h3 text-2xl font-medium">
+                Our vision is to transform how people learn and grow
+              </h3>
+              <p class="text-ink-01-muted">
+                We envision a world where quality education is accessible to
+                everyone, regardless of their background or circumstances. We
+                strive to create innovative solutions that break down barriers
+                to learning and enable individuals to reach their full
+                potential. By combining cutting-edge technology with
+                human-centered design, we aim to build a future where education
+                is engaging, effective, and empowering for all.
+              </p>
+              <a href="#" class="btn btn-filled">
+                Discover more
+                <span class="icon-[tabler--arrow-right] size-5 rtl:rotate-180"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

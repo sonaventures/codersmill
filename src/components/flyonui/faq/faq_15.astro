@@ -1,0 +1,200 @@
+<div class="bg-accent-01-canvas text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+      <!-- Left Column - Skeleton -->
+      <div class="from-ink-01-highlight via-accent-01-focus to-accent-01-focus relative h-132 overflow-hidden rounded-2xl bg-linear-to-br p-6 sm:h-143 xl:h-118">
+        <div class="absolute inset-s-0 bottom-0">
+          <img
+            src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/faq/gradient-bg.png"
+            class="h-75 w-full"
+            alt="gradient bg circle"
+          />
+        </div>
+        <div class="space-y-1">
+          <p class="text-sm font-medium text-white">FAQS</p>
+          <h2 class="text-5xl font-semibold text-white">
+            Frequently Asked Questions❔
+          </h2>
+        </div>
+        <div class="absolute inset-e-0 bottom-0">
+          <img
+            src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/faq/faq-5.png"
+            alt="Alena Lubin"
+            class="h-77 w-auto"
+          />
+        </div>
+      </div>
+      <!-- Right Column - FAQ Content -->
+      <div
+        class="divide-canvas-01-border shadow-canvas-01-shadow/20 w-full divide-y rounded-xl shadow-sm"
+        x-data="{ open: 'what-is-larasaas' }"
+      >
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+            id="what-is-larasaas"
+            x-on:click="open = open === 'what-is-larasaas' ? null : 'what-is-larasaas'"
+            x-bind:aria-expanded="(open === 'what-is-larasaas').toString()"
+            aria-controls="what-is-larasaas-content"
+          >
+            What is LaraSaas? Why do I need a LaraSaas Boilerplate?
+            <span
+              class="icon-[tabler--chevron-right] text-ink-01 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+              x-bind:class="open === 'what-is-larasaas' ? 'rotate-90' : ''"
+            ></span>
+          </button>
+          <div
+            id="what-is-larasaas-content"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="what-is-larasaas"
+            x-show="open === 'what-is-larasaas'"
+            x-collapse
+          >
+            <div class="px-8 pb-4">
+              <p class="text-ink-01-muted text-base">
+                LaraSaas is a Laravel boilerplate specifically designed to help
+                you launch your SaaS application quickly and efficiently.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+            id="is-demo-available"
+            x-on:click="open = open === 'is-demo-available' ? null : 'is-demo-available'"
+            x-bind:aria-expanded="(open === 'is-demo-available').toString()"
+            aria-controls="is-demo-available-content"
+          >
+            Is there a demo available?
+            <span
+              class="icon-[tabler--chevron-right] text-ink-01 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+              x-bind:class="open === 'is-demo-available' ? 'rotate-90' : ''"
+            ></span>
+          </button>
+          <div
+            id="is-demo-available-content"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="is-demo-available"
+            x-cloak
+            x-show="open === 'is-demo-available'"
+            x-collapse
+          >
+            <div class="px-8 pb-4">
+              <p class="text-ink-01-muted text-base">
+                Yes, we offer a comprehensive demo that showcases all the
+                features and capabilities of our platform. You can access it
+                through our website and explore the interface firsthand.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+            id="payment-providers"
+            x-on:click="open = open === 'payment-providers' ? null : 'payment-providers'"
+            x-bind:aria-expanded="(open === 'payment-providers').toString()"
+            aria-controls="payment-providers-content"
+          >
+            Which payment providers are supported?
+            <span
+              class="icon-[tabler--chevron-right] text-ink-01 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+              x-bind:class="open === 'payment-providers' ? 'rotate-90' : ''"
+            ></span>
+          </button>
+          <div
+            id="payment-providers-content"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="payment-providers"
+            x-cloak
+            x-show="open === 'payment-providers'"
+            x-collapse
+          >
+            <div class="px-8 pb-4">
+              <p class="text-ink-01-muted text-base">
+                We support major payment providers including Stripe, PayPal, and
+                Square. Our platform is designed to be flexible and can be
+                integrated with additional payment gateways based on your needs.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+            id="codebase-distribution"
+            x-on:click="open = open === 'codebase-distribution' ? null : 'codebase-distribution'"
+            x-bind:aria-expanded="(open === 'codebase-distribution').toString()"
+            aria-controls="codebase-distribution-content"
+          >
+            How is the codebase distributed?
+            <span
+              class="icon-[tabler--chevron-right] text-ink-01 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+              x-bind:class="open === 'codebase-distribution' ? 'rotate-90' : ''"
+            ></span>
+          </button>
+          <div
+            id="codebase-distribution-content"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="codebase-distribution"
+            x-cloak
+            x-show="open === 'codebase-distribution'"
+            x-collapse
+          >
+            <div class="px-8 pb-4">
+              <p class="text-ink-01-muted text-base">
+                The codebase is distributed through a private repository system.
+                Upon purchase, you'll receive access to the full source code and
+                all future updates through our version control system.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+            id="integration-question"
+            x-on:click="open = open === 'integration-question' ? null : 'integration-question'"
+            x-bind:aria-expanded="(open === 'integration-question').toString()"
+            aria-controls="integration-question-content"
+          >
+            I want to integrate LaraSaas into my existing project. Should I buy
+            it?
+            <span
+              class="icon-[tabler--chevron-right] text-ink-01 size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+              x-bind:class="open === 'integration-question' ? 'rotate-90' : ''"
+            ></span>
+          </button>
+          <div
+            id="integration-question-content"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="integration-question"
+            x-cloak
+            x-show="open === 'integration-question'"
+            x-collapse
+          >
+            <div class="px-8 pb-4">
+              <p class="text-ink-01-muted text-base">
+                While it's possible to integrate LaraSaas into existing
+                projects, it's primarily designed as a standalone boilerplate.
+                We recommend starting fresh with LaraSaas for the best
+                experience and to fully utilize all features.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col items-center gap-24">
+      <div class="max-w-5xl space-y-4 text-center">
+        <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+          Our Mission & Values
+        </h2>
+        <p class="text-ink-01-muted text-xl">
+          We operate with integrity, innovation, and a relentless commitment to
+          delivering superior results.
+        </p>
+        <a href="#" class="btn btn-filled">
+          Read More
+          <span class="icon-[tabler--arrow-right] size-5 rtl:rotate-180"></span>
+        </a>
+      </div>
+      <!-- Main Content Section -->
+      <div class="grid gap-16 lg:grid-cols-2">
+        <!-- Left Column -->
+        <div
+          class="space-y-6"
+          x-id="['about-tab', 'about-panel']"
+          x-data="{ tab: 'vision', tabs: ['mission', 'vision', 'values'], move(event) { let index = this.tabs.indexOf(this.tab); if (event.key === 'ArrowRight') index = (index + 1) % this.tabs.length; else if (event.key === 'ArrowLeft') index = (index + this.tabs.length - 1) % this.tabs.length; else if (event.key === 'Home') index = 0; else if (event.key === 'End') index = this.tabs.length - 1; else return; event.preventDefault(); this.tab = this.tabs[index]; this.$nextTick(() => this.$refs[this.tab].focus()); } }"
+        >
+          <h3 class="text-ink-01-h3 text-2xl">
+            We help in creating Educational Resources
+          </h3>
+          <p class="text-ink-01-muted">
+            We understand the significance of quality educational materials in
+            the learning process and take our role in supporting educators
+            seriously. We are committed to providing our users with the best
+            possible resources and support.
+          </p>
+          <div class="h-px w-full bg-canvas-01-border"></div>
+
+          <!-- Tab List -->
+          <nav
+            class="flex overflow-x-auto border-b border-canvas-01-border"
+            aria-label="Tabs"
+            role="tablist"
+            aria-orientation="horizontal"
+            x-on:keydown="move($event)"
+          >
+            <button
+              type="button"
+              class="border-b-2 px-4 py-3 font-medium text-nowrap"
+              x-ref="mission"
+              x-bind:id="$id('about-tab', 'mission')"
+              x-bind:aria-controls="$id('about-panel', 'mission')"
+              x-bind:aria-selected="tab === 'mission'"
+              x-bind:tabindex="tab === 'mission' ? 0 : -1"
+              x-bind:class="tab === 'mission' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+              x-on:click="tab = 'mission'"
+              role="tab"
+            >
+              Mission
+            </button>
+            <button
+              type="button"
+              class="border-b-2 px-4 py-3 font-medium text-nowrap"
+              x-ref="vision"
+              x-bind:id="$id('about-tab', 'vision')"
+              x-bind:aria-controls="$id('about-panel', 'vision')"
+              x-bind:aria-selected="tab === 'vision'"
+              x-bind:tabindex="tab === 'vision' ? 0 : -1"
+              x-bind:class="tab === 'vision' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+              x-on:click="tab = 'vision'"
+              role="tab"
+            >
+              Vision
+            </button>
+            <button
+              type="button"
+              class="border-b-2 px-4 py-3 font-medium text-nowrap"
+              x-ref="values"
+              x-bind:id="$id('about-tab', 'values')"
+              x-bind:aria-controls="$id('about-panel', 'values')"
+              x-bind:aria-selected="tab === 'values'"
+              x-bind:tabindex="tab === 'values' ? 0 : -1"
+              x-bind:class="tab === 'values' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+              x-on:click="tab = 'values'"
+              role="tab"
+            >
+              Our Value
+            </button>
+          </nav>
+          <!-- Tab Panels -->
+          <div>
+            <div
+              x-cloak
+              x-show="tab === 'mission'"
+              x-bind:id="$id('about-panel', 'mission')"
+              x-bind:aria-labelledby="$id('about-tab', 'mission')"
+              role="tabpanel"
+              tabindex="0"
+            >
+              <p class="text-ink-01-muted">
+                Our mission is to empower educators and institutions by
+                providing innovative, high-quality educational resources that
+                enhance learning outcomes. We strive to make education more
+                accessible, engaging, and effective through our comprehensive
+                solutions and unwavering commitment to excellence in educational
+                content development.
+              </p>
+              <p class="text-ink-01-muted mt-4">
+                Through collaboration with educators and continuous improvement
+                of our methodologies, we aim to transform the educational
+                landscape and contribute to the success of learners worldwide.
+              </p>
+            </div>
+            <div
+              x-show="tab === 'vision'"
+              x-bind:id="$id('about-panel', 'vision')"
+              x-bind:aria-labelledby="$id('about-tab', 'vision')"
+              role="tabpanel"
+              tabindex="0"
+            >
+              <p class="text-ink-01-muted">
+                Educational resources are essential for effective teaching, but
+                creating them can be challenging and time-consuming. Educators
+                often spend countless hours developing lesson plans, activities,
+                and assessments. This process can be overwhelming and divert a
+                teacher's attention from engaging with their students.
+              </p>
+              <p class="text-ink-01-muted mt-4">
+                Our team of educational experts is always available to answer
+                questions, offer guidance, and assist our users in enhancing
+                their teaching methods.
+              </p>
+            </div>
+            <div
+              x-cloak
+              x-show="tab === 'values'"
+              x-bind:id="$id('about-panel', 'values')"
+              x-bind:aria-labelledby="$id('about-tab', 'values')"
+              role="tabpanel"
+              tabindex="0"
+            >
+              <p class="text-ink-01-muted">
+                Our core values guide everything we do:
+              </p>
+              <ul class="text-ink-01-muted mt-4 list-inside list-disc space-y-2">
+                <li>
+                  <span class="font-semibold">Excellence:</span>
+                  We maintain the highest standards in educational content
+                  development
+                </li>
+                <li>
+                  <span class="font-semibold">Innovation:</span>
+                  We continuously evolve our approaches to meet modern
+                  educational needs
+                </li>
+                <li>
+                  <span class="font-semibold">Collaboration:</span>
+                  We work closely with educators to ensure our resources meet
+                  real classroom needs
+                </li>
+                <li>
+                  <span class="font-semibold">Accessibility:</span>
+                  We believe in making quality education available to all
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="flex h-full items-center justify-center lg:justify-end">
+          <img
+            src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/about/about-5.png"
+            alt="stats"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

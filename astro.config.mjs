@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   output: "static",
-  integrations: [alpine()],
+  integrations: [alpine({ entrypoint: "/src/entrypoint" })],
   vite: {
     plugins: [tailwindcss()],
   },

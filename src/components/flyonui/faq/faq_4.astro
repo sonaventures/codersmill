@@ -1,0 +1,1005 @@
+<div class="bg-accent-01-canvas text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="mb-12 text-center sm:mb-16 lg:mb-24">
+      <h1 class="text-ink-01-h1 mb-4 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Commonly Asked Questions
+      </h1>
+      <p class="text-ink-01-muted text-xl">
+        Utilize artificial intelligence algorithms to deliver valuable insights
+        to users.
+      </p>
+    </div>
+
+    <div x-data="{ tab: 'general', tabs: ['general', 'pricing', 'dashboard', 'api', 'licence'], move(event) { let index = this.tabs.indexOf(this.tab); if (event.key === 'ArrowRight') index = (index + 1) % this.tabs.length; else if (event.key === 'ArrowLeft') index = (index + this.tabs.length - 1) % this.tabs.length; else if (event.key === 'Home') index = 0; else if (event.key === 'End') index = this.tabs.length - 1; else return; event.preventDefault(); this.tab = this.tabs[index]; this.$nextTick(() => this.$refs[this.tab].focus()); } }">
+      <!-- Pills Navigation -->
+      <nav
+        class="mb-8 flex justify-center space-x-1 overflow-x-auto py-0.5 max-sm:flex-col max-sm:items-center max-sm:space-y-1 max-sm:space-x-0"
+        aria-label="FAQ Categories"
+        role="tablist"
+        aria-orientation="horizontal"
+        x-on:keydown="move($event)"
+      >
+        <button
+          type="button"
+          class="cursor-pointer rounded-full border-2 px-4 py-2 font-medium text-nowrap transition-colors duration-300 max-sm:w-64"
+          id="general-tab"
+          x-ref="general"
+          aria-controls="general-content"
+          role="tab"
+          x-bind:aria-selected="tab === 'general'"
+          x-bind:tabindex="tab === 'general' ? 0 : -1"
+          x-bind:class="tab === 'general' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-on:click="tab = 'general'"
+        >
+          General
+        </button>
+        <button
+          type="button"
+          class="cursor-pointer rounded-full border-2 px-4 py-2 font-medium text-nowrap transition-colors duration-300 max-sm:w-64"
+          id="pricing-tab"
+          x-ref="pricing"
+          aria-controls="pricing-content"
+          role="tab"
+          x-bind:aria-selected="tab === 'pricing'"
+          x-bind:tabindex="tab === 'pricing' ? 0 : -1"
+          x-bind:class="tab === 'pricing' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-on:click="tab = 'pricing'"
+        >
+          Pricing
+        </button>
+        <button
+          type="button"
+          class="cursor-pointer rounded-full border-2 px-4 py-2 font-medium text-nowrap transition-colors duration-300 max-sm:w-64"
+          id="dashboard-tab"
+          x-ref="dashboard"
+          aria-controls="dashboard-content"
+          role="tab"
+          x-bind:aria-selected="tab === 'dashboard'"
+          x-bind:tabindex="tab === 'dashboard' ? 0 : -1"
+          x-bind:class="tab === 'dashboard' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-on:click="tab = 'dashboard'"
+        >
+          Dashboard
+        </button>
+        <button
+          type="button"
+          class="cursor-pointer rounded-full border-2 px-4 py-2 font-medium text-nowrap transition-colors duration-300 max-sm:w-64"
+          id="api-tab"
+          x-ref="api"
+          aria-controls="api-content"
+          role="tab"
+          x-bind:aria-selected="tab === 'api'"
+          x-bind:tabindex="tab === 'api' ? 0 : -1"
+          x-bind:class="tab === 'api' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-on:click="tab = 'api'"
+        >
+          API
+        </button>
+        <button
+          type="button"
+          class="cursor-pointer rounded-full border-2 px-4 py-2 font-medium text-nowrap transition-colors duration-300 max-sm:w-64"
+          id="licence-tab"
+          x-ref="licence"
+          aria-controls="licence-content"
+          role="tab"
+          x-bind:aria-selected="tab === 'licence'"
+          x-bind:tabindex="tab === 'licence' ? 0 : -1"
+          x-bind:class="tab === 'licence' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-on:click="tab = 'licence'"
+        >
+          Licence
+        </button>
+      </nav>
+
+      <!-- Tab Content -->
+      <div>
+        <!-- General Tab -->
+        <div
+          id="general-content"
+          role="tabpanel"
+          aria-labelledby="general-tab"
+          tabindex="0"
+          class="mx-auto"
+          x-show="tab === 'general'"
+        >
+          <div
+            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            x-data="{ open: 'what-is-larasaas' }"
+          >
+            <div>
+              <button
+                type="button"
+                id="what-is-larasaas"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'what-is-larasaas' ? null : 'what-is-larasaas'"
+                x-bind:aria-expanded="(open === 'what-is-larasaas').toString()"
+                aria-controls="what-is-larasaas-content"
+              >
+                What is LaraSaas? Why do I need a LaraSaas Boilerplate?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'what-is-larasaas' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="what-is-larasaas-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="what-is-larasaas"
+                role="region"
+                x-show="open === 'what-is-larasaas'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    LaraSaas is a Laravel boilerplate specifically designed to
+                    help you launch your SaaS application quickly and
+                    efficiently. It provides pre-built features for user
+                    management, subscriptions, payments, and more, saving you
+                    significant development time and effort.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="is-demo-available"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'is-demo-available' ? null : 'is-demo-available'"
+                x-bind:aria-expanded="(open === 'is-demo-available').toString()"
+                aria-controls="is-demo-available-content"
+              >
+                Is there a demo available?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'is-demo-available' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="is-demo-available-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="is-demo-available"
+                role="region"
+                x-cloak
+                x-show="open === 'is-demo-available'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Yes, we offer a comprehensive demo that showcases all the
+                    features and capabilities of our platform. You can access it
+                    through our website and explore the interface firsthand.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="payment-providers"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'payment-providers' ? null : 'payment-providers'"
+                x-bind:aria-expanded="(open === 'payment-providers').toString()"
+                aria-controls="payment-providers-content"
+              >
+                Which payment providers are supported?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'payment-providers' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="payment-providers-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="payment-providers"
+                role="region"
+                x-cloak
+                x-show="open === 'payment-providers'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    We support major payment providers including Stripe, PayPal,
+                    and Square. Our platform is designed to be flexible and can
+                    be integrated with additional payment gateways based on your
+                    needs.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="codebase-distribution"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'codebase-distribution' ? null : 'codebase-distribution'"
+                x-bind:aria-expanded="(open === 'codebase-distribution').toString()"
+                aria-controls="codebase-distribution-content"
+              >
+                How is the codebase distributed?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'codebase-distribution' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="codebase-distribution-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="codebase-distribution"
+                role="region"
+                x-cloak
+                x-show="open === 'codebase-distribution'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    The codebase is distributed through a private repository
+                    system. Upon purchase, you'll receive access to the full
+                    source code and all future updates through our version
+                    control system.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="integration-question"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'integration-question' ? null : 'integration-question'"
+                x-bind:aria-expanded="(open === 'integration-question').toString()"
+                aria-controls="integration-question-content"
+              >
+                I want to integrate LaraSaas into my existing project. Should I
+                buy it?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'integration-question' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="integration-question-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="integration-question"
+                role="region"
+                x-cloak
+                x-show="open === 'integration-question'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    While it's possible to integrate LaraSaas into existing
+                    projects, it's primarily designed as a standalone
+                    boilerplate. We recommend starting fresh with LaraSaas for
+                    the best experience and to fully utilize all features.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Pricing Tab -->
+        <div
+          id="pricing-content"
+          role="tabpanel"
+          aria-labelledby="pricing-tab"
+          tabindex="0"
+          class="mx-auto"
+          x-cloak
+          x-show="tab === 'pricing'"
+        >
+          <div
+            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            x-data="{ open: 'pricing-plans' }"
+          >
+            <div>
+              <button
+                type="button"
+                id="pricing-plans"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'pricing-plans' ? null : 'pricing-plans'"
+                x-bind:aria-expanded="(open === 'pricing-plans').toString()"
+                aria-controls="pricing-plans-content"
+              >
+                What pricing plans are available?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'pricing-plans' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="pricing-plans-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="pricing-plans"
+                role="region"
+                x-show="open === 'pricing-plans'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    We offer flexible pricing plans including Starter,
+                    Professional, and Enterprise tiers. Each plan is designed to
+                    cater to different business needs and scales with your
+                    growth.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="payment-methods"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'payment-methods' ? null : 'payment-methods'"
+                x-bind:aria-expanded="(open === 'payment-methods').toString()"
+                aria-controls="payment-methods-content"
+              >
+                What payment methods do you accept?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'payment-methods' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="payment-methods-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="payment-methods"
+                role="region"
+                x-cloak
+                x-show="open === 'payment-methods'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    We accept all major credit cards, PayPal, and bank
+                    transfers. Enterprise plans also support purchase orders and
+                    custom billing arrangements.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="billing-cycle"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'billing-cycle' ? null : 'billing-cycle'"
+                x-bind:aria-expanded="(open === 'billing-cycle').toString()"
+                aria-controls="billing-cycle-content"
+              >
+                How does the billing cycle work?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'billing-cycle' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="billing-cycle-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="billing-cycle"
+                role="region"
+                x-cloak
+                x-show="open === 'billing-cycle'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Billing cycles are monthly or annually, with significant
+                    discounts for annual subscriptions. The cycle starts on your
+                    subscription date.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="refund-policy"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'refund-policy' ? null : 'refund-policy'"
+                x-bind:aria-expanded="(open === 'refund-policy').toString()"
+                aria-controls="refund-policy-content"
+              >
+                What is your refund policy?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'refund-policy' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="refund-policy-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="refund-policy"
+                role="region"
+                x-cloak
+                x-show="open === 'refund-policy'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    We offer a 30-day money-back guarantee for all plans. If
+                    you're not satisfied, contact support for a full refund
+                    within this period.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="plan-changes"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'plan-changes' ? null : 'plan-changes'"
+                x-bind:aria-expanded="(open === 'plan-changes').toString()"
+                aria-controls="plan-changes-content"
+              >
+                Can I change my plan later?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'plan-changes' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="plan-changes-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="plan-changes"
+                role="region"
+                x-cloak
+                x-show="open === 'plan-changes'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Yes, you can upgrade or downgrade your plan at any time.
+                    Upgrades take effect immediately, while downgrades apply at
+                    the next billing cycle.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Dashboard Tab -->
+        <div
+          id="dashboard-content"
+          role="tabpanel"
+          aria-labelledby="dashboard-tab"
+          tabindex="0"
+          class="mx-auto"
+          x-cloak
+          x-show="tab === 'dashboard'"
+        >
+          <div
+            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            x-data="{ open: 'dashboard-features' }"
+          >
+            <div>
+              <button
+                type="button"
+                id="dashboard-features"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'dashboard-features' ? null : 'dashboard-features'"
+                x-bind:aria-expanded="(open === 'dashboard-features').toString()"
+                aria-controls="dashboard-features-content"
+              >
+                What features are available in the dashboard?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'dashboard-features' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="dashboard-features-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="dashboard-features"
+                role="region"
+                x-show="open === 'dashboard-features'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Our dashboard includes real-time analytics, user management,
+                    subscription tracking, and customizable reports.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="dashboard-customization"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'dashboard-customization' ? null : 'dashboard-customization'"
+                x-bind:aria-expanded="(open === 'dashboard-customization').toString()"
+                aria-controls="dashboard-customization-content"
+              >
+                Can I customize the dashboard?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'dashboard-customization' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="dashboard-customization-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="dashboard-customization"
+                role="region"
+                x-cloak
+                x-show="open === 'dashboard-customization'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Yes, you can arrange widgets, configure notifications, and
+                    brand the interface with your company's colors and logo.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="dashboard-access"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'dashboard-access' ? null : 'dashboard-access'"
+                x-bind:aria-expanded="(open === 'dashboard-access').toString()"
+                aria-controls="dashboard-access-content"
+              >
+                How do I manage user access?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'dashboard-access' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="dashboard-access-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="dashboard-access"
+                role="region"
+                x-cloak
+                x-show="open === 'dashboard-access'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Admins can manage user roles, permissions, and access levels
+                    through the dashboard's user management section.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="dashboard-reports"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'dashboard-reports' ? null : 'dashboard-reports'"
+                x-bind:aria-expanded="(open === 'dashboard-reports').toString()"
+                aria-controls="dashboard-reports-content"
+              >
+                What types of reports are available?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'dashboard-reports' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="dashboard-reports-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="dashboard-reports"
+                role="region"
+                x-cloak
+                x-show="open === 'dashboard-reports'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    We offer usage analytics, user activity, performance
+                    metrics, and custom report generation capabilities.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="dashboard-backup"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'dashboard-backup' ? null : 'dashboard-backup'"
+                x-bind:aria-expanded="(open === 'dashboard-backup').toString()"
+                aria-controls="dashboard-backup-content"
+              >
+                How is my dashboard data backed up?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'dashboard-backup' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="dashboard-backup-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="dashboard-backup"
+                role="region"
+                x-cloak
+                x-show="open === 'dashboard-backup'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Dashboard data is automatically backed up daily with 30-day
+                    retention. Enterprise plans include custom backup schedules.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- API Tab -->
+        <div
+          id="api-content"
+          role="tabpanel"
+          aria-labelledby="api-tab"
+          tabindex="0"
+          class="mx-auto"
+          x-cloak
+          x-show="tab === 'api'"
+        >
+          <div
+            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            x-data="{ open: 'api-documentation' }"
+          >
+            <div>
+              <button
+                type="button"
+                id="api-documentation"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'api-documentation' ? null : 'api-documentation'"
+                x-bind:aria-expanded="(open === 'api-documentation').toString()"
+                aria-controls="api-documentation-content"
+              >
+                Where can I find the API documentation?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'api-documentation' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="api-documentation-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="api-documentation"
+                role="region"
+                x-show="open === 'api-documentation'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Our comprehensive API documentation is available at our
+                    developer portal with detailed endpoints and examples.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="api-limits"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'api-limits' ? null : 'api-limits'"
+                x-bind:aria-expanded="(open === 'api-limits').toString()"
+                aria-controls="api-limits-content"
+              >
+                Are there any API rate limits?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'api-limits' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="api-limits-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="api-limits"
+                role="region"
+                x-cloak
+                x-show="open === 'api-limits'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Yes, limits vary by plan. Basic plans include 1000 requests
+                    per hour, with higher limits for premium plans.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="api-authentication"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'api-authentication' ? null : 'api-authentication'"
+                x-bind:aria-expanded="(open === 'api-authentication').toString()"
+                aria-controls="api-authentication-content"
+              >
+                How does API authentication work?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'api-authentication' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="api-authentication-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="api-authentication"
+                role="region"
+                x-cloak
+                x-show="open === 'api-authentication'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    We use API keys and OAuth 2.0 for authentication. Secure
+                    your credentials and never share them publicly.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="api-versions"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'api-versions' ? null : 'api-versions'"
+                x-bind:aria-expanded="(open === 'api-versions').toString()"
+                aria-controls="api-versions-content"
+              >
+                Which API versions are supported?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'api-versions' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="api-versions-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="api-versions"
+                role="region"
+                x-cloak
+                x-show="open === 'api-versions'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    We maintain the current version and one previous version.
+                    Legacy versions are supported for 6 months after
+                    deprecation.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="api-support"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'api-support' ? null : 'api-support'"
+                x-bind:aria-expanded="(open === 'api-support').toString()"
+                aria-controls="api-support-content"
+              >
+                How can I get API support?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'api-support' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="api-support-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="api-support"
+                role="region"
+                x-cloak
+                x-show="open === 'api-support'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    We provide developer support through our dedicated API
+                    support channel and developer community forum.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Licence Tab -->
+        <div
+          id="licence-content"
+          role="tabpanel"
+          aria-labelledby="licence-tab"
+          tabindex="0"
+          class="mx-auto"
+          x-cloak
+          x-show="tab === 'licence'"
+        >
+          <div
+            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            x-data="{ open: 'license-types' }"
+          >
+            <div>
+              <button
+                type="button"
+                id="license-types"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'license-types' ? null : 'license-types'"
+                x-bind:aria-expanded="(open === 'license-types').toString()"
+                aria-controls="license-types-content"
+              >
+                What types of licenses are available?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'license-types' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="license-types-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="license-types"
+                role="region"
+                x-show="open === 'license-types'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    We offer Single-domain, Multi-domain, and Enterprise
+                    licenses with one year of updates and support.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="license-transfer"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'license-transfer' ? null : 'license-transfer'"
+                x-bind:aria-expanded="(open === 'license-transfer').toString()"
+                aria-controls="license-transfer-content"
+              >
+                Can I transfer my license?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'license-transfer' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="license-transfer-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="license-transfer"
+                role="region"
+                x-cloak
+                x-show="open === 'license-transfer'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    License transfers are available on a case-by-case basis.
+                    Contact support for transfer requests.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="license-renewal"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'license-renewal' ? null : 'license-renewal'"
+                x-bind:aria-expanded="(open === 'license-renewal').toString()"
+                aria-controls="license-renewal-content"
+              >
+                How do license renewals work?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'license-renewal' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="license-renewal-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="license-renewal"
+                role="region"
+                x-cloak
+                x-show="open === 'license-renewal'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Licenses can be renewed annually with a discount.
+                    Auto-renewal is available for convenience.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="license-usage"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'license-usage' ? null : 'license-usage'"
+                x-bind:aria-expanded="(open === 'license-usage').toString()"
+                aria-controls="license-usage-content"
+              >
+                What are the usage restrictions?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'license-usage' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="license-usage-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="license-usage"
+                role="region"
+                x-cloak
+                x-show="open === 'license-usage'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    Usage restrictions vary by license type. Single-domain is
+                    for one production site, Multi-domain for multiple sites.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                id="license-support"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+                x-on:click="open = open === 'license-support' ? null : 'license-support'"
+                x-bind:aria-expanded="(open === 'license-support').toString()"
+                aria-controls="license-support-content"
+              >
+                What support is included?
+                <span
+                  class="icon-[tabler--chevron-right] size-4.5 shrink-0 transition-transform duration-300 rtl:rotate-180"
+                  x-bind:class="open === 'license-support' ? 'rotate-90' : ''"
+                ></span>
+              </button>
+              <div
+                id="license-support-content"
+                class="w-full overflow-hidden"
+                aria-labelledby="license-support"
+                role="region"
+                x-cloak
+                x-show="open === 'license-support'"
+                x-collapse
+              >
+                <div class="px-8 pb-4">
+                  <p class="text-ink-01-muted text-base">
+                    All licenses include email support and access to
+                    documentation. Enterprise includes priority support.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Support Link -->
+    <div class="mt-12 text-center sm:mt-16 lg:mt-24">
+      <p class="text-ink-01-muted text-base">
+        Didn't find the answer you are looking for?{" "}
+        <a
+          href="#"
+          class="text-ink-01-highlight font-semibold underline-offset-4 hover:underline"
+        >
+          Contact our support
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

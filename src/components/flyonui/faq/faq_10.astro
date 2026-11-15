@@ -1,0 +1,327 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Section Header with Badge -->
+    <div class="mb-12 text-center sm:mb-16 lg:mb-24">
+      <div class="border-accent-01-border bg-accent-01-canvas text-accent-01-text mb-4 inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-medium">
+        Build intuitive Dashboards with ease
+      </div>
+      <h2 class="text-ink-01-h2 mb-4 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Answers to Your Most Common Questions
+      </h2>
+      <p class="text-ink-01-muted text-xl">
+        Find Clear Answers to Your Most Frequently Asked Questions
+      </p>
+    </div>
+    <!-- FAQ Grid Container -->
+    <div class="grid grid-cols-1 gap-16 lg:grid-cols-2">
+      <!-- Left Accordion -->
+      <div
+        class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+        x-data="{ open: 'products' }"
+      >
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+            id="products"
+            x-on:click="open = open === 'products' ? null : 'products'"
+            x-bind:aria-expanded="(open === 'products').toString()"
+            aria-controls="products-panel"
+          >
+            What products do you offer?
+            <span
+              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              x-bind:class="open === 'products' ? 'rotate-180' : ''"
+            ></span>
+          </button>
+          <div
+            id="products-panel"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="products"
+            x-show="open === 'products'"
+            x-collapse
+          >
+            <div class="px-5 pb-4">
+              <p class="text-ink-01-muted">
+                Placing an order is simple! Browse our products, add items to
+                your cart, and proceed to checkout. Select your shipping method,
+                enter your delivery address, choose your preferred payment
+                method, and confirm your order. You'll receive an order
+                confirmation email with tracking details.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+            id="order-place"
+            x-on:click="open = open === 'order-place' ? null : 'order-place'"
+            x-bind:aria-expanded="(open === 'order-place').toString()"
+            aria-controls="order-place-panel"
+          >
+            How do I place an order?
+            <span
+              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              x-bind:class="open === 'order-place' ? 'rotate-180' : ''"
+            ></span>
+          </button>
+          <div
+            id="order-place-panel"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="order-place"
+            x-cloak
+            x-show="open === 'order-place'"
+            x-collapse
+          >
+            <div class="px-5 pb-4">
+              <p class="text-ink-01-muted">
+                We offer a wide range of products including [categories like
+                clothing, electronics, home goods, beauty products, etc. Browse
+                our collections to find everything you need, whether it's the
+                latest fashion trends, top-notch gadgets, or everyday
+                essentials.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+            id="payment-methods"
+            x-on:click="open = open === 'payment-methods' ? null : 'payment-methods'"
+            x-bind:aria-expanded="(open === 'payment-methods').toString()"
+            aria-controls="payment-methods-panel"
+          >
+            What payment methods do you accept?
+            <span
+              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              x-bind:class="open === 'payment-methods' ? 'rotate-180' : ''"
+            ></span>
+          </button>
+          <div
+            id="payment-methods-panel"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="payment-methods"
+            x-cloak
+            x-show="open === 'payment-methods'"
+            x-collapse
+          >
+            <div class="px-5 pb-4">
+              <p class="text-ink-01-muted">
+                We accept various payment methods including credit/debit cards
+                (Visa, MasterCard, American Express), PayPal, Apple Pay, Google
+                Pay, and bank transfers. All transactions are secure and
+                encrypted to protect your financial information.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+            id="international-shipping"
+            x-on:click="open = open === 'international-shipping' ? null : 'international-shipping'"
+            x-bind:aria-expanded="(open === 'international-shipping').toString()"
+            aria-controls="international-shipping-panel"
+          >
+            Do you offer international shipping?
+            <span
+              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              x-bind:class="open === 'international-shipping' ? 'rotate-180' : ''"
+            ></span>
+          </button>
+          <div
+            id="international-shipping-panel"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="international-shipping"
+            x-cloak
+            x-show="open === 'international-shipping'"
+            x-collapse
+          >
+            <div class="px-5 pb-4">
+              <p class="text-ink-01-muted">
+                Yes, we offer international shipping to over 100 countries.
+                Shipping costs and delivery times vary by location.
+                International orders may be subject to customs duties and taxes,
+                which are the responsibility of the customer. Check our shipping
+                calculator for rates to your country.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+            id="track-order"
+            x-on:click="open = open === 'track-order' ? null : 'track-order'"
+            x-bind:aria-expanded="(open === 'track-order').toString()"
+            aria-controls="track-order-panel"
+          >
+            How can I track my order?
+            <span
+              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              x-bind:class="open === 'track-order' ? 'rotate-180' : ''"
+            ></span>
+          </button>
+          <div
+            id="track-order-panel"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="track-order"
+            x-cloak
+            x-show="open === 'track-order'"
+            x-collapse
+          >
+            <div class="px-5 pb-4">
+              <p class="text-ink-01-muted">
+                You can easily track your order by logging into your account or
+                using the tracking number provided in your shipping confirmation
+                email. Our tracking system provides real-time updates on your
+                package's location and estimated delivery date.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right Accordion -->
+      <div
+        class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border h-max"
+        x-data="{ open: null }"
+      >
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+            id="return-policy"
+            x-on:click="open = open === 'return-policy' ? null : 'return-policy'"
+            x-bind:aria-expanded="(open === 'return-policy').toString()"
+            aria-controls="return-policy-panel"
+          >
+            What is your return policy?
+            <span
+              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              x-bind:class="open === 'return-policy' ? 'rotate-180' : ''"
+            ></span>
+          </button>
+          <div
+            id="return-policy-panel"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="return-policy"
+            x-cloak
+            x-show="open === 'return-policy'"
+            x-collapse
+          >
+            <div class="px-5 pb-4">
+              <p class="text-ink-01-muted">
+                Our return policy allows returns within 30 days of delivery.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+            id="change-cancel"
+            x-on:click="open = open === 'change-cancel' ? null : 'change-cancel'"
+            x-bind:aria-expanded="(open === 'change-cancel').toString()"
+            aria-controls="change-cancel-panel"
+          >
+            Can I change or cancel my order?
+            <span
+              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              x-bind:class="open === 'change-cancel' ? 'rotate-180' : ''"
+            ></span>
+          </button>
+          <div
+            id="change-cancel-panel"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="change-cancel"
+            x-cloak
+            x-show="open === 'change-cancel'"
+            x-collapse
+          >
+            <div class="px-5 pb-4">
+              <p class="text-ink-01-muted">
+                Orders can be modified or cancelled within 1 hour of placement.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+            id="discounts"
+            x-on:click="open = open === 'discounts' ? null : 'discounts'"
+            x-bind:aria-expanded="(open === 'discounts').toString()"
+            aria-controls="discounts-panel"
+          >
+            Do you offer discounts or promotions?
+            <span
+              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              x-bind:class="open === 'discounts' ? 'rotate-180' : ''"
+            ></span>
+          </button>
+          <div
+            id="discounts-panel"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="discounts"
+            x-cloak
+            x-show="open === 'discounts'"
+            x-collapse
+          >
+            <div class="px-5 pb-4">
+              <p class="text-ink-01-muted">
+                Yes! We regularly offer seasonal sales and promotions.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+            id="create-account"
+            x-on:click="open = open === 'create-account' ? null : 'create-account'"
+            x-bind:aria-expanded="(open === 'create-account').toString()"
+            aria-controls="create-account-panel"
+          >
+            How do I create an account?
+            <span
+              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              x-bind:class="open === 'create-account' ? 'rotate-180' : ''"
+            ></span>
+          </button>
+          <div
+            id="create-account-panel"
+            class="w-full overflow-hidden"
+            role="region"
+            aria-labelledby="create-account"
+            x-cloak
+            x-show="open === 'create-account'"
+            x-collapse
+          >
+            <div class="px-5 pb-4">
+              <p class="text-ink-01-muted">
+                Click the 'Sign Up' button and enter your details.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

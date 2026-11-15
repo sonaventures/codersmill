@@ -1,0 +1,49 @@
+<nav
+  x-data="{ open: false }"
+  class="bg-canvas-header text-ink-header shadow-canvas-header-shadow/20 flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm"
+>
+  <div class="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 md:flex md:items-center md:gap-2 lg:px-8">
+    <div class="flex w-max items-center justify-between max-md:w-full">
+      <a
+        class="text-ink-header flex items-center gap-3 text-xl font-bold"
+        href="#"
+      >
+        <img
+          src="https://cdn.flyonui.com/fy-assets/logo/logo.png"
+          class="size-8"
+          alt="brand-logo"
+        />
+        FlyonUI
+      </a>
+      <div class="md:hidden">
+        <button
+          type="button"
+          class="border-accent-header-border text-accent-header-text hover:border-accent-header-focus hover:bg-accent-header-canvas grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border transition-colors"
+          x-on:click="open = !open"
+          x-bind:aria-expanded="open.toString()"
+          aria-controls="navbar-block-1"
+          aria-label="Toggle navigation"
+        >
+          <span class="icon-[tabler--menu-2] size-5.5" x-show="!open"></span>
+          <span class="icon-[tabler--x] size-5.5" x-cloak x-show="open"></span>
+        </button>
+      </div>
+    </div>
+    <div
+      id="navbar-block-1"
+      class="grow basis-full overflow-hidden max-md:w-full max-md:hidden md:flex md:items-center md:justify-end"
+      x-bind:class="{ 'max-md:hidden': !open }"
+    >
+      <div class="text-nav-header-sitenav-top *:hover:text-nav-header-sitenav-item *:active:text-nav-header-sitenav-item flex gap-6 text-base font-medium max-md:mt-4 max-md:flex-col md:items-center">
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">About Us</a>
+        <a href="#">Contacts</a>
+      </div>
+      <div class="bg-canvas-header-border my-6 h-px w-full md:mx-6 md:my-2 md:h-auto md:w-px md:self-stretch"></div>
+      <a href="#" class="btn btn-filled max-md:w-full">
+        Login
+      </a>
+    </div>
+  </div>
+</nav>

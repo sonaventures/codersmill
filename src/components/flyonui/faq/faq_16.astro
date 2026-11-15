@@ -1,0 +1,225 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div id="multi-slide" class="relative mb-8 w-full" x-data>
+      <div class="mb-12 flex justify-between gap-8 max-md:flex-col sm:mb-16 md:items-end md:gap-16 lg:mb-24">
+        <div class="space-y-4">
+          <p class="text-ink-01-highlight text-sm font-medium">FAQS</p>
+          <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+            Your Questions Answered
+          </h2>
+          <p class="text-ink-01-muted text-xl">
+            Levarage artificial intelligence algorithms to provide users with
+            <br />
+            valuable insights
+          </p>
+        </div>
+        <div class="flex gap-4">
+          <button
+            type="button"
+            aria-label="Previous slide"
+            class="border-accent-01-border text-accent-01-text hover:border-accent-01-focus hover:bg-accent-01-focus hover:text-ink-inverse relative grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border transition-colors"
+            x-on:click="$refs.track.scrollBy({ left: -$refs.track.clientWidth, behavior: 'smooth' })"
+          >
+            <span class="icon-[tabler--arrow-left] size-5.5"></span>
+          </button>
+          <button
+            type="button"
+            aria-label="Next slide"
+            class="border-accent-01-border text-accent-01-text hover:border-accent-01-focus hover:bg-accent-01-focus hover:text-ink-inverse relative grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border transition-colors"
+            x-on:click="$refs.track.scrollBy({ left: $refs.track.clientWidth, behavior: 'smooth' })"
+          >
+            <span class="icon-[tabler--arrow-right] size-5.5"></span>
+          </button>
+        </div>
+      </div>
+      <div class="rounded-xl">
+        <div
+          class="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth [scrollbar-width:none]"
+          x-ref="track"
+        >
+          <!-- Slide 1 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc(100%/3-16px)]">
+            <div class="bg-accent-01-canvas text-ink-01 hover:bg-accent-01-focus hover:text-ink-inverse cursor-pointer rounded-xl transition-all duration-300">
+              <div class="flex flex-col gap-4 p-6">
+                <div class="space-y-6">
+                  <div class="bg-accent-01-focus/30 grid size-11.5 shrink-0 place-items-center rounded-full">
+                    <span class="icon-[tabler--home] size-6.5"></span>
+                  </div>
+                  <h5 class="text-3xl font-bold">What does your company do?</h5>
+                  <p class="text-sm">
+                    Our company specializes in delivering high-quality solutions
+                    that are tailored to meet the evolving needs of businesses
+                    and individuals. Whether it’s a digital product, a creative
+                    service, or a custom solution, we focus on combining
+                    functionality with design to help our clients grow, improve
+                    efficiency, and connect better with their audience.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc(100%/3-16px)]">
+            <div class="bg-accent-01-canvas text-ink-01 hover:bg-accent-01-focus hover:text-ink-inverse cursor-pointer rounded-xl transition-all duration-300">
+              <div class="flex flex-col gap-4 p-6">
+                <div class="space-y-6">
+                  <div class="bg-accent-01-focus/30 grid size-11.5 shrink-0 place-items-center rounded-full">
+                    <span class="icon-[tabler--box] size-6.5"></span>
+                  </div>
+                  <h5 class="text-3xl font-bold">
+                    Do you offer custom packages?
+                  </h5>
+                  <p class="text-sm">
+                    Our pricing is designed to be flexible and transparent, with
+                    options to suit a variety of travel styles and budgets. We
+                    offer both fixed packages and fully customized plans,
+                    allowing you to choose the level of service and experience
+                    you want. Whether you're planning a quick getaway or a
+                    luxury vacation.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc(100%/3-16px)]">
+            <div class="bg-accent-01-canvas text-ink-01 hover:bg-accent-01-focus hover:text-ink-inverse cursor-pointer rounded-xl transition-all duration-300">
+              <div class="flex flex-col gap-4 p-6">
+                <div class="space-y-6">
+                  <div class="bg-accent-01-focus/30 grid size-11.5 shrink-0 place-items-center rounded-full">
+                    <span class="icon-[tabler--currency-dollar] size-6.5"></span>
+                  </div>
+                  <h5 class="text-3xl font-bold">
+                    What is your pricing structure?
+                  </h5>
+                  <p class="text-sm">
+                    Our pricing structure is flexible and depends on the scope
+                    and complexity of your project. We offer both standard
+                    packages and custom quotes to fit your specific needs. For
+                    detailed pricing information or a personalized quote, please
+                    contact us directly — we’re happy to discuss options that
+                    work for your budget.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc(100%/3-16px)]">
+            <div class="bg-accent-01-canvas text-ink-01 hover:bg-accent-01-focus hover:text-ink-inverse cursor-pointer rounded-xl transition-all duration-300">
+              <div class="flex flex-col gap-4 p-6">
+                <div class="space-y-6">
+                  <div class="bg-accent-01-focus/30 grid size-11.5 shrink-0 place-items-center rounded-full">
+                    <span class="icon-[tabler--users] size-6.5"></span>
+                  </div>
+                  <h5 class="text-3xl font-bold">
+                    Do you offer ongoing support ?
+                  </h5>
+                  <p class="text-sm">
+                    Yes, we do! Our team is here to assist you before, during,
+                    and even after your trip to ensure everything goes smoothly.
+                    Whether you need help with last-minute changes, local
+                    recommendations, or unexpected issues, we’re just a call or
+                    message away to provide reliable support every step of the
+                    way.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 5 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc(100%/3-16px)]">
+            <div class="bg-accent-01-canvas text-ink-01 hover:bg-accent-01-focus hover:text-ink-inverse cursor-pointer rounded-xl transition-all duration-300">
+              <div class="flex flex-col gap-4 p-6">
+                <div class="space-y-6">
+                  <div class="bg-accent-01-focus/30 grid size-11.5 shrink-0 place-items-center rounded-full">
+                    <span class="icon-[tabler--clock] size-6.5"></span>
+                  </div>
+                  <h5 class="text-3xl font-bold">
+                    How long project take to complete?
+                  </h5>
+                  <p class="text-sm">
+                    Project timelines vary depending on the complexity and scope
+                    of the work. A standard project usually takes between 2 to 6
+                    weeks. We'll provide a detailed timeline after discussing
+                    your specific requirements. More the complexity it takes
+                    more time compare to basic projects. But matter is the
+                    quality of the project work.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 6 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc(100%/3-16px)]">
+            <div class="bg-accent-01-canvas text-ink-01 hover:bg-accent-01-focus hover:text-ink-inverse cursor-pointer rounded-xl transition-all duration-300">
+              <div class="flex flex-col gap-4 p-6">
+                <div class="space-y-6">
+                  <div class="bg-accent-01-focus/30 grid size-11.5 shrink-0 place-items-center rounded-full">
+                    <span class="icon-[tabler--user] size-6.5"></span>
+                  </div>
+                  <h5 class="text-3xl font-bold">
+                    Is there a contract or agreement involved?
+                  </h5>
+                  <p class="text-sm">
+                    Yes, there is! To ensure clarity and peace of mind, we
+                    provide a simple agreement that outlines the trip details,
+                    inclusions, terms, and responsibilities. It helps both sides
+                    stay aligned and ensures everything is clearly communicated
+                    before your journey begins. We'll provide a detailed timeline
+                    after discussing your specific requirements.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 7 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc(100%/3-16px)]">
+            <div class="bg-accent-01-canvas text-ink-01 hover:bg-accent-01-focus hover:text-ink-inverse cursor-pointer rounded-xl transition-all duration-300">
+              <div class="flex flex-col gap-4 p-6">
+                <div class="space-y-6">
+                  <div class="bg-accent-01-focus/30 grid size-11.5 shrink-0 place-items-center rounded-full">
+                    <span class="icon-[tabler--help] size-6.5"></span>
+                  </div>
+                  <h5 class="text-3xl font-bold">
+                    What if I’m not satisfied with the results?
+                  </h5>
+                  <p class="text-sm">
+                    Client satisfaction is our top priority. We offer revision
+                    rounds and encourage ongoing feedback throughout the project
+                    to ensure the final result aligns with your vision. If
+                    there’s ever a concern, we’ll work with you to make it
+                    right.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 8 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc(100%/3-16px)]">
+            <div class="bg-accent-01-canvas text-ink-01 hover:bg-accent-01-focus hover:text-ink-inverse cursor-pointer rounded-xl transition-all duration-300">
+              <div class="flex flex-col gap-4 p-6">
+                <div class="space-y-6">
+                  <div class="bg-accent-01-focus/30 grid size-11.5 shrink-0 place-items-center rounded-full">
+                    <span class="icon-[tabler--car] size-6.5"></span>
+                  </div>
+                  <h5 class="text-3xl font-bold">
+                    Do you offer travel insurance?
+                  </h5>
+                  <p class="text-sm">
+                    While we don’t directly provide travel insurance, we partner
+                    with reputable providers and can help you choose a plan that
+                    covers trip cancellations, medical emergencies, and other
+                    unexpected events.. We'll provide a detailed timeline after
+                    discussing your specific requirements, and we keep you
+                    updated at every stage.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

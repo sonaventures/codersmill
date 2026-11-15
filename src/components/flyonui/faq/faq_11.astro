@@ -1,0 +1,841 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- FAQ Header -->
+    <div class="mb-12 space-y-4 md:mb-16 lg:mb-24">
+      <div class="text-ink-01-highlight text-sm font-medium uppercase">
+        Faq's
+      </div>
+      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Common Questions We Get
+      </h2>
+      <p class="text-ink-01-muted text-xl">
+        Here are some frequently asked questions about how AI can enhance user
+        experience.
+      </p>
+    </div>
+    <div
+      class="grid grid-cols-1 gap-9 md:grid-cols-2 xl:grid-cols-3"
+      x-data="{ tab: 'general', tabs: ['general', 'support', 'misc', 'payment'], move(event) { let index = this.tabs.indexOf(this.tab); if (event.key === 'ArrowDown') index = (index + 1) % this.tabs.length; else if (event.key === 'ArrowUp') index = (index + this.tabs.length - 1) % this.tabs.length; else if (event.key === 'Home') index = 0; else if (event.key === 'End') index = this.tabs.length - 1; else return; event.preventDefault(); this.tab = this.tabs[index]; this.$nextTick(() => this.$refs[this.tab].focus()); } }"
+    >
+      <nav
+        class="flex h-max flex-col items-start space-y-2"
+        aria-label="Tabs"
+        role="tablist"
+        aria-orientation="vertical"
+        x-on:keydown="move($event)"
+      >
+        <button
+          type="button"
+          class="flex h-11.5 w-full items-center gap-2 rounded-lg border px-5 text-lg font-medium"
+          id="tabs-pill-vertical-item-1"
+          x-ref="general"
+          aria-controls="tabs-pill-vertical-1"
+          role="tab"
+          x-bind:aria-selected="tab === 'general'"
+          x-bind:tabindex="tab === 'general' ? 0 : -1"
+          x-bind:class="tab === 'general' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-canvas-01-border text-ink-01-muted'"
+          x-on:click="tab = 'general'"
+        >
+          <span class="icon-[tabler--briefcase] size-5"></span>
+          <span class="flex grow items-center justify-between gap-1 sm:gap-2">
+            General Questions
+            <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="flex h-11.5 w-full items-center gap-2 rounded-lg border px-5 text-lg font-medium"
+          id="tabs-pill-vertical-item-2"
+          x-ref="support"
+          aria-controls="tabs-pill-vertical-2"
+          role="tab"
+          x-bind:aria-selected="tab === 'support'"
+          x-bind:tabindex="tab === 'support' ? 0 : -1"
+          x-bind:class="tab === 'support' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-canvas-01-border text-ink-01-muted'"
+          x-on:click="tab = 'support'"
+        >
+          <span class="icon-[tabler--headphones] size-5"></span>
+          <span class="flex grow items-center justify-between gap-1 sm:gap-2">
+            Support
+            <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="flex h-11.5 w-full items-center gap-2 rounded-lg border px-5 text-lg font-medium"
+          id="tabs-pill-vertical-item-3"
+          x-ref="misc"
+          aria-controls="tabs-pill-vertical-3"
+          role="tab"
+          x-bind:aria-selected="tab === 'misc'"
+          x-bind:tabindex="tab === 'misc' ? 0 : -1"
+          x-bind:class="tab === 'misc' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-canvas-01-border text-ink-01-muted'"
+          x-on:click="tab = 'misc'"
+        >
+          <span class="icon-[tabler--lock] size-5"></span>
+          <span class="flex grow items-center justify-between gap-1 sm:gap-2">
+            Miscellaneous
+            <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="flex h-11.5 w-full items-center gap-2 rounded-lg border px-5 text-lg font-medium"
+          id="tabs-pill-vertical-item-4"
+          x-ref="payment"
+          aria-controls="tabs-pill-vertical-4"
+          role="tab"
+          x-bind:aria-selected="tab === 'payment'"
+          x-bind:tabindex="tab === 'payment' ? 0 : -1"
+          x-bind:class="tab === 'payment' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-canvas-01-border text-ink-01-muted'"
+          x-on:click="tab = 'payment'"
+        >
+          <span class="icon-[tabler--credit-card] size-5"></span>
+          <span class="flex grow items-center justify-between gap-1 sm:gap-2">
+            Payment Information
+            <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+          </span>
+        </button>
+      </nav>
+      <div class="xl:col-span-2">
+        <div
+          id="tabs-pill-vertical-1"
+          role="tabpanel"
+          aria-labelledby="tabs-pill-vertical-item-1"
+          tabindex="0"
+          x-show="tab === 'general'"
+        >
+          <div
+            class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+            x-data="{ open: 'accommodation-bordered' }"
+          >
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="accommodation-bordered"
+                x-on:click="open = open === 'accommodation-bordered' ? null : 'accommodation-bordered'"
+                x-bind:aria-expanded="(open === 'accommodation-bordered').toString()"
+                aria-controls="accommodation-bordered-panel"
+              >
+                What types of accommodations do you offer?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'accommodation-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="accommodation-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="accommodation-bordered"
+                x-show="open === 'accommodation-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    We offer a variety of accommodations including hotels,
+                    motels, and vacation rentals to suit every traveler's needs.
+                    Our properties range from luxury resorts to budget-friendly
+                    options, ensuring there's something for everyone.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="booking-bordered"
+                x-on:click="open = open === 'booking-bordered' ? null : 'booking-bordered'"
+                x-bind:aria-expanded="(open === 'booking-bordered').toString()"
+                aria-controls="booking-bordered-panel"
+              >
+                How do I make a booking ?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'booking-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="booking-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="booking-bordered"
+                x-cloak
+                x-show="open === 'booking-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Making a booking is simple! You can book directly through
+                    our website by selecting your desired dates, location, and
+                    accommodation type. Enter your details, choose your
+                    preferred payment method, and receive instant confirmation.
+                    For assistance, our customer service team is available 24/7.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="cancellation-bordered"
+                x-on:click="open = open === 'cancellation-bordered' ? null : 'cancellation-bordered'"
+                x-bind:aria-expanded="(open === 'cancellation-bordered').toString()"
+                aria-controls="cancellation-bordered-panel"
+              >
+                What is your cancellation policy ?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'cancellation-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="cancellation-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="cancellation-bordered"
+                x-cloak
+                x-show="open === 'cancellation-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Our standard cancellation policy allows free cancellation up
+                    to 48 hours before check-in. For cancellations made within
+                    48 hours of check-in, a one-night charge may apply. Some
+                    rates and special offers may have different cancellation
+                    terms, which will be clearly displayed during booking.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="modify-bordered"
+                x-on:click="open = open === 'modify-bordered' ? null : 'modify-bordered'"
+                x-bind:aria-expanded="(open === 'modify-bordered').toString()"
+                aria-controls="modify-bordered-panel"
+              >
+                Can I modify my booking after it has been confirmed ?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'modify-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="modify-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="modify-bordered"
+                x-cloak
+                x-show="open === 'modify-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Yes, you can modify your booking after confirmation, subject
+                    to availability. Changes can be made through your account or
+                    by contacting our customer service team. Modifications made
+                    less than 48 hours before check-in may incur additional
+                    charges. We recommend reviewing the specific terms of your
+                    booking before making changes.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="pets-bordered"
+                x-on:click="open = open === 'pets-bordered' ? null : 'pets-bordered'"
+                x-bind:aria-expanded="(open === 'pets-bordered').toString()"
+                aria-controls="pets-bordered-panel"
+              >
+                Are pets allowed in your accommodations ?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'pets-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="pets-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="pets-bordered"
+                x-cloak
+                x-show="open === 'pets-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Many of our properties are pet-friendly, but policies vary
+                    by location. Pet-friendly accommodations may require an
+                    additional cleaning fee and have specific rules regarding
+                    size and number of pets allowed. Please check the individual
+                    property details or contact us for specific pet policies.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          id="tabs-pill-vertical-2"
+          role="tabpanel"
+          aria-labelledby="tabs-pill-vertical-item-2"
+          tabindex="0"
+          x-cloak
+          x-show="tab === 'support'"
+        >
+          <div
+            class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+            x-data="{ open: 'support-hours-bordered' }"
+          >
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="support-hours-bordered"
+                x-on:click="open = open === 'support-hours-bordered' ? null : 'support-hours-bordered'"
+                x-bind:aria-expanded="(open === 'support-hours-bordered').toString()"
+                aria-controls="support-hours-bordered-panel"
+              >
+                What are your customer support hours?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'support-hours-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="support-hours-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="support-hours-bordered"
+                x-show="open === 'support-hours-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Our customer support team is available 24/7, 365 days a
+                    year. We provide round-the-clock assistance to ensure you
+                    receive help whenever you need it, regardless of your time
+                    zone.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="contact-methods-bordered"
+                x-on:click="open = open === 'contact-methods-bordered' ? null : 'contact-methods-bordered'"
+                x-bind:aria-expanded="(open === 'contact-methods-bordered').toString()"
+                aria-controls="contact-methods-bordered-panel"
+              >
+                How can I contact customer support?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'contact-methods-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="contact-methods-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="contact-methods-bordered"
+                x-cloak
+                x-show="open === 'contact-methods-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    You can reach our support team through multiple channels:
+                    live chat on our website, email at support@example.com,
+                    phone at 1-800-SUPPORT, or through our mobile app. We
+                    typically respond to emails within 1 hour.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="emergency-support-bordered"
+                x-on:click="open = open === 'emergency-support-bordered' ? null : 'emergency-support-bordered'"
+                x-bind:aria-expanded="(open === 'emergency-support-bordered').toString()"
+                aria-controls="emergency-support-bordered-panel"
+              >
+                What if I need emergency assistance during my stay?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'emergency-support-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="emergency-support-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="emergency-support-bordered"
+                x-cloak
+                x-show="open === 'emergency-support-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    For emergencies during your stay, we provide a dedicated
+                    24/7 emergency hotline. The number is provided in your
+                    booking confirmation and is also available in your room. Our
+                    local staff can assist with immediate response and
+                    coordination with emergency services.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="feedback-bordered"
+                x-on:click="open = open === 'feedback-bordered' ? null : 'feedback-bordered'"
+                x-bind:aria-expanded="(open === 'feedback-bordered').toString()"
+                aria-controls="feedback-bordered-panel"
+              >
+                How can I provide feedback about my experience?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'feedback-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="feedback-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="feedback-bordered"
+                x-cloak
+                x-show="open === 'feedback-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    We welcome your feedback! You can leave a review directly on
+                    our website after your stay, respond to our follow-up email,
+                    or contact our customer service team. Your feedback helps us
+                    improve our services for future guests.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="language-support-bordered"
+                x-on:click="open = open === 'language-support-bordered' ? null : 'language-support-bordered'"
+                x-bind:aria-expanded="(open === 'language-support-bordered').toString()"
+                aria-controls="language-support-bordered-panel"
+              >
+                Do you offer support in multiple languages?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'language-support-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="language-support-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="language-support-bordered"
+                x-cloak
+                x-show="open === 'language-support-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Yes, our support team is multilingual and can assist you in
+                    English, Spanish, French, German, Chinese, and Japanese.
+                    Just let us know your preferred language when contacting us.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          id="tabs-pill-vertical-3"
+          role="tabpanel"
+          aria-labelledby="tabs-pill-vertical-item-3"
+          tabindex="0"
+          x-cloak
+          x-show="tab === 'misc'"
+        >
+          <div
+            class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+            x-data="{ open: 'wifi-bordered' }"
+          >
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="wifi-bordered"
+                x-on:click="open = open === 'wifi-bordered' ? null : 'wifi-bordered'"
+                x-bind:aria-expanded="(open === 'wifi-bordered').toString()"
+                aria-controls="wifi-bordered-panel"
+              >
+                Is WiFi available at your properties?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'wifi-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="wifi-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="wifi-bordered"
+                x-show="open === 'wifi-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Yes, all our properties offer complimentary high-speed WiFi
+                    access. Premium high-speed internet is also available for an
+                    additional fee at select locations for guests requiring
+                    enhanced connectivity.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="parking-bordered"
+                x-on:click="open = open === 'parking-bordered' ? null : 'parking-bordered'"
+                x-bind:aria-expanded="(open === 'parking-bordered').toString()"
+                aria-controls="parking-bordered-panel"
+              >
+                What are the parking options?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'parking-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="parking-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="parking-bordered"
+                x-cloak
+                x-show="open === 'parking-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Parking options vary by location. Many properties offer free
+                    self-parking, while others provide valet services for a fee.
+                    Electric vehicle charging stations are available at select
+                    locations. Specific parking details are listed on each
+                    property's page.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="breakfast-bordered"
+                x-on:click="open = open === 'breakfast-bordered' ? null : 'breakfast-bordered'"
+                x-bind:aria-expanded="(open === 'breakfast-bordered').toString()"
+                aria-controls="breakfast-bordered-panel"
+              >
+                Is breakfast included in the stay?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'breakfast-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="breakfast-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="breakfast-bordered"
+                x-cloak
+                x-show="open === 'breakfast-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Breakfast options vary by property and rate plan. Many of
+                    our hotels offer complimentary continental breakfast, while
+                    others have paid breakfast options. You can view breakfast
+                    details when booking your stay.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="checkin-bordered"
+                x-on:click="open = open === 'checkin-bordered' ? null : 'checkin-bordered'"
+                x-bind:aria-expanded="(open === 'checkin-bordered').toString()"
+                aria-controls="checkin-bordered-panel"
+              >
+                What are the check-in and check-out times?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'checkin-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="checkin-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="checkin-bordered"
+                x-cloak
+                x-show="open === 'checkin-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Standard check-in time is 3:00 PM and check-out is 11:00 AM
+                    local time. Early check-in and late check-out may be
+                    available upon request, subject to availability and
+                    additional charges.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="amenities-bordered"
+                x-on:click="open = open === 'amenities-bordered' ? null : 'amenities-bordered'"
+                x-bind:aria-expanded="(open === 'amenities-bordered').toString()"
+                aria-controls="amenities-bordered-panel"
+              >
+                What amenities are available at your properties?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'amenities-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="amenities-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="amenities-bordered"
+                x-cloak
+                x-show="open === 'amenities-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Our properties offer various amenities including fitness
+                    centers, swimming pools, restaurants, business centers, and
+                    spa services. Specific amenities vary by location and are
+                    listed in detail on each property's page.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          id="tabs-pill-vertical-4"
+          role="tabpanel"
+          aria-labelledby="tabs-pill-vertical-item-4"
+          tabindex="0"
+          x-cloak
+          x-show="tab === 'payment'"
+        >
+          <div
+            class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+            x-data="{ open: 'payment-methods-bordered' }"
+          >
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="payment-methods-bordered"
+                x-on:click="open = open === 'payment-methods-bordered' ? null : 'payment-methods-bordered'"
+                x-bind:aria-expanded="(open === 'payment-methods-bordered').toString()"
+                aria-controls="payment-methods-bordered-panel"
+              >
+                What payment methods do you accept?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'payment-methods-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="payment-methods-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="payment-methods-bordered"
+                x-show="open === 'payment-methods-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    We accept all major credit cards (Visa, MasterCard, American
+                    Express, Discover), digital wallets (Apple Pay, Google Pay),
+                    and PayPal. Some locations also accept direct bank transfers
+                    for corporate bookings.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="currency-bordered"
+                x-on:click="open = open === 'currency-bordered' ? null : 'currency-bordered'"
+                x-bind:aria-expanded="(open === 'currency-bordered').toString()"
+                aria-controls="currency-bordered-panel"
+              >
+                In which currency will I be charged?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'currency-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="currency-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="currency-bordered"
+                x-cloak
+                x-show="open === 'currency-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    You can view and pay for your booking in multiple
+                    currencies. The default is the local currency of the
+                    property, but you can choose to pay in your preferred
+                    currency. Exchange rates are updated daily.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="deposit-bordered"
+                x-on:click="open = open === 'deposit-bordered' ? null : 'deposit-bordered'"
+                x-bind:aria-expanded="(open === 'deposit-bordered').toString()"
+                aria-controls="deposit-bordered-panel"
+              >
+                Is a deposit required for booking?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'deposit-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="deposit-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="deposit-bordered"
+                x-cloak
+                x-show="open === 'deposit-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Deposit requirements vary by property and length of stay.
+                    Typically, we require a credit card authorization at
+                    check-in for incidentals. Some special rates or peak season
+                    bookings may require a prepayment.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="billing-bordered"
+                x-on:click="open = open === 'billing-bordered' ? null : 'billing-bordered'"
+                x-bind:aria-expanded="(open === 'billing-bordered').toString()"
+                aria-controls="billing-bordered-panel"
+              >
+                When will I be charged for my stay?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'billing-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="billing-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="billing-bordered"
+                x-cloak
+                x-show="open === 'billing-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    For most bookings, payment is processed at check-out. Some
+                    rates require prepayment at the time of booking. Any
+                    incidental charges will be processed at check-out. You'll
+                    receive a detailed invoice for all charges.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="inline-flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-start font-medium"
+                id="refund-bordered"
+                x-on:click="open = open === 'refund-bordered' ? null : 'refund-bordered'"
+                x-bind:aria-expanded="(open === 'refund-bordered').toString()"
+                aria-controls="refund-bordered-panel"
+              >
+                How long do refunds take to process?
+                <span
+                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  x-bind:class="open === 'refund-bordered' ? 'rotate-180' : ''"
+                ></span>
+              </button>
+              <div
+                id="refund-bordered-panel"
+                class="w-full overflow-hidden"
+                role="region"
+                aria-labelledby="refund-bordered"
+                x-cloak
+                x-show="open === 'refund-bordered'"
+                x-collapse
+              >
+                <div class="px-5 pb-4">
+                  <p class="text-ink-01-muted">
+                    Refunds are typically processed within 24-48 hours of
+                    approval. The funds may take 5-10 business days to appear in
+                    your account, depending on your bank or credit card issuer's
+                    processing time.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

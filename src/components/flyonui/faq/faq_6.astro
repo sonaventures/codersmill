@@ -1,0 +1,197 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 items-stretch gap-16 lg:grid-cols-2">
+      <!-- Left Column - Skeleton -->
+      <div class="h-70 overflow-hidden rounded-xl sm:h-143 lg:h-114.5">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/faq/faq-1.png"
+          alt="Faq-Image-1"
+          class="h-full w-full rounded-xl object-cover"
+        />
+      </div>
+      <!-- Right Column - FAQ Content -->
+      <div class="space-y-8">
+        <div class="space-y-2 px-5">
+          <!-- Badge -->
+          <span class="border-accent-01-border bg-accent-01-canvas text-accent-01-text inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-medium">
+            FAQ
+          </span>
+          <!-- Title -->
+          <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+            Looking for answers?
+          </h2>
+        </div>
+        <!-- Accordion -->
+        <div
+          class="divide-canvas-01-border divide-y"
+          x-data="{ open: 'faq-1' }"
+        >
+          <!-- Accordion Item 1 -->
+          <div>
+            <button
+              type="button"
+              id="faq-1"
+              class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+              x-on:click="open = open === 'faq-1' ? null : 'faq-1'"
+              x-bind:aria-expanded="(open === 'faq-1').toString()"
+              aria-controls="faq-1-collapse"
+            >
+              Do you charge for each upgrade?
+              <span
+                class="icon-[tabler--plus] text-ink-01 size-4.5 shrink-0"
+                x-show="open !== 'faq-1'"
+              ></span>
+              <span
+                class="icon-[tabler--minus] text-ink-01 size-4.5 shrink-0"
+                x-cloak
+                x-show="open === 'faq-1'"
+              ></span>
+            </button>
+            <div
+              id="faq-1-collapse"
+              class="w-full overflow-hidden"
+              aria-labelledby="faq-1"
+              role="region"
+              x-show="open === 'faq-1'"
+              x-collapse
+            >
+              <div class="px-5 pb-4">
+                <p class="text-ink-01-muted text-base">
+                  Lemon drops chocolate cake gummies carrot cake chupa chups
+                  muffin topping. Sesame snaps icing marzipan gummi bears
+                  macaroon dragée danish caramels powder. Bear claw dragée
+                  pastry topping soufflé. Wafer gummi bears marshmallow pastry
+                  pie
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Accordion Item 2 -->
+          <div>
+            <button
+              type="button"
+              id="faq-2"
+              class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+              x-on:click="open = open === 'faq-2' ? null : 'faq-2'"
+              x-bind:aria-expanded="(open === 'faq-2').toString()"
+              aria-controls="faq-2-collapse"
+            >
+              Do I need to purchase a license for each website?
+              <span
+                class="icon-[tabler--plus] text-ink-01 size-4.5 shrink-0"
+                x-show="open !== 'faq-2'"
+              ></span>
+              <span
+                class="icon-[tabler--minus] text-ink-01 size-4.5 shrink-0"
+                x-cloak
+                x-show="open === 'faq-2'"
+              ></span>
+            </button>
+            <div
+              id="faq-2-collapse"
+              class="w-full overflow-hidden"
+              aria-labelledby="faq-2"
+              role="region"
+              x-cloak
+              x-show="open === 'faq-2'"
+              x-collapse
+            >
+              <div class="px-5 pb-4">
+                <p class="text-ink-01-muted text-base">
+                  Yes, you need to purchase a separate license for each website
+                  where you plan to use our components. This ensures proper
+                  licensing compliance and helps us maintain and improve our
+                  products. However, we offer bundle deals for multiple licenses
+                  at a discounted rate.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Accordion Item 3 -->
+          <div>
+            <button
+              type="button"
+              id="faq-3"
+              class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+              x-on:click="open = open === 'faq-3' ? null : 'faq-3'"
+              x-bind:aria-expanded="(open === 'faq-3').toString()"
+              aria-controls="faq-3-collapse"
+            >
+              What is regular license?
+              <span
+                class="icon-[tabler--plus] text-ink-01 size-4.5 shrink-0"
+                x-show="open !== 'faq-3'"
+              ></span>
+              <span
+                class="icon-[tabler--minus] text-ink-01 size-4.5 shrink-0"
+                x-cloak
+                x-show="open === 'faq-3'"
+              ></span>
+            </button>
+            <div
+              id="faq-3-collapse"
+              class="w-full overflow-hidden"
+              aria-labelledby="faq-3"
+              role="region"
+              x-cloak
+              x-show="open === 'faq-3'"
+              x-collapse
+            >
+              <div class="px-5 pb-4">
+                <p class="text-ink-01-muted text-base">
+                  A regular license grants you permission to use our components
+                  in a single end product (website or application) that users
+                  can access for free. This includes personal websites, business
+                  websites, and free web applications. The license is perpetual
+                  and includes 6 months of support and updates.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- Accordion Item 4 -->
+          <div>
+            <button
+              type="button"
+              id="faq-4"
+              class="inline-flex w-full cursor-pointer items-center justify-between gap-x-4 px-5 py-4 text-start font-medium"
+              x-on:click="open = open === 'faq-4' ? null : 'faq-4'"
+              x-bind:aria-expanded="(open === 'faq-4').toString()"
+              aria-controls="faq-4-collapse"
+            >
+              What is extended license?
+              <span
+                class="icon-[tabler--plus] text-ink-01 size-4.5 shrink-0"
+                x-show="open !== 'faq-4'"
+              ></span>
+              <span
+                class="icon-[tabler--minus] text-ink-01 size-4.5 shrink-0"
+                x-cloak
+                x-show="open === 'faq-4'"
+              ></span>
+            </button>
+            <div
+              id="faq-4-collapse"
+              class="w-full overflow-hidden"
+              aria-labelledby="faq-4"
+              role="region"
+              x-cloak
+              x-show="open === 'faq-4'"
+              x-collapse
+            >
+              <div class="px-5 pb-4">
+                <p class="text-ink-01-muted text-base">
+                  An extended license provides additional rights beyond the
+                  regular license. It allows you to use our components in
+                  products that require users to pay before accessing them
+                  (SaaS, premium websites, etc.). It also includes priority
+                  support, lifetime updates, and the ability to use components
+                  in unlimited projects within a single organization.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
