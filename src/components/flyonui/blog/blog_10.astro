@@ -1,0 +1,311 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="relative mb-8 w-full" x-data="portfolioCarousel()">
+      <div class="mb-12 flex justify-between gap-8 max-md:flex-col sm:mb-16 md:items-end md:gap-16 lg:mb-24">
+        <div class="space-y-4">
+          <div>
+            <span class="inline-flex items-center gap-1 rounded-full bg-accent-01-canvas px-2 py-1 text-sm font-semibold text-accent-01-text">
+              World-class Project
+            </span>
+          </div>
+          <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+            Get updates and insights from our expert team!
+          </h2>
+          <p class="text-ink-01-muted text-xl">
+            Discover tips, best practices, and the latest trends in Laravel
+            development.Unlock your potential with expert guidance and technical
+            insights to enhance your projects.Stay ahead of the curve by
+            exploring innovative solutions and community-driven resources.
+          </p>
+        </div>
+        <div class="flex gap-4">
+          <button
+            type="button"
+            aria-label="Previous slide"
+            class="grid size-11.5 shrink-0 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-40"
+            x-on:click="go(page - 1)"
+            x-bind:disabled="page === 0"
+          >
+            <span class="icon-[tabler--arrow-left] size-5.5"></span>
+          </button>
+          <button
+            type="button"
+            aria-label="Next slide"
+            class="grid size-11.5 shrink-0 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-40"
+            x-on:click="go(page + 1)"
+            x-bind:disabled="page === pages - 1"
+          >
+            <span class="icon-[tabler--arrow-right] size-5.5"></span>
+          </button>
+        </div>
+      </div>
+      <div class="overflow-hidden rounded-xl">
+        <div
+          class="flex snap-x snap-mandatory gap-6 overflow-x-auto"
+          x-ref="track"
+          x-on:scroll="refresh()"
+        >
+          <!-- Slide 1 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc((100%-3rem)/3)]">
+            <a
+              href="#"
+              class="group bg-canvas-01-card-01 border-canvas-01-card-01-border relative block overflow-hidden rounded-xl border shadow-none"
+            >
+              <figure class="opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100 max-sm:aspect-3/4">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/blog/blog-5.png"
+                  alt="EduInsights"
+                  class="size-full object-cover"
+                />
+              </figure>
+              <div class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100"></div>
+              <div class="absolute inset-0 flex flex-col justify-between p-6">
+                <div class="flex items-center gap-2">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"
+                    alt="Maya Smith"
+                    class="size-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <p class="text-ink-01 mb-1 text-lg font-semibold transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      Maya Smith
+                    </p>
+                    <p class="text-ink-01-muted transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      Lead Developer
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="text-ink-01-muted flex items-center gap-2 py-1 font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    <p>Nov 11, 2023</p>
+                    <span class="icon-[tabler--circle-filled] text-accent-01-text size-2"></span>
+                    <p>4 min read</p>
+                  </div>
+                  <h3 class="text-ink-01-h3 text-2xl font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    Creating Awesome Apps with Laravel Boilerplate
+                  </h3>
+                  <div class="flex flex-wrap gap-2 duration-300">
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      Laravel Basics
+                    </span>
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      Best Practices
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!-- Slide 2 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc((100%-3rem)/3)]">
+            <a
+              href="#"
+              class="group bg-canvas-01-card-01 border-canvas-01-card-01-border relative block overflow-hidden rounded-xl border shadow-none"
+            >
+              <figure class="opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100 max-sm:aspect-3/4">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/blog/blog-6.png"
+                  alt="Laravel Features"
+                  class="size-full object-cover"
+                />
+              </figure>
+              <div class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100"></div>
+              <div class="absolute inset-0 flex flex-col justify-between p-6">
+                <div class="flex items-center gap-2">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                    alt="Kadin Vetrovs"
+                    class="size-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <p class="text-ink-01 mb-1 text-lg font-semibold transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      Kadin Vetrovs
+                    </p>
+                    <p class="text-ink-01-muted transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      Software Engineer
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="text-ink-01-muted flex items-center gap-2 py-1 font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    <p>Sep 24, 2021</p>
+                    <span class="icon-[tabler--circle-filled] text-accent-01-text size-2"></span>
+                    <p>10 min read</p>
+                  </div>
+                  <h3 class="text-ink-01-h3 text-2xl font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    10 Essential Features of Laravel Boilerplate
+                  </h3>
+                  <div class="flex flex-wrap gap-2 duration-300">
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      API Integration
+                    </span>
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      Case Studies
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!-- Slide 3 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc((100%-3rem)/3)]">
+            <a
+              href="#"
+              class="group bg-canvas-01-card-01 border-canvas-01-card-01-border relative block overflow-hidden rounded-xl border shadow-none"
+            >
+              <figure class="opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100 max-sm:aspect-3/4">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/blog/blog-7.png"
+                  alt="Security Practices"
+                  class="size-full object-cover"
+                />
+              </figure>
+              <div class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100"></div>
+              <div class="absolute inset-0 flex flex-col justify-between p-6">
+                <div class="flex items-center gap-2">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png"
+                    alt="Justin George"
+                    class="size-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <p class="text-ink-01 mb-1 text-lg font-semibold transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      Justin George
+                    </p>
+                    <p class="text-ink-01-muted transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      Cybersecurity Expert
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="text-ink-01-muted flex items-center gap-2 py-1 font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    <p>Dec 15, 2020</p>
+                    <span class="icon-[tabler--circle-filled] text-accent-01-text size-2"></span>
+                    <p>8 min read</p>
+                  </div>
+                  <h3 class="text-ink-01-h3 text-2xl font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    Security Best Practices for Laravel Applications
+                  </h3>
+                  <div class="flex flex-wrap gap-2 duration-300">
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      Security Tips
+                    </span>
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      Community Insights
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!-- Slide 4 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc((100%-3rem)/3)]">
+            <a
+              href="#"
+              class="group bg-canvas-01-card-01 border-canvas-01-card-01-border relative block overflow-hidden rounded-xl border shadow-none"
+            >
+              <figure class="opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100 max-sm:aspect-3/4">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/blog/blog-45.png"
+                  alt="EduInsights"
+                  class="size-full object-cover"
+                />
+              </figure>
+              <div class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100"></div>
+              <div class="absolute inset-0 flex flex-col justify-between p-6">
+                <div class="flex items-center gap-2">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-5.png"
+                    alt="Carter Saris"
+                    class="size-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <p class="text-ink-01 mb-1 text-lg font-semibold transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      Carter Saris
+                    </p>
+                    <p class="text-ink-01-muted transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      Product Manager
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="text-ink-01-muted flex items-center gap-2 py-1 font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    <p>Oct 03, 2023</p>
+                    <span class="icon-[tabler--circle-filled] text-accent-01-text size-2"></span>
+                    <p>5 min read</p>
+                  </div>
+                  <h3 class="text-ink-01-h3 text-2xl font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    The Future of Laravel Development
+                  </h3>
+                  <div class="flex flex-wrap gap-2 duration-300">
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      Laravel Basics
+                    </span>
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      Best Practices
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!-- Slide 5 -->
+          <div class="w-full shrink-0 snap-start lg:w-[calc((100%-3rem)/3)]">
+            <a
+              href="#"
+              class="group bg-canvas-01-card-01 border-canvas-01-card-01-border relative block overflow-hidden rounded-xl border shadow-none"
+            >
+              <figure class="opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100 max-sm:aspect-3/4">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/blog/blog-46.png"
+                  alt="Security Practices"
+                  class="size-full object-cover"
+                />
+              </figure>
+              <div class="absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus:opacity-100"></div>
+              <div class="absolute inset-0 flex flex-col justify-between p-6">
+                <div class="flex items-center gap-2">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-6.png"
+                    alt="Maria Donin"
+                    class="size-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <p class="text-ink-01 mb-1 text-lg font-semibold transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      Maria Donin
+                    </p>
+                    <p class="text-ink-01-muted transition-all duration-300 group-hover:text-white group-focus:text-white">
+                      UI/UX Designer
+                    </p>
+                  </div>
+                </div>
+                <div class="space-y-4">
+                  <div class="text-ink-01-muted flex items-center gap-2 py-1 font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    <p>Jan 22, 2024</p>
+                    <span class="icon-[tabler--circle-filled] text-accent-01-text size-2"></span>
+                    <p>7 min read</p>
+                  </div>
+                  <h3 class="text-ink-01-h3 text-2xl font-medium transition-all duration-300 group-hover:text-white group-focus:text-white">
+                    Things to know about UI/UX Design
+                  </h3>
+                  <div class="flex flex-wrap gap-2 duration-300">
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      Tips
+                    </span>
+                    <span class="bg-accent-01-canvas text-accent-01-text group-hover:bg-accent-01-focus group-hover:text-ink-inverse group-focus:bg-accent-01-focus group-focus:text-ink-inverse rounded-full px-2 py-1 text-sm font-semibold transition-all duration-300">
+                      Design
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import "../../../scripts/portfolio";
+</script>

@@ -1,0 +1,126 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
+      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        A Window Into Our Work
+      </h2>
+      <p class="text-ink-01-muted text-xl">
+        Explore a collection of visuals that highlight our best work,
+        milestones, and creative moments.
+      </p>
+      <a href="#" class="btn btn-filled">
+        See All
+        <span class="icon-[tabler--arrow-right] size-5 rtl:rotate-180"></span>
+      </a>
+    </div>
+
+    <div class="relative w-full" x-data="portfolioCarousel()">
+      <div class="flex gap-6 max-md:flex-col">
+        <div class="flex-none">
+          <div class="flex h-full justify-between gap-2.5 max-md:h-20 md:w-83 md:flex-col md:overflow-hidden">
+            <button
+              type="button"
+              class="flex-1 max-md:size-20"
+              aria-label="Go to slide 1"
+              x-on:click="go(0)"
+            >
+              <img
+                src="https://cdn.flyonui.com/fy-assets/components/carousel/image-8.png"
+                class="aspect-8/3 h-full w-full rounded-xl object-cover transition-opacity duration-300 max-md:size-20"
+                x-bind:class="page === 0 ? 'opacity-100' : 'opacity-30'"
+                alt="vr set"
+              />
+            </button>
+            <button
+              type="button"
+              class="flex-1 max-md:size-20"
+              aria-label="Go to slide 2"
+              x-on:click="go(1)"
+            >
+              <img
+                src="https://cdn.flyonui.com/fy-assets/components/carousel/image-22.png"
+                class="aspect-8/3 h-full w-full rounded-xl object-cover transition-opacity duration-300 max-md:size-20"
+                x-bind:class="page === 1 ? 'opacity-100' : 'opacity-30'"
+                alt="play station"
+              />
+            </button>
+            <button
+              type="button"
+              class="flex-1 max-md:size-20"
+              aria-label="Go to slide 3"
+              x-on:click="go(2)"
+            >
+              <img
+                src="https://cdn.flyonui.com/fy-assets/components/carousel/image-23.png"
+                class="aspect-8/3 h-full w-full rounded-xl object-cover transition-opacity duration-300 max-md:size-20"
+                x-bind:class="page === 2 ? 'opacity-100' : 'opacity-30'"
+                alt="watch"
+              />
+            </button>
+          </div>
+        </div>
+        <div class="relative grow overflow-hidden rounded-xl">
+          <div
+            class="flex h-full min-h-95 snap-x snap-mandatory gap-4 overflow-x-auto"
+            x-ref="track"
+            x-on:scroll="refresh()"
+          >
+            <!-- Slide 1 -->
+            <div class="w-full shrink-0 snap-start rounded-xl">
+              <div class="flex size-full justify-center">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/components/carousel/image-8.png"
+                  class="size-full rounded-xl object-cover"
+                  alt="vr set"
+                />
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="w-full shrink-0 snap-start rounded-xl">
+              <div class="flex size-full justify-center">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/components/carousel/image-22.png"
+                  class="size-full object-cover"
+                  alt="play station"
+                />
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="w-full shrink-0 snap-start rounded-xl">
+              <div class="flex size-full justify-center">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/components/carousel/image-23.png"
+                  class="size-full object-cover"
+                  alt="watch"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Previous Slide -->
+          <button
+            type="button"
+            class="bg-canvas-01 shadow-canvas-01-shadow/20 absolute top-1/2 inset-s-5 flex size-9.5 -translate-y-1/2 items-center justify-center rounded-full shadow-sm disabled:opacity-50 max-sm:inset-s-3"
+            x-on:click="go(page - 1)"
+            x-bind:disabled="page === 0"
+          >
+            <span class="icon-[tabler--chevron-left] size-5 cursor-pointer"></span>
+            <span class="sr-only">Previous</span>
+          </button>
+          <!-- Next Slide -->
+          <button
+            type="button"
+            class="bg-canvas-01 shadow-canvas-01-shadow/20 absolute top-1/2 inset-e-5 flex size-9.5 -translate-y-1/2 items-center justify-center rounded-full shadow-sm disabled:opacity-50 max-sm:inset-e-3"
+            x-on:click="go(page + 1)"
+            x-bind:disabled="page >= pages - 1"
+          >
+            <span class="icon-[tabler--chevron-right] size-5"></span>
+            <span class="sr-only">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

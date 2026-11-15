@@ -1,0 +1,228 @@
+<div class="bg-canvas-01 text-ink-01 py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <!-- Header Section -->
+    <div class="mb-10 text-center sm:mb-16 lg:mb-20">
+      <div class="mb-4">
+        <span class="text-ink-01-highlight text-sm font-medium uppercase">
+          TESTIMONIALS
+        </span>
+      </div>
+      <h2 class="text-ink-01-h2 mb-7 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Our Valuable
+        <span class="relative z-1">
+          <span class="font-bold">Clients</span>
+          <span
+            class="from-accent-01-focus absolute inset-s-0 bottom-0 -z-1 h-0.5 w-full bg-linear-to-r to-transparent to-80%"
+            aria-hidden="true"
+          ></span>
+        </span>
+      </h2>
+      <p class="text-ink-01-muted mb-6 text-xl leading-relaxed">
+        ThemeSelection's admin template impresses me with its code structure,
+        <br class="hidden lg:block" />
+        quality, and UI design. It's highly
+        <a
+          href="#"
+          class="text-accent-01-text hover:text-accent-01-focus font-medium"
+        >
+          customizable
+        </a>
+        .
+      </p>
+      <!-- 5 Star Rating -->
+      <div class="flex items-center justify-center gap-1">
+        <span class="icon-[tabler--star-filled] text-cta-01 size-6"></span>
+        <span class="icon-[tabler--star-filled] text-cta-01 size-6"></span>
+        <span class="icon-[tabler--star-filled] text-cta-01 size-6"></span>
+        <span class="icon-[tabler--star-filled] text-cta-01 size-6"></span>
+        <span class="icon-[tabler--star-half-filled] text-cta-01 size-6"></span>
+      </div>
+    </div>
+
+    <!-- Client Profiles Slider -->
+    <div class="relative w-full" x-data="portfolioCarousel()">
+      <div class="overflow-hidden rounded-xl">
+        <div
+          class="flex snap-x snap-mandatory gap-6 overflow-x-auto p-2"
+          x-ref="track"
+          x-on:scroll="refresh()"
+        >
+          <!-- Slide 1 -->
+          <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)]">
+            <div class="group relative h-67.5 cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-4.png"
+                alt="Craig Bator"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 transition duration-200 group-hover:opacity-100">
+                <button
+                  class="grid size-14 place-items-center rounded-full bg-white shadow-sm"
+                  aria-label="Play testimonial video"
+                >
+                  <span class="icon-[tabler--player-play-filled] text-accent-01-text size-6"></span>
+                </button>
+              </div>
+            </div>
+            <div class="mt-6 text-center">
+              <h4 class="text-ink-01 font-bold">Craig Bator</h4>
+              <p class="text-ink-01-muted text-sm">
+                CEO & Co Founder at
+                <span class="text-ink-01 font-semibold">Zendesk</span>
+              </p>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)]">
+            <div class="group relative h-67.5 cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-5.png"
+                alt="Martin Dorwart"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 transition duration-200 group-hover:opacity-100">
+                <button
+                  class="grid size-14 place-items-center rounded-full bg-white shadow-sm"
+                  aria-label="Play testimonial video"
+                >
+                  <span class="icon-[tabler--player-play-filled] text-accent-01-text size-6"></span>
+                </button>
+              </div>
+            </div>
+            <div class="mt-6 text-center">
+              <h4 class="text-ink-01 font-bold">Martin Dorwart</h4>
+              <p class="text-ink-01-muted text-sm">
+                Product manager at
+                <span class="text-ink-01 font-semibold">Orbit</span>
+              </p>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)]">
+            <div class="group relative h-67.5 cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-6.png"
+                alt="Alexandra Lee"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 transition duration-200 group-hover:opacity-100">
+                <button
+                  class="grid size-14 place-items-center rounded-full bg-white shadow-sm"
+                  aria-label="Play testimonial video"
+                >
+                  <span class="icon-[tabler--player-play-filled] text-accent-01-text size-6"></span>
+                </button>
+              </div>
+            </div>
+            <div class="mt-6 text-center">
+              <h4 class="text-ink-01 font-bold">Alexandra Lee</h4>
+              <p class="text-ink-01-muted text-sm">
+                Lead Developer at
+                <span class="text-ink-01 font-semibold">TechNova</span>
+              </p>
+            </div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)]">
+            <div class="group relative h-67.5 cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-7.png"
+                alt="Jason Wu"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 transition duration-200 group-hover:opacity-100">
+                <button
+                  class="grid size-14 place-items-center rounded-full bg-white shadow-sm"
+                  aria-label="Play testimonial video"
+                >
+                  <span class="icon-[tabler--player-play-filled] text-accent-01-text size-6"></span>
+                </button>
+              </div>
+            </div>
+            <div class="mt-6 text-center">
+              <h4 class="text-ink-01 font-bold">Jason Wu</h4>
+              <p class="text-ink-01-muted text-sm">
+                Product Designer at
+                <span class="text-ink-01 font-semibold">InnovateX</span>
+              </p>
+            </div>
+          </div>
+          <!-- Slide 5 -->
+          <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)]">
+            <div class="group relative h-67.5 cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-8.png"
+                alt="Esther Howard"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 transition duration-200 group-hover:opacity-100">
+                <button
+                  class="grid size-14 place-items-center rounded-full bg-white shadow-sm"
+                  aria-label="Play testimonial video"
+                >
+                  <span class="icon-[tabler--player-play-filled] text-accent-01-text size-6"></span>
+                </button>
+              </div>
+            </div>
+            <div class="mt-6 text-center">
+              <h4 class="text-ink-01 font-bold">Esther Howard</h4>
+              <p class="text-ink-01-muted text-sm">
+                CEO &amp; Co Founder at
+                <span class="text-ink-01 font-semibold">Oracle</span>
+              </p>
+            </div>
+          </div>
+          <!-- Slide 6 -->
+          <div class="w-full shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)]">
+            <div class="group relative h-67.5 cursor-pointer overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-10.png"
+                alt="Mii Chen"
+                class="absolute inset-0 h-full w-full object-cover"
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 transition duration-200 group-hover:opacity-100">
+                <button
+                  class="grid size-14 place-items-center rounded-full bg-white shadow-sm"
+                  aria-label="Play testimonial video"
+                >
+                  <span class="icon-[tabler--player-play-filled] text-accent-01-text size-6"></span>
+                </button>
+              </div>
+            </div>
+            <div class="mt-6 text-center">
+              <h4 class="text-ink-01 font-bold">Mii Chen</h4>
+              <p class="text-ink-01-muted text-sm">
+                CEO &amp; Co Founder at
+                <span class="text-ink-01 font-semibold">InnovateX</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Navigation -->
+      <div class="mt-6 flex items-center justify-center gap-6">
+        <button
+          type="button"
+          class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
+          aria-label="Previous testimonial"
+          x-on:click="go(page - 1)"
+          x-bind:disabled="page === 0"
+        >
+          <span class="icon-[tabler--arrow-left] size-5.5"></span>
+        </button>
+        <button
+          type="button"
+          class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
+          aria-label="Next testimonial"
+          x-on:click="go(page + 1)"
+          x-bind:disabled="page >= pages - 1"
+        >
+          <span class="icon-[tabler--arrow-right] size-5.5"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

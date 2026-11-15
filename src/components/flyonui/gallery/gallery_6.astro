@@ -1,0 +1,121 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 space-y-4 sm:mb-16 lg:mb-24">
+      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        The Art of What We Do
+      </h2>
+      <p class="text-ink-01-muted text-xl">
+        Discover the beauty of our projects, collaborations, and achievements
+        through our gallery.
+      </p>
+    </div>
+
+    <div class="relative w-full" x-data="portfolioCarousel()">
+      <div class="overflow-hidden rounded-xl">
+        <div
+          class="flex snap-x snap-mandatory gap-4 overflow-x-auto px-3 py-4 md:px-3 md:py-5 lg:px-4 lg:py-6"
+          x-ref="track"
+          x-on:scroll="refresh()"
+        >
+          <!-- Slide 1 -->
+          <div class="w-[calc((100%-1rem)/2)] shrink-0 snap-start transition-transform duration-300 hover:scale-110 md:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
+            <div class="overflow-hidden rounded-xl">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-41.png"
+                alt="Mountain range"
+                class="aspect-square h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="w-[calc((100%-1rem)/2)] shrink-0 snap-start transition-transform duration-300 hover:scale-110 md:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
+            <div class="overflow-hidden rounded-xl">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-40.png"
+                alt="Mountain range"
+                class="aspect-square h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="w-[calc((100%-1rem)/2)] shrink-0 snap-start transition-transform duration-300 hover:scale-110 md:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
+            <div class="overflow-hidden rounded-xl">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-27.png"
+                alt="Mountain range"
+                class="aspect-square h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="w-[calc((100%-1rem)/2)] shrink-0 snap-start transition-transform duration-300 hover:scale-110 md:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
+            <div class="overflow-hidden rounded-xl">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-28.png"
+                alt="Mountain range"
+                class="aspect-square h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+          </div>
+          <!-- Slide 5 -->
+          <div class="w-[calc((100%-1rem)/2)] shrink-0 snap-start transition-transform duration-300 hover:scale-110 md:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
+            <div class="overflow-hidden rounded-xl">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-50.png"
+                alt="Mountain range"
+                class="aspect-square h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+          </div>
+          <!-- Slide 6 -->
+          <div class="w-[calc((100%-1rem)/2)] shrink-0 snap-start transition-transform duration-300 hover:scale-110 md:w-[calc((100%-2rem)/3)] xl:w-[calc((100%-3rem)/4)]">
+            <div class="overflow-hidden rounded-xl">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-49.png"
+                alt="Building"
+                class="aspect-square h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div class="mt-12 flex items-center justify-center gap-4 sm:mt-16 md:justify-end lg:mt-24">
+        <button
+          type="button"
+          class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          aria-label="Previous gallery page"
+          x-on:click="go(page - 1)"
+          x-bind:disabled="page === 0"
+        >
+          <span class="icon-[tabler--arrow-narrow-left] size-8"></span>
+        </button>
+        <div class="flex w-52 items-center justify-start gap-2 rounded-full">
+          <template x-for="number in pages" x-bind:key="number">
+            <button
+              type="button"
+              class="h-1 flex-1 rounded-full"
+              x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-canvas'"
+              x-bind:aria-label="'Go to gallery page ' + number"
+              x-bind:aria-current="page === number - 1 ? 'true' : null"
+              x-on:click="go(number - 1)"
+            ></button>
+          </template>
+        </div>
+        <button
+          type="button"
+          class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          aria-label="Next gallery page"
+          x-on:click="go(page + 1)"
+          x-bind:disabled="page >= pages - 1"
+        >
+          <span class="icon-[tabler--arrow-narrow-right] size-8"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

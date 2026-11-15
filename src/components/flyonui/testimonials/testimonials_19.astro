@@ -1,0 +1,259 @@
+<div class="bg-canvas-01 text-ink-01 py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="relative mb-20 w-full lg:mb-28" x-data="portfolioCarousel()">
+      <!-- Header Section -->
+      <div class="mb-16 flex items-center justify-between md:mb-24">
+        <div class="space-y-4">
+          <div>
+            <span class="bg-accent-01-canvas text-accent-01-text inline-flex items-center gap-1 rounded-full px-2 py-1 text-sm font-semibold">
+              Testimonial
+            </span>
+          </div>
+          <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+            Real Stories.
+            <span class="relative z-1">
+              <span class="font-bold">Real People</span>
+              <span
+                class="from-accent-01-focus absolute inset-s-0 bottom-0 -z-1 h-0.5 w-full bg-linear-to-r to-transparent to-80%"
+                aria-hidden="true"
+              ></span>
+            </span>
+          </h2>
+          <p class="text-ink-01-muted md:text-xl">
+            Check out what our awesome clients are saying about us!
+          </p>
+        </div>
+        <!-- Navigation Controls -->
+        <div class="flex items-center gap-6">
+          <button
+            type="button"
+            class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
+            aria-label="Previous testimonial"
+            x-on:click="go(page - 1)"
+            x-bind:disabled="page === 0"
+          >
+            <span class="icon-[tabler--arrow-left] size-5.5"></span>
+          </button>
+          <button
+            type="button"
+            class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
+            aria-label="Next testimonial"
+            x-on:click="go(page + 1)"
+            x-bind:disabled="page >= pages - 1"
+          >
+            <span class="icon-[tabler--arrow-right] size-5.5"></span>
+          </button>
+        </div>
+      </div>
+      <!-- Testimonial Cards Grid -->
+      <div
+        class="flex snap-x snap-mandatory gap-0 overflow-x-auto"
+        x-ref="track"
+        x-on:scroll="refresh()"
+      >
+        <!-- Testimonial Card 1 -->
+        <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
+          <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border h-full -rotate-2 rounded-3xl border shadow-none">
+            <div class="flex flex-col gap-4 p-6">
+              <!-- Customer -->
+              <div class="flex items-center gap-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                  alt="Marley Calzoni"
+                  class="size-10 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
+                  <p class="text-ink-01-muted text-xs">
+                    CEO at
+                    <span class="text-ink-01 font-semibold">Google</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Testimonial Quote -->
+              <blockquote class="text-ink-01-muted">
+                "Clarity has been a total game-changer for our workflow. Its
+                pre-built components are not only visually consistent but also
+                incredibly intuitive."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Card 2 -->
+        <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
+          <div class="bg-canvas-01-card-02 border-canvas-01-card-02-border h-full rotate-2 rounded-3xl border shadow-none">
+            <div class="flex flex-col gap-4 p-6">
+              <!-- Customer -->
+              <div class="flex items-center gap-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-20.png"
+                  alt="Marley Calzoni"
+                  class="size-10 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
+                  <p class="text-ink-01-muted text-xs">
+                    Co Founder at
+                    <span class="text-ink-01 font-semibold">Lemondeezy</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Testimonial Quote -->
+              <blockquote class="text-ink-01-muted">
+                "We've saved countless hours thanks to Clarity. Everything is
+                modular, good, easy to use, and fits perfectly into our existing
+                stack."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Card 3 -->
+        <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
+          <div class="bg-canvas-01-card-03 border-canvas-01-card-03-border h-full -rotate-2 rounded-3xl border shadow-none">
+            <div class="flex flex-col gap-4 p-6">
+              <!-- Customer -->
+              <div class="flex items-center gap-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-6.png"
+                  alt="Marley Calzoni"
+                  class="size-10 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
+                  <p class="text-ink-01-muted text-xs">
+                    CEO at
+                    <span class="text-ink-01 font-semibold">Spotify</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Testimonial Quote -->
+              <blockquote class="text-ink-01-muted">
+                "From prototypes to production, Clarity delivers. It's
+                consistent, reliable, understandable and makes collaboration
+                between teams much more fluid."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Card 4 -->
+        <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
+          <div class="bg-accent-01-canvas border-accent-01-border h-full rotate-2 rounded-3xl border shadow-none">
+            <div class="flex flex-col gap-4 p-6">
+              <!-- Customer -->
+              <div class="flex items-center gap-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-17.png"
+                  alt="Marley Calzoni"
+                  class="size-10 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
+                  <p class="text-ink-01-muted text-xs">
+                    Co Founder at
+                    <span class="text-ink-01 font-semibold">Lemondeezy</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Testimonial Quote -->
+              <blockquote class="text-ink-01-muted">
+                "Clarity made our development process smoother. The interface is
+                clean, and the components work seamlessly across different
+                layouts."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Cards for the Slider -->
+        <!-- Testimonial Card 5 -->
+        <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
+          <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border h-full -rotate-2 rounded-3xl border shadow-none">
+            <div class="flex flex-col gap-4 p-6">
+              <!-- Customer -->
+              <div class="flex items-center gap-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-11.png"
+                  alt="Sarah Johnson"
+                  class="size-10 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Sarah Johnson</h4>
+                  <p class="text-ink-01-muted text-xs">
+                    Lead Designer at
+                    <span class="text-ink-01 font-semibold">Microsoft</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Testimonial Quote -->
+              <blockquote class="text-ink-01-muted">
+                "The design system is exceptional. Every component is
+                thoughtfully crafted and maintains consistency across our entire
+                product suite."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Card 6 -->
+        <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
+          <div class="bg-canvas-01-card-02 border-canvas-01-card-02-border h-full rotate-2 rounded-3xl border shadow-none">
+            <div class="flex flex-col gap-4 p-6">
+              <!-- Customer -->
+              <div class="flex items-center gap-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-7.png"
+                  alt="David Chen"
+                  class="size-10 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">David Chen</h4>
+                  <p class="text-ink-01-muted text-xs">
+                    CTO at
+                    <span class="text-ink-01 font-semibold">TechStartup</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Testimonial Quote -->
+              <blockquote class="text-ink-01-muted">
+                "Implementation was seamless. The documentation is clear,
+                components are well-structured, and the development experience
+                is fantastic."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination Dots -->
+      <div class="absolute inset-x-0 -bottom-8 flex justify-center gap-2">
+        <template x-for="number in pages" x-bind:key="number">
+          <button
+            type="button"
+            class="size-3 rounded-full"
+            x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+            x-bind:aria-label="'Go to testimonial page ' + number"
+            x-bind:aria-current="page === number - 1 ? 'true' : null"
+            x-on:click="go(number - 1)"
+          ></button>
+        </template>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center">
+      <button class="btn btn-filled">More Customer Stories</button>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

@@ -1,0 +1,181 @@
+<div class="bg-canvas-01 text-ink-01 py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <div
+      class="relative grid grid-cols-1 items-center gap-11 lg:grid-cols-2"
+      x-data="portfolioCarousel()"
+    >
+      <!-- Left Column - Header Section -->
+      <div class="space-y-6 md:space-y-15.5">
+        <!-- Block Heading -->
+        <div class="space-y-4">
+          <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+            Trusted by leaders from various industries
+          </h2>
+
+          <p class="text-ink-01-muted leading-relaxed md:text-xl">
+            Here’s what other subscribers had to say about Production Online.
+          </p>
+        </div>
+
+        <!-- Navigation Controls -->
+        <div class="flex items-center gap-6">
+          <button
+            type="button"
+            class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
+            aria-label="Previous testimonial"
+            x-on:click="go(page - 1)"
+            x-bind:disabled="page === 0"
+          >
+            <span class="icon-[tabler--arrow-left] size-5.5"></span>
+          </button>
+          <button
+            type="button"
+            class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
+            aria-label="Next testimonial"
+            x-on:click="go(page + 1)"
+            x-bind:disabled="page >= pages - 1"
+          >
+            <span class="icon-[tabler--arrow-right] size-5.5"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column - Testimonial Slider -->
+      <div class="overflow-hidden">
+        <div
+          class="flex snap-x snap-mandatory gap-4 overflow-x-auto"
+          x-ref="track"
+          x-on:scroll="refresh()"
+        >
+          <!-- Slide 1 -->
+          <div class="flex w-full shrink-0 snap-start flex-col justify-between">
+            <div>
+              <!-- Large Quote Icon -->
+              <div class="text-accent-01-text mb-3 pt-1">
+                <svg
+                  width="21"
+                  height="16"
+                  viewBox="0 0 21 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0.302557 16V11.3977C0.302557 10.0909 0.558239 8.75568 1.0696 7.39204C1.58097 6.02841 2.25568 4.7429 3.09375 3.53551C3.93182 2.32812 4.84091 1.3196 5.82102 0.509943L9.82671 2.875C9.03125 4.125 8.37784 5.43182 7.86648 6.79545C7.36932 8.15909 7.12074 9.67898 7.12074 11.3551V16H0.302557ZM11.0625 16V11.3977C11.0625 10.0909 11.3182 8.75568 11.8295 7.39204C12.3409 6.02841 13.0156 4.7429 13.8537 3.53551C14.6918 2.32812 15.6009 1.3196 16.581 0.509943L20.5866 2.875C19.7912 4.125 19.1378 5.43182 18.6264 6.79545C18.1293 8.15909 17.8807 9.67898 17.8807 11.3551V16H11.0625Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <!-- Testimonial Quote -->
+              <blockquote class="text-ink-01-muted mb-10 text-2xl font-medium md:text-3xl lg:text-4xl">
+                Impressive product—high quality, simple to use, and exactly as
+                promised. Customer service was superb and very responsive.
+              </blockquote>
+            </div>
+
+            <!-- Customer Info -->
+            <div class="flex items-center gap-2">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/avatar/avatar-14.png"
+                alt="Anika Franci"
+                class="size-12 rounded-full object-cover"
+              />
+              <div>
+                <h4 class="text-ink-01 font-medium md:text-xl">Anika Franci</h4>
+                <p class="text-ink-01-muted md:text-xl">
+                  CEO & Co Founder at Zendesk
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="flex w-full shrink-0 snap-start flex-col justify-between">
+            <div>
+              <!-- Large Quote Icon -->
+              <div class="text-accent-01-text mb-3 pt-1">
+                <svg
+                  width="21"
+                  height="16"
+                  viewBox="0 0 21 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0.302557 16V11.3977C0.302557 10.0909 0.558239 8.75568 1.0696 7.39204C1.58097 6.02841 2.25568 4.7429 3.09375 3.53551C3.93182 2.32812 4.84091 1.3196 5.82102 0.509943L9.82671 2.875C9.03125 4.125 8.37784 5.43182 7.86648 6.79545C7.36932 8.15909 7.12074 9.67898 7.12074 11.3551V16H0.302557ZM11.0625 16V11.3977C11.0625 10.0909 11.3182 8.75568 11.8295 7.39204C12.3409 6.02841 13.0156 4.7429 13.8537 3.53551C14.6918 2.32812 15.6009 1.3196 16.581 0.509943L20.5866 2.875C19.7912 4.125 19.1378 5.43182 18.6264 6.79545C18.1293 8.15909 17.8807 9.67898 17.8807 11.3551V16H11.0625Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <!-- Testimonial Quote -->
+              <blockquote class="text-ink-01-muted mb-10 text-2xl font-medium md:text-3xl lg:text-4xl">
+                FlyonUI has transformed our design process completely. The
+                components are beautifully crafted and incredibly easy to
+                implement. Highly recommended!
+              </blockquote>
+            </div>
+
+            <!-- Customer Info -->
+            <div class="flex items-center gap-2">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png"
+                alt="Sarah Johnson"
+                class="size-12 rounded-full object-cover"
+              />
+              <div>
+                <h4 class="text-ink-01 font-medium md:text-xl">
+                  Sarah Johnson
+                </h4>
+                <p class="text-ink-01-muted md:text-xl">
+                  Lead Designer at TechCorp
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="flex w-full shrink-0 snap-start flex-col justify-between">
+            <div>
+              <!-- Large Quote Icon -->
+              <div class="text-accent-01-text mb-3 pt-1">
+                <svg
+                  width="21"
+                  height="16"
+                  viewBox="0 0 21 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0.302557 16V11.3977C0.302557 10.0909 0.558239 8.75568 1.0696 7.39204C1.58097 6.02841 2.25568 4.7429 3.09375 3.53551C3.93182 2.32812 4.84091 1.3196 5.82102 0.509943L9.82671 2.875C9.03125 4.125 8.37784 5.43182 7.86648 6.79545C7.36932 8.15909 7.12074 9.67898 7.12074 11.3551V16H0.302557ZM11.0625 16V11.3977C11.0625 10.0909 11.3182 8.75568 11.8295 7.39204C12.3409 6.02841 13.0156 4.7429 13.8537 3.53551C14.6918 2.32812 15.6009 1.3196 16.581 0.509943L20.5866 2.875C19.7912 4.125 19.1378 5.43182 18.6264 6.79545C18.1293 8.15909 17.8807 9.67898 17.8807 11.3551V16H11.0625Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <!-- Testimonial Quote -->
+              <blockquote class="text-ink-01-muted mb-10 text-2xl font-medium md:text-3xl lg:text-4xl">
+                Outstanding support team and excellent product quality. The
+                development time was reduced significantly thanks to the
+                comprehensive component library.
+              </blockquote>
+            </div>
+
+            <!-- Customer Info -->
+            <div class="flex items-center gap-2">
+              <img
+                src="https://cdn.flyonui.com/fy-assets/avatar/avatar-5.png"
+                alt="Mike Chen"
+                class="size-12 rounded-full object-cover"
+              />
+              <div>
+                <h4 class="text-ink-01 font-medium md:text-xl">Mike Chen</h4>
+                <p class="text-ink-01-muted md:text-xl">CTO at StartupXYZ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

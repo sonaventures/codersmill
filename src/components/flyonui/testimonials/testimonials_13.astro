@@ -1,0 +1,253 @@
+<div class="bg-canvas-01 text-ink-01 py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <!-- Header Section -->
+    <div class="mb-10 space-y-4 text-center sm:mb-16 lg:mb-20">
+      <div>
+        <span class="text-ink-01-highlight text-sm font-medium uppercase">
+          TESTIMONIALS
+        </span>
+      </div>
+      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Some of our valuable customers feedback
+      </h2>
+      <p class="text-ink-01-muted md:text-xl">
+        predictive analytics, and recommendations to optimize their processes
+        and better business outcomes.
+      </p>
+    </div>
+
+    <!-- Testimonial Slider -->
+    <div class="relative w-full px-2" x-data="portfolioCarousel()">
+      <div
+        class="flex snap-x snap-mandatory gap-6 overflow-x-auto p-1 pt-6"
+        x-ref="track"
+        x-on:scroll="refresh()"
+      >
+        <!-- Testimonial Slide 1 -->
+        <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
+          <div class="border-canvas-01-border hover:border-accent-01-focus relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+            <div class="grid items-center gap-6 p-6 lg:grid-cols-5">
+              <!-- Customer Info -->
+              <div class="lg:col-span-3">
+                <div class="text-accent-01-text absolute inset-s-0 top-0 z-1 flex w-full -translate-y-1/2 justify-center">
+                  <svg
+                    width="40"
+                    height="31"
+                    viewBox="0 0 21 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.302557 16V11.3977C0.302557 10.0909 0.558239 8.75568 1.0696 7.39204C1.58097 6.02841 2.25568 4.7429 3.09375 3.53551C3.93182 2.32812 4.84091 1.3196 5.82102 0.509943L9.82671 2.875C9.03125 4.125 8.37784 5.43182 7.86648 6.79545C7.36932 8.15909 7.12074 9.67898 7.12074 11.3551V16H0.302557ZM11.0625 16V11.3977C11.0625 10.0909 11.3182 8.75568 11.8295 7.39204C12.3409 6.02841 13.0156 4.7429 13.8537 3.53551C14.6918 2.32812 15.6009 1.3196 16.581 0.509943L20.5866 2.875C19.7912 4.125 19.1378 5.43182 18.6264 6.79545C18.1293 8.15909 17.8807 9.67898 17.8807 11.3551V16H11.0625Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <p class="text-ink-01-muted mb-7 leading-relaxed">
+                  “I was impressed by the polished UI design. Everything feels
+                  modern, intuitive, and perfectly suited for professional
+                  dashboards.”
+                </p>
+                <div>
+                  <h4 class="text-ink-01 font-bold">Hanna Bator</h4>
+                  <p class="text-ink-01-muted text-sm">
+                    CEO & Co Founder at
+                    <span class="text-ink-01 font-semibold">Oracle</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Customer Photo -->
+              <div class="relative overflow-hidden rounded-xl lg:col-span-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-11.png"
+                  alt="Hanna Bator"
+                  class="bg-accent-01-canvas h-48 w-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Slide 2 -->
+        <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
+          <div class="border-canvas-01-border hover:border-accent-01-focus relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+            <div class="grid items-center gap-6 p-6 lg:grid-cols-5">
+              <!-- Customer Info -->
+              <div class="lg:col-span-3">
+                <div class="text-accent-01-text absolute inset-s-0 top-0 z-1 flex w-full -translate-y-1/2 justify-center">
+                  <svg
+                    width="40"
+                    height="31"
+                    viewBox="0 0 21 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.302557 16V11.3977C0.302557 10.0909 0.558239 8.75568 1.0696 7.39204C1.58097 6.02841 2.25568 4.7429 3.09375 3.53551C3.93182 2.32812 4.84091 1.3196 5.82102 0.509943L9.82671 2.875C9.03125 4.125 8.37784 5.43182 7.86648 6.79545C7.36932 8.15909 7.12074 9.67898 7.12074 11.3551V16H0.302557ZM11.0625 16V11.3977C11.0625 10.0909 11.3182 8.75568 11.8295 7.39204C12.3409 6.02841 13.0156 4.7429 13.8537 3.53551C14.6918 2.32812 15.6009 1.3196 16.581 0.509943L20.5866 2.875C19.7912 4.125 19.1378 5.43182 18.6264 6.79545C18.1293 8.15909 17.8807 9.67898 17.8807 11.3551V16H11.0625Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <p class="text-ink-01-muted mb-6 leading-relaxed">
+                  “ThemeSelection’s admin template stands out for its clean code
+                  and thoughtful architecture. It’s clearly built with
+                  developers in mind.”
+                </p>
+                <div>
+                  <h4 class="text-ink-01 font-bold">Angel Mango</h4>
+                  <p class="text-ink-01-muted text-sm">
+                    CEO & Co Founder at
+                    <span class="text-ink-01 font-semibold">Oracle</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Customer Photo -->
+              <div class="relative overflow-hidden rounded-xl lg:col-span-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-12.png"
+                  alt="Angel Mango"
+                  class="bg-accent-01-canvas h-48 w-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Slide 3 -->
+        <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
+          <div class="border-canvas-01-border hover:border-accent-01-focus relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+            <div class="grid items-center gap-6 p-6 lg:grid-cols-5">
+              <!-- Customer Info -->
+              <div class="lg:col-span-3">
+                <div class="text-accent-01-text absolute inset-s-0 top-0 z-1 flex w-full -translate-y-1/2 justify-center">
+                  <svg
+                    width="40"
+                    height="31"
+                    viewBox="0 0 21 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.302557 16V11.3977C0.302557 10.0909 0.558239 8.75568 1.0696 7.39204C1.58097 6.02841 2.25568 4.7429 3.09375 3.53551C3.93182 2.32812 4.84091 1.3196 5.82102 0.509943L9.82671 2.875C9.03125 4.125 8.37784 5.43182 7.86648 6.79545C7.36932 8.15909 7.12074 9.67898 7.12074 11.3551V16H0.302557ZM11.0625 16V11.3977C11.0625 10.0909 11.3182 8.75568 11.8295 7.39204C12.3409 6.02841 13.0156 4.7429 13.8537 3.53551C14.6918 2.32812 15.6009 1.3196 16.581 0.509943L20.5866 2.875C19.7912 4.125 19.1378 5.43182 18.6264 6.79545C18.1293 8.15909 17.8807 9.67898 17.8807 11.3551V16H11.0625Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <p class="text-ink-01-muted mb-6 leading-relaxed">
+                  “The components are incredibly well-designed and easy to
+                  customize. This has significantly accelerated our development
+                  process.”
+                </p>
+                <div>
+                  <h4 class="text-ink-01 font-bold">Sarah Johnson</h4>
+                  <p class="text-ink-01-muted text-sm">
+                    Lead Developer at
+                    <span class="text-ink-01 font-semibold">TechNova</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Customer Photo -->
+              <div class="relative overflow-hidden rounded-xl lg:col-span-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-4.png"
+                  alt="Sarah Johnson"
+                  class="h-48 w-full object-cover object-top"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial Slide 4 -->
+        <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
+          <div class="border-canvas-01-border hover:border-accent-01-focus relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+            <div class="grid items-center gap-6 p-6 lg:grid-cols-5">
+              <!-- Customer Info -->
+              <div class="lg:col-span-3">
+                <div class="text-accent-01-text absolute inset-s-0 top-0 z-1 flex w-full -translate-y-1/2 justify-center">
+                  <svg
+                    width="40"
+                    height="31"
+                    viewBox="0 0 21 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.302557 16V11.3977C0.302557 10.0909 0.558239 8.75568 1.0696 7.39204C1.58097 6.02841 2.25568 4.7429 3.09375 3.53551C3.93182 2.32812 4.84091 1.3196 5.82102 0.509943L9.82671 2.875C9.03125 4.125 8.37784 5.43182 7.86648 6.79545C7.36932 8.15909 7.12074 9.67898 7.12074 11.3551V16H0.302557ZM11.0625 16V11.3977C11.0625 10.0909 11.3182 8.75568 11.8295 7.39204C12.3409 6.02841 13.0156 4.7429 13.8537 3.53551C14.6918 2.32812 15.6009 1.3196 16.581 0.509943L20.5866 2.875C19.7912 4.125 19.1378 5.43182 18.6264 6.79545C18.1293 8.15909 17.8807 9.67898 17.8807 11.3551V16H11.0625Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <p class="text-ink-01-muted mb-6 leading-relaxed">
+                  “Outstanding quality and attention to detail. The design
+                  system is comprehensive and makes maintaining consistency
+                  across our products effortless.”
+                </p>
+                <div>
+                  <h4 class="text-ink-01 font-bold">Michael Chen</h4>
+                  <p class="text-ink-01-muted text-sm">
+                    Product Manager at
+                    <span class="text-ink-01 font-semibold">Zendesk</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Customer Photo -->
+              <div class="relative overflow-hidden rounded-xl lg:col-span-2">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-5.png"
+                  alt="Michael Chen"
+                  class="h-48 w-full object-cover object-top"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button
+        type="button"
+        class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas bg-canvas-01 absolute top-1/2 inset-s-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
+        aria-label="Previous testimonial"
+        x-on:click="go(page - 1)"
+        x-bind:disabled="page === 0"
+      >
+        <span class="icon-[tabler--arrow-left] size-5.5"></span>
+      </button>
+      <button
+        type="button"
+        class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas bg-canvas-01 absolute top-1/2 inset-e-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
+        aria-label="Next testimonial"
+        x-on:click="go(page + 1)"
+        x-bind:disabled="page >= pages - 1"
+      >
+        <span class="icon-[tabler--arrow-right] size-5.5"></span>
+      </button>
+
+      <!-- Pagination Dots -->
+      <div class="absolute inset-x-0 -bottom-8 flex justify-center gap-2">
+        <template x-for="number in pages" x-bind:key="number">
+          <button
+            type="button"
+            class="size-3 rounded-full"
+            x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+            x-bind:aria-label="'Go to testimonial page ' + number"
+            x-bind:aria-current="page === number - 1 ? 'true' : null"
+            x-on:click="go(number - 1)"
+          ></button>
+        </template>
+      </div>
+    </div>
+
+    <!-- Call to Action Button -->
+    <div class="mt-16 text-center lg:mt-24">
+      <button class="btn btn-filled">
+        View All Reviews
+        <span class="icon-[tabler--external-link] size-5"></span>
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

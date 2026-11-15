@@ -1,0 +1,1179 @@
+<div class="bg-canvas-01 text-ink-01 bg-[url('https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/team/team-33.png')] bg-contain bg-top bg-no-repeat pt-8 sm:pt-16 lg:pt-24">
+  <div class="mx-auto max-w-7xl space-y-12 px-4 sm:space-y-16 sm:px-6 lg:space-y-24 lg:px-8">
+    <div class="mb-12 text-center sm:mb-16 lg:mb-24">
+      <h2 class="text-ink-01-highlight relative z-1 mb-6 inline-block text-5xl font-bold md:mb-7.5 lg:mb-9">
+        "Just amazing..."
+      </h2>
+      <!-- Slider -->
+      <div class="relative w-full" x-data="portfolioCarousel()">
+        <div class="overflow-hidden">
+          <div
+            class="flex snap-x snap-mandatory gap-4 overflow-x-auto"
+            x-ref="track"
+            x-on:scroll="refresh()"
+          >
+            <div class="w-full shrink-0 snap-start space-y-6">
+              <p class="text-ink-01-muted mx-auto w-3/4 text-2xl font-medium">
+                Levarage artificial intelligence algorithms to provide users
+                with valuable insights.predictive analytics, and recommendations
+                to optimize their processes and better business outcomes.
+              </p>
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/logo-1.png"
+                alt="hubstop"
+                class="mx-auto size-25 object-contain"
+              />
+            </div>
+            <div class="w-full shrink-0 snap-start space-y-6">
+              <p class="text-ink-01-muted mx-auto w-3/4 text-2xl font-medium">
+                Empower business teams to harness cutting-edge technology for
+                exceptional results.predictive solutions, and real-time insights
+                to revolutionize their decision-making process.
+              </p>
+              <img
+                src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-logo.png"
+                alt="twitter"
+                class="mx-auto size-25 object-contain"
+              />
+            </div>
+            <div class="w-full shrink-0 snap-start space-y-6">
+              <p class="text-ink-01-muted mx-auto w-3/4 text-2xl font-medium">
+                Transform raw data into powerful business intelligence with
+                smart automation.predictive analysis, and strategic
+                recommendations to drive innovation and market leadership.
+              </p>
+              <img
+                src="https://cdn.flyonui.com/fy-assets/featured/ycombinator.png"
+                alt="ycombinator"
+                class="mx-auto size-25 object-contain"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="absolute inset-s-0 top-1/2 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border border-accent-01-border bg-canvas-01 text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          x-on:click="go(page - 1)"
+          x-bind:disabled="page === 0"
+        >
+          <span class="icon-[tabler--arrow-left] size-5.5 cursor-pointer rtl:rotate-180"></span>
+          <span class="sr-only">Previous</span>
+        </button>
+        <button
+          type="button"
+          class="absolute inset-e-0 top-1/2 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border border-accent-01-border bg-canvas-01 text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          x-on:click="go(page + 1)"
+          x-bind:disabled="page >= pages - 1"
+        >
+          <span class="sr-only">Next</span>
+          <span class="icon-[tabler--arrow-right] size-5.5 cursor-pointer rtl:rotate-180"></span>
+        </button>
+      </div>
+      <!-- End Slider -->
+    </div>
+
+    <!-- Grid Section -->
+    <div class="after:from-canvas-01/80 after:to-canvas-01/20 relative grid gap-x-6 after:absolute after:top-0 after:h-1/3 after:w-full after:bg-linear-to-b after:blur-md sm:grid-cols-2 lg:grid-cols-4">
+      <div class="relative h-200 overflow-hidden">
+        <div class="tm-marquee-up absolute inset-x-0 flex w-full flex-col">
+          <div class="flex flex-col gap-6 pb-6">
+            <!-- Card 1 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/g2-logo.png"
+                    alt="G2 Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">G2</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Seamless Integration
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI has made my development process so much easier! The
+                  components are intuitive and blend perfectly with Tailwind
+                  CSS.
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                  alt="Eleanor Pena"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Eleanor Pena</h4>
+                  <p class="text-ink-01-muted">@BerryB777</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/trustpilot-icon.png"
+                    alt="Trustpilot Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Trustpilot</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Incredible Support
+                </h3>
+                <p class="text-ink-01-muted">
+                  The support team behind FlyonUI is fantastic! They helped me
+                  with integration issues quickly and efficiently, ensuring a
+                  smooth development process.
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png"
+                  alt="Darlene Robertson"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Darlene Robertson</h4>
+                  <p class="text-ink-01-muted">@LatentHQ</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Fantastic Component Library
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI is a fantastic tool for any developer using Tailwind
+                  CSS. The components are not only beautiful but also
+                  functional!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"
+                  alt="Esther Howard"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Esther Howard</h4>
+                  <p class="text-ink-01-muted">@oxtuggs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-6 pb-6" aria-hidden="true">
+            <!-- Card 1 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/g2-logo.png"
+                    alt="G2 Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">G2</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Seamless Integration
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI has made my development process so much easier! The
+                  components are intuitive and blend perfectly with Tailwind
+                  CSS.
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                  alt="Eleanor Pena"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Eleanor Pena</h4>
+                  <p class="text-ink-01-muted">@BerryB777</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/trustpilot-icon.png"
+                    alt="Trustpilot Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Trustpilot</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Incredible Support
+                </h3>
+                <p class="text-ink-01-muted">
+                  The support team behind FlyonUI is fantastic! They helped me
+                  with integration issues quickly and efficiently, ensuring a
+                  smooth development process.
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png"
+                  alt="Darlene Robertson"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Darlene Robertson</h4>
+                  <p class="text-ink-01-muted">@LatentHQ</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Fantastic Component Library
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI is a fantastic tool for any developer using Tailwind
+                  CSS. The components are not only beautiful but also
+                  functional!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"
+                  alt="Esther Howard"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Esther Howard</h4>
+                  <p class="text-ink-01-muted">@oxtuggs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative h-200 overflow-hidden max-sm:hidden">
+        <div class="tm-marquee-down absolute inset-x-0 flex w-full flex-col">
+          <div class="flex flex-col gap-6 pb-6">
+            <!-- Card 4 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Game Changer for Developers
+                </h3>
+                <p class="text-ink-01-muted">
+                  Using FlyonUI has transformed the way I build applications.
+                  The ease of use and flexibility is unmatched!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png"
+                  alt="Floyd Miles"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Floyd Miles</h4>
+                  <p class="text-ink-01-muted">@Athar</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Perfect for Rapid Development
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI has significantly sped up my development process. The
+                  pre-built components are perfect for rapid prototyping!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                  alt="Brad Hanna"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Brad Hanna</h4>
+                  <p class="text-ink-01-muted">@Marko</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/g2-logo.png"
+                    alt="G2 Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">G2</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Effortless Design
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI has made designing my web applications effortless. The
+                  components are easy to customize and integrate seamlessly!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-6.png"
+                  alt="Cody Fisher"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Cody Fisher</h4>
+                  <p class="text-ink-01-muted">@BerryB777</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-6 pb-6" aria-hidden="true">
+            <!-- Card 4 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Game Changer for Developers
+                </h3>
+                <p class="text-ink-01-muted">
+                  Using FlyonUI has transformed the way I build applications.
+                  The ease of use and flexibility is unmatched!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png"
+                  alt="Floyd Miles"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Floyd Miles</h4>
+                  <p class="text-ink-01-muted">@Athar</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 5 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Perfect for Rapid Development
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI has significantly sped up my development process. The
+                  pre-built components are perfect for rapid prototyping!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                  alt="Brad Hanna"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Brad Hanna</h4>
+                  <p class="text-ink-01-muted">@Marko</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 6 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/g2-logo.png"
+                    alt="G2 Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">G2</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Effortless Design
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI has made designing my web applications effortless. The
+                  components are easy to customize and integrate seamlessly!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-6.png"
+                  alt="Cody Fisher"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Cody Fisher</h4>
+                  <p class="text-ink-01-muted">@BerryB777</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative h-200 overflow-hidden max-md:hidden">
+        <div class="tm-marquee-up absolute inset-x-0 flex w-full flex-col">
+          <div class="flex flex-col gap-6 pb-6">
+            <!-- Card 7 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/trustpilot-icon.png"
+                    alt="Trustpilot Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Trustpilot</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Highly Recommended
+                </h3>
+                <p class="text-ink-01-muted">
+                  The attention to detail in FlyonUI's components is impressive.
+                  It saves me so much time and effort in my projects!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                  alt="Theresa Webb"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Theresa Webb</h4>
+                  <p class="text-ink-01-muted">@inverse_hq</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 8 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/trustpilot-icon.png"
+                    alt="Trustpilot Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Trustpilot</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Exceptional User Experience
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI has truly elevated my projects! The components are not
+                  only easy to use but also enhance the overall user experience.
+                  Highly recommend for any Tailwind CSS developer!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-6.png"
+                  alt="Dianne Russell"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Dianne Russell</h4>
+                  <p class="text-ink-01-muted">@mukherjee</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 9 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  A Must-Have for Tailwind Users
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI is a must-have for anyone working with Tailwind CSS.
+                  The library is well-organized, incredibly user-friendly, and
+                  offers outstanding flexibility for customization!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-15.png"
+                  alt="Kathryn Murphy"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Kathryn Murphy</h4>
+                  <p class="text-ink-01-muted">@stap</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-6 pb-6" aria-hidden="true">
+            <!-- Card 7 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/trustpilot-icon.png"
+                    alt="Trustpilot Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Trustpilot</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Highly Recommended
+                </h3>
+                <p class="text-ink-01-muted">
+                  The attention to detail in FlyonUI's components is impressive.
+                  It saves me so much time and effort in my projects!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                  alt="Theresa Webb"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Theresa Webb</h4>
+                  <p class="text-ink-01-muted">@inverse_hq</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 8 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/trustpilot-icon.png"
+                    alt="Trustpilot Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Trustpilot</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Exceptional User Experience
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI has truly elevated my projects! The components are not
+                  only easy to use but also enhance the overall user experience.
+                  Highly recommend for any Tailwind CSS developer!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-6.png"
+                  alt="Dianne Russell"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Dianne Russell</h4>
+                  <p class="text-ink-01-muted">@mukherjee</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 9 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter Logo"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  A Must-Have for Tailwind Users
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI is a must-have for anyone working with Tailwind CSS.
+                  The library is well-organized, incredibly user-friendly, and
+                  offers outstanding flexibility for customization!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-15.png"
+                  alt="Kathryn Murphy"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Kathryn Murphy</h4>
+                  <p class="text-ink-01-muted">@stap</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="relative h-200 overflow-hidden max-md:hidden">
+        <div class="tm-marquee-down absolute inset-x-0 flex w-full flex-col">
+          <div class="flex flex-col gap-6 pb-6">
+            <!-- Card 10 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Highly Customizable and Easy to Use
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI makes it super easy to build responsive designs. The
+                  components are versatile and work well across all devices.
+                  Definitely a go-to for any project.
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                  alt="James Smith"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">James Smith</h4>
+                  <p class="text-ink-01-muted">@james_smith</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 11 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Amazing UI Components for Faster Development
+                </h3>
+                <p class="text-ink-01-muted">
+                  With FlyonUI, you can save so much time with their pre-built
+                  components. It streamlines the entire development process. I
+                  love how easy it is to integrate with Tailwind CSS.
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png"
+                  alt="Sophia Turner"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Sophia Turner</h4>
+                  <p class="text-ink-01-muted">@sophiaturner</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 12 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Effortless Integration
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI integrates seamlessly with Tailwind CSS, making it
+                  easy to style and customize. I highly recommend it for any web
+                  project!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-12.png"
+                  alt="Liam Johnson"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Liam Johnson</h4>
+                  <p class="text-ink-01-muted">@liam_johnson</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-6 pb-6" aria-hidden="true">
+            <!-- Card 10 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Highly Customizable and Easy to Use
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI makes it super easy to build responsive designs. The
+                  components are versatile and work well across all devices.
+                  Definitely a go-to for any project.
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                  alt="James Smith"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">James Smith</h4>
+                  <p class="text-ink-01-muted">@james_smith</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 11 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Amazing UI Components for Faster Development
+                </h3>
+                <p class="text-ink-01-muted">
+                  With FlyonUI, you can save so much time with their pre-built
+                  components. It streamlines the entire development process. I
+                  love how easy it is to integrate with Tailwind CSS.
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png"
+                  alt="Sophia Turner"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Sophia Turner</h4>
+                  <p class="text-ink-01-muted">@sophiaturner</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 12 -->
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border h-fit space-y-4 p-6">
+              <!-- Star Rating -->
+              <div class="flex flex-wrap items-center justify-between gap-y-3">
+                <div class="flex">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0 rtl:rotate-y-180"></span>
+                </div>
+                <div class="ms-2.5 flex gap-1.5">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/twitter-icon.png"
+                    alt="Twitter"
+                    class="size-5"
+                  />
+                  <span class="text-ink-01 text-sm">Twitter</span>
+                </div>
+              </div>
+              <!-- Content -->
+              <div class="space-y-2">
+                <h3 class="text-ink-01-h3 text-lg font-medium">
+                  Effortless Integration
+                </h3>
+                <p class="text-ink-01-muted">
+                  FlyonUI integrates seamlessly with Tailwind CSS, making it
+                  easy to style and customize. I highly recommend it for any web
+                  project!
+                </p>
+              </div>
+              <!-- User Info -->
+              <div class="flex items-center gap-3">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/avatar/avatar-12.png"
+                  alt="Liam Johnson"
+                  class="size-12 rounded-full object-cover"
+                />
+                <div>
+                  <h4 class="text-ink-01 font-medium">Liam Johnson</h4>
+                  <p class="text-ink-01-muted">@liam_johnson</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .tm-marquee-up {
+      animation: tm-scroll-y 45s linear infinite;
+    }
+    .tm-marquee-down {
+      animation: tm-scroll-y 45s linear infinite reverse;
+    }
+    @keyframes tm-scroll-y {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(-50%);
+      }
+    }
+  }
+</style>
+<script>
+  import "../../../scripts/portfolio";
+</script>

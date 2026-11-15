@@ -1,0 +1,201 @@
+<div class="bg-canvas-01 text-ink-01 py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <div class="grid grid-cols-1 items-start gap-7 lg:grid-cols-2">
+      <!-- Header Section -->
+      <div class="space-y-4">
+        <div>
+          <span class="text-ink-01-highlight text-sm font-medium uppercase">
+            TESTIMONIALS
+          </span>
+        </div>
+        <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+          Some of our valuable customers feedback
+        </h2>
+        <p class="text-ink-01-muted leading-relaxed md:text-xl">
+          predictive analytics, and recommendations to optimize their processes
+          and better business outcomes.
+        </p>
+        <button class="btn btn-outline">More Customer Stories</button>
+      </div>
+
+      <!-- Testimonials Slider -->
+      <div class="relative w-full px-2" x-data="portfolioCarousel()">
+        <div
+          class="flex snap-x snap-mandatory gap-4 overflow-x-auto"
+          x-ref="track"
+          x-on:scroll="refresh()"
+        >
+          <!-- Testimonial Slide 1 -->
+          <div class="w-full shrink-0 snap-start p-2">
+            <div class="from-accent-01-focus to-accent-01-text grid h-full items-end justify-between gap-2.5 rounded-xl bg-linear-to-br md:grid-cols-5">
+              <!-- Customer Info -->
+              <div class="p-6 text-white/90 md:col-span-3">
+                <p class="mb-7 leading-relaxed">
+                  “I was impressed by the polished UI design. Everything feels
+                  modern, intuitive, and perfectly suited for professional
+                  dashboards.”
+                </p>
+                <div>
+                  <h4 class="font-bold">Hanna Bator</h4>
+                  <p class="text-sm">
+                    CEO &amp; Co Founder at
+                    <span class="font-semibold">Oracle</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Customer Photo -->
+              <div class="relative z-1 flex w-full justify-center p-2 pb-0 md:col-span-2 lg:justify-end">
+                <div class="absolute inset-s-0 bottom-5.5 -z-1 opacity-20 lg:-inset-s-9">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="124"
+                    height="106"
+                    viewBox="0 0 124 106"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M88.9041 86.7905L64.1279 39.6073C63.8185 39.0181 63.0306 38.8898 62.5503 39.3505L26.167 74.2494C25.937 74.47 25.6157 74.5678 25.3018 74.5127L4.1886 70.8059C3.37343 70.6628 3.07504 69.6479 3.68302 69.0864L67.7095 9.94915C68.1919 9.50351 68.9657 9.63608 69.2723 10.2169L111.095 89.444C111.483 90.1792 110.857 91.0395 110.038 90.8957L89.6165 87.3105C89.3113 87.2569 89.0482 87.0648 88.9041 86.7905ZM58.9547 67.9986L76.3266 98.2246C76.7492 98.9599 76.122 99.8545 75.2866 99.7078L33.4859 92.369C32.674 92.2265 32.3736 91.218 32.9751 90.6543L57.404 67.7671C57.8746 67.3262 58.6333 67.4394 58.9547 67.9986Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-11.png"
+                  alt="Hanna Bator"
+                  class="max-h-50 object-cover"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Testimonial Slide 2 -->
+          <div class="w-full shrink-0 snap-start p-2">
+            <div class="from-accent-01-focus to-accent-01-text grid h-full items-end justify-between gap-2.5 rounded-xl bg-linear-to-br md:grid-cols-5">
+              <!-- Customer Info -->
+              <div class="p-6 text-white/90 md:col-span-3">
+                <p class="mb-7 leading-relaxed">
+                  “ThemeSelection’s admin template stands out for its clean code
+                  and thoughtful architecture. It’s clearly built with
+                  developers in mind.”
+                </p>
+                <div>
+                  <h4 class="font-bold">Angel Mango</h4>
+                  <p class="text-sm">
+                    CEO & Co Founder at
+                    <span class="font-semibold">Oracle</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Customer Photo -->
+              <div class="relative z-1 flex w-full justify-center p-2 pb-0 md:col-span-2 lg:justify-end">
+                <div class="absolute inset-s-0 bottom-5.5 -z-1 opacity-20 lg:-inset-s-9">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="124"
+                    height="106"
+                    viewBox="0 0 124 106"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M88.9041 86.7905L64.1279 39.6073C63.8185 39.0181 63.0306 38.8898 62.5503 39.3505L26.167 74.2494C25.937 74.47 25.6157 74.5678 25.3018 74.5127L4.1886 70.8059C3.37343 70.6628 3.07504 69.6479 3.68302 69.0864L67.7095 9.94915C68.1919 9.50351 68.9657 9.63608 69.2723 10.2169L111.095 89.444C111.483 90.1792 110.857 91.0395 110.038 90.8957L89.6165 87.3105C89.3113 87.2569 89.0482 87.0648 88.9041 86.7905ZM58.9547 67.9986L76.3266 98.2246C76.7492 98.9599 76.122 99.8545 75.2866 99.7078L33.4859 92.369C32.674 92.2265 32.3736 91.218 32.9751 90.6543L57.404 67.7671C57.8746 67.3262 58.6333 67.4394 58.9547 67.9986Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-12.png"
+                  alt="Hanna Bator"
+                  class="max-h-50 object-cover"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Testimonial Slide 3 -->
+          <div class="w-full shrink-0 snap-start p-2">
+            <div class="from-accent-01-focus to-accent-01-text grid h-full items-end justify-between gap-2.5 rounded-xl bg-linear-to-br md:grid-cols-5">
+              <!-- Customer Info -->
+              <div class="p-6 text-white/90 md:col-span-3">
+                <p class="mb-7 leading-relaxed">
+                  “The components are incredibly well-designed and easy to
+                  customize. This has significantly accelerated our development
+                  process.”
+                </p>
+                <div>
+                  <h4 class="font-bold">Sarah Johnson</h4>
+                  <p class="text-sm">
+                    Lead Developer at
+                    <span class="font-semibold">TechNova</span>
+                  </p>
+                </div>
+              </div>
+              <!-- Customer Photo -->
+              <div class="relative z-1 flex w-full justify-center p-2 pb-0 md:col-span-2 lg:justify-end">
+                <div class="absolute inset-s-0 bottom-5.5 -z-1 opacity-20 lg:-inset-s-9">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="124"
+                    height="106"
+                    viewBox="0 0 124 106"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M88.9041 86.7905L64.1279 39.6073C63.8185 39.0181 63.0306 38.8898 62.5503 39.3505L26.167 74.2494C25.937 74.47 25.6157 74.5678 25.3018 74.5127L4.1886 70.8059C3.37343 70.6628 3.07504 69.6479 3.68302 69.0864L67.7095 9.94915C68.1919 9.50351 68.9657 9.63608 69.2723 10.2169L111.095 89.444C111.483 90.1792 110.857 91.0395 110.038 90.8957L89.6165 87.3105C89.3113 87.2569 89.0482 87.0648 88.9041 86.7905ZM58.9547 67.9986L76.3266 98.2246C76.7492 98.9599 76.122 99.8545 75.2866 99.7078L33.4859 92.369C32.674 92.2265 32.3736 91.218 32.9751 90.6543L57.404 67.7671C57.8746 67.3262 58.6333 67.4394 58.9547 67.9986Z"
+                      fill="white"
+                    />
+                  </svg>
+                </div>
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/team/team-3.png"
+                  alt="Hanna Bator"
+                  class="max-h-50 object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button
+          type="button"
+          class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas bg-canvas-01 absolute top-1/2 inset-s-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
+          aria-label="Previous testimonial"
+          x-on:click="go(page - 1)"
+          x-bind:disabled="page === 0"
+        >
+          <span class="icon-[tabler--arrow-left] size-5.5"></span>
+        </button>
+        <button
+          type="button"
+          class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas bg-canvas-01 absolute top-1/2 inset-e-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
+          aria-label="Next testimonial"
+          x-on:click="go(page + 1)"
+          x-bind:disabled="page >= pages - 1"
+        >
+          <span class="icon-[tabler--arrow-right] size-5.5"></span>
+        </button>
+
+        <!-- Pagination Dots -->
+        <div class="absolute inset-x-0 -bottom-8 flex justify-center gap-2">
+          <template x-for="number in pages" x-bind:key="number">
+            <button
+              type="button"
+              class="size-3 rounded-full"
+              x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+              x-bind:aria-label="'Go to testimonial ' + number"
+              x-bind:aria-current="page === number - 1 ? 'true' : null"
+              x-on:click="go(number - 1)"
+            ></button>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

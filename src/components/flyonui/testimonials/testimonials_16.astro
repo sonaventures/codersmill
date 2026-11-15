@@ -1,0 +1,335 @@
+<div class="relative z-1 overflow-hidden bg-black py-16 before:absolute before:inset-0 before:top-0 before:-z-1 before:h-full before:w-full before:bg-[url('https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/gradient-bg.png')] before:bg-contain before:bg-top before:bg-no-repeat lg:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <!-- Header Section -->
+    <div class="space-y-4 text-white">
+      <div class="intersect-once intersect:motion-preset-slide-right-md intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-100">
+        <span class="text-sm font-medium">REAL CUSTOMERS</span>
+      </div>
+      <h2 class="intersect-once intersect:motion-preset-slide-right-md intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-300 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Helping thousands of students
+        <span class="from-accent-01-focus to-cta-01 bg-linear-to-r from-30% bg-clip-text text-transparent">
+          to succeed with speed
+        </span>
+      </h2>
+      <p class="intersect-once intersect:motion-preset-slide-right-md intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-500 leading-relaxed md:text-xl">
+        Find out how our happy clients are raving about us.
+      </p>
+      <button class="btn btn-filled intersect-once intersect:motion-preset-slide-right-md intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-700">
+        View All Reviews
+      </button>
+    </div>
+
+    <!-- Floating Avatars Section -->
+    <div class="relative my-16 h-64 lg:h-80">
+      <!-- Connecting Lines -->
+
+      <canvas
+        class="absolute inset-s-[50%] top-0 h-full w-dvw -translate-x-1/2"
+        data-waves
+      ></canvas>
+
+      <!-- Floating Avatars -->
+      <div class="absolute top-[50%] left-[8%] -translate-x-1/2 -translate-y-1/2 transform">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"
+          alt="Student"
+          class="size-12 rounded-full object-cover ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
+        />
+      </div>
+
+      <div class="absolute top-[10%] left-[18%] -translate-x-1/2 -translate-y-1/2 transform">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+          alt="Student"
+          class="size-12 animate-bounce rounded-full object-cover ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
+        />
+      </div>
+
+      <div class="absolute top-[50%] left-[28%] -translate-x-1/2 -translate-y-1/2 transform">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png"
+          alt="Student"
+          class="size-12 animate-bounce rounded-full object-cover ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
+        />
+      </div>
+
+      <div class="absolute top-[10%] left-[45%] -translate-x-1/2 -translate-y-1/2 transform">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-5.png"
+          alt="Student"
+          class="size-12 rounded-full object-cover ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
+        />
+      </div>
+
+      <div class="absolute bottom-0 left-[40%] -translate-x-1/2 -translate-y-1/2 transform">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-6.png"
+          alt="Student"
+          class="size-12 rounded-full object-cover ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
+        />
+      </div>
+
+      <div class="absolute bottom-0 left-[60%] -translate-x-1/2 -translate-y-1/2 transform">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-4.png"
+          alt="Student"
+          class="size-12 rounded-full object-cover ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
+        />
+      </div>
+
+      <div class="absolute top-[37%] left-[66%] -translate-x-1/2 -translate-y-1/2 transform">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-7.png"
+          alt="Student"
+          class="size-12 animate-bounce rounded-full object-cover ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
+        />
+      </div>
+
+      <div class="absolute top-[5%] left-[80%] -translate-x-1/2 -translate-y-1/2 transform">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-8.png"
+          alt="Student"
+          class="size-12 rounded-full object-cover ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
+        />
+      </div>
+
+      <div class="absolute top-[60%] left-[88%] -translate-x-1/2 -translate-y-1/2 transform">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-9.png"
+          alt="Student"
+          class="size-12 animate-bounce rounded-full object-cover ring-2 ring-white/30 ring-offset-2 ring-offset-transparent"
+        />
+      </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div
+      class="intersect-once intersect:motion-duration-800 intersect:motion-opacity-in-0 intersect:motion-delay-1000 relative w-full px-2"
+      x-data="portfolioCarousel()"
+    >
+      <div class="overflow-hidden rounded-xl">
+        <div
+          class="flex snap-x snap-mandatory gap-6 overflow-x-auto"
+          x-ref="track"
+          x-on:scroll="refresh()"
+        >
+          <!-- Slide 1 -->
+          <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
+            <div class="h-full rounded-xl border border-white/20 bg-white/10 shadow-none backdrop-blur-md duration-300 hover:bg-white/15">
+              <!-- Star Rating -->
+              <div class="flex flex-col gap-5 p-6 text-white lg:gap-8">
+                <div class="flex gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <!-- Content -->
+                <p>
+                  FlyonUI has made designing my web applications effortless. The
+                  components are easy to customize and integrate seamlessly!
+                </p>
+                <!-- User Info -->
+                <div class="flex items-center gap-3">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-17.png"
+                    alt="Craig Bator"
+                    class="size-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <h4 class="font-semibold">Craig Bator</h4>
+                    <p class="text-xs">
+                      CEO & Co Founder at
+                      <span class="font-semibold">Zendesk</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
+            <div class="h-full rounded-xl border border-white/20 bg-white/10 shadow-none backdrop-blur-md duration-300 hover:bg-white/15">
+              <!-- Star Rating -->
+              <div class="flex flex-col gap-5 p-6 text-white lg:gap-8">
+                <div class="flex gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <!-- Content -->
+                <p>
+                  With FlyonUI, I can easily track my investments and see how
+                  they.re performing in real-time.
+                </p>
+                <!-- User Info -->
+                <div class="flex items-center gap-3">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-5.png"
+                    alt="Martin Dorwart"
+                    class="size-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <h4 class="font-semibold">Martin Dorwart</h4>
+                    <p class="text-xs">
+                      Product manager at
+                      <span class="font-semibold">Orbit</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
+            <div class="h-full rounded-xl border border-white/20 bg-white/10 shadow-none backdrop-blur-md duration-300 hover:bg-white/15">
+              <!-- Star Rating -->
+              <div class="flex flex-col gap-5 p-6 text-white lg:gap-8">
+                <div class="flex gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <!-- Content -->
+                <p>
+                  FlyonUI's components saved us so much time! The responsive
+                  designs and intuitive interface made our development process
+                  faster and more efficient.
+                </p>
+                <!-- User Info -->
+                <div class="flex items-center gap-3">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png"
+                    alt="Alexandra Lee"
+                    class="size-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <h4 class="font-semibold">Alexandra Lee</h4>
+                    <p class="text-xs">
+                      Lead Developer at
+                      <span class="font-semibold">TechNova</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 4 -->
+          <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
+            <div class="h-full rounded-xl border border-white/20 bg-white/10 shadow-none backdrop-blur-md duration-300 hover:bg-white/15">
+              <!-- Star Rating -->
+              <div class="flex flex-col gap-5 p-6 text-white lg:gap-8">
+                <div class="flex gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <!-- Content -->
+                <p>
+                  FlyonUI’s design library helped us scale our UI design efforts
+                  while maintaining a consistent, professional look. Couldn’t
+                  have asked for a better tool!
+                </p>
+                <!-- User Info -->
+                <div class="flex items-center gap-3">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-12.png"
+                    alt="Jason Wu"
+                    class="size-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <h4 class="font-semibold">Jason Wu</h4>
+                    <p class="text-xs">
+                      Product Designer at
+                      <span class="font-semibold">InnovateX</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
+            <div class="h-full rounded-xl border border-white/20 bg-white/10 shadow-none backdrop-blur-md duration-300 hover:bg-white/15">
+              <!-- Star Rating -->
+              <div class="flex flex-col gap-5 p-6 text-white lg:gap-8">
+                <div class="flex gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <!-- Content -->
+                <p>
+                  FlyonUI’s design library helped us scale our UI design efforts
+                  while maintaining a consistent, professional look. Couldn’t
+                  have asked for a better tool!
+                </p>
+                <!-- User Info -->
+                <div class="flex items-center gap-3">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-2.png"
+                    alt="Mii chen"
+                    class="size-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <h4 class="font-semibold">Mii chen</h4>
+                    <p class="text-xs">
+                      UI Designer at
+                      <span class="font-semibold">Mytech</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Navigation Arrows -->
+      <button
+        type="button"
+        class="absolute top-1/2 inset-s-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border border-white/40 bg-black/40 text-white hover:bg-white/10 disabled:opacity-50"
+        aria-label="Previous testimonial"
+        x-on:click="go(page - 1)"
+        x-bind:disabled="page === 0"
+      >
+        <span class="icon-[tabler--arrow-left] size-5.5"></span>
+      </button>
+      <button
+        type="button"
+        class="absolute top-1/2 inset-e-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border border-white/40 bg-black/40 text-white hover:bg-white/10 disabled:opacity-50"
+        aria-label="Next testimonial"
+        x-on:click="go(page + 1)"
+        x-bind:disabled="page >= pages - 1"
+      >
+        <span class="icon-[tabler--arrow-right] size-5.5"></span>
+      </button>
+
+      <!-- Pagination Dots -->
+      <div class="absolute inset-x-0 -bottom-8 flex justify-center gap-2">
+        <template x-for="number in pages" x-bind:key="number">
+          <button
+            type="button"
+            class="size-3 rounded-full"
+            x-bind:class="page === number - 1 ? 'bg-white' : 'bg-white/40'"
+            x-bind:aria-label="'Go to testimonial page ' + number"
+            x-bind:aria-current="page === number - 1 ? 'true' : null"
+            x-on:click="go(number - 1)"
+          ></button>
+        </template>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

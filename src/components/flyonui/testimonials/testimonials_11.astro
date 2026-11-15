@@ -1,0 +1,183 @@
+<div class="bg-canvas-01 text-ink-01 px-4 py-8 sm:py-16 lg:py-24">
+  <div class="from-accent-01-canvas mx-auto max-w-7xl rounded-3xl bg-linear-to-b to-transparent to-90% px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+    <!-- Header Section -->
+    <div class="mb-16 space-y-4 text-center lg:mb-24">
+      <h5 class="text-ink-01-h2 text-3xl font-semibold md:text-4xl">
+        Don't just take our word for it.
+        <br />
+        They found Verified data with enrich.
+      </h5>
+      <p class="text-ink-01-muted md:text-xl">
+        Discover the enthusiastic feedback from our satisfied clients!
+      </p>
+      <!-- Call to Action Button -->
+      <div>
+        <button class="btn btn-filled">More Customer Stories</button>
+      </div>
+    </div>
+
+    <!-- Testimonial Slider -->
+    <div class="relative mx-auto max-w-3xl pt-12" x-data="portfolioCarousel()">
+      <!-- Pagination Dots -->
+      <div class="absolute inset-x-0 top-3 z-1 flex justify-center gap-3">
+        <template x-for="number in pages" x-bind:key="number">
+          <button
+            type="button"
+            class="size-3 rounded-full"
+            x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+            x-bind:aria-label="'Go to testimonial ' + number"
+            x-bind:aria-current="page === number - 1 ? 'true' : null"
+            x-on:click="go(number - 1)"
+          ></button>
+        </template>
+      </div>
+      <div class="pb-2">
+        <div
+          class="flex snap-x snap-mandatory gap-6 overflow-x-auto"
+          x-ref="track"
+          x-on:scroll="refresh()"
+        >
+          <!-- Slide 1 -->
+          <div class="w-full shrink-0 snap-start px-3 py-1">
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border shadow-md lg:rounded-2xl">
+              <div class="space-y-4 p-6">
+                <!-- Star Rating -->
+                <div class="flex justify-center gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+
+                <!-- Testimonial Text -->
+                <p class="text-ink-01-muted text-center leading-relaxed">
+                  Outstanding product—well-crafted, user-friendly, and exactly
+                  what I expected. The team went above and beyond to help.
+                </p>
+
+                <!-- Customer Info -->
+                <div class="text-center">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-17.png"
+                    alt="Marley Calzoni"
+                    class="mx-auto mb-2 size-10 rounded-full object-cover"
+                  />
+                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
+                  <p class="text-ink-01-muted text-xs">
+                    CEO & Co-founder at
+                    <span class="text-ink-01 font-semibold">Lemoncompany</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="w-full shrink-0 snap-start px-3 py-1">
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border shadow-md lg:rounded-2xl">
+              <div class="space-y-4 p-6">
+                <!-- Star Rating -->
+                <div class="flex justify-center gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+
+                <!-- Testimonial Text -->
+                <p class="text-ink-01-muted text-center leading-relaxed">
+                  The service exceeded my expectations. The team was responsive,
+                  and the product quality was top-notch. Highly recommend!
+                </p>
+
+                <!-- Customer Info -->
+                <div class="text-center">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-5.png"
+                    alt="Martin Dorwart"
+                    class="mx-auto mb-2 size-10 rounded-full object-cover"
+                  />
+                  <h4 class="text-ink-01 font-medium">Martin Dorwart</h4>
+                  <p class="text-ink-01-muted text-xs">
+                    Product manager at
+                    <span class="text-ink-01 font-semibold">Orbit</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="w-full shrink-0 snap-start px-3 py-1">
+            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border shadow-md lg:rounded-2xl">
+              <div class="space-y-4 p-6">
+                <!-- Star Rating -->
+                <div class="flex justify-center gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+
+                <!-- Testimonial Text -->
+                <p class="text-ink-01-muted text-center leading-relaxed">
+                  Exceptional quality and service. The team was attentive to our
+                  needs, and the final product was flawless. Will definitely use
+                  again!
+                </p>
+
+                <!-- Customer Info -->
+                <div class="text-center">
+                  <img
+                    src="https://cdn.flyonui.com/fy-assets/avatar/avatar-3.png"
+                    alt="Alexandra Lee"
+                    class="mx-auto mb-2 size-10 rounded-full object-cover"
+                  />
+                  <h4 class="text-ink-01 font-medium">Alexandra Lee</h4>
+                  <p class="text-ink-01-muted text-xs">
+                    Lead Developer at
+                    <span class="text-ink-01 font-semibold">TechNova</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trusted Brands -->
+    <div class="mt-12 flex flex-wrap items-center justify-center gap-6 md:mt-16">
+      <!-- Google Logo -->
+      <div>
+        <img
+          src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/google-logo-bw.png"
+          alt="Google"
+          class="h-7"
+        />
+      </div>
+
+      <!-- Spotify Logo -->
+      <div>
+        <img
+          src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/microsoft-logo-bw.png"
+          alt="Spotify"
+          class="h-7"
+        />
+      </div>
+
+      <!-- Disney Logo -->
+      <div>
+        <img
+          src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/brand-logo/shopify-logo-bw.png"
+          alt="Disney"
+          class="h-7"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

@@ -1,0 +1,258 @@
+<div class="bg-canvas-01 text-ink-01 py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4">
+    <!-- Header Section -->
+    <div class="mb-10 space-y-4 text-center sm:mb-20 lg:mb-24">
+      <div>
+        <span class="bg-accent-01-canvas text-accent-01-text inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-semibold">
+          Testimonial
+        </span>
+      </div>
+      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        What Our Users Are Saying
+      </h2>
+      <p class="text-ink-01-muted md:text-xl">
+        Delivering performance, design, and flexibility—straight from our users.
+      </p>
+
+      <!-- Call to Action Button -->
+      <div>
+        <button class="btn btn-filled">More User Stories</button>
+      </div>
+    </div>
+
+    <!-- Testimonial Slider -->
+    <div class="relative w-full px-2" x-data="portfolioCarousel()">
+      <div
+        class="flex snap-x snap-mandatory gap-6 overflow-x-auto p-1"
+        x-ref="track"
+        x-on:scroll="refresh()"
+      >
+        <!-- Testimonial Slide 1 -->
+        <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
+          <div class="border-canvas-01-border hover:border-accent-01-focus h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+            <!-- Star Rating -->
+            <div class="grid items-center gap-6 p-6 lg:grid-cols-2">
+              <!-- User Video -->
+              <div class="relative aspect-square overflow-hidden rounded-xl">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-9.png"
+                  alt="Jakob Korsgaard"
+                  class="absolute inset-0 h-full w-full object-cover object-top"
+                />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <button
+                    class="text-accent-01-text grid size-11.5 place-items-center rounded-full bg-white shadow-sm transition-transform duration-200 hover:scale-110"
+                    aria-label="Play testimonial video"
+                  >
+                    <span class="icon-[tabler--player-play-filled] size-6"></span>
+                  </button>
+                </div>
+              </div>
+              <!-- User Info -->
+              <div>
+                <h4 class="text-ink-01 font-bold">Jakob Korsgaard</h4>
+                <p class="text-ink-01-muted text-sm">
+                  CEO & Co Founder at
+                  <span class="text-ink-01 font-semibold">Oracle</span>
+                </p>
+                <hr class="border-canvas-01-border my-4" />
+                <div class="mb-2 flex gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <!-- Content -->
+                <p class="text-ink-01-muted leading-relaxed">
+                  I am truly impressed by ThemeSelection's admin template,
+                  particularly due to its exceptional code structure and overall
+                  quality, which enhances the development experience
+                  significantly. The user interface design is visually good.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial Slide 2 -->
+        <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
+          <div class="border-canvas-01-border hover:border-accent-01-focus h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+            <!-- Star Rating -->
+            <div class="grid items-center gap-6 p-6 lg:grid-cols-2">
+              <!-- User Video -->
+              <div class="relative aspect-square overflow-hidden rounded-xl">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-10.png"
+                  alt="Craig Bator"
+                  class="absolute inset-0 h-full w-full object-cover object-top"
+                />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <button
+                    class="text-accent-01-text grid size-11.5 place-items-center rounded-full bg-white shadow-sm transition-transform duration-200 hover:scale-110"
+                    aria-label="Play testimonial video"
+                  >
+                    <span class="icon-[tabler--player-play-filled] size-6"></span>
+                  </button>
+                </div>
+              </div>
+              <!-- User Info -->
+              <div>
+                <h4 class="text-ink-01 font-bold">Craig Bator</h4>
+                <p class="text-ink-01-muted text-sm">
+                  CEO & Co Founder at
+                  <span class="text-ink-01 font-semibold">Zendesk</span>
+                </p>
+                <hr class="border-canvas-01-border my-4" />
+                <div class="mb-2 flex gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <!-- Content -->
+                <p class="text-ink-01-muted leading-relaxed">
+                  The FlyonUI admin template is a game-changer for developers.
+                  Its clean code structure and comprehensive documentation make
+                  it easy to implement, while the stunning design elevates the
+                  user experience. Highly recommended!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial Slide 3 -->
+        <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
+          <div class="border-canvas-01-border hover:border-accent-01-focus h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+            <!-- Star Rating -->
+            <div class="grid items-center gap-6 p-6 lg:grid-cols-2">
+              <!-- User Video -->
+              <div class="relative aspect-square overflow-hidden rounded-xl">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-5.png"
+                  alt="Martin Dorwart"
+                  class="absolute inset-0 h-full w-full object-cover object-top"
+                />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <button
+                    class="text-accent-01-text grid size-11.5 place-items-center rounded-full bg-white shadow-sm transition-transform duration-200 hover:scale-110"
+                    aria-label="Play testimonial video"
+                  >
+                    <span class="icon-[tabler--player-play-filled] size-6"></span>
+                  </button>
+                </div>
+              </div>
+              <!-- User Info -->
+              <div>
+                <h4 class="text-ink-01 font-bold">Martin Dorwart</h4>
+                <p class="text-ink-01-muted text-sm">
+                  Product manager at
+                  <span class="text-ink-01 font-semibold">Orbit</span>
+                </p>
+                <hr class="border-canvas-01-border my-4" />
+                <div class="mb-2 flex gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <!-- Content -->
+                <p class="text-ink-01-muted leading-relaxed">
+                  With FlyonUI, I can easily track my investments and see how
+                  they're performing in real-time. The user interface is
+                  intuitive, making it simple to navigate through my portfolio
+                  and make informed decisions.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial Slide 4 -->
+        <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
+          <div class="border-canvas-01-border hover:border-accent-01-focus h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+            <!-- Star Rating -->
+            <div class="grid items-center gap-6 p-6 lg:grid-cols-2">
+              <!-- User Video -->
+              <div class="relative aspect-square overflow-hidden rounded-xl">
+                <img
+                  src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/testimonials/testimonials-6.png"
+                  alt="Alexandra Lee"
+                  class="absolute inset-0 h-full w-full object-cover object-top"
+                />
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <button
+                    class="text-accent-01-text grid size-11.5 place-items-center rounded-full bg-white shadow-sm transition-transform duration-200 hover:scale-110"
+                    aria-label="Play testimonial video"
+                  >
+                    <span class="icon-[tabler--player-play-filled] size-6"></span>
+                  </button>
+                </div>
+              </div>
+              <!-- User Info -->
+              <div>
+                <h4 class="text-ink-01 font-bold">Alexandra Lee</h4>
+                <p class="text-ink-01-muted text-sm">
+                  Lead Developer at
+                  <span class="text-ink-01 font-semibold">TechNova</span>
+                </p>
+                <hr class="border-canvas-01-border my-4" />
+                <div class="mb-2 flex gap-1">
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0"></span>
+                </div>
+                <!-- Content -->
+                <p class="text-ink-01-muted leading-relaxed">
+                  FlyonUI's components saved us so much time! The pre-built
+                  elements are not only visually appealing but also highly
+                  functional. We were able to focus on building our app's unique
+                  features instead of worrying about the UI.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Arrows -->
+      <button
+        type="button"
+        class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas bg-canvas-01 absolute top-1/2 inset-s-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
+        aria-label="Previous testimonial"
+        x-on:click="go(page - 1)"
+        x-bind:disabled="page === 0"
+      >
+        <span class="icon-[tabler--arrow-left] size-5.5"></span>
+      </button>
+      <button
+        type="button"
+        class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas bg-canvas-01 absolute top-1/2 inset-e-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
+        aria-label="Next testimonial"
+        x-on:click="go(page + 1)"
+        x-bind:disabled="page >= pages - 1"
+      >
+        <span class="icon-[tabler--arrow-right] size-5.5"></span>
+      </button>
+
+      <!-- Pagination Dots -->
+      <div class="absolute inset-x-0 -bottom-8 flex justify-center gap-2">
+        <template x-for="number in pages" x-bind:key="number">
+          <button
+            type="button"
+            class="size-3 rounded-full"
+            x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+            x-bind:aria-label="'Go to testimonial page ' + number"
+            x-bind:aria-current="page === number - 1 ? 'true' : null"
+            x-on:click="go(number - 1)"
+          ></button>
+        </template>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>

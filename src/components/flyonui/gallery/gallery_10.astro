@@ -1,0 +1,136 @@
+<div class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 space-y-4 sm:mb-16 lg:mb-24">
+      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        Our Top Destinations
+      </h2>
+      <p class="text-ink-01-muted text-xl">
+        Take a look at the moments that define our work, our people, and our
+        vision.
+      </p>
+    </div>
+
+    <div class="relative w-full" x-data="portfolioCarousel()">
+      <div class="h-80 overflow-hidden rounded-xl">
+        <div
+          class="flex h-full snap-x snap-mandatory gap-3 overflow-x-auto"
+          x-ref="track"
+          x-on:scroll="refresh()"
+        >
+          <!-- Slide 1 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-6.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 2 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-50.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 3 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-4.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 4 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-3.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 5 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-2.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 6 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-1.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 7 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-12.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 8 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-11.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 9 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-10.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 10 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-9.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+          <!-- Slide 11 -->
+          <div class="h-full w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/3)] lg:w-[calc((100%-3rem)/5)]">
+            <img
+              src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/gallery/gallery-8.png"
+              alt="Gallery 10"
+              class="size-full rounded-xl object-cover"
+            />
+          </div>
+        </div>
+      </div>
+      <!-- Navigation -->
+      <div class="mt-8 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          aria-label="Previous destinations"
+          x-on:click="go(page - 1)"
+          x-bind:disabled="page === 0"
+        >
+          <span class="icon-[tabler--arrow-left] size-5.5"></span>
+        </button>
+        <button
+          type="button"
+          class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          aria-label="Next destinations"
+          x-on:click="go(page + 1)"
+          x-bind:disabled="page >= pages - 1"
+        >
+          <span class="icon-[tabler--arrow-right] size-5.5"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import "../../../scripts/portfolio";
+</script>
