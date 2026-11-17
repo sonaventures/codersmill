@@ -105,7 +105,9 @@ import {
           <div class="grid gap-4 sm:grid-cols-2">
             {typographyProperties.map((property) => (
               <div class="grid content-start gap-2">
-                <label for={`typography-${property.key}`}>
+                <label
+                  for={`typography-${property.key}${property.presets ? "-preset" : ""}`}
+                >
                   {property.label}
                 </label>
                 {property.options ? (
@@ -120,23 +122,54 @@ import {
                     ))}
                   </select>
                 ) : (
-                  <input
-                    id={`typography-${property.key}`}
-                    data-typography-property={property.key}
+                  <select
+                    id={`typography-${property.key}-preset`}
+                    data-typography-preset={property.key}
                     class="typography-control"
-                    placeholder={property.placeholder}
-                    autocomplete="off"
-                    spellcheck="false"
-                  />
+                  >
+                    <option value="">Default / no override</option>
+                    {Object.entries(property.presets).map(([value, label]) => (
+                      <option value={value}>{label}</option>
+                    ))}
+                    <option value="custom">Custom value...</option>
+                  </select>
+                )}
+                {property.presets && (
+                  <div
+                    data-typography-custom={property.key}
+                    class="grid gap-2"
+                    hidden
+                  >
+                    <label for={`typography-${property.key}`}>
+                      Custom {property.label.toLowerCase()}
+                    </label>
+                    <input
+                      id={`typography-${property.key}`}
+                      data-typography-property={property.key}
+                      class="typography-control"
+                      placeholder={property.placeholder}
+                      autocomplete="off"
+                      spellcheck="false"
+                      disabled
+                    />
+                  </div>
                 )}
               </div>
             ))}
           </div>
           <p class="text-sm">
-            Sizes accept px, rem, em, or %. Line height also accepts a number or
-            normal. Letter spacing accepts px, rem, em, 0, or normal. Color
-            accepts hex, including alpha. Font choices use installed fonts or
-            site font tokens; no fonts are downloaded.
+            Choose Tailwind presets such as text-4xl, font-bold, leading-tight,
+            tracking-wide, or text-sky-600. Presets use Tailwind's default
+            values and change only the labeled property; set line height
+            separately from font size. Font and color tokens follow the site's
+            theme.
+          </p>
+          <p class="text-sm">
+            Choose Custom value to enter sizes in px, rem, em, or %. Custom line
+            height also accepts a number or normal; letter spacing accepts px,
+            rem, em, 0, or normal. Custom color accepts hex, including alpha.
+            Font choices use installed fonts or site font tokens; no fonts are
+            downloaded.
           </p>
           <button
             type="button"

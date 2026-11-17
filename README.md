@@ -31,7 +31,16 @@ Use `/website-builder/typographybuilder/` to set styles for `h1`–`h6`, `p`,
 `em`, and `strong`. Choose **Site-wide defaults**, or add the exact ID of a
 `<section>` in your page (without `#`) and select it to edit local overrides.
 Each element has font family, size, weight, line height, letter spacing, style,
-text transform, and hex color controls. Blank fields leave existing styles
+text transform, and color controls. Select Tailwind defaults by utility name:
+`text-xs` through `text-9xl`, `font-thin` through `font-black`, `leading-*`,
+`tracking-*`, font families, font style, text transform, and the built-in
+`text-{color}-{shade}` palette (plus black, white, transparent, and current color).
+Presets set only their labeled property, not the entire utility; choose line
+height separately from font size. Font families and palette colors use site
+theme tokens; the other presets use Tailwind's default values.
+**Custom value** keeps manual sizes, line heights, letter spacing, and hex colors
+available. Existing saved custom values still load and remain editable.
+Blank fields leave existing styles
 unchanged; blank section fields follow the site-wide element defaults.
 The isolated live preview compares the defaults and selected section without
 changing the builder controls.

@@ -25,6 +25,7 @@ const importButton = get("#import-typography");
 const fileInput = get("#typography-file");
 const status = get("#typography-status");
 const controls = [...root.querySelectorAll("[data-typography-property]")];
+const presets = [...root.querySelectorAll("[data-typography-preset]")];
 const preview = get("[data-typography-preview]");
 const shadow = preview.attachShadow({ mode: "open" });
 const samples = document.createElement("div");
@@ -83,6 +84,15 @@ function renderControls() {
       rules()[currentElement]?.[control.dataset.typographyProperty] ?? "";
     control.setCustomValidity("");
   }
+  for (const preset of presets) {
+    const control = get(`#typography-${preset.dataset.typographyPreset}`);
+    preset.value = [...preset.options].some(
+      (option) => option.value === control.value,
+    )
+      ? control.value
+      : "custom";
+    toggleCustomControl(preset);
+  }
   remove.disabled = !currentScope;
   get("#typography-editing").textContent =
     `${currentScope ? `Section #${currentScope}` : "Site-wide defaults"} / ${currentElement}`;
@@ -108,29 +118,54 @@ function setBusy(value) {
   for (const control of root.querySelectorAll("button, input, select")) {
     control.disabled = value;
   }
-  if (!value) remove.disabled = !currentScope;
+  if (!value) {
+    for (const preset of presets) toggleCustomControl(preset);
+    remove.disabled = !currentScope;
+  }
   root.setAttribute("aria-busy", String(value));
 }
 
-for (const control of controls) {
-  control.addEventListener("input", () => {
-    const key = control.dataset.typographyProperty;
-    const value = control.value.trim();
-    try {
-      validateTypographyValue(key, value);
-      control.setCustomValidity("");
-    } catch (error) {
-      control.setCustomValidity(error.message);
-      status.textContent = error.message;
-      return;
+function updateValue(control) {
+  const key = control.dataset.typographyProperty;
+  const value = control.value.trim();
+  try {
+    validateTypographyValue(key, value);
+    control.setCustomValidity("");
+  } catch (error) {
+    control.setCustomValidity(error.message);
+    status.textContent = error.message;
+    return;
+  }
+  const styles = rules();
+  if (!Object.hasOwn(styles, currentElement)) styles[currentElement] = {};
+  if (value) styles[currentElement][key] = value;
+  else delete styles[currentElement][key];
+  renderPreview();
+  markDirty();
+}
+
+function toggleCustomControl(preset) {
+  const key = preset.dataset.typographyPreset;
+  const custom = preset.value === "custom";
+  get(`[data-typography-custom="${key}"]`).hidden = !custom;
+  get(`#typography-${key}`).disabled = busy || !custom;
+}
+
+for (const preset of presets) {
+  preset.addEventListener("change", () => {
+    const control = get(`#typography-${preset.dataset.typographyPreset}`);
+    toggleCustomControl(preset);
+    if (preset.value === "custom") {
+      control.focus();
+    } else {
+      control.value = preset.value;
+      updateValue(control);
     }
-    const styles = rules();
-    if (!Object.hasOwn(styles, currentElement)) styles[currentElement] = {};
-    if (value) styles[currentElement][key] = value;
-    else delete styles[currentElement][key];
-    renderPreview();
-    markDirty();
   });
+}
+
+for (const control of controls) {
+  control.addEventListener("input", () => updateValue(control));
   control.addEventListener("change", () => control.reportValidity());
 }
 

@@ -41,6 +41,30 @@ test("builder CSS round trips all settings, including empty section overrides", 
   assert.deepEqual(parseTypography(serializeTypography(config)), config);
 });
 
+test("Tailwind presets survive export/import with section overrides and custom values", () => {
+  const config = createTypography();
+  config.defaults.h1 = {
+    "font-family": "var(--font-sans)",
+    "font-size": "2.25rem",
+    "font-weight": "700",
+    "line-height": "1.25",
+    "letter-spacing": "0.025em",
+    color: "var(--color-sky-600)",
+  };
+  config.sections.about = {
+    h1: { color: "var(--color-rose-500)", "font-size": "2.6rem" },
+    p: { color: "currentColor" },
+    em: { color: "transparent" },
+  };
+  const output = serializeTypography(config);
+  assert.deepEqual(parseTypography(output), config);
+  assert.match(output, /color: var\(--color-sky-600\);/);
+  assert.match(
+    output,
+    /section\[id="about"\] h1 \{\n  color: var\(--color-rose-500\);\n  font-size: 2.6rem;/,
+  );
+});
+
 test("section IDs are safely quoted in CSS and encoded in metadata", () => {
   const config = createTypography();
   const id = 'a"]{}/*</style>';
@@ -63,6 +87,10 @@ test("unsupported CSS, malformed settings, and unsafe values are rejected", () =
     ["font-size", "2rem; color:red"],
     ["font-size", "-1rem"],
     ["color", "red"],
+    ["color", "var(--color-unknown-500)"],
+    ["color", "var(--color-sky-500); display: none"],
+    ["font-size", "text-4xl"],
+    ["font-weight", "font-bold"],
     ["font-family", "url(https://example.com/font)"],
     ["line-height", "-2"],
     ["letter-spacing", "5%"],

@@ -11,10 +11,10 @@ export const typographyElements = [
 ];
 
 export const typographyFonts = {
-  "var(--font-sans)": "Site sans",
-  "var(--font-display)": "Site display",
-  "var(--font-serif)": "Site serif",
-  "var(--font-mono)": "Site monospace",
+  "var(--font-sans)": "font-sans (site sans)",
+  "var(--font-display)": "font-display (site display)",
+  "var(--font-serif)": "font-serif (site serif)",
+  "var(--font-mono)": "font-mono (site monospace)",
   "Arial, sans-serif": "Arial",
   "Georgia, serif": "Georgia",
   "'Times New Roman', serif": "Times New Roman",
@@ -30,46 +30,79 @@ export const typographyProperties = [
     key: "font-size",
     label: "Font size",
     placeholder: "e.g. 2.5rem",
+    presets: Object.fromEntries(
+      Object.entries(defaultTheme.fontSize).map(([name, [size]]) => [
+        size,
+        `text-${name} (${size})`,
+      ]),
+    ),
   },
   {
     key: "font-weight",
     label: "Font weight",
     options: Object.fromEntries(
-      Array.from({ length: 9 }, (_, index) => {
-        const weight = String((index + 1) * 100);
-        return [weight, weight];
-      }),
+      Object.entries(defaultTheme.fontWeight).map(([name, weight]) => [
+        weight,
+        `font-${name} (${weight})`,
+      ]),
     ),
   },
   {
     key: "line-height",
     label: "Line height",
     placeholder: "e.g. 1.5 or 24px",
+    presets: Object.fromEntries(
+      Object.entries(defaultTheme.lineHeight).map(([name, height]) => [
+        height,
+        `leading-${name} (${height})`,
+      ]),
+    ),
   },
   {
     key: "letter-spacing",
     label: "Letter spacing",
     placeholder: "e.g. -0.02em",
+    presets: Object.fromEntries(
+      Object.entries(defaultTheme.letterSpacing).map(([name, spacing]) => [
+        spacing,
+        `tracking-${name} (${spacing})`,
+      ]),
+    ),
   },
   {
     key: "font-style",
     label: "Font style",
-    options: { normal: "Normal", italic: "Italic" },
+    options: { normal: "not-italic", italic: "italic" },
   },
   {
     key: "text-transform",
     label: "Text transform",
     options: {
-      none: "None",
-      uppercase: "Uppercase",
-      lowercase: "Lowercase",
-      capitalize: "Capitalize",
+      none: "normal-case",
+      uppercase: "uppercase",
+      lowercase: "lowercase",
+      capitalize: "capitalize",
     },
   },
   {
     key: "color",
     label: "Text color",
     placeholder: "e.g. #334155",
+    presets: {
+      "var(--color-black)": "text-black",
+      "var(--color-white)": "text-white",
+      transparent: "text-transparent",
+      currentColor: "text-current",
+      inherit: "text-inherit",
+      ...Object.fromEntries(
+        builtinPaletteFamilies.flatMap(({ key }) =>
+          paletteShades.map((shade) => [
+            `var(--color-${key}-${shade})`,
+            `text-${key}-${shade}`,
+          ]),
+        ),
+      ),
+    },
   },
 ];
 
@@ -101,7 +134,11 @@ export function validateTypographyValue(key, value) {
   if (!property || typeof value !== "string") {
     throw new Error(`Unknown typography property or invalid value: ${key}`);
   }
-  if (value === "") return;
+  if (
+    value === "" ||
+    (property.presets && Object.hasOwn(property.presets, value))
+  )
+    return;
   let valid;
   if (property.options) {
     valid = Object.hasOwn(property.options, value);
@@ -207,3 +244,5 @@ export function parseTypography(source) {
     JSON.parse(decodeURIComponent(source.slice(marker.length, end))),
   );
 }
+import defaultTheme from "tailwindcss/defaultTheme";
+import { builtinPaletteFamilies, paletteShades } from "./palette.js";

@@ -60,11 +60,17 @@
   @apply grid gap-2;
 }
 .palette-editor #family-list .family-row {
-  @apply flex flex-wrap items-center justify-between gap-4 p-[1rem_0];
+  @apply grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 p-[1rem_0] tablet:grid-cols-[minmax(0,1fr)_auto];
   border-bottom: 1px solid var(--canvas-page-border);
 }
+.palette-editor #family-list .family-row > strong {
+  @apply min-w-0 wrap-anywhere;
+}
+.palette-editor #family-list .family-row > button {
+  @apply justify-self-end;
+}
 .palette-editor #family-list .family-swatches {
-  @apply flex flex-wrap gap-[0.2rem];
+  @apply flex max-w-full flex-wrap justify-center gap-[0.2rem] justify-self-center tablet:col-span-2 tablet:row-start-2;
 }
 .palette-editor #family-list .family-swatch {
   @apply h-[1.6rem] w-[1.6rem];
