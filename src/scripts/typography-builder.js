@@ -36,8 +36,12 @@ previewBase.textContent = `
   [data-typography-preview] { display: grid; gap: 1.5rem; }
   [data-sample-label] { border-bottom: 1px solid var(--canvas-page-border); padding-bottom: .5rem; margin-bottom: .75rem; font-size: .875rem; font-weight: 600; }
   [data-sample-content] { display: grid; gap: .75rem; overflow-wrap: anywhere; }
+  [data-sample-content] > div { min-width: 0; }
   h1, h2, h3, h4, h5, h6, p { margin: 0; font-size: inherit; font-weight: inherit; }
-  code { font-size: .75rem; opacity: .7; }
+  code, pre { font-family: var(--font-mono, monospace); }
+  pre { margin: 0; max-width: 100%; overflow-x: auto; }
+  blockquote { margin: 0; }
+  [data-sample-element-label] { display: block; font-family: var(--font-mono, monospace); font-size: .75rem; opacity: .7; }
 `;
 const previewStyle = document.createElement("style");
 shadow.append(previewBase, previewStyle, samples);

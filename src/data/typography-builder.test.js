@@ -41,6 +41,31 @@ test("builder CSS round trips all settings, including empty section overrides", 
   assert.deepEqual(parseTypography(serializeTypography(config)), config);
 });
 
+test("code, citations, preformatted text, and quotations support defaults and section overrides", () => {
+  const config = createTypography();
+  config.sections.docs = {};
+  for (const element of ["code", "cite", "pre", "blockquote"]) {
+    config.defaults[element] = { "font-size": "1rem" };
+    config.sections.docs[element] = {
+      "font-size": "1.5rem",
+      color: "var(--color-sky-600)",
+    };
+  }
+  const output = serializeTypography(config);
+  assert.deepEqual(parseTypography(output), config);
+  for (const element of ["code", "cite", "pre", "blockquote"]) {
+    assert.ok(output.includes(`${element} {\n  font-size: 1rem;\n}`));
+    assert.ok(
+      output.includes(`section[id="docs"] ${element} {\n  font-size: 1.5rem;`),
+    );
+    assert.ok(
+      typographyCss(config, true).includes(
+        `[data-typography-preview] section[data-typography-section="docs"] ${element}`,
+      ),
+    );
+  }
+});
+
 test("Tailwind presets survive export/import with section overrides and custom values", () => {
   const config = createTypography();
   config.defaults.h1 = {

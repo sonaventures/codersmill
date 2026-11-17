@@ -4,6 +4,16 @@ import {
   typographyElements,
   typographyProperties,
 } from "../../data/typography-builder.js";
+
+const sampleText: Record<string, string> = {
+  p: "Thoughtful typography makes every story easier to read. Give your words room to breathe.",
+  em: "A little emphasis goes a long way.",
+  strong: "Make the important words stand out.",
+  code: 'const message = "Hello, typography!";',
+  cite: "The Website Builder Handbook",
+  pre: 'function greet(name) {\n  return "Hello, " + name;\n}',
+  blockquote: "Good typography gives every idea a clear voice.",
+};
 ---
 
 <Layout
@@ -13,8 +23,9 @@ import {
   <div class="container grid gap-8 py-12" data-typography-builder>
     <header class="grid max-w-3xl gap-3">
       <p>
-        Set site-wide styles for headings, paragraphs, emphasis, and strong
-        text. Add a section ID to override just that section, for example
+        Set site-wide styles for headings, paragraphs, emphasis, strong text,
+        code, citations, preformatted text, and block quotations. Add a section
+        ID to override just that section, for example
         <code>&lt;section id="about"&gt;</code>.
       </p>
       <p>
@@ -187,8 +198,9 @@ import {
       >
         <h2 class="font-display text-2xl">Live preview</h2>
         <p>
-          Compare the defaults with the selected section. All nine elements are
-          shown.
+          Compare the defaults with the selected section. All{" "}
+          {typographyElements.length}
+          elements are shown.
         </p>
         <div
           class="grid gap-6 overflow-auto rounded border border-canvas-page-border p-5"
@@ -207,15 +219,12 @@ import {
               <section class="grid gap-3 wrap-break-word" data-sample-content>
                 {typographyElements.map((Element) => (
                   <div class="min-w-0">
-                    <code class="text-xs opacity-70">{Element}</code>
+                    <span class="text-xs opacity-70" data-sample-element-label>
+                      {Element}
+                    </span>
                     <Element>
-                      {Element === "p"
-                        ? "Thoughtful typography makes every story easier to read. Give your words room to breathe."
-                        : Element === "em"
-                          ? "A little emphasis goes a long way."
-                          : Element === "strong"
-                            ? "Make the important words stand out."
-                            : `${Element.toUpperCase()} - A place for your next idea`}
+                      {sampleText[Element] ??
+                        `${Element.toUpperCase()} - A place for your next idea`}
                     </Element>
                   </div>
                 ))}

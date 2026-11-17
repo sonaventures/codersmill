@@ -28,7 +28,9 @@ four tools, and browser titles use Website Builder rather than the main site's
 name. Previous builder URLs redirect to their new locations.
 
 Use `/website-builder/typographybuilder/` to set styles for `h1`–`h6`, `p`,
-`em`, and `strong`. Choose **Site-wide defaults**, or add the exact ID of a
+`em`, `strong`, `code`, `cite`, `pre`, and `blockquote`. All 13 elements appear
+in the live preview, including a multiline preformatted sample.
+Choose **Site-wide defaults**, or add the exact ID of a
 `<section>` in your page (without `#`) and select it to edit local overrides.
 Each element has font family, size, weight, line height, letter spacing, style,
 text transform, and color controls. Select Tailwind defaults by utility name:

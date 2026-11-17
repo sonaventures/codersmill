@@ -8,6 +8,10 @@ export const typographyElements = [
   "p",
   "em",
   "strong",
+  "code",
+  "cite",
+  "pre",
+  "blockquote",
 ];
 
 export const typographyFonts = {
