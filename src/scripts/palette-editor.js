@@ -80,13 +80,23 @@ function applyImportedFamily(index) {
     "Imported all 11 shades. Review the name and values, then select Add family to save.";
 }
 
+function renderImportedFamilies() {
+  importFamily.replaceChildren(
+    ...importedFamilies.map(
+      ({ key }, index) => new Option(key || "Unnamed family", String(index)),
+    ),
+  );
+  importControl.hidden = importedFamilies.length < 2;
+  if (importedFamilies.length) applyImportedFamily(0);
+}
+
 importFile.addEventListener("change", async () => {
   const file = importFile.files?.[0];
   if (!file || busy) return;
   setBusy(true);
   try {
     if (file.size > 1_000_000)
-      throw new Error("Choose a CSS file smaller than 1 MB.");
+      throw new Error("Choose a .txt or .css file no larger than 1 MB.");
     const families = readOklchPalettes(await file.text());
     if (
       families.some(({ values }) =>
@@ -94,16 +104,10 @@ importFile.addEventListener("change", async () => {
       )
     )
       throw new Error(
-        "The CSS file contains an OKLCH color this browser cannot use.",
+        "The imported file contains an OKLCH color this browser cannot use.",
       );
     importedFamilies = families;
-    importFamily.replaceChildren(
-      ...families.map(
-        ({ key }, index) => new Option(key || "Unnamed family", String(index)),
-      ),
-    );
-    importControl.hidden = families.length < 2;
-    applyImportedFamily(0);
+    renderImportedFamilies();
   } catch (error) {
     report(error);
   } finally {
@@ -309,12 +313,18 @@ form.addEventListener("submit", async (event) => {
       String(data.get(`shade-${shade}`)),
     );
     await save(addPalette(css, name, values));
+    if (importedFamilies.length) {
+      importedFamilies.splice(Number(importFamily.value), 1);
+    }
     form.reset();
-    importedFamilies = [];
-    importControl.hidden = true;
-    for (const [index, input] of shadeInputs.entries())
-      updateShade(input, paletteShades[index]);
-    status.textContent = `Added ${name} to colors.css.`;
+    renderImportedFamilies();
+    if (importedFamilies.length) {
+      status.textContent = `Added ${name} to colors.css. ${importedFamilies.length} imported ${importedFamilies.length === 1 ? "family remains" : "families remain"}. Review the next family and select Add family to save it.`;
+    } else {
+      for (const [index, input] of shadeInputs.entries())
+        updateShade(input, paletteShades[index]);
+      status.textContent = `Added ${name} to colors.css.`;
+    }
   } catch (error) {
     report(error);
   } finally {

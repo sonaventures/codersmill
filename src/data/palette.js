@@ -4,6 +4,32 @@ export const paletteShades = [
   50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950,
 ];
 
+export const paletteImportExample = [
+  { key: "ocean-blue", hue: 240 },
+  { key: "orchid-bloom", hue: 310 },
+]
+  .map(({ key, hue }) =>
+    [
+      [98, 0.01],
+      [95, 0.025],
+      [90, 0.05],
+      [83, 0.085],
+      [74, 0.12],
+      [65, 0.15],
+      [55, 0.15],
+      [46, 0.125],
+      [38, 0.1],
+      [30, 0.075],
+      [22, 0.055],
+    ]
+      .map(
+        ([lightness, chroma], index) =>
+          `--color-${key}-${paletteShades[index]}: oklch(${lightness}% ${chroma} ${hue});`,
+      )
+      .join("\n"),
+  )
+  .join("\n\n");
+
 export const builtinPaletteFamilies = Object.entries(tailwindColors)
   .filter(
     ([, values]) =>

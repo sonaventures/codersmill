@@ -77,11 +77,19 @@ Use `/website-builder/colors/` (linked from the theme template) to add or remove
 11-shade color families directly in `src/styles/themes/colors.css`. Select the
 `websitebuilder` project folder (the folder containing `src` and `public`), not
 the CSS file or `themes` folder, in Chrome or Edge on localhost or HTTPS; files
-are accessed locally. Enter numeric OKLCH values for each shade, or import a CSS
-file with custom properties such as `--color-ocean-50: oklch(97% 0.01 240);`
-through `--color-ocean-950`. The import fills the form without saving; review
-the name and shades and select **Add family** to write them. CSS files with
-multiple complete families offer a family selector. Built-in Tailwind family
+are accessed locally. Enter numeric OKLCH values for each shade, or import a
+UTF-8 plain-text `.txt` or `.css` file up to 1 MB with declarations such as
+`--color-ocean-50: oklch(97% 0.01 240);` through `--color-ocean-950`.
+Each family needs shades 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, and
+950, with a semicolon after each declaration and no duplicate shades.
+Multiple complete families can share a file using different family names.
+The page includes format instructions and a complete, downloadable two-family
+`.txt` example, visible before selecting a project folder. CSS wrappers are
+optional; JSON and code fences are not required.
+The import fills the form without saving; review the name and shades and
+select **Add family** to write them. Files with multiple complete families offer
+a family selector. Saving a family loads the next remaining imported family
+for review; families are saved individually, not in bulk. Built-in Tailwind family
 names are reserved; the editor manages only custom families. The editor checks
 `src`, `public`, and this browser's saved style groups before removal
 and blocks explicit references it finds there. It cannot detect dynamically

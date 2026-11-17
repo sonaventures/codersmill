@@ -6,6 +6,7 @@ import {
   builtinPaletteFamilies,
   findPaletteReferences,
   isOklch,
+  paletteImportExample,
   paletteShades,
   readOklchPalettes,
   readPalette,
@@ -82,6 +83,28 @@ test("imports complete named and unnamed OKLCH CSS families", () => {
   assert.equal(imported[0].values.length, 11);
   assert.equal(imported[1].values[10], "oklch(50% 0.15 240 / 80%)");
   assert.equal(readOklchPalettes(css).length, readPalette(css).length);
+});
+
+test("the downloadable plain-text example imports and saves both complete families", () => {
+  const imported = readOklchPalettes(
+    "\uFEFF" + paletteImportExample.replaceAll("\n", "\r\n"),
+  );
+  assert.deepEqual(
+    imported.map(({ key }) => key),
+    ["ocean-blue", "orchid-bloom"],
+  );
+  let updated = css;
+  for (const { key, values } of imported) {
+    updated = addPalette(updated, key, values);
+    assert.deepEqual(
+      [
+        ...readPalette(updated)
+          .find((family) => family.key === key)
+          .values.values(),
+      ],
+      values,
+    );
+  }
 });
 
 test("rejects incomplete, duplicate, non-OKLCH and unsafe imported shades", () => {
