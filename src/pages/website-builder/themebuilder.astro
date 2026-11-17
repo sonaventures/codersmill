@@ -1,7 +1,6 @@
 ---
-import Layout from "../../layouts/layout.astro";
+import Layout from "../../layouts/website-builder.astro";
 import "../../styles/template/template.css";
-import StudioHeader from "../../components/StudioHeader.astro";
 import ThemeSampleCards from "../../components/ThemeSampleCards.astro";
 import css from "../../styles/themes/colors.css?raw";
 import { readPalette } from "../../data/palette.js";
@@ -89,18 +88,9 @@ const sampleMenu = [
 ---
 
 <Layout
-  title="Theme Maker"
+  title="Theme Builder"
   description="Explore color combinations and save reusable style groups."
 >
-  <StudioHeader
-    slot="header"
-    title="Theme Maker"
-    description="Find a combination that feels right. Preview it, save it, use it again."
-    otherHref="/themebuilder/colors/"
-    otherLabel="Color editor"
-    constrainWidth={true}
-    linksRight={true}
-  />
   <div class="selector-shell" data-selector>
     <div class="selector-workspace">
       <div class="preview-column">

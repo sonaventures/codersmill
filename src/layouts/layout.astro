@@ -4,18 +4,19 @@ import Header from "../components/SiteHeader.astro";
 import Footer from "../components/SiteFooter.astro";
 
 interface Props {
+  siteName?: string;
   title?: string;
   description?: string;
   showFooter?: boolean;
 }
 
 const {
-  title = "Exclusive Group",
+  siteName = "Exclusive Group",
+  title = siteName,
   description = "A central directory for Exclusive Group.",
   showFooter = true,
 } = Astro.props;
-const fullTitle =
-  title === "Exclusive Group" ? title : `${title} | Exclusive Group`;
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 ---
 
 <!doctype html>
@@ -69,7 +70,11 @@ const fullTitle =
     <main id="main-content">
       <slot />
     </main>
-    {showFooter && <Footer />}
+    {showFooter && (
+      <slot name="footer">
+        <Footer />
+      </slot>
+    )}
     <script>
       import "../scripts/intersect";
     </script>

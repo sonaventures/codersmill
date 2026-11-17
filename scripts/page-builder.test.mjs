@@ -106,6 +106,10 @@ test("page names produce safe routes, including Astro's index route", () => {
 });
 
 test("refuses to overwrite existing files and surfaces write failures", async () => {
+  await assert.rejects(
+    saveNewPage({}, "pagebuilder.astro", "content"),
+    /reserved/,
+  );
   let created = false;
   const existing = {
     async getFileHandle(_name, options) {

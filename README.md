@@ -18,9 +18,39 @@ npm test
 npm run build
 ```
 
-## Theme Maker
+## Website Builder
 
-Use `/pagebuilder/pagebuilder/` to create an Astro page from components. Choose
+All four builder pages live in `src/pages/website-builder/` and use the shared
+Website Builder layout. The header includes links to Page Builder, Color Editor,
+Theme Maker, and Typography Builder, highlights the current page, and includes
+the light/dark toggle. Each page uses a Website Builder footer with links to all
+four tools, and browser titles use Website Builder rather than the main site's
+name. Previous builder URLs redirect to their new locations.
+
+Use `/website-builder/typographybuilder/` to set styles for `h1`–`h6`, `p`,
+`em`, and `strong`. Choose **Site-wide defaults**, or add the exact ID of a
+`<section>` in your page (without `#`) and select it to edit local overrides.
+Each element has font family, size, weight, line height, letter spacing, style,
+text transform, and hex color controls. Blank fields leave existing styles
+unchanged; blank section fields follow the site-wide element defaults.
+The isolated live preview compares the defaults and selected section without
+changing the builder controls.
+
+**Save to project** uses Chrome or Edge folder access on localhost or HTTPS,
+like Page Builder. Choose this project folder to replace
+`src/styles/utilities/typography.css`, which the shared layout imports globally.
+The stylesheet stores the editable settings as well as CSS, so reloading the
+builder restores saved project settings. Overrides apply to matching elements
+inside the section, including nested sections; section IDs should be unique
+within each page. Saved rules override Tailwind typography utilities. Inline
+styles, `!important`, and more-specific unlayered CSS can still take priority.
+Empty settings preserve the existing site.
+Rebuild and deploy after saving to update the published site.
+**Download CSS** provides the same file for manual replacement in other browsers;
+**Import builder CSS** restores an exported builder file into the preview without
+applying it until saved. Unsaved preview changes are not persisted.
+
+Use `/website-builder/pagebuilder/` to create an Astro page from components. Choose
 the project folder in Chrome or Edge on localhost or HTTPS, enter a page name,
 and add, reorder, or remove components. The generated file is saved under
 `src/pages/pagebuilder/` without overwriting an existing file or duplicating an
@@ -30,7 +60,9 @@ discovers `.astro` components under
 and optional `string`, `number`, and `boolean` properties declared directly in
 an `interface Props`; components using other property declarations are listed
 as unsupported, as are components with slots. Reopen the project folder after
-changing a component.
+changing a component. Generated content pages stay in `src/pages/pagebuilder/`;
+the builder creates that directory if needed. The name `pagebuilder` remains
+reserved for the old builder URL's redirect.
 
 The hero examples in `src/components/flyonui/hero/` use Section 01 theme
 colors and the shared layout header. Their sample links, forms, and purchase
@@ -41,7 +73,7 @@ The template pages share `src/styles/template/template.css`, which uses
 Tailwind utilities and keeps the individual page styles scoped. Inline styles
 provide dynamic theme and palette values for the previews.
 
-Use `/themebuilder/colors/` (linked from the theme template) to add or remove
+Use `/website-builder/colors/` (linked from the theme template) to add or remove
 11-shade color families directly in `src/styles/themes/colors.css`. Select the
 `websitebuilder` project folder (the folder containing `src` and `public`), not
 the CSS file or `themes` folder, in Chrome or Edge on localhost or HTTPS; files
@@ -56,10 +88,9 @@ and blocks explicit references it finds there. It cannot detect dynamically
 constructed references or inspect groups in other browsers or exported files
 outside those directories. Refresh the theme template or Theme Maker after a
 change to see the updated palette.
-The Color Editor uses the same `xl`-width studio header as Theme Maker, with
-links aligned to the right, and omits the site footer.
+The Color Editor uses the shared `xl`-width Website Builder header and builder footer.
 
-Open `/themebuilder/themebuilder/` (also linked from `/template/`) to preview
+Open `/website-builder/themebuilder/` (also linked from `/template/`) to preview
 color combinations. The left sample includes a header, footer, and six sections
 with heading levels, paragraphs, two buttons, and three independently styled
 cards in every section and on Page canvas. Section 05 also includes a two-column layout.
@@ -74,12 +105,12 @@ with centered content capped at the `lg` screen width (1024px).
 On desktop, the controls are pinned to the right edge at full viewport height
 with independent scrolling, and the preview reserves space beside them. On small
 screens, the controls stack below the preview.
-The full-width studio header has content capped at `xl` (1280px) and contains **Design System / Color Studio**,
+The full-width builder header has content capped at `xl` (1280px) and contains **Website Builder**,
 **Theme Maker**, its introduction, and the light/dark toggle instead of the site's
 logo and navigation. The sidebar sits below the visible header and fills the
 viewport height as the header scrolls out of view.
 The header uses compact typography and spacing, with a centered theme toggle
-and right-aligned theme template and color editor links.
+and right-aligned links to every builder and the theme template.
 
 The controls include Tailwind's built-in color ramps and the custom ramps in
 `src/styles/themes/colors.css`. The site's light and dark semantic defaults use

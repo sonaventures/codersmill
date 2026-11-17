@@ -209,10 +209,14 @@ open.addEventListener("click", async () => {
       src = await project.getDirectoryHandle("src");
       componentDirectory = await src.getDirectoryHandle("components");
       const pages = await src.getDirectoryHandle("pages");
-      pageDirectory = await pages.getDirectoryHandle("pagebuilder");
+      const builderDirectory =
+        await pages.getDirectoryHandle("website-builder");
+      await builderDirectory.getFileHandle("pagebuilder.astro");
       const layouts = await src.getDirectoryHandle("layouts");
       await layouts.getFileHandle("layout.astro");
-      await pageDirectory.getFileHandle("pagebuilder.astro");
+      pageDirectory = await pages.getDirectoryHandle("pagebuilder", {
+        create: true,
+      });
     } catch (error) {
       if (
         error instanceof DOMException &&

@@ -1,47 +1,36 @@
 ---
 import Header from "./SiteHeader.astro";
+import { builderPages } from "../data/website-builder";
 
 interface Props {
   title: string;
   description: string;
-  otherHref: string;
-  otherLabel: string;
-  constrainWidth?: boolean;
-  linksRight?: boolean;
 }
 
-const {
-  title,
-  description,
-  otherHref,
-  otherLabel,
-  constrainWidth = false,
-  linksRight = false,
-} = Astro.props;
+const { title, description } = Astro.props;
+const currentPath = `${Astro.url.pathname.replace(/\/$/, "")}/`;
 ---
 
-<div
-  class:list={[
-    "studio-header",
-    {
-      "studio-header-constrained": constrainWidth,
-      "studio-header-links-right": linksRight,
-    },
-  ]}
-  data-studio-header
-  data-studio-chrome
->
-  <Header title="Design System / Color Studio">
+<div class="studio-header" data-studio-header data-studio-chrome>
+  <Header title="Website Builder">
     <div class="studio-intro">
       <h1>{title}</h1>
       <p>{description}</p>
     </div>
     <div slot="actions" class="studio-links">
+      <nav aria-label="Website Builder">
+        {builderPages.map(({ label, href }) => (
+          <a
+            class="studio-link"
+            href={href}
+            aria-current={currentPath === href ? "page" : undefined}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
       <a class="studio-link" href="/template/">
-        Back to theme template &rarr;
-      </a>
-      <a class="studio-link" href={otherHref}>
-        {otherLabel} &rarr;
+        Theme template &rarr;
       </a>
     </div>
   </Header>
@@ -74,39 +63,35 @@ const {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     width: calc(100% - 3rem);
-    max-width: none;
+    max-width: 80rem;
     min-height: 0;
     padding-block: 0.65rem;
-  }
-  .studio-header-constrained :global(.header-inner) {
-    max-width: 80rem;
   }
   .studio-header :global(.header-inner > div:first-child) {
     min-width: 0;
   }
   .studio-header :global(.header-actions) {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
+    display: contents;
   }
-  .studio-links {
+  .studio-links,
+  .studio-links nav {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
   }
-  .studio-header-links-right :global(.header-actions) {
-    display: contents;
-  }
-  .studio-header-links-right :global(.theme-switcher) {
+  .studio-header :global(.theme-switcher) {
     grid-column: 2;
   }
-  .studio-header-links-right .studio-links {
+  .studio-links {
     grid-column: 3;
     justify-self: end;
     justify-content: flex-end;
   }
+  .studio-links nav {
+    justify-content: flex-end;
+  }
   .studio-header :global(.header-inner > div:first-child > span) {
-    font-size: 0.7rem;
+    font-size: 1rem;
     color: var(--ink-page);
   }
   .studio-intro h1 {
@@ -128,27 +113,25 @@ const {
     text-decoration: underline;
     text-underline-offset: 0.25em;
   }
+  .studio-link[aria-current="page"] {
+    font-weight: 700;
+    text-decoration-thickness: 2px;
+  }
   @media (max-width: 760px) {
     .studio-header :global(.header-inner) {
-      display: flex;
-      width: calc(100% - 2rem);
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-    }
-    .studio-header :global(.header-inner > div:first-child) {
-      flex-basis: 100%;
-    }
-    .studio-header :global(.header-actions) {
-      width: 100%;
-    }
-    .studio-header-links-right :global(.header-actions) {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr) auto;
+      width: calc(100% - 2rem);
       gap: 0.5rem;
     }
-    .studio-header-links-right .studio-links {
+    .studio-links {
       grid-column: 1 / -1;
       max-width: 100%;
+      justify-self: start;
+      justify-content: flex-start;
+    }
+    .studio-links nav {
+      justify-content: flex-start;
     }
   }
 </style>

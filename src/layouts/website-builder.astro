@@ -1,0 +1,46 @@
+---
+import Layout from "./layout.astro";
+import StudioHeader from "../components/StudioHeader.astro";
+import { builderPages } from "../data/website-builder";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const currentPath = `${Astro.url.pathname.replace(/\/$/, "")}/`;
+---
+
+<Layout title={title} description={description} siteName="Website Builder">
+  <StudioHeader slot="header" title={title} description={description} />
+  <slot />
+  <footer slot="footer" class="site-footer relative z-20">
+    <div class="footer-inner">
+      <div class="footer-intro">
+        <a class="footer-wordmark" href="/website-builder/pagebuilder/">
+          Website Builder
+        </a>
+        <p>Build pages, colors, themes, and typography for your website.</p>
+      </div>
+      <nav aria-label="Website Builder footer">
+        <ul class="footer-links">
+          {builderPages.map(({ label, href }) => (
+            <li>
+              <a
+                href={href}
+                aria-current={currentPath === href ? "page" : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; {new Date().getFullYear()} Website Builder</p>
+      <p>Your website design tools, together in one place.</p>
+    </div>
+  </footer>
+</Layout>

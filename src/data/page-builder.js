@@ -141,6 +141,10 @@ export function generatePage(name, description, selected) {
 export async function saveNewPage(directory, filename, content) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*\.astro$/.test(filename))
     throw new Error("Invalid page file name.");
+  if (filename === "pagebuilder.astro")
+    throw new Error(
+      "pagebuilder.astro is reserved for the Page Builder redirect. Choose a different page name.",
+    );
   try {
     await directory.getFileHandle(filename);
     throw new Error(

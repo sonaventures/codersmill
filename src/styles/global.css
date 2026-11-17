@@ -3,6 +3,7 @@
 @import "./themes/colors.css";
 @import "./utilities/base.css";
 @import "./utilities/buttons.css";
+@import "./utilities/typography.css";
 
 @plugin "tailwindcss-motion";
 @plugin "@iconify/tailwind4";
