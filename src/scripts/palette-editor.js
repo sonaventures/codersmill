@@ -1,9 +1,9 @@
 import {
-  addPalette,
+  addPalettes,
   findPaletteReferences,
   isOklch,
   paletteShades,
-  readOklchPalettes,
+  readOklchPaletteFiles,
   readPalette,
   removePalette,
 } from "../data/palette.js";
@@ -16,6 +16,7 @@ const get = (selector) => {
   return element;
 };
 const open = get("#open-project");
+const reconnect = get("#reconnect-project");
 const projectName = get("#project-name");
 const status = get("#editor-status");
 const content = get("#editor-content");
@@ -24,6 +25,7 @@ const list = get("#family-list");
 const importFile = get("#import-ramp");
 const importControl = get("#import-family-control");
 const importFamily = get("#import-family");
+const addImportedFamilies = get("#add-imported-families");
 const familyName = get("#family-name");
 const shadeInputs = paletteShades.map((shade) =>
   get(`[name="shade-${shade}"]`),
@@ -33,11 +35,43 @@ let cssFile;
 let css;
 let busy = false;
 let importedFamilies = [];
+let rememberedProject;
+const projectSessionKey = "website-builder-palette-project";
+
+async function projectStore(mode, operation) {
+  const database = await new Promise((resolve, reject) => {
+    const request = indexedDB.open("website-builder-palette-editor", 1);
+    request.onupgradeneeded = () =>
+      request.result.createObjectStore("projects");
+    request.onsuccess = () => resolve(request.result);
+    request.onerror = () => reject(request.error);
+  });
+  try {
+    return await new Promise((resolve, reject) => {
+      const transaction = database.transaction("projects", mode);
+      const request = operation(transaction.objectStore("projects"));
+      transaction.oncomplete = () => resolve(request.result);
+      transaction.onerror = () => reject(transaction.error || request.error);
+      transaction.onabort = () =>
+        reject(transaction.error || new Error("Project storage was aborted."));
+    });
+  } finally {
+    database.close();
+  }
+}
+
+async function rememberProject(selected) {
+  const key = crypto.randomUUID();
+  await projectStore("readwrite", (store) => store.put(selected, key));
+  sessionStorage.setItem(projectSessionKey, key);
+}
 
 function setBusy(value) {
   busy = value;
   open.disabled = value;
-  form.querySelector("button").disabled = value;
+  reconnect.disabled = value;
+  for (const button of form.querySelectorAll("button")) button.disabled = value;
+  addImportedFamilies.disabled = value || !importedFamilies.length;
   importFile.disabled = value;
   importFamily.disabled = value;
   for (const button of list.querySelectorAll("button")) button.disabled = value;
@@ -63,21 +97,37 @@ function updateShade(input, shade) {
 }
 
 for (const [index, input] of shadeInputs.entries()) {
-  input.addEventListener("input", () =>
-    updateShade(input, paletteShades[index]),
-  );
+  input.addEventListener("input", () => {
+    updateShade(input, paletteShades[index]);
+    rememberImportedFamily();
+  });
 }
+
+function rememberImportedFamily() {
+  if (!importedFamilies.length) return;
+  const index = Number(importFamily.value);
+  importedFamilies[index] = {
+    key: familyName.value.trim(),
+    values: shadeInputs.map((input) => input.value.trim()),
+  };
+  importFamily.options[index].textContent =
+    importedFamilies[index].key || "Unnamed family";
+}
+
+familyName.addEventListener("input", rememberImportedFamily);
 
 function applyImportedFamily(index) {
   const family = importedFamilies[index];
   if (!family) throw new Error("Choose an imported color family.");
-  if (family.key) familyName.value = family.key;
+  familyName.value = family.key;
   for (const [index, input] of shadeInputs.entries()) {
     input.value = family.values[index];
     updateShade(input, paletteShades[index]);
   }
   status.textContent =
-    "Imported all 11 shades. Review the name and values, then select Add family to save.";
+    importedFamilies.length > 1
+      ? `Imported ${importedFamilies.length} families. Review them using the selector, then select Add all imported families to save them together.`
+      : "Imported all 11 shades. Review the name and values, then select Add family to save.";
 }
 
 function renderImportedFamilies() {
@@ -87,24 +137,23 @@ function renderImportedFamilies() {
     ),
   );
   importControl.hidden = importedFamilies.length < 2;
+  addImportedFamilies.disabled = busy || !importedFamilies.length;
   if (importedFamilies.length) applyImportedFamily(0);
 }
 
 importFile.addEventListener("change", async () => {
-  const file = importFile.files?.[0];
-  if (!file || busy) return;
+  const files = Array.from(importFile.files ?? []);
+  if (!files.length || busy) return;
   setBusy(true);
   try {
-    if (file.size > 1_000_000)
-      throw new Error("Choose a .txt or .css file no larger than 1 MB.");
-    const families = readOklchPalettes(await file.text());
+    const families = await readOklchPaletteFiles(files);
     if (
       families.some(({ values }) =>
         values.some((value) => !CSS.supports("color", value)),
       )
     )
       throw new Error(
-        "The imported file contains an OKLCH color this browser cannot use.",
+        "The imported files contain an OKLCH color this browser cannot use.",
       );
     importedFamilies = families;
     renderImportedFamilies();
@@ -240,6 +289,43 @@ async function removeFamily(family) {
   }
 }
 
+async function openProject(selected, remember) {
+  project = undefined;
+  cssFile = undefined;
+  css = undefined;
+  projectName.textContent = "No project selected";
+  content.hidden = true;
+  status.textContent = `Opening ${selected.name}...`;
+  let selectedFile;
+  try {
+    const src = await selected.getDirectoryHandle("src");
+    await selected.getDirectoryHandle("public");
+    const styles = await src.getDirectoryHandle("styles");
+    const themes = await styles.getDirectoryHandle("themes");
+    selectedFile = await themes.getFileHandle("colors.css");
+  } catch (error) {
+    if (
+      error instanceof DOMException &&
+      (error.name === "NotFoundError" || error.name === "TypeMismatchError")
+    )
+      throw new Error(
+        `"${selected.name}" is not the project folder. Choose the websitebuilder folder containing src and public, not colors.css or the themes folder.`,
+      );
+    throw error;
+  }
+  const selectedCss = await (await selectedFile.getFile()).text();
+  readPalette(selectedCss);
+  if (remember) await rememberProject(selected);
+  project = selected;
+  cssFile = selectedFile;
+  css = selectedCss;
+  rememberedProject = selected;
+  reconnect.hidden = true;
+  projectName.textContent = selected.name;
+  content.hidden = false;
+  render();
+}
+
 open.addEventListener("click", async () => {
   if (busy) return;
   if (!("showDirectoryPicker" in window)) {
@@ -252,37 +338,7 @@ open.addEventListener("click", async () => {
     status.textContent =
       "Choose the websitebuilder project folder in the folder picker.";
     const selected = await window.showDirectoryPicker({ mode: "readwrite" });
-    project = undefined;
-    cssFile = undefined;
-    css = undefined;
-    projectName.textContent = "No project selected";
-    content.hidden = true;
-    status.textContent = `Opening ${selected.name}...`;
-    let selectedFile;
-    try {
-      const src = await selected.getDirectoryHandle("src");
-      await selected.getDirectoryHandle("public");
-      const styles = await src.getDirectoryHandle("styles");
-      const themes = await styles.getDirectoryHandle("themes");
-      selectedFile = await themes.getFileHandle("colors.css");
-    } catch (error) {
-      if (
-        error instanceof DOMException &&
-        (error.name === "NotFoundError" || error.name === "TypeMismatchError")
-      )
-        throw new Error(
-          `"${selected.name}" is not the project folder. Choose the websitebuilder folder containing src and public, not colors.css or the themes folder.`,
-        );
-      throw error;
-    }
-    const selectedCss = await (await selectedFile.getFile()).text();
-    readPalette(selectedCss);
-    project = selected;
-    cssFile = selectedFile;
-    css = selectedCss;
-    projectName.textContent = selected.name;
-    content.hidden = false;
-    render();
+    await openProject(selected, true);
     status.textContent =
       "Project opened. Changes are saved directly to colors.css.";
   } catch (error) {
@@ -302,6 +358,61 @@ open.addEventListener("click", async () => {
   }
 });
 
+reconnect.addEventListener("click", async () => {
+  if (busy) return;
+  setBusy(true);
+  try {
+    const permission = await rememberedProject.requestPermission({
+      mode: "readwrite",
+    });
+    if (permission !== "granted")
+      throw new Error(
+        "Folder access was not granted. Reconnect again or choose the project folder.",
+      );
+    await openProject(rememberedProject, false);
+    status.textContent = "Project reconnected. You can continue editing.";
+  } catch (error) {
+    report(error);
+  } finally {
+    setBusy(false);
+  }
+});
+
+async function restoreProject() {
+  if (!("showDirectoryPicker" in window)) return;
+  setBusy(true);
+  try {
+    const key = sessionStorage.getItem(projectSessionKey);
+    if (!key) return;
+    rememberedProject = await projectStore("readonly", (store) =>
+      store.get(key),
+    );
+    if (!rememberedProject)
+      throw new Error(
+        "The saved project connection is no longer available. Choose the project folder again.",
+      );
+    const permission = await rememberedProject.queryPermission({
+      mode: "readwrite",
+    });
+    if (permission !== "granted") {
+      reconnect.hidden = false;
+      projectName.textContent = rememberedProject.name;
+      status.textContent =
+        "Your browser needs folder permission again. Select Reconnect project to continue without choosing the folder again.";
+      return;
+    }
+    await openProject(rememberedProject, false);
+    status.textContent =
+      "Project reopened automatically. You can continue editing.";
+  } catch (error) {
+    report(error);
+  } finally {
+    setBusy(false);
+  }
+}
+
+restoreProject();
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (busy) return;
@@ -312,8 +423,17 @@ form.addEventListener("submit", async (event) => {
     const values = paletteShades.map((shade) =>
       String(data.get(`shade-${shade}`)),
     );
-    await save(addPalette(css, name, values));
-    if (importedFamilies.length) {
+    const addAll = event.submitter === addImportedFamilies;
+    const families = addAll
+      ? importedFamilies.map((family, index) =>
+          index === Number(importFamily.value) ? { key: name, values } : family,
+        )
+      : [{ key: name, values }];
+    const next = addPalettes(css, families);
+    await save(next);
+    if (addAll) {
+      importedFamilies = [];
+    } else if (importedFamilies.length) {
       importedFamilies.splice(Number(importFamily.value), 1);
     }
     form.reset();
@@ -323,7 +443,9 @@ form.addEventListener("submit", async (event) => {
     } else {
       for (const [index, input] of shadeInputs.entries())
         updateShade(input, paletteShades[index]);
-      status.textContent = `Added ${name} to colors.css.`;
+      status.textContent = addAll
+        ? `Added all ${families.length} imported ${families.length === 1 ? "family" : "families"} to colors.css in one save.`
+        : `Added ${name} to colors.css.`;
     }
   } catch (error) {
     report(error);

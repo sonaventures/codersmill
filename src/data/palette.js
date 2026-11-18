@@ -101,6 +101,21 @@ export function readOklchPalettes(css) {
   });
 }
 
+export async function readOklchPaletteFiles(files) {
+  if (files.reduce((size, file) => size + file.size, 0) > 1_000_000)
+    throw new Error("Choose .txt or .css files totaling no more than 1 MB.");
+  const families = await Promise.all(
+    files.map(async (file) => {
+      try {
+        return readOklchPalettes(await file.text());
+      } catch (error) {
+        throw new Error(`${file.name}: ${error.message}`, { cause: error });
+      }
+    }),
+  );
+  return families.flat();
+}
+
 function primitiveBlock(css) {
   const match = blockPattern.exec(css);
   if (!match) throw new Error("The @theme static palette block was not found.");
@@ -138,9 +153,9 @@ export function readPalette(css) {
 
 export function addPalette(css, name, values) {
   const families = readPalette(css);
-  if (!namePattern.test(name))
+  if (!namePattern.test(name) || name.length > 60)
     throw new Error(
-      "Use a lowercase family name with letters, numbers, and hyphens.",
+      "Use a lowercase family name with letters, numbers, and hyphens, up to 60 characters.",
     );
   if (
     builtinPaletteFamilies.some(({ key }) => key === name) ||
@@ -172,6 +187,13 @@ export function addPalette(css, name, values) {
     .join("\n");
   return (
     css.slice(0, start) + `\n${lines}` + body + css.slice(start + body.length)
+  );
+}
+
+export function addPalettes(css, families) {
+  return families.reduce(
+    (next, { key, values }) => addPalette(next, key, values),
+    css,
   );
 }
 

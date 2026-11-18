@@ -3,12 +3,14 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   addPalette,
+  addPalettes,
   builtinPaletteFamilies,
   findPaletteReferences,
   isOklch,
   paletteImportExample,
   paletteShades,
   readOklchPalettes,
+  readOklchPaletteFiles,
   readPalette,
   removePalette,
 } from "../src/data/palette.js";
@@ -93,9 +95,8 @@ test("the downloadable plain-text example imports and saves both complete famili
     imported.map(({ key }) => key),
     ["ocean-blue", "orchid-bloom"],
   );
-  let updated = css;
+  const updated = addPalettes(css, imported);
   for (const { key, values } of imported) {
-    updated = addPalette(updated, key, values);
     assert.deepEqual(
       [
         ...readPalette(updated)
@@ -105,6 +106,89 @@ test("the downloadable plain-text example imports and saves both complete famili
       values,
     );
   }
+});
+
+test("validates the entire batch before returning CSS to save", () => {
+  const family = (key, values = shades) => ({ key, values });
+  assert.throws(
+    () => addPalettes(css, [family("ocean-blue"), family("ocean-blue")]),
+    /ocean-blue.*already exists/,
+  );
+  assert.throws(
+    () => addPalettes(css, [family("ocean-blue"), family("iguana")]),
+    /iguana.*already exists/,
+  );
+  assert.throws(
+    () => addPalettes(css, [family("ocean-blue"), family("sky")]),
+    /sky.*reserved/,
+  );
+  assert.throws(
+    () => addPalettes(css, [family("ocean-blue"), family("bad name")]),
+    /lowercase/,
+  );
+  assert.throws(
+    () => addPalettes(css, [family("ocean-blue"), family("a".repeat(61))]),
+    /60 characters/,
+  );
+  assert.throws(
+    () =>
+      addPalettes(css, [
+        family("ocean-blue"),
+        family("orchid-bloom", [...shades.slice(1), "red"]),
+      ]),
+    /OKLCH/,
+  );
+});
+
+test("imports every selected file, including files with multiple families", async () => {
+  const [ocean, orchid] = paletteImportExample.split("\n\n");
+  const imported = await readOklchPaletteFiles([
+    new File([ocean], "ocean.txt"),
+    new File(
+      [orchid, "\n\n", ocean.replaceAll("ocean-blue", "sea-glass")],
+      "more.css",
+    ),
+  ]);
+  assert.deepEqual(
+    imported.map(({ key }) => key),
+    ["ocean-blue", "orchid-bloom", "sea-glass"],
+  );
+  const updated = addPalettes(css, imported);
+  for (const { key, values } of imported)
+    assert.deepEqual(
+      [
+        ...readPalette(updated)
+          .find((family) => family.key === key)
+          .values.values(),
+      ],
+      values,
+    );
+  assert.equal(
+    (
+      await readOklchPaletteFiles([
+        new File([paletteImportExample.padEnd(1_000_000)], "maximum.txt"),
+      ])
+    ).length,
+    2,
+  );
+});
+
+test("rejects the whole file selection if one file is invalid or the total is oversized", async () => {
+  const [ocean] = paletteImportExample.split("\n\n");
+  await assert.rejects(
+    readOklchPaletteFiles([
+      new File([ocean], "ocean.txt"),
+      new File(["--color-broken-50: oklch(95% 0.1 240);"], "broken.txt"),
+    ]),
+    /broken\.txt:.*missing shades/,
+  );
+  await assert.rejects(
+    readOklchPaletteFiles([
+      new File([" ".repeat(600_000)], "first.txt"),
+      new File([" ".repeat(400_001)], "second.txt"),
+    ]),
+    /totaling no more than 1 MB/,
+  );
 });
 
 test("rejects incomplete, duplicate, non-OKLCH and unsafe imported shades", () => {

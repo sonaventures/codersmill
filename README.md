@@ -88,19 +88,35 @@ Use `/website-builder/colors/` (linked from the theme template) to add or remove
 11-shade color families directly in `src/styles/themes/colors.css`. Select the
 `websitebuilder` project folder (the folder containing `src` and `public`), not
 the CSS file or `themes` folder, in Chrome or Edge on localhost or HTTPS; files
-are accessed locally. Enter numeric OKLCH values for each shade, or import a
-UTF-8 plain-text `.txt` or `.css` file up to 1 MB with declarations such as
+are accessed locally. The Color Editor stores the chosen folder handle in this
+browser's IndexedDB, scoped to the current tab through session storage. After a
+development-server reload, it reopens the folder and rereads the palette so you
+can continue removing or adding families without choosing the folder again.
+If the browser needs permission again, use **Reconnect project** to approve
+access to the saved folder. Browser storage must be available; no folder
+contents are uploaded or automatically written during reconnection.
+Enter numeric OKLCH values for each shade, or import
+UTF-8 plain-text `.txt` or `.css` files totaling up to 1 MB with declarations such as
 `--color-ocean-50: oklch(97% 0.01 240);` through `--color-ocean-950`.
 Each family needs shades 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, and
 950, with a semicolon after each declaration and no duplicate shades.
 Multiple complete families can share a file using different family names.
+The file chooser also accepts multiple files at once using Ctrl-click
+(Command-click on Mac) or Shift-click; all their families are loaded together.
 The page includes format instructions and a complete, downloadable two-family
 `.txt` example, visible before selecting a project folder. CSS wrappers are
 optional; JSON and code fences are not required.
-The import fills the form without saving; review the name and shades and
-select **Add family** to write them. Files with multiple complete families offer
-a family selector. Saving a family loads the next remaining imported family
-for review; families are saved individually, not in bulk. Built-in Tailwind family
+The import fills the form without saving. Imports with multiple complete families
+offer a family selector; name and shade edits are retained when switching families.
+The two save buttons are beside the import controls. Select **Add family** to
+save only the selected family, or **Add all imported families** to validate
+every family from every selected file in one file write.
+If any family is invalid or conflicts with an existing name,
+nothing is written and the import remains available to correct.
+This avoids reselecting the import when a source stylesheet save triggers a
+development-server page reload. **Add family** still saves only the selected
+family and loads the next remaining family for individual review.
+Built-in Tailwind family
 names are reserved; the editor manages only custom families. The editor checks
 `src`, `public`, and this browser's saved style groups before removal
 and blocks explicit references it finds there. It cannot detect dynamically

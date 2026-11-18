@@ -20,13 +20,19 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
         as Chrome or Edge, and a secure connection or localhost. Files are read
         locally and are not uploaded.
       </p>
+      <p>
+        The editor remembers your folder for this tab and reconnects after a
+        development-page reload. If your browser asks for permission again,
+        select <strong>Reconnect project</strong>; you do not need to find the
+        folder again.
+      </p>
     </header>
 
     <section aria-labelledby="import-format-title" class="min-w-0">
-      <h2 id="import-format-title">Import color families from a text file</h2>
+      <h2 id="import-format-title">Import color families from text files</h2>
       <p id="import-format-help">
-        Save a plain-text UTF-8 file ending in .txt or .css, up to 1 MB. Use one
-        declaration per line in the format
+        Choose one or more plain-text UTF-8 files ending in .txt or .css, up to
+        1 MB combined. Use one declaration per line in the format
         <code>--color-FAMILY-SHADE: oklch(L% C H);</code>. L is lightness
         (0-100%), C is chroma (0 or greater), and H is hue (0-360 degrees).
         Include the semicolon after every color.
@@ -40,17 +46,19 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
         within the same family.
       </p>
       <p>
-        For multiple families, put each complete set in the same file with a
-        different family name. CSS wrappers such as :root are optional; JSON,
-        commas, and code fences are not needed.
+        For multiple families, put each complete set in the same file or select
+        several files together using Ctrl-click (Command-click on Mac) or
+        Shift-click. Every family needs a different name. CSS wrappers such as
+        :root are optional; JSON, commas, and code fences are not needed.
       </p>
       <p>
         Choose your project folder, then use{" "}
         <strong>Import color families</strong>
-        below. Select an imported family to review and click{" "}
-        <strong>Add family</strong>
-        to save it. The next remaining family loads automatically; families are
-        saved one at a time, not all at once.
+        below. Review families using the selector, then click{" "}
+        <strong>Add all imported families</strong> to save every family from all
+        selected files at once. Your name and shade edits are included. Nothing
+        is saved if any family is invalid or already exists. Use{" "}
+        <strong>Add family</strong> to save only the selected family instead.
       </p>
       <details class="min-w-0">
         <summary class="cursor-pointer">
@@ -71,6 +79,9 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
       <button type="button" id="open-project">
         Choose project folder
       </button>
+      <button type="button" id="reconnect-project" hidden>
+        Reconnect project
+      </button>
       <span id="project-name">No project selected</span>
     </div>
     <p id="editor-status" role="status" aria-live="polite">
@@ -80,8 +91,8 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
       <section aria-labelledby="add-title">
         <h2 id="add-title">Add a color family</h2>
         <p>
-          Enter an OKLCH color for each shade, or import a .txt or .css file
-          containing one or more complete families. Review the values before
+          Enter an OKLCH color for each shade, or import one or more .txt or
+          .css files containing complete families. Review the values before
           saving.
         </p>
         <form id="add-family">
@@ -90,6 +101,7 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
             id="import-ramp"
             type="file"
             class="file:font-bold"
+            multiple
             accept=".txt,.css,text/plain,text/css"
             aria-describedby="import-format-help"
           />
@@ -99,6 +111,12 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
           <div id="import-family-control" hidden>
             <label for="import-family">Imported family</label>
             <select id="import-family"></select>
+          </div>
+          <div class="editor-toolbar">
+            <button type="submit">Add family</button>
+            <button type="submit" id="add-imported-families" disabled>
+              Add all imported families
+            </button>
           </div>
           <label for="family-name">Family name</label>
           <input
@@ -129,7 +147,6 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
               </label>
             ))}
           </div>
-          <button type="submit">Add family</button>
         </form>
       </section>
 

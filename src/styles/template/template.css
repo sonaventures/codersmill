@@ -490,7 +490,7 @@
   @apply inline-flex items-baseline gap-[0.4rem] font-display text-[1.6rem] font-[650] whitespace-nowrap no-underline;
 }
 .selector-shell .sample-logo-group {
-  @apply font-sans text-[0.6rem] tracking-[0.15em];
+  @apply font-sans text-[1.25rem] tracking-[0.15em];
 }
 .selector-shell .sample-navigation {
   @apply min-w-0;
