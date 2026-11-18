@@ -486,6 +486,25 @@
 .selector-shell .sample-header > .sample-container {
   @apply flex flex-wrap items-center justify-between gap-4 py-6;
 }
+.selector-shell .preview-column [data-region] {
+  @apply cursor-pointer;
+}
+.selector-shell .preview-column .sample-card,
+.selector-shell .preview-column .sample-subsection,
+.selector-shell .preview-column .sample-buttons button,
+.selector-shell .preview-column .sample-social-icons a {
+  @apply cursor-pointer;
+}
+.selector-shell .preview-column [data-control-selected] {
+  outline: 3px solid var(--sample-accentFocus);
+  outline-offset: -3px;
+}
+.selector-shell
+  .preview-column
+  [data-control-target]:not(button):not(a):focus-visible {
+  outline: 3px solid var(--sample-accentFocus);
+  outline-offset: -3px;
+}
 .selector-shell .sample-logo {
   @apply inline-flex items-baseline gap-[0.4rem] font-display text-[1.6rem] font-[650] whitespace-nowrap no-underline;
 }
@@ -554,10 +573,18 @@
   @apply m-0;
 }
 .selector-shell .sample-section {
+  border: 1px solid var(--sample-border);
+  border-radius: var(--sample-section-radius, 0px);
+  box-shadow: 0 8px 24px
+    color-mix(in srgb, var(--sample-shadow) 18%, transparent);
   @apply py-[clamp(1.25rem,3vw,3rem)];
 }
 .selector-shell .sample-kicker {
   @apply text-[0.65rem] font-bold tracking-[0.12em] uppercase;
+}
+.selector-shell .sample-heading-level {
+  color: color-mix(in srgb, var(--sample-text) 75%, transparent);
+  @apply mt-3 block text-[0.62rem] font-bold tracking-[0.12em] uppercase;
 }
 .selector-shell .sample-page h1 {
   @apply m-[1rem_0] font-display text-[clamp(2rem,3.2vw,3.5rem)] leading-[1.05] tracking-tight text-(--sample-h1);
@@ -569,6 +596,9 @@
 .selector-shell .sample-page h3:not(.sample-card h3) {
   @apply mb-3 text-[1rem] font-[650] text-(--sample-h3);
 }
+.selector-shell .sample-page h4 {
+  @apply mb-3 text-[0.9rem] font-[650] text-(--sample-h4);
+}
 .selector-shell .sample-section p:not(.sample-kicker):not(.sample-card p),
 .selector-shell .sample-footer p {
   @apply text-[0.85rem] leading-[1.75];
@@ -576,17 +606,32 @@
 .selector-shell .sample-copy {
   @apply max-w-156;
 }
+.selector-shell .sample-copy code {
+  background: color-mix(in srgb, var(--sample-border) 28%, transparent);
+  @apply rounded px-1 font-mono text-[0.8em];
+}
+.selector-shell .sample-code {
+  @apply my-5 max-w-full overflow-x-auto rounded-lg p-4 text-[0.78rem] leading-[1.6];
+  border: 1px solid var(--sample-border);
+  background: color-mix(
+    in srgb,
+    var(--sample-background) 85%,
+    var(--sample-text)
+  );
+  color: var(--sample-text);
+}
+.selector-shell .sample-code code {
+  @apply font-mono;
+}
 .selector-shell .sample-buttons {
   @apply mt-6 flex flex-wrap gap-[0.6rem];
 }
 .selector-shell .sample-buttons button {
   @apply p-[0.7rem_1rem];
   border: 1px solid var(--sample-accentBorder);
+  box-shadow: 0 3px 10px
+    color-mix(in srgb, var(--sample-buttonShadow) 20%, transparent);
   @apply cursor-pointer rounded-[0.3rem] text-[0.75rem] font-bold;
-}
-.selector-shell .sample-buttons button:not([data-cta]):hover {
-  background: var(--sample-accentFocus);
-  @apply text-(--sample-primaryText);
 }
 .selector-shell .sample-buttons button:focus-visible {
   outline: 3px solid var(--sample-accentFocus);
@@ -601,13 +646,107 @@
   @apply text-(--sample-secondaryText);
 }
 .selector-shell .sample-buttons [data-cta="primary"] {
-  @apply border-cta-01;
+  border-color: var(--sample-accentBorder);
 }
 .selector-shell .sample-buttons [data-cta="secondary"] {
-  @apply border-cta-02;
+  border-color: var(--sample-accentBorder);
 }
-.selector-shell .sample-buttons [data-cta]:hover {
-  filter: brightness(0.95);
+.selector-shell .sample-buttons .sample-action-link {
+  @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-[0.3rem] px-4 text-[0.75rem] font-bold no-underline;
+  border: 1px solid var(--sample-accentBorder);
+  box-shadow: 0 3px 10px
+    color-mix(in srgb, var(--sample-buttonShadow) 20%, transparent);
+}
+.selector-shell .sample-action-link:focus-visible {
+  outline: 3px solid var(--sample-accentFocus);
+  @apply outline-offset-3;
+}
+.selector-shell .sample-social-icons {
+  @apply mt-5 flex items-center gap-3;
+}
+.selector-shell .sample-social-icons a {
+  @apply grid size-10 place-items-center rounded-full;
+  border: 1px solid var(--sample-iconBorder);
+  box-shadow: 0 2px 6px
+    color-mix(in srgb, var(--sample-iconShadow) 22%, transparent);
+}
+.selector-shell .sample-social-icons a:focus-visible {
+  outline: 3px solid var(--sample-accentFocus);
+  @apply outline-offset-3;
+}
+.selector-shell .sample-cards {
+  @apply mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3;
+}
+.selector-shell .sample-card,
+.selector-shell .sample-subsection {
+  background: var(--card-canvas);
+  color: var(--sample-cardText);
+  @apply min-w-0 rounded-xl p-5 wrap-anywhere;
+}
+.selector-shell .sample-card {
+  border-radius: var(--sample-card-radius, var(--radius-xl));
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--card-shadow) 12%, transparent);
+}
+.selector-shell .sample-subsection {
+  border-radius: var(--sample-subsection-radius, var(--radius-xl));
+  border: 1px solid var(--sample-subsectionBorder);
+  box-shadow: 0 6px 18px
+    color-mix(in srgb, var(--sample-subsectionShadow) 18%, transparent);
+  @apply mt-5 p-6 sm:p-8;
+}
+.selector-shell .sample-card h2,
+.selector-shell .sample-subsection h2 {
+  @apply mb-3 font-display text-xl font-bold text-(--sample-h2);
+}
+.selector-shell .sample-card h3,
+.selector-shell .sample-subsection h3 {
+  @apply mb-3 text-base font-semibold text-(--sample-h3);
+}
+.selector-shell .card-number {
+  @apply mb-2 text-[0.62rem] font-bold tracking-[0.12em] uppercase;
+}
+.selector-shell [data-region] .sample-inline-link {
+  @apply inline-flex items-center gap-[0.35rem] font-semibold underline underline-offset-4;
+}
+.selector-shell [data-region] svg {
+  color: var(--sample-iconColor);
+}
+.selector-shell [data-region] a:link {
+  color: var(--sample-linkColor);
+}
+.selector-shell [data-region] a:visited {
+  color: var(--sample-visitedColor);
+}
+.selector-shell [data-region] :is(button, a):hover {
+  color: var(--sample-linkHover);
+}
+.selector-shell [data-region] :is(button, a):focus {
+  color: var(--sample-linkFocus);
+}
+.selector-shell [data-region] :is(button, a):active {
+  color: var(--sample-linkActive);
+}
+.selector-shell [data-region] .sample-buttons button:hover {
+  background: var(--sample-buttonHoverBackground);
+  color: var(--sample-buttonHoverText);
+}
+.selector-shell [data-region] .sample-buttons button:focus {
+  background: var(--sample-buttonFocusBackground);
+  color: var(--sample-buttonFocusText);
+}
+.selector-shell [data-region] .sample-buttons button:active {
+  background: var(--sample-buttonActiveBackground);
+  color: var(--sample-buttonActiveText);
+}
+.selector-shell [data-region] :is(button, a):hover svg {
+  color: var(--sample-iconHover);
+}
+.selector-shell [data-region] :is(button, a):focus svg {
+  color: var(--sample-iconFocus);
+}
+.selector-shell [data-region] :is(button, a):active svg {
+  color: var(--sample-iconActive);
 }
 .selector-shell .sample-two-columns {
   @apply grid grid-cols-[1fr_1fr] gap-8;
@@ -711,6 +850,39 @@
 }
 .selector-shell .palette-picker summary span {
   @apply float-right text-[0.7rem] leading-5 font-normal text-ink-page;
+}
+.selector-shell .palette-tabs {
+  @apply mx-3 mb-2 flex gap-2;
+  border-bottom: 1px solid var(--canvas-page-border);
+}
+.selector-shell .palette-tabs button {
+  @apply cursor-pointer border-b-2 border-b-transparent px-2 py-1.5 text-xs font-semibold;
+}
+.selector-shell .palette-tabs [aria-selected="true"] {
+  border-bottom-color: var(--accent-page-focus);
+}
+.selector-shell .palette-radius-toolbar {
+  @apply flex flex-wrap items-end gap-x-4 gap-y-2 px-1 pb-2;
+}
+.selector-shell #radius-target {
+  @apply m-0 h-8 p-1 text-xs;
+}
+.selector-shell .palette-radius-swatches {
+  @apply flex flex-wrap gap-1.5;
+}
+.selector-shell .palette-radius-swatches button {
+  @apply grid min-w-9 cursor-pointer justify-items-center gap-1 rounded-sm p-1 text-[0.65rem];
+}
+.selector-shell .palette-radius-swatches span {
+  @apply block h-8 w-9;
+  border: 1px solid var(--accent-page-border);
+  background: var(--accent-page-canvas);
+}
+.selector-shell .palette-tabs button:focus-visible,
+.selector-shell .palette-radius-swatches button:focus-visible,
+.selector-shell .palette-radius-swatches button[aria-pressed="true"] {
+  outline: 2px solid var(--accent-page-focus);
+  outline-offset: -2px;
 }
 .selector-shell .palette-content {
   @apply max-h-[min(38rem,calc(100dvh-7rem))] overflow-y-auto p-[0_0.75rem_0.25rem];

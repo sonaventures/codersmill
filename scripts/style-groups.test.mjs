@@ -4,9 +4,12 @@ import {
   cardCanvasRoles,
   createDefaultColors,
   defaultColorReference,
+  defaultRadii,
   getColor,
+  interactiveColorRoles,
   isColorRoleVisible,
   parseStyleGroups,
+  regions,
   semanticToken,
   setColor,
   serializeStyleGroups,
@@ -16,6 +19,7 @@ const group = () => ({
   id: "coastal",
   name: "Coastal calm",
   themes: { light: createDefaultColors(), dark: createDefaultColors() },
+  radii: { ...defaultRadii },
 });
 
 test("style groups round-trip independent area palettes", () => {
@@ -33,6 +37,38 @@ test("style groups round-trip independent area palettes", () => {
   assert.notEqual(restored.themes.dark.section3.text, "#abcdef");
 });
 
+test("style groups round-trip independent global corner radii", () => {
+  const saved = group();
+  saved.radii = { section: "3xl", card: "none", subsection: "sm" };
+  assert.deepEqual(parseStyleGroups(serializeStyleGroups([saved])), [saved]);
+
+  saved.radii.card = "1px; color: red";
+  assert.throws(
+    () => parseStyleGroups(serializeStyleGroups([saved])),
+    /Invalid card corner radius/,
+  );
+  delete saved.radii;
+  assert.throws(
+    () => parseStyleGroups(serializeStyleGroups([saved])),
+    /Missing corner radii/,
+  );
+});
+
+test("version 9 style groups retain colors and get the original corner radii", () => {
+  const saved = group();
+  saved.themes.light.section1.border = "#123456";
+  delete saved.radii;
+  const [restored] = parseStyleGroups(
+    JSON.stringify({ version: 9, groups: [saved] }),
+  );
+  assert.deepEqual(restored.themes, saved.themes);
+  assert.deepEqual(restored.radii, {
+    section: "none",
+    card: "xl",
+    subsection: "xl",
+  });
+});
+
 test("transparent selections and Tailwind colors round-trip in both themes", () => {
   const saved = group();
   saved.themes.light.page.background = "transparent";
@@ -41,7 +77,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeStyleGroups([saved]);
-  assert.equal(JSON.parse(json).version, 6);
+  assert.equal(JSON.parse(json).version, 10);
   assert.deepEqual(parseStyleGroups(json), [saved]);
 
   const old = group();
@@ -69,7 +105,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":7,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":11,"groups":[]}']) {
     assert.throws(() => parseStyleGroups(json));
   }
   assert.throws(
@@ -130,7 +166,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 6);
+  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 10);
 });
 
 test("brand and CTA assignments are page-wide and round-trip independently by theme", () => {
@@ -323,7 +359,9 @@ test("editing areas expose only their own controls without losing card and brand
   assert.equal(isColorRoleVisible("section1", "card"), true);
   assert.equal(isColorRoleVisible("section6", "card03Shadow"), true);
   assert.equal(isColorRoleVisible("page", "card02"), true);
-  assert.equal(isColorRoleVisible("hero", "cardBorder"), false);
+  assert.equal(isColorRoleVisible("hero", "cardBorder"), true);
+  assert.equal(isColorRoleVisible("hero", "subsectionBorder"), true);
+  assert.equal(isColorRoleVisible("header", "subsectionShadow"), false);
   assert.equal(isColorRoleVisible("section3", "card"), true);
   assert.equal(isColorRoleVisible("section4", "cardText"), true);
   assert.equal(isColorRoleVisible("page", "brandFirst"), true);
@@ -364,6 +402,127 @@ test("three cards round-trip independent canvases, borders, and shadows", () => 
   assert.throws(
     () => parseStyleGroups(serializeStyleGroups([saved])),
     /card03Shadow/,
+  );
+});
+
+test("interactive colors round-trip independently for each area and theme", () => {
+  const saved = group();
+  saved.themes.light.header.buttonHoverBackground =
+    "var(--color-magical-merlin-600)";
+  saved.themes.light.hero.linkColor = "#abcdef";
+  saved.themes.light.section3.visitedColor = "var(--color-yellow-mana-500)";
+  saved.themes.dark.footer.iconFocus = "var(--color-dark-rift-300)";
+
+  const [restored] = parseStyleGroups(serializeStyleGroups([saved]));
+  assert.deepEqual(restored, saved);
+  assert.equal(
+    restored.themes.light.header.buttonHoverBackground,
+    "var(--color-magical-merlin-600)",
+  );
+  assert.equal(restored.themes.light.hero.linkColor, "#abcdef");
+  assert.equal(
+    restored.themes.light.section3.visitedColor,
+    "var(--color-yellow-mana-500)",
+  );
+  assert.equal(
+    restored.themes.dark.footer.iconFocus,
+    "var(--color-dark-rift-300)",
+  );
+  assert.equal(
+    defaultColorReference("header", "buttonHoverBackground"),
+    "var(--sample-accentFocus)",
+  );
+  assert.equal(semanticToken("section3", "h4"), "ink-03-h4");
+  assert.equal(semanticToken("page", "h4"), null);
+  assert.equal(defaultColorReference("page", "h4"), "var(--sample-h3)");
+  assert.equal(
+    defaultColorReference("footer", "visitedColor"),
+    "var(--sample-text)",
+  );
+  for (const { key: region } of regions) {
+    for (const { key } of interactiveColorRoles) {
+      assert.equal(isColorRoleVisible(region, key), true);
+    }
+  }
+});
+
+test("version 6 groups adopt theme defaults for new interactive colors", () => {
+  const saved = group();
+  saved.themes.light.page.primary = "#123456";
+  for (const theme of Object.values(saved.themes)) {
+    for (const { key: region } of regions) {
+      for (const { key } of interactiveColorRoles) {
+        delete theme[region][key];
+      }
+    }
+  }
+
+  const [restored] = parseStyleGroups(
+    JSON.stringify({ version: 6, groups: [saved] }),
+  );
+  assert.equal(restored.themes.light.page.primary, "#123456");
+  assert.equal(restored.themes.light.page.buttonHoverBackground, "theme");
+  assert.equal(restored.themes.dark.footer.visitedColor, "theme");
+});
+
+test("version 7 groups adopt theme defaults for H4 colors", () => {
+  const saved = group();
+  saved.themes.light.hero.h3 = "#123456";
+  saved.themes.light.section3.h4 = "#abcdef";
+  for (const theme of Object.values(saved.themes)) {
+    for (const { key: region } of regions) delete theme[region].h4;
+  }
+
+  const [restored] = parseStyleGroups(
+    JSON.stringify({ version: 7, groups: [saved] }),
+  );
+  assert.equal(restored.themes.light.hero.h3, "#123456");
+  assert.equal(restored.themes.light.section3.h4, "theme");
+});
+
+test("version 8 groups adopt theme defaults for component border and shadow colors", () => {
+  const saved = group();
+  saved.themes.light.section3.border = "#123456";
+  saved.themes.light.section3.accentBorder = "#abcdef";
+  for (const theme of Object.values(saved.themes)) {
+    for (const { key: region } of regions) {
+      for (const role of [
+        "buttonShadow",
+        "iconBorder",
+        "iconShadow",
+        "subsectionBorder",
+        "subsectionShadow",
+      ]) {
+        delete theme[region][role];
+      }
+    }
+  }
+
+  const [restored] = parseStyleGroups(
+    JSON.stringify({ version: 8, groups: [saved] }),
+  );
+  assert.equal(restored.themes.light.section3.border, "#123456");
+  assert.equal(restored.themes.light.section3.accentBorder, "#abcdef");
+  assert.equal(restored.themes.light.section3.buttonShadow, "theme");
+  assert.equal(restored.themes.dark.hero.iconBorder, "theme");
+  assert.equal(restored.themes.light.section3.iconShadow, "theme");
+  assert.equal(restored.themes.light.section3.subsectionBorder, "theme");
+  assert.equal(restored.themes.dark.section6.subsectionShadow, "theme");
+  assert.equal(
+    defaultColorReference("section3", "subsectionBorder"),
+    "var(--sample-card03Border)",
+  );
+  assert.equal(
+    defaultColorReference("section3", "iconBorder"),
+    "var(--sample-accentBorder)",
+  );
+  assert.equal(
+    defaultColorReference("section3", "buttonShadow"),
+    "var(--sample-shadow)",
+  );
+  assert.equal(
+    defaultColorReference("section3", "subsectionShadow"),
+    "var(--sample-card03Shadow)",
   );
 });
 

@@ -11,57 +11,29 @@ import { cardCanvasRoles } from "../data/style-groups";
         data-sample-card={card}
         style={`--card-canvas:var(--sample-${key});--card-border:var(--sample-${key}Border);--card-shadow:var(--sample-${key}Shadow)`}
       >
-        <span class="card-number">{card}</span>
-        <h3>Card {card}</h3>
+        <p class="card-number">Card {card}</p>
+        <span class="sample-heading-level">H2</span>
+        <h2>Card {card}</h2>
+        <span class="sample-heading-level">H3</span>
+        <h3>A card with a clear focus</h3>
         <p>
-          Style this card's canvas, border, and shadow independently of the
-          other cards in this area.
+          Add a short description that explains what makes this card useful.
         </p>
       </article>
     ))}
 </div>
-
-<style>
-  .sample-cards {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.6rem;
-    margin-top: 2rem;
-  }
-  .sample-card {
-    padding: 1rem;
-    background: var(--card-canvas);
-    color: var(--sample-cardText);
-    border: 1px solid var(--card-border);
-    box-shadow: 0 4px 12px
-      color-mix(in srgb, var(--card-shadow) 12%, transparent);
-    border-radius: 0.5rem;
-    overflow-wrap: anywhere;
-  }
-  .card-number {
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-  h3 {
-    color: var(--sample-h3);
-    font-size: 1rem;
-    font-weight: 650;
-    margin: 1.5rem 0 0.75rem;
-  }
-  p {
-    font-size: 0.85rem;
-    line-height: 1.75;
-  }
-  @media (max-width: 1050px) {
-    .sample-cards {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  @media (max-width: 600px) {
-    .sample-cards {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-</style>
+<article
+  class="sample-subsection"
+  data-sample-card="subsection"
+  style="--card-canvas:var(--sample-card03);--card-border:var(--sample-card03Border);--card-shadow:var(--sample-card03Shadow)"
+>
+  <p class="card-number">Subsection / large card</p>
+  <span class="sample-heading-level">H2</span>
+  <h2>A subsection with room to explore</h2>
+  <span class="sample-heading-level">H3</span>
+  <h3>A supporting idea</h3>
+  <p>
+    Use this larger card for a related topic, a deeper explanation, or a
+    highlighted piece of content.
+  </p>
+</article>

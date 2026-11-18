@@ -25,7 +25,39 @@ const css = await readFile(
   new URL("../src/styles/themes/colors.css", import.meta.url),
   "utf8",
 );
+const exclusivePalette = await readFile(
+  new URL("../misc/exclusive-color-palette.txt", import.meta.url),
+  "utf8",
+);
 const shades = paletteShades.map(() => "oklch(62.6% 0.128 243.6)");
+
+test("exclusive color families are available without overriding Tailwind colors", () => {
+  const sourceFamilies = readOklchPalettes(exclusivePalette);
+  const cssFamilies = readPalette(css);
+  const original = [...paletteFamilies];
+  const normalizeValues = (values) =>
+    values.map((value) => value.replace(/(\d)\.(\d*?)0+(?=[\s)])/g, "$1.$2"));
+  for (const { key, values } of sourceFamilies) {
+    const installed = cssFamilies.find((family) => family.key === key);
+    assert.ok(installed, `${key} should be available to the theme builder`);
+    assert.deepEqual(
+      normalizeValues([...installed.values.values()]),
+      normalizeValues(values),
+    );
+    assert.equal(
+      builtinPaletteFamilies.some((family) => family.key === key),
+      false,
+      `${key} must not override a Tailwind color family`,
+    );
+  }
+  try {
+    setPaletteFamilies(cssFamilies);
+    assert.ok(paletteColors.includes("exclusive-sky-500"));
+    assert.ok(paletteColors.includes("exclusive-taupe-500"));
+  } finally {
+    setPaletteFamilies(original);
+  }
+});
 
 test("adds and removes a complete family without changing other CSS", () => {
   const updated = addPalette(css, "ocean-blue", shades);

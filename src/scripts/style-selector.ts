@@ -1,7 +1,9 @@
 import {
+  cardCanvasRoles,
   colorRoles,
   createDefaultColors,
   defaultColorReference,
+  defaultRadii,
   getColor,
   globalColorRoles,
   isGlobalColorRole,
@@ -10,6 +12,8 @@ import {
   paletteFamilies,
   paletteShades,
   parseStyleGroups,
+  radiusPresets,
+  radiusTargets,
   regions,
   regionColorRoles,
   roleGroups,
@@ -51,6 +55,7 @@ if (root) {
   };
   const form = get<HTMLFormElement>("#style-group-form");
   const area = get<HTMLSelectElement>("#editing-region");
+  const preview = get<HTMLElement>(".preview-column");
   const saved = get<HTMLSelectElement>("#saved-group");
   const name = get<HTMLInputElement>("#group-name");
   const status = get<HTMLParagraphElement>("#selector-status");
@@ -61,6 +66,10 @@ if (root) {
   const fileInput = get<HTMLInputElement>("#import-file");
   const paletteFamily = get<HTMLSelectElement>("#palette-family");
   const paletteTarget = get<HTMLSelectElement>("#palette-target");
+  const radiusTarget = get<HTMLSelectElement>("#radius-target");
+  const radiusSwatches = root.querySelectorAll<HTMLButtonElement>(
+    "[data-radius-preset]",
+  );
   const currentTheme = (): Theme =>
     document.documentElement.dataset.theme === "dark" ? "dark" : "light";
   let themes: StyleGroup["themes"] = {
@@ -68,6 +77,7 @@ if (root) {
     dark: createDefaultColors(),
   };
   let colors = themes[currentTheme()];
+  let radii = { ...defaultRadii };
   let groups: StyleGroup[] = [];
   let selectedId = "";
   let dirty = false;
@@ -84,10 +94,92 @@ if (root) {
   const editingArea = () => area.value as Region;
   const markDirty = () => {
     dirty = true;
-    message("Unsaved changes. Save a style group to keep this palette.");
+    message("Unsaved changes. Save a style group to keep these styles.");
   };
   const confirmDiscard = () =>
-    !dirty || window.confirm("Discard unsaved palette changes?");
+    !dirty || window.confirm("Discard unsaved style changes?");
+
+  const paletteTabs = [
+    get<HTMLButtonElement>("#palette-color-tab"),
+    get<HTMLButtonElement>("#palette-global-tab"),
+  ];
+  const palettePanels = [
+    get<HTMLElement>("#palette-color-panel"),
+    get<HTMLElement>("#palette-global-panel"),
+  ];
+  function activatePaletteTab(index: number) {
+    paletteTabs.forEach((tab, i) => {
+      const active = i === index;
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+    palettePanels.forEach((panel, i) => {
+      panel.hidden = i !== index;
+    });
+  }
+  paletteTabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => activatePaletteTab(i));
+    tab.addEventListener("keydown", (event) => {
+      let next: number;
+      switch (event.key) {
+        case "ArrowLeft":
+        case "ArrowRight":
+          next = 1 - i;
+          break;
+        case "Home":
+          next = 0;
+          break;
+        case "End":
+          next = 1;
+          break;
+        default:
+          return;
+      }
+      event.preventDefault();
+      activatePaletteTab(next);
+      paletteTabs[next]?.focus();
+    });
+  });
+
+  function selectedRadiusTarget() {
+    const target = radiusTargets.find(({ key }) => key === radiusTarget.value);
+    if (!target) throw new Error("Unknown corner radius target.");
+    return target.key;
+  }
+
+  function renderRadiusSwatches() {
+    const selected = radii[selectedRadiusTarget()];
+    for (const swatch of radiusSwatches) {
+      swatch.setAttribute(
+        "aria-pressed",
+        String(swatch.dataset.radiusPreset === selected),
+      );
+    }
+  }
+
+  function renderRadii() {
+    for (const { key } of radiusTargets) {
+      const preset = radiusPresets.find((preset) => preset.key === radii[key]);
+      if (!preset) throw new Error(`Unknown corner radius preset for ${key}.`);
+      preview.style.setProperty(`--sample-${key}-radius`, preset.size);
+    }
+    renderRadiusSwatches();
+  }
+
+  radiusTarget.addEventListener("change", renderRadiusSwatches);
+  for (const swatch of radiusSwatches) {
+    swatch.addEventListener("click", () => {
+      const preset = radiusPresets.find(
+        ({ key }) => key === swatch.dataset.radiusPreset,
+      );
+      if (!preset) throw new Error("Unknown corner radius preset.");
+      const target = selectedRadiusTarget();
+      if (radii[target] === preset.key) return;
+      radii[target] = preset.key;
+      renderRadii();
+      markDirty();
+    });
+  }
 
   function renderColors() {
     const region = editingArea();
@@ -244,6 +336,93 @@ if (root) {
     }
   }
 
+  function previewTargetRole(target: HTMLElement): ColorRole {
+    if (target.closest(".sample-subsection")) return "subsectionBorder";
+
+    const card = target.closest<HTMLElement>(".sample-card");
+    if (card) {
+      const role = cardCanvasRoles.find(
+        ({ card: number, part }) =>
+          number === card.dataset.sampleCard && part === "border",
+      );
+      if (!role)
+        throw new Error("Unable to identify the selected sample card.");
+      return role.key;
+    }
+
+    if (target.closest(".sample-social-icons a")) return "iconBorder";
+    if (target.closest(".sample-buttons button, .sample-action-link"))
+      return "accentBorder";
+    if (target.closest(".sample-section")) return "border";
+    return "background";
+  }
+
+  function previewRegion(target: HTMLElement): Region {
+    const regionName =
+      target.closest<HTMLElement>("[data-region]")?.dataset.region;
+    const region = regions.find(({ key }) => key === regionName);
+    if (!region)
+      throw new Error("Unable to identify the preview's style area.");
+    return region.key;
+  }
+
+  const previewTargets = preview.querySelectorAll<HTMLElement>(
+    "[data-region], .sample-card, .sample-subsection, .sample-buttons button, .sample-action-link, .sample-social-icons a",
+  );
+  for (const target of previewTargets) {
+    const region = previewRegion(target);
+    const role = previewTargetRole(target);
+    const regionLabel = regions.find(({ key }) => key === region)?.label;
+    const roleLabel = colorRoles.find(({ key }) => key === role)?.label;
+    if (!regionLabel || !roleLabel)
+      throw new Error("Unable to label the preview control.");
+    target.dataset.controlTarget = "true";
+    target.title = `Click to edit ${regionLabel} / ${roleLabel}`;
+    target.setAttribute(
+      "aria-description",
+      "Press Enter or Space to open these color controls.",
+    );
+    if (!target.matches("button, a")) target.tabIndex = 0;
+  }
+
+  let selectedPreviewTarget: HTMLElement | null = null;
+  const activatePreviewTarget = (target: HTMLElement) => {
+    const region = previewRegion(target);
+    const role = previewTargetRole(target);
+    if (!isColorRoleVisible(region, role)) {
+      throw new Error(`The ${role} control is unavailable for ${region}.`);
+    }
+    if (editingArea() !== region) {
+      area.value = region;
+      area.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    focusColorRole(role);
+
+    selectedPreviewTarget?.removeAttribute("data-control-selected");
+    target.dataset.controlSelected = "true";
+    selectedPreviewTarget = target;
+    get<HTMLElement>(`[data-color-field="${role}"]`).scrollIntoView({
+      block: "nearest",
+      behavior: "smooth",
+    });
+  };
+
+  preview.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    const target = event.target.closest<HTMLElement>("[data-control-target]");
+    if (!target) return;
+    if (event.target.closest("a")) event.preventDefault();
+    activatePreviewTarget(target);
+  });
+  preview.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    if (!(event.target instanceof HTMLElement)) return;
+    const target = event.target.closest<HTMLElement>("[data-control-target]");
+    if (!target || target.matches("button, a")) return;
+    event.preventDefault();
+    activatePreviewTarget(target);
+  });
+
   function renderPalette() {
     const family = paletteFamilies.find(
       ({ key }) => key === paletteFamily.value,
@@ -328,6 +507,7 @@ if (root) {
     );
   }
   renderColors();
+  renderRadii();
   renderGroups();
 
   area.addEventListener("change", () => {
@@ -444,9 +624,11 @@ if (root) {
           dark: createDefaultColors(),
         };
     colors = themes[currentTheme()];
+    radii = { ...(group?.radii ?? defaultRadii) };
     name.value = group?.name ?? "";
     dirty = false;
     renderColors();
+    renderRadii();
     renderGroups();
     message(group ? `Loaded "${group.name}".` : "Started a fresh palette.");
   });
@@ -488,6 +670,7 @@ if (root) {
       id: selectedId || crypto.randomUUID(),
       name: groupName,
       themes: structuredClone(themes),
+      radii: { ...radii },
     };
     const next = selectedId
       ? groups.map((item) => (item.id === selectedId ? group : item))
@@ -528,7 +711,7 @@ if (root) {
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     message(
-      `Exported ${groups.length} saved style group(s), including light/dark token assignments. Unsaved preview changes are not included.`,
+      `Exported ${groups.length} saved style group(s), including colors and global corner radii. Unsaved preview changes are not included.`,
     );
   });
   importButton.addEventListener("click", () => fileInput.click());

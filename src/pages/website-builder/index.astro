@@ -1,0 +1,153 @@
+---
+import Layout from "../../layouts/website-builder.astro";
+import { builderPages } from "../../data/website-builder";
+
+const tools = builderPages.filter(({ label }) => label !== "Home");
+---
+
+<Layout
+  title="Website Builder"
+  description="A practical toolkit for building pages and shaping your website's colors, themes, and typography."
+>
+  <section class="bg-canvas-brand-primary text-ink-inverse">
+    <div class="container grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-28">
+      <div class="grid justify-items-start gap-6">
+        <p class="rounded-full border border-ink-inverse/25 px-4 py-2 text-sm font-semibold tracking-wide">
+          Your creative workspace
+        </p>
+        <h2 class="max-w-3xl font-display text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
+          Make every detail feel like
+          <span class="text-brand-02"> yours.</span>
+        </h2>
+        <p class="max-w-xl text-lg leading-relaxed text-ink-inverse/80">
+          From your first page layout to the finishing touches, find the tools
+          to shape a website that feels considered and complete.
+        </p>
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a class="btn btn-filled" href="/website-builder/pagebuilder/">
+            Start building <span aria-hidden="true">→</span>
+          </a>
+          <a
+            class="btn border-ink-inverse/40 text-ink-inverse hover:bg-ink-inverse/10"
+            href="#builder-tools"
+          >
+            Explore the tools
+          </a>
+        </div>
+      </div>
+
+      <div
+        class="rounded-3xl border border-ink-inverse/20 bg-ink-inverse/5 p-4 shadow-2xl sm:p-6"
+        aria-label="A preview of the website builder workflow"
+      >
+        <div class="rounded-2xl bg-canvas-page p-5 text-ink-page shadow-xl sm:p-7">
+          <div class="flex items-center justify-between gap-4 border-b border-canvas-page-border pb-5">
+            <div>
+              <p class="text-sm font-semibold text-accent-page-focus">
+                WEBSITE PROJECT
+              </p>
+              <p class="mt-1 text-xl font-bold">A fresh starting point</p>
+            </div>
+            <span
+              class="grid size-11 shrink-0 place-items-center rounded-full bg-canvas-brand-primary text-lg text-ink-inverse"
+              aria-hidden="true"
+            >
+              ✦
+            </span>
+          </div>
+          <ol class="mt-5 grid gap-3">
+            {[
+              ["01", "Build your pages", "Give your ideas a place to live"],
+              ["02", "Find your colors", "Set a palette that feels right"],
+              ["03", "Bring it together", "Make every detail work in harmony"],
+            ].map(([number, title, description]) => (
+              <li class="flex items-start gap-4 rounded-xl border border-canvas-page-border p-4">
+                <span class="pt-0.5 text-sm font-bold text-accent-page-focus">
+                  {number}
+                </span>
+                <div>
+                  <p class="font-semibold">{title}</p>
+                  <p class="mt-1 text-sm text-ink-page-muted">{description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div class="mt-5 flex gap-2" aria-label="A sample color palette">
+            <span class="h-2 flex-1 rounded-full bg-brand-01"></span>
+            <span class="h-2 flex-1 rounded-full bg-brand-02"></span>
+            <span class="h-2 flex-1 rounded-full bg-brand-03"></span>
+            <span class="h-2 flex-1 rounded-full bg-brand-04"></span>
+            <span class="h-2 flex-1 rounded-full bg-brand-05"></span>
+            <span class="h-2 flex-1 rounded-full bg-brand-06"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="builder-tools"
+    class="container grid gap-8 py-16 sm:py-20 lg:py-24"
+    aria-labelledby="builder-tools-title"
+  >
+    <div class="grid max-w-2xl gap-3">
+      <p class="text-sm font-semibold tracking-wide text-accent-page-focus uppercase">
+        The toolkit
+      </p>
+      <h2
+        id="builder-tools-title"
+        class="font-display text-3xl font-bold text-ink-page sm:text-4xl"
+      >
+        Everything you need to shape your site
+      </h2>
+      <p class="text-lg text-ink-page-muted">
+        Start with the piece you need today. Your tools are ready whenever
+        inspiration strikes.
+      </p>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {tools.map(({ label, href, description }, index) => (
+        <a
+          class="group grid content-start gap-8 rounded-2xl border border-canvas-page-border bg-canvas-page p-6 text-ink-page no-underline shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg"
+          href={href}
+        >
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-semibold text-accent-page-focus">
+              0{index + 1}
+            </span>
+            <span
+              class="grid size-10 place-items-center rounded-full bg-canvas-page-card-01 text-xl text-accent-page-focus transition group-hover:bg-canvas-brand-primary group-hover:text-ink-inverse"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+          </div>
+          <div class="grid gap-2">
+            <h3 class="text-xl font-bold">{label}</h3>
+            <p class="leading-relaxed text-ink-page-muted">{description}</p>
+          </div>
+          <span class="text-sm font-semibold text-accent-page-focus">
+            Open tool <span aria-hidden="true">→</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="border-y border-canvas-page-border bg-canvas-page-card-01">
+    <div class="container flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:py-12">
+      <div class="grid gap-2">
+        <h2 class="text-2xl font-bold text-ink-page">
+          Ready to bring your idea to life?
+        </h2>
+        <p class="text-ink-page-muted">
+          Start by creating a page, then refine your site's style.
+        </p>
+      </div>
+      <a class="btn btn-filled w-fit" href="/website-builder/pagebuilder/">
+        Go to Page Builder <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+</Layout>

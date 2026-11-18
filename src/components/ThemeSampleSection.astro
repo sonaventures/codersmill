@@ -1,0 +1,64 @@
+---
+import ThemeSampleCards from "./ThemeSampleCards.astro";
+import ThemeSampleIcon from "./ThemeSampleIcon.astro";
+import ThemeSampleSocialIcons from "./ThemeSampleSocialIcons.astro";
+import type { Region } from "../data/style-groups";
+
+interface Props {
+  id: string;
+  region: Region;
+  label: string;
+  title: string;
+  subtitle: string;
+  detail: string;
+  fourth: string;
+  style: string;
+}
+
+const { id, region, label, title, subtitle, detail, fourth, style } =
+  Astro.props;
+---
+
+<section
+  class="sample-section"
+  id={id}
+  data-region={region}
+  style={style}
+  aria-labelledby={`${id}-heading`}
+>
+  <div class="sample-container">
+    <p class="sample-kicker">{label}</p>
+    <span class="sample-heading-level">H1</span>
+    <h1 id={`${id}-heading`}>{title}</h1>
+    <span class="sample-heading-level">H2</span>
+    <h2>{subtitle}</h2>
+    <span class="sample-heading-level">H3</span>
+    <h3>{detail}</h3>
+    <span class="sample-heading-level">H4</span>
+    <h4>{fourth}</h4>
+
+    <p class="sample-copy">
+      Use <strong>strong text</strong> for emphasis, <em>em text</em> for a
+      different voice, and <code>inlineCode()</code> for a short example. Add an
+      <a href="#selector-sample-page"> anchor inside this paragraph</a> to style
+      inline links.
+    </p>
+    <pre class="sample-code"><code>const section = "sample";
+render(section);</code></pre>
+
+    <div class="sample-buttons" role="group" aria-label={`${label} actions`}>
+      <button type="button" class="sample-primary">
+        Primary action <ThemeSampleIcon />
+      </button>
+      <button type="button" class="sample-secondary">
+        Secondary action <ThemeSampleIcon />
+      </button>
+      <a class="sample-action-link" href="#selector-sample-page">
+        Learn more <ThemeSampleIcon />
+      </a>
+    </div>
+
+    <ThemeSampleSocialIcons />
+    <ThemeSampleCards />
+  </div>
+</section>

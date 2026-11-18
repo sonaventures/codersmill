@@ -2,6 +2,8 @@
 import Layout from "../../layouts/website-builder.astro";
 import "../../styles/template/template.css";
 import ThemeSampleCards from "../../components/ThemeSampleCards.astro";
+import ThemeSampleIcon from "../../components/ThemeSampleIcon.astro";
+import ThemeSampleSection from "../../components/ThemeSampleSection.astro";
 import css from "../../styles/themes/colors.css?raw";
 import { readPalette } from "../../data/palette.js";
 import {
@@ -10,6 +12,8 @@ import {
   isColorRoleVisible,
   paletteFamilies,
   paletteShades,
+  radiusPresets,
+  radiusTargets,
   regions,
   regionColorRoles,
   roleGroups,
@@ -28,31 +32,37 @@ const sections = [
     title: "A place for your next idea",
     subtitle: "Make the first impression count",
     detail: "A little contrast goes a long way",
+    fourth: "The details make it yours",
   },
   {
     title: "Find your balance",
     subtitle: "Color sets the tone",
     detail: "Keep the details in harmony",
+    fourth: "A little space to breathe",
   },
   {
     title: "Better together",
     subtitle: "Four cards, one visual language",
     detail: "A collection worth exploring",
+    fourth: "Every part has a place",
   },
   {
     title: "Give an idea the spotlight",
     subtitle: "One card. A clear focus.",
     detail: "Room for something special",
+    fourth: "Keep the message close",
   },
   {
     title: "Two sides of the story",
     subtitle: "Build a balanced layout",
     detail: "Different perspectives, shared purpose",
+    fourth: "Make space for both",
   },
   {
     title: "Bring it all together",
     subtitle: "Finish with confidence",
     detail: "Your next step starts here",
+    fourth: "Ready for what comes next",
   },
 ];
 const sampleMenu = [
@@ -134,39 +144,34 @@ const sampleMenu = [
                   ))}
                 </ul>
               </nav>
-            </div>
-          </header>
-          <section
-            class="sample-page-intro"
-            id="selector-hero"
-            data-region="hero"
-            style={regionStyle("hero")}
-          >
-            <div class="sample-container">
-              <p class="sample-kicker">Hero</p>
-              <h1>Make a bold beginning</h1>
-              <h2>A first impression with purpose</h2>
-              <h3>Give your message room to shine</h3>
-              <p>
-                Explore a hero canvas with its own headings, text, and accents,
-                independently of the page canvas.
-              </p>
               <div class="sample-buttons">
                 <button type="button" class="sample-primary">
-                  Get started
-                </button>
-                <button type="button" class="sample-secondary">
-                  Learn more
+                  Contact <ThemeSampleIcon />
                 </button>
               </div>
             </div>
-          </section>
+          </header>
+          <ThemeSampleSection
+            region="hero"
+            id="selector-hero"
+            label="Hero"
+            title="Make a bold beginning"
+            subtitle="A first impression with purpose"
+            detail="Give your message room to shine"
+            fourth="The details make it yours"
+            style={regionStyle("hero")}
+          />
           <div class="sample-page-intro">
             <div class="sample-container">
               <p class="sample-kicker">Page canvas</p>
+              <span class="sample-heading-level">H1</span>
               <h1>A theme with purpose</h1>
+              <span class="sample-heading-level">H2</span>
               <h2>Canvas, accent, and ink</h2>
+              <span class="sample-heading-level">H3</span>
               <h3>A shared visual language</h3>
+              <span class="sample-heading-level">H4</span>
+              <h4>A detail to bring it together</h4>
               <p>
                 Explore your page-level tokens here, then refine each section
                 below.
@@ -177,7 +182,7 @@ const sampleMenu = [
                   class="bg-cta-01 text-ink-page-dark"
                   data-cta="primary"
                 >
-                  CTA 01
+                  CTA 01 <ThemeSampleIcon />
                 </button>
                 <button
                   type="button"
@@ -187,56 +192,26 @@ const sampleMenu = [
                   CTA 02
                 </button>
               </div>
+              <p>
+                <a class="sample-inline-link" href="#selector-section-1">
+                  Explore the sections <ThemeSampleIcon />
+                </a>
+              </p>
               <ThemeSampleCards />
             </div>
           </div>
           <div class="sample-content">
-            {sections.map(({ title, subtitle, detail }, index) => (
-              <section
-                class="sample-section"
+            {sections.map(({ title, subtitle, detail, fourth }, index) => (
+              <ThemeSampleSection
+                region={`section${index + 1}` as Region}
                 id={`selector-section-${index + 1}`}
-                data-region={`section${index + 1}`}
+                label={`Section 0${index + 1}`}
+                title={title}
+                subtitle={subtitle}
+                detail={detail}
+                fourth={fourth}
                 style={regionStyle(`section${index + 1}` as Region)}
-              >
-                <div class="sample-container">
-                  <p class="sample-kicker">Section 0{index + 1}</p>
-                  <h1>{title}</h1>
-                  <h2>{subtitle}</h2>
-                  <h3>{detail}</h3>
-                  <p class="sample-copy">
-                    Thoughtful color brings a page to life. Explore how
-                    backgrounds, headings, text, and small details work together
-                    to create a welcoming, readable experience.
-                  </p>
-                  <div class="sample-buttons">
-                    <button type="button" class="sample-primary">
-                      Primary action
-                    </button>
-                    <button type="button" class="sample-secondary">
-                      Secondary action
-                    </button>
-                  </div>
-                  <ThemeSampleCards />
-                  {index === 4 && (
-                    <div class="sample-two-columns">
-                      <div>
-                        <h3>Space to imagine</h3>
-                        <p>
-                          Use this column to see how text and headings sit
-                          together against your chosen background.
-                        </p>
-                      </div>
-                      <div>
-                        <h3>Space to make it real</h3>
-                        <p>
-                          A second column helps you compare the rhythm and
-                          readability of longer content side by side.
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </section>
+              />
             ))}
           </div>
           <footer
@@ -249,12 +224,17 @@ const sampleMenu = [
               <p>Exclusive Studio / Sample footer</p>
               <div class="sample-buttons">
                 <button type="button" class="sample-primary">
-                  Stay connected
+                  Stay connected <ThemeSampleIcon />
                 </button>
                 <button type="button" class="sample-secondary">
                   Find out more
                 </button>
               </div>
+              <p>
+                <a class="sample-inline-link" href="#selector-sample-page">
+                  Back to the top <ThemeSampleIcon />
+                </a>
+              </p>
             </div>
           </footer>
         </div>
@@ -270,15 +250,23 @@ const sampleMenu = [
             <p class="selector-eyebrow">Your palette, your way</p>
             <h2 id="color-controls-title">Color controls / Page canvas</h2>
             <p>
-              Assign your Tailwind palette colors to semantic theme tokens.
-              Changes only affect the sample page.
+              Assign palette colors to each area’s canvas, text, buttons, links,
+              icons, and interactive states. Changes only affect the sample
+              page.
+            </p>
+            <p>
+              Click a section, card, button, or social icon in the preview to
+              jump to its matching controls. Border and shadow colors can be
+              adjusted independently.
             </p>
           </div>
           <p class="control-hint">
             Choose the editing area in the floating Tailwind palette. Sections
             1–6 use the first–sixth token groups. “Theme default” follows your
             existing light/dark theme. Choose Page canvas to edit page-wide
-            brand and CTA colors.
+            brand and CTA colors. The interactive group includes button hover,
+            focus, and active states; link, visited, hover, focus, and active
+            states; and icon colors for each area.
           </p>
           {roleGroups.map((group) => (
             <fieldset class="color-fields" data-control-group={group.key}>
@@ -353,8 +341,9 @@ const sampleMenu = [
           <div class="saved-groups">
             <h2>Style groups</h2>
             <p class="control-hint">
-              A group saves light and dark token assignments. Stored in this
-              browser; export a backup to reuse elsewhere.
+              A group saves light and dark colors for each area and global
+              corner radii shared by both themes. Stored in this browser; export
+              a backup to reuse elsewhere.
             </p>
             <label for="saved-group">Saved groups</label>
             <select id="saved-group">
@@ -419,7 +408,33 @@ const sampleMenu = [
       <summary>
         Tailwind palette <span>Show / hide</span>
       </summary>
-      <div class="palette-content">
+      <div class="palette-tabs" role="tablist" aria-label="Tailwind palette">
+        <button
+          type="button"
+          id="palette-color-tab"
+          role="tab"
+          aria-selected="true"
+          aria-controls="palette-color-panel"
+        >
+          Color Swatches
+        </button>
+        <button
+          type="button"
+          id="palette-global-tab"
+          role="tab"
+          aria-selected="false"
+          aria-controls="palette-global-panel"
+          tabindex="-1"
+        >
+          Global Styles
+        </button>
+      </div>
+      <div
+        class="palette-content"
+        id="palette-color-panel"
+        role="tabpanel"
+        aria-labelledby="palette-color-tab"
+      >
         <p class="control-hint" id="theme-context"></p>
         <div class="palette-toolbar-scroll">
           <div class="palette-toolbar">
@@ -509,6 +524,44 @@ const sampleMenu = [
                 <span>none</span>
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="palette-content"
+        id="palette-global-panel"
+        role="tabpanel"
+        aria-labelledby="palette-global-tab"
+        hidden
+      >
+        <p class="control-hint">
+          Corner radii apply across the preview in both light and dark mode.
+        </p>
+        <div class="palette-radius-toolbar">
+          <div>
+            <label for="radius-target">Edit corner radius for</label>
+            <select id="radius-target">
+              {radiusTargets.map(({ key, label }) => (
+                <option value={key}>{label}</option>
+              ))}
+            </select>
+          </div>
+          <div
+            class="palette-radius-swatches"
+            role="group"
+            aria-label="Corner radius presets"
+          >
+            {radiusPresets.map(({ key, label, size }) => (
+              <button
+                type="button"
+                data-radius-preset={key}
+                aria-pressed="false"
+                title={size}
+              >
+                <span aria-hidden="true" style={`border-radius:${size}`}></span>
+                {label}
+              </button>
+            ))}
           </div>
         </div>
       </div>

@@ -134,7 +134,7 @@ paragraph text, and primary/secondary buttons. Its `canvas-hero` (plus border
 and shadow), `ink-hero` (plus heading variants), and `accent-hero-*` tokens are
 available as Tailwind colors and are saved independently in each theme.
 Existing hero-gradient and glow tokens remain unchanged.
-The sample fills the available area without an outer frame or section borders.
+The sample fills the available area without an outer frame.
 Its header, page introduction, sections, and footer have full-width backgrounds
 with centered content capped at the `lg` screen width (1024px).
 On desktop, the controls are pinned to the right edge at full viewport height
@@ -157,11 +157,13 @@ shade. You can also choose any palette color directly in a role's dropdown.
 Section tokens use zero-padded numbers (`canvas-01`, `accent-01-*`, `ink-01-*`
 through `06`). Saved style groups retain their existing section assignments;
 page-heading token names are unchanged.
-The compact palette spans the preview space at the bottom while scrolling, clear
-of the controls sidebar. The area, target role, and family dropdowns share one row
-with all shades, including white, black, and none. The title and theme description sit
-above the row. Click **Tailwind palette** to collapse or reopen it; on narrow
-screens the controls scroll horizontally without wrapping.
+The compact **Tailwind palette** sits at the bottom of the preview and can be
+collapsed. In **Color Swatches**, the area, target role, and family dropdowns
+share a row with the shades, including white, black, and none. This row scrolls
+horizontally on narrow screens. In **Global Styles**, choose Sections (including
+the hero), Cards, or Subsections, then pick a visual corner-radius preset from
+None through 3XL. Corner radii apply across the preview in both themes and are
+saved and exported with the style group.
 Selecting an editing area refreshes its current-theme color controls and brings
 that sample area to the top of the viewport, including the footer. If a
 page-wide brand/CTA role was selected, choosing another area switches the

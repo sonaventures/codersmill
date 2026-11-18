@@ -117,6 +117,67 @@ export const cardCanvasRoles = [
   },
 ] as const;
 
+export const interactiveColorRoles = [
+  { key: "iconBorder", label: "Icon border", group: "interactive" },
+  { key: "iconShadow", label: "Icon shadow", group: "interactive" },
+  {
+    key: "buttonHoverBackground",
+    label: "Button hover background",
+    group: "interactive",
+  },
+  {
+    key: "buttonHoverText",
+    label: "Button hover text",
+    group: "interactive",
+  },
+  {
+    key: "buttonFocusBackground",
+    label: "Button focus background",
+    group: "interactive",
+  },
+  {
+    key: "buttonFocusText",
+    label: "Button focus text",
+    group: "interactive",
+  },
+  {
+    key: "buttonActiveBackground",
+    label: "Button active background",
+    group: "interactive",
+  },
+  {
+    key: "buttonActiveText",
+    label: "Button active text",
+    group: "interactive",
+  },
+  { key: "linkColor", label: "Link (:link)", group: "interactive" },
+  {
+    key: "visitedColor",
+    label: "Visited link (:visited)",
+    group: "interactive",
+  },
+  { key: "linkHover", label: "Link hover", group: "interactive" },
+  { key: "linkFocus", label: "Link focus", group: "interactive" },
+  { key: "linkActive", label: "Link active", group: "interactive" },
+  { key: "iconColor", label: "Icon", group: "interactive" },
+  { key: "iconHover", label: "Icon hover", group: "interactive" },
+  { key: "iconFocus", label: "Icon focus", group: "interactive" },
+  { key: "iconActive", label: "Icon active", group: "interactive" },
+] as const;
+
+export const subsectionColorRoles = [
+  {
+    key: "subsectionBorder",
+    label: "Subsection border",
+    group: "canvas",
+  },
+  {
+    key: "subsectionShadow",
+    label: "Subsection shadow",
+    group: "canvas",
+  },
+] as const;
+
 export const regionColorRoles = [
   { key: "background", label: "Background", group: "canvas" },
   { key: "border", label: "Border", group: "canvas" },
@@ -124,15 +185,27 @@ export const regionColorRoles = [
   { key: "primary", label: "Button canvas", group: "accent" },
   { key: "primaryText", label: "Button text", group: "accent" },
   { key: "accentBorder", label: "Button border", group: "accent" },
+  { key: "buttonShadow", label: "Button shadow", group: "accent" },
   { key: "accentFocus", label: "Hover / focus", group: "accent" },
   { key: "text", label: "Paragraph / text", group: "ink" },
   { key: "h1", label: "H1 heading", group: "ink" },
   { key: "h2", label: "H2 heading", group: "ink" },
   { key: "h3", label: "H3 heading", group: "ink" },
+  { key: "h4", label: "H4 heading", group: "ink" },
   { key: "secondary", label: "Secondary button", group: "accent" },
   { key: "secondaryText", label: "Secondary button text", group: "accent" },
   ...cardCanvasRoles,
+  ...subsectionColorRoles,
   { key: "cardText", label: "Card text / all three cards", group: "ink" },
+  ...interactiveColorRoles,
+] as const;
+
+const recentRegionColorRoles = [
+  "buttonShadow",
+  "iconBorder",
+  "iconShadow",
+  "subsectionBorder",
+  "subsectionShadow",
 ] as const;
 
 export const colorRoles = [...globalColorRoles, ...regionColorRoles];
@@ -143,6 +216,7 @@ export const roleGroups = [
   { key: "canvas", label: "Canvas" },
   { key: "accent", label: "Accent" },
   { key: "ink", label: "Ink" },
+  { key: "interactive", label: "Buttons, links & icons" },
 ] as const;
 
 export const paletteFamilies: { key: string; label: string }[] =
@@ -202,10 +276,39 @@ export type Colors = Record<RegionColorRole, string>;
 export type GlobalColors = Record<GlobalColorRole, string>;
 export type StyleColors = Record<Region, Colors> & { global: GlobalColors };
 export type Theme = "light" | "dark";
+
+export const radiusTargets = [
+  { key: "section", label: "Sections (including the hero)" },
+  { key: "card", label: "Cards" },
+  { key: "subsection", label: "Subsections" },
+] as const;
+
+export const radiusPresets = [
+  { key: "none", label: "None", size: "0px" },
+  { key: "sm", label: "SM", size: "0.25rem" },
+  { key: "md", label: "MD", size: "0.375rem" },
+  { key: "lg", label: "LG", size: "0.5rem" },
+  { key: "xl", label: "XL", size: "0.75rem" },
+  { key: "2xl", label: "2XL", size: "1rem" },
+  { key: "3xl", label: "3XL", size: "1.5rem" },
+] as const;
+
+type RadiusPreset = (typeof radiusPresets)[number]["key"];
+export type GlobalRadii = Record<
+  (typeof radiusTargets)[number]["key"],
+  RadiusPreset
+>;
+export const defaultRadii: Readonly<GlobalRadii> = {
+  section: "none",
+  card: "xl",
+  subsection: "xl",
+};
+
 export interface StyleGroup {
   id: string;
   name: string;
   themes: Record<Theme, StyleColors>;
+  radii: GlobalRadii;
 }
 
 // Keep the storage key so version 1 groups remain available for migration.
@@ -217,8 +320,10 @@ export function isGlobalColorRole(role: ColorRole): role is GlobalColorRole {
 
 export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
   if (isGlobalColorRole(role)) return region === "page";
-  if (role.startsWith("card")) {
-    return region === "page" || region.startsWith("section");
+  if (role.startsWith("card") || role.startsWith("subsection")) {
+    return (
+      region === "page" || region === "hero" || region.startsWith("section")
+    );
   }
   if (role === "secondary" || role === "secondaryText")
     return region !== "header";
@@ -280,6 +385,10 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
       };
       return `ink-${suffix}-${suffix === "page" ? pageHeadings[role] : role}`;
     }
+    case "h4":
+      return region === "hero" || region.startsWith("section")
+        ? `ink-${suffix}-h4`
+        : null;
     default:
       return null;
   }
@@ -299,6 +408,35 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
     case "secondaryText":
     case "cardText":
       return `var(--${semanticToken(region, "text")})`;
+    case "h4":
+      return "var(--sample-h3)";
+    case "buttonHoverBackground":
+    case "buttonFocusBackground":
+    case "buttonActiveBackground":
+    case "linkHover":
+    case "linkFocus":
+    case "linkActive":
+    case "iconHover":
+    case "iconFocus":
+    case "iconActive":
+      return "var(--sample-accentFocus)";
+    case "buttonHoverText":
+    case "buttonFocusText":
+    case "buttonActiveText":
+      return "var(--sample-primaryText)";
+    case "buttonShadow":
+    case "iconShadow":
+      return "var(--sample-shadow)";
+    case "iconBorder":
+      return "var(--sample-accentBorder)";
+    case "subsectionBorder":
+      return "var(--sample-card03Border)";
+    case "subsectionShadow":
+      return "var(--sample-card03Shadow)";
+    case "linkColor":
+    case "visitedColor":
+    case "iconColor":
+      return "var(--sample-text)";
     default:
       throw new Error(`Missing default for ${role}`);
   }
@@ -339,12 +477,16 @@ export function parseStyleGroups(json: string): StyleGroup[] {
       data.version !== 3 &&
       data.version !== 4 &&
       data.version !== 5 &&
-      data.version !== 6) ||
+      data.version !== 6 &&
+      data.version !== 7 &&
+      data.version !== 8 &&
+      data.version !== 9 &&
+      data.version !== 10) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1, 2, 3, 4, 5, or 6 style-group file with up to 100 groups.",
+      "Expected a version 1 through 10 style-group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -395,6 +537,24 @@ export function parseStyleGroups(json: string): StyleGroup[] {
         }
         const regionColors = {} as Colors;
         for (const { key: role } of regionColorRoles) {
+          if (
+            data.version < 7 &&
+            interactiveColorRoles.some(({ key }) => key === role)
+          ) {
+            regionColors[role] = "theme";
+            continue;
+          }
+          if (data.version < 8 && role === "h4") {
+            regionColors[role] = "theme";
+            continue;
+          }
+          if (
+            data.version < 9 &&
+            recentRegionColorRoles.some((key) => key === role)
+          ) {
+            regionColors[role] = "theme";
+            continue;
+          }
           const card = cardCanvasRoles.find(({ key }) => key === role);
           if (data.version < 5 && card && role !== "card") {
             regionColors[role] =
@@ -437,10 +597,24 @@ export function parseStyleGroups(json: string): StyleGroup[] {
       data.version === 1
         ? structuredClone(light)
         : readColors(isRecord(value.themes) ? value.themes.dark : undefined);
-    return { id: value.id, name, themes: { light, dark } };
+    const radii = { ...defaultRadii };
+    if (data.version >= 10) {
+      const source = value.radii;
+      if (!isRecord(source))
+        throw new Error(`Missing corner radii in "${name}".`);
+      for (const { key } of radiusTargets) {
+        const preset = radiusPresets.find(
+          (preset) => preset.key === source[key],
+        );
+        if (!preset)
+          throw new Error(`Invalid ${key} corner radius in "${name}".`);
+        radii[key] = preset.key;
+      }
+    }
+    return { id: value.id, name, themes: { light, dark }, radii };
   });
 }
 
 export function serializeStyleGroups(groups: StyleGroup[]): string {
-  return JSON.stringify({ version: 6, groups }, null, 2);
+  return JSON.stringify({ version: 10, groups }, null, 2);
 }
