@@ -1,0 +1,1003 @@
+---
+import defaultTheme from "tailwindcss/defaultTheme";
+import {
+  allPaletteFamilies,
+  paletteShades,
+  readPalette,
+} from "../../data/palette.js";
+import Layout from "../../layouts/website-builder.astro";
+import paletteCss from "../../styles/themes/colors.css?raw";
+
+const paletteFamilies = allPaletteFamilies(readPalette(paletteCss));
+const initialFamily = "slate";
+const solidColors = ["white", "black", "transparent"];
+
+const exampleName = "My Website";
+const exampleLinks = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about/" },
+  { label: "Contact", href: "/contact/" },
+];
+const inputClass =
+  "block w-full min-w-0 rounded border border-canvas-page-border bg-canvas-page p-2 text-ink-page";
+const defaultHeaderWidth = "max-w-screen-lg";
+const headerWidths = [
+  ["max-w-none", "Full width"],
+  ["max-w-screen-sm", "SM (640px)"],
+  ["max-w-screen-md", "MD (768px)"],
+  ["max-w-screen-lg", "LG (1024px)"],
+  ["max-w-screen-xl", "XL (1280px)"],
+  ["max-w-screen-2xl", "2XL (1536px)"],
+];
+const spacingOptions = [0, 1, 2, 3, 4, 5, 6, 8].map((step) => [
+  `${step * 0.25}rem`,
+  `${step * 4}px`,
+]);
+const menuStyleOptions = [
+  {
+    property: "font-size",
+    label: "Text size",
+    options: Object.entries(defaultTheme.fontSize)
+      .filter(([name]) =>
+        ["xs", "sm", "base", "lg", "xl", "2xl", "3xl"].includes(name),
+      )
+      .flatMap(([name, [size]]) =>
+        typeof size === "string" ? [[size, `text-${name}`]] : [],
+      ),
+  },
+  {
+    property: "text-transform",
+    label: "Text transform",
+    options: [
+      ["none", "As entered"],
+      ["uppercase", "UPPERCASE"],
+      ["lowercase", "lowercase"],
+      ["capitalize", "Capitalize words"],
+    ],
+  },
+  {
+    property: "tracking",
+    label: "Tracking (letter spacing)",
+    options: Object.entries(defaultTheme.letterSpacing).map(([name, value]) => [
+      value,
+      `tracking-${name}`,
+    ]),
+  },
+  {
+    property: "padding-x",
+    label: "Horizontal item padding",
+    options: spacingOptions,
+  },
+  {
+    property: "padding-y",
+    label: "Vertical item padding",
+    options: spacingOptions,
+  },
+  { property: "gap", label: "Gap between items", options: spacingOptions },
+];
+const menuColorOptions = [
+  ["color", "Text color"],
+  ["hover-color", "Hover text color"],
+  ["focus-color", "Focus text color"],
+  ["active-color", "Active (pressed) text color"],
+];
+---
+
+<Layout
+  title="Site Nav Builder"
+  description="Build a website menu and see the header update as you edit."
+>
+  <div class="grid gap-10 py-10" data-site-nav-builder>
+    <section class="grid min-w-0 gap-3" aria-labelledby="nav-preview-title">
+      <div class="container grid max-w-5xl gap-3">
+        <h2 id="nav-preview-title" class="font-display text-2xl font-bold">
+          Header preview
+        </h2>
+        <p class="text-sm text-ink-page-muted">
+          This sample updates as you type. Preview links won't take you away
+          from the builder.
+        </p>
+      </div>
+      <header
+        class:list={[
+          "mx-auto flex min-h-32 w-full min-w-0 flex-col gap-4 rounded-xl border border-canvas-header-border bg-canvas-header p-5 text-ink-header shadow-sm sm:flex-row sm:items-center sm:justify-between",
+          defaultHeaderWidth,
+        ]}
+        data-preview-header
+      >
+        <p
+          class="min-w-0 font-display text-xl font-bold wrap-anywhere sm:max-w-[33%]"
+          data-preview-name
+        >
+          {exampleName}
+        </p>
+        <nav
+          class="grid min-w-0 flex-1 self-stretch"
+          aria-label="Sample site navigation"
+          data-preview-nav
+          data-vertical-alignment="center"
+        >
+          <ul
+            class="flex flex-wrap items-start wrap-anywhere"
+            data-preview-links
+            data-alignment="right"
+          >
+            {exampleLinks.map(({ label, href }) => (
+              <li>
+                <a class="underline underline-offset-4" href={href}>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+    </section>
+
+    <section
+      class="container grid max-w-5xl gap-3"
+      aria-labelledby="nav-form-title"
+    >
+      <h2 id="nav-form-title" class="font-display text-2xl font-bold">
+        Build your menu
+      </h2>
+      <p class="text-sm text-ink-page-muted">
+        Start with the sample links or replace them with your own. Changes only
+        affect this preview and aren't saved.
+      </p>
+      <form
+        class="grid gap-5 rounded-xl border border-canvas-page-border p-4 sm:p-6"
+        hidden
+        data-nav-form
+      >
+        <label class="grid gap-2 font-semibold">
+          What is your website called?
+          <input
+            class={inputClass}
+            type="text"
+            value={exampleName}
+            maxlength="100"
+            data-site-name
+          />
+        </label>
+        <label class="grid gap-2 font-semibold">
+          How wide should the header be?
+          <select class={inputClass} data-header-width>
+            {headerWidths.map(([width, label]) => (
+              <option value={width} selected={width === defaultHeaderWidth}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label class="grid gap-2 font-semibold">
+          Where should the menu be aligned?
+          <select class={inputClass} data-menu-alignment>
+            <option value="left">Left</option>
+            <option value="center">Center</option>
+            <option value="right" selected>
+              Right
+            </option>
+          </select>
+        </label>
+        <label class="grid gap-2 font-semibold">
+          Where should the menu sit vertically?
+          <select class={inputClass} data-menu-vertical-alignment>
+            <option value="top">Top</option>
+            <option value="center" selected>
+              Center
+            </option>
+            <option value="bottom">Bottom</option>
+          </select>
+        </label>
+        <fieldset
+          class="min-w-0 space-y-3 rounded-lg border border-canvas-page-border p-3"
+          data-menu-styles
+        >
+          <legend class="px-1 font-semibold">Menu styles</legend>
+          <p class="text-sm text-ink-page-muted">
+            These styles apply to the menu and its dropdowns, not the site name.
+          </p>
+          <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {menuStyleOptions.map(({ property, label, options }) => (
+              <label class="grid gap-1 text-sm">
+                {label}
+                <select class={inputClass} data-menu-style={property}>
+                  <option value="">Default</option>
+                  {options.map(([value, name]) => (
+                    <option value={value}>{name}</option>
+                  ))}
+                </select>
+              </label>
+            ))}
+          </div>
+          <fieldset
+            class="min-w-0 space-y-3 rounded-lg border border-canvas-page-border p-3"
+            data-menu-palette
+          >
+            <legend class="px-1 text-sm font-semibold">Tailwind palette</legend>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <label class="grid gap-1 text-sm">
+                Assign palette color to
+                <select class={inputClass} data-menu-color-target>
+                  {menuColorOptions.map(([property, label]) => (
+                    <option value={property}>{label}</option>
+                  ))}
+                </select>
+              </label>
+              <label class="grid gap-1 text-sm">
+                Palette family
+                <select class={inputClass} data-menu-color-family>
+                  {paletteFamilies.map(({ key, label }) => (
+                    <option value={key} selected={key === initialFamily}>
+                      {label}
+                    </option>
+                  ))}
+                  <option value="solid">White / black / transparent</option>
+                </select>
+              </label>
+            </div>
+            <div
+              class="flex flex-wrap gap-2"
+              role="group"
+              aria-label="Palette shades"
+            >
+              {paletteShades.map((shade) => (
+                <button
+                  type="button"
+                  class="menu-swatch"
+                  style={`--swatch-color:var(--color-${initialFamily}-${shade})`}
+                  data-menu-swatch-shade={shade}
+                  aria-label={`${initialFamily}-${shade}`}
+                  aria-pressed="false"
+                  title={`${initialFamily}-${shade}`}
+                >
+                  <span>{shade}</span>
+                </button>
+              ))}
+              {solidColors.map((color) => (
+                <button
+                  type="button"
+                  class="menu-swatch"
+                  style={`--swatch-color:${color}`}
+                  data-menu-swatch-solid={color}
+                  aria-label={color}
+                  aria-pressed="false"
+                  title={color}
+                  hidden
+                >
+                  <span>{color}</span>
+                </button>
+              ))}
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                class="btn btn-outline btn-sm"
+                data-clear-menu-color
+              >
+                Use default color
+              </button>
+              <output class="text-sm" data-menu-color-selection></output>
+            </div>
+          </fieldset>
+          <p id="menu-color-help" class="text-sm text-ink-page-muted">
+            Pick a swatch or enter a custom hex color, such as{" "}
+            <code>#2563eb</code>. Leave text color blank to follow the theme and
+            state colors blank to use the normal text color.
+          </p>
+          <div class="grid items-start gap-3 sm:grid-cols-2">
+            {menuColorOptions.map(([property, label]) => (
+              <div class="grid gap-1 text-sm">
+                <label class="grid gap-1">
+                  {label}
+                  <input
+                    class={inputClass}
+                    type="text"
+                    placeholder="#2563eb"
+                    spellcheck="false"
+                    aria-describedby={`menu-color-help menu-${property}-error`}
+                    data-menu-style={property}
+                  />
+                </label>
+                <p id={`menu-${property}-error`} class="font-semibold" hidden>
+                  Choose a swatch or enter a 3- or 6-digit hex color starting
+                  with #.
+                </p>
+              </div>
+            ))}
+          </div>
+        </fieldset>
+        <div class="grid gap-3">
+          <h3 class="font-semibold">Which links should be in your menu?</h3>
+          <label class="grid gap-2 font-semibold">
+            Will any top-level menu items have submenus?
+            <select
+              class={inputClass}
+              data-menu-has-submenus
+              aria-controls="site-menu-rows"
+            >
+              <option value="no" selected>
+                No
+              </option>
+              <option value="yes">Yes</option>
+            </select>
+          </label>
+          <p id="menu-link-help" class="text-sm text-ink-page-muted">
+            Use a site path like <code>/about/</code>, an anchor like
+            <code>#contact</code>, or a full URL starting with{" "}
+            <code>https://</code>
+            or <code>http://</code>.
+          </p>
+          <ol id="site-menu-rows" class="grid gap-3" data-menu-rows></ol>
+          <button
+            type="button"
+            class="btn btn-outline justify-self-start"
+            data-add-link
+          >
+            Add menu link
+          </button>
+        </div>
+      </form>
+      <noscript>Enable JavaScript to edit the live menu preview.</noscript>
+    </section>
+
+    <template data-menu-row>
+      <li>
+        <fieldset class="min-w-0 rounded-lg border border-canvas-page-border px-3 pb-3">
+          <legend class="px-1 text-sm font-semibold" data-row-title>
+            Menu link
+          </legend>
+          <div class="grid items-start gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)_auto]">
+            <label class="grid gap-1 text-sm">
+              Link label
+              <input
+                class={inputClass}
+                type="text"
+                placeholder="e.g. Contact"
+                maxlength="80"
+                data-link-label
+              />
+            </label>
+            <div class="grid gap-1 text-sm">
+              <label class="grid gap-1">
+                Destination
+                <input
+                  class={inputClass}
+                  type="text"
+                  inputmode="url"
+                  placeholder="/contact/"
+                  aria-describedby="menu-link-help"
+                  data-link-href
+                />
+              </label>
+              <p class="text-sm font-semibold" hidden data-link-error>
+                Enter a site path, anchor, or full HTTP(S) URL.
+              </p>
+            </div>
+            <button
+              type="button"
+              class="btn btn-outline justify-self-start sm:mt-5"
+              data-remove-link
+            >
+              Remove
+            </button>
+          </div>
+          <div class="mt-3" data-submenu-settings hidden>
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" data-has-submenu />
+              Does this item have a submenu?
+            </label>
+            <div
+              class="mt-3 space-y-3 border-s border-canvas-page-border ps-3"
+              data-submenu-editor
+              hidden
+            >
+              <p class="text-sm text-ink-page-muted">
+                Add links for the dropdown. If you enter a destination for this
+                menu item, it appears first as an overview link.
+              </p>
+              <ol class="grid gap-3" data-submenu-rows></ol>
+              <button
+                type="button"
+                class="btn btn-outline"
+                data-add-submenu-link
+              >
+                Add submenu link
+              </button>
+              <label class="flex items-center gap-2 text-sm">
+                <input type="checkbox" data-has-subsections />
+                Does this submenu have subsections?
+              </label>
+              <div class="space-y-3" data-subsection-editor hidden>
+                <p class="text-sm text-ink-page-muted">
+                  Subsections group links under headings. Ungrouped links stay
+                  above the subsections.
+                </p>
+                <ol class="grid gap-3" data-subsection-rows></ol>
+                <button
+                  type="button"
+                  class="btn btn-outline"
+                  data-add-subsection
+                >
+                  Add subsection
+                </button>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </li>
+    </template>
+    <template data-subsection-row>
+      <li>
+        <fieldset class="min-w-0 space-y-3 rounded-lg border border-canvas-page-border p-3">
+          <legend class="px-1 text-sm font-semibold" data-subsection-title>
+            Subsection
+          </legend>
+          <label class="grid gap-1 text-sm">
+            Subsection heading
+            <input
+              class={inputClass}
+              type="text"
+              placeholder="e.g. Design"
+              maxlength="80"
+              data-subsection-heading
+            />
+          </label>
+          <ol class="grid gap-3" data-subsection-links></ol>
+          <div class="flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="btn btn-outline"
+              data-add-subsection-link
+            >
+              Add subsection link
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline"
+              data-remove-subsection
+            >
+              Remove subsection
+            </button>
+          </div>
+        </fieldset>
+      </li>
+    </template>
+  </div>
+</Layout>
+
+<style>
+  .menu-swatch {
+    background-color: var(--swatch-color);
+    border: 1px solid var(--color-canvas-page-border);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.25rem;
+  }
+  .menu-swatch span {
+    background: var(--color-canvas-page);
+    border-radius: 0.25rem;
+    color: var(--color-ink-page);
+    font-size: 0.75rem;
+    padding: 0.125rem 0.25rem;
+  }
+  .menu-swatch[aria-pressed="true"] {
+    box-shadow: inset 0 0 0 2px var(--color-ink-page);
+  }
+  [data-preview-links] {
+    color: var(--menu-color, inherit);
+    font-size: var(--menu-font-size, var(--text-sm));
+    line-height: var(--text-sm--line-height);
+    letter-spacing: var(--menu-tracking, normal);
+    text-transform: var(--menu-text-transform, none);
+    gap: var(--menu-gap, 0.5rem) var(--menu-gap, 1.25rem);
+  }
+  [data-preview-links] :global(details > ul) {
+    gap: var(--menu-gap, 0.5rem);
+  }
+  [data-preview-links] :global(details ul ul) {
+    gap: var(--menu-gap, 0.25rem);
+  }
+  [data-preview-links] :global(li > :is(a, span)),
+  [data-preview-links] :global(summary) {
+    padding-block: var(--menu-padding-y, 0);
+    padding-inline: var(--menu-padding-x, 0);
+  }
+  [data-preview-links] :global(li > :is(a, span)) {
+    display: inline-block;
+  }
+  [data-preview-links] :global(:is(a, summary)) {
+    color: var(
+      --preview-active-color,
+      var(--preview-focus-color, var(--preview-hover-color, inherit))
+    );
+  }
+  [data-preview-links] :global(:is(a, summary):hover) {
+    --preview-hover-color: var(--menu-hover-color);
+  }
+  [data-preview-links] :global(:is(a, summary):focus) {
+    --preview-focus-color: var(--menu-focus-color);
+  }
+  [data-preview-links] :global(:is(a, summary):active) {
+    --preview-active-color: var(--menu-active-color);
+  }
+  [data-preview-links][data-alignment="left"] {
+    justify-content: flex-start;
+  }
+  [data-preview-links][data-alignment="center"] {
+    justify-content: center;
+  }
+  [data-preview-links][data-alignment="right"] {
+    justify-content: flex-end;
+  }
+  [data-preview-nav][data-vertical-alignment="top"] {
+    align-content: start;
+  }
+  [data-preview-nav][data-vertical-alignment="center"] {
+    align-content: center;
+  }
+  [data-preview-nav][data-vertical-alignment="bottom"] {
+    align-content: end;
+  }
+</style>
+
+<script>
+  const builder = document.querySelector<HTMLElement>(
+    "[data-site-nav-builder]",
+  );
+  if (builder) {
+    function get<T extends Element>(parent: ParentNode, selector: string) {
+      const element = parent.querySelector<T>(selector);
+      if (!element)
+        throw new Error(`Missing Site Nav Builder control: ${selector}`);
+      return element;
+    }
+
+    const form = get<HTMLFormElement>(builder, "[data-nav-form]");
+    const siteName = get<HTMLInputElement>(form, "[data-site-name]");
+    const headerWidth = get<HTMLSelectElement>(form, "[data-header-width]");
+    const previewHeader = get<HTMLElement>(builder, "[data-preview-header]");
+    const alignment = get<HTMLSelectElement>(form, "[data-menu-alignment]");
+    const verticalAlignment = get<HTMLSelectElement>(
+      form,
+      "[data-menu-vertical-alignment]",
+    );
+    const previewName = get<HTMLElement>(builder, "[data-preview-name]");
+    const previewNav = get<HTMLElement>(builder, "[data-preview-nav]");
+    const previewLinks = get<HTMLUListElement>(
+      previewNav,
+      "[data-preview-links]",
+    );
+    const menuStyles = get<HTMLFieldSetElement>(form, "[data-menu-styles]");
+    const hasSubmenus = get<HTMLSelectElement>(
+      form,
+      "[data-menu-has-submenus]",
+    );
+    const palette = get<HTMLElement>(menuStyles, "[data-menu-palette]");
+    const colorTarget = get<HTMLSelectElement>(
+      palette,
+      "[data-menu-color-target]",
+    );
+    const colorFamily = get<HTMLSelectElement>(
+      palette,
+      "[data-menu-color-family]",
+    );
+    const colorSelection = get<HTMLOutputElement>(
+      palette,
+      "[data-menu-color-selection]",
+    );
+    const shadeSwatches = palette.querySelectorAll<HTMLButtonElement>(
+      "[data-menu-swatch-shade]",
+    );
+    const solidSwatches = palette.querySelectorAll<HTMLButtonElement>(
+      "[data-menu-swatch-solid]",
+    );
+    const paletteColors = new Map<string, string>();
+    for (const option of colorFamily.options) {
+      if (option.value === "solid") continue;
+      for (const swatch of shadeSwatches) {
+        paletteColors.set(
+          `${option.value}-${swatch.dataset.menuSwatchShade}`,
+          option.value,
+        );
+      }
+    }
+    for (const swatch of solidSwatches) {
+      if (swatch.dataset.menuSwatchSolid)
+        paletteColors.set(swatch.dataset.menuSwatchSolid, "solid");
+    }
+    const rows = get<HTMLOListElement>(form, "[data-menu-rows]");
+    const addButton = get<HTMLButtonElement>(form, "[data-add-link]");
+    const template = get<HTMLTemplateElement>(builder, "[data-menu-row]");
+    const subsectionTemplate = get<HTMLTemplateElement>(
+      builder,
+      "[data-subsection-row]",
+    );
+    let nextRowId = 0;
+
+    function isMenuDestination(value: string) {
+      if (/\s|\\/.test(value)) return false;
+      if (value.startsWith("#") || /^\/(?!\/)/.test(value)) return true;
+      return /^https?:\/\/[^/]/i.test(value) && URL.canParse(value);
+    }
+
+    function readLink(row: Element) {
+      const label = get<HTMLInputElement>(
+        row,
+        "[data-link-label]",
+      ).value.trim();
+      const input = get<HTMLInputElement>(row, "[data-link-href]");
+      const error = get<HTMLElement>(row, "[data-link-error]");
+      const href = input.value.trim();
+      const valid = isMenuDestination(href);
+      const invalid = href !== "" && !valid;
+      error.hidden = !invalid;
+      input.setAttribute("aria-invalid", String(invalid));
+      input.setAttribute(
+        "aria-describedby",
+        invalid ? `menu-link-help ${error.id}` : "menu-link-help",
+      );
+      return { label, href: valid ? href : "" };
+    }
+
+    function renderLink(label: string, href: string) {
+      const item = document.createElement("li");
+      if (href) {
+        const link = document.createElement("a");
+        link.href = href;
+        link.textContent = label;
+        link.className = "underline underline-offset-4";
+        item.append(link);
+      } else {
+        const text = document.createElement("span");
+        text.textContent = label;
+        item.append(text);
+      }
+      return item;
+    }
+
+    function readRow(row: Element, index: number, kind: string) {
+      const title = `${kind} ${index + 1}`;
+      get(row, "[data-row-title]").textContent = title;
+      get(row, "[data-remove-link]").setAttribute(
+        "aria-label",
+        `Remove ${title.toLowerCase()}`,
+      );
+      return readLink(row);
+    }
+
+    function renderLinkRows(list: Element, kind: string) {
+      return Array.from(list.children)
+        .map((row, i) => readRow(row, i, kind))
+        .filter(({ label }) => label)
+        .map(({ label, href }) => renderLink(label, href));
+    }
+
+    function renderSubsections(editor: HTMLElement) {
+      const enabled = get<HTMLInputElement>(
+        editor,
+        "[data-has-subsections]",
+      ).checked;
+      const subsectionEditor = get<HTMLElement>(
+        editor,
+        "[data-subsection-editor]",
+      );
+      subsectionEditor.hidden = !enabled;
+      if (!enabled) return [];
+
+      const rows = get(subsectionEditor, "[data-subsection-rows]");
+      return Array.from(rows.children).flatMap((row, index) => {
+        const title = `Subsection ${index + 1}`;
+        get(row, "[data-subsection-title]").textContent = title;
+        get(row, "[data-remove-subsection]").setAttribute(
+          "aria-label",
+          `Remove ${title.toLowerCase()}`,
+        );
+        const name = get<HTMLInputElement>(
+          row,
+          "[data-subsection-heading]",
+        ).value.trim();
+        const links = renderLinkRows(
+          get(row, "[data-subsection-links]"),
+          "Subsection link",
+        );
+        if (!name && !links.length) return [];
+
+        const item = document.createElement("li");
+        const heading = document.createElement("p");
+        heading.id = `preview-${row.id}-heading`;
+        heading.className = "font-semibold";
+        heading.textContent = name || title;
+        item.append(heading);
+        if (links.length) {
+          const list = document.createElement("ul");
+          list.className = "mt-1 grid ps-3";
+          list.setAttribute("aria-labelledby", heading.id);
+          list.append(...links);
+          item.append(list);
+        }
+        return [item];
+      });
+    }
+
+    function renderPreview() {
+      previewName.textContent = siteName.value.trim() || siteName.defaultValue;
+      for (const option of headerWidth.options) {
+        previewHeader.classList.toggle(option.value, option.selected);
+      }
+      previewLinks.dataset.alignment = alignment.value;
+      previewNav.dataset.verticalAlignment = verticalAlignment.value;
+      const openSubmenus = new Set(
+        Array.from(
+          previewLinks.querySelectorAll<HTMLDetailsElement>("details[open]"),
+          (details) => details.id,
+        ),
+      );
+      const links: HTMLLIElement[] = [];
+      const submenusEnabled = hasSubmenus.value === "yes";
+
+      Array.from(rows.children).forEach((row, index) => {
+        const { label, href } = readRow(row, index, "Menu link");
+        const settings = get<HTMLElement>(row, "[data-submenu-settings]");
+        settings.hidden = !submenusEnabled;
+        const hasSubmenu =
+          submenusEnabled &&
+          get<HTMLInputElement>(settings, "[data-has-submenu]").checked;
+        const editor = get<HTMLElement>(row, "[data-submenu-editor]");
+        editor.hidden = !hasSubmenu;
+        const sublinks = hasSubmenu
+          ? renderLinkRows(get(editor, "[data-submenu-rows]"), "Submenu link")
+          : [];
+        const subsections = hasSubmenu ? renderSubsections(editor) : [];
+        if (!label) return;
+        if (!hasSubmenu) {
+          links.push(renderLink(label, href));
+          return;
+        }
+
+        const item = document.createElement("li");
+        const details = document.createElement("details");
+        details.id = `preview-submenu-${row.id}`;
+        details.open = openSubmenus.has(details.id);
+        const summary = document.createElement("summary");
+        summary.className = "cursor-pointer";
+        summary.textContent = label;
+        details.append(summary);
+
+        const list = document.createElement("ul");
+        list.className =
+          "mt-2 grid rounded-md border border-canvas-header-border p-3";
+        if (href) list.append(renderLink(`${label} overview`, href));
+        list.append(...sublinks, ...subsections);
+        if (!list.hasChildNodes())
+          list.append(renderLink("No submenu links yet", ""));
+        details.append(list);
+        item.append(details);
+        links.push(item);
+      });
+
+      previewLinks.replaceChildren(...links);
+      previewNav.hidden = links.length === 0;
+    }
+
+    function addRow(
+      list: HTMLOListElement,
+      addLinkButton: HTMLButtonElement,
+      label = "",
+      href = "",
+    ) {
+      const row = get<HTMLLIElement>(template.content, "li").cloneNode(true);
+      if (!(row instanceof HTMLLIElement))
+        throw new Error("Invalid menu row template.");
+      const labelInput = get<HTMLInputElement>(row, "[data-link-label]");
+      const hrefInput = get<HTMLInputElement>(row, "[data-link-href]");
+      labelInput.value = label;
+      hrefInput.value = href;
+      row.id = `menu-link-${++nextRowId}`;
+      get(row, "[data-link-error]").id = `${row.id}-error`;
+      const submenuSettings = get(row, "[data-submenu-settings]");
+      if (list === rows) {
+        const submenuRows = get<HTMLOListElement>(
+          submenuSettings,
+          "[data-submenu-rows]",
+        );
+        const addSublink = get<HTMLButtonElement>(
+          submenuSettings,
+          "[data-add-submenu-link]",
+        );
+        bindAddLink(submenuRows, addSublink);
+        const addSubsection = get<HTMLButtonElement>(
+          submenuSettings,
+          "[data-add-subsection]",
+        );
+        const subsectionRows = get<HTMLOListElement>(
+          submenuSettings,
+          "[data-subsection-rows]",
+        );
+        addSubsection.addEventListener("click", () =>
+          addSubsectionRow(subsectionRows, addSubsection),
+        );
+      } else {
+        submenuSettings.remove();
+      }
+      get(row, "[data-remove-link]").addEventListener("click", () => {
+        const neighbor = row.nextElementSibling ?? row.previousElementSibling;
+        row.remove();
+        renderPreview();
+        if (neighbor)
+          get<HTMLInputElement>(neighbor, "[data-link-label]").focus();
+        else addLinkButton.focus();
+      });
+      list.append(row);
+      return labelInput;
+    }
+
+    function bindAddLink(list: HTMLOListElement, button: HTMLButtonElement) {
+      button.addEventListener("click", () => {
+        const input = addRow(list, button);
+        renderPreview();
+        input.focus();
+      });
+    }
+
+    function addSubsectionRow(
+      list: HTMLOListElement,
+      addButton: HTMLButtonElement,
+    ) {
+      const row = get(subsectionTemplate.content, "li").cloneNode(true);
+      if (!(row instanceof HTMLLIElement))
+        throw new Error("Invalid submenu subsection template.");
+      row.id = `submenu-subsection-${++nextRowId}`;
+      const heading = get<HTMLInputElement>(row, "[data-subsection-heading]");
+      bindAddLink(
+        get<HTMLOListElement>(row, "[data-subsection-links]"),
+        get<HTMLButtonElement>(row, "[data-add-subsection-link]"),
+      );
+      get(row, "[data-remove-subsection]").addEventListener("click", () => {
+        const neighbor = row.nextElementSibling ?? row.previousElementSibling;
+        row.remove();
+        renderPreview();
+        if (neighbor)
+          get<HTMLInputElement>(neighbor, "[data-subsection-heading]").focus();
+        else addButton.focus();
+      });
+      list.append(row);
+      renderPreview();
+      heading.focus();
+    }
+
+    for (const link of previewLinks.querySelectorAll<HTMLAnchorElement>(
+      "a[href]",
+    )) {
+      addRow(
+        rows,
+        addButton,
+        link.textContent?.trim(),
+        link.getAttribute("href") ?? "",
+      );
+    }
+    function updateMenuStyle(control: HTMLInputElement | HTMLSelectElement) {
+      const property = control.dataset.menuStyle;
+      if (!property) return;
+      const value = control.value.trim();
+      const cssProperty = `--menu-${property}`;
+      let cssValue = value;
+      if (control instanceof HTMLInputElement) {
+        const family = paletteColors.get(value);
+        const invalid =
+          value !== "" &&
+          !family &&
+          !/^#(?:[\da-f]{3}|[\da-f]{6})$/i.test(value);
+        control.setAttribute("aria-invalid", String(invalid));
+        get<HTMLElement>(menuStyles, `#menu-${property}-error`).hidden =
+          !invalid;
+        if (invalid) {
+          previewLinks.style.removeProperty(cssProperty);
+          return;
+        }
+        if (family && value !== "transparent")
+          cssValue = `var(--color-${value})`;
+      }
+      if (cssValue) previewLinks.style.setProperty(cssProperty, cssValue);
+      else previewLinks.style.removeProperty(cssProperty);
+    }
+
+    function currentColorInput() {
+      return get<HTMLInputElement>(
+        menuStyles,
+        `[data-menu-style="${colorTarget.value}"]`,
+      );
+    }
+
+    function renderPalette(matchSelection = false) {
+      const input = currentColorInput();
+      const value = input.value.trim();
+      const family = paletteColors.get(value);
+      if (matchSelection && family) colorFamily.value = family;
+      const showingSolids = colorFamily.value === "solid";
+      for (const swatch of shadeSwatches) {
+        const name = `${colorFamily.value}-${swatch.dataset.menuSwatchShade}`;
+        swatch.hidden = showingSolids;
+        if (showingSolids) continue;
+        swatch.style.setProperty("--swatch-color", `var(--color-${name})`);
+        swatch.setAttribute("aria-label", name);
+        swatch.title = name;
+        swatch.setAttribute("aria-pressed", String(value === name));
+      }
+      for (const swatch of solidSwatches) {
+        swatch.hidden = !showingSolids;
+        swatch.setAttribute(
+          "aria-pressed",
+          String(value === swatch.dataset.menuSwatchSolid),
+        );
+      }
+      const label = colorTarget.selectedOptions[0]?.textContent?.trim();
+      const selection =
+        input.getAttribute("aria-invalid") === "true"
+          ? "Invalid color"
+          : value || "Default";
+      colorSelection.value = `${label}: ${selection}`;
+    }
+
+    function assignPaletteColor(value: string) {
+      const input = currentColorInput();
+      input.value = value;
+      updateMenuStyle(input);
+      renderPalette();
+    }
+
+    for (const swatch of shadeSwatches) {
+      swatch.addEventListener("click", () =>
+        assignPaletteColor(
+          `${colorFamily.value}-${swatch.dataset.menuSwatchShade}`,
+        ),
+      );
+    }
+    for (const swatch of solidSwatches) {
+      swatch.addEventListener("click", () =>
+        assignPaletteColor(swatch.dataset.menuSwatchSolid ?? ""),
+      );
+    }
+    get(palette, "[data-clear-menu-color]").addEventListener("click", () =>
+      assignPaletteColor(""),
+    );
+
+    for (const control of menuStyles.querySelectorAll<
+      HTMLInputElement | HTMLSelectElement
+    >("[data-menu-style]")) {
+      updateMenuStyle(control);
+    }
+    renderPalette(true);
+    form.addEventListener("input", (event) => {
+      const control = event.target;
+      if (control === colorTarget || control === colorFamily) {
+        renderPalette(control === colorTarget);
+        return;
+      }
+      if (
+        (control instanceof HTMLInputElement ||
+          control instanceof HTMLSelectElement) &&
+        menuStyles.contains(control)
+      ) {
+        updateMenuStyle(control);
+        if (control === currentColorInput()) renderPalette(true);
+      } else {
+        renderPreview();
+      }
+    });
+    form.addEventListener("submit", (event) => event.preventDefault());
+    bindAddLink(rows, addButton);
+    const preventPreviewNavigation = (event: Event) => {
+      if (event.target instanceof Element && event.target.closest("a[href]")) {
+        event.preventDefault();
+      }
+    };
+    previewNav.addEventListener("click", preventPreviewNavigation);
+    previewNav.addEventListener("auxclick", preventPreviewNavigation);
+    renderPreview();
+    form.hidden = false;
+  }
+</script>

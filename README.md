@@ -20,12 +20,38 @@ npm run build
 
 ## Website Builder
 
-All four builder pages live in `src/pages/website-builder/` and use the shared
-Website Builder layout. The header includes links to Page Builder, Color Editor,
-Theme Maker, and Typography Builder, highlights the current page, and includes
-the light/dark toggle. Each page uses a Website Builder footer with links to all
-four tools, and browser titles use Website Builder rather than the main site's
-name. Previous builder URLs redirect to their new locations.
+Builder pages live in `src/pages/website-builder/` and use the shared Website
+Builder layout. The header and footer link to the tools, the current page is
+highlighted, and the header includes the light/dark toggle. Browser titles use
+Website Builder rather than the main site's name. Previous builder URLs
+redirect to their new locations.
+
+Use `/website-builder/sitenavbuilder/` to draft a site header and menu. In the
+form below the live preview, enter your site name and choose full page width
+or a Tailwind screen-width cap (SM through 2XL) for the header. Align the menu
+horizontally (left, center, or right) and vertically (top, center, or bottom),
+and add, edit, or remove links. Answer Yes to the menu-wide submenu question
+to reveal a submenu checkbox for each top-level item. Switch back to No to
+hide dropdowns without discarding their contents. Enable subsections to group
+links under named headings after the ungrouped links. If the parent item has its
+own destination, the dropdown
+includes it as an overview link. Use **Menu styles** to set text size, case,
+letter spacing, normal and hover/focus/pressed text colors, item padding,
+and gaps for the menu and dropdowns. Pick colors from the Tailwind swatches
+or enter a custom hex color. The builder doesn't save the draft or
+change your published navigation.
+
+Use `/website-builder/formbuilder/` to style a live sample form. Click or tab to
+a control in the left preview to highlight its settings in the scrollable
+**Form styles** panel. You can also select the whole form or a control in the
+panel's dropdown. **Style all controls** applies shared border, input text,
+and placeholder colors or replaces the sample placeholder text. Padding,
+corner radius, and border width use Tailwind presets. Blank bulk settings
+leave existing styles alone, and individual controls can still be edited.
+Depending on the element, you can also style labels,
+placeholders, focus rings, accents, or button states. The sample includes
+text and date inputs, dropdowns, uploads, choices, and more. It does not
+send form entries or save style changes.
 
 Use `/website-builder/typographybuilder/` to set styles for `h1`–`h6`, `p`,
 `em`, `strong`, `code`, `cite`, `pre`, and `blockquote`. All 13 elements appear

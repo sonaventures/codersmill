@@ -10,6 +10,16 @@ export const builderPages = [
     description: "Create a page from the project's Astro components.",
   },
   {
+    label: "Site Nav Builder",
+    href: "/website-builder/sitenavbuilder/",
+    description: "Build a website menu with a live header preview.",
+  },
+  {
+    label: "Form Builder",
+    href: "/website-builder/formbuilder/",
+    description: "Style common form elements in a live sample form.",
+  },
+  {
     label: "Color Editor",
     href: "/website-builder/colors/",
     description: "Add, edit, and organize your color families.",

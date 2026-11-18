@@ -1,0 +1,1041 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Layout from "../../layouts/website-builder.astro";
+import {
+  allPaletteFamilies,
+  paletteShades,
+  readPalette,
+} from "../../data/palette.js";
+import { radiusPresets } from "../../data/style-groups";
+import paletteCss from "../../styles/themes/colors.css?raw";
+
+const families = allPaletteFamilies(readPalette(paletteCss));
+const initialFamily = "slate";
+type SampleField = Omit<HTMLAttributes<"input">, "type"> & {
+  type: NonNullable<HTMLAttributes<"input">["type"]>;
+  key?: string;
+  label: string;
+  invalid?: boolean;
+};
+const fields: SampleField[] = [
+  {
+    type: "text",
+    label: "Full name (required)",
+    placeholder: "e.g. Alex Morgan",
+    required: true,
+  },
+  { type: "email", label: "Email address", placeholder: "alex@example.com" },
+  { type: "password", label: "Password", placeholder: "Sample password" },
+  { type: "search", label: "Search", placeholder: "Search topics" },
+  { type: "tel", label: "Phone number", placeholder: "555-0100" },
+  { type: "url", label: "Website URL", placeholder: "https://example.com" },
+  { type: "number", label: "Number", placeholder: "1", min: 1, max: 10 },
+  { type: "date", label: "Date" },
+  { type: "time", label: "Time" },
+  { type: "datetime-local", label: "Date and time" },
+  { type: "month", label: "Month" },
+  { type: "week", label: "Week" },
+  {
+    type: "text",
+    key: "suggestions",
+    label: "Text with suggestions",
+    placeholder: "Choose or type a topic",
+    list: "sample-topics",
+  },
+  {
+    type: "text",
+    key: "readonly",
+    label: "Read-only input",
+    value: "Sample reference",
+    readonly: true,
+  },
+  {
+    type: "text",
+    key: "disabled",
+    label: "Disabled input",
+    value: "Unavailable",
+    disabled: true,
+  },
+  {
+    type: "text",
+    key: "invalid",
+    label: "Error example",
+    value: "ABC",
+    invalid: true,
+  },
+  { type: "file", label: "File upload" },
+  { type: "color", label: "Color picker", value: "#2563eb" },
+  { type: "range", label: "Range slider", value: "50", min: 0, max: 100 },
+];
+const targets = [
+  ["canvas", "Form container", "canvas"],
+  ...fields.map(({ type, key, label }) => [
+    key ?? type,
+    label,
+    type === "range" ? "accent" : "field",
+  ]),
+  ["select", "Select dropdown", "field"],
+  ["multiple", "Multi-select list", "field"],
+  ["textarea", "Textarea", "field"],
+  ["checkbox", "Checkboxes", "accent"],
+  ["radio", "Radio buttons", "accent"],
+  ["switch", "Switch", "accent"],
+  ["progress", "Progress and meter", "accent"],
+  ["submit", "Submit button", "button"],
+  ["reset", "Reset button", "button"],
+  ["secondary", "Secondary button", "button"],
+];
+const colorRoles = [
+  { key: "surface", label: "Background" },
+  { key: "ink", label: "Text" },
+  { key: "border", label: "Border" },
+  { key: "label", label: "Label / legend", kinds: "field accent" },
+  { key: "hint", label: "Help / error text", kinds: "canvas field" },
+  { key: "placeholder", label: "Placeholder text", kinds: "field" },
+  { key: "hover", label: "Hover border", kinds: "field accent button" },
+  { key: "focus", label: "Focus ring", kinds: "field accent button" },
+  { key: "accent", label: "Accent / selected state", kinds: "accent" },
+  { key: "hover-surface", label: "Hover background", kinds: "button" },
+  { key: "active-surface", label: "Pressed background", kinds: "button" },
+];
+const sizes = [
+  {
+    key: "radius",
+    label: "Corner radius",
+    options: radiusPresets.map(({ key, size }) => [
+      key === "none" ? size : `var(--radius-${key})`,
+      `rounded-${key}`,
+    ]),
+  },
+  {
+    key: "width",
+    label: "Border width",
+    options: [0, 1, 2, 3, 4].map((px) => [
+      `${px}px`,
+      px === 1 ? "border" : `border-${px}`,
+    ]),
+  },
+  {
+    key: "padding",
+    label: "Padding",
+    options: [0, 1, 2, 3, 4, 6, 8].map((step) => [
+      step === 0 ? "0px" : `calc(var(--spacing) * ${step})`,
+      `p-${step}`,
+    ]),
+  },
+  {
+    key: "gap",
+    label: "Field gap",
+    options: [8, 12, 16, 24, 32].map((px) => [`${px}px`, `${px} px`]),
+    kind: "canvas",
+  },
+];
+const bulkColors = [
+  ["border", "Border color"],
+  ["ink", "Input text color"],
+  ["placeholder", "Placeholder color"],
+];
+const settingsClass =
+  "block w-full min-w-0 rounded border border-canvas-page-border bg-canvas-page p-2 text-sm text-ink-page";
+---
+
+<Layout
+  title="Form Builder"
+  description="Style form elements in a live, interactive preview."
+>
+  <div
+    class="container grid items-start gap-8 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(19rem,24rem)]"
+    data-form-builder
+  >
+    <section
+      id="form-preview"
+      class="grid min-w-0 gap-4"
+      aria-labelledby="form-preview-title"
+    >
+      <div class="grid gap-2">
+        <h2 id="form-preview-title" class="font-display text-2xl font-bold">
+          Form preview
+        </h2>
+        <p class="text-sm text-ink-page-muted">
+          Click or tab to a field to select it in Form styles. You can still try
+          the controls without sending any entries or files.
+        </p>
+      </div>
+      <a
+        href="#form-styles"
+        class="sticky top-2 z-10 w-fit rounded-md border border-canvas-page-border bg-canvas-page px-3 py-2 text-sm underline shadow-sm lg:hidden"
+        data-style-jump
+        hidden
+      >
+        Jump to form styles
+      </a>
+      <form
+        class="sample-form"
+        method="dialog"
+        autocomplete="off"
+        data-form-sample
+      >
+        <header class="grid gap-1">
+          <h3 class="font-display text-xl font-bold">
+            Sample registration form
+          </h3>
+          <p class="sample-form-hint text-sm">
+            Use sample values to explore how each control looks and behaves.
+          </p>
+        </header>
+        <div class="sample-form-fields">
+          {fields.map(({ type, key, label, invalid, ...attributes }) => (
+            <div class="sample-form-field" data-form-target={key ?? type}>
+              <label
+                class="sample-form-label"
+                for={`sample-form-${key ?? type}`}
+              >
+                {label}
+              </label>
+              <input
+                class:list={[
+                  "sample-form-control",
+                  { "sample-form-native-accent": type === "range" },
+                ]}
+                type={type}
+                id={`sample-form-${key ?? type}`}
+                aria-invalid={invalid || undefined}
+                aria-describedby={invalid ? "sample-form-error" : undefined}
+                {...attributes}
+              />
+              {invalid && (
+                <span id="sample-form-error" class="sample-form-hint">
+                  Use at least four characters.
+                </span>
+              )}
+            </div>
+          ))}
+          <datalist id="sample-topics">
+            <option value="Design"></option>
+            <option value="Development"></option>
+            <option value="Accessibility"></option>
+          </datalist>
+          <label class="sample-form-field" data-form-target="select">
+            <span class="sample-form-label">Select dropdown</span>
+            <select class="sample-form-control">
+              <option value="">Choose a topic</option>
+              <option>Design</option>
+              <option>Development</option>
+              <option>Accessibility</option>
+            </select>
+          </label>
+          <label class="sample-form-field" data-form-target="multiple">
+            <span class="sample-form-label">Multi-select list</span>
+            <select class="sample-form-control" multiple size="3">
+              <option>News</option>
+              <option>Events</option>
+              <option>Tutorials</option>
+            </select>
+          </label>
+          <label
+            class="sample-form-field col-span-full"
+            data-form-target="textarea"
+          >
+            <span class="sample-form-label">Textarea</span>
+            <textarea
+              class="sample-form-control"
+              rows="3"
+              placeholder="Write a sample message"
+            ></textarea>
+          </label>
+          <fieldset
+            class="sample-form-control sample-form-choice"
+            data-form-target="checkbox"
+          >
+            <legend class="sample-form-label">Checkboxes</legend>
+            <label>
+              <input
+                class="sample-form-native-accent"
+                type="checkbox"
+                checked
+              />{" "}
+              Product news
+            </label>
+            <label>
+              <input class="sample-form-native-accent" type="checkbox" /> Event
+              invitations
+            </label>
+          </fieldset>
+          <fieldset
+            class="sample-form-control sample-form-choice"
+            data-form-target="radio"
+          >
+            <legend class="sample-form-label">Radio buttons</legend>
+            <label>
+              <input
+                class="sample-form-native-accent"
+                type="radio"
+                name="sample-frequency"
+                value="weekly"
+                checked
+              />{" "}
+              Weekly
+            </label>
+            <label>
+              <input
+                class="sample-form-native-accent"
+                type="radio"
+                name="sample-frequency"
+                value="monthly"
+              />{" "}
+              Monthly
+            </label>
+          </fieldset>
+          <fieldset
+            class="sample-form-control sample-form-choice"
+            data-form-target="switch"
+          >
+            <legend class="sample-form-label">Switch</legend>
+            <label>
+              <input class="sample-form-switch" type="checkbox" role="switch" />{" "}
+              Enable reminders
+            </label>
+          </fieldset>
+          <fieldset
+            class="sample-form-control sample-form-choice"
+            data-form-target="progress"
+          >
+            <legend class="sample-form-label">Progress and meter</legend>
+            <label>
+              Completion{" "}
+              <progress class="sample-form-native-accent" max="100" value="65">
+                65%
+              </progress>
+            </label>
+            <label>
+              Usage{" "}
+              <meter
+                min="0"
+                max="100"
+                low="30"
+                high="80"
+                optimum="50"
+                value="55"
+              >
+                55%
+              </meter>
+            </label>
+          </fieldset>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button
+            class="sample-form-control sample-form-button sample-form-submit"
+            type="submit"
+            data-form-target="submit"
+          >
+            Try submit
+          </button>
+          <button
+            class="sample-form-control sample-form-button"
+            type="reset"
+            data-form-target="reset"
+          >
+            Reset fields
+          </button>
+          <button
+            class="sample-form-control sample-form-button"
+            type="button"
+            data-form-target="secondary"
+            data-form-secondary
+          >
+            Secondary action
+          </button>
+        </div>
+        <output
+          class="sample-form-hint text-sm empty:hidden"
+          data-form-status
+        ></output>
+      </form>
+    </section>
+    <aside
+      id="form-styles"
+      class="grid min-w-0 gap-4 rounded-xl border border-canvas-page-border bg-canvas-page p-4 lg:sticky lg:top-4 lg:max-h-[calc(100dvh-2rem)] lg:overflow-y-auto lg:overscroll-y-contain"
+      aria-labelledby="form-styles-title"
+      data-form-inspector
+      hidden
+    >
+      <div class="grid gap-1">
+        <h2 id="form-styles-title" class="font-display text-2xl font-bold">
+          Form styles
+        </h2>
+        <p class="text-sm text-ink-page-muted">
+          Select an element here or in the preview. Changes apply instantly and
+          are not saved.
+        </p>
+        <a href="#form-preview" class="w-fit text-sm underline lg:hidden">
+          Back to preview
+        </a>
+      </div>
+      <div class="grid justify-items-start gap-1">
+        <button
+          class="btn btn-outline"
+          type="button"
+          aria-haspopup="dialog"
+          data-form-bulk-open
+        >
+          Style all controls
+        </button>
+        <p class="text-sm" role="status" data-form-bulk-status></p>
+      </div>
+      <div class="grid gap-2 rounded-lg border-2 border-accent-page-focus bg-canvas-page-card-01 p-3">
+        <p class="text-sm font-bold" role="status" data-form-editing></p>
+        <label class="grid gap-1 text-sm">
+          Select element
+          <select class={settingsClass} data-form-target-select>
+            {targets.map(([key, label, kind]) => (
+              <option value={key} data-kind={kind}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <fieldset class="grid min-w-0 gap-3 rounded-lg border border-canvas-page-border p-3">
+        <legend class="px-1 text-sm font-semibold">Tailwind palette</legend>
+        <label class="grid gap-1 text-sm">
+          Assign color to
+          <select class={settingsClass} data-form-color-role>
+            {colorRoles.map(({ key, label, kinds }) => (
+              <option value={key} data-kinds={kinds}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label class="grid gap-1 text-sm">
+          Palette family
+          <select class={settingsClass} data-form-color-family>
+            {families.map(({ key, label }) => (
+              <option value={key} selected={key === initialFamily}>
+                {label}
+              </option>
+            ))}
+            <option value="solid">White / black / transparent</option>
+          </select>
+        </label>
+        <div
+          class="flex flex-wrap gap-2"
+          role="group"
+          aria-label="Palette swatches"
+        >
+          {paletteShades.map((shade) => (
+            <button
+              type="button"
+              class="form-swatch"
+              data-form-shade={shade}
+              aria-pressed="false"
+            >
+              <span>{shade}</span>
+            </button>
+          ))}
+          {["white", "black", "transparent"].map((color) => (
+            <button
+              type="button"
+              class="form-swatch"
+              data-form-solid={color}
+              style={`--swatch:${color}`}
+              aria-pressed="false"
+              hidden
+            >
+              <span>{color}</span>
+            </button>
+          ))}
+        </div>
+        <label class="grid gap-1 text-sm">
+          Custom hex
+          <input
+            class={settingsClass}
+            type="text"
+            placeholder="#2563eb"
+            spellcheck="false"
+            aria-describedby="form-hex-help"
+            data-form-hex
+          />
+        </label>
+        <p id="form-hex-help" class="text-xs text-ink-page-muted">
+          Enter a 3- or 6-digit hex color, or pick a swatch above.
+        </p>
+        <p class="text-sm font-semibold" data-form-hex-error hidden>
+          Enter a valid hex color starting with #.
+        </p>
+        <div class="flex flex-wrap items-center gap-2">
+          <button
+            class="btn btn-outline btn-sm"
+            type="button"
+            data-form-clear-color
+          >
+            Use default color
+          </button>
+          <output class="text-sm" data-form-color-selection></output>
+        </div>
+      </fieldset>
+      <fieldset class="grid min-w-0 grid-cols-2 gap-3 rounded-lg border border-canvas-page-border p-3">
+        <legend class="px-1 text-sm font-semibold">
+          Border and spacing (Tailwind)
+        </legend>
+        {sizes.map(({ key, label, options, kind }) => (
+          <label class="grid gap-1 text-sm" data-form-size-kind={kind}>
+            {label}
+            <select class={settingsClass} data-form-size={key}>
+              <option value="">Default</option>
+              {options.map(([value, name]) => (
+                <option value={value}>{name}</option>
+              ))}
+            </select>
+          </label>
+        ))}
+      </fieldset>
+      <button
+        class="btn btn-outline justify-self-start"
+        type="button"
+        data-form-clear-target
+      >
+        Reset this element’s styles
+      </button>
+      <p class="text-xs text-ink-page-muted">
+        Browser and OS popups (like the date, file, and color pickers) keep
+        their native appearance.
+      </p>
+    </aside>
+    <dialog
+      class="m-auto max-h-[calc(100dvh-2rem)] w-[min(100%-2rem,34rem)] max-w-none overflow-y-auto rounded-xl border border-canvas-page-border bg-canvas-page p-5 text-ink-page shadow-xl backdrop:bg-black/50"
+      aria-labelledby="form-bulk-title"
+      aria-describedby="form-bulk-help"
+      data-form-bulk-dialog
+    >
+      <form class="grid gap-4" method="dialog" data-form-bulk>
+        <h2 id="form-bulk-title" class="font-display text-xl font-bold">
+          Style all form controls?
+        </h2>
+        <p id="form-bulk-help" class="text-sm text-ink-page-muted">
+          Apply shared styles to the sample inputs, choice groups, and buttons.
+          Only the settings you fill in will change. The form container is
+          styled separately.
+        </p>
+        <div class="grid gap-3 sm:grid-cols-2">
+          {bulkColors.map(([key, title]) => (
+            <label class="grid gap-1 text-sm">
+              {title}
+              <input
+                class={settingsClass}
+                name={key}
+                type="text"
+                spellcheck="false"
+                placeholder="No change"
+                aria-describedby="form-bulk-color-help"
+                data-form-bulk-color
+              />
+            </label>
+          ))}
+          <label class="grid gap-1 text-sm">
+            Sample text (placeholder)
+            <input
+              class={settingsClass}
+              name="sample-text"
+              type="text"
+              maxlength="120"
+              placeholder="No change"
+            />
+          </label>
+        </div>
+        <p id="form-bulk-color-help" class="text-xs text-ink-page-muted">
+          Use a palette color such as <code>slate-600</code> or a hex color.
+          Sample text replaces existing placeholders only, not entered values.
+        </p>
+        <fieldset class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <legend class="mb-2 text-sm font-semibold">Tailwind presets</legend>
+          {sizes
+            .filter(({ kind }) => !kind)
+            .map(({ key, label, options }) => (
+              <label class="grid gap-1 text-sm">
+                {label}
+                <select class={settingsClass} name={key}>
+                  <option value="">No change</option>
+                  {options.map(([value, name]) => (
+                    <option value={value}>{name}</option>
+                  ))}
+                </select>
+              </label>
+            ))}
+        </fieldset>
+        <p class="text-sm" role="status" data-form-bulk-help hidden>
+          Choose at least one setting to apply.
+        </p>
+        <div class="flex flex-wrap justify-end gap-2">
+          <button type="button" class="btn btn-outline" data-form-bulk-cancel>
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-filled">
+            Apply to all
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <noscript>Enable JavaScript to edit the live form styles.</noscript>
+  </div>
+</Layout>
+
+<style>
+  [data-form-preview-selected]:not(:focus-visible) {
+    outline: 2px dashed var(--color-accent-page-focus);
+    outline-offset: 3px;
+  }
+  .sample-form {
+    display: grid;
+    gap: var(--fb-canvas-gap, 1rem);
+    padding: var(--fb-canvas-padding, clamp(1rem, 3vw, 1.75rem));
+    background: var(--fb-canvas-surface, var(--canvas-page));
+    color: var(--fb-canvas-ink, var(--ink-page));
+    border: var(--fb-canvas-width, 1px) solid
+      var(--fb-canvas-border, var(--canvas-page-border));
+    border-radius: var(--fb-canvas-radius, 1rem);
+  }
+  .sample-form-fields {
+    display: grid;
+    gap: var(--fb-canvas-gap, 1rem);
+  }
+  @media (min-width: 640px) {
+    .sample-form-fields {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .sample-form-field,
+  .sample-form-choice {
+    display: grid;
+    min-width: 0;
+    gap: 0.375rem;
+  }
+  .sample-form-label {
+    color: var(--fb-label, inherit);
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+  .sample-form-hint {
+    color: var(--fb-hint, var(--fb-canvas-hint, inherit));
+    font-size: 0.875rem;
+  }
+  #sample-form-error {
+    color: var(--fb-hint, var(--color-red-600));
+  }
+  .sample-form-control {
+    min-width: 0;
+    max-width: 100%;
+    background: var(--fb-surface, var(--sample-surface, transparent));
+    color: var(--fb-ink, var(--sample-ink, inherit));
+    border: var(--fb-width, 1px) solid
+      var(--fb-border, var(--sample-border, var(--canvas-page-border)));
+    border-radius: var(--fb-radius, 0.5rem);
+    padding: var(--fb-padding, 0.5rem);
+  }
+  .sample-form-control::placeholder {
+    color: var(--fb-placeholder, var(--ink-page-muted));
+  }
+  .sample-form-control[aria-invalid="true"] {
+    --sample-border: var(--color-red-600);
+  }
+  .sample-form-control:disabled {
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .sample-form-control:not(:disabled):hover {
+    border-color: var(
+      --fb-hover,
+      var(--fb-border, var(--sample-border, var(--canvas-page-border)))
+    );
+  }
+  .sample-form-control:focus-visible,
+  .sample-form-choice input:focus-visible {
+    outline: 2px solid var(--fb-focus, var(--accent-page-focus));
+    outline-offset: 2px;
+  }
+  .sample-form-native-accent {
+    accent-color: var(--fb-accent, var(--accent-page-focus));
+  }
+  .sample-form-choice label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .sample-form-choice :is(progress, meter) {
+    inline-size: min(100%, 8rem);
+  }
+  .sample-form-switch {
+    appearance: none;
+    display: grid;
+    align-items: center;
+    width: 2.5rem;
+    height: 1.4rem;
+    padding: 0.125rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .sample-form-switch::before {
+    content: "";
+    border-radius: 50%;
+    width: 0.9rem;
+    height: 0.9rem;
+    background: currentColor;
+  }
+  .sample-form-switch:checked {
+    background: var(--fb-accent, var(--accent-page-focus));
+  }
+  .sample-form-switch:checked::before {
+    justify-self: end;
+    background: var(--canvas-page);
+  }
+  @media (forced-colors: active) {
+    .sample-form-switch {
+      appearance: auto;
+      width: auto;
+      height: auto;
+    }
+    .sample-form-switch::before {
+      content: none;
+    }
+  }
+  .sample-form-button {
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .sample-form-submit {
+    --sample-surface: var(--canvas-brand-primary);
+    --sample-ink: var(--ink-inverse);
+  }
+  .sample-form-button:hover {
+    background: var(
+      --fb-hover-surface,
+      var(--fb-surface, var(--sample-surface, transparent))
+    );
+  }
+  .sample-form-button:active {
+    background: var(
+      --fb-active-surface,
+      var(
+        --fb-hover-surface,
+        var(--fb-surface, var(--sample-surface, transparent))
+      )
+    );
+  }
+  .sample-form-control[type="color"] {
+    width: 100%;
+    min-height: 2.5rem;
+  }
+  .sample-form-control[type="file"]::file-selector-button {
+    margin-inline-end: 0.5rem;
+    font-weight: 600;
+  }
+  .form-swatch {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.25rem;
+    border: 1px solid var(--canvas-page-border);
+    border-radius: 0.375rem;
+    background: var(--swatch);
+    cursor: pointer;
+  }
+  .form-swatch span {
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    color: var(--ink-page);
+    background: var(--canvas-page);
+    font-size: 0.75rem;
+  }
+  .form-swatch[aria-pressed="true"] {
+    box-shadow: inset 0 0 0 2px var(--ink-page);
+  }
+</style>
+
+<script>
+  const builder = document.querySelector<HTMLElement>("[data-form-builder]");
+  if (builder) {
+    function get<T extends Element>(selector: string) {
+      const element = builder?.querySelector<T>(selector);
+      if (!element)
+        throw new Error(`Missing Form Builder control: ${selector}`);
+      return element;
+    }
+
+    const sample = get<HTMLFormElement>("[data-form-sample]");
+    const inspector = get<HTMLElement>("[data-form-inspector]");
+    const status = get<HTMLOutputElement>("[data-form-status]");
+    const target = get<HTMLSelectElement>("[data-form-target-select]");
+    const editing = get<HTMLElement>("[data-form-editing]");
+    const role = get<HTMLSelectElement>("[data-form-color-role]");
+    const family = get<HTMLSelectElement>("[data-form-color-family]");
+    const hex = get<HTMLInputElement>("[data-form-hex]");
+    const hexError = get<HTMLElement>("[data-form-hex-error]");
+    const selection = get<HTMLOutputElement>("[data-form-color-selection]");
+    const bulkDialog = get<HTMLDialogElement>("[data-form-bulk-dialog]");
+    const bulkForm = get<HTMLFormElement>("[data-form-bulk]");
+    const bulkColors = bulkForm.querySelectorAll<HTMLInputElement>(
+      "[data-form-bulk-color]",
+    );
+    const bulkHelp = get<HTMLElement>("[data-form-bulk-help]");
+    const bulkStatus = get<HTMLElement>("[data-form-bulk-status]");
+    const shades =
+      inspector.querySelectorAll<HTMLButtonElement>("[data-form-shade]");
+    const solids =
+      inspector.querySelectorAll<HTMLButtonElement>("[data-form-solid]");
+    const sizeControls =
+      inspector.querySelectorAll<HTMLSelectElement>("[data-form-size]");
+    const paletteColors = new Map<string, { family: string; css: string }>();
+    for (const option of family.options) {
+      if (option.value === "solid") continue;
+      for (const swatch of shades) {
+        const name = `${option.value}-${swatch.dataset.formShade}`;
+        paletteColors.set(name, {
+          family: option.value,
+          css: `var(--color-${name})`,
+        });
+      }
+    }
+    for (const swatch of solids) {
+      const color = swatch.dataset.formSolid;
+      if (color) paletteColors.set(color, { family: "solid", css: color });
+    }
+    const styles = new Map<string, Map<string, string>>();
+    let selectedPreview: HTMLElement | null = null;
+
+    function setStyle(key: string, value: string, targetKey = target.value) {
+      const values = styles.get(targetKey) ?? new Map<string, string>();
+      styles.set(targetKey, values);
+      const canvas = targetKey === "canvas";
+      const element = canvas
+        ? sample
+        : get<HTMLElement>(`[data-form-target="${targetKey}"]`);
+      const property = `--fb-${canvas ? "canvas-" : ""}${key}`;
+      if (value) {
+        values.set(key, value);
+        element.style.setProperty(
+          property,
+          paletteColors.get(value)?.css ?? value,
+        );
+      } else {
+        values.delete(key);
+        element.style.removeProperty(property);
+      }
+    }
+
+    const isHex = (value: string) =>
+      /^#(?:[\da-f]{3}|[\da-f]{6})$/i.test(value);
+
+    get("[data-form-bulk-open]").addEventListener("click", () => {
+      bulkForm.reset();
+      bulkHelp.hidden = true;
+      for (const input of bulkColors) input.setCustomValidity("");
+      bulkDialog.showModal();
+    });
+    get("[data-form-bulk-cancel]").addEventListener("click", () =>
+      bulkDialog.close(),
+    );
+    bulkForm.addEventListener("input", (event) => {
+      if (event.target instanceof HTMLInputElement)
+        event.target.setCustomValidity("");
+      bulkHelp.hidden = true;
+    });
+    bulkForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      for (const input of bulkColors) {
+        const value = input.value.trim();
+        if (value && !isHex(value) && !paletteColors.has(value)) {
+          input.setCustomValidity(
+            "Enter a palette color name or a 3- or 6-digit hex color.",
+          );
+          input.reportValidity();
+          return;
+        }
+      }
+
+      const data = new FormData(bulkForm);
+      const sampleText = String(data.get("sample-text") ?? "").trim();
+      const changes = [
+        "border",
+        "ink",
+        "placeholder",
+        "radius",
+        "width",
+        "padding",
+      ]
+        .map((key) => ({ key, value: String(data.get(key) ?? "").trim() }))
+        .filter(({ value }) => value !== "");
+      if (!sampleText && changes.length === 0) {
+        bulkHelp.hidden = false;
+        return;
+      }
+      for (const element of sample.querySelectorAll<HTMLElement>(
+        "[data-form-target]",
+      )) {
+        const targetKey = element.dataset.formTarget;
+        if (!targetKey) continue;
+        const placeholder = element.querySelector<
+          HTMLInputElement | HTMLTextAreaElement
+        >("input[placeholder], textarea[placeholder]");
+        for (const { key, value } of changes) {
+          if (key !== "placeholder" || placeholder)
+            setStyle(key, value, targetKey);
+        }
+        if (sampleText && placeholder) placeholder.placeholder = sampleText;
+      }
+      syncTarget();
+      bulkStatus.textContent = "Shared styles applied to the sample controls.";
+      bulkDialog.close();
+    });
+
+    function renderSwatches() {
+      const selected = styles.get(target.value)?.get(role.value);
+      const showingSolids = family.value === "solid";
+      for (const swatch of shades) {
+        const name = `${family.value}-${swatch.dataset.formShade}`;
+        swatch.hidden = showingSolids;
+        if (showingSolids) continue;
+        swatch.style.setProperty("--swatch", `var(--color-${name})`);
+        swatch.setAttribute("aria-label", name);
+        swatch.title = name;
+        swatch.setAttribute("aria-pressed", String(selected === name));
+      }
+      for (const swatch of solids) {
+        swatch.hidden = !showingSolids;
+        swatch.setAttribute(
+          "aria-pressed",
+          String(selected === swatch.dataset.formSolid),
+        );
+      }
+      selection.value = `${role.selectedOptions[0].textContent?.trim()}: ${selected ?? "Default"}`;
+    }
+
+    function syncColor() {
+      const selected = styles.get(target.value)?.get(role.value) ?? "";
+      const preset = paletteColors.get(selected);
+      if (preset) family.value = preset.family;
+      hex.value = preset ? "" : selected;
+      hex.removeAttribute("aria-invalid");
+      hexError.hidden = true;
+      renderSwatches();
+    }
+
+    function syncTarget() {
+      const option = target.selectedOptions[0];
+      const kind = option.dataset.kind;
+      const element =
+        kind === "canvas"
+          ? sample
+          : get<HTMLElement>(`[data-form-target="${target.value}"]`);
+      if (selectedPreview !== element) {
+        selectedPreview?.removeAttribute("data-form-preview-selected");
+        element.setAttribute("data-form-preview-selected", "");
+        selectedPreview = element;
+        editing.textContent = `Editing: ${option.label}`;
+      }
+      for (const option of role.options) {
+        option.disabled = Boolean(
+          option.dataset.kinds &&
+          !option.dataset.kinds.split(" ").some((item) => item === kind),
+        );
+        if (
+          option.value === "placeholder" &&
+          !element.querySelector("[placeholder]")
+        )
+          option.disabled = true;
+        if (
+          option.value === "hint" &&
+          !element.querySelector(".sample-form-hint")
+        )
+          option.disabled = true;
+        if (
+          option.value === "focus" &&
+          ["disabled", "progress"].includes(target.value)
+        )
+          option.disabled = true;
+        if (option.value === "hover" && target.value === "disabled")
+          option.disabled = true;
+        option.hidden = option.disabled;
+      }
+      if (role.selectedOptions[0].disabled) role.value = "surface";
+      for (const control of sizeControls) {
+        const label = control.closest("label");
+        if (label)
+          label.hidden = Boolean(
+            label.dataset.formSizeKind && label.dataset.formSizeKind !== kind,
+          );
+        control.value =
+          styles.get(target.value)?.get(control.dataset.formSize ?? "") ?? "";
+      }
+      syncColor();
+    }
+
+    target.addEventListener("input", syncTarget);
+    function selectFromPreview(event: Event) {
+      if (!(event.target instanceof Element)) return;
+      const field = event.target.closest<HTMLElement>("[data-form-target]");
+      if (event.type === "focusin" && !field) return;
+      const key = field?.dataset.formTarget ?? "canvas";
+      if (target.value !== key) {
+        target.value = key;
+        syncTarget();
+      }
+      inspector.scrollTop = 0;
+    }
+
+    sample.addEventListener("click", selectFromPreview);
+    sample.addEventListener("focusin", selectFromPreview);
+    role.addEventListener("input", syncColor);
+    family.addEventListener("input", renderSwatches);
+    for (const swatch of [...shades, ...solids]) {
+      swatch.addEventListener("click", () => {
+        setStyle(
+          role.value,
+          swatch.dataset.formSolid ??
+            `${family.value}-${swatch.dataset.formShade}`,
+        );
+        syncColor();
+      });
+    }
+    hex.addEventListener("input", () => {
+      const value = hex.value.trim();
+      const valid = value === "" || isHex(value);
+      hex.setAttribute("aria-invalid", String(!valid));
+      hexError.hidden = valid;
+      if (!valid) return;
+      setStyle(role.value, value);
+      renderSwatches();
+    });
+    for (const control of sizeControls) {
+      control.addEventListener("input", () => {
+        const key = control.dataset.formSize;
+        if (key) setStyle(key, control.value);
+      });
+    }
+    get("[data-form-clear-color]").addEventListener("click", () => {
+      setStyle(role.value, "");
+      syncColor();
+    });
+    get("[data-form-clear-target]").addEventListener("click", () => {
+      for (const key of styles.get(target.value)?.keys() ?? [])
+        setStyle(key, "");
+      syncTarget();
+    });
+    sample.addEventListener("submit", (event) => {
+      event.preventDefault();
+      status.value = "Sample validated. Nothing was sent.";
+    });
+    sample.addEventListener("input", () => {
+      status.value = "";
+    });
+    sample.addEventListener("reset", () => {
+      status.value = "";
+    });
+    get("[data-form-secondary]").addEventListener("click", () => {
+      status.value = "Secondary action previewed. Nothing was sent.";
+    });
+    syncTarget();
+    inspector.hidden = false;
+    get<HTMLElement>("[data-style-jump]").hidden = false;
+  }
+</script>

@@ -7,7 +7,7 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
 
 <Layout
   title="Website Builder"
-  description="A practical toolkit for building pages and shaping your website's colors, themes, and typography."
+  description="A practical toolkit for building pages and navigation and shaping your website's colors, themes, and typography."
 >
   <section class="bg-canvas-brand-primary text-ink-inverse">
     <div class="container grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-28">
@@ -106,7 +106,7 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
       </p>
     </div>
 
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {tools.map(({ label, href, description }, index) => (
         <a
           class="group grid content-start gap-8 rounded-2xl border border-canvas-page-border bg-canvas-page p-6 text-ink-page no-underline shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg"
