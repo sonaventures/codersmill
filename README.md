@@ -75,6 +75,9 @@ changing a component. Generated content pages stay in `src/pages/pagebuilder/`;
 the builder creates that directory if needed. The name `pagebuilder` remains
 reserved for the old builder URL's redirect.
 
+FlyonUI components with markup use `<section>` for their outer wrapper;
+inner layout containers can still use `<div>`.
+
 The hero examples in `src/components/flyonui/hero/` use Section 01 theme
 colors and the shared layout header. Their sample links, forms, and purchase
 actions are not connected. Alpine powers local interactions such as the meal
