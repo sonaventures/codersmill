@@ -20,22 +20,21 @@ const sampleText: Record<string, string> = {
   title="Typography Builder"
   description="Set site-wide typography and overrides for sections by ID."
 >
-  <div class="grid w-full gap-8 px-4 pt-12 sm:px-6 lg:px-8" data-typography-builder>
+  <div
+    class="grid w-full gap-8 px-4 pt-12 sm:px-6 lg:px-8"
+    data-typography-builder
+  >
     <div class="typography-workspace grid items-start gap-8 lg:grid-cols-2">
-      <details
-        class="typography-guide group relative z-20 min-w-0 justify-self-start lg:col-span-2"
-      >
+      <details class="typography-guide group relative z-20 min-w-0 justify-self-start lg:col-span-2">
         <summary class="cursor-pointer rounded border border-canvas-page-border bg-canvas-page px-4 py-3 font-semibold">
           <span class="group-open:hidden">Open typography guide</span>
           <span class="hidden group-open:inline">Close typography guide</span>
         </summary>
-        <div
-          class="typography-guide-panel grid gap-3 rounded border border-canvas-page-border bg-canvas-page p-4 text-sm wrap-anywhere"
-        >
+        <div class="typography-guide-panel grid gap-3 rounded border border-canvas-page-border bg-canvas-page p-4 text-sm wrap-anywhere">
           <p>
-            Set site-wide styles for headings, paragraphs, emphasis, strong text,
-            code, citations, preformatted text, and block quotations. Add a
-            section ID to override just that section, for example
+            Set site-wide styles for headings, paragraphs, emphasis, strong
+            text, code, citations, preformatted text, and block quotations. Add
+            a section ID to override just that section, for example
             <code>&lt;section id="about"&gt;</code>.
           </p>
           <p>
@@ -47,16 +46,16 @@ const sampleText: Record<string, string> = {
           </p>
           <p>
             In Chrome or Edge on localhost or HTTPS, click Save to project and
-            choose the project folder containing <code>src/styles/global.css</code>.
-            If folder access fails, use Save directly to CSS and select the
-            existing <code>src/styles/themes/typography.css</code> file in the
-            project. In other browsers, use Download CSS and replace that file
-            manually.
+            choose the project folder containing{" "}
+            <code>src/styles/global.css</code>. If folder access fails, use Save
+            directly to CSS and select the existing{" "}
+            <code>src/styles/themes/typography.css</code> file in the project.
+            In other browsers, use Download CSS and replace that file manually.
           </p>
         </div>
       </details>
 
-      <div class="grid min-w-0 gap-6">
+      <div class="grid min-w-0 gap-6" data-builder-ui>
         <form id="add-typography-section" class="grid gap-2">
           <label for="typography-section-id" class="font-semibold">
             Add a section ID
@@ -238,6 +237,7 @@ const sampleText: Record<string, string> = {
     <div
       role="group"
       aria-label="Typography file actions"
+      data-builder-ui
       class="sticky bottom-0 z-30 grid gap-2 rounded-t-xl border border-canvas-page-border bg-canvas-page p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] text-ink-page shadow-lg sm:px-4"
     >
       <div class="flex flex-wrap items-center justify-center gap-2">
@@ -255,7 +255,12 @@ const sampleText: Record<string, string> = {
         </button>
         <input id="typography-file" type="file" accept=".css,text/css" hidden />
       </div>
-      <p id="typography-status" role="status" aria-live="polite" class="text-sm">
+      <p
+        id="typography-status"
+        role="status"
+        aria-live="polite"
+        class="text-sm"
+      >
         Loading saved project typography.
       </p>
     </div>

@@ -4,11 +4,6 @@
 .palette-editor.palette-editor {
   @apply grid gap-8 py-[3rem_5rem];
 }
-:root:not([data-theme="dark"]) .palette-editor {
-  --canvas-page-border: var(--color-slate-500);
-  --color-canvas-page-border: var(--canvas-page-border);
-  --accent-page-border: var(--canvas-page-border);
-}
 .palette-editor header,
 .palette-editor section,
 .palette-editor form {
@@ -416,11 +411,6 @@
 .selector-shell .color-fields legend {
   @apply mb-[0.45rem] block text-[0.75rem] font-[650];
 }
-:root:not([data-theme="dark"])
-  .selector-shell
-  :is(.selector-panel, .palette-picker) {
-  --selector-control-border: var(--color-slate-500);
-}
 .selector-shell .selector-panel select,
 .selector-shell .palette-picker select,
 .selector-shell #group-name {
@@ -650,16 +640,6 @@
 }
 
 /* Shared builder controls */
-:root:not([data-theme="dark"]) [data-website-builder-content] {
-  --builder-select-border: var(--color-slate-500);
-}
-
-:root:not([data-theme="dark"])
-  [data-website-builder-content]
-  select:not(.sample-form-control) {
-  border-color: var(--builder-select-border);
-}
-
 /* Studio header */
 .studio-header {
   background: var(--canvas-page);
@@ -1048,15 +1028,6 @@
   }
 }
 
-:root:not([data-theme="dark"]) [data-typography-builder] {
-  --canvas-page-border: var(--color-slate-500);
-  --color-canvas-page-border: var(--canvas-page-border);
-}
-
-:root:not([data-theme="dark"]) [data-typography-builder] .btn-outline {
-  border-color: var(--canvas-page-border);
-}
-
 :where([data-typography-builder]) #typography-status[data-error] {
   color: var(--color-red-800);
   font-weight: 600;
@@ -1123,6 +1094,128 @@
     grid-template-areas: "guide tool";
     grid-template-columns: clamp(12rem, 25vw, 21rem) minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
+  }
+
+  /* Builder chrome uses its own tokens; editable previews keep the site theme. */
+  :root {
+    --builder-canvas: var(--color-gray-50);
+    --builder-surface: var(--color-white);
+    --builder-subtle: var(--color-gray-100);
+    --builder-ink: var(--color-gray-900);
+    --builder-muted: var(--color-gray-600);
+    --builder-border: var(--color-gray-500);
+    --builder-focus: var(--color-green-700);
+    --builder-cta: var(--color-green-700);
+    --builder-cta-hover: var(--color-green-800);
+    --builder-cta-ink: var(--color-white);
+  }
+  :root[data-theme="dark"] {
+    --builder-canvas: var(--color-gray-950);
+    --builder-surface: var(--color-gray-900);
+    --builder-subtle: var(--color-gray-800);
+    --builder-ink: var(--color-white);
+    --builder-muted: var(--color-gray-300);
+    --builder-border: var(--color-gray-500);
+    --builder-focus: var(--color-green-400);
+    --builder-cta: var(--color-green-400);
+    --builder-cta-hover: var(--color-green-300);
+    --builder-cta-ink: var(--color-gray-950);
+  }
+  body:has(#main-content > [data-website-builder-content]) {
+    background: var(--builder-canvas);
+  }
+  :where(
+    .builder-workspace,
+    [data-studio-chrome],
+    [data-studio-footer],
+    [data-builder-ui],
+    [data-palette-editor],
+    [data-page-builder],
+    [data-form-inspector],
+    [data-form-bulk-dialog],
+    .typography-guide
+  ) {
+    --canvas-page: var(--builder-surface);
+    --color-canvas-page: var(--canvas-page);
+    --color-canvas-page-card-01: var(--builder-subtle);
+    --canvas-page-border: var(--builder-border);
+    --color-canvas-page-border: var(--canvas-page-border);
+    --canvas-page-shadow: var(--color-gray-950);
+    --ink-page: var(--builder-ink);
+    --color-ink-page: var(--ink-page);
+    --ink-page-muted: var(--builder-muted);
+    --color-ink-page-muted: var(--ink-page-muted);
+    --ink-page-first-header: var(--builder-ink);
+    --color-ink-page-first-header: var(--ink-page-first-header);
+    --color-ink-page-second-header: var(--builder-ink);
+    --accent-page-border: var(--builder-border);
+    --accent-page-canvas: var(--builder-subtle);
+    --accent-page-text: var(--builder-ink);
+    --color-accent-page-text: var(--accent-page-text);
+    --accent-page-focus: var(--builder-focus);
+    --color-accent-page-focus: var(--accent-page-focus);
+    --color-accent-01-border: var(--builder-border);
+    --color-accent-01-canvas: var(--builder-subtle);
+    --font-display: var(--font-montserrat);
+    color: var(--builder-ink);
+    font-family: var(--font-inter);
+
+    & :is(h1, h2, h3, h4, h5, h6) {
+      font-family: var(--font-display);
+    }
+    &
+      :is(
+        select,
+        input:not(
+          [type="checkbox"],
+          [type="radio"],
+          [type="file"],
+          [type="hidden"]
+        ),
+        textarea
+      ) {
+      background-color: var(--builder-surface);
+      border-color: var(--builder-border);
+      color: var(--builder-ink);
+    }
+    & :is(a, button, summary, select, input, textarea):focus-visible {
+      outline-color: var(--builder-focus);
+    }
+    & .btn-filled {
+      background: var(--builder-cta);
+      border-color: var(--builder-cta);
+      color: var(--builder-cta-ink);
+      &:hover:not(:disabled) {
+        background: var(--builder-cta-hover);
+        border-color: var(--builder-cta-hover);
+        filter: none;
+      }
+    }
+  }
+  .selector-shell .control-primary,
+  .palette-editor
+    :is(#add-family button[type="submit"], #add-imported-families):not(
+      :where(.family-row *)
+    ) {
+    background: var(--builder-cta);
+    border-color: var(--builder-cta);
+    color: var(--builder-cta-ink);
+    &:hover:not(:disabled) {
+      background: var(--builder-cta-hover);
+      border-color: var(--builder-cta-hover);
+      filter: none;
+    }
+  }
+  .studio-header .theme-toggle:hover {
+    background: var(--builder-cta);
+    color: var(--builder-cta-ink);
+  }
+  [data-studio-footer] {
+    --color-canvas-footer: var(--builder-surface);
+    --color-canvas-footer-border: var(--builder-border);
+    --color-ink-inverse: var(--builder-ink);
+    --color-nav-footer-item: var(--builder-muted);
+    --color-accent-footer-focus: var(--builder-focus);
   }
   .builder-workspace-guide {
     @apply max-h-none;

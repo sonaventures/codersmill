@@ -46,6 +46,11 @@ Theme, Form, and Site Nav Builder palette pickers to Tailwind families in this
 browser. **Show custom colors** restores the full list. Neither button changes
 the Color Family Editor, project CSS, or saved styles.
 
+Builder controls, menus, and palettes use Tailwind white and gray surfaces,
+green primary actions, Inter body text, and Montserrat headings. The existing
+theme switch selects the light or dark version. Public pages and editable
+preview styles are not changed by the builder UI theme.
+
 The site self-hosts Inter, Plus Jakarta Sans, DM Sans, Montserrat, and Syne through
 [the theme font stylesheet](./src/styles/themes/fonts.css). Use `font-inter`,
 `font-plus-jakarta-sans`, `font-dm-sans`, `font-montserrat`, or `font-syne` in Tailwind markup.
