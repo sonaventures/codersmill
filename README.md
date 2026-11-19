@@ -245,9 +245,11 @@ shade. You can also choose any palette color directly in a role's dropdown.
 Section tokens use zero-padded numbers (`canvas-01`, `accent-01-*`, `ink-01-*`
 through `06`). Saved style groups retain their existing section assignments;
 page-heading token names are unchanged.
-The compact **Tailwind palette** sits at the bottom of the preview and can be
+The compact **Color Picker** sits at the bottom of the preview and can be
 collapsed. In **Color Swatches**, the area, target role, and family dropdowns
-share a row with the shades, including white, black, and none. This row scrolls
+share a row with the shades, including white, black, and none. Custom families
+appear before Tailwind defaults in the family and role color dropdowns when
+custom colors are enabled. This row scrolls
 horizontally on narrow screens. In **Global Styles**, choose Sections (including
 the hero), Cards, or Subsections, then pick a visual corner-radius preset from
 None through 3XL. Corner radii apply across the preview in both themes and are

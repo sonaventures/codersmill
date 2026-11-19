@@ -4,7 +4,7 @@ import ThemeSampleCards from "../../components/websitebuilder/ThemeSampleCards.a
 import ThemeSampleIcon from "../../components/websitebuilder/ThemeSampleIcon.astro";
 import ThemeSampleSection from "../../components/websitebuilder/ThemeSampleSection.astro";
 import css from "../../styles/themes/colors.css?raw";
-import { readPalette } from "../../data/palette.js";
+import { builtinPaletteFamilies, readPalette } from "../../data/palette.js";
 import {
   colorRoles,
   defaultColorReference,
@@ -22,6 +22,11 @@ import {
 } from "../../data/style-groups";
 
 setPaletteFamilies(readPalette(css));
+const builtinFamilyKeys = new Set(builtinPaletteFamilies.map(({ key }) => key));
+const pickerFamilies = [...paletteFamilies].sort(
+  (a, b) =>
+    Number(builtinFamilyKeys.has(a.key)) - Number(builtinFamilyKeys.has(b.key)),
+);
 const regionStyle = (region: Region) =>
   regionColorRoles
     .map(({ key }) => `--sample-${key}:${defaultColorReference(region, key)}`)
@@ -260,8 +265,8 @@ const sampleMenu = [
             </p>
           </div>
           <p class="control-hint">
-            Choose the editing area in the floating Tailwind palette. Sections
-            1–6 use the first–sixth token groups. “Theme default” follows your
+            Choose the editing area in the floating Color Picker. Sections 1–6
+            use the first–sixth token groups. “Theme default” follows your
             existing light/dark theme. Choose Page canvas to edit page-wide
             brand and CTA colors. The interactive group includes button hover,
             focus, and active states; link, visited, hover, focus, and active
@@ -304,7 +309,7 @@ const sampleMenu = [
                           </option>
                         ))}
                       </optgroup>
-                      {paletteFamilies.map(({ key: family, label }) => (
+                      {pickerFamilies.map(({ key: family, label }) => (
                         <optgroup label={label} data-palette-family={family}>
                           {paletteShades.map((shade) => (
                             <option value={`var(--color-${family}-${shade})`}>
@@ -405,9 +410,9 @@ const sampleMenu = [
     </div>
     <details class="palette-picker" data-studio-chrome open>
       <summary>
-        Tailwind palette <span>Show / hide</span>
+        Color Picker <span>Show / hide</span>
       </summary>
-      <div class="palette-tabs" role="tablist" aria-label="Tailwind palette">
+      <div class="palette-tabs" role="tablist" aria-label="Color Picker">
         <button
           type="button"
           id="palette-color-tab"
@@ -475,7 +480,7 @@ const sampleMenu = [
                     None / transparent
                   </option>
                   <option value="solid">White / black</option>
-                  {paletteFamilies.map(({ key, label }) => (
+                  {pickerFamilies.map(({ key, label }) => (
                     <option value={key} data-palette-family-option>
                       {label}
                     </option>
