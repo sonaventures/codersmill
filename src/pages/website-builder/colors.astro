@@ -11,9 +11,10 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
   <section class="palette-editor container" data-palette-editor>
     <header>
       <p>
-        Choose the <strong>websitebuilder project folder</strong>, not the CSS
-        file or its themes folder. The editor finds and saves changes to{" "}
-        <code>src/styles/themes/colors.css</code> inside that folder.
+        Choose the <strong>websitebuilder project folder</strong> to add or
+        remove color families. You can also choose its <code>src</code> folder
+        to add or import families. Both options save to{" "}
+        <code>src/styles/themes/colors.css</code>.
       </p>
       <p>
         This requires a browser that supports the File System Access API, such
@@ -52,7 +53,7 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
         :root are optional; JSON, commas, and code fences are not needed.
       </p>
       <p>
-        Choose your project folder, then use{" "}
+        Choose your project folder or its <code>src</code> folder, then use{" "}
         <strong>Import color families</strong>
         below. Review families using the selector, then click{" "}
         <strong>Add all imported families</strong> to save every family from all
@@ -85,7 +86,7 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
       <span id="project-name">No project selected</span>
     </div>
     <p id="editor-status" role="status" aria-live="polite">
-      Select the websitebuilder project folder to begin.
+      Select the websitebuilder project root or its src folder to begin.
     </p>
     <div id="editor-content" hidden>
       <section aria-labelledby="add-title">
@@ -153,8 +154,9 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
       <section aria-labelledby="families-title">
         <h2 id="families-title">Current families</h2>
         <p>
-          Removal is blocked when the family is explicitly referenced in project
-          source, public files, or this browser's saved style groups.
+          Removal requires the project root and is blocked when the family is
+          explicitly referenced in project source, public files, or this
+          browser's saved style groups.
           Dynamically constructed references, groups in other browsers, and
           external files cannot be checked.
         </p>

@@ -40,7 +40,7 @@ redirect to their new locations.
 Builder dropdowns use higher-contrast slate borders in light mode. Custom
 dropdown borders in the Form Builder preview still take precedence.
 
-Use `/website-builder/sitenavbuilder/` to draft a site header and menu. In the
+Use `/website-builder/sitenav-builder/` to draft a site header and menu. In the
 form below the live preview, enter your site name and choose full page width
 or a Tailwind screen-width cap (SM through 2XL) for the header. Align the menu
 horizontally (left, center, or right) and vertically (top, center, or bottom),
@@ -55,7 +55,7 @@ and gaps for the menu and dropdowns. Pick colors from the Tailwind swatches
 or enter a custom hex color. The builder doesn't save the draft or
 change your published navigation.
 
-Use `/website-builder/formbuilder/` to style a live sample form. Click or tab to
+Use `/website-builder/form-builder/` to style a live sample form. Click or tab to
 a control in the left preview to highlight its settings in the scrollable
 **Form styles** panel. You can also select the whole form or a control in the
 panel's dropdown. **Style all controls** applies shared border, input text,
@@ -67,7 +67,7 @@ placeholders, focus rings, accents, or button states. The sample includes
 text and date inputs, dropdowns, uploads, choices, and more. It does not
 send form entries or save style changes.
 
-Use `/website-builder/typographybuilder/` to set styles for `h1`–`h6`, `p`,
+Use `/website-builder/typography-builder/` to set styles for `h1`–`h6`, `p`,
 `em`, `strong`, `code`, `cite`, `pre`, and `blockquote`. All 13 elements appear
 in the live preview, including a multiline preformatted sample.
 Choose **Site-wide defaults**, or add the exact ID of a
@@ -118,7 +118,7 @@ Rebuild and deploy after saving to update the published site.
 **Import builder CSS** restores an exported builder file into the preview without
 applying it until saved. Unsaved preview changes are not persisted.
 
-Use `/website-builder/pagebuilder/` to create an Astro page from components. Choose
+Use `/website-builder/page-builder/` to create an Astro page from components. Choose
 the project folder in Chrome or Edge on localhost or HTTPS, enter a page name,
 and add, reorder, or remove components. The generated file is saved under
 `src/pages/pagebuilder/` without overwriting an existing file or duplicating an
@@ -146,9 +146,11 @@ provide dynamic theme and palette values for the previews.
 
 Use `/website-builder/colors/` (linked from the theme template) to add or remove
 11-shade color families directly in `src/styles/themes/colors.css`. Select the
-`websitebuilder` project folder (the folder containing `src` and `public`), not
-the CSS file or `themes` folder, in Chrome or Edge on localhost or HTTPS; files
-are accessed locally. The Color Editor stores the chosen folder handle in this
+`websitebuilder` project folder (the folder containing `src` and `public`) in
+Chrome or Edge on localhost or HTTPS. Choose `src` itself to add or import
+families without granting access to the full project. Removing families still
+requires the project root for reference checks. Files are accessed locally.
+The Color Editor stores the chosen folder handle in this
 browser's IndexedDB, scoped to the current tab through session storage. After a
 development-server reload, it reopens the folder and rereads the palette so you
 can continue removing or adding families without choosing the folder again.
@@ -185,7 +187,7 @@ outside those directories. Refresh the theme template or Theme Builder after a
 change to see the updated palette.
 The Color Editor uses the shared `xl`-width Website Builder header and builder footer.
 
-Open `/website-builder/themebuilder/` (also linked from `/template/`) to preview
+Open `/website-builder/theme-builder/` (also linked from `/template/`) to preview
 color combinations. The left sample includes a header, footer, and six sections
 with heading levels, paragraphs, two buttons, and three independently styled
 cards in every section and on Page canvas. Section 05 also includes a two-column layout.

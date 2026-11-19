@@ -211,7 +211,7 @@ open.addEventListener("click", async () => {
       const pages = await src.getDirectoryHandle("pages");
       const builderDirectory =
         await pages.getDirectoryHandle("website-builder");
-      await builderDirectory.getFileHandle("pagebuilder.astro");
+      await builderDirectory.getFileHandle("page-builder.astro");
       const layouts = await src.getDirectoryHandle("layouts");
       await layouts.getFileHandle("layout.astro");
       pageDirectory = await pages.getDirectoryHandle("pagebuilder", {

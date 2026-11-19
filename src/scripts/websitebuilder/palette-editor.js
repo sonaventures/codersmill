@@ -74,7 +74,8 @@ function setBusy(value) {
   addImportedFamilies.disabled = value || !importedFamilies.length;
   importFile.disabled = value;
   importFamily.disabled = value;
-  for (const button of list.querySelectorAll("button")) button.disabled = value;
+  for (const button of list.querySelectorAll("button"))
+    button.disabled = value || !project;
   root.setAttribute("aria-busy", String(value));
 }
 
@@ -192,6 +193,7 @@ function render() {
     const remove = document.createElement("button");
     remove.type = "button";
     remove.textContent = "Remove";
+    remove.disabled = busy || !project;
     remove.setAttribute("aria-label", `Remove ${family.label}`);
     remove.addEventListener("click", () => removeFamily(family.key));
     row.append(title, swatches, remove);
@@ -203,7 +205,7 @@ async function save(next) {
   const latest = await (await cssFile.getFile()).text();
   if (latest !== css)
     throw new Error(
-      "colors.css changed on disk. Choose the project folder again before saving.",
+      "colors.css changed on disk. Reopen the folder before saving.",
     );
   const writable = await cssFile.createWritable();
   try {
@@ -252,6 +254,10 @@ async function scanDirectory(directory, path, family, references) {
 
 async function removeFamily(family) {
   if (busy) return;
+  if (!project) {
+    status.textContent = "Choose the project root to remove color families.";
+    return;
+  }
   setBusy(true);
   try {
     status.textContent = `Checking references to ${family}...`;
@@ -296,10 +302,11 @@ async function openProject(selected, remember) {
   projectName.textContent = "No project selected";
   content.hidden = true;
   status.textContent = `Opening ${selected.name}...`;
+  const sourceOnly = selected.name === "src";
   let selectedFile;
   try {
-    const src = await selected.getDirectoryHandle("src");
-    await selected.getDirectoryHandle("public");
+    const src = sourceOnly ? selected : await selected.getDirectoryHandle("src");
+    if (!sourceOnly) await selected.getDirectoryHandle("public");
     const styles = await src.getDirectoryHandle("styles");
     const themes = await styles.getDirectoryHandle("themes");
     selectedFile = await themes.getFileHandle("colors.css");
@@ -309,14 +316,14 @@ async function openProject(selected, remember) {
       (error.name === "NotFoundError" || error.name === "TypeMismatchError")
     )
       throw new Error(
-        `"${selected.name}" is not the project folder. Choose the websitebuilder folder containing src and public, not colors.css or the themes folder.`,
+        `Could not find the expected folders and colors.css in "${selected.name}". Choose the websitebuilder project root or its src folder, not styles or themes.`,
       );
     throw error;
   }
   const selectedCss = await (await selectedFile.getFile()).text();
   readPalette(selectedCss);
   if (remember) await rememberProject(selected);
-  project = selected;
+  project = sourceOnly ? undefined : selected;
   cssFile = selectedFile;
   css = selectedCss;
   rememberedProject = selected;
@@ -324,6 +331,13 @@ async function openProject(selected, remember) {
   projectName.textContent = selected.name;
   content.hidden = false;
   render();
+  return sourceOnly;
+}
+
+function openedStatus(sourceOnly, message) {
+  status.textContent = sourceOnly
+    ? "Opened colors.css from src. You can add or import families. To remove a family, choose the project root so the editor can check public files."
+    : message;
 }
 
 open.addEventListener("click", async () => {
@@ -336,15 +350,17 @@ open.addEventListener("click", async () => {
   setBusy(true);
   try {
     status.textContent =
-      "Choose the websitebuilder project folder in the folder picker.";
+      "Choose the websitebuilder project root or its src folder.";
     const selected = await window.showDirectoryPicker({ mode: "readwrite" });
-    await openProject(selected, true);
-    status.textContent =
-      "Project opened. Changes are saved directly to colors.css.";
+    const sourceOnly = await openProject(selected, true);
+    openedStatus(
+      sourceOnly,
+      "Project opened. Changes are saved directly to colors.css.",
+    );
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
       status.textContent =
-        "Project selection cancelled. Choose the websitebuilder folder, not the CSS file.";
+        "Folder selection cancelled. Choose the project root or its src folder, not the CSS file.";
       return;
     }
     if (error instanceof DOMException && error.name === "NotAllowedError") {
@@ -369,8 +385,8 @@ reconnect.addEventListener("click", async () => {
       throw new Error(
         "Folder access was not granted. Reconnect again or choose the project folder.",
       );
-    await openProject(rememberedProject, false);
-    status.textContent = "Project reconnected. You can continue editing.";
+    const sourceOnly = await openProject(rememberedProject, false);
+    openedStatus(sourceOnly, "Project reconnected. You can continue editing.");
   } catch (error) {
     report(error);
   } finally {
@@ -401,9 +417,11 @@ async function restoreProject() {
         "Your browser needs folder permission again. Select Reconnect project to continue without choosing the folder again.";
       return;
     }
-    await openProject(rememberedProject, false);
-    status.textContent =
-      "Project reopened automatically. You can continue editing.";
+    const sourceOnly = await openProject(rememberedProject, false);
+    openedStatus(
+      sourceOnly,
+      "Project reopened automatically. You can continue editing.",
+    );
   } catch (error) {
     report(error);
   } finally {
