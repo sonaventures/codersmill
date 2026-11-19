@@ -2,6 +2,8 @@ import { defineConfig } from "astro/config";
 import alpine from "@astrojs/alpinejs";
 import tailwindcss from "@tailwindcss/vite";
 
+import partytown from "@astrojs/partytown";
+
 export default defineConfig({
   output: "static",
   redirects: {
@@ -18,7 +20,7 @@ export default defineConfig({
     "/website-builder/themebuilder/": "/website-builder/theme-builder/",
     "/website-builder/typographybuilder/": "/website-builder/typography-builder/",
   },
-  integrations: [alpine({ entrypoint: "/src/entrypoint" })],
+  integrations: [alpine({ entrypoint: "/src/entrypoint" }), partytown()],
   vite: {
     plugins: [tailwindcss()],
   },
