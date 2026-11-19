@@ -12,10 +12,60 @@ const fontExample = `@font-face {
 
 <Layout
   title="Add custom fonts"
-  description="A guide to self-hosting fonts in your website project."
+  description="Install Google Fonts locally or self-host your own font files."
 >
   <article class="mx-auto grid max-w-3xl gap-5 p-6 text-ink-page sm:p-8">
     <h2 class="font-display text-2xl font-bold">Add custom fonts</h2>
+    <section class="grid gap-3" aria-labelledby="google-fonts-title">
+      <h3 id="google-fonts-title" class="text-xl font-semibold">
+        Install Google Fonts
+      </h3>
+      <p>
+        Enter one or more family names. Copy the generated command and run it
+        from the project root in VS Code's terminal. It installs self-hosted
+        Fontsource packages and adds the fonts to Typography Builder without
+        changing your default fonts.
+      </p>
+      <form id="google-font-command" class="grid gap-3">
+        <label for="google-font-names" class="font-semibold">
+          Google Font family names
+        </label>
+        <textarea
+          id="google-font-names"
+          rows="3"
+          placeholder="Outfit, Playfair Display"
+          required
+          aria-describedby="google-font-help"
+          class="w-full rounded-md border border-canvas-page-border bg-canvas-page p-3"
+        ></textarea>
+        <p id="google-font-help" class="text-sm">
+          Separate names with commas or new lines.
+        </p>
+        <button type="submit" class="btn btn-filled w-fit">
+          Generate install command
+        </button>
+        <div id="google-font-result" class="grid gap-2" hidden>
+          <label for="google-font-output">
+            Run this in the VS Code terminal:
+          </label>
+          <input
+            id="google-font-output"
+            type="text"
+            readonly
+            class="w-full rounded-md border border-canvas-page-border bg-canvas-page p-3 font-mono text-sm"
+          />
+          <button
+            id="copy-google-font-command"
+            type="button"
+            class="btn btn-outline w-fit"
+          >
+            Copy command
+          </button>
+        </div>
+        <p id="google-font-status" role="status" class="text-sm"></p>
+      </form>
+    </section>
+    <h3 class="text-xl font-semibold">Use your own font files</h3>
     <p>
       Self-host a licensed font so the browser can load it directly from your
       site. This guide does not upload files or change the project's styles.
@@ -48,3 +98,50 @@ const fontExample = `@font-face {
     </ol>
   </article>
 </Layout>
+
+<script>
+  import { googleFontIds } from "../../data/google-font-names.js";
+
+  const form = document.querySelector<HTMLFormElement>("#google-font-command");
+  const names =
+    document.querySelector<HTMLTextAreaElement>("#google-font-names");
+  const result = document.querySelector<HTMLElement>("#google-font-result");
+  const output = document.querySelector<HTMLInputElement>(
+    "#google-font-output",
+  );
+  const copy = document.querySelector<HTMLButtonElement>(
+    "#copy-google-font-command",
+  );
+  const status = document.querySelector("#google-font-status");
+
+  if (form && names && result && output && copy && status) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      try {
+        output.value = `npm run fonts:add -- ${googleFontIds(names.value).join(" ")}`;
+        result.hidden = false;
+        status.textContent = "Command ready. No files have been changed.";
+      } catch (error) {
+        result.hidden = true;
+        status.textContent =
+          error instanceof Error ? error.message : String(error);
+      }
+    });
+    names.addEventListener("input", () => {
+      result.hidden = true;
+      status.textContent = "";
+    });
+    copy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(output.value);
+        status.textContent =
+          "Copied. Paste the command into the VS Code terminal.";
+      } catch (error) {
+        console.warn("Unable to copy the font install command:", error);
+        output.select();
+        status.textContent =
+          "Clipboard unavailable. The command is selected so you can copy it manually.";
+      }
+    });
+  }
+</script>

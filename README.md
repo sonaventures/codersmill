@@ -26,8 +26,20 @@ on smaller screens. The guide lists the steps in order: custom colors,
 custom fonts, page creation, themes, site navigation, and typography. The
 workspace and its embedded tools omit the header and footer. **Open tool in
 a new tab** opens the standalone page with its usual navigation. The
-custom-fonts step is a guide to self-hosting, not a file uploader. Form Builder
-is also available as an optional tool.
+custom-fonts step generates a local npm install command and also explains how
+to self-host your own font files. Form Builder is available as an optional tool.
+
+In **Add custom fonts**, enter Google Font family names and copy the generated
+command into the VS Code terminal at the project root. For example:
+
+```shell
+npm run fonts:add -- outfit playfair-display
+```
+
+The installer installs the corresponding Fontsource packages, adds imports
+and tokens in [fonts.css](./src/styles/themes/fonts.css), and registers the
+fonts in Typography Builder. It does not change the default site fonts.
+Restart the dev server if it was running during installation.
 
 On the Website Builder home page, **Reset to Tailwind colors** limits the
 Theme, Form, and Site Nav Builder palette pickers to Tailwind families in this
