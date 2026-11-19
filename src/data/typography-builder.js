@@ -23,6 +23,7 @@ export const typographyFonts = {
   "var(--font-plus-jakarta-sans)": "Plus Jakarta Sans",
   "var(--font-dm-sans)": "DM Sans",
   "var(--font-montserrat)": "Montserrat",
+  "var(--font-syne)": "Syne",
   "Arial, sans-serif": "Arial",
   "Georgia, serif": "Georgia",
   "'Times New Roman', serif": "Times New Roman",

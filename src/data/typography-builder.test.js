@@ -45,6 +45,7 @@ test("self-hosted fonts round-trip and are emitted in preview and saved CSS", ()
   const config = createTypography();
   config.defaults.h1 = { "font-family": "var(--font-montserrat)" };
   config.defaults.p = { "font-family": "var(--font-inter)" };
+  config.defaults.h2 = { "font-family": "var(--font-syne)", "font-weight": "800" };
   config.sections.about = {
     h1: { "font-family": "var(--font-plus-jakarta-sans)" },
     p: { "font-family": "var(--font-dm-sans)", "font-weight": "1000" },
@@ -57,7 +58,7 @@ test("self-hosted fonts round-trip and are emitted in preview and saved CSS", ()
   );
   assert.match(
     typographyCss(config, true),
-    /\[data-typography-preview\] h1 \{\n  font-family: var\(--font-montserrat\);/,
+    /\[data-typography-preview\] h2 \{\n  font-family: var\(--font-syne\);\n  font-weight: 800;/,
   );
 });
 

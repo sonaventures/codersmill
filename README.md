@@ -20,11 +20,12 @@ npm run build
 
 ## Website Builder
 
-The site self-hosts Inter, Plus Jakarta Sans, DM Sans, and Montserrat through
+The site self-hosts Inter, Plus Jakarta Sans, DM Sans, Montserrat, and Syne through
 [the theme font stylesheet](./src/styles/themes/fonts.css). Use `font-inter`,
-`font-plus-jakarta-sans`, `font-dm-sans`, or `font-montserrat` in Tailwind markup.
+`font-plus-jakarta-sans`, `font-dm-sans`, `font-montserrat`, or `font-syne` in Tailwind markup.
 These utilities are opt-in and do not replace the site's default fonts.
-Each variable font includes its full weight range in both normal and italic:
+Syne supports weights 400-800 in normal style and has no native italic.
+The other variable fonts include their full weight ranges in both normal and italic:
 Inter and Montserrat support 100-900, Plus Jakarta Sans supports 200-800,
 and DM Sans supports 100-1000. Combine the family utility with a weight
 utility such as `font-thin` (100), `font-bold` (700), `font-extrabold` (800),
@@ -81,7 +82,7 @@ Presets set only their labeled property, not the entire utility; choose line
 height separately from font size. Font families and palette colors use site
 theme tokens; the other presets use Tailwind's default values.
 The **Font family** menu includes the self-hosted Inter, Plus Jakarta Sans,
-DM Sans, and Montserrat for both site-wide defaults and section overrides.
+DM Sans, Montserrat, and Syne for both site-wide defaults and section overrides.
 Choose a supported weight in the **Font weight** menu, including 1000 for
 DM Sans.
 **Custom value** keeps manual sizes, line heights, letter spacing, and hex colors
