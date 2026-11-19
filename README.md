@@ -150,7 +150,7 @@ names are reserved; the editor manages only custom families. The editor checks
 `src`, `public`, and this browser's saved style groups before removal
 and blocks explicit references it finds there. It cannot detect dynamically
 constructed references or inspect groups in other browsers or exported files
-outside those directories. Refresh the theme template or Theme Maker after a
+outside those directories. Refresh the theme template or Theme Builder after a
 change to see the updated palette.
 The Color Editor uses the shared `xl`-width Website Builder header and builder footer.
 
@@ -162,7 +162,9 @@ The separate **Hero** editing area includes its own sample hero with headings,
 paragraph text, and primary/secondary buttons. Its `canvas-hero` (plus border
 and shadow), `ink-hero` (plus heading variants), and `accent-hero-*` tokens are
 available as Tailwind colors and are saved independently in each theme.
-Existing hero-gradient and glow tokens remain unchanged.
+The preview's light-mode hero defaults to a pale sky background and dark text;
+saved hero colors still override those defaults. The dark-mode preview and the
+site's hero-gradient and glow tokens remain unchanged.
 The sample fills the available area without an outer frame.
 Its header, page introduction, sections, and footer have full-width backgrounds
 with centered content capped at the `lg` screen width (1024px).
@@ -170,11 +172,13 @@ On desktop, the controls are pinned to the right edge at full viewport height
 with independent scrolling, and the preview reserves space beside them. On small
 screens, the controls stack below the preview.
 The full-width builder header has content capped at `xl` (1280px) and contains **Website Builder**,
-**Theme Maker**, its introduction, and the light/dark toggle instead of the site's
+**Theme Builder**, its introduction, and the light/dark toggle instead of the site's
 logo and navigation. The sidebar sits below the visible header and fills the
 viewport height as the header scrolls out of view.
 The header uses compact typography and spacing, with a centered theme toggle
 and right-aligned links to every builder and the theme template.
+In light mode, the color controls use higher-contrast borders without changing
+the borders of the sample canvas or its elements.
 
 The controls include Tailwind's built-in color ramps and the custom ramps in
 `src/styles/themes/colors.css`. The site's light and dark semantic defaults use

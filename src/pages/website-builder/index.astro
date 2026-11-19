@@ -9,17 +9,17 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
   title="Website Builder"
   description="A practical toolkit for building pages and navigation and shaping your website's colors, themes, and typography."
 >
-  <section class="bg-canvas-brand-primary text-ink-inverse">
+  <section class="bg-canvas-brand-primary text-ink-page">
     <div class="container grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-28">
       <div class="grid justify-items-start gap-6">
-        <p class="rounded-full border border-ink-inverse/25 px-4 py-2 text-sm font-semibold tracking-wide">
+        <p class="rounded-full border border-ink-page/25 px-4 py-2 text-sm font-semibold tracking-wide">
           Your creative workspace
         </p>
         <h2 class="max-w-3xl font-display text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
           Make every detail feel like
-          <span class="text-brand-02"> yours.</span>
+          <span class="text-ink-page-first-header"> yours.</span>
         </h2>
-        <p class="max-w-xl text-lg leading-relaxed text-ink-inverse/80">
+        <p class="max-w-xl text-lg leading-relaxed text-ink-page-muted">
           From your first page layout to the finishing touches, find the tools
           to shape a website that feels considered and complete.
         </p>
@@ -28,7 +28,7 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
             Start building <span aria-hidden="true">→</span>
           </a>
           <a
-            class="btn border-ink-inverse/40 text-ink-inverse hover:bg-ink-inverse/10"
+            class="btn border-ink-page/40 text-ink-page hover:bg-ink-page/10"
             href="#builder-tools"
           >
             Explore the tools
@@ -37,19 +37,19 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
       </div>
 
       <div
-        class="rounded-3xl border border-ink-inverse/20 bg-ink-inverse/5 p-4 shadow-2xl sm:p-6"
+        class="rounded-3xl border border-ink-page/20 bg-ink-page/5 p-4 shadow-2xl sm:p-6"
         aria-label="A preview of the website builder workflow"
       >
         <div class="rounded-2xl bg-canvas-page p-5 text-ink-page shadow-xl sm:p-7">
           <div class="flex items-center justify-between gap-4 border-b border-canvas-page-border pb-5">
             <div>
-              <p class="text-sm font-semibold text-accent-page-focus">
+              <p class="text-sm font-semibold text-ink-page-first-header">
                 WEBSITE PROJECT
               </p>
               <p class="mt-1 text-xl font-bold">A fresh starting point</p>
             </div>
             <span
-              class="grid size-11 shrink-0 place-items-center rounded-full bg-canvas-brand-primary text-lg text-ink-inverse"
+              class="grid size-11 shrink-0 place-items-center rounded-full bg-canvas-brand-primary text-lg text-ink-page"
               aria-hidden="true"
             >
               ✦
@@ -62,7 +62,7 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
               ["03", "Bring it together", "Make every detail work in harmony"],
             ].map(([number, title, description]) => (
               <li class="flex items-start gap-4 rounded-xl border border-canvas-page-border p-4">
-                <span class="pt-0.5 text-sm font-bold text-accent-page-focus">
+                <span class="pt-0.5 text-sm font-bold text-ink-page-first-header">
                   {number}
                 </span>
                 <div>
@@ -91,7 +91,7 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
     aria-labelledby="builder-tools-title"
   >
     <div class="grid max-w-2xl gap-3">
-      <p class="text-sm font-semibold tracking-wide text-accent-page-focus uppercase">
+      <p class="text-sm font-semibold tracking-wide text-ink-page-first-header uppercase">
         The toolkit
       </p>
       <h2
@@ -113,11 +113,11 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
           href={href}
         >
           <div class="flex items-center justify-between">
-            <span class="text-sm font-semibold text-accent-page-focus">
+            <span class="text-sm font-semibold text-ink-page-first-header">
               0{index + 1}
             </span>
             <span
-              class="grid size-10 place-items-center rounded-full bg-canvas-page-card-01 text-xl text-accent-page-focus transition group-hover:bg-canvas-brand-primary group-hover:text-ink-inverse"
+              class="grid size-10 place-items-center rounded-full bg-canvas-page-card-01 text-xl text-ink-page-first-header transition group-hover:bg-canvas-brand-primary"
               aria-hidden="true"
             >
               ↗
@@ -127,7 +127,7 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
             <h3 class="text-xl font-bold">{label}</h3>
             <p class="leading-relaxed text-ink-page-muted">{description}</p>
           </div>
-          <span class="text-sm font-semibold text-accent-page-focus">
+          <span class="text-sm font-semibold text-ink-page-first-header">
             Open tool <span aria-hidden="true">→</span>
           </span>
         </a>

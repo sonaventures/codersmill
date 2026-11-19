@@ -483,6 +483,21 @@
   background: var(--sample-background);
   @apply text-(--sample-text);
 }
+:root:not([data-theme="dark"]) .selector-shell [data-region="hero"] {
+  --canvas-hero: var(--color-sky-100);
+  --canvas-hero-border: var(--color-sky-300);
+  --ink-hero: var(--color-slate-800);
+  --ink-hero-h1: var(--color-sky-950);
+  --ink-hero-h2: var(--color-sky-900);
+  --ink-hero-h3: var(--color-sky-800);
+  --ink-hero-h4: var(--color-slate-700);
+  --accent-hero-focus: var(--color-sky-800);
+  --hero-preview-button-state-background: color-mix(
+    in srgb,
+    var(--sample-accentFocus) 15%,
+    var(--sample-background)
+  );
+}
 .selector-shell .sample-header > .sample-container {
   @apply flex flex-wrap items-center justify-between gap-4 py-6;
 }
@@ -775,11 +790,16 @@
 .selector-shell .color-fields legend {
   @apply mb-[0.45rem] block text-[0.75rem] font-[650];
 }
+:root:not([data-theme="dark"])
+  .selector-shell
+  :is(.selector-panel, .palette-picker) {
+  --selector-control-border: var(--color-slate-500);
+}
 .selector-shell .selector-panel select,
 .selector-shell .palette-picker select,
 .selector-shell #group-name {
   @apply w-full p-[0.65rem];
-  border: 1px solid var(--canvas-page-border);
+  border: 1px solid var(--selector-control-border, var(--canvas-page-border));
   @apply rounded-[0.35rem];
   background: var(--canvas-page);
   @apply mb-[0.7rem] text-[0.8rem] text-ink-page;
@@ -790,7 +810,7 @@
 }
 .selector-shell .color-field {
   @apply mb-2 grid grid-cols-[1.5rem_minmax(0,1fr)] items-center gap-2 p-[0.65rem];
-  border: 1px solid var(--canvas-page-border);
+  border: 1px solid var(--selector-control-border, var(--canvas-page-border));
   @apply cursor-pointer rounded-[0.4rem];
 }
 .selector-shell .color-field:hover {
@@ -814,7 +834,7 @@
 }
 .selector-shell .role-swatch {
   @apply h-6 w-6;
-  border: 1px solid var(--canvas-page-border);
+  border: 1px solid var(--selector-control-border, var(--canvas-page-border));
   @apply rounded-sm;
 }
 .selector-shell .role-swatch[data-transparent="true"],
@@ -926,7 +946,7 @@
 }
 .selector-shell .color-field input[type="text"] {
   @apply col-span-full w-full min-w-0;
-  border: 1px solid var(--canvas-page-border);
+  border: 1px solid var(--selector-control-border, var(--canvas-page-border));
   @apply rounded-sm p-[0.3rem];
   background: var(--canvas-page);
   @apply text-ink-page;

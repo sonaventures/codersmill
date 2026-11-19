@@ -25,7 +25,7 @@ export const builderPages = [
     description: "Add, edit, and organize your color families.",
   },
   {
-    label: "Theme Maker",
+    label: "Theme Builder",
     href: "/website-builder/themebuilder/",
     description: "Explore color combinations and save reusable style groups.",
   },

@@ -413,6 +413,9 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
     case "buttonHoverBackground":
     case "buttonFocusBackground":
     case "buttonActiveBackground":
+      return region === "hero"
+        ? "var(--hero-preview-button-state-background,var(--sample-accentFocus))"
+        : "var(--sample-accentFocus)";
     case "linkHover":
     case "linkFocus":
     case "linkActive":
