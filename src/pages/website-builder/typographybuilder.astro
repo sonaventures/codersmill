@@ -20,7 +20,7 @@ const sampleText: Record<string, string> = {
   title="Typography Builder"
   description="Set site-wide typography and overrides for sections by ID."
 >
-  <div class="container grid gap-8 py-12" data-typography-builder>
+  <div class="container grid gap-8 pt-12" data-typography-builder>
     <header class="grid max-w-3xl gap-3">
       <p>
         Set site-wide styles for headings, paragraphs, emphasis, strong text,
@@ -37,26 +37,11 @@ const sampleText: Record<string, string> = {
       </p>
     </header>
 
-    <div class="flex flex-wrap items-center gap-3">
-      <button type="button" class="btn btn-filled" id="save-typography">
-        Save to project
-      </button>
-      <button type="button" class="btn btn-outline" id="download-typography">
-        Download CSS
-      </button>
-      <button type="button" class="btn btn-outline" id="import-typography">
-        Import builder CSS
-      </button>
-      <input id="typography-file" type="file" accept=".css,text/css" hidden />
-    </div>
-    <p id="typography-status" role="status" aria-live="polite">
-      Loading saved project typography.
-    </p>
     <p class="text-sm">
-      Save requires Chrome or Edge on localhost or HTTPS. Choose the project
-      folder containing src and public. In other browsers, download CSS and
-      replace src/styles/utilities/typography.css manually. Files stay on your
-      computer. Saving replaces only that builder-managed stylesheet.
+      In Chrome or Edge on localhost or HTTPS, click Save to project and choose
+      the project folder containing <code>src</code> and <code>public</code>.
+      Saving replaces only <code>src/styles/themes/typography.css</code>. In
+      other browsers, use Download CSS and replace that file manually.
     </p>
 
     <div class="grid items-start gap-8 lg:grid-cols-2">
@@ -237,6 +222,28 @@ const sampleText: Record<string, string> = {
           <pre class="mt-3 max-h-80 overflow-auto rounded border border-canvas-page-border p-4 text-xs"><code id="typography-css"></code></pre>
         </details>
       </aside>
+    </div>
+
+    <div
+      role="group"
+      aria-label="Typography file actions"
+      class="sticky bottom-0 z-30 grid gap-2 rounded-t-xl border border-canvas-page-border bg-canvas-page p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] text-ink-page shadow-lg sm:px-4"
+    >
+      <div class="flex flex-wrap items-center gap-2">
+        <button type="button" class="btn btn-filled" id="save-typography">
+          Save to project
+        </button>
+        <button type="button" class="btn btn-outline" id="download-typography">
+          Download CSS
+        </button>
+        <button type="button" class="btn btn-outline" id="import-typography">
+          Import builder CSS
+        </button>
+        <input id="typography-file" type="file" accept=".css,text/css" hidden />
+      </div>
+      <p id="typography-status" role="status" aria-live="polite" class="text-sm">
+        Loading saved project typography.
+      </p>
     </div>
   </div>
   <script>

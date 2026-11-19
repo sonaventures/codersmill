@@ -1,4 +1,4 @@
-import savedCss from "../styles/utilities/typography.css?raw";
+import savedCss from "../styles/themes/typography.css?raw";
 import {
   parseTypography,
   serializeTypography,
@@ -253,7 +253,7 @@ download.addEventListener("click", () => {
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   status.textContent =
-    "CSS downloaded. Replace src/styles/utilities/typography.css in your project to apply it. The download includes editable builder settings.";
+    "CSS downloaded. Replace src/styles/themes/typography.css in your project to apply it. The download includes editable builder settings.";
 });
 
 importButton.addEventListener("click", () => {
@@ -286,7 +286,7 @@ save.addEventListener("click", async () => {
   if (busy || !form.reportValidity()) return;
   if (!("showDirectoryPicker" in window)) {
     status.textContent =
-      "Project folder saving requires Chrome or Edge on localhost or HTTPS. Download CSS and replace src/styles/utilities/typography.css instead.";
+      "Project folder saving requires Chrome or Edge on localhost or HTTPS. Download CSS and replace src/styles/themes/typography.css instead.";
     return;
   }
   setBusy(true);
@@ -299,16 +299,16 @@ save.addEventListener("click", async () => {
     const styles = await src.getDirectoryHandle("styles");
     const global = await (await styles.getFileHandle("global.css")).getFile();
     if (
-      !/@import\s+["']\.\/utilities\/typography\.css["']\s*;/.test(
+      !/@import\s+["']\.\/themes\/typography\.css["']\s*;/.test(
         await global.text(),
       )
     ) {
       throw new Error(
-        "Choose this websitebuilder project: global.css must import ./utilities/typography.css.",
+        "Choose this websitebuilder project: global.css must import ./themes/typography.css.",
       );
     }
-    const utilities = await styles.getDirectoryHandle("utilities");
-    const handle = await utilities.getFileHandle("typography.css");
+    const themes = await styles.getDirectoryHandle("themes");
+    const handle = await themes.getFileHandle("typography.css");
     const existing = await (await handle.getFile()).text();
     parseTypography(existing);
     const output = serializeTypography(config);
@@ -337,7 +337,7 @@ save.addEventListener("click", async () => {
     sourceCss = output;
     dirty = false;
     status.textContent =
-      "Saved src/styles/utilities/typography.css. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.";
+      "Saved src/styles/themes/typography.css. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.";
   } catch (error) {
     if (
       selectingFolder &&

@@ -87,9 +87,12 @@ unchanged; blank section fields follow the site-wide element defaults.
 The isolated live preview compares the defaults and selected section without
 changing the builder controls.
 
+The sticky bottom bar keeps **Save to project**, **Download CSS**, and
+**Import builder CSS** visible while editing.
 **Save to project** uses Chrome or Edge folder access on localhost or HTTPS,
 like Page Builder. Choose this project folder to replace
-`src/styles/utilities/typography.css`, which the shared layout imports globally.
+[`src/styles/themes/typography.css`](./src/styles/themes/typography.css),
+which the shared layout imports globally.
 The stylesheet stores the editable settings as well as CSS, so reloading the
 builder restores saved project settings. Overrides apply to matching elements
 inside the section, including nested sections; section IDs should be unique
