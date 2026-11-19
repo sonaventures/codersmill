@@ -160,7 +160,8 @@ discovers `.astro` components in `src/components/` and its subfolders,
 excluding the shared site header, site footer, and builder header. It supports required
 and optional `string`, `number`, and `boolean` properties declared directly in
 an `interface Props`; components using other property declarations are listed
-as unsupported, as are components with slots. Reopen the project folder after
+as unsupported, as are components with slots or files over 5 MB. These files
+do not block other components from loading. Reopen the project folder after
 changing a component. Existing pages are not moved.
 
 FlyonUI components with markup use `<section>` for their outer wrapper;
@@ -170,6 +171,10 @@ The hero examples in `src/components/flyonui/hero/` use Section 01 theme
 colors and the shared layout header. Their sample links, forms, and purchase
 actions are not connected. Alpine powers local interactions such as the meal
 carousel, quantity selector, and copy button.
+
+The Flowbite hero examples in `src/components/flowbite/hero/` use Section 01
+and CTA theme colors; image-backed overlays use the Hero theme colors. Their
+light and dark mockups follow the shared Alpine-powered header theme switch.
 
 The Website Builder layout loads
 [`websitebuilder.css`](./src/styles/websitebuilder/websitebuilder.css) for

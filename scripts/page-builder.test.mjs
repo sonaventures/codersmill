@@ -5,6 +5,7 @@ import {
   inspectComponent,
   pageRoute,
   pageSlug,
+  readComponents,
   saveNewPage,
 } from "../src/data/page-builder.js";
 
@@ -39,6 +40,45 @@ const { title } = Astro.props;
     inspectComponent("Dynamic.astro", "---\nconst props = Astro['props'];\n---")
       .error,
     /interface/,
+  );
+});
+
+test("discovers large components without letting oversized files stop the scan", async () => {
+  const directory = (entries) => ({
+    kind: "directory",
+    async *entries() {
+      yield* entries;
+    },
+  });
+  const componentFile = (size, text) => ({
+    kind: "file",
+    async getFile() {
+      return { size, text };
+    },
+  });
+  const source = "<section>Hello</section>";
+  const components = await readComponents(
+    directory([
+      [
+        "flyonui",
+        directory([
+          [
+            "TooLarge.astro",
+            componentFile(5_000_001, () => assert.fail("Should not read file")),
+          ],
+          ["Error.astro", componentFile(2_750_811, () => source)],
+        ]),
+      ],
+      ["Intro.astro", componentFile(source.length, () => source)],
+    ]),
+  );
+  assert.deepEqual(
+    components.filter(({ error }) => !error).map(({ path }) => path),
+    ["flyonui/Error.astro", "Intro.astro"],
+  );
+  assert.match(
+    components.find(({ path }) => path === "flyonui/TooLarge.astro").error,
+    /exceeds the 5 MB inspection limit/,
   );
 });
 

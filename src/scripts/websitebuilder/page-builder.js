@@ -1,8 +1,8 @@
 import {
   generatePage,
-  inspectComponent,
   pageRoute,
   pageSlug,
+  readComponents,
   saveNewPage,
 } from "../../data/page-builder.js";
 
@@ -40,24 +40,6 @@ function setBusy(value) {
 function report(error) {
   console.error("Page builder:", error);
   status.textContent = error instanceof Error ? error.message : String(error);
-}
-
-async function readComponents(directory, prefix = "") {
-  const result = [];
-  for await (const [name, handle] of directory.entries()) {
-    const relative = prefix ? `${prefix}/${name}` : name;
-    if (handle.kind === "directory") {
-      result.push(...(await readComponents(handle, relative)));
-    } else if (name.endsWith(".astro")) {
-      const file = await handle.getFile();
-      if (file.size > 1_000_000)
-        throw new Error(`Cannot inspect ${relative}: file exceeds 1 MB.`);
-      const source = await file.text();
-      const component = inspectComponent(relative, source);
-      if (component) result.push({ ...component, handle, source });
-    }
-  }
-  return result.sort((a, b) => a.path.localeCompare(b.path));
 }
 
 function updatePath() {

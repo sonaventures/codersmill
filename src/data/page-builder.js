@@ -1,4 +1,5 @@
 const componentPathPattern = /^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.astro$/;
+const componentSizeLimit = 5_000_000;
 const propertyPattern =
   /^([a-zA-Z_$][\w$]*)(\?)?\s*:\s*(string|number|boolean)$/;
 const excludedComponents = new Set([
@@ -45,6 +46,26 @@ export function inspectComponent(path, source) {
     });
   }
   return { path, properties };
+}
+
+export async function readComponents(directory, prefix = "") {
+  const result = [];
+  for await (const [name, handle] of directory.entries()) {
+    const path = prefix ? `${prefix}/${name}` : name;
+    if (handle.kind === "directory") {
+      result.push(...(await readComponents(handle, path)));
+    } else if (name.endsWith(".astro")) {
+      const file = await handle.getFile();
+      if (file.size > componentSizeLimit) {
+        result.push({ path, error: "File exceeds the 5 MB inspection limit." });
+        continue;
+      }
+      const source = await file.text();
+      const component = inspectComponent(path, source);
+      if (component) result.push({ ...component, handle, source });
+    }
+  }
+  return result.sort((a, b) => a.path.localeCompare(b.path));
 }
 
 export function pageSlug(name) {
