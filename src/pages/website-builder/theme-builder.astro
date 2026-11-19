@@ -4,7 +4,9 @@ import ThemeSampleCards from "../../components/websitebuilder/ThemeSampleCards.a
 import ThemeSampleIcon from "../../components/websitebuilder/ThemeSampleIcon.astro";
 import ThemeSampleSection from "../../components/websitebuilder/ThemeSampleSection.astro";
 import css from "../../styles/themes/colors.css?raw";
+import idCss from "../../styles/theme/id.css?raw";
 import { builtinPaletteFamilies, readPalette } from "../../data/palette.js";
+import { parseIdsFromCss } from "../../data/typography-builder.js";
 import {
   colorRoles,
   defaultColorReference,
@@ -22,6 +24,7 @@ import {
 } from "../../data/style-groups";
 
 setPaletteFamilies(readPalette(css));
+const themeIds = parseIdsFromCss(idCss);
 const builtinFamilyKeys = new Set(builtinPaletteFamilies.map(({ key }) => key));
 const pickerFamilies = [...paletteFamilies].sort(
   (a, b) =>
@@ -114,6 +117,34 @@ const sampleMenu = [
           data-region="page"
           style={regionStyle("page")}
         >
+          <div
+            class="sample-id-bar sample-id-bar-page"
+            data-section-id-control
+            data-studio-chrome
+          >
+            <div class="sample-id-bar-info">
+              <span class="sample-id-bar-dot"></span>
+              <strong>Page</strong>
+              <span class="sample-id-badge" id="badge-selector-sample-page">
+                #selector-sample-page
+              </span>
+            </div>
+            <div class="sample-id-bar-select-wrap">
+              <label for="id-select-page">Apply CSS ID:</label>
+              <select
+                id="id-select-page"
+                class="sample-id-select"
+                data-region-target="page"
+                data-default-id="selector-sample-page"
+              >
+                <option value="">Default (selector-sample-page)</option>
+                {themeIds.map((id) => (
+                  <option value={id}>#{id}</option>
+                ))}
+                <option value="__custom__">Custom ID...</option>
+              </select>
+            </div>
+          </div>
           <header
             class="sample-header"
             data-region="header"
