@@ -66,7 +66,7 @@ export function pageSlug(name) {
 export function pageRoute(slug) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug))
     throw new Error("Invalid page route.");
-  return slug === "index" ? "/pagebuilder/" : `/pagebuilder/${slug}/`;
+  return slug === "index" ? "/" : `/${slug}/`;
 }
 
 function literal(value) {
@@ -120,14 +120,14 @@ export function generatePage(name, description, selected) {
   });
   const componentImports = [...imports].map(
     ([path, alias]) =>
-      `import ${alias} from ${literal(`../../components/${path}`)};`,
+      `import ${alias} from ${literal(`../components/${path}`)};`,
   );
   const layoutDescription = description.trim()
     ? ` description={${literal(description.trim())}}`
     : "";
   return [
     "---",
-    'import Layout from "../../layouts/layout.astro";',
+    'import Layout from "../layouts/layout.astro";',
     ...componentImports,
     "---",
     "",
@@ -141,10 +141,6 @@ export function generatePage(name, description, selected) {
 export async function saveNewPage(directory, filename, content) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*\.astro$/.test(filename))
     throw new Error("Invalid page file name.");
-  if (filename === "pagebuilder.astro")
-    throw new Error(
-      "pagebuilder.astro is reserved for the Page Builder redirect. Choose a different page name.",
-    );
   try {
     await directory.getFileHandle(filename);
     throw new Error(

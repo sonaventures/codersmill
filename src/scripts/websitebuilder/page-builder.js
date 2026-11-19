@@ -69,7 +69,7 @@ function updatePath() {
   try {
     const slug = pageSlug(name.value);
     name.setCustomValidity("");
-    path.textContent = `File: src/pages/pagebuilder/${slug}.astro · Route: ${pageRoute(slug)}`;
+    path.textContent = `File: src/pages/${slug}.astro · Route: ${pageRoute(slug)}`;
   } catch (error) {
     name.setCustomValidity(error.message);
     path.textContent = error.message;
@@ -214,9 +214,7 @@ open.addEventListener("click", async () => {
       await builderDirectory.getFileHandle("page-builder.astro");
       const layouts = await src.getDirectoryHandle("layouts");
       await layouts.getFileHandle("layout.astro");
-      pageDirectory = await pages.getDirectoryHandle("pagebuilder", {
-        create: true,
-      });
+      pageDirectory = pages;
     } catch (error) {
       if (
         error instanceof DOMException &&
@@ -296,7 +294,7 @@ form.addEventListener("submit", async (event) => {
     await saveNewPage(pageDirectory, `${slug}.astro`, content);
     createdLink.href = pageRoute(slug);
     createdLink.hidden = false;
-    status.textContent = `Created src/pages/pagebuilder/${slug}.astro.`;
+    status.textContent = `Created src/pages/${slug}.astro.`;
   } catch (error) {
     report(error);
   } finally {

@@ -47,15 +47,20 @@ test("generates ordered components with escaped values and a shared layout", () 
     path: "PageIntro.astro",
     properties: [{ name: "title", type: "string", optional: false }],
   };
-  const card = { path: "Cards.astro", properties: [] };
+  const card = { path: "cards/Cards.astro", properties: [] };
   const result = generatePage('Our "Page"', "", [
     { component: intro, values: { title: "</Layout><script>" } },
     { component: card, values: {} },
     { component: intro, values: { title: "Again" } },
   ]);
+  assert.match(result, /import Layout from "\.\.\/layouts\/layout\.astro"/);
   assert.match(
     result,
-    /import Layout from "\.\.\/\.\.\/layouts\/layout\.astro"/,
+    /import Component1 from "\.\.\/components\/PageIntro\.astro"/,
+  );
+  assert.match(
+    result,
+    /import Component2 from "\.\.\/components\/cards\/Cards\.astro"/,
   );
   assert.equal((result.match(/import Component1/g) ?? []).length, 1);
   assert.match(
@@ -99,17 +104,13 @@ test("generates typed values without dropping false or zero", () => {
 
 test("page names produce safe routes, including Astro's index route", () => {
   assert.equal(pageSlug("Café & Services"), "cafe-services");
-  assert.equal(pageRoute("cafe-services"), "/pagebuilder/cafe-services/");
-  assert.equal(pageRoute("index"), "/pagebuilder/");
+  assert.equal(pageRoute("cafe-services"), "/cafe-services/");
+  assert.equal(pageRoute("index"), "/");
   assert.throws(() => pageSlug("///"), /file name/);
   assert.throws(() => pageRoute("../other"), /Invalid/);
 });
 
 test("refuses to overwrite existing files and surfaces write failures", async () => {
-  await assert.rejects(
-    saveNewPage({}, "pagebuilder.astro", "content"),
-    /reserved/,
-  );
   let created = false;
   const existing = {
     async getFileHandle(_name, options) {
@@ -118,7 +119,7 @@ test("refuses to overwrite existing files and surfaces write failures", async ()
     },
   };
   await assert.rejects(
-    saveNewPage(existing, "page.astro", "content"),
+    saveNewPage(existing, "index.astro", "content"),
     /already exists/,
   );
   assert.equal(created, false);
@@ -158,11 +159,15 @@ test("refuses a page route already used by another page or directory index", asy
       throw new DOMException("Missing", "NotFoundError");
     },
   });
-  const existingIndex = directory([["index.mdx", { kind: "file" }]]);
+  const existingIndex = directory([["index.astro", { kind: "file" }]]);
   existingIndex.kind = "directory";
   await assert.rejects(
-    saveNewPage(directory([["page", existingIndex]]), "page.astro", "content"),
-    /page\/index\.mdx/,
+    saveNewPage(
+      directory([["website-builder", existingIndex]]),
+      "website-builder.astro",
+      "content",
+    ),
+    /website-builder\/index\.astro/,
   );
   await assert.rejects(
     saveNewPage(

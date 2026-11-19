@@ -153,16 +153,15 @@ applying it until saved. Unsaved preview changes are not persisted.
 Use `/website-builder/page-builder/` to create an Astro page from components. Choose
 the project folder in Chrome or Edge on localhost or HTTPS, enter a page name,
 and add, reorder, or remove components. The generated file is saved under
-`src/pages/pagebuilder/` without overwriting an existing file or duplicating an
-existing page route. The layout adds the site header and footer. The builder
-discovers `.astro` components under
-`src/components`, excluding header and footer components. It supports required
+`src/pages/` without overwriting an existing file or duplicating an existing
+page route. For example, **Our Services** becomes `src/pages/our-services.astro`
+at `/our-services/`. The layout adds the site header and footer. The builder
+discovers `.astro` components in `src/components/` and its subfolders,
+excluding the shared site header, site footer, and builder header. It supports required
 and optional `string`, `number`, and `boolean` properties declared directly in
 an `interface Props`; components using other property declarations are listed
 as unsupported, as are components with slots. Reopen the project folder after
-changing a component. Generated content pages stay in `src/pages/pagebuilder/`;
-the builder creates that directory if needed. The name `pagebuilder` remains
-reserved for the old builder URL's redirect.
+changing a component. Existing pages are not moved.
 
 FlyonUI components with markup use `<section>` for their outer wrapper;
 inner layout containers can still use `<div>`.

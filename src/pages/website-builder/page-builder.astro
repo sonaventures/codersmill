@@ -9,9 +9,9 @@ import Layout from "../../layouts/website-builder.astro";
   <section class="container grid max-w-5xl gap-8 py-12" data-page-builder>
     <header class="grid gap-3">
       <p>
-        Choose your websitebuilder project folder to create a page in
-        <code>src/pages/pagebuilder</code>. The layout adds the site header and
-        footer automatically.
+        Choose your websitebuilder project folder to create a page directly in
+        <code>src/pages</code>. The layout adds the site header and footer
+        automatically.
       </p>
       <p>
         Folder access requires Chrome or Edge on localhost or HTTPS. Files stay
@@ -28,8 +28,14 @@ import Layout from "../../layouts/website-builder.astro";
     <p id="page-builder-status" role="status" aria-live="polite">
       Choose the project folder to begin.
     </p>
-    <a id="created-page-link" class="text-accent-page-focus underline" hidden>
-      Open the new page
+    <a
+      id="created-page-link"
+      class="text-accent-page-focus underline"
+      target="_blank"
+      rel="noopener"
+      hidden
+    >
+      Open the new page in a new tab
     </a>
 
     <form id="page-builder-form" hidden>
@@ -64,8 +70,9 @@ import Layout from "../../layouts/website-builder.astro";
             Available components
           </label>
           <p class="text-sm">
-            Components with unsupported properties or slots are listed but
-            cannot be added.
+            Pick an Astro component from <code>src/components</code>, including
+            its subfolders. Components with unsupported properties or slots are
+            listed but cannot be added.
           </p>
           <select
             id="available-components"
