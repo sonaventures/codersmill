@@ -20,6 +20,15 @@ npm run build
 
 ## Website Builder
 
+Open `/website-builder/` for the workspace. The scrollable guide sits to the
+left of the selected tool at widths of 640px and above and stacks above it
+on smaller screens. The guide lists the steps in order: custom colors,
+custom fonts, page creation, themes, site navigation, and typography. The
+workspace and its embedded tools omit the header and footer. **Open tool in
+a new tab** opens the standalone page with its usual navigation. The
+custom-fonts step is a guide to self-hosting, not a file uploader. Form Builder
+is also available as an optional tool.
+
 On the Website Builder home page, **Reset to Tailwind colors** limits the
 Theme, Form, and Site Nav Builder palette pickers to Tailwind families in this
 browser. **Show custom colors** restores the full list. Neither button changes

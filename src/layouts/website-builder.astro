@@ -16,9 +16,17 @@ const currentPath = `${Astro.url.pathname.replace(/\/$/, "")}/`;
 <Layout title={title} description={description} siteName="Website Builder">
   <StudioHeader slot="header" title={title} description={description} />
   <div data-website-builder-content>
+    <script is:inline>
+      if (
+        window.parent !== window &&
+        new URLSearchParams(location.search).get("workspace") === "1"
+      ) {
+        document.documentElement.dataset.builderEmbedded = "";
+      }
+    </script>
     <slot />
   </div>
-  <footer slot="footer" class="site-footer relative z-20">
+  <footer slot="footer" class="site-footer relative z-20" data-studio-footer>
     <div class="footer-inner">
       <div class="footer-intro">
         <a class="footer-wordmark" href="/website-builder/">

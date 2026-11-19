@@ -1,0 +1,50 @@
+---
+import Layout from "../../layouts/website-builder.astro";
+
+const fontExample = `@font-face {
+  font-family: "Example Sans";
+  src: url("/fonts/example-sans.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}`;
+---
+
+<Layout
+  title="Add custom fonts"
+  description="A guide to self-hosting fonts in your website project."
+>
+  <article class="mx-auto grid max-w-3xl gap-5 p-6 text-ink-page sm:p-8">
+    <h2 class="font-display text-2xl font-bold">Add custom fonts</h2>
+    <p>
+      Self-host a licensed font so the browser can load it directly from your
+      site. This guide does not upload files or change the project's styles.
+    </p>
+    <ol class="grid list-decimal gap-4 ps-6">
+      <li>
+        Put your licensed <code>.woff2</code> file in <code>public/fonts/</code>
+        . Create the folder if needed.
+      </li>
+      <li>
+        Add an <code>@font-face</code> rule to{" "}
+        <code>src/styles/themes/fonts.css</code>, below the existing imports.
+        Use your actual font name, file name, weight, and style.
+        <pre class="my-3 overflow-x-auto rounded-lg border border-canvas-page-border p-4 text-sm"><code>{fontExample}</code></pre>
+        Add a separate rule for each additional weight or style, or a supported
+        weight range for a variable font.
+      </li>
+      <li>
+        Inside the existing <code>@theme static</code> block, add a token such
+        as <code>--font-example-sans: "Example Sans", sans-serif;</code>. You
+        can then use <code>font-example-sans</code> in your markup.
+      </li>
+      <li>
+        To list the font in Typography Builder, add{" "}
+        <code>"var(--font-example-sans)": "Example Sans"</code> to{" "}
+        <code>typographyFonts</code> in{" "}
+        <code>src/data/typography-builder.js</code>. Reopen Typography Builder
+        and select it under <strong>Font family</strong>.
+      </li>
+    </ol>
+  </article>
+</Layout>

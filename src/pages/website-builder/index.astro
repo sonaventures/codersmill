@@ -1,181 +1,105 @@
 ---
-import Layout from "../../layouts/website-builder.astro";
-import { builderPages } from "../../data/website-builder";
+import Layout from "../../layouts/layout.astro";
+import "../../styles/websitebuilder/websitebuilder.css";
 
-const tools = builderPages.filter(({ label }) => label !== "Home");
+const steps = [
+  { label: "Add custom colors", slug: "colors" },
+  { label: "Add custom fonts", slug: "custom-fonts" },
+  { label: "Create a page", slug: "page-builder" },
+  { label: "Theme Builder", slug: "theme-builder" },
+  { label: "Site Nav Builder", slug: "sitenav-builder" },
+  { label: "Typography Builder", slug: "typography-builder" },
+];
+const toolPath = (slug: string) => `/website-builder/${slug}/`;
+const initialPath = toolPath(steps[0].slug);
 ---
 
 <Layout
-  title="Website Builder"
-  description="A practical toolkit for building pages and navigation and shaping your website's colors, themes, and typography."
+  siteName="Website Builder"
+  description="Follow the guide to build and style your website."
+  showHeader={false}
+  showFooter={false}
 >
-  <section class="bg-canvas-brand-primary text-ink-page">
-    <div class="container grid items-center gap-12 py-16 sm:py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-28">
-      <div class="grid justify-items-start gap-6">
-        <p class="rounded-full border border-ink-page/25 px-4 py-2 text-sm font-semibold tracking-wide">
-          Your creative workspace
-        </p>
-        <h2 class="max-w-3xl font-display text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
-          Make every detail feel like
-          <span class="text-ink-page-first-header"> yours.</span>
-        </h2>
-        <p class="max-w-xl text-lg leading-relaxed text-ink-page-muted">
-          From your first page layout to the finishing touches, find the tools
-          to shape a website that feels considered and complete.
-        </p>
-        <div class="flex flex-wrap gap-3 pt-2">
-          <a class="btn btn-filled" href="/website-builder/page-builder/">
-            Start building <span aria-hidden="true">→</span>
-          </a>
-          <a
-            class="btn border-ink-page/40 text-ink-page hover:bg-ink-page/10"
-            href="#builder-tools"
-          >
-            Explore the tools
-          </a>
-        </div>
-      </div>
-
-      <div
-        class="rounded-3xl border border-ink-page/20 bg-ink-page/5 p-4 shadow-2xl sm:p-6"
-        aria-label="A preview of the website builder workflow"
-      >
-        <div class="rounded-2xl bg-canvas-page p-5 text-ink-page shadow-xl sm:p-7">
-          <div class="flex items-center justify-between gap-4 border-b border-canvas-page-border pb-5">
-            <div>
-              <p class="text-sm font-semibold text-ink-page-first-header">
-                WEBSITE PROJECT
-              </p>
-              <p class="mt-1 text-xl font-bold">A fresh starting point</p>
-            </div>
-            <span
-              class="grid size-11 shrink-0 place-items-center rounded-full bg-canvas-brand-primary text-lg text-ink-page"
-              aria-hidden="true"
-            >
-              ✦
-            </span>
-          </div>
-          <ol class="mt-5 grid gap-3">
-            {[
-              ["01", "Build your pages", "Give your ideas a place to live"],
-              ["02", "Find your colors", "Set a palette that feels right"],
-              ["03", "Bring it together", "Make every detail work in harmony"],
-            ].map(([number, title, description]) => (
-              <li class="flex items-start gap-4 rounded-xl border border-canvas-page-border p-4">
-                <span class="pt-0.5 text-sm font-bold text-ink-page-first-header">
-                  {number}
-                </span>
-                <div>
-                  <p class="font-semibold">{title}</p>
-                  <p class="mt-1 text-sm text-ink-page-muted">{description}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <div class="mt-5 flex gap-2" aria-label="A sample color palette">
-            <span class="h-2 flex-1 rounded-full bg-brand-01"></span>
-            <span class="h-2 flex-1 rounded-full bg-brand-02"></span>
-            <span class="h-2 flex-1 rounded-full bg-brand-03"></span>
-            <span class="h-2 flex-1 rounded-full bg-brand-04"></span>
-            <span class="h-2 flex-1 rounded-full bg-brand-05"></span>
-            <span class="h-2 flex-1 rounded-full bg-brand-06"></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section
-    id="builder-tools"
-    class="container grid gap-8 py-16 sm:py-20 lg:py-24"
-    aria-labelledby="builder-tools-title"
-  >
-    <div class="grid max-w-2xl gap-3">
-      <p class="text-sm font-semibold tracking-wide text-ink-page-first-header uppercase">
-        The toolkit
-      </p>
-      <h2
-        id="builder-tools-title"
-        class="font-display text-3xl font-bold text-ink-page sm:text-4xl"
-      >
-        Everything you need to shape your site
-      </h2>
-      <p class="text-lg text-ink-page-muted">
-        Start with the piece you need today. Your tools are ready whenever
-        inspiration strikes.
-      </p>
-    </div>
-
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {tools.map(({ label, href, description }, index) => (
+  <div class="builder-workspace" data-website-builder-content>
+    <aside
+      class="builder-workspace-guide"
+      aria-labelledby="builder-guide-title"
+      tabindex="0"
+    >
+      <h1 id="builder-guide-title" class="text-lg font-bold">
+        Builder guide
+      </h1>
+      <nav aria-labelledby="builder-guide-title">
+        <ol class="my-4 grid list-decimal gap-2 ps-6">
+          {steps.map(({ label, slug }, index) => (
+            <li>
+              <a
+                class="builder-workspace-link"
+                href={`${toolPath(slug)}?workspace=1`}
+                target="builder-tool"
+                aria-current={index === 0 ? "step" : undefined}
+                data-tool={slug}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ol>
         <a
-          class="group grid content-start gap-8 rounded-2xl border border-canvas-page-border bg-canvas-page p-6 text-ink-page no-underline shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg"
-          href={href}
+          class="builder-workspace-link"
+          href={`${toolPath("form-builder")}?workspace=1`}
+          target="builder-tool"
+          data-tool="form-builder"
         >
-          <div class="flex items-center justify-between">
-            <span class="text-sm font-semibold text-ink-page-first-header">
-              0{index + 1}
-            </span>
-            <span
-              class="grid size-10 place-items-center rounded-full bg-canvas-page-card-01 text-xl text-ink-page-first-header transition group-hover:bg-canvas-brand-primary"
-              aria-hidden="true"
-            >
-              ↗
-            </span>
-          </div>
-          <div class="grid gap-2">
-            <h3 class="text-xl font-bold">{label}</h3>
-            <p class="leading-relaxed text-ink-page-muted">{description}</p>
-          </div>
-          <span class="text-sm font-semibold text-ink-page-first-header">
-            Open tool <span aria-hidden="true">→</span>
-          </span>
+          Form Builder <span class="text-sm">(optional)</span>
         </a>
-      ))}
-    </div>
-  </section>
+      </nav>
 
-  <section
-    class="container grid justify-items-start gap-4 py-10"
-    aria-labelledby="builder-palette-title"
-  >
-    <h2 id="builder-palette-title" class="text-2xl font-bold">
-      Builder color palettes
-    </h2>
-    <p>
-      Limit the palette pickers to Tailwind CSS defaults without deleting custom
-      colors or changing saved styles.
-    </p>
-    <div class="flex flex-wrap gap-3">
-      <button type="button" class="btn btn-outline" id="reset-builder-palette">
-        Reset to Tailwind colors
-      </button>
-      <button
-        type="button"
-        class="btn btn-outline"
-        id="restore-builder-palette"
-      >
-        Show custom colors
-      </button>
-    </div>
-    <p id="builder-palette-status" role="status"></p>
-  </section>
-
-  <section class="border-y border-canvas-page-border bg-canvas-page-card-01">
-    <div class="container flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:py-12">
-      <div class="grid gap-2">
-        <h2 class="text-2xl font-bold text-ink-page">
-          Ready to bring your idea to life?
-        </h2>
-        <p class="text-ink-page-muted">
-          Start by creating a page, then refine your site's style.
-        </p>
+      <div class="mt-5 grid justify-items-start gap-2 border-t border-canvas-page-border pt-4">
+        <button
+          type="button"
+          class="btn btn-outline"
+          id="builder-workspace-theme"
+        >
+          Switch theme
+        </button>
+        <h2 class="font-semibold">Builder color palettes</h2>
+        <button
+          type="button"
+          class="btn btn-outline"
+          id="reset-builder-palette"
+        >
+          Reset to Tailwind colors
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline"
+          id="restore-builder-palette"
+        >
+          Show custom colors
+        </button>
+        <p id="builder-palette-status" class="text-sm" role="status"></p>
       </div>
-      <a class="btn btn-filled w-fit" href="/website-builder/page-builder/">
-        Go to Page Builder <span aria-hidden="true">→</span>
+    </aside>
+
+    <section class="builder-workspace-tool" aria-label="Selected builder">
+      <a
+        id="open-full-builder"
+        class="builder-workspace-full-link"
+        href={initialPath}
+        target="_blank"
+        rel="noopener"
+      >
+        Open tool in a new tab
       </a>
-    </div>
-  </section>
+      <iframe
+        id="builder-tool"
+        name="builder-tool"
+        title={steps[0].label}
+        src={`${initialPath}?workspace=1`}
+      ></iframe>
+    </section>
+  </div>
 </Layout>
 
 <script>
@@ -184,36 +108,94 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
     usesTailwindPaletteOnly,
   } from "../../scripts/websitebuilder/palette-preference";
 
-  const reset = document.querySelector<HTMLButtonElement>(
-    "#reset-builder-palette",
-  );
-  const restore = document.querySelector<HTMLButtonElement>(
-    "#restore-builder-palette",
+  const tool = document.querySelector<HTMLIFrameElement>("#builder-tool");
+  const fullPage =
+    document.querySelector<HTMLAnchorElement>("#open-full-builder");
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-tool]");
+  const themeToggle = document.querySelector<HTMLButtonElement>(
+    "#builder-workspace-theme",
   );
   const status = document.querySelector("#builder-palette-status");
+  const reset = document.querySelector("#reset-builder-palette");
+  const restore = document.querySelector("#restore-builder-palette");
+  const themeKey = "exclusive-group-theme";
 
-  if (reset && restore && status) {
-    function render(enabled: boolean) {
-      if (!status) return;
-      status.textContent = enabled
-        ? "Palette pickers show only Tailwind colors in this browser."
-        : "Palette pickers show Tailwind and custom color families.";
-    }
-
-    function update(enabled: boolean) {
-      try {
-        setTailwindPaletteOnly(enabled);
-        render(enabled);
-      } catch (error) {
-        console.error("Unable to save the builder palette preference:", error);
-        if (status)
-          status.textContent =
-            "Could not save your palette preference. Check your browser storage settings.";
-      }
-    }
-
-    render(usesTailwindPaletteOnly());
-    reset.addEventListener("click", () => update(true));
-    restore.addEventListener("click", () => update(false));
+  function applyTheme(doc: Document, theme: "light" | "dark") {
+    doc.documentElement.dataset.theme = theme;
+    doc.documentElement.style.colorScheme = theme;
+    const color = getComputedStyle(doc.documentElement)
+      .getPropertyValue("--canvas-page")
+      .trim();
+    if (color)
+      doc
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", color);
   }
+
+  function syncTheme() {
+    const theme =
+      document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+    const toolDocument = tool?.contentDocument;
+    if (toolDocument?.documentElement.hasAttribute("data-builder-embedded"))
+      applyTheme(toolDocument, theme);
+    if (themeToggle)
+      themeToggle.textContent = `Switch to ${theme === "dark" ? "light" : "dark"} theme`;
+  }
+
+  function syncTool() {
+    const path = tool?.contentDocument?.location.pathname.replace(/\/?$/, "/");
+    if (!tool || !path) return;
+    for (const link of links) {
+      if (new URL(link.href).pathname !== path) {
+        link.removeAttribute("aria-current");
+        continue;
+      }
+      link.setAttribute("aria-current", "step");
+      tool.title = link.textContent?.trim() || "Builder tool";
+      if (fullPage) fullPage.href = path;
+    }
+    syncTheme();
+  }
+
+  tool?.addEventListener("load", syncTool);
+  syncTool();
+  syncTheme();
+  themeToggle?.addEventListener("click", () => {
+    const theme =
+      document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    applyTheme(document, theme);
+    syncTheme();
+    try {
+      localStorage.setItem(themeKey, theme);
+    } catch (error) {
+      console.warn("Unable to save the theme preference.", error);
+    }
+  });
+
+  function showPalettePreference() {
+    if (!status) return;
+    status.textContent = usesTailwindPaletteOnly()
+      ? "Pickers show Tailwind defaults only. Custom colors are not deleted."
+      : "Pickers show Tailwind and custom families.";
+  }
+
+  function updatePalettePreference(tailwindOnly: boolean) {
+    try {
+      setTailwindPaletteOnly(tailwindOnly);
+      showPalettePreference();
+      const path = tool?.contentDocument?.location.pathname;
+      if (status && path && /\/(?:theme|form|sitenav)-builder\/?$/.test(path)) {
+        status.append(" Reopen the current tool to apply this setting.");
+      }
+    } catch (error) {
+      console.error("Unable to save the builder palette preference:", error);
+      if (status)
+        status.textContent =
+          "Could not save your palette preference. Check your browser storage settings.";
+    }
+  }
+
+  showPalettePreference();
+  reset?.addEventListener("click", () => updatePalettePreference(true));
+  restore?.addEventListener("click", () => updatePalettePreference(false));
 </script>
