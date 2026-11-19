@@ -1,5 +1,6 @@
 ---
 import Layout from "./layout.astro";
+import "../styles/websitebuilder/websitebuilder.css";
 import StudioHeader from "../components/websitebuilder/StudioHeader.astro";
 import { builderPages } from "../data/website-builder";
 
@@ -49,15 +50,3 @@ const currentPath = `${Astro.url.pathname.replace(/\/$/, "")}/`;
     </div>
   </footer>
 </Layout>
-
-<style is:global>
-  :root:not([data-theme="dark"]) [data-website-builder-content] {
-    --builder-select-border: var(--color-slate-500);
-  }
-
-  :root:not([data-theme="dark"])
-    [data-website-builder-content]
-    select:not(.sample-form-control) {
-    border-color: var(--builder-select-border);
-  }
-</style>

@@ -140,9 +140,11 @@ colors and the shared layout header. Their sample links, forms, and purchase
 actions are not connected. Alpine powers local interactions such as the meal
 carousel, quantity selector, and copy button.
 
-The template pages share `src/styles/template/template.css`, which uses
-Tailwind utilities and keeps the individual page styles scoped. Inline styles
-provide dynamic theme and palette values for the previews.
+The Website Builder layout loads
+[`websitebuilder.css`](./src/styles/websitebuilder/websitebuilder.css) for
+builder-specific styles. The public theme template keeps its own
+[`template.css`](./src/styles/template/template.css). Tailwind utilities remain
+in the markup, and live previews still apply their dynamic styles separately.
 
 Use `/website-builder/colors/` (linked from the theme template) to add or remove
 11-shade color families directly in `src/styles/themes/colors.css`. The
