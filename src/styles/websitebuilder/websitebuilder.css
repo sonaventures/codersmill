@@ -4,6 +4,11 @@
 .palette-editor.palette-editor {
   @apply grid gap-8 py-[3rem_5rem];
 }
+:root:not([data-theme="dark"]) .palette-editor {
+  --canvas-page-border: var(--color-slate-500);
+  --color-canvas-page-border: var(--canvas-page-border);
+  --accent-page-border: var(--canvas-page-border);
+}
 .palette-editor header,
 .palette-editor section,
 .palette-editor form {

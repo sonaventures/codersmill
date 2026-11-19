@@ -117,16 +117,20 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
             saving.
           </p>
           <form id="add-family">
-            <label for="import-ramp">
-              Import color families (.txt or .css)
-            </label>
+            <p>Import color families (.txt or .css)</p>
+            <button
+              type="button"
+              id="choose-import-file"
+              aria-describedby="import-format-help"
+            >
+              Choose File
+            </button>
             <input
               id="import-ramp"
               type="file"
-              class="file:font-bold"
+              hidden
               multiple
               accept=".txt,.css,text/plain,text/css"
-              aria-describedby="import-format-help"
             />
             <p>
               For example: <code>--color-ocean-50: oklch(97% 0.01 240);</code>

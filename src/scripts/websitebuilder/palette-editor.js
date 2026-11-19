@@ -22,6 +22,7 @@ const status = get("#editor-status");
 const content = get("#editor-content");
 const form = get("#add-family");
 const list = get("#family-list");
+const chooseImportFile = get("#choose-import-file");
 const importFile = get("#import-ramp");
 const importControl = get("#import-family-control");
 const importFamily = get("#import-family");
@@ -141,6 +142,8 @@ function renderImportedFamilies() {
   addImportedFamilies.disabled = busy || !importedFamilies.length;
   if (importedFamilies.length) applyImportedFamily(0);
 }
+
+chooseImportFile.addEventListener("click", () => importFile.click());
 
 importFile.addEventListener("change", async () => {
   const files = Array.from(importFile.files ?? []);

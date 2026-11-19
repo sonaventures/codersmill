@@ -169,8 +169,9 @@ UTF-8 plain-text `.txt` or `.css` files totaling up to 1 MB with declarations su
 Each family needs shades 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, and
 950, with a semicolon after each declaration and no duplicate shades.
 Multiple complete families can share a file using different family names.
-The file chooser also accepts multiple files at once using Ctrl-click
-(Command-click on Mac) or Shift-click; all their families are loaded together.
+Select **Choose File** to open the file chooser. It still accepts multiple
+files at once using Ctrl-click (Command-click on Mac) or Shift-click; all
+their families are loaded together.
 The page includes format instructions and a complete, downloadable two-family
 `.txt` example, visible before selecting a project folder. CSS wrappers are
 optional; JSON and code fences are not required.
