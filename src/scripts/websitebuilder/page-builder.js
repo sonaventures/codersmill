@@ -4,7 +4,7 @@ import {
   pageRoute,
   pageSlug,
   saveNewPage,
-} from "../data/page-builder.js";
+} from "../../data/page-builder.js";
 
 const root = document.querySelector("[data-page-builder]");
 const get = (selector) => {

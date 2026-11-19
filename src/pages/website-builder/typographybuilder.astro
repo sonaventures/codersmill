@@ -20,31 +20,42 @@ const sampleText: Record<string, string> = {
   title="Typography Builder"
   description="Set site-wide typography and overrides for sections by ID."
 >
-  <div class="container grid gap-8 pt-12" data-typography-builder>
-    <header class="grid max-w-3xl gap-3">
-      <p>
-        Set site-wide styles for headings, paragraphs, emphasis, strong text,
-        code, citations, preformatted text, and block quotations. Add a section
-        ID to override just that section, for example
-        <code>&lt;section id="about"&gt;</code>.
-      </p>
-      <p>
-        Blank fields keep existing site styles, or follow site-wide defaults
-        when editing a section. Changes stay in the preview until you save the
-        stylesheet. Saved rules override Tailwind typography utilities. Inline
-        styles, important declarations, and more-specific unlayered CSS can
-        still take priority.
-      </p>
-    </header>
+  <div class="grid w-full gap-8 px-4 pt-12 sm:px-6 lg:px-8" data-typography-builder>
+    <div class="typography-workspace grid items-start gap-8 lg:grid-cols-2">
+      <details
+        class="typography-guide group relative z-20 min-w-0 justify-self-start lg:col-span-2"
+      >
+        <summary class="cursor-pointer rounded border border-canvas-page-border bg-canvas-page px-4 py-3 font-semibold">
+          <span class="group-open:hidden">Open typography guide</span>
+          <span class="hidden group-open:inline">Close typography guide</span>
+        </summary>
+        <div
+          class="typography-guide-panel grid gap-3 rounded border border-canvas-page-border bg-canvas-page p-4 text-sm wrap-anywhere"
+        >
+          <p>
+            Set site-wide styles for headings, paragraphs, emphasis, strong text,
+            code, citations, preformatted text, and block quotations. Add a
+            section ID to override just that section, for example
+            <code>&lt;section id="about"&gt;</code>.
+          </p>
+          <p>
+            Blank fields keep existing site styles, or follow site-wide defaults
+            when editing a section. Changes stay in the preview until you save
+            the stylesheet. Saved rules override Tailwind typography utilities.
+            Inline styles, important declarations, and more-specific unlayered
+            CSS can still take priority.
+          </p>
+          <p>
+            In Chrome or Edge on localhost or HTTPS, click Save to project and
+            choose the project folder containing <code>src/styles/global.css</code>.
+            If folder access fails, use Save directly to CSS and select the
+            existing <code>src/styles/themes/typography.css</code> file in the
+            project. In other browsers, use Download CSS and replace that file
+            manually.
+          </p>
+        </div>
+      </details>
 
-    <p class="text-sm">
-      In Chrome or Edge on localhost or HTTPS, click Save to project and choose
-      the project folder containing <code>src</code> and <code>public</code>.
-      Saving replaces only <code>src/styles/themes/typography.css</code>. In
-      other browsers, use Download CSS and replace that file manually.
-    </p>
-
-    <div class="grid items-start gap-8 lg:grid-cols-2">
       <div class="grid min-w-0 gap-6">
         <form id="add-typography-section" class="grid gap-2">
           <label for="typography-section-id" class="font-semibold">
@@ -229,9 +240,12 @@ const sampleText: Record<string, string> = {
       aria-label="Typography file actions"
       class="sticky bottom-0 z-30 grid gap-2 rounded-t-xl border border-canvas-page-border bg-canvas-page p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] text-ink-page shadow-lg sm:px-4"
     >
-      <div class="flex flex-wrap items-center gap-2">
+      <div class="flex flex-wrap items-center justify-center gap-2">
         <button type="button" class="btn btn-filled" id="save-typography">
           Save to project
+        </button>
+        <button type="button" class="btn btn-outline" id="save-typography-file">
+          Save directly to CSS
         </button>
         <button type="button" class="btn btn-outline" id="download-typography">
           Download CSS
@@ -247,11 +261,56 @@ const sampleText: Record<string, string> = {
     </div>
   </div>
   <script>
-    import "../../scripts/typography-builder.js";
+    import "../../scripts/websitebuilder/typography-builder.js";
   </script>
 </Layout>
 
 <style>
+  .typography-guide-panel {
+    margin-top: 0.5rem;
+  }
+
+  @media (width < 64rem) {
+    .typography-guide-panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: min(20rem, calc(100vw - 3rem));
+      max-height: 55dvh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+    }
+  }
+
+  @media (width >= 64rem) {
+    .typography-workspace:has(> .typography-guide[open]) {
+      grid-template-columns: 17rem repeat(2, minmax(0, 1fr));
+    }
+
+    .typography-guide[open] {
+      grid-column: auto;
+      justify-self: stretch;
+    }
+  }
+
+  :global(:root:not([data-theme="dark"])) [data-typography-builder] {
+    --canvas-page-border: var(--color-slate-500);
+    --color-canvas-page-border: var(--canvas-page-border);
+  }
+
+  :global(:root:not([data-theme="dark"])) [data-typography-builder] .btn-outline {
+    border-color: var(--canvas-page-border);
+  }
+
+  #typography-status[data-error] {
+    color: var(--color-red-800);
+    font-weight: 600;
+  }
+
+  :global([data-theme="dark"]) #typography-status[data-error] {
+    color: var(--color-red-300);
+  }
+
   .typography-control {
     width: 100%;
     min-width: 0;
@@ -260,5 +319,16 @@ const sampleText: Record<string, string> = {
     background: var(--canvas-page);
     color: var(--ink-page);
     padding: 0.75rem;
+  }
+
+  @media (forced-colors: none) {
+    select.typography-control {
+      appearance: none;
+      padding-right: 2.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+    }
   }
 </style>

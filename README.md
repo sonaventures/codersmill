@@ -31,10 +31,14 @@ utility such as `font-thin` (100), `font-bold` (700), `font-extrabold` (800),
 or `font-[1000]` (DM Sans).
 
 Builder pages live in `src/pages/website-builder/` and use the shared Website
-Builder layout. The header and footer link to the tools, the current page is
+Builder layout. Builder-specific components live in `src/components/websitebuilder/`.
+Standalone builder scripts live in `src/scripts/websitebuilder/`.
+The header and footer link to the tools, the current page is
 highlighted, and the header includes the light/dark toggle. Browser titles use
 Website Builder rather than the main site's name. Previous builder URLs
 redirect to their new locations.
+Builder dropdowns use higher-contrast slate borders in light mode. Custom
+dropdown borders in the Form Builder preview still take precedence.
 
 Use `/website-builder/sitenavbuilder/` to draft a site header and menu. In the
 form below the live preview, enter your site name and choose full page width
@@ -87,12 +91,22 @@ unchanged; blank section fields follow the site-wide element defaults.
 The isolated live preview compares the defaults and selected section without
 changing the builder controls.
 
-The sticky bottom bar keeps **Save to project**, **Download CSS**, and
-**Import builder CSS** visible while editing.
+The sticky bottom bar centers the file actions and keeps them visible while
+editing.
+The Typography Builder workspace uses the full screen width. Select
+**Open typography guide** to show the editing and saving instructions in a
+left-side panel beside the editor on wide screens or over it on smaller
+screens. Select **Close typography guide** to hide it.
 **Save to project** uses Chrome or Edge folder access on localhost or HTTPS,
-like Page Builder. Choose this project folder to replace
-[`src/styles/themes/typography.css`](./src/styles/themes/typography.css),
+like Page Builder. Choose the project root containing `src/styles/global.css`
+to replace [`src/styles/themes/typography.css`](./src/styles/themes/typography.css),
 which the shared layout imports globally.
+If Chrome or Edge cannot open the project folder, use **Save directly to CSS**,
+select the existing stylesheet in the project (not a downloaded copy), and
+confirm the replacement.
+If saving fails, check the red message in the bottom bar for the invalid setting
+or the exact project path it could not open. Allow write access when Chrome or
+Edge prompts.
 The stylesheet stores the editable settings as well as CSS, so reloading the
 builder restores saved project settings. Overrides apply to matching elements
 inside the section, including nested sections; section IDs should be unique

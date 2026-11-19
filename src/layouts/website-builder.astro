@@ -1,6 +1,6 @@
 ---
 import Layout from "./layout.astro";
-import StudioHeader from "../components/StudioHeader.astro";
+import StudioHeader from "../components/websitebuilder/StudioHeader.astro";
 import { builderPages } from "../data/website-builder";
 
 interface Props {
@@ -14,7 +14,9 @@ const currentPath = `${Astro.url.pathname.replace(/\/$/, "")}/`;
 
 <Layout title={title} description={description} siteName="Website Builder">
   <StudioHeader slot="header" title={title} description={description} />
-  <slot />
+  <div data-website-builder-content>
+    <slot />
+  </div>
   <footer slot="footer" class="site-footer relative z-20">
     <div class="footer-inner">
       <div class="footer-intro">
@@ -47,3 +49,15 @@ const currentPath = `${Astro.url.pathname.replace(/\/$/, "")}/`;
     </div>
   </footer>
 </Layout>
+
+<style is:global>
+  :root:not([data-theme="dark"]) [data-website-builder-content] {
+    --builder-select-border: var(--color-slate-500);
+  }
+
+  :root:not([data-theme="dark"])
+    [data-website-builder-content]
+    select:not(.sample-form-control) {
+    border-color: var(--builder-select-border);
+  }
+</style>

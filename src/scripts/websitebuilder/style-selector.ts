@@ -26,9 +26,9 @@ import {
   type StyleGroup,
   type Theme,
   type ColorRole,
-} from "../data/style-groups";
-import css from "../styles/themes/colors.css?raw";
-import { readPalette } from "../data/palette.js";
+} from "../../data/style-groups";
+import css from "../../styles/themes/colors.css?raw";
+import { readPalette } from "../../data/palette.js";
 
 setPaletteFamilies(readPalette(css));
 const root = document.querySelector<HTMLElement>("[data-selector]");

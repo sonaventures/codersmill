@@ -623,14 +623,20 @@ const settingsClass =
     color: var(--fb-hint, var(--color-red-600));
   }
   .sample-form-control {
+    --sample-control-border: var(
+      --fb-border,
+      var(--sample-border, var(--sample-default-border, var(--canvas-page-border)))
+    );
     min-width: 0;
     max-width: 100%;
     background: var(--fb-surface, var(--sample-surface, transparent));
     color: var(--fb-ink, var(--sample-ink, inherit));
-    border: var(--fb-width, 1px) solid
-      var(--fb-border, var(--sample-border, var(--canvas-page-border)));
+    border: var(--fb-width, 1px) solid var(--sample-control-border);
     border-radius: var(--fb-radius, 0.5rem);
     padding: var(--fb-padding, 0.5rem);
+  }
+  select.sample-form-control {
+    --sample-default-border: var(--builder-select-border, var(--canvas-page-border));
   }
   .sample-form-control::placeholder {
     color: var(--fb-placeholder, var(--ink-page-muted));
@@ -643,10 +649,7 @@ const settingsClass =
     pointer-events: none;
   }
   .sample-form-control:not(:disabled):hover {
-    border-color: var(
-      --fb-hover,
-      var(--fb-border, var(--sample-border, var(--canvas-page-border)))
-    );
+    border-color: var(--fb-hover, var(--sample-control-border));
   }
   .sample-form-control:focus-visible,
   .sample-form-choice input:focus-visible {

@@ -1,11 +1,11 @@
-import savedCss from "../styles/themes/typography.css?raw";
+import savedCss from "../../styles/themes/typography.css?raw";
 import {
   parseTypography,
   serializeTypography,
   typographyCss,
   validateSectionId,
   validateTypographyValue,
-} from "../data/typography-builder.js";
+} from "../../data/typography-builder.js";
 
 const root = document.querySelector("[data-typography-builder]");
 const get = (selector) => {
@@ -20,6 +20,7 @@ const sectionForm = get("#add-typography-section");
 const sectionId = get("#typography-section-id");
 const remove = get("#remove-typography-section");
 const save = get("#save-typography");
+const saveToFile = get("#save-typography-file");
 const download = get("#download-typography");
 const importButton = get("#import-typography");
 const fileInput = get("#typography-file");
@@ -55,15 +56,19 @@ let dirty = false;
 let busy = false;
 let sourceCss = savedCss;
 
+function setStatus(message, isError = false) {
+  status.toggleAttribute("data-error", isError);
+  status.textContent = message;
+}
+
 function report(error) {
   console.error("Typography builder:", error);
-  status.textContent = error instanceof Error ? error.message : String(error);
+  setStatus(error instanceof Error ? error.message : String(error), true);
 }
 
 function markDirty() {
   dirty = true;
-  status.textContent =
-    "Unsaved changes. Save to project to apply them site-wide.";
+  setStatus("Unsaved changes. Save to project to apply them site-wide.");
 }
 
 function rules() {
@@ -126,7 +131,7 @@ function setBusy(value) {
     for (const preset of presets) toggleCustomControl(preset);
     remove.disabled = !currentScope;
   }
-  root.setAttribute("aria-busy", String(value));
+  form.setAttribute("aria-busy", String(value));
 }
 
 function updateValue(control) {
@@ -137,7 +142,7 @@ function updateValue(control) {
     control.setCustomValidity("");
   } catch (error) {
     control.setCustomValidity(error.message);
-    status.textContent = error.message;
+    setStatus(error.message, true);
     return;
   }
   const styles = rules();
@@ -218,7 +223,7 @@ sectionForm.addEventListener("submit", (event) => {
   } catch (error) {
     sectionId.setCustomValidity(error.message);
     sectionId.reportValidity();
-    status.textContent = error.message;
+    setStatus(error.message, true);
   }
 });
 
@@ -252,8 +257,9 @@ download.addEventListener("click", () => {
   link.download = "typography.css";
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  status.textContent =
-    "CSS downloaded. Replace src/styles/themes/typography.css in your project to apply it. The download includes editable builder settings.";
+  setStatus(
+    "CSS downloaded. Replace src/styles/themes/typography.css in your project to apply it. The download includes editable builder settings.",
+  );
 });
 
 importButton.addEventListener("click", () => {
@@ -273,8 +279,7 @@ fileInput.addEventListener("change", async () => {
     renderScopes();
     renderControls();
     markDirty();
-    status.textContent =
-      "Imported into the preview. Save to project to apply these settings.";
+    setStatus("Imported into the preview. Save to project to apply these settings.");
   } catch (error) {
     report(error);
   } finally {
@@ -282,46 +287,93 @@ fileInput.addEventListener("change", async () => {
   }
 });
 
-save.addEventListener("click", async () => {
-  if (busy || !form.reportValidity()) return;
-  if (!("showDirectoryPicker" in window)) {
-    status.textContent =
-      "Project folder saving requires Chrome or Edge on localhost or HTTPS. Download CSS and replace src/styles/themes/typography.css instead.";
+async function saveTypography(direct = false) {
+  if (busy) return;
+  if (!form.reportValidity()) {
+    const invalid = form.querySelector(":invalid");
+    const property = invalid?.dataset.typographyProperty;
+    setStatus(
+      property
+        ? `Cannot save: ${property}: ${invalid.validationMessage}`
+        : "Cannot save. Correct the invalid typography setting and try again.",
+      true,
+    );
+    return;
+  }
+  const picker = direct ? window.showOpenFilePicker : window.showDirectoryPicker;
+  if (typeof picker !== "function") {
+    setStatus(
+      "Saving requires Chrome or Edge on localhost or HTTPS. Download CSS and replace src/styles/themes/typography.css instead.",
+      true,
+    );
     return;
   }
   setBusy(true);
-  let selectingFolder = true;
+  setStatus(
+    direct
+      ? "Select the existing src/styles/themes/typography.css file."
+      : "Choose the websitebuilder project folder and allow write access.",
+  );
+  let step = "selecting a save destination";
+  let projectPath = "";
   try {
-    const project = await window.showDirectoryPicker({ mode: "readwrite" });
-    selectingFolder = false;
-    const src = await project.getDirectoryHandle("src");
-    await project.getDirectoryHandle("public");
-    const styles = await src.getDirectoryHandle("styles");
-    const global = await (await styles.getFileHandle("global.css")).getFile();
-    if (
-      !/@import\s+["']\.\/themes\/typography\.css["']\s*;/.test(
-        await global.text(),
-      )
-    ) {
-      throw new Error(
-        "Choose this websitebuilder project: global.css must import ./themes/typography.css.",
-      );
+    let handle;
+    if (direct) {
+      [handle] = await window.showOpenFilePicker({
+        types: [
+          { description: "CSS stylesheet", accept: { "text/css": [".css"] } },
+        ],
+        excludeAcceptAllOption: true,
+      });
+      if (handle.name !== "typography.css") {
+        throw new Error("Select the project's existing typography.css file.");
+      }
+      step = "requesting write access to the selected typography.css";
+      if ((await handle.requestPermission({ mode: "readwrite" })) !== "granted") {
+        throw new DOMException("Write access was not granted.", "NotAllowedError");
+      }
+    } else {
+      const project = await window.showDirectoryPicker({ mode: "readwrite" });
+      setStatus(`Checking the selected folder (${project.name})...`);
+      projectPath = "src";
+      const src = await project.getDirectoryHandle("src");
+      projectPath = "src/styles";
+      const styles = await src.getDirectoryHandle("styles");
+      projectPath = "src/styles/global.css";
+      const global = await (await styles.getFileHandle("global.css")).getFile();
+      if (
+        !/@import\s+["']\.\/themes\/typography\.css["']\s*;/.test(
+          await global.text(),
+        )
+      ) {
+        throw new Error(
+          "The selected folder's src/styles/global.css must import ./themes/typography.css.",
+        );
+      }
+      projectPath = "src/styles/themes";
+      const themes = await styles.getDirectoryHandle("themes");
+      projectPath = "src/styles/themes/typography.css";
+      handle = await themes.getFileHandle("typography.css");
     }
-    const themes = await styles.getDirectoryHandle("themes");
-    const handle = await themes.getFileHandle("typography.css");
+    step = "reading src/styles/themes/typography.css";
     const existing = await (await handle.getFile()).text();
     parseTypography(existing);
     const output = serializeTypography(config);
-    if (
-      existing !== sourceCss &&
-      existing !== output &&
-      !window.confirm(
-        "The selected project's typography differs from the version loaded by this page. Replace it with the current preview?",
-      )
-    ) {
-      status.textContent = "Save canceled. No files changed.";
+    let confirmation;
+    if (direct) {
+      confirmation =
+        "Replace the selected typography.css with the current preview? Make sure you selected src/styles/themes/typography.css in the project, not a downloaded copy.";
+    } else if (existing !== sourceCss && existing !== output) {
+      confirmation =
+        "The selected project's typography differs from the version loaded by this page. Replace it with the current preview?";
+    }
+    if (confirmation && !window.confirm(confirmation)) {
+      setStatus("Save canceled. No files changed.");
       return;
     }
+    step = "writing src/styles/themes/typography.css";
+    projectPath = "";
+    setStatus("Writing src/styles/themes/typography.css...");
     const writable = await handle.createWritable();
     try {
       await writable.write(output);
@@ -336,22 +388,48 @@ save.addEventListener("click", async () => {
     }
     sourceCss = output;
     dirty = false;
-    status.textContent =
-      "Saved src/styles/themes/typography.css. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.";
+    setStatus(
+      direct
+        ? "Saved to the selected typography.css file."
+        : "Saved src/styles/themes/typography.css. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.",
+    );
   } catch (error) {
     if (
-      selectingFolder &&
+      !projectPath &&
+      step === "selecting a save destination" &&
       error instanceof DOMException &&
       error.name === "AbortError"
     ) {
-      status.textContent = "Folder selection canceled. No files changed.";
+      setStatus("No save destination was selected. No files changed.");
     } else {
-      report(error);
+      console.error(`Typography builder: ${projectPath || step}`, error);
+      if (
+        projectPath &&
+        error instanceof DOMException &&
+        (error.name === "NotFoundError" || error.name === "TypeMismatchError")
+      ) {
+        setStatus(
+          `Could not open ${projectPath} in the selected folder. ` +
+            "Use Save directly to CSS to select the stylesheet instead, or use Download CSS.",
+          true,
+        );
+      } else {
+        const detail = error instanceof Error ? error.message : String(error);
+        const next =
+          error instanceof DOMException && error.name === "NotAllowedError"
+            ? " Allow write access in Chrome or use Download CSS."
+            : "";
+        const action = projectPath ? `opening ${projectPath}` : step;
+        setStatus(`Could not save while ${action}: ${detail}${next}`, true);
+      }
     }
   } finally {
     setBusy(false);
   }
-});
+}
+
+save.addEventListener("click", () => saveTypography());
+saveToFile.addEventListener("click", () => saveTypography(true));
 
 window.addEventListener("beforeunload", (event) => {
   if (!dirty) return;
@@ -363,8 +441,7 @@ try {
   config = parseTypography(savedCss);
   renderScopes();
   renderControls();
-  status.textContent =
-    "Project typography loaded. Select a scope and element to begin.";
+  setStatus("Project typography loaded. Select a scope and element to begin.");
 } catch (error) {
   setBusy(true);
   report(error);
