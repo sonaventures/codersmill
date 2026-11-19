@@ -173,7 +173,7 @@ builder-specific styles. The public theme template keeps its own
 [`template.css`](./src/styles/template/template.css). Tailwind utilities remain
 in the markup, and live previews still apply their dynamic styles separately.
 
-Use `/website-builder/colors/` (linked from the theme template) to add or remove
+Use `/website-builder/custom-colors/` (linked from the theme template) to add or remove
 11-shade color families directly in `src/styles/themes/colors.css`. The
 workspace uses the full available width, with **Current families** centered
 within the editor column and capped at the `lg` screen width. Use

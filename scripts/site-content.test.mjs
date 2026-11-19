@@ -13,7 +13,7 @@ test("all approved page routes exist", async () => {
     "src/pages/partners.astro",
     "src/pages/about.astro",
     "src/pages/template.astro",
-    "src/pages/website-builder/colors.astro",
+    "src/pages/website-builder/custom-colors.astro",
     "src/pages/website-builder/themebuilder.astro",
     "src/pages/website-builder/pagebuilder.astro",
     "src/pages/website-builder/typographybuilder.astro",

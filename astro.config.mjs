@@ -8,7 +8,8 @@ export default defineConfig({
   output: "static",
   redirects: {
     "/pagebuilder/pagebuilder/": "/website-builder/page-builder/",
-    "/themebuilder/colors/": "/website-builder/colors/",
+    "/themebuilder/colors/": "/website-builder/custom-colors/",
+    "/website-builder/colors/": "/website-builder/custom-colors/",
     "/themebuilder/themebuilder/": "/website-builder/theme-builder/",
     "/typographybuilder/typograhybuilding/":
       "/website-builder/typography-builder/",

@@ -21,7 +21,7 @@ export const builderPages = [
   },
   {
     label: "Color Editor",
-    href: "/website-builder/colors/",
+    href: "/website-builder/custom-colors/",
     description: "Add, edit, and organize your color families.",
   },
   {
