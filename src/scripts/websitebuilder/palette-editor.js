@@ -16,6 +16,13 @@ const get = (selector) => {
   return element;
 };
 const open = get("#open-project");
+const openForRemoval = get("#open-project-for-removal");
+const removeAll = get("#remove-all-families");
+const removalStatus = get("#removal-status");
+const removalDialog = get("#remove-family-dialog");
+const removalTitle = get("#remove-family-title");
+const removalPrompt = get("#remove-family-prompt");
+const confirmRemove = get("#confirm-remove-families");
 const reconnect = get("#reconnect-project");
 const projectName = get("#project-name");
 const status = get("#editor-status");
@@ -70,13 +77,14 @@ async function rememberProject(selected) {
 function setBusy(value) {
   busy = value;
   open.disabled = value;
+  openForRemoval.disabled = value;
+  removeAll.disabled = value || !list.childElementCount;
   reconnect.disabled = value;
   for (const button of form.querySelectorAll("button")) button.disabled = value;
   addImportedFamilies.disabled = value || !importedFamilies.length;
   importFile.disabled = value;
   importFamily.disabled = value;
-  for (const button of list.querySelectorAll("button"))
-    button.disabled = value || !project;
+  for (const button of list.querySelectorAll("button")) button.disabled = value;
   root.setAttribute("aria-busy", String(value));
 }
 
@@ -196,9 +204,9 @@ function render() {
     const remove = document.createElement("button");
     remove.type = "button";
     remove.textContent = "Remove";
-    remove.disabled = busy || !project;
+    remove.disabled = busy;
     remove.setAttribute("aria-label", `Remove ${family.label}`);
-    remove.addEventListener("click", () => removeFamily(family.key));
+    remove.addEventListener("click", () => removeFamilies(family.key));
     row.append(title, swatches, remove);
     list.append(row);
   }
@@ -226,11 +234,11 @@ async function save(next) {
   render();
 }
 
-async function scanDirectory(directory, path, family, references) {
+async function scanDirectory(directory, path, checkReferences, nextCss) {
   for await (const [name, handle] of directory.entries()) {
     const childPath = `${path}/${name}`;
     if (handle.kind === "directory") {
-      await scanDirectory(handle, childPath, family, references);
+      await scanDirectory(handle, childPath, checkReferences, nextCss);
       continue;
     }
     if (
@@ -247,68 +255,106 @@ async function scanDirectory(directory, path, family, references) {
       throw new Error(
         `Cannot safely scan ${childPath}: unsupported file encoding.`,
       );
-    const searchable =
-      childPath === "src/styles/themes/colors.css"
-        ? removePalette(text, family)
-        : text;
-    if (findPaletteReferences(searchable, family)) references.push(childPath);
+    if (childPath === "src/styles/themes/colors.css") {
+      if (text !== css)
+        throw new Error(
+          "colors.css changed on disk. Reopen the folder before removing families.",
+        );
+      checkReferences(nextCss, childPath);
+    } else {
+      checkReferences(text, childPath);
+    }
   }
 }
 
-async function removeFamily(family) {
+async function removeFamilies(family) {
   if (busy) return;
+  const all = family === undefined;
+  const originalCss = css;
   if (!project) {
-    status.textContent = "Choose the project root to remove color families.";
-    return;
+    const opened = await chooseProject(true, cssFile);
+    if (!opened) return;
   }
   setBusy(true);
   try {
-    status.textContent = `Checking references to ${family}...`;
-    const references = [];
+    if (all && css !== originalCss)
+      throw new Error(
+        "colors.css changed on disk. Review the current families and try again.",
+      );
+    const families = all ? readPalette(css).map(({ key }) => key) : [family];
+    if (!families.length) {
+      status.textContent = "There are no current families to remove.";
+      return;
+    }
+    const count = families.length;
+    const nextCss = families.reduce(removePalette, css);
+    status.textContent = all
+      ? `Checking references to ${count} color ${count === 1 ? "family" : "families"}...`
+      : `Checking references to ${family}...`;
+    removalStatus.textContent = status.textContent;
+    const references = new Map();
+    const checkReferences = (text, path) => {
+      for (const key of families) {
+        if (!findPaletteReferences(text, key)) continue;
+        if (!references.has(key)) references.set(key, []);
+        references.get(key).push(path);
+      }
+    };
     for (const directory of ["src", "public"]) {
       await scanDirectory(
         await project.getDirectoryHandle(directory),
         directory,
-        family,
-        references,
+        checkReferences,
+        nextCss,
       );
     }
     const stored = localStorage.getItem(styleGroupsStorageKey);
     if (stored) {
       JSON.parse(stored);
-      if (findPaletteReferences(stored, family))
-        references.push("saved style groups in this browser");
+      checkReferences(stored, "saved style groups in this browser");
     }
-    if (references.length) {
-      status.textContent = `Cannot remove ${family}; it is used in: ${references.join(", ")}.`;
+    if (references.size) {
+      status.textContent = all
+        ? `No families removed. Still in use: ${Array.from(references, ([key, paths]) => `${key} (${paths.join(", ")})`).join("; ")}.`
+        : `Cannot remove ${family}; it is used in: ${references.get(family).join(", ")}.`;
       return;
     }
-    if (
-      !window.confirm(`Remove ${family} and all 11 shades from colors.css?`)
-    ) {
+    removalTitle.textContent = all
+      ? "Remove all current families"
+      : "Remove color family";
+    removalPrompt.textContent = all
+      ? `Remove all ${count} current color ${count === 1 ? "family" : "families"} from colors.css? Tailwind defaults will remain available.`
+      : `Remove ${family} and all 11 shades from colors.css?`;
+    confirmRemove.textContent = all ? "Remove all families" : "Remove family";
+    removalDialog.returnValue = "";
+    removalDialog.showModal();
+    await new Promise((resolve) =>
+      removalDialog.addEventListener("close", resolve, { once: true }),
+    );
+    if (removalDialog.returnValue !== "remove") {
       status.textContent = "Removal cancelled.";
       return;
     }
-    await save(removePalette(css, family));
-    status.textContent = `Removed ${family} from colors.css.`;
+    await save(nextCss);
+    status.textContent = all
+      ? `Removed ${count} color ${count === 1 ? "family" : "families"} from colors.css.`
+      : `Removed ${family} from colors.css.`;
   } catch (error) {
     report(error);
   } finally {
+    removalStatus.textContent = status.textContent;
     setBusy(false);
   }
 }
 
-async function openProject(selected, remember) {
-  project = undefined;
-  cssFile = undefined;
-  css = undefined;
-  projectName.textContent = "No project selected";
-  content.hidden = true;
+async function openProject(selected, remember, expectedFile) {
   status.textContent = `Opening ${selected.name}...`;
   const sourceOnly = selected.name === "src";
   let selectedFile;
   try {
-    const src = sourceOnly ? selected : await selected.getDirectoryHandle("src");
+    const src = sourceOnly
+      ? selected
+      : await selected.getDirectoryHandle("src");
     if (!sourceOnly) await selected.getDirectoryHandle("public");
     const styles = await src.getDirectoryHandle("styles");
     const themes = await styles.getDirectoryHandle("themes");
@@ -323,6 +369,10 @@ async function openProject(selected, remember) {
       );
     throw error;
   }
+  if (expectedFile && !(await selectedFile.isSameEntry(expectedFile)))
+    throw new Error(
+      `The selected folder contains a different colors.css. Choose the parent folder of the src folder you opened.`,
+    );
   const selectedCss = await (await selectedFile.getFile()).text();
   readPalette(selectedCss);
   if (remember) await rememberProject(selected);
@@ -332,6 +382,7 @@ async function openProject(selected, remember) {
   rememberedProject = selected;
   reconnect.hidden = true;
   projectName.textContent = selected.name;
+  openForRemoval.hidden = !sourceOnly;
   content.hidden = false;
   render();
   return sourceOnly;
@@ -339,27 +390,36 @@ async function openProject(selected, remember) {
 
 function openedStatus(sourceOnly, message) {
   status.textContent = sourceOnly
-    ? "Opened colors.css from src. You can add or import families. To remove a family, choose the project root so the editor can check public files."
+    ? "Opened colors.css from src. If you select Remove, the editor will ask for the project folder so it can check public files."
     : message;
 }
 
-open.addEventListener("click", async () => {
+async function chooseProject(requireRoot = false, expectedFile = undefined) {
   if (busy) return;
   if (!("showDirectoryPicker" in window)) {
     status.textContent =
       "This browser does not support project folder access. Use Chrome or Edge on localhost or HTTPS.";
+    if (requireRoot) removalStatus.textContent = status.textContent;
     return;
   }
   setBusy(true);
+  removalStatus.textContent = "";
   try {
-    status.textContent =
-      "Choose the websitebuilder project root or its src folder.";
+    status.textContent = requireRoot
+      ? "Choose the websitebuilder folder that contains src and public."
+      : "Choose the websitebuilder project root or its src folder.";
     const selected = await window.showDirectoryPicker({ mode: "readwrite" });
-    const sourceOnly = await openProject(selected, true);
+    if (requireRoot && selected.name === "src") {
+      status.textContent =
+        "Select the folder containing src and public, not src itself.";
+      return;
+    }
+    const sourceOnly = await openProject(selected, true, expectedFile);
     openedStatus(
       sourceOnly,
       "Project opened. Changes are saved directly to colors.css.",
     );
+    return true;
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
       status.textContent =
@@ -373,9 +433,14 @@ open.addEventListener("click", async () => {
     }
     report(error);
   } finally {
+    if (requireRoot) removalStatus.textContent = status.textContent;
     setBusy(false);
   }
-});
+}
+
+open.addEventListener("click", () => chooseProject());
+openForRemoval.addEventListener("click", () => chooseProject(true, cssFile));
+removeAll.addEventListener("click", () => removeFamilies());
 
 reconnect.addEventListener("click", async () => {
   if (busy) return;

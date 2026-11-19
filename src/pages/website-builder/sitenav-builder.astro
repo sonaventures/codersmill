@@ -229,7 +229,11 @@ const menuColorOptions = [
                 Palette family
                 <select class={inputClass} data-menu-color-family>
                   {paletteFamilies.map(({ key, label }) => (
-                    <option value={key} selected={key === initialFamily}>
+                    <option
+                      value={key}
+                      selected={key === initialFamily}
+                      data-palette-family-option
+                    >
                       {label}
                     </option>
                   ))}
@@ -467,8 +471,12 @@ const menuColorOptions = [
   </div>
 </Layout>
 
-
 <script>
+  import {
+    applyTailwindPaletteOnly,
+    usesTailwindPaletteOnly,
+  } from "../../scripts/websitebuilder/palette-preference";
+
   const builder = document.querySelector<HTMLElement>(
     "[data-site-nav-builder]",
   );
@@ -509,6 +517,7 @@ const menuColorOptions = [
       palette,
       "[data-menu-color-family]",
     );
+    if (usesTailwindPaletteOnly()) applyTailwindPaletteOnly(colorFamily);
     const colorSelection = get<HTMLOutputElement>(
       palette,
       "[data-menu-color-selection]",

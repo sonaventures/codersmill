@@ -135,6 +135,32 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
     </div>
   </section>
 
+  <section
+    class="container grid justify-items-start gap-4 py-10"
+    aria-labelledby="builder-palette-title"
+  >
+    <h2 id="builder-palette-title" class="text-2xl font-bold">
+      Builder color palettes
+    </h2>
+    <p>
+      Limit the palette pickers to Tailwind CSS defaults without deleting custom
+      colors or changing saved styles.
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <button type="button" class="btn btn-outline" id="reset-builder-palette">
+        Reset to Tailwind colors
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline"
+        id="restore-builder-palette"
+      >
+        Show custom colors
+      </button>
+    </div>
+    <p id="builder-palette-status" role="status"></p>
+  </section>
+
   <section class="border-y border-canvas-page-border bg-canvas-page-card-01">
     <div class="container flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between sm:py-12">
       <div class="grid gap-2">
@@ -151,3 +177,43 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
     </div>
   </section>
 </Layout>
+
+<script>
+  import {
+    setTailwindPaletteOnly,
+    usesTailwindPaletteOnly,
+  } from "../../scripts/websitebuilder/palette-preference";
+
+  const reset = document.querySelector<HTMLButtonElement>(
+    "#reset-builder-palette",
+  );
+  const restore = document.querySelector<HTMLButtonElement>(
+    "#restore-builder-palette",
+  );
+  const status = document.querySelector("#builder-palette-status");
+
+  if (reset && restore && status) {
+    function render(enabled: boolean) {
+      if (!status) return;
+      status.textContent = enabled
+        ? "Palette pickers show only Tailwind colors in this browser."
+        : "Palette pickers show Tailwind and custom color families.";
+    }
+
+    function update(enabled: boolean) {
+      try {
+        setTailwindPaletteOnly(enabled);
+        render(enabled);
+      } catch (error) {
+        console.error("Unable to save the builder palette preference:", error);
+        if (status)
+          status.textContent =
+            "Could not save your palette preference. Check your browser storage settings.";
+      }
+    }
+
+    render(usesTailwindPaletteOnly());
+    reset.addEventListener("click", () => update(true));
+    restore.addEventListener("click", () => update(false));
+  }
+</script>

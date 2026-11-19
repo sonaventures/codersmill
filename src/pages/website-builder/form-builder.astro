@@ -411,7 +411,11 @@ const settingsClass =
           Palette family
           <select class={settingsClass} data-form-color-family>
             {families.map(({ key, label }) => (
-              <option value={key} selected={key === initialFamily}>
+              <option
+                value={key}
+                selected={key === initialFamily}
+                data-palette-family-option
+              >
                 {label}
               </option>
             ))}
@@ -580,8 +584,12 @@ const settingsClass =
   </div>
 </Layout>
 
-
 <script>
+  import {
+    applyTailwindPaletteOnly,
+    usesTailwindPaletteOnly,
+  } from "../../scripts/websitebuilder/palette-preference";
+
   const builder = document.querySelector<HTMLElement>("[data-form-builder]");
   if (builder) {
     function get<T extends Element>(selector: string) {
@@ -598,6 +606,7 @@ const settingsClass =
     const editing = get<HTMLElement>("[data-form-editing]");
     const role = get<HTMLSelectElement>("[data-form-color-role]");
     const family = get<HTMLSelectElement>("[data-form-color-family]");
+    if (usesTailwindPaletteOnly()) applyTailwindPaletteOnly(family);
     const hex = get<HTMLInputElement>("[data-form-hex]");
     const hexError = get<HTMLElement>("[data-form-hex-error]");
     const selection = get<HTMLOutputElement>("[data-form-color-selection]");

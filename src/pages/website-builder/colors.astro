@@ -177,15 +177,58 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
           </form>
         </section>
 
-        <section aria-labelledby="families-title">
+        <section
+          class="mx-auto w-full max-w-screen-lg"
+          aria-labelledby="families-title"
+        >
           <h2 id="families-title">Current families</h2>
-          <p>
-            Removal requires the project root and is blocked when the family is
-            explicitly referenced in project source, public files, or this
-            browser's saved style groups. Dynamically constructed references,
-            groups in other browsers, and external files cannot be checked.
+          <p id="removal-help">
+            If you opened <code>src</code>, removing families first asks for the
+            project folder containing <code>src</code> and
+            <code>public</code>. Removal is blocked when the family is
+            explicitly referenced in those folders or in this browser's saved
+            style groups. Dynamically constructed references, groups in other
+            browsers, and external files cannot be checked.
           </p>
+          <div class="editor-toolbar">
+            <button
+              type="button"
+              id="open-project-for-removal"
+              aria-describedby="removal-help"
+              hidden
+            >
+              Connect project folder for removal
+            </button>
+            <button
+              type="button"
+              id="remove-all-families"
+              aria-describedby="removal-help"
+              disabled
+            >
+              Remove all current families
+            </button>
+            <p id="removal-status" role="status"></p>
+          </div>
           <div id="family-list"></div>
+          <dialog
+            id="remove-family-dialog"
+            class="m-auto max-w-[min(28rem,90vw)] rounded-lg border border-canvas-page-border bg-canvas-page p-6 text-ink-page backdrop:bg-black/50"
+            aria-labelledby="remove-family-title"
+            aria-describedby="remove-family-prompt"
+          >
+            <h3 id="remove-family-title" class="font-semibold">
+              Remove color family
+            </h3>
+            <p id="remove-family-prompt"></p>
+            <form method="dialog" class="editor-toolbar">
+              <button value="cancel" autofocus>
+                Cancel
+              </button>
+              <button id="confirm-remove-families" value="remove">
+                Remove family
+              </button>
+            </form>
+          </dialog>
         </section>
       </div>
     </div>

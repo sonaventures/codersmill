@@ -2,61 +2,6 @@
 @theme static {
   --color-white: #fff;
   --color-black: #000;
-  --color-maniac-mansion-50: oklch(97.7% 0.006 234.8);
-  --color-maniac-mansion-100: oklch(91.8% 0.012 234.8);
-  --color-maniac-mansion-200: oklch(80.5% 0.027 234.8);
-  --color-maniac-mansion-300: oklch(65.4% 0.044 234.8);
-  --color-maniac-mansion-400: oklch(45.7% 0.063 234.8);
-  --color-maniac-mansion-500: oklch(33.6% 0.071 234.8);
-  --color-maniac-mansion-600: oklch(32.4% 0.069 235.2);
-  --color-maniac-mansion-700: oklch(31.3% 0.065 234.8);
-  --color-maniac-mansion-800: oklch(30.2% 0.055 234.8);
-  --color-maniac-mansion-900: oklch(29.5% 0.043 234.8);
-  --color-maniac-mansion-950: oklch(27.9% 0.029 234.8);
-  --color-iguana-50: oklch(97.7% 0.005 112.6);
-  --color-iguana-100: oklch(94.3% 0.011 112.6);
-  --color-iguana-200: oklch(87.7% 0.023 112.6);
-  --color-iguana-300: oklch(79% 0.038 112.6);
-  --color-iguana-400: oklch(67.6% 0.055 112.6);
-  --color-iguana-500: oklch(60.6% 0.061 112.6);
-  --color-iguana-600: oklch(53.2% 0.064 112.6);
-  --color-iguana-700: oklch(47.2% 0.056 112.6);
-  --color-iguana-800: oklch(41.2% 0.047 112.6);
-  --color-iguana-900: oklch(37.2% 0.037 112.6);
-  --color-iguana-950: oklch(27.9% 0.025 112.6);
-  --color-cardamom-50: oklch(97.7% 0.005 111.8);
-  --color-cardamom-100: oklch(95.4% 0.012 111.8);
-  --color-cardamom-200: oklch(91.1% 0.026 111.8);
-  --color-cardamom-300: oklch(85.4% 0.042 111.8);
-  --color-cardamom-400: oklch(77.8% 0.061 111.8);
-  --color-cardamom-500: oklch(73.2% 0.068 111.8);
-  --color-cardamom-600: oklch(62.9% 0.071 111.8);
-  --color-cardamom-700: oklch(54.7% 0.063 111.8);
-  --color-cardamom-800: oklch(46.3% 0.053 111.8);
-  --color-cardamom-900: oklch(40.8% 0.041 111.8);
-  --color-cardamom-950: oklch(27.9% 0.028 111.8);
-  --color-court-bouillon-50: oklch(97.7% 0.006 111.3);
-  --color-court-bouillon-100: oklch(96.5% 0.013 111.3);
-  --color-court-bouillon-200: oklch(94.2% 0.028 111.3);
-  --color-court-bouillon-300: oklch(91.1% 0.046 111.3);
-  --color-court-bouillon-400: oklch(87.1% 0.067 111.3);
-  --color-court-bouillon-500: oklch(84.7% 0.075 111.3);
-  --color-court-bouillon-600: oklch(71.8% 0.078 111.3);
-  --color-court-bouillon-700: oklch(61.5% 0.069 111.3);
-  --color-court-bouillon-800: oklch(51% 0.058 111.3);
-  --color-court-bouillon-900: oklch(44.1% 0.045 111.3);
-  --color-court-bouillon-950: oklch(27.9% 0.031 111.3);
-  --color-yellow-mana-50: oklch(97% 0.08 107.8);
-  --color-yellow-mana-100: oklch(94.4% 0.179 107.8);
-  --color-yellow-mana-200: oklch(89.4% 0.193 107.8);
-  --color-yellow-mana-300: oklch(82.8% 0.178 107.8);
-  --color-yellow-mana-400: oklch(74.1% 0.16 107.8);
-  --color-yellow-mana-500: oklch(68.8% 0.148 107.8);
-  --color-yellow-mana-600: oklch(59.5% 0.128 107.8);
-  --color-yellow-mana-700: oklch(52.1% 0.112 107.8);
-  --color-yellow-mana-800: oklch(44.5% 0.096 107.8);
-  --color-yellow-mana-900: oklch(39.6% 0.085 107.8);
-  --color-yellow-mana-950: oklch(27.9% 0.06 107.6);
   --color-magical-merlin-50: oklch(97.7% 0.01 243.6);
   --color-magical-merlin-100: oklch(94.5% 0.022 243.6);
   --color-magical-merlin-200: oklch(88.3% 0.048 243.6);
@@ -97,17 +42,6 @@
 
   /* Exclusive color palette */
   /* Magenta */
-  --color-magenta-50: oklch(87% 0.094 7.79);
-  --color-magenta-100: oklch(83.21% 0.126 7.79);
-  --color-magenta-200: oklch(78.3% 0.17 7.79);
-  --color-magenta-300: oklch(72.85% 0.193 7.79);
-  --color-magenta-400: oklch(67.02% 0.193 7.79);
-  --color-magenta-500: oklch(60.88% 0.193 7.79);
-  --color-magenta-600: oklch(54.5% 0.193 7.79);
-  --color-magenta-700: oklch(47.89% 0.193 7.79);
-  --color-magenta-800: oklch(41.1% 0.186 7.79);
-  --color-magenta-900: oklch(34.13% 0.154 7.79);
-  --color-magenta-950: oklch(27% 0.122 7.79);
 
   /* Exclusive Taupe */
   --color-exclusive-taupe-50: oklch(97% 0.019 31.7);

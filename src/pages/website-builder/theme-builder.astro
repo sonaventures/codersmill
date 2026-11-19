@@ -305,7 +305,7 @@ const sampleMenu = [
                         ))}
                       </optgroup>
                       {paletteFamilies.map(({ key: family, label }) => (
-                        <optgroup label={label}>
+                        <optgroup label={label} data-palette-family={family}>
                           {paletteShades.map((shade) => (
                             <option value={`var(--color-${family}-${shade})`}>
                               {family}-{shade}
@@ -476,7 +476,9 @@ const sampleMenu = [
                   </option>
                   <option value="solid">White / black</option>
                   {paletteFamilies.map(({ key, label }) => (
-                    <option value={key}>{label}</option>
+                    <option value={key} data-palette-family-option>
+                      {label}
+                    </option>
                   ))}
                 </select>
               </div>

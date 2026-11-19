@@ -29,6 +29,10 @@ import {
 } from "../../data/style-groups";
 import css from "../../styles/themes/colors.css?raw";
 import { readPalette } from "../../data/palette.js";
+import {
+  applyTailwindPaletteOnly,
+  usesTailwindPaletteOnly,
+} from "./palette-preference";
 
 setPaletteFamilies(readPalette(css));
 const root = document.querySelector<HTMLElement>("[data-selector]");
@@ -66,6 +70,22 @@ if (root) {
   const importButton = get<HTMLButtonElement>("#import-groups");
   const fileInput = get<HTMLInputElement>("#import-file");
   const paletteFamily = get<HTMLSelectElement>("#palette-family");
+  const tailwindOnly = usesTailwindPaletteOnly();
+  if (tailwindOnly) {
+    applyTailwindPaletteOnly(paletteFamily);
+    const availableFamilies = new Set(
+      Array.from(paletteFamily.options, (option) => option.value),
+    );
+    for (const group of root.querySelectorAll<HTMLOptGroupElement>(
+      "optgroup[data-palette-family]",
+    )) {
+      if (!availableFamilies.has(group.dataset.paletteFamily ?? ""))
+        group.remove();
+    }
+  }
+  const selectableFamilies = paletteFamilies.filter(({ key }) =>
+    Array.from(paletteFamily.options).some((option) => option.value === key),
+  );
   const paletteTarget = get<HTMLSelectElement>("#palette-target");
   const radiusTarget = get<HTMLSelectElement>("#radius-target");
   const radiusSwatches = root.querySelectorAll<HTMLButtonElement>(
@@ -257,7 +277,24 @@ if (root) {
       const color = getColor(colors, editingArea(), key);
       const custom = color.startsWith("#");
       const control = get<HTMLSelectElement>(`[data-role-value="${key}"]`);
-      control.value = custom ? "custom" : color;
+      const optionValue = custom ? "custom" : color;
+      if (tailwindOnly) {
+        control.querySelector("[data-current-palette-color]")?.remove();
+        if (
+          !Array.from(control.options).some(
+            (option) => option.value === optionValue,
+          )
+        ) {
+          const current = new Option(
+            `Current: ${color.slice(12, -1)}`,
+            optionValue,
+          );
+          current.disabled = true;
+          current.dataset.currentPaletteColor = "";
+          control.add(current, 0);
+        }
+      }
+      control.value = optionValue;
       control.disabled = !visible;
       const targetOption = get<HTMLOptionElement>(
         `#palette-target option[value="${key}"]`,
@@ -312,7 +349,7 @@ if (root) {
 
   function syncPaletteFamily() {
     const color = focusedPaletteColor();
-    const family = paletteFamilies.find(({ key }) =>
+    const family = selectableFamilies.find(({ key }) =>
       paletteShades.some((shade) => color === `var(--color-${key}-${shade})`),
     );
     paletteFamily.value =

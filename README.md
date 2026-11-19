@@ -20,6 +20,11 @@ npm run build
 
 ## Website Builder
 
+On the Website Builder home page, **Reset to Tailwind colors** limits the
+Theme, Form, and Site Nav Builder palette pickers to Tailwind families in this
+browser. **Show custom colors** restores the full list. Neither button changes
+the Color Family Editor, project CSS, or saved styles.
+
 The site self-hosts Inter, Plus Jakarta Sans, DM Sans, Montserrat, and Syne through
 [the theme font stylesheet](./src/styles/themes/fonts.css). Use `font-inter`,
 `font-plus-jakarta-sans`, `font-dm-sans`, `font-montserrat`, or `font-syne` in Tailwind markup.
@@ -149,14 +154,22 @@ in the markup, and live previews still apply their dynamic styles separately.
 
 Use `/website-builder/colors/` (linked from the theme template) to add or remove
 11-shade color families directly in `src/styles/themes/colors.css`. The
-workspace uses the full available width. Use **Hide color editor guide** or
-**Show color editor guide** to toggle the scrollable guide. It sits to the
+workspace uses the full available width, with **Current families** centered
+within the editor column and capped at the `lg` screen width. Use
+**Hide color editor guide** or **Show color editor guide** to toggle the
+scrollable guide. It sits to the
 left of the editor on wide screens and above it
 on smaller screens. Select the
 `websitebuilder` project folder (the folder containing `src` and `public`) in
 Chrome or Edge on localhost or HTTPS. Choose `src` itself to add or import
-families without granting access to the full project. Removing families still
-requires the project root for reference checks. Files are accessed locally.
+families without granting access to the full project. Under **Current
+families**, select **Remove** next to a family. If you opened `src`, select its
+parent project folder when prompted so the editor can check references in `src`
+and `public`. Confirm **Remove family** after the checks pass. Use
+**Remove all current families** to remove all listed custom families in one
+save. If any family is still referenced, nothing is removed and the editor
+lists the references. Tailwind defaults are not affected. Files are accessed
+locally.
 The Color Editor stores the chosen folder handle in this
 browser's IndexedDB, scoped to the current tab through session storage. After a
 development-server reload, it reopens the folder and rereads the palette so you
