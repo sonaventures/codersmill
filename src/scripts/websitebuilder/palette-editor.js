@@ -33,6 +33,7 @@ const chooseImportFile = get("#choose-import-file");
 const importFile = get("#import-ramp");
 const importControl = get("#import-family-control");
 const importFamily = get("#import-family");
+const importStatus = get("#import-status");
 const addImportedFamilies = get("#add-imported-families");
 const familyName = get("#family-name");
 const shadeInputs = paletteShades.map((shade) =>
@@ -93,6 +94,11 @@ const report = (error) => {
   status.textContent = error instanceof Error ? error.message : String(error);
 };
 
+function showImportStatus(message) {
+  importStatus.textContent = message;
+  importStatus.hidden = false;
+}
+
 function updateShade(input, shade) {
   const value = input.value.trim();
   const valid = isOklch(value) && CSS.supports("color", value);
@@ -134,10 +140,11 @@ function applyImportedFamily(index) {
     input.value = family.values[index];
     updateShade(input, paletteShades[index]);
   }
-  status.textContent =
+  showImportStatus(
     importedFamilies.length > 1
-      ? `Imported ${importedFamilies.length} families. Review them using the selector, then select Add all imported families to save them together.`
-      : "Imported all 11 shades. Review the name and values, then select Add family to save.";
+      ? `Imported ${importedFamilies.length} families. Review them using the selector, then select Save all imported families to colors.css.`
+      : "Imported all 11 shades. Review the name and values, then select Save all imported families to colors.css or Add family.",
+  );
 }
 
 function renderImportedFamilies() {
@@ -171,6 +178,7 @@ importFile.addEventListener("change", async () => {
     renderImportedFamilies();
   } catch (error) {
     report(error);
+    showImportStatus(status.textContent);
   } finally {
     importFile.value = "";
     setBusy(false);
@@ -499,9 +507,9 @@ async function restoreProject() {
 
 restoreProject();
 
-form.addEventListener("submit", async (event) => {
-  event.preventDefault();
+async function saveFamilies(addAll) {
   if (busy) return;
+  const fromImport = importedFamilies.length > 0;
   setBusy(true);
   try {
     const data = new FormData(form);
@@ -509,7 +517,6 @@ form.addEventListener("submit", async (event) => {
     const values = paletteShades.map((shade) =>
       String(data.get(`shade-${shade}`)),
     );
-    const addAll = event.submitter === addImportedFamilies;
     const families = addAll
       ? importedFamilies.map((family, index) =>
           index === Number(importFamily.value) ? { key: name, values } : family,
@@ -530,12 +537,23 @@ form.addEventListener("submit", async (event) => {
       for (const [index, input] of shadeInputs.entries())
         updateShade(input, paletteShades[index]);
       status.textContent = addAll
-        ? `Added all ${families.length} imported ${families.length === 1 ? "family" : "families"} to colors.css in one save.`
+        ? `Saved all ${families.length} imported ${families.length === 1 ? "family" : "families"} to colors.css.`
         : `Added ${name} to colors.css.`;
     }
+    if (fromImport) showImportStatus(status.textContent);
   } catch (error) {
     report(error);
+    if (fromImport) showImportStatus(status.textContent);
   } finally {
     setBusy(false);
   }
+}
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  saveFamilies(false);
+});
+
+addImportedFamilies.addEventListener("click", () => {
+  if (form.reportValidity()) saveFamilies(true);
 });

@@ -72,11 +72,11 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
             Choose your project folder or its <code>src</code> folder, then use{" "}
             <strong>Import color families</strong>
             below. Review families using the selector, then click{" "}
-            <strong>Add all imported families</strong> to save every family from
-            all selected files at once. Your name and shade edits are included.
-            Nothing is saved if any family is invalid or already exists. Use{" "}
-            <strong>Add family</strong> to save only the selected family
-            instead.
+            <strong>Save all imported families to colors.css</strong> to save
+            every family from all selected files at once. Your name and shade
+            edits are included. Nothing is saved if any family is invalid or
+            already exists. Use <strong>Add family</strong> to save only the
+            selected family instead.
           </p>
           <details class="min-w-0">
             <summary class="cursor-pointer">
@@ -118,13 +118,19 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
           </p>
           <form id="add-family">
             <p>Import color families (.txt or .css)</p>
-            <button
-              type="button"
-              id="choose-import-file"
-              aria-describedby="import-format-help"
-            >
-              Choose File
-            </button>
+            <div class="editor-toolbar">
+              <button
+                type="button"
+                id="choose-import-file"
+                aria-describedby="import-format-help"
+              >
+                Choose File
+              </button>
+              <button type="button" id="add-imported-families" disabled>
+                Save all imported families to colors.css
+              </button>
+            </div>
+            <p id="import-status" role="status" hidden></p>
             <input
               id="import-ramp"
               type="file"
@@ -139,12 +145,9 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
               <label for="import-family">Imported family</label>
               <select id="import-family"></select>
             </div>
-            <div class="editor-toolbar">
-              <button type="submit">Add family</button>
-              <button type="submit" id="add-imported-families" disabled>
-                Add all imported families
-              </button>
-            </div>
+            <button class="w-fit" type="submit">
+              Add family
+            </button>
             <label for="family-name">Family name</label>
             <input
               id="family-name"

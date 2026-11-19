@@ -191,9 +191,9 @@ The page includes format instructions and a complete, downloadable two-family
 optional; JSON and code fences are not required.
 The import fills the form without saving. Imports with multiple complete families
 offer a family selector; name and shade edits are retained when switching families.
-The two save buttons are beside the import controls. Select **Add family** to
-save only the selected family, or **Add all imported families** to validate
-every family from every selected file in one file write.
+Select **Save all imported families to colors.css** next to **Choose File**
+to validate and save every family from the selected files in one write.
+Select **Add family** to save only the family you are reviewing.
 If any family is invalid or conflicts with an existing name,
 nothing is written and the import remains available to correct.
 This avoids reselecting the import when a source stylesheet save triggers a
