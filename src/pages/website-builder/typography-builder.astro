@@ -60,12 +60,22 @@ const sampleText: Record<string, string> = {
           <label for="typography-section-id" class="font-semibold">
             Add a section ID
           </label>
+          <div class="grid gap-2">
+            <label
+              for="typography-known-id"
+              class="text-xs text-ink-page-muted"
+            >
+              Select an ID from <code>src/styles/theme/id.css</code>
+            </label>
+            <select id="typography-known-id" class="typography-control">
+              <option value="">Select from id.css...</option>
+            </select>
+          </div>
           <div class="flex flex-wrap gap-2">
             <input
               id="typography-section-id"
-              required
               maxlength="120"
-              placeholder="about"
+              placeholder="or enter a new ID, e.g. team-spotlight"
               aria-describedby="typography-id-help"
               class="min-w-0 flex-1 rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
             />
@@ -73,9 +83,20 @@ const sampleText: Record<string, string> = {
               Add section
             </button>
           </div>
+          <label class="flex cursor-pointer items-center gap-2 text-sm">
+            <input
+              type="checkbox"
+              id="typography-add-to-id-css"
+              checked
+              class="rounded border-canvas-page-border"
+            />
+            <span>
+              Add new ID to <code>src/styles/theme/id.css</code>
+            </span>
+          </label>
           <p id="typography-id-help" class="text-sm">
-            Enter the exact, case-sensitive ID without the #. This does not
-            create a section; add the matching ID in your page markup.
+            Select an ID from id.css or enter an ID without #. Adding a new ID
+            can save it directly to id.css.
           </p>
         </form>
 

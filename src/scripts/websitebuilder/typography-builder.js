@@ -1,6 +1,11 @@
+import idCssFallback from "../../styles/theme/id.css?raw";
 import savedCss from "../../styles/themes/typography.css?raw";
 import {
+  appendIdToCss,
+  parseIdsFromCss,
   parseTypography,
+  readThemeIdFile,
+  saveThemeIdFile,
   serializeTypography,
   typographyCss,
   validateSectionId,
@@ -17,7 +22,9 @@ const scope = get("#typography-scope");
 const element = get("#typography-element");
 const form = get("#typography-form");
 const sectionForm = get("#add-typography-section");
+const knownIdSelect = get("#typography-known-id");
 const sectionId = get("#typography-section-id");
+const addToIdCss = get("#typography-add-to-id-css");
 const remove = get("#remove-typography-section");
 const save = get("#save-typography");
 const saveToFile = get("#save-typography-file");
@@ -55,6 +62,22 @@ let currentElement = element.value;
 let dirty = false;
 let busy = false;
 let sourceCss = savedCss;
+let idCssContent = idCssFallback;
+let availableThemeIds = parseIdsFromCss(idCssFallback);
+let projectFolderHandle = null;
+let idCssDirty = false;
+
+function renderThemeIds() {
+  const current = knownIdSelect.value;
+  knownIdSelect.replaceChildren(
+    new Option("Select from id.css...", ""),
+    ...availableThemeIds.map((id) => new Option(`#${id}`, id)),
+  );
+  if (current && availableThemeIds.includes(current)) {
+    knownIdSelect.value = current;
+  }
+}
+renderThemeIds();
 
 function setStatus(message, isError = false) {
   status.toggleAttribute("data-error", isError);
@@ -196,30 +219,77 @@ element.addEventListener("change", () => {
   renderControls();
 });
 
-sectionId.addEventListener("input", () => sectionId.setCustomValidity(""));
-sectionForm.addEventListener("submit", (event) => {
+knownIdSelect.addEventListener("change", () => {
+  if (knownIdSelect.value) {
+    sectionId.value = knownIdSelect.value;
+    sectionId.setCustomValidity("");
+    addToIdCss.checked = false;
+  }
+});
+
+sectionId.addEventListener("input", () => {
+  sectionId.setCustomValidity("");
+  const clean = sectionId.value.trim().replace(/^#/, "");
+  if (availableThemeIds.includes(clean)) {
+    knownIdSelect.value = clean;
+    addToIdCss.checked = false;
+  } else {
+    knownIdSelect.value = "";
+    addToIdCss.checked = true;
+  }
+});
+
+sectionForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!form.reportValidity()) return;
-  const id = sectionId.value.trim();
+  const raw = sectionId.value.trim() || knownIdSelect.value.trim();
+  const id = raw.replace(/^#/, "");
+  if (!id) {
+    sectionId.setCustomValidity(
+      "Choose an ID from id.css or enter a section ID.",
+    );
+    sectionId.reportValidity();
+    return;
+  }
   try {
     validateSectionId(id);
-    if (Object.hasOwn(config.sections, id)) {
-      throw new Error(
-        `Section #${id} already exists. Select it in Editing scope.`,
-      );
+    if (!Object.hasOwn(config.sections, id)) {
+      Object.defineProperty(config.sections, id, {
+        value: {},
+        enumerable: true,
+        writable: true,
+        configurable: true,
+      });
+      markDirty();
     }
-    Object.defineProperty(config.sections, id, {
-      value: {},
-      enumerable: true,
-      writable: true,
-      configurable: true,
-    });
     currentScope = id;
-    sectionId.value = "";
     renderScopes();
     renderControls();
-    markDirty();
     scope.focus();
+
+    let idCssMsg = "";
+    if (addToIdCss.checked && !availableThemeIds.includes(id)) {
+      idCssContent = appendIdToCss(idCssContent, id);
+      availableThemeIds = parseIdsFromCss(idCssContent);
+      renderThemeIds();
+      idCssDirty = true;
+      markDirty();
+      if (projectFolderHandle) {
+        try {
+          await saveThemeIdFile(projectFolderHandle, idCssContent);
+          idCssDirty = false;
+          idCssMsg = " and saved to id.css";
+        } catch (error) {
+          console.error("Could not write id.css:", error);
+          idCssMsg = " (will save to id.css on Save to project)";
+        }
+      } else {
+        idCssMsg = " (will save to id.css on Save to project)";
+      }
+    }
+    sectionId.value = "";
+    knownIdSelect.value = "";
+    setStatus(`Editing section #${id}${idCssMsg}.`);
   } catch (error) {
     sectionId.setCustomValidity(error.message);
     sectionId.reportValidity();
@@ -257,8 +327,18 @@ download.addEventListener("click", () => {
   link.download = "typography.css";
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+  if (idCssDirty) {
+    const idUrl = URL.createObjectURL(
+      new Blob([idCssContent], { type: "text/css" }),
+    );
+    const idLink = document.createElement("a");
+    idLink.href = idUrl;
+    idLink.download = "id.css";
+    idLink.click();
+    setTimeout(() => URL.revokeObjectURL(idUrl), 1000);
+  }
   setStatus(
-    "CSS downloaded. Replace src/styles/themes/typography.css in your project to apply it. The download includes editable builder settings.",
+    `CSS downloaded${idCssDirty ? " (typography.css and id.css)" : ""}. Replace src/styles/themes/typography.css in your project to apply it. The download includes editable builder settings.`,
   );
 });
 
@@ -279,7 +359,9 @@ fileInput.addEventListener("change", async () => {
     renderScopes();
     renderControls();
     markDirty();
-    setStatus("Imported into the preview. Save to project to apply these settings.");
+    setStatus(
+      "Imported into the preview. Save to project to apply these settings.",
+    );
   } catch (error) {
     report(error);
   } finally {
@@ -300,7 +382,9 @@ async function saveTypography(direct = false) {
     );
     return;
   }
-  const picker = direct ? window.showOpenFilePicker : window.showDirectoryPicker;
+  const picker = direct
+    ? window.showOpenFilePicker
+    : window.showDirectoryPicker;
   if (typeof picker !== "function") {
     setStatus(
       "Saving requires Chrome or Edge on localhost or HTTPS. Download CSS and replace src/styles/themes/typography.css instead.",
@@ -329,12 +413,31 @@ async function saveTypography(direct = false) {
         throw new Error("Select the project's existing typography.css file.");
       }
       step = "requesting write access to the selected typography.css";
-      if ((await handle.requestPermission({ mode: "readwrite" })) !== "granted") {
-        throw new DOMException("Write access was not granted.", "NotAllowedError");
+      if (
+        (await handle.requestPermission({ mode: "readwrite" })) !== "granted"
+      ) {
+        throw new DOMException(
+          "Write access was not granted.",
+          "NotAllowedError",
+        );
       }
     } else {
       const project = await window.showDirectoryPicker({ mode: "readwrite" });
+      projectFolderHandle = project;
       setStatus(`Checking the selected folder (${project.name})...`);
+      try {
+        const liveThemeFile = await readThemeIdFile(project);
+        if (liveThemeFile.css) {
+          for (const id of availableThemeIds) {
+            liveThemeFile.css = appendIdToCss(liveThemeFile.css, id);
+          }
+          idCssContent = liveThemeFile.css;
+          availableThemeIds = parseIdsFromCss(idCssContent);
+          renderThemeIds();
+        }
+      } catch (idSyncErr) {
+        console.warn("Could not sync id.css from project folder:", idSyncErr);
+      }
       projectPath = "src";
       const src = await project.getDirectoryHandle("src");
       projectPath = "src/styles";
@@ -386,12 +489,23 @@ async function saveTypography(direct = false) {
         );
       throw error;
     }
+    let savedIdCss = false;
+    if (projectFolderHandle && (idCssDirty || idCssContent !== idCssFallback)) {
+      try {
+        await saveThemeIdFile(projectFolderHandle, idCssContent);
+        idCssDirty = false;
+        savedIdCss = true;
+      } catch (idError) {
+        console.error("Unable to write id.css:", idError);
+      }
+    }
     sourceCss = output;
     dirty = false;
+    const idMsg = savedIdCss ? " and src/styles/theme/id.css" : "";
     setStatus(
       direct
         ? "Saved to the selected typography.css file."
-        : "Saved src/styles/themes/typography.css. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.",
+        : `Saved src/styles/themes/typography.css${idMsg}. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.`,
     );
   } catch (error) {
     if (

@@ -135,6 +135,101 @@ export function validateSectionId(id) {
   }
 }
 
+export function parseIdsFromCss(css) {
+  if (typeof css !== "string" || !css.trim()) return [];
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  const ids = new Set();
+  const pattern =
+    /#([a-zA-Z][\w-]*)|\[\s*id\s*=\s*["']?([a-zA-Z0-9_-]+)["']?\s*\]/g;
+  for (let i = 0; i < stripped.length; i++) {
+    if (stripped[i] === "{") {
+      let start = i - 1;
+      while (
+        start >= 0 &&
+        stripped[start] !== ";" &&
+        stripped[start] !== "{" &&
+        stripped[start] !== "}"
+      ) {
+        start--;
+      }
+      const selectorText = stripped.slice(start + 1, i);
+      let match;
+      pattern.lastIndex = 0;
+      while ((match = pattern.exec(selectorText)) !== null) {
+        const id = match[1] || match[2];
+        if (id) ids.add(id);
+      }
+    }
+  }
+  return [...ids].sort((a, b) => a.localeCompare(b));
+}
+
+export function appendIdToCss(css, id) {
+  const cleanId = id.trim().replace(/^#/, "");
+  validateSectionId(cleanId);
+  const existing = parseIdsFromCss(css);
+  if (existing.includes(cleanId)) return css;
+  const trimmed = typeof css === "string" ? css.trimEnd() : "";
+  const rule = `\n\n#${cleanId} {\n}\n`;
+  return trimmed ? `${trimmed}${rule}` : `#${cleanId} {\n}\n`;
+}
+
+export async function readThemeIdFile(projectDirectory) {
+  if (!projectDirectory) return { handle: null, css: "" };
+  try {
+    let src;
+    try {
+      src = await projectDirectory.getDirectoryHandle("src");
+    } catch {
+      src = projectDirectory;
+    }
+    const styles = await src.getDirectoryHandle("styles");
+    let themeDir;
+    try {
+      themeDir = await styles.getDirectoryHandle("theme");
+    } catch {
+      try {
+        themeDir = await styles.getDirectoryHandle("themes");
+      } catch {
+        return { handle: null, css: "" };
+      }
+    }
+    const fileHandle = await themeDir.getFileHandle("id.css");
+    const file = await fileHandle.getFile();
+    const css = await file.text();
+    return { handle: fileHandle, css };
+  } catch {
+    return { handle: null, css: "" };
+  }
+}
+
+export async function saveThemeIdFile(projectDirectory, content) {
+  if (!projectDirectory) throw new Error("No project directory provided.");
+  let src;
+  try {
+    src = await projectDirectory.getDirectoryHandle("src");
+  } catch {
+    src = projectDirectory;
+  }
+  const styles = await src.getDirectoryHandle("styles");
+  let themeDir;
+  try {
+    themeDir = await styles.getDirectoryHandle("theme", { create: true });
+  } catch {
+    themeDir = await styles.getDirectoryHandle("themes", { create: true });
+  }
+  const fileHandle = await themeDir.getFileHandle("id.css", { create: true });
+  const writable = await fileHandle.createWritable();
+  try {
+    await writable.write(content);
+    await writable.close();
+  } catch (error) {
+    await writable.abort().catch(() => {});
+    throw error;
+  }
+  return fileHandle;
+}
+
 function isRecord(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }

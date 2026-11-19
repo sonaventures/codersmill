@@ -1,8 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  appendIdToCss,
   createTypography,
+  parseIdsFromCss,
   parseTypography,
+  readThemeIdFile,
+  saveThemeIdFile,
   serializeTypography,
   typographyCss,
   validateSectionId,
@@ -45,7 +49,10 @@ test("self-hosted fonts round-trip and are emitted in preview and saved CSS", ()
   const config = createTypography();
   config.defaults.h1 = { "font-family": "var(--font-montserrat)" };
   config.defaults.p = { "font-family": "var(--font-inter)" };
-  config.defaults.h2 = { "font-family": "var(--font-syne)", "font-weight": "800" };
+  config.defaults.h2 = {
+    "font-family": "var(--font-syne)",
+    "font-weight": "800",
+  };
   config.sections.about = {
     h1: { "font-family": "var(--font-plus-jakarta-sans)" },
     p: { "font-family": "var(--font-dm-sans)", "font-weight": "1000" },
@@ -173,4 +180,78 @@ test("valid typography formats and prototype-like section IDs round trip", () =>
     '{"version":1,"defaults":{},"sections":{"__proto__":{"p":{"font-size":"1rem"}},"constructor":{}}}',
   );
   assert.deepEqual(parseTypography(serializeTypography(config)), config);
+});
+
+test("parses IDs from CSS and appends new IDs without duplication", () => {
+  const initialCss = "#hero {\n}\n\n#about {\n}\n";
+  assert.deepEqual(parseIdsFromCss(initialCss), ["about", "hero"]);
+
+  const updatedCss = appendIdToCss(initialCss, "features");
+  assert.match(updatedCss, /#features \{\n\}/);
+  assert.deepEqual(parseIdsFromCss(updatedCss), ["about", "features", "hero"]);
+
+  // No duplicate if ID already exists
+  const unchanged = appendIdToCss(updatedCss, "#hero");
+  assert.equal(unchanged, updatedCss);
+
+  assert.throws(
+    () => appendIdToCss(initialCss, "invalid with spaces"),
+    /section ID/,
+  );
+});
+
+test("reads and writes theme id.css using project directory handles", async () => {
+  let savedContent = "";
+  const mockFile = (text) => ({
+    async getFile() {
+      return { text: async () => text };
+    },
+    async createWritable() {
+      return {
+        async write(content) {
+          savedContent = content;
+        },
+        async close() {},
+        async abort() {},
+      };
+    },
+  });
+
+  const mockProject = {
+    async getDirectoryHandle(name) {
+      if (name === "src") {
+        return {
+          async getDirectoryHandle(name) {
+            if (name === "styles") {
+              return {
+                async getDirectoryHandle(name) {
+                  if (name === "theme") {
+                    return {
+                      async getFileHandle(name) {
+                        if (name === "id.css") {
+                          return mockFile("#hero {}");
+                        }
+                        throw new DOMException("Missing", "NotFoundError");
+                      },
+                    };
+                  }
+                  throw new DOMException("Missing", "NotFoundError");
+                },
+              };
+            }
+            throw new DOMException("Missing", "NotFoundError");
+          },
+        };
+      }
+      throw new DOMException("Missing", "NotFoundError");
+    },
+  };
+
+  const { css } = await readThemeIdFile(mockProject);
+  assert.equal(css, "#hero {}");
+
+  await saveThemeIdFile(mockProject, "#hero {}\n\n#new-section {}\n");
+  assert.equal(savedContent, "#hero {}\n\n#new-section {}\n");
+
+  assert.deepEqual(await readThemeIdFile(null), { handle: null, css: "" });
 });

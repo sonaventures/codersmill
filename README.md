@@ -102,8 +102,8 @@ send form entries or save style changes.
 Use `/website-builder/typography-builder/` to set styles for `h1`–`h6`, `p`,
 `em`, `strong`, `code`, `cite`, `pre`, and `blockquote`. All 13 elements appear
 in the live preview, including a multiline preformatted sample.
-Choose **Site-wide defaults**, or add the exact ID of a
-`<section>` in your page (without `#`) and select it to edit local overrides.
+Choose **Site-wide defaults**, select an existing section ID from [`src/styles/theme/id.css`](./src/styles/theme/id.css),
+or enter a new ID (with the option to automatically add the new ID to `id.css`) to edit local overrides.
 Each element has font family, size, weight, line height, letter spacing, style,
 text transform, and color controls. Select Tailwind defaults by utility name:
 `text-xs` through `text-9xl`, `font-thin` through `font-black`, `leading-*`,
