@@ -145,7 +145,11 @@ Tailwind utilities and keeps the individual page styles scoped. Inline styles
 provide dynamic theme and palette values for the previews.
 
 Use `/website-builder/colors/` (linked from the theme template) to add or remove
-11-shade color families directly in `src/styles/themes/colors.css`. Select the
+11-shade color families directly in `src/styles/themes/colors.css`. The
+workspace uses the full available width. Use **Hide color editor guide** or
+**Show color editor guide** to toggle the scrollable guide. It sits to the
+left of the editor on wide screens and above it
+on smaller screens. Select the
 `websitebuilder` project folder (the folder containing `src` and `public`) in
 Chrome or Edge on localhost or HTTPS. Choose `src` itself to add or import
 families without granting access to the full project. Removing families still

@@ -1,7 +1,7 @@
 @reference "../global.css";
 /* Color family editor */
 .palette-editor.palette-editor {
-  @apply grid max-w-280 gap-8 py-[3rem_5rem];
+  @apply grid gap-8 py-[3rem_5rem];
 }
 .palette-editor header,
 .palette-editor section,
