@@ -1,12 +1,16 @@
+import idCssFallback from "../../styles/theme/id.css?raw";
 import {
   componentSavePath,
   generatePage,
   inspectComponent,
   pageRoute,
   pageSlug,
+  parseIdsFromCss,
   readComponents,
+  readThemeIds,
   saveComponentCopy,
   saveNewPage,
+  validateSectionId,
 } from "../../data/page-builder.js";
 
 const root = document.querySelector("[data-page-builder]");
@@ -24,6 +28,8 @@ const name = get("#page-name");
 const description = get("#page-description");
 const path = get("#page-path");
 const available = get("#available-components");
+const sectionIdSelect = get("#component-section-id");
+const customIdInput = get("#component-custom-id");
 const add = get("#add-component");
 const savePath = get("#component-save-path");
 const save = get("#save-component");
@@ -34,7 +40,20 @@ let pageDirectory;
 let componentsRoot;
 let components = [];
 let selected = [];
+let availableIds = parseIdsFromCss(idCssFallback);
 let busy = false;
+
+function renderAvailableIds() {
+  const currentVal = sectionIdSelect.value;
+  sectionIdSelect.replaceChildren(
+    new Option("No section ID", ""),
+    ...availableIds.map((id) => new Option(id, id)),
+  );
+  if (currentVal && availableIds.includes(currentVal)) {
+    sectionIdSelect.value = currentVal;
+  }
+}
+renderAvailableIds();
 
 function setBusy(value) {
   busy = value;
@@ -162,6 +181,60 @@ function renderSelection() {
       wrapper.append(label, input);
       row.append(wrapper);
     }
+    const sectionWrapper = document.createElement("div");
+    sectionWrapper.className = "grid gap-2";
+    const sectionLabel = document.createElement("label");
+    sectionLabel.htmlFor = `component-${index}-section-id`;
+    sectionLabel.className = "text-sm font-semibold";
+    sectionLabel.textContent = "Section ID (optional)";
+
+    const sectionFields = document.createElement("div");
+    sectionFields.className = "flex flex-wrap gap-2";
+
+    const itemSelect = document.createElement("select");
+    itemSelect.id = sectionLabel.htmlFor;
+    itemSelect.className =
+      "min-w-[180px] flex-1 rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page";
+    itemSelect.append(new Option("No section ID", ""));
+    for (const id of availableIds) {
+      itemSelect.append(new Option(id, id));
+    }
+    if (item.sectionId && !availableIds.includes(item.sectionId)) {
+      itemSelect.append(
+        new Option(`Custom: ${item.sectionId}`, item.sectionId),
+      );
+    }
+    itemSelect.value = item.sectionId ?? "";
+
+    const itemInput = document.createElement("input");
+    itemInput.type = "text";
+    itemInput.maxLength = 120;
+    itemInput.placeholder = "Or custom ID";
+    itemInput.className =
+      "min-w-[160px] flex-1 rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page";
+    itemInput.value = availableIds.includes(item.sectionId ?? "")
+      ? ""
+      : (item.sectionId ?? "");
+
+    itemSelect.addEventListener("change", () => {
+      item.sectionId = itemSelect.value;
+      itemInput.value = "";
+    });
+
+    itemInput.addEventListener("input", () => {
+      const val = itemInput.value.trim().replace(/^#/, "");
+      item.sectionId = val;
+      if (availableIds.includes(val)) {
+        itemSelect.value = val;
+      } else {
+        itemSelect.value = "";
+      }
+    });
+
+    sectionFields.append(itemSelect, itemInput);
+    sectionWrapper.append(sectionLabel, sectionFields);
+    row.append(sectionWrapper);
+
     const actions = document.createElement("div");
     actions.className = "flex flex-wrap gap-2";
     actions.append(
@@ -221,7 +294,13 @@ open.addEventListener("click", async () => {
       );
     componentsRoot = componentDirectory;
     projectName.textContent = project.name;
+    const liveIds = await readThemeIds(project);
+    if (liveIds.length) {
+      availableIds = liveIds;
+    }
     form.reset();
+    customIdInput.value = "";
+    renderAvailableIds();
     updatePath();
     renderComponents();
     renderSelection();
@@ -246,9 +325,27 @@ add.addEventListener("click", () => {
     status.textContent = "Choose a supported component.";
     return;
   }
-  selected.push({ component, values: Object.create(null) });
+  const customId = customIdInput.value.trim().replace(/^#/, "");
+  const selectedId = customId || sectionIdSelect.value.trim().replace(/^#/, "");
+  if (selectedId) {
+    try {
+      validateSectionId(selectedId);
+    } catch (error) {
+      status.textContent = error.message;
+      return;
+    }
+  }
+  selected.push({
+    component,
+    values: Object.create(null),
+    sectionId: selectedId || undefined,
+  });
+  sectionIdSelect.value = "";
+  customIdInput.value = "";
   renderSelection();
-  status.textContent = `Added ${component.path}.`;
+  status.textContent = selectedId
+    ? `Added ${component.path} with section ID "${selectedId}".`
+    : `Added ${component.path}.`;
 });
 
 save.addEventListener("click", async () => {
@@ -297,7 +394,7 @@ form.addEventListener("submit", async (event) => {
   createdLink.hidden = true;
   try {
     const slug = pageSlug(name.value);
-    const assignments = selected.map(({ component, values }) => {
+    const assignments = selected.map(({ component, values, sectionId }) => {
       const typed = Object.create(null);
       for (const property of component.properties) {
         const value = values[property.name] ?? "";
@@ -310,7 +407,7 @@ form.addEventListener("submit", async (event) => {
                 ? Number(value)
                 : value;
       }
-      return { component, values: typed };
+      return { component, values: typed, sectionId };
     });
     const content = generatePage(name.value, description.value, assignments);
     for (const { component } of selected) {

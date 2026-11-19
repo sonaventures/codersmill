@@ -5,6 +5,7 @@
 @import "./utilities/base.css";
 @import "./utilities/buttons.css";
 @import "./themes/typography.css";
+@import "./theme/id.css";
 
 @plugin "tailwindcss-motion";
 @plugin "@iconify/tailwind4";

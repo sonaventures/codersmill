@@ -68,6 +68,77 @@ export async function readComponents(directory, prefix = "") {
   return result.sort((a, b) => a.path.localeCompare(b.path));
 }
 
+export function validateSectionId(id) {
+  if (
+    typeof id !== "string" ||
+    !id.trim() ||
+    id.trim().length > 120 ||
+    /[\s\u0000-\u001f\u007f]/u.test(id.trim())
+  ) {
+    throw new Error(
+      "Use a section ID of 1-120 characters without spaces or control characters.",
+    );
+  }
+}
+
+export function parseIdsFromCss(css) {
+  if (typeof css !== "string" || !css.trim()) return [];
+  const stripped = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  const ids = new Set();
+  const pattern =
+    /#([a-zA-Z][\w-]*)|\[\s*id\s*=\s*["']?([a-zA-Z0-9_-]+)["']?\s*\]/g;
+  for (let i = 0; i < stripped.length; i++) {
+    if (stripped[i] === "{") {
+      let start = i - 1;
+      while (
+        start >= 0 &&
+        stripped[start] !== ";" &&
+        stripped[start] !== "{" &&
+        stripped[start] !== "}"
+      ) {
+        start--;
+      }
+      const selectorText = stripped.slice(start + 1, i);
+      let match;
+      pattern.lastIndex = 0;
+      while ((match = pattern.exec(selectorText)) !== null) {
+        const id = match[1] || match[2];
+        if (id) ids.add(id);
+      }
+    }
+  }
+  return [...ids].sort((a, b) => a.localeCompare(b));
+}
+
+export async function readThemeIds(projectDirectory) {
+  if (!projectDirectory) return [];
+  try {
+    let src;
+    try {
+      src = await projectDirectory.getDirectoryHandle("src");
+    } catch {
+      src = projectDirectory;
+    }
+    const styles = await src.getDirectoryHandle("styles");
+    let themeDir;
+    try {
+      themeDir = await styles.getDirectoryHandle("theme");
+    } catch {
+      try {
+        themeDir = await styles.getDirectoryHandle("themes");
+      } catch {
+        return [];
+      }
+    }
+    const fileHandle = await themeDir.getFileHandle("id.css");
+    const file = await fileHandle.getFile();
+    const css = await file.text();
+    return parseIdsFromCss(css);
+  } catch {
+    return [];
+  }
+}
+
 export function componentSavePath(input) {
   if (typeof input !== "string" || !input.trim())
     throw new Error("Enter a component file path, for example custom/my-hero.");
@@ -172,8 +243,26 @@ export function generatePage(name, description, selected) {
   if (!Array.isArray(selected) || selected.length === 0)
     throw new Error("Add at least one component.");
 
+  const seenIds = new Set();
+  for (const item of selected) {
+    if (
+      item.sectionId &&
+      typeof item.sectionId === "string" &&
+      item.sectionId.trim()
+    ) {
+      const cleanId = item.sectionId.trim().replace(/^#/, "");
+      validateSectionId(cleanId);
+      if (seenIds.has(cleanId)) {
+        throw new Error(
+          `Duplicate section ID "${cleanId}". Section IDs on a page must be unique.`,
+        );
+      }
+      seenIds.add(cleanId);
+    }
+  }
+
   const imports = new Map();
-  const elements = selected.map(({ component, values }) => {
+  const elements = selected.map(({ component, values, sectionId }) => {
     if (
       !component ||
       component.error ||
@@ -204,7 +293,12 @@ export function generatePage(name, description, selected) {
         throw new Error(`Enter ${key} for ${component.path}.`);
       return ` ${key}={${literal(value)}}`;
     });
-    return `  <${imports.get(component.path)}${attributes.join("")} />`;
+    const element = `  <${imports.get(component.path)}${attributes.join("")} />`;
+    if (sectionId && typeof sectionId === "string" && sectionId.trim()) {
+      const cleanId = sectionId.trim().replace(/^#/, "");
+      return `  <section id=${literal(cleanId)}>\n  ${element}\n  </section>`;
+    }
+    return element;
   });
   const componentImports = [...imports].map(
     ([path, alias]) =>

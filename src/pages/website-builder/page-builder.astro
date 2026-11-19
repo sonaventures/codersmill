@@ -78,6 +78,30 @@ import Layout from "../../layouts/website-builder.astro";
             id="available-components"
             class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
           ></select>
+          <div class="grid gap-2">
+            <label for="component-section-id" class="text-sm font-semibold">
+              Section ID (optional)
+            </label>
+            <p class="text-sm">
+              Assign an ID to the outer <code>&lt;section&gt;</code> element
+              from
+              <code>src/styles/theme/id.css</code> or enter a custom ID.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <select
+                id="component-section-id"
+                class="min-w-[200px] flex-1 rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+              >
+                <option value="">No section ID</option>
+              </select>
+              <input
+                id="component-custom-id"
+                placeholder="Or enter custom ID"
+                maxlength="120"
+                class="min-w-[180px] flex-1 rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+              />
+            </div>
+          </div>
           <button
             class="btn btn-outline justify-self-start"
             type="button"

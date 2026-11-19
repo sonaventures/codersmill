@@ -164,6 +164,12 @@ as unsupported, as are components with slots or files over 5 MB. These files
 do not block other components from loading. Reopen the project folder after
 changing a component. Existing pages are not moved.
 
+When adding components to a page, an optional section ID can be assigned to the outer
+`<section>` element from the IDs defined in [`src/styles/theme/id.css`](./src/styles/theme/id.css)
+(or `src/styles/themes/id.css`) or via a custom ID input. In the generated page, components
+with an assigned section ID are wrapped in `<section id="...">`, allowing theme overrides,
+anchor navigation, and Typography Builder rules to target the section directly.
+
 **Save component copy** saves the component selected in the list to a new file
 under `src/components/`, so templates such as those in `src/components/flowbite/`
 and `src/components/flyonui/` can be renamed and customized without changing

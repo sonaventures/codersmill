@@ -6,9 +6,12 @@ import {
   inspectComponent,
   pageRoute,
   pageSlug,
+  parseIdsFromCss,
   readComponents,
+  readThemeIds,
   saveComponentCopy,
   saveNewPage,
+  validateSectionId,
 } from "../src/data/page-builder.js";
 
 test("discovers simple component properties and reports unsupported components", () => {
@@ -302,4 +305,151 @@ test("refuses a page route already used by another page or directory index", asy
     ),
     /page\.md/,
   );
+});
+
+test("parses IDs from CSS while ignoring hex colors, comments, and declarations", () => {
+  const css = `
+    /* Comment with #commented-id */
+    #hero {
+      color: #fff;
+      background: #1e293b;
+    }
+    #about, section#services {
+      border: 1px solid #e2e8f0;
+    }
+    [id="portfolio"] {
+      padding: 2rem;
+    }
+    @media (min-width: 768px) {
+      #contact {
+        display: grid;
+      }
+    }
+  `;
+  const ids = parseIdsFromCss(css);
+  assert.deepEqual(ids, ["about", "contact", "hero", "portfolio", "services"]);
+  assert.deepEqual(parseIdsFromCss(""), []);
+  assert.deepEqual(parseIdsFromCss(null), []);
+});
+
+test("validates section IDs and prevents invalid or duplicate IDs", () => {
+  validateSectionId("hero");
+  validateSectionId("services-2026");
+  assert.throws(() => validateSectionId(""), /section ID/);
+  assert.throws(() => validateSectionId("has space"), /section ID/);
+  assert.throws(() => validateSectionId("a".repeat(121)), /section ID/);
+
+  const intro = {
+    path: "PageIntro.astro",
+    properties: [{ name: "title", type: "string", optional: false }],
+  };
+  const card = { path: "cards/Cards.astro", properties: [] };
+
+  const result = generatePage("Home", "", [
+    { component: intro, values: { title: "Welcome" }, sectionId: "hero" },
+    { component: card, values: {}, sectionId: "#services" },
+    { component: card, values: {} },
+  ]);
+
+  assert.match(
+    result,
+    /<section id="hero">\s*<Component1 title=\{"Welcome"\} \/>\s*<\/section>/,
+  );
+  assert.match(
+    result,
+    /<section id="services">\s*<Component2 \/>\s*<\/section>/,
+  );
+  assert.match(result, /<\/section>\s*<Component2 \/>\s*<\/Layout>/);
+
+  assert.throws(
+    () =>
+      generatePage("Home", "", [
+        { component: intro, values: { title: "A" }, sectionId: "hero" },
+        { component: intro, values: { title: "B" }, sectionId: "hero" },
+      ]),
+    /Duplicate section ID "hero"/,
+  );
+
+  assert.throws(
+    () =>
+      generatePage("Home", "", [
+        { component: intro, values: { title: "A" }, sectionId: "invalid id" },
+      ]),
+    /section ID/,
+  );
+});
+
+test("reads theme IDs from project directory handle", async () => {
+  const fakeFile = (text) => ({
+    async getFile() {
+      return { text: async () => text };
+    },
+  });
+  const project = {
+    async getDirectoryHandle(name) {
+      if (name === "src") {
+        return {
+          async getDirectoryHandle(name) {
+            if (name === "styles") {
+              return {
+                async getDirectoryHandle(name) {
+                  if (name === "theme") {
+                    return {
+                      async getFileHandle(name) {
+                        if (name === "id.css") {
+                          return fakeFile("#hero { color: #000; } #about {}");
+                        }
+                        throw new DOMException("Missing", "NotFoundError");
+                      },
+                    };
+                  }
+                  throw new DOMException("Missing", "NotFoundError");
+                },
+              };
+            }
+            throw new DOMException("Missing", "NotFoundError");
+          },
+        };
+      }
+      throw new DOMException("Missing", "NotFoundError");
+    },
+  };
+
+  const ids = await readThemeIds(project);
+  assert.deepEqual(ids, ["about", "hero"]);
+
+  const projectThemes = {
+    async getDirectoryHandle(name) {
+      if (name === "src") {
+        return {
+          async getDirectoryHandle(name) {
+            if (name === "styles") {
+              return {
+                async getDirectoryHandle(name) {
+                  if (name === "theme")
+                    throw new DOMException("Missing", "NotFoundError");
+                  if (name === "themes") {
+                    return {
+                      async getFileHandle(name) {
+                        if (name === "id.css") {
+                          return fakeFile("#cta {} #features {}");
+                        }
+                        throw new DOMException("Missing", "NotFoundError");
+                      },
+                    };
+                  }
+                  throw new DOMException("Missing", "NotFoundError");
+                },
+              };
+            }
+            throw new DOMException("Missing", "NotFoundError");
+          },
+        };
+      }
+      throw new DOMException("Missing", "NotFoundError");
+    },
+  };
+  assert.deepEqual(await readThemeIds(projectThemes), ["cta", "features"]);
+
+  assert.deepEqual(await readThemeIds(null), []);
 });
