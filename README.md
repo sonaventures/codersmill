@@ -259,10 +259,11 @@ that sample area to the top of the viewport, including the footer. If a
 page-wide brand/CTA role was selected, choosing another area switches the
 palette target to that area's background.
 Click a preview element to highlight it and center its matching color control
-in the panel without moving the desktop preview. Primary and secondary
-buttons select their own background colors;
-headings select the matching heading color. Click the section itself to edit
-its border.
+in the panel without moving the desktop preview. Header menu items and body
+paragraphs select their area's text color. Header logo words select their
+page-wide brand colors. Primary and secondary buttons select their own
+background colors, and headings and their labels select the matching heading
+color. Click the section itself to edit its border.
 Click anywhere in a color-control block (label, token, swatch, or padding) to
 focus that color. The active block is highlighted; dropdowns and hex inputs
 remain directly editable. Focusing a control synchronizes the floating palette's

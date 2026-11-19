@@ -375,17 +375,27 @@ if (root) {
   }
 
   function previewTargetRole(target: HTMLElement): ColorRole {
+    if (
+      target.matches(".sample-heading-level") &&
+      target.nextElementSibling instanceof HTMLElement
+    ) {
+      target = target.nextElementSibling;
+    }
+    if (target.matches(".sample-logo .text-brand-01")) return "brandFirst";
+    if (target.matches(".sample-logo .text-brand-02")) return "brandSecond";
     if (target.matches('[data-cta="primary"]')) return "ctaPrimary";
     if (target.matches('[data-cta="secondary"]')) return "ctaSecondary";
     if (target.matches(".sample-primary")) return "primary";
     if (target.matches(".sample-secondary")) return "secondary";
     if (target.matches(".sample-social-icons a")) return "iconBorder";
+    if (target.matches(".sample-navigation summary, .sample-submenu a"))
+      return "text";
     if (target.matches("a")) return "linkColor";
     if (target.matches("h1")) return "h1";
     if (target.matches("h2")) return "h2";
     if (target.matches("h3")) return "h3";
     if (target.matches("h4")) return "h4";
-    if (target.matches(".sample-copy, .sample-code")) return "text";
+    if (target.matches("p, .sample-code")) return "text";
     if (target.matches(".sample-subsection")) return "subsectionBorder";
 
     if (target.matches(".sample-card")) {
@@ -403,7 +413,8 @@ if (root) {
     return "background";
   }
 
-  function previewRegion(target: HTMLElement): Region {
+  function previewRegion(target: HTMLElement, role: ColorRole): Region {
+    if (isGlobalColorRole(role)) return "page";
     const regionName =
       target.closest<HTMLElement>("[data-region]")?.dataset.region;
     const region = regions.find(({ key }) => key === regionName);
@@ -412,12 +423,13 @@ if (root) {
     return region.key;
   }
 
+  const nativePreviewControls = "button, a, summary";
   const previewTargets = preview.querySelectorAll<HTMLElement>(
-    "[data-region], .sample-card, .sample-subsection, .sample-buttons button, .sample-action-link, .sample-inline-link, .sample-social-icons a, .sample-copy, .sample-copy a, .sample-code, h1, h2, h3, h4",
+    "[data-region], .sample-card, .sample-subsection, .sample-buttons button, .sample-logo .text-brand-01, .sample-logo .text-brand-02, .sample-navigation summary, a:not(.sample-logo), p, .sample-code, .sample-heading-level, h1, h2, h3, h4",
   );
   for (const target of previewTargets) {
-    const region = previewRegion(target);
     const role = previewTargetRole(target);
+    const region = previewRegion(target, role);
     const regionLabel = regions.find(({ key }) => key === region)?.label;
     const roleLabel = colorRoles.find(({ key }) => key === role)?.label;
     if (!regionLabel || !roleLabel)
@@ -428,13 +440,13 @@ if (root) {
       "aria-description",
       "Press Enter or Space to open these color controls.",
     );
-    if (!target.matches("button, a")) target.tabIndex = 0;
+    if (!target.matches(nativePreviewControls)) target.tabIndex = 0;
   }
 
   let selectedPreviewTarget: HTMLElement | null = null;
   const activatePreviewTarget = (target: HTMLElement) => {
-    const region = previewRegion(target);
     const role = previewTargetRole(target);
+    const region = previewRegion(target, role);
     if (!isColorRoleVisible(region, role)) {
       throw new Error(`The ${role} control is unavailable for ${region}.`);
     }
@@ -479,7 +491,7 @@ if (root) {
     if (event.key !== "Enter" && event.key !== " ") return;
     if (!(event.target instanceof HTMLElement)) return;
     const target = event.target.closest<HTMLElement>("[data-control-target]");
-    if (!target || target.matches("button, a")) return;
+    if (!target || target.matches(nativePreviewControls)) return;
     event.preventDefault();
     activatePreviewTarget(target);
   });
