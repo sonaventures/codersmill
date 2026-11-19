@@ -86,6 +86,30 @@ import Layout from "../../layouts/website-builder.astro";
             Add component
           </button>
         </div>
+        <div class="grid gap-2">
+          <label for="component-save-path" class="font-semibold">
+            Save a copy of the selected component (optional)
+          </label>
+          <p class="text-sm">
+            Copies the component selected above to a new file under
+            <code>src/components</code> so you can rename and customize it. The
+            original template stays unchanged. Use <code>/</code> for
+            subfolders, for example <code>custom/my-hero</code>.
+          </p>
+          <input
+            id="component-save-path"
+            maxlength="200"
+            placeholder="For example, custom/my-hero"
+            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+          />
+          <button
+            class="btn btn-outline justify-self-start"
+            type="button"
+            id="save-component"
+          >
+            Save component copy
+          </button>
+        </div>
         <section class="grid gap-3" aria-labelledby="selected-components-title">
           <h2 id="selected-components-title" class="font-display text-2xl">
             Components in page order

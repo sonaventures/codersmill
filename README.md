@@ -164,6 +164,15 @@ as unsupported, as are components with slots or files over 5 MB. These files
 do not block other components from loading. Reopen the project folder after
 changing a component. Existing pages are not moved.
 
+**Save component copy** saves the component selected in the list to a new file
+under `src/components/`, so templates such as those in `src/components/flowbite/`
+and `src/components/flyonui/` can be renamed and customized without changing
+the originals. Enter a path such as `custom/my-hero` (the `.astro` extension is
+added automatically, and missing folders are created), then select **Save
+component copy**. The copy is selected in the list, ready to add to the page.
+Existing files are never overwritten, and reserved names such as the shared
+site header are refused.
+
 FlyonUI components with markup use `<section>` for their outer wrapper;
 inner layout containers can still use `<div>`.
 

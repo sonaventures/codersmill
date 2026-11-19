@@ -1,8 +1,11 @@
 import {
+  componentSavePath,
   generatePage,
+  inspectComponent,
   pageRoute,
   pageSlug,
   readComponents,
+  saveComponentCopy,
   saveNewPage,
 } from "../../data/page-builder.js";
 
@@ -22,10 +25,13 @@ const description = get("#page-description");
 const path = get("#page-path");
 const available = get("#available-components");
 const add = get("#add-component");
+const savePath = get("#component-save-path");
+const save = get("#save-component");
 const list = get("#selected-components");
 const empty = get("#selected-components-empty");
 const createdLink = get("#created-page-link");
 let pageDirectory;
+let componentsRoot;
 let components = [];
 let selected = [];
 let busy = false;
@@ -180,6 +186,7 @@ open.addEventListener("click", async () => {
     status.textContent = "Choose the websitebuilder project folder.";
     const project = await window.showDirectoryPicker({ mode: "readwrite" });
     pageDirectory = undefined;
+    componentsRoot = undefined;
     components = [];
     selected = [];
     form.hidden = true;
@@ -212,6 +219,7 @@ open.addEventListener("click", async () => {
       throw new Error(
         "No selectable Astro components were found in src/components.",
       );
+    componentsRoot = componentDirectory;
     projectName.textContent = project.name;
     form.reset();
     updatePath();
@@ -241,6 +249,45 @@ add.addEventListener("click", () => {
   selected.push({ component, values: Object.create(null) });
   renderSelection();
   status.textContent = `Added ${component.path}.`;
+});
+
+save.addEventListener("click", async () => {
+  if (busy || !componentsRoot) return;
+  const component = components[Number(available.value)];
+  if (!component || component.error) {
+    status.textContent = "Choose a supported component to save a copy of.";
+    return;
+  }
+  setBusy(true);
+  try {
+    const path = componentSavePath(savePath.value);
+    if (components.some((existing) => existing.path === path))
+      throw new Error(
+        `src/components/${path} already exists. Choose a different name.`,
+      );
+    const handle = await saveComponentCopy(
+      componentsRoot,
+      path,
+      component.source,
+    );
+    const copy = inspectComponent(path, component.source);
+    if (!copy || copy.error)
+      throw new Error(
+        `Saved src/components/${path}, but it cannot be selected: ${copy?.error ?? "the file name is reserved."}`,
+      );
+    components.push({ ...copy, handle, source: component.source });
+    components.sort((a, b) => a.path.localeCompare(b.path));
+    renderComponents();
+    available.value = String(
+      components.findIndex((entry) => entry.path === path),
+    );
+    savePath.value = "";
+    status.textContent = `Saved src/components/${path} and selected it in the component list.`;
+  } catch (error) {
+    report(error);
+  } finally {
+    setBusy(false);
+  }
 });
 
 form.addEventListener("submit", async (event) => {

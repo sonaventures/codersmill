@@ -68,6 +68,73 @@ export async function readComponents(directory, prefix = "") {
   return result.sort((a, b) => a.path.localeCompare(b.path));
 }
 
+export function componentSavePath(input) {
+  if (typeof input !== "string" || !input.trim())
+    throw new Error("Enter a component file path, for example custom/my-hero.");
+  const path = `${input
+    .trim()
+    .replace(/^\/+|\/+$/g, "")
+    .replace(/\.astro$/i, "")}.astro`;
+  if (path.length > 200 || !componentPathPattern.test(path))
+    throw new Error(
+      "Use letters, numbers, hyphens, and underscores, with / between folders.",
+    );
+  if (excludedComponents.has(path.split("/").at(-1)))
+    throw new Error("That component file name is reserved.");
+  return path;
+}
+
+export async function saveComponentCopy(directory, path, content) {
+  if (
+    !componentPathPattern.test(path) ||
+    excludedComponents.has(path.split("/").at(-1))
+  )
+    throw new Error("Invalid component file path.");
+  if (typeof content !== "string" || !content)
+    throw new Error("The component has no content to save.");
+  const segments = path.split("/");
+  const filename = segments.pop();
+  let target = directory;
+  for (const segment of segments) {
+    try {
+      target = await target.getDirectoryHandle(segment, { create: true });
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "TypeMismatchError")
+        throw new Error(
+          `${segment} already exists as a file in src/components. Choose a different folder.`,
+        );
+      throw error;
+    }
+  }
+  try {
+    await target.getFileHandle(filename);
+    throw new Error(
+      `src/components/${path} already exists. Choose a different name.`,
+    );
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "TypeMismatchError")
+      throw new Error(
+        `src/components/${path} already exists as a folder. Choose a different name.`,
+      );
+    if (!(error instanceof DOMException && error.name === "NotFoundError"))
+      throw error;
+  }
+  const file = await target.getFileHandle(filename, { create: true });
+  const writable = await file.createWritable();
+  try {
+    await writable.write(content);
+    await writable.close();
+  } catch (error) {
+    await writable
+      .abort()
+      .catch((abortError) =>
+        console.error("Unable to abort component file write:", abortError),
+      );
+    throw error;
+  }
+  return file;
+}
+
 export function pageSlug(name) {
   if (typeof name !== "string" || !name.trim())
     throw new Error("Enter a page name.");

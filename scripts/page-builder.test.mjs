@@ -1,11 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  componentSavePath,
   generatePage,
   inspectComponent,
   pageRoute,
   pageSlug,
   readComponents,
+  saveComponentCopy,
   saveNewPage,
 } from "../src/data/page-builder.js";
 
@@ -139,6 +141,89 @@ test("generates typed values without dropping false or zero", () => {
         { component, values: { count: Infinity, enabled: false } },
       ]),
     /Invalid count/,
+  );
+});
+
+test("normalizes and validates component save paths", () => {
+  assert.equal(componentSavePath("custom/my-hero"), "custom/my-hero.astro");
+  assert.equal(
+    componentSavePath(" /custom/MyHero.ASTRO/ "),
+    "custom/MyHero.astro",
+  );
+  assert.throws(() => componentSavePath(""), /Enter a component file path/);
+  assert.throws(() => componentSavePath("../hack"), /letters, numbers/);
+  assert.throws(() => componentSavePath("my hero"), /letters, numbers/);
+  assert.throws(() => componentSavePath("custom/SiteHeader"), /reserved/);
+});
+
+test("saves component copies without overwriting existing entries", async () => {
+  const fakeDirectory = () => {
+    const directories = new Map();
+    const files = new Map();
+    return {
+      directories,
+      files,
+      async getDirectoryHandle(name, options) {
+        if (files.has(name))
+          throw new DOMException("Mismatch", "TypeMismatchError");
+        if (!directories.has(name)) {
+          if (!options?.create)
+            throw new DOMException("Missing", "NotFoundError");
+          directories.set(name, fakeDirectory());
+        }
+        return directories.get(name);
+      },
+      async getFileHandle(name, options) {
+        if (directories.has(name))
+          throw new DOMException("Mismatch", "TypeMismatchError");
+        if (!files.has(name)) {
+          if (!options?.create)
+            throw new DOMException("Missing", "NotFoundError");
+          files.set(name, { content: "" });
+        }
+        const file = files.get(name);
+        return {
+          async createWritable() {
+            return {
+              async write(content) {
+                file.content = content;
+              },
+              async close() {},
+              async abort() {},
+            };
+          },
+        };
+      },
+    };
+  };
+
+  const root = fakeDirectory();
+  await saveComponentCopy(root, "custom/my-hero.astro", "<section />");
+  assert.equal(
+    root.directories.get("custom").files.get("my-hero.astro").content,
+    "<section />",
+  );
+  await assert.rejects(
+    saveComponentCopy(root, "custom/my-hero.astro", "<section />"),
+    /already exists/,
+  );
+  root.files.set("blocked", { content: "" });
+  await assert.rejects(
+    saveComponentCopy(root, "blocked/copy.astro", "<section />"),
+    /already exists as a file/,
+  );
+  root.directories.set("taken.astro", fakeDirectory());
+  await assert.rejects(
+    saveComponentCopy(root, "taken.astro", "<section />"),
+    /already exists as a folder/,
+  );
+  await assert.rejects(
+    saveComponentCopy(root, "SiteHeader.astro", "<section />"),
+    /Invalid component file path/,
+  );
+  await assert.rejects(
+    saveComponentCopy(root, "empty.astro", ""),
+    /no content/,
   );
 });
 
