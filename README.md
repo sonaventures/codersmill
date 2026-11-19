@@ -20,6 +20,16 @@ npm run build
 
 ## Website Builder
 
+The site self-hosts Inter, Plus Jakarta Sans, DM Sans, and Montserrat through
+[the theme font stylesheet](./src/styles/themes/fonts.css). Use `font-inter`,
+`font-plus-jakarta-sans`, `font-dm-sans`, or `font-montserrat` in Tailwind markup.
+These utilities are opt-in and do not replace the site's default fonts.
+Each variable font includes its full weight range in both normal and italic:
+Inter and Montserrat support 100-900, Plus Jakarta Sans supports 200-800,
+and DM Sans supports 100-1000. Combine the family utility with a weight
+utility such as `font-thin` (100), `font-bold` (700), `font-extrabold` (800),
+or `font-[1000]` (DM Sans).
+
 Builder pages live in `src/pages/website-builder/` and use the shared Website
 Builder layout. The header and footer link to the tools, the current page is
 highlighted, and the header includes the light/dark toggle. Browser titles use
@@ -66,6 +76,10 @@ text transform, and color controls. Select Tailwind defaults by utility name:
 Presets set only their labeled property, not the entire utility; choose line
 height separately from font size. Font families and palette colors use site
 theme tokens; the other presets use Tailwind's default values.
+The **Font family** menu includes the self-hosted Inter, Plus Jakarta Sans,
+DM Sans, and Montserrat for both site-wide defaults and section overrides.
+Choose a supported weight in the **Font weight** menu, including 1000 for
+DM Sans.
 **Custom value** keeps manual sizes, line heights, letter spacing, and hex colors
 available. Existing saved custom values still load and remain editable.
 Blank fields leave existing styles
@@ -159,7 +173,8 @@ color combinations. The left sample includes a header, footer, and six sections
 with heading levels, paragraphs, two buttons, and three independently styled
 cards in every section and on Page canvas. Section 05 also includes a two-column layout.
 The separate **Hero** editing area includes its own sample hero with headings,
-paragraph text, and primary/secondary buttons. Its `canvas-hero` (plus border
+paragraph text, and primary/secondary buttons with arrows after their labels.
+Its `canvas-hero` (plus border
 and shadow), `ink-hero` (plus heading variants), and `accent-hero-*` tokens are
 available as Tailwind colors and are saved independently in each theme.
 The preview's light-mode hero defaults to a pale sky background and dark text;
@@ -201,6 +216,11 @@ Selecting an editing area refreshes its current-theme color controls and brings
 that sample area to the top of the viewport, including the footer. If a
 page-wide brand/CTA role was selected, choosing another area switches the
 palette target to that area's background.
+Click a preview element to highlight it and center its matching color control
+in the panel without moving the desktop preview. Primary and secondary
+buttons select their own background colors;
+headings select the matching heading color. Click the section itself to edit
+its border.
 Click anywhere in a color-control block (label, token, swatch, or padding) to
 focus that color. The active block is highlighted; dropdowns and hex inputs
 remain directly editable. Focusing a control synchronizes the floating palette's

@@ -19,6 +19,10 @@ export const typographyFonts = {
   "var(--font-display)": "font-display (site display)",
   "var(--font-serif)": "font-serif (site serif)",
   "var(--font-mono)": "font-mono (site monospace)",
+  "var(--font-inter)": "Inter",
+  "var(--font-plus-jakarta-sans)": "Plus Jakarta Sans",
+  "var(--font-dm-sans)": "DM Sans",
+  "var(--font-montserrat)": "Montserrat",
   "Arial, sans-serif": "Arial",
   "Georgia, serif": "Georgia",
   "'Times New Roman', serif": "Times New Roman",
@@ -44,12 +48,15 @@ export const typographyProperties = [
   {
     key: "font-weight",
     label: "Font weight",
-    options: Object.fromEntries(
-      Object.entries(defaultTheme.fontWeight).map(([name, weight]) => [
-        weight,
-        `font-${name} (${weight})`,
-      ]),
-    ),
+    options: {
+      ...Object.fromEntries(
+        Object.entries(defaultTheme.fontWeight).map(([name, weight]) => [
+          weight,
+          `font-${name} (${weight})`,
+        ]),
+      ),
+      1000: "font-[1000] (DM Sans)",
+    },
   },
   {
     key: "line-height",

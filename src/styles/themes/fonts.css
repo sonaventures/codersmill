@@ -1,0 +1,15 @@
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/inter/wght-italic.css";
+@import "@fontsource-variable/plus-jakarta-sans/wght.css";
+@import "@fontsource-variable/plus-jakarta-sans/wght-italic.css";
+@import "@fontsource-variable/dm-sans/wght.css";
+@import "@fontsource-variable/dm-sans/wght-italic.css";
+@import "@fontsource-variable/montserrat/wght.css";
+@import "@fontsource-variable/montserrat/wght-italic.css";
+
+@theme static {
+  --font-inter: "Inter Variable", sans-serif;
+  --font-plus-jakarta-sans: "Plus Jakarta Sans Variable", sans-serif;
+  --font-dm-sans: "DM Sans Variable", sans-serif;
+  --font-montserrat: "Montserrat Variable", sans-serif;
+}

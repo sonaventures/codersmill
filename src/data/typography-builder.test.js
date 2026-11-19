@@ -41,6 +41,26 @@ test("builder CSS round trips all settings, including empty section overrides", 
   assert.deepEqual(parseTypography(serializeTypography(config)), config);
 });
 
+test("self-hosted fonts round-trip and are emitted in preview and saved CSS", () => {
+  const config = createTypography();
+  config.defaults.h1 = { "font-family": "var(--font-montserrat)" };
+  config.defaults.p = { "font-family": "var(--font-inter)" };
+  config.sections.about = {
+    h1: { "font-family": "var(--font-plus-jakarta-sans)" },
+    p: { "font-family": "var(--font-dm-sans)", "font-weight": "1000" },
+  };
+  const saved = serializeTypography(config);
+  assert.deepEqual(parseTypography(saved), config);
+  assert.match(
+    saved,
+    /section\[id="about"\] p \{\n  font-family: var\(--font-dm-sans\);\n  font-weight: 1000;/,
+  );
+  assert.match(
+    typographyCss(config, true),
+    /\[data-typography-preview\] h1 \{\n  font-family: var\(--font-montserrat\);/,
+  );
+});
+
 test("code, citations, preformatted text, and quotations support defaults and section overrides", () => {
   const config = createTypography();
   config.sections.docs = {};

@@ -56,6 +56,7 @@ if (root) {
   const form = get<HTMLFormElement>("#style-group-form");
   const area = get<HTMLSelectElement>("#editing-region");
   const preview = get<HTMLElement>(".preview-column");
+  const controlPanel = get<HTMLElement>(".selector-panel");
   const saved = get<HTMLSelectElement>("#saved-group");
   const name = get<HTMLInputElement>("#group-name");
   const status = get<HTMLParagraphElement>("#selector-status");
@@ -337,23 +338,31 @@ if (root) {
   }
 
   function previewTargetRole(target: HTMLElement): ColorRole {
-    if (target.closest(".sample-subsection")) return "subsectionBorder";
+    if (target.matches('[data-cta="primary"]')) return "ctaPrimary";
+    if (target.matches('[data-cta="secondary"]')) return "ctaSecondary";
+    if (target.matches(".sample-primary")) return "primary";
+    if (target.matches(".sample-secondary")) return "secondary";
+    if (target.matches(".sample-social-icons a")) return "iconBorder";
+    if (target.matches("a")) return "linkColor";
+    if (target.matches("h1")) return "h1";
+    if (target.matches("h2")) return "h2";
+    if (target.matches("h3")) return "h3";
+    if (target.matches("h4")) return "h4";
+    if (target.matches(".sample-copy, .sample-code")) return "text";
+    if (target.matches(".sample-subsection")) return "subsectionBorder";
 
-    const card = target.closest<HTMLElement>(".sample-card");
-    if (card) {
+    if (target.matches(".sample-card")) {
       const role = cardCanvasRoles.find(
         ({ card: number, part }) =>
-          number === card.dataset.sampleCard && part === "border",
+          number === target.dataset.sampleCard && part === "border",
       );
       if (!role)
         throw new Error("Unable to identify the selected sample card.");
       return role.key;
     }
 
-    if (target.closest(".sample-social-icons a")) return "iconBorder";
-    if (target.closest(".sample-buttons button, .sample-action-link"))
-      return "accentBorder";
-    if (target.closest(".sample-section")) return "border";
+    if (target.matches(".sample-buttons button")) return "accentBorder";
+    if (target.matches(".sample-section")) return "border";
     return "background";
   }
 
@@ -367,7 +376,7 @@ if (root) {
   }
 
   const previewTargets = preview.querySelectorAll<HTMLElement>(
-    "[data-region], .sample-card, .sample-subsection, .sample-buttons button, .sample-action-link, .sample-social-icons a",
+    "[data-region], .sample-card, .sample-subsection, .sample-buttons button, .sample-action-link, .sample-inline-link, .sample-social-icons a, .sample-copy, .sample-copy a, .sample-code, h1, h2, h3, h4",
   );
   for (const target of previewTargets) {
     const region = previewRegion(target);
@@ -394,17 +403,32 @@ if (root) {
     }
     if (editingArea() !== region) {
       area.value = region;
-      area.dispatchEvent(new Event("change", { bubbles: true }));
+      renderColors();
     }
     focusColorRole(role);
 
     selectedPreviewTarget?.removeAttribute("data-control-selected");
     target.dataset.controlSelected = "true";
     selectedPreviewTarget = target;
-    get<HTMLElement>(`[data-color-field="${role}"]`).scrollIntoView({
-      block: "nearest",
-      behavior: "smooth",
-    });
+    const field = get<HTMLElement>(`[data-color-field="${role}"]`);
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? "instant"
+      : "smooth";
+    if (getComputedStyle(controlPanel).position === "fixed") {
+      const fieldBounds = field.getBoundingClientRect();
+      const panelTop =
+        controlPanel.getBoundingClientRect().top + controlPanel.clientTop;
+      controlPanel.scrollBy({
+        top:
+          fieldBounds.top +
+          fieldBounds.height / 2 -
+          (panelTop + controlPanel.clientHeight / 2),
+        behavior,
+      });
+    } else {
+      field.scrollIntoView({ block: "center", inline: "nearest", behavior });
+    }
   };
 
   preview.addEventListener("click", (event) => {
