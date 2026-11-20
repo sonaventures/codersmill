@@ -3,7 +3,7 @@ import {
   sectionIdRegions,
   type SectionIdRegion,
   type SectionIds,
-} from "../../data/style-groups";
+} from "../../data/theme-groups";
 
 const CUSTOM = "__custom__";
 const INVALID_ID =

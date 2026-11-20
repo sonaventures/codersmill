@@ -458,7 +458,7 @@ test("reads theme IDs from project directory handle", async () => {
 test("component copies keep relative imports working from their new folder", () => {
   const source = `---
 import Cards from "./ThemeSampleCards.astro";
-import type { Region } from "../../data/style-groups";
+import type { Region } from "../../data/theme-groups";
 import "../styles/extra.css";
 import Layout from "astro:content";
 const lazy = await import("./lazy.js");
@@ -476,7 +476,7 @@ const lazy = await import("./lazy.js");
     moved,
     /from "\.\.\/\.\.\/websitebuilder\/ThemeSampleCards\.astro"/,
   );
-  assert.match(moved, /from "\.\.\/\.\.\/\.\.\/data\/style-groups"/);
+  assert.match(moved, /from "\.\.\/\.\.\/\.\.\/data\/theme-groups"/);
   assert.match(moved, /import "\.\.\/\.\.\/styles\/extra\.css"/);
   assert.match(moved, /import\("\.\.\/\.\.\/websitebuilder\/lazy\.js"\)/);
   assert.match(moved, /from "astro:content"/);
@@ -489,7 +489,7 @@ const lazy = await import("./lazy.js");
     "HomeHero.astro",
   );
   assert.match(topLevel, /from "\.\/websitebuilder\/ThemeSampleCards\.astro"/);
-  assert.match(topLevel, /from "\.\.\/data\/style-groups"/);
+  assert.match(topLevel, /from "\.\.\/data\/theme-groups"/);
 
   assert.equal(
     rebaseComponentImports(

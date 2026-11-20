@@ -5,9 +5,9 @@ import {
   semanticToken,
   type Region,
   type StyleColors,
-  type StyleGroup,
+  type ThemeGroup,
   type Theme,
-} from "./style-groups.ts";
+} from "./theme-groups.ts";
 
 /** Areas of a theme group that become classes, in the order they are written. */
 export const classGroupAreas = [
@@ -110,7 +110,7 @@ const themeSelectors: Record<Theme, string> = {
 };
 
 /** The CSS block for one theme group, wrapped in markers so it can be replaced. */
-export function generateGroupCss(group: StyleGroup): string {
+export function generateGroupCss(group: ThemeGroup): string {
   const slug = groupClassSlug(group.name);
   const label = group.name.replace(/\*\//g, "* /").replace(/[\r\n]+/g, " ");
   const rules: string[] = [];
@@ -157,7 +157,7 @@ function blockPattern(slug: string) {
 }
 
 /** Adds the group's block to groups.css, or replaces the block saved before. */
-export function upsertGroupCss(css: string, group: StyleGroup): string {
+export function upsertGroupCss(css: string, group: ThemeGroup): string {
   const block = `${generateGroupCss(group)}\n`;
   const slug = groupClassSlug(group.name);
   const base = css.trim() ? css : groupsCssHeader;

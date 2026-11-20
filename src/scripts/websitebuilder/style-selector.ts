@@ -12,7 +12,7 @@ import {
   paletteColors,
   paletteFamilies,
   paletteShades,
-  parseStyleGroups,
+  parseThemeGroups,
   radiusPresets,
   radiusTargets,
   regions,
@@ -21,13 +21,13 @@ import {
   semanticToken,
   setPaletteFamilies,
   setColor,
-  serializeStyleGroups,
-  styleGroupsStorageKey,
+  serializeThemeGroups,
+  themeGroupsStorageKey,
   type Region,
-  type StyleGroup,
+  type ThemeGroup,
   type Theme,
   type ColorRole,
-} from "../../data/style-groups";
+} from "../../data/theme-groups";
 import css from "../../styles/themes/colors.css?raw";
 import { readPalette } from "../../data/palette.js";
 import {
@@ -107,13 +107,13 @@ if (root) {
   );
   const currentTheme = (): Theme =>
     document.documentElement.dataset.theme === "dark" ? "dark" : "light";
-  let themes: StyleGroup["themes"] = {
+  let themes: ThemeGroup["themes"] = {
     light: createDefaultColors(),
     dark: createDefaultColors(),
   };
   let colors = themes[currentTheme()];
   let radii = { ...defaultRadii };
-  let groups: StyleGroup[] = [];
+  let groups: ThemeGroup[] = [];
   let selectedId = "";
   let dirty = false;
   let storageReady = true;
@@ -601,7 +601,7 @@ if (root) {
     publishButton.disabled = !selectedId;
   }
 
-  function persist(next: StyleGroup[]) {
+  function persist(next: ThemeGroup[]) {
     if (!storageReady) {
       message(
         "Saving is disabled because saved theme groups could not be read.",
@@ -609,7 +609,7 @@ if (root) {
       return false;
     }
     try {
-      localStorage.setItem(styleGroupsStorageKey, serializeStyleGroups(next));
+      localStorage.setItem(themeGroupsStorageKey, serializeThemeGroups(next));
     } catch (error) {
       reportError(
         "Unable to save theme groups. Your changes are still in the preview.",
@@ -622,8 +622,8 @@ if (root) {
   }
 
   try {
-    const stored = localStorage.getItem(styleGroupsStorageKey);
-    if (stored !== null) groups = parseStyleGroups(stored);
+    const stored = localStorage.getItem(themeGroupsStorageKey);
+    if (stored !== null) groups = parseThemeGroups(stored);
   } catch (error) {
     storageReady = false;
     reportError(
@@ -797,7 +797,7 @@ if (root) {
       );
       return;
     }
-    const group: StyleGroup = {
+    const group: ThemeGroup = {
       id: selectedId || crypto.randomUUID(),
       name: groupName,
       themes: structuredClone(themes),
@@ -833,7 +833,7 @@ if (root) {
     );
   });
   exportButton.addEventListener("click", () => {
-    const blob = new Blob([serializeStyleGroups(groups)], {
+    const blob = new Blob([serializeThemeGroups(groups)], {
       type: "application/json",
     });
     const url = URL.createObjectURL(blob);
@@ -887,7 +887,7 @@ if (root) {
     try {
       if (file.size > 1_000_000)
         throw new Error("Choose a JSON file smaller than 1 MB.");
-      const imported = parseStyleGroups(await file.text());
+      const imported = parseThemeGroups(await file.text());
       if (!imported.length)
         throw new Error("This file contains no theme groups.");
       if (groups.length + imported.length > 100)

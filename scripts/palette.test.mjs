@@ -19,7 +19,7 @@ import {
   paletteColors,
   paletteFamilies,
   setPaletteFamilies,
-} from "../src/data/style-groups.ts";
+} from "../src/data/theme-groups.ts";
 
 const css = await readFile(
   new URL("../src/styles/themes/colors.css", import.meta.url),

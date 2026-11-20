@@ -515,7 +515,7 @@ export function isSectionId(value: unknown): value is string {
   );
 }
 
-export interface StyleGroup {
+export interface ThemeGroup {
   id: string;
   name: string;
   themes: Record<Theme, StyleColors>;
@@ -523,8 +523,9 @@ export interface StyleGroup {
   sectionIds: SectionIds;
 }
 
-// Keep the storage key so version 1 groups remain available for migration.
-export const styleGroupsStorageKey = "exclusive-group-style-groups-v1";
+// Keep the storage key, including its older "style-groups" name, so groups
+// already saved in browsers (back to version 1) are still found.
+export const themeGroupsStorageKey = "exclusive-group-style-groups-v1";
 
 export function isGlobalColorRole(role: ColorRole): role is GlobalColorRole {
   return globalColorRoles.some(({ key }) => key === role);
@@ -740,7 +741,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-export function parseStyleGroups(json: string): StyleGroup[] {
+export function parseThemeGroups(json: string): ThemeGroup[] {
   const data: unknown = JSON.parse(json);
   if (
     !isRecord(data) ||
@@ -932,6 +933,6 @@ export function parseStyleGroups(json: string): StyleGroup[] {
   });
 }
 
-export function serializeStyleGroups(groups: StyleGroup[]): string {
+export function serializeThemeGroups(groups: ThemeGroup[]): string {
   return JSON.stringify({ version: 16, groups }, null, 2);
 }

@@ -8,12 +8,12 @@ import {
   getColor,
   interactiveColorRoles,
   isColorRoleVisible,
-  parseStyleGroups,
+  parseThemeGroups,
   regions,
   semanticToken,
   setColor,
-  serializeStyleGroups,
-} from "../src/data/style-groups.ts";
+  serializeThemeGroups,
+} from "../src/data/theme-groups.ts";
 
 const group = () => ({
   id: "coastal",
@@ -27,7 +27,7 @@ test("theme groups round-trip independent area palettes", () => {
   const saved = group();
   saved.themes.light.section3.background = "var(--color-magical-merlin-500)";
   saved.themes.dark.section3.background = "var(--color-dark-rift-900)";
-  const [restored] = parseStyleGroups(serializeStyleGroups([saved]));
+  const [restored] = parseThemeGroups(serializeThemeGroups([saved]));
   assert.deepEqual(restored, saved);
   assert.notEqual(
     restored.themes.light.section2.background,
@@ -41,16 +41,16 @@ test("theme groups round-trip independent area palettes", () => {
 test("theme groups round-trip independent global corner radii", () => {
   const saved = group();
   saved.radii = { section: "3xl", card: "none", subsection: "sm" };
-  assert.deepEqual(parseStyleGroups(serializeStyleGroups([saved])), [saved]);
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([saved])), [saved]);
 
   saved.radii.card = "1px; color: red";
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([saved])),
+    () => parseThemeGroups(serializeThemeGroups([saved])),
     /Invalid card corner radius/,
   );
   delete saved.radii;
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([saved])),
+    () => parseThemeGroups(serializeThemeGroups([saved])),
     /Missing corner radii/,
   );
 });
@@ -59,7 +59,7 @@ test("version 9 theme groups retain colors and get the original corner radii", (
   const saved = group();
   saved.themes.light.section1.border = "#123456";
   delete saved.radii;
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 9, groups: [saved] }),
   );
   assert.deepEqual(restored.themes, saved.themes);
@@ -77,14 +77,14 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.light.section3.secondaryText = "transparent";
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
-  const json = serializeStyleGroups([saved]);
+  const json = serializeThemeGroups([saved]);
   assert.equal(JSON.parse(json).version, 16);
-  assert.deepEqual(parseStyleGroups(json), [saved]);
+  assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
   old.themes.light.page.background = "var(--color-magical-merlin-500)";
   assert.deepEqual(
-    parseStyleGroups(JSON.stringify({ version: 5, groups: [old] })),
+    parseThemeGroups(JSON.stringify({ version: 5, groups: [old] })),
     [old],
   );
 });
@@ -93,30 +93,30 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
   const incomplete = group();
   delete incomplete.themes.light.footer;
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([incomplete])),
+    () => parseThemeGroups(serializeThemeGroups([incomplete])),
     /footer/,
   );
 
   const invalid = group();
   invalid.themes.light.section1.background = "red;display:none";
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([invalid])),
+    () => parseThemeGroups(serializeThemeGroups([invalid])),
     /Invalid background/,
   );
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
   for (const json of ["null", "[]", "{", '{"version":17,"groups":[]}']) {
-    assert.throws(() => parseStyleGroups(json));
+    assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([group(), group()])),
+    () => parseThemeGroups(serializeThemeGroups([group(), group()])),
     /unique/,
   );
   assert.throws(
     () =>
-      parseStyleGroups(
-        serializeStyleGroups([
+      parseThemeGroups(
+        serializeThemeGroups([
           group(),
           { ...group(), id: "other", name: "COASTAL CALM" },
         ]),
@@ -125,8 +125,8 @@ test("imports reject invalid envelopes, duplicate groups, and oversized lists", 
   );
   assert.throws(
     () =>
-      parseStyleGroups(
-        serializeStyleGroups(Array.from({ length: 101 }, group)),
+      parseThemeGroups(
+        serializeThemeGroups(Array.from({ length: 101 }, group)),
       ),
     /100/,
   );
@@ -136,11 +136,11 @@ test("imports normalize names and hex colors and reject blank names", () => {
   const saved = group();
   saved.name = "  Summer  ";
   saved.themes.light.header.background = "#ABCDEF";
-  const [restored] = parseStyleGroups(serializeStyleGroups([saved]));
+  const [restored] = parseThemeGroups(serializeThemeGroups([saved]));
   assert.equal(restored.name, "Summer");
   assert.equal(restored.themes.light.header.background, "#abcdef");
   saved.name = "   ";
-  assert.throws(() => parseStyleGroups(serializeStyleGroups([saved])), /name/);
+  assert.throws(() => parseThemeGroups(serializeThemeGroups([saved])), /name/);
 });
 
 test("legacy hex groups migrate without losing colors in either theme", () => {
@@ -153,7 +153,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   }
   delete colors.global;
   delete colors.hero;
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({
       version: 1,
       groups: [{ id: "legacy", name: "Original", colors }],
@@ -167,7 +167,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 16);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 16);
 });
 
 test("brand and CTA assignments are page-wide and round-trip independently by theme", () => {
@@ -191,7 +191,7 @@ test("brand and CTA assignments are page-wide and round-trip independently by th
     "ctaSecondary",
     "var(--color-cardamom-300)",
   );
-  const [restored] = parseStyleGroups(serializeStyleGroups([saved]));
+  const [restored] = parseThemeGroups(serializeThemeGroups([saved]));
   assert.deepEqual(restored, saved);
   assert.equal(
     getColor(restored.themes.light, "section6", "brandFirst"),
@@ -226,7 +226,7 @@ test("version 2 groups retain area colors and adopt theme defaults for brand and
   delete saved.themes.dark.global;
   delete saved.themes.light.hero;
   delete saved.themes.dark.hero;
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 2, groups: [saved] }),
   );
   assert.equal(restored.themes.light.header.background, "#abcdef");
@@ -239,12 +239,12 @@ test("version 3 groups reject incomplete or invalid brand and CTA assignments", 
   const saved = group();
   saved.themes.light.global.ctaPrimary = "var(--unknown)";
   assert.throws(
-    () => parseStyleGroups(JSON.stringify({ version: 3, groups: [saved] })),
+    () => parseThemeGroups(JSON.stringify({ version: 3, groups: [saved] })),
     /Invalid ctaPrimary/,
   );
   delete saved.themes.light.global;
   assert.throws(
-    () => parseStyleGroups(JSON.stringify({ version: 3, groups: [saved] })),
+    () => parseThemeGroups(JSON.stringify({ version: 3, groups: [saved] })),
     /Missing brand\/CTA/,
   );
 });
@@ -295,18 +295,18 @@ test("hero assignments round-trip by theme and remain independent of page colors
   const saved = group();
   saved.themes.light.hero.background = "var(--color-magical-merlin-950)";
   saved.themes.dark.hero.text = "#abcdef";
-  const [restored] = parseStyleGroups(serializeStyleGroups([saved]));
+  const [restored] = parseThemeGroups(serializeThemeGroups([saved]));
   assert.deepEqual(restored, saved);
   assert.equal(restored.themes.light.page.background, "theme");
   assert.equal(restored.themes.dark.hero.background, "theme");
   delete saved.themes.light.hero;
-  assert.throws(() => parseStyleGroups(serializeStyleGroups([saved])), /hero/);
+  assert.throws(() => parseThemeGroups(serializeThemeGroups([saved])), /hero/);
   saved.themes.light.hero = {
     ...createDefaultColors().hero,
     text: "var(--unknown)",
   };
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([saved])),
+    () => parseThemeGroups(serializeThemeGroups([saved])),
     /Invalid text color for hero/,
   );
 });
@@ -317,7 +317,7 @@ test("version 3 groups keep their colors and adopt hero theme defaults", () => {
   saved.themes.dark.global.ctaPrimary = "var(--color-cardamom-300)";
   delete saved.themes.light.hero;
   delete saved.themes.dark.hero;
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 3, groups: [saved] }),
   );
   assert.equal(restored.themes.light.page.background, "#abcdef");
@@ -339,14 +339,14 @@ test("palette imports reject unknown primitives, arbitrary variables, and missin
     const saved = group();
     saved.themes.light.page.background = value;
     assert.throws(
-      () => parseStyleGroups(serializeStyleGroups([saved])),
+      () => parseThemeGroups(serializeThemeGroups([saved])),
       /Invalid background/,
     );
   }
   const saved = group();
   delete saved.themes.dark;
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([saved])),
+    () => parseThemeGroups(serializeThemeGroups([saved])),
     /theme palette/,
   );
 });
@@ -377,7 +377,7 @@ test("three cards round-trip independent canvases, borders, and shadows", () => 
   saved.themes.light.section3.card02Border = "var(--color-magical-merlin-500)";
   saved.themes.light.page.card03Border = "#123456";
   saved.themes.dark.section3.card03Shadow = "var(--color-dark-rift-950)";
-  const [restored] = parseStyleGroups(serializeStyleGroups([saved]));
+  const [restored] = parseThemeGroups(serializeThemeGroups([saved]));
   assert.deepEqual(restored, saved);
   assert.equal(restored.themes.light.section2.card02, "theme");
   assert.equal(restored.themes.dark.section3.card02Border, "theme");
@@ -396,12 +396,12 @@ test("three cards round-trip independent canvases, borders, and shadows", () => 
   );
   delete saved.themes.light.section3.card03Shadow;
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([saved])),
+    () => parseThemeGroups(serializeThemeGroups([saved])),
     /card03Shadow/,
   );
   saved.themes.light.section3.card03Shadow = "url(unsafe)";
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([saved])),
+    () => parseThemeGroups(serializeThemeGroups([saved])),
     /card03Shadow/,
   );
 });
@@ -414,7 +414,7 @@ test("interactive colors round-trip independently for each area and theme", () =
   saved.themes.light.section3.visitedColor = "var(--color-yellow-mana-500)";
   saved.themes.dark.footer.iconFocus = "var(--color-dark-rift-300)";
 
-  const [restored] = parseStyleGroups(serializeStyleGroups([saved]));
+  const [restored] = parseThemeGroups(serializeThemeGroups([saved]));
   assert.deepEqual(restored, saved);
   assert.equal(
     restored.themes.light.header.buttonHoverBackground,
@@ -458,7 +458,7 @@ test("version 6 groups adopt theme defaults for new interactive colors", () => {
     }
   }
 
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 6, groups: [saved] }),
   );
   assert.equal(restored.themes.light.page.primary, "#123456");
@@ -474,7 +474,7 @@ test("version 7 groups adopt theme defaults for H4 colors", () => {
     for (const { key: region } of regions) delete theme[region].h4;
   }
 
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 7, groups: [saved] }),
   );
   assert.equal(restored.themes.light.hero.h3, "#123456");
@@ -499,7 +499,7 @@ test("version 8 groups adopt theme defaults for component border and shadow colo
     }
   }
 
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 8, groups: [saved] }),
   );
   assert.equal(restored.themes.light.section3.border, "#123456");
@@ -543,7 +543,7 @@ test("older theme groups migrate shared card colors to three independent cards",
       if (version < 3) delete colors.global;
       if (version < 4) delete colors.hero;
     }
-    const [restored] = parseStyleGroups(
+    const [restored] = parseThemeGroups(
       JSON.stringify({ version, groups: [saved] }),
     );
     assert.equal(restored.themes.light.section3.card, "#abcdef");
@@ -565,7 +565,7 @@ test("older theme groups migrate shared card colors to three independent cards",
 test("theme groups round-trip section IDs and reject unsafe ones", () => {
   const saved = group();
   saved.sectionIds = { page: "landing", section1: "about", hero: "hero" };
-  assert.deepEqual(parseStyleGroups(serializeStyleGroups([saved])), [saved]);
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([saved])), [saved]);
 
   for (const [sectionIds, error] of [
     [{ section1: "has space" }, /Invalid section ID for section1/],
@@ -575,20 +575,20 @@ test("theme groups round-trip section IDs and reject unsafe ones", () => {
     [{ section1: "about", section2: "about" }, /#about is used twice/],
   ]) {
     assert.throws(
-      () => parseStyleGroups(serializeStyleGroups([{ ...saved, sectionIds }])),
+      () => parseThemeGroups(serializeThemeGroups([{ ...saved, sectionIds }])),
       error,
     );
   }
   const { sectionIds: _omitted, ...missing } = saved;
   assert.throws(
-    () => parseStyleGroups(serializeStyleGroups([missing])),
+    () => parseThemeGroups(serializeThemeGroups([missing])),
     /Missing section IDs/,
   );
 });
 
 test("version 10 theme groups load with default section IDs", () => {
   const { sectionIds: _omitted, ...saved } = group();
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 10, groups: [saved] }),
   );
   assert.deepEqual(restored.sectionIds, {});
@@ -600,7 +600,7 @@ test("version 12 groups keep their contrast band and get the default band text",
   saved.themes.light.global.contrastCanvas = "var(--color-sky-900)";
   delete saved.themes.light.global.contrastText;
   delete saved.themes.dark.global.contrastText;
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 12, groups: [saved] }),
   );
   assert.equal(
@@ -612,7 +612,7 @@ test("version 12 groups keep their contrast band and get the default band text",
 
   const edited = group();
   edited.themes.dark.global.contrastText = "var(--color-sky-50)";
-  assert.deepEqual(parseStyleGroups(serializeStyleGroups([edited])), [edited]);
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });
 
 test("version 13 groups get theme defaults for text formatting colors", () => {
@@ -629,7 +629,7 @@ test("version 13 groups get theme defaults for text formatting colors", () => {
         "preBackground",
       ])
         delete saved.themes[theme][region]?.[role];
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 13, groups: [saved] }),
   );
   assert.equal(restored.themes.light.section2.text, "#123456");
@@ -639,7 +639,7 @@ test("version 13 groups get theme defaults for text formatting colors", () => {
   const edited = group();
   edited.themes.light.hero.code = "var(--color-sky-700)";
   edited.themes.dark.section4.preBackground = "transparent";
-  assert.deepEqual(parseStyleGroups(serializeStyleGroups([edited])), [edited]);
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });
 
 test("text formatting colors map to their own variables in each area", () => {
@@ -671,7 +671,7 @@ test("version 14 groups get theme defaults for form, quote, list, and selection 
   for (const theme of ["light", "dark"])
     for (const region of Object.keys(saved.themes[theme]))
       for (const role of roles) delete saved.themes[theme][region]?.[role];
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 14, groups: [saved] }),
   );
   assert.equal(restored.themes.light.section1.strong, "#123456");
@@ -681,7 +681,7 @@ test("version 14 groups get theme defaults for form, quote, list, and selection 
   const edited = group();
   edited.themes.light.section5.inputBorder = "var(--color-sky-400)";
   edited.themes.dark.page.selectionBackground = "var(--color-yellow-200)";
-  assert.deepEqual(parseStyleGroups(serializeStyleGroups([edited])), [edited]);
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });
 
 test("form and content colors fall back to the colors components used before", () => {
@@ -722,7 +722,7 @@ test("version 15 groups keep their CTA colors and get default CTA text, border, 
   saved.themes.light.global.ctaPrimary = "var(--color-orange-500)";
   for (const theme of ["light", "dark"])
     for (const key of extras) delete saved.themes[theme].global[key];
-  const [restored] = parseStyleGroups(
+  const [restored] = parseThemeGroups(
     JSON.stringify({ version: 15, groups: [saved] }),
   );
   assert.equal(
@@ -735,7 +735,7 @@ test("version 15 groups keep their CTA colors and get default CTA text, border, 
   const edited = group();
   edited.themes.light.global.ctaPrimaryHover = "var(--color-orange-600)";
   edited.themes.dark.global.ctaSecondaryText = "#ffffff";
-  assert.deepEqual(parseStyleGroups(serializeStyleGroups([edited])), [edited]);
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
   assert.equal(
     semanticToken("page", "ctaPrimaryHoverText"),
     "cta-01-hover-text",

@@ -7,7 +7,7 @@ import {
   readPalette,
   removePalette,
 } from "../../data/palette.js";
-import { styleGroupsStorageKey } from "../../data/style-groups";
+import { themeGroupsStorageKey } from "../../data/theme-groups";
 
 const root = document.querySelector("[data-palette-editor]");
 const get = (selector) => {
@@ -318,7 +318,7 @@ async function removeFamilies(family) {
         nextCss,
       );
     }
-    const stored = localStorage.getItem(styleGroupsStorageKey);
+    const stored = localStorage.getItem(themeGroupsStorageKey);
     if (stored) {
       JSON.parse(stored);
       checkReferences(stored, "saved theme groups in this browser");
