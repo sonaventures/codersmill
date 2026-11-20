@@ -16,6 +16,7 @@ const group = (name = "Coastal calm") => ({
   themes: { light: createDefaultColors(), dark: createDefaultColors() },
   radii: { ...defaultRadii },
   sectionIds: {},
+  typography: {},
 });
 
 const ruleFor = (css, selector) => {
@@ -191,4 +192,34 @@ test("blocks saved with the older style-group markers are still read and replace
   assert.doesNotMatch(updated, /style-group/);
   assert.equal(updated.match(/theme-group: coastal-calm \(/g).length, 1);
   assert.match(updated, /--canvas-hero: #abcdef;/);
+});
+
+test("group typography becomes rules under each area class", () => {
+  const saved = group();
+  saved.typography = {
+    page: { p: { "font-family": "var(--font-serif)" } },
+    hero: { h1: { "font-size": "3rem", "letter-spacing": "-0.02em" } },
+  };
+  const css = generateGroupCss(saved);
+  assert.ok(
+    css.includes(
+      ".sg-coastal-calm-page p {\n  font-family: var(--font-serif);\n}",
+    ),
+  );
+  assert.ok(
+    css.includes(
+      ".sg-coastal-calm-hero h1 {\n  font-size: 3rem;\n  letter-spacing: -0.02em;\n}",
+    ),
+  );
+  // Page rules come before the hero's so the hero wins where they overlap.
+  assert.ok(
+    css.indexOf(".sg-coastal-calm-page p {") <
+      css.indexOf(".sg-coastal-calm-hero h1 {"),
+  );
+  assert.ok(
+    css.indexOf(".sg-coastal-calm-hero h1 {") <
+      css.indexOf("/* end theme-group"),
+  );
+  // Typography rules don't add classes to the page builder's list.
+  assert.equal(parseGroupClasses(upsertGroupCss("", saved)).length, 8);
 });

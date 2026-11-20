@@ -8,6 +8,7 @@ import {
   type ThemeGroup,
   type Theme,
 } from "./theme-groups.ts";
+import { typographyRulesCss } from "./typography-builder.js";
 
 /** Areas of a theme group that become classes, in the order they are written. */
 export const classGroupAreas = [
@@ -114,6 +115,7 @@ export function generateGroupCss(group: ThemeGroup): string {
   const slug = groupClassSlug(group.name);
   const label = group.name.replace(/\*\//g, "* /").replace(/[\r\n]+/g, " ");
   const rules: string[] = [];
+  const typographyRules: string[] = [];
   for (const { region, suffix } of classGroupAreas) {
     const className = `sg-${slug}-${suffix}`;
     for (const theme of ["light", "dark"] as const) {
@@ -142,9 +144,19 @@ export function generateGroupCss(group: ThemeGroup): string {
         );
     }
   }
+  // Typography from the Typography Builder: the same in both themes. Page
+  // rules come first so section and hero rules win where they overlap.
+  for (const { region, suffix } of classGroupAreas) {
+    const rules = group.typography?.[region];
+    if (rules)
+      typographyRules.push(
+        ...typographyRulesCss(rules, `.sg-${slug}-${suffix} `),
+      );
+  }
   return [
     `/* theme-group: ${slug} (${label}) */`,
     ...rules,
+    ...typographyRules,
     `/* end theme-group: ${slug} */`,
   ].join("\n");
 }

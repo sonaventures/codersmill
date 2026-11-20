@@ -1,16 +1,22 @@
-import idCssFallback from "../../styles/themes/id.css?raw";
 import savedCss from "../../styles/themes/typography.css?raw";
 import {
-  appendIdToCss,
-  parseIdsFromCss,
   parseTypography,
-  readThemeIdFile,
-  saveThemeIdFile,
   serializeTypography,
   typographyCss,
-  validateSectionId,
+  typographyRulesCss,
   validateTypographyValue,
 } from "../../data/typography-builder.js";
+import {
+  parseThemeGroups,
+  serializeThemeGroups,
+  themeGroupsStorageKey,
+} from "../../data/theme-groups";
+import {
+  classGroupAreas,
+  groupClassSlug,
+  upsertGroupCss,
+} from "../../data/group-classes";
+import { readTextFile, writeTextFile } from "./project-themes";
 
 const root = document.querySelector("[data-typography-builder]");
 const get = (selector) => {
@@ -21,10 +27,6 @@ const get = (selector) => {
 const scope = get("#typography-scope");
 const element = get("#typography-element");
 const form = get("#typography-form");
-const sectionForm = get("#add-typography-section");
-const knownIdSelect = get("#typography-known-id");
-const sectionId = get("#typography-section-id");
-const addToIdCss = get("#typography-add-to-id-css");
 const remove = get("#remove-typography-section");
 const save = get("#save-typography");
 const saveToFile = get("#save-typography-file");
@@ -62,22 +64,75 @@ let currentElement = element.value;
 let dirty = false;
 let busy = false;
 let sourceCss = savedCss;
-let idCssContent = idCssFallback;
-let availableThemeIds = parseIdsFromCss(idCssFallback);
-let projectFolderHandle = null;
-let idCssDirty = false;
 
-function renderThemeIds() {
-  const current = knownIdSelect.value;
-  knownIdSelect.replaceChildren(
-    new Option("Select from id.css...", ""),
-    ...availableThemeIds.map((id) => new Option(`#${id}`, id)),
-  );
-  if (current && availableThemeIds.includes(current)) {
-    knownIdSelect.value = current;
+// Theme groups saved by the Theme Builder in this browser. Typography edits
+// for their areas are kept in `groupTypography` until saved.
+let themeGroups = [];
+const groupTypography = new Map();
+const changedGroups = new Set();
+const groupScopePrefix = "group:";
+const previewGroupSection = "__theme-group__";
+
+function loadThemeGroups() {
+  try {
+    const stored = localStorage.getItem(themeGroupsStorageKey);
+    themeGroups = stored ? parseThemeGroups(stored) : [];
+  } catch (error) {
+    console.warn("Typography builder: could not read theme groups", error);
+    themeGroups = [];
   }
+  for (const group of themeGroups)
+    if (!changedGroups.has(group.id))
+      groupTypography.set(group.id, structuredClone(group.typography ?? {}));
 }
-renderThemeIds();
+
+// Scope values: "" for site-wide defaults, "group:<id>:<region>" for a theme
+// group area, or a section ID kept from older ID-based typography.
+function parseScope(value) {
+  if (!value.startsWith(groupScopePrefix)) return null;
+  const [groupId, region] = value.slice(groupScopePrefix.length).split(":");
+  const group = themeGroups.find(({ id }) => id === groupId);
+  const area = classGroupAreas.find((item) => item.region === region);
+  return group && area ? { group, area } : null;
+}
+
+function scopeLabel(value) {
+  const area = parseScope(value);
+  if (area) return `${area.group.name} / ${area.area.label}`;
+  return value ? `Section #${value} (older ID)` : "Site-wide defaults";
+}
+
+// Removes empty elements and areas so saved typography stays tidy.
+function tidyTypography(typography) {
+  const tidy = {};
+  for (const [region, rules] of Object.entries(typography)) {
+    const kept = Object.fromEntries(
+      Object.entries(rules).filter(([, styles]) => Object.keys(styles).length),
+    );
+    if (Object.keys(kept).length) tidy[region] = kept;
+  }
+  return tidy;
+}
+
+// Saves changed group typography into the theme groups in this browser,
+// starting from the latest saved groups so Theme Builder changes are kept.
+function saveGroupTypographyToBrowser() {
+  const stored = localStorage.getItem(themeGroupsStorageKey);
+  const latest = stored ? parseThemeGroups(stored) : [];
+  const updated = latest.map((group) =>
+    changedGroups.has(group.id)
+      ? {
+          ...group,
+          typography: tidyTypography(groupTypography.get(group.id) ?? {}),
+        }
+      : group,
+  );
+  localStorage.setItem(themeGroupsStorageKey, serializeThemeGroups(updated));
+  const saved = updated.filter(({ id }) => changedGroups.has(id));
+  themeGroups = updated;
+  changedGroups.clear();
+  return saved;
+}
 
 function setStatus(message, isError = false) {
   status.toggleAttribute("data-error", isError);
@@ -95,19 +150,43 @@ function markDirty() {
 }
 
 function rules() {
+  const area = parseScope(currentScope);
+  if (area) {
+    const typography = groupTypography.get(area.group.id) ?? {};
+    groupTypography.set(area.group.id, typography);
+    typography[area.area.region] ??= {};
+    return typography[area.area.region];
+  }
   return currentScope ? config.sections[currentScope] : config.defaults;
 }
 
 function renderPreview() {
-  previewStyle.textContent = typographyCss(config, true);
-  get("#typography-css").textContent =
-    typographyCss(config) || "/* No typography overrides yet. */";
+  const area = parseScope(currentScope);
+  const groupRules = area ? rules() : null;
+  previewStyle.textContent = [
+    typographyCss(config, true),
+    ...(groupRules
+      ? typographyRulesCss(
+          groupRules,
+          `[data-typography-preview] section[data-typography-section="${previewGroupSection}"] `,
+        )
+      : []),
+  ].join("\n\n");
+  const siteCss = typographyCss(config) || "/* No site-wide typography yet. */";
+  get("#typography-css").textContent = area
+    ? `/* src/styles/themes/typography.css */\n${siteCss}\n\n/* src/styles/themes/groups.css (${area.group.name} / ${area.area.label}) */\n${
+        typographyRulesCss(
+          groupRules,
+          `.sg-${groupClassSlug(area.group.name)}-${area.area.suffix} `,
+        ).join("\n\n") || "/* No typography for this area yet. */"
+      }`
+    : siteCss;
   sectionSample.hidden = !currentScope;
   sectionSample.querySelector(
     "[data-sample-content]",
-  ).dataset.typographySection = currentScope;
+  ).dataset.typographySection = area ? previewGroupSection : currentScope;
   sectionSample.querySelector("[data-sample-label]").textContent =
-    `Section #${currentScope} (includes site-wide defaults)`;
+    `${scopeLabel(currentScope)} (includes site-wide defaults)`;
 }
 
 function renderControls() {
@@ -126,18 +205,47 @@ function renderControls() {
     toggleCustomControl(preset);
   }
   remove.disabled = !currentScope;
+  remove.textContent = parseScope(currentScope)
+    ? "Clear this area's typography"
+    : "Remove older section override";
   get("#typography-editing").textContent =
-    `${currentScope ? `Section #${currentScope}` : "Site-wide defaults"} / ${currentElement}`;
+    `${scopeLabel(currentScope)} / ${currentElement}`;
   renderPreview();
 }
 
 function renderScopes() {
-  scope.replaceChildren(
-    new Option("Site-wide defaults", ""),
-    ...Object.keys(config.sections).map(
-      (id) => new Option(`Section #${id}`, id),
-    ),
-  );
+  const options = [new Option("Site-wide defaults", "")];
+  if (!themeGroups.length) {
+    const none = new Option(
+      "No theme groups yet: create one in the Theme Builder",
+      "__none__",
+    );
+    none.disabled = true;
+    options.push(none);
+  }
+  for (const group of themeGroups) {
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = `Theme group: ${group.name}`;
+    for (const { region, label } of classGroupAreas)
+      optgroup.append(
+        new Option(
+          `${group.name} / ${label}`,
+          `${groupScopePrefix}${group.id}:${region}`,
+        ),
+      );
+    options.push(optgroup);
+  }
+  const legacy = Object.keys(config.sections);
+  if (legacy.length) {
+    const optgroup = document.createElement("optgroup");
+    optgroup.label = "Older section IDs";
+    for (const id of legacy)
+      optgroup.append(new Option(`Section #${id} (older ID)`, id));
+    options.push(optgroup);
+  }
+  scope.replaceChildren(...options);
+  if (![...scope.options].some(({ value }) => value === currentScope))
+    currentScope = "";
   scope.value = currentScope;
 }
 
@@ -172,8 +280,14 @@ function updateValue(control) {
   if (!Object.hasOwn(styles, currentElement)) styles[currentElement] = {};
   if (value) styles[currentElement][key] = value;
   else delete styles[currentElement][key];
+  noteGroupChange();
   renderPreview();
   markDirty();
+}
+
+function noteGroupChange() {
+  const area = parseScope(currentScope);
+  if (area) changedGroups.add(area.group.id);
 }
 
 function toggleCustomControl(preset) {
@@ -219,93 +333,25 @@ element.addEventListener("change", () => {
   renderControls();
 });
 
-knownIdSelect.addEventListener("change", () => {
-  if (knownIdSelect.value) {
-    sectionId.value = knownIdSelect.value;
-    sectionId.setCustomValidity("");
-    addToIdCss.checked = false;
-  }
-});
-
-sectionId.addEventListener("input", () => {
-  sectionId.setCustomValidity("");
-  const clean = sectionId.value.trim().replace(/^#/, "");
-  if (availableThemeIds.includes(clean)) {
-    knownIdSelect.value = clean;
-    addToIdCss.checked = false;
-  } else {
-    knownIdSelect.value = "";
-    addToIdCss.checked = true;
-  }
-});
-
-sectionForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  if (!form.reportValidity()) return;
-  const raw = sectionId.value.trim() || knownIdSelect.value.trim();
-  const id = raw.replace(/^#/, "");
-  if (!id) {
-    sectionId.setCustomValidity(
-      "Choose an ID from id.css or enter a section ID.",
-    );
-    sectionId.reportValidity();
-    return;
-  }
-  try {
-    validateSectionId(id);
-    if (!Object.hasOwn(config.sections, id)) {
-      Object.defineProperty(config.sections, id, {
-        value: {},
-        enumerable: true,
-        writable: true,
-        configurable: true,
-      });
-      markDirty();
-    }
-    currentScope = id;
-    renderScopes();
-    renderControls();
-    scope.focus();
-
-    let idCssMsg = "";
-    if (addToIdCss.checked && !availableThemeIds.includes(id)) {
-      idCssContent = appendIdToCss(idCssContent, id);
-      availableThemeIds = parseIdsFromCss(idCssContent);
-      renderThemeIds();
-      idCssDirty = true;
-      markDirty();
-      if (projectFolderHandle) {
-        try {
-          await saveThemeIdFile(projectFolderHandle, idCssContent);
-          idCssDirty = false;
-          idCssMsg = " and saved to id.css";
-        } catch (error) {
-          console.error("Could not write id.css:", error);
-          idCssMsg = " (will save to id.css on Save to project)";
-        }
-      } else {
-        idCssMsg = " (will save to id.css on Save to project)";
-      }
-    }
-    sectionId.value = "";
-    knownIdSelect.value = "";
-    setStatus(`Editing section #${id}${idCssMsg}.`);
-  } catch (error) {
-    sectionId.setCustomValidity(error.message);
-    sectionId.reportValidity();
-    setStatus(error.message, true);
-  }
-});
-
 remove.addEventListener("click", () => {
+  const area = parseScope(currentScope);
   if (
     !currentScope ||
-    !window.confirm(`Remove all overrides for section #${currentScope}?`)
+    !window.confirm(
+      area
+        ? `Clear all typography for ${scopeLabel(currentScope)}? It will follow the site-wide defaults.`
+        : `Remove all overrides for section #${currentScope}?`,
+    )
   )
     return;
-  delete config.sections[currentScope];
-  currentScope = "";
-  renderScopes();
+  if (area) {
+    delete groupTypography.get(area.group.id)?.[area.area.region];
+    changedGroups.add(area.group.id);
+  } else {
+    delete config.sections[currentScope];
+    currentScope = "";
+    renderScopes();
+  }
   renderControls();
   markDirty();
   scope.focus();
@@ -313,6 +359,7 @@ remove.addEventListener("click", () => {
 
 get("#reset-typography-element").addEventListener("click", () => {
   delete rules()[currentElement];
+  noteGroupChange();
   renderControls();
   markDirty();
 });
@@ -327,18 +374,18 @@ download.addEventListener("click", () => {
   link.download = "typography.css";
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  if (idCssDirty) {
-    const idUrl = URL.createObjectURL(
-      new Blob([idCssContent], { type: "text/css" }),
-    );
-    const idLink = document.createElement("a");
-    idLink.href = idUrl;
-    idLink.download = "id.css";
-    idLink.click();
-    setTimeout(() => URL.revokeObjectURL(idUrl), 1000);
+  let groupMsg = "";
+  if (changedGroups.size) {
+    try {
+      const saved = saveGroupTypographyToBrowser();
+      groupMsg = ` Typography for ${saved.map(({ name }) => `"${name}"`).join(", ")} was saved with its theme group; use Save classes to groups.css in the Theme Builder to update groups.css.`;
+    } catch (error) {
+      report(error);
+      return;
+    }
   }
   setStatus(
-    `CSS downloaded${idCssDirty ? " (typography.css and id.css)" : ""}. Replace src/styles/themes/typography.css in your project to apply it. The download includes editable builder settings.`,
+    `CSS downloaded. Replace src/styles/themes/typography.css in your project to apply it. The download includes editable builder settings.${groupMsg}`,
   );
 });
 
@@ -400,6 +447,7 @@ async function saveTypography(direct = false) {
   );
   let step = "selecting a save destination";
   let projectPath = "";
+  let themes = null;
   try {
     let handle;
     if (direct) {
@@ -423,21 +471,7 @@ async function saveTypography(direct = false) {
       }
     } else {
       const project = await window.showDirectoryPicker({ mode: "readwrite" });
-      projectFolderHandle = project;
       setStatus(`Checking the selected folder (${project.name})...`);
-      try {
-        const liveThemeFile = await readThemeIdFile(project);
-        if (liveThemeFile.css) {
-          for (const id of availableThemeIds) {
-            liveThemeFile.css = appendIdToCss(liveThemeFile.css, id);
-          }
-          idCssContent = liveThemeFile.css;
-          availableThemeIds = parseIdsFromCss(idCssContent);
-          renderThemeIds();
-        }
-      } catch (idSyncErr) {
-        console.warn("Could not sync id.css from project folder:", idSyncErr);
-      }
       projectPath = "src";
       const src = await project.getDirectoryHandle("src");
       projectPath = "src/styles";
@@ -454,7 +488,7 @@ async function saveTypography(direct = false) {
         );
       }
       projectPath = "src/styles/themes";
-      const themes = await styles.getDirectoryHandle("themes");
+      themes = await styles.getDirectoryHandle("themes");
       projectPath = "src/styles/themes/typography.css";
       handle = await themes.getFileHandle("typography.css");
     }
@@ -489,23 +523,29 @@ async function saveTypography(direct = false) {
         );
       throw error;
     }
-    let savedIdCss = false;
-    if (projectFolderHandle && (idCssDirty || idCssContent !== idCssFallback)) {
-      try {
-        await saveThemeIdFile(projectFolderHandle, idCssContent);
-        idCssDirty = false;
-        savedIdCss = true;
-      } catch (idError) {
-        console.error("Unable to write id.css:", idError);
+    sourceCss = output;
+    // Theme group typography: save it with the groups in this browser, then
+    // rewrite those groups' classes in groups.css when the folder is open.
+    let groupMsg = "";
+    if (changedGroups.size) {
+      step = "saving theme group typography";
+      const saved = saveGroupTypographyToBrowser();
+      const names = saved.map(({ name }) => `"${name}"`).join(", ");
+      if (themes && saved.length) {
+        step = "writing src/styles/themes/groups.css";
+        let groupsCss = await readTextFile(themes, "groups.css");
+        for (const group of saved) groupsCss = upsertGroupCss(groupsCss, group);
+        await writeTextFile(themes, "groups.css", groupsCss);
+        groupMsg = ` and the classes for ${names} in src/styles/themes/groups.css`;
+      } else if (saved.length) {
+        groupMsg = `. Typography for ${names} was saved with its theme group; use Save classes to groups.css in the Theme Builder to update groups.css`;
       }
     }
-    sourceCss = output;
     dirty = false;
-    const idMsg = savedIdCss ? " and src/styles/themes/id.css" : "";
     setStatus(
       direct
-        ? "Saved to the selected typography.css file."
-        : `Saved src/styles/themes/typography.css${idMsg}. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.`,
+        ? `Saved to the selected typography.css file${groupMsg}.`
+        : `Saved src/styles/themes/typography.css${groupMsg}. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.`,
     );
   } catch (error) {
     if (
@@ -551,8 +591,17 @@ window.addEventListener("beforeunload", (event) => {
   event.returnValue = "";
 });
 
+// Reload theme groups when the Theme Builder saves (in another tab or frame).
+window.addEventListener("storage", (event) => {
+  if (event.key !== themeGroupsStorageKey) return;
+  loadThemeGroups();
+  renderScopes();
+  renderControls();
+});
+
 try {
   config = parseTypography(savedCss);
+  loadThemeGroups();
   renderScopes();
   renderControls();
   setStatus("Project typography loaded. Select a scope and element to begin.");

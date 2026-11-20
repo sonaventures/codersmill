@@ -280,23 +280,41 @@ export function validateTypography(config) {
   ) {
     throw new Error("Invalid typography settings or unsupported version.");
   }
-  const validateRules = (rules) => {
-    if (!isRecord(rules)) throw new Error("Invalid typography rules.");
-    for (const [element, styles] of Object.entries(rules)) {
-      if (!typographyElements.includes(element) || !isRecord(styles)) {
-        throw new Error(`Invalid typography element: ${element}`);
-      }
-      for (const [key, value] of Object.entries(styles)) {
-        validateTypographyValue(key, value);
-      }
-    }
-  };
+  const validateRules = validateTypographyRules;
   validateRules(config.defaults);
   for (const [id, rules] of Object.entries(config.sections)) {
     validateSectionId(id);
     validateRules(rules);
   }
   return config;
+}
+
+/** Validates one set of rules: { h1: { "font-size": "2rem" }, p: {...} }. */
+export function validateTypographyRules(rules) {
+  if (!isRecord(rules)) throw new Error("Invalid typography rules.");
+  for (const [element, styles] of Object.entries(rules)) {
+    if (!typographyElements.includes(element) || !isRecord(styles)) {
+      throw new Error(`Invalid typography element: ${element}`);
+    }
+    for (const [key, value] of Object.entries(styles)) {
+      validateTypographyValue(key, value);
+    }
+  }
+  return rules;
+}
+
+/** CSS for one set of rules, each selector prefixed (e.g. ".sg-x-hero "). */
+export function typographyRulesCss(rules, prefix = "") {
+  validateTypographyRules(rules);
+  const css = [];
+  for (const element of typographyElements) {
+    const declarations = Object.entries(rules[element] ?? {})
+      .filter(([, value]) => value !== "")
+      .map(([key, value]) => `  ${key}: ${value};`);
+    if (declarations.length)
+      css.push(`${prefix}${element} {\n${declarations.join("\n")}\n}`);
+  }
+  return css;
 }
 
 function quotedAttribute(value) {
@@ -306,16 +324,8 @@ function quotedAttribute(value) {
 export function typographyCss(config, preview = false) {
   validateTypography(config);
   const rules = [];
-  const append = (styles, prefix) => {
-    for (const element of typographyElements) {
-      const declarations = Object.entries(styles[element] ?? {})
-        .filter(([, value]) => value !== "")
-        .map(([key, value]) => `  ${key}: ${value};`);
-      if (declarations.length) {
-        rules.push(`${prefix}${element} {\n${declarations.join("\n")}\n}`);
-      }
-    }
-  };
+  const append = (styles, prefix) =>
+    rules.push(...typographyRulesCss(styles, prefix));
   append(config.defaults, preview ? "[data-typography-preview] " : "");
   for (const [id, styles] of Object.entries(config.sections)) {
     append(

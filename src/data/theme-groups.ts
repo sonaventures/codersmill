@@ -1,4 +1,5 @@
 import { allPaletteFamilies } from "./palette.js";
+import { validateTypographyRules } from "./typography-builder.js";
 
 export const globalColorRoles = [
   {
@@ -515,12 +516,21 @@ export function isSectionId(value: unknown): value is string {
   );
 }
 
+/** Typography rules for one area: { h1: { "font-size": "2rem" }, ... }. */
+export type TypographyRules = Record<string, Record<string, string>>;
+/**
+ * Typography per area, edited in the Typography Builder. Areas left out
+ * follow the site-wide defaults in typography.css. The same in both themes.
+ */
+export type GroupTypography = Partial<Record<SectionIdRegion, TypographyRules>>;
+
 export interface ThemeGroup {
   id: string;
   name: string;
   themes: Record<Theme, StyleColors>;
   radii: GlobalRadii;
   sectionIds: SectionIds;
+  typography: GroupTypography;
 }
 
 // Keep the storage key, including its older "style-groups" name, so groups
@@ -760,12 +770,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 13 &&
       data.version !== 14 &&
       data.version !== 15 &&
-      data.version !== 16) ||
+      data.version !== 16 &&
+      data.version !== 17) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 16 theme group file with up to 100 groups.",
+      "Expected a version 1 through 17 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -929,10 +940,37 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
         sectionIds[region as SectionIdRegion] = id;
       }
     }
-    return { id: value.id, name, themes: { light, dark }, radii, sectionIds };
+    const typography: GroupTypography = {};
+    if (data.version >= 17) {
+      const source = value.typography;
+      if (!isRecord(source))
+        throw new Error(`Missing typography in "${name}".`);
+      for (const [region, rules] of Object.entries(source)) {
+        if (!sectionIdRegions.some((key) => key === region))
+          throw new Error(`Unknown typography area "${region}" in "${name}".`);
+        try {
+          validateTypographyRules(rules);
+        } catch (error) {
+          throw new Error(
+            `Invalid ${region} typography in "${name}": ${(error as Error).message}`,
+          );
+        }
+        typography[region as SectionIdRegion] = structuredClone(
+          rules as TypographyRules,
+        );
+      }
+    }
+    return {
+      id: value.id,
+      name,
+      themes: { light, dark },
+      radii,
+      sectionIds,
+      typography,
+    };
   });
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 16, groups }, null, 2);
+  return JSON.stringify({ version: 17, groups }, null, 2);
 }

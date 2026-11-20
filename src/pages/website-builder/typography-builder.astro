@@ -18,7 +18,7 @@ const sampleText: Record<string, string> = {
 
 <Layout
   title="Typography Builder"
-  description="Set site-wide typography and overrides for sections by ID."
+  description="Set site-wide typography and typography for theme groups."
 >
   <div
     class="grid w-full gap-8 px-4 pt-12 sm:px-6 lg:px-8"
@@ -33,9 +33,11 @@ const sampleText: Record<string, string> = {
         <div class="typography-guide-panel grid gap-3 rounded border border-canvas-page-border bg-canvas-page p-4 text-sm wrap-anywhere">
           <p>
             Set site-wide styles for headings, paragraphs, emphasis, strong
-            text, code, citations, preformatted text, and block quotations. Add
-            a section ID to override just that section, for example
-            <code>&lt;section id="about"&gt;</code>.
+            text, code, citations, preformatted text, and block quotations. Then
+            give each theme group area (page, hero, and sections) its own
+            typography. It travels with the theme group's classes, so assigning
+            a theme group in the Page Builder applies its colors and typography
+            together.
           </p>
           <p>
             Blank fields keep existing site styles, or follow site-wide defaults
@@ -47,73 +49,43 @@ const sampleText: Record<string, string> = {
           <p>
             In Chrome or Edge on localhost or HTTPS, click Save to project and
             choose the project folder containing{" "}
-            <code>src/styles/global.css</code>. If folder access fails, use Save
-            directly to CSS and select the existing{" "}
-            <code>src/styles/themes/typography.css</code> file in the project.
-            In other browsers, use Download CSS and replace that file manually.
+            <code>src/styles/global.css</code>. Site-wide defaults are saved to{" "}
+            <code>src/styles/themes/typography.css</code>; theme group
+            typography is saved with the theme group and written to{" "}
+            <code>src/styles/themes/groups.css</code>. If folder access fails,
+            use Save directly to CSS for the defaults, then Save classes to
+            groups.css in the Theme Builder.
           </p>
         </div>
       </details>
 
       <div class="grid min-w-0 gap-6" data-builder-ui>
-        <form id="add-typography-section" class="grid gap-2">
-          <label for="typography-section-id" class="font-semibold">
-            Add a section ID
-          </label>
-          <div class="grid gap-2">
-            <label
-              for="typography-known-id"
-              class="text-xs text-ink-page-muted"
-            >
-              Select an ID from <code>src/styles/themes/id.css</code>
-            </label>
-            <select id="typography-known-id" class="typography-control">
-              <option value="">Select from id.css...</option>
-            </select>
-          </div>
-          <div class="flex flex-wrap gap-2">
-            <input
-              id="typography-section-id"
-              maxlength="120"
-              placeholder="or enter a new ID, e.g. team-spotlight"
-              aria-describedby="typography-id-help"
-              class="min-w-0 flex-1 rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
-            />
-            <button type="submit" class="btn btn-outline">
-              Add section
-            </button>
-          </div>
-          <label class="flex cursor-pointer items-center gap-2 text-sm">
-            <input
-              type="checkbox"
-              id="typography-add-to-id-css"
-              checked
-              class="rounded border-canvas-page-border"
-            />
-            <span>
-              Add new ID to <code>src/styles/themes/id.css</code>
-            </span>
-          </label>
-          <p id="typography-id-help" class="text-sm">
-            Select an ID from id.css or enter an ID without #. Adding a new ID
-            can save it directly to id.css.
-          </p>
-        </form>
-
         <div class="grid gap-2">
           <label for="typography-scope" class="font-semibold">
             Editing scope
           </label>
-          <select id="typography-scope" class="typography-control">
+          <select
+            id="typography-scope"
+            class="typography-control"
+            aria-describedby="typography-scope-help"
+          >
             <option value="">Site-wide defaults</option>
           </select>
+          <p id="typography-scope-help" class="text-sm">
+            Theme groups come from the
+            <a class="underline" href="/website-builder/theme-builder/">
+              Theme Builder
+            </a>
+            . Choose a group's page, hero, or section to give it its own
+            typography; blank fields follow the site-wide defaults.
+          </p>
           <button
             type="button"
             id="remove-typography-section"
             class="btn btn-outline justify-self-start"
             disabled
           >
-            Remove section override
+            Clear this area's typography
           </button>
         </div>
 
@@ -214,7 +186,7 @@ const sampleText: Record<string, string> = {
       >
         <h2 class="font-display text-2xl">Live preview</h2>
         <p>
-          Compare the defaults with the selected section. All{" "}
+          Compare the defaults with the selected theme group area. All{" "}
           {typographyElements.length}
           elements are shown.
         </p>
@@ -230,7 +202,7 @@ const sampleText: Record<string, string> = {
               >
                 {kind === "defaults"
                   ? "Site-wide defaults"
-                  : "Selected section"}
+                  : "Selected theme group area"}
               </div>
               <section class="grid gap-3 wrap-break-word" data-sample-content>
                 {typographyElements.map((Element) => (

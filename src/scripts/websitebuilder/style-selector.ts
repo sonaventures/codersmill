@@ -609,6 +609,17 @@ if (root) {
       return false;
     }
     try {
+      // Typography is edited in the Typography Builder. Keep the latest saved
+      // typography for each group so this page never overwrites it.
+      const stored = localStorage.getItem(themeGroupsStorageKey);
+      const latest = stored ? parseThemeGroups(stored) : [];
+      next = next.map((group) => ({
+        ...group,
+        typography:
+          latest.find(({ id }) => id === group.id)?.typography ??
+          group.typography ??
+          {},
+      }));
       localStorage.setItem(themeGroupsStorageKey, serializeThemeGroups(next));
     } catch (error) {
       reportError(
@@ -803,6 +814,9 @@ if (root) {
       themes: structuredClone(themes),
       radii: { ...radii },
       sectionIds: sectionIds.get(),
+      typography: structuredClone(
+        groups.find(({ id }) => id === selectedId)?.typography ?? {},
+      ),
     };
     const next = selectedId
       ? groups.map((item) => (item.id === selectedId ? group : item))
@@ -847,7 +861,20 @@ if (root) {
     );
   });
   publishButton.addEventListener("click", async () => {
-    const group = groups.find(({ id }) => id === selectedId);
+    let group = groups.find(({ id }) => id === selectedId);
+    // Use the latest typography saved by the Typography Builder.
+    try {
+      const stored = localStorage.getItem(themeGroupsStorageKey);
+      const latest = stored
+        ? parseThemeGroups(stored).find(({ id }) => id === selectedId)
+        : undefined;
+      if (group && latest) group = { ...group, typography: latest.typography };
+    } catch (error) {
+      console.warn(
+        "Theme builder: could not read the latest typography",
+        error,
+      );
+    }
     if (!group) {
       message("Save or load a theme group first, then save its classes.");
       return;

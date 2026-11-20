@@ -21,6 +21,7 @@ const group = () => ({
   themes: { light: createDefaultColors(), dark: createDefaultColors() },
   radii: { ...defaultRadii },
   sectionIds: {},
+  typography: {},
 });
 
 test("theme groups round-trip independent area palettes", () => {
@@ -78,7 +79,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 16);
+  assert.equal(JSON.parse(json).version, 17);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -106,7 +107,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":17,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":18,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -167,7 +168,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 16);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 17);
 });
 
 test("brand and CTA assignments are page-wide and round-trip independently by theme", () => {
@@ -742,4 +743,45 @@ test("version 15 groups keep their CTA colors and get default CTA text, border, 
   );
   assert.ok(isColorRoleVisible("page", "ctaSecondaryBorder"));
   assert.ok(!isColorRoleVisible("hero", "ctaSecondaryBorder"));
+});
+
+test("theme groups round-trip typography per area and reject invalid rules", () => {
+  const saved = group();
+  saved.typography = {
+    hero: { h1: { "font-size": "3rem", "font-weight": "700" } },
+    section2: { p: { "line-height": "1.75" } },
+  };
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([saved])), [saved]);
+
+  for (const [typography, error] of [
+    [{ footer: {} }, /Unknown typography area "footer"/],
+    [{ hero: { marquee: {} } }, /Invalid hero typography.*element: marquee/],
+    [
+      { hero: { h1: { "font-size": "huge" } } },
+      /Invalid hero typography.*font size/,
+    ],
+    [
+      { hero: { h1: { "font-size": "1rem; color: red" } } },
+      /Invalid hero typography/,
+    ],
+  ])
+    assert.throws(
+      () => parseThemeGroups(serializeThemeGroups([{ ...saved, typography }])),
+      error,
+    );
+  const { typography: _omitted, ...missing } = saved;
+  assert.throws(
+    () => parseThemeGroups(serializeThemeGroups([missing])),
+    /Missing typography/,
+  );
+});
+
+test("version 16 groups load with no group typography", () => {
+  const { typography: _omitted, ...saved } = group();
+  saved.themes.light.hero.background = "#123456";
+  const [restored] = parseThemeGroups(
+    JSON.stringify({ version: 16, groups: [saved] }),
+  );
+  assert.deepEqual(restored.typography, {});
+  assert.equal(restored.themes.light.hero.background, "#123456");
 });
