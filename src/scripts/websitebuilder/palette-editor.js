@@ -355,25 +355,31 @@ async function removeFamilies(family) {
   }
 }
 
+const sourceFolders = ["src", "styles", "themes"];
+
 async function openProject(selected, remember, expectedFile) {
   status.textContent = `Opening ${selected.name}...`;
-  const sourceOnly = selected.name === "src";
+  // The project root (with src and public) enables every feature. Choosing
+  // src, styles or themes also works for editing; removal then asks for the
+  // root so it can check public files for references.
+  const sourceOnly = sourceFolders.includes(selected.name);
   let selectedFile;
   try {
-    const src = sourceOnly
-      ? selected
-      : await selected.getDirectoryHandle("src");
+    let folder = selected;
     if (!sourceOnly) await selected.getDirectoryHandle("public");
-    const styles = await src.getDirectoryHandle("styles");
-    const themes = await styles.getDirectoryHandle("themes");
-    selectedFile = await themes.getFileHandle("colors.css");
+    // Walk the rest of src/styles/themes below the chosen folder.
+    const below = sourceOnly
+      ? sourceFolders.slice(sourceFolders.indexOf(selected.name) + 1)
+      : sourceFolders;
+    for (const name of below) folder = await folder.getDirectoryHandle(name);
+    selectedFile = await folder.getFileHandle("colors.css");
   } catch (error) {
     if (
       error instanceof DOMException &&
       (error.name === "NotFoundError" || error.name === "TypeMismatchError")
     )
       throw new Error(
-        `Could not find the expected folders and colors.css in "${selected.name}". Choose the websitebuilder project root or its src folder, not styles or themes.`,
+        `"${selected.name}" does not contain src/styles/themes/colors.css. Choose the websitebuilder project folder (the one that contains src and public).`,
       );
     throw error;
   }
@@ -398,7 +404,7 @@ async function openProject(selected, remember, expectedFile) {
 
 function openedStatus(sourceOnly, message) {
   status.textContent = sourceOnly
-    ? "Opened colors.css from src. If you select Remove, the editor will ask for the project folder so it can check public files."
+    ? "Opened colors.css. If you select Remove, the editor will ask for the project folder so it can check public files."
     : message;
 }
 
@@ -416,10 +422,13 @@ async function chooseProject(requireRoot = false, expectedFile = undefined) {
     status.textContent = requireRoot
       ? "Choose the websitebuilder folder that contains src and public."
       : "Choose the websitebuilder project root or its src folder.";
-    const selected = await window.showDirectoryPicker({ mode: "readwrite" });
-    if (requireRoot && selected.name === "src") {
-      status.textContent =
-        "Select the folder containing src and public, not src itself.";
+    const selected = await window.showDirectoryPicker({
+      id: "websitebuilder-project",
+      mode: "readwrite",
+      ...(rememberedProject ? { startIn: rememberedProject } : {}),
+    });
+    if (requireRoot && sourceFolders.includes(selected.name)) {
+      status.textContent = `Select the folder containing src and public, not ${selected.name} itself.`;
       return;
     }
     const sourceOnly = await openProject(selected, true, expectedFile);
