@@ -118,63 +118,63 @@ export const cardCanvasRoles = [
     card: "01",
     part: "background",
     label: "Card 01 background",
-    group: "canvas",
+    group: "cards",
   },
   {
     key: "cardBorder",
     card: "01",
     part: "border",
     label: "Card 01 border",
-    group: "canvas",
+    group: "cards",
   },
   {
     key: "cardShadow",
     card: "01",
     part: "shadow",
     label: "Card 01 shadow",
-    group: "canvas",
+    group: "cards",
   },
   {
     key: "card02",
     card: "02",
     part: "background",
     label: "Card 02 background",
-    group: "canvas",
+    group: "cards",
   },
   {
     key: "card02Border",
     card: "02",
     part: "border",
     label: "Card 02 border",
-    group: "canvas",
+    group: "cards",
   },
   {
     key: "card02Shadow",
     card: "02",
     part: "shadow",
     label: "Card 02 shadow",
-    group: "canvas",
+    group: "cards",
   },
   {
     key: "card03",
     card: "03",
     part: "background",
     label: "Card 03 background",
-    group: "canvas",
+    group: "cards",
   },
   {
     key: "card03Border",
     card: "03",
     part: "border",
     label: "Card 03 border",
-    group: "canvas",
+    group: "cards",
   },
   {
     key: "card03Shadow",
     card: "03",
     part: "shadow",
     label: "Card 03 shadow",
-    group: "canvas",
+    group: "cards",
   },
 ] as const;
 
@@ -228,14 +228,19 @@ export const interactiveColorRoles = [
 
 export const subsectionColorRoles = [
   {
+    key: "subsection",
+    label: "Subsection background",
+    group: "cards",
+  },
+  {
     key: "subsectionBorder",
     label: "Subsection border",
-    group: "canvas",
+    group: "cards",
   },
   {
     key: "subsectionShadow",
     label: "Subsection shadow",
-    group: "canvas",
+    group: "cards",
   },
 ] as const;
 
@@ -386,6 +391,8 @@ const version12ColorRoles = ["muted", "highlight", "contrastCanvas"] as const;
 // Added in version 13.
 const version13ColorRoles = ["contrastText"] as const;
 // Added in version 18; until set they match the shared button colors.
+// Added in version 19; until set it matches Card 03's background.
+const version19ColorRoles = ["subsection"] as const;
 const version18ColorRoles = [
   "secondaryShadow",
   "secondaryHover",
@@ -431,6 +438,7 @@ export const roleGroups = [
   { key: "cta", label: "CTA / page-wide" },
   { key: "contrast", label: "Contrast band / page-wide" },
   { key: "canvas", label: "Canvas" },
+  { key: "cards", label: "Cards & subsections" },
   { key: "accent", label: "Accent" },
   { key: "ink", label: "Ink" },
   { key: "formatting", label: "Text formatting" },
@@ -740,6 +748,8 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
       return "var(--sample-shadow)";
     case "iconBorder":
       return "var(--sample-accentBorder)";
+    case "subsection":
+      return "var(--sample-card03)";
     case "subsectionBorder":
       return "var(--sample-card03Border)";
     case "subsectionShadow":
@@ -800,12 +810,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 15 &&
       data.version !== 16 &&
       data.version !== 17 &&
-      data.version !== 18) ||
+      data.version !== 18 &&
+      data.version !== 19) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 18 theme group file with up to 100 groups.",
+      "Expected a version 1 through 19 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -882,7 +893,9 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             (data.version < 15 &&
               version15ColorRoles.some((key) => key === role)) ||
             (data.version < 18 &&
-              version18ColorRoles.some((key) => key === role))
+              version18ColorRoles.some((key) => key === role)) ||
+            (data.version < 19 &&
+              version19ColorRoles.some((key) => key === role))
           ) {
             regionColors[role] = "theme";
             continue;
@@ -1003,7 +1016,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 18, groups }, null, 2);
+  return JSON.stringify({ version: 19, groups }, null, 2);
 }
 
 /**
