@@ -100,13 +100,17 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
         <button type="button" id="open-project">
           Choose project folder
         </button>
+        <button type="button" id="open-colors-file">
+          Choose colors.css file
+        </button>
         <button type="button" id="reconnect-project" hidden>
           Reconnect project
         </button>
         <span id="project-name">No project selected</span>
       </div>
       <p id="editor-status" role="status" aria-live="polite">
-        Select the websitebuilder project root or its src folder to begin.
+        Select the websitebuilder project root or its src folder to begin, or
+        choose src/styles/themes/colors.css directly.
       </p>
       <div id="editor-content" hidden>
         <section aria-labelledby="add-title">

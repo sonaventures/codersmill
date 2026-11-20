@@ -16,6 +16,7 @@ const get = (selector) => {
   return element;
 };
 const open = get("#open-project");
+const openFile = get("#open-colors-file");
 const openForRemoval = get("#open-project-for-removal");
 const removeAll = get("#remove-all-families");
 const removalStatus = get("#removal-status");
@@ -78,6 +79,7 @@ async function rememberProject(selected) {
 function setBusy(value) {
   busy = value;
   open.disabled = value;
+  openFile.disabled = value;
   openForRemoval.disabled = value;
   removeAll.disabled = value || !list.childElementCount;
   reconnect.disabled = value;
@@ -360,19 +362,27 @@ const sourceFolders = ["src", "styles", "themes"];
 async function openProject(selected, remember, expectedFile) {
   status.textContent = `Opening ${selected.name}...`;
   // The project root (with src and public) enables every feature. Choosing
-  // src, styles or themes also works for editing; removal then asks for the
-  // root so it can check public files for references.
-  const sourceOnly = sourceFolders.includes(selected.name);
+  // src, styles, themes or colors.css itself also works for editing; removal
+  // then asks for the root so it can check public files for references.
+  const isFile = selected.kind === "file";
+  const sourceOnly = isFile || sourceFolders.includes(selected.name);
   let selectedFile;
+  if (isFile && selected.name !== "colors.css")
+    throw new Error(
+      `Choose colors.css from src/styles/themes, not ${selected.name}.`,
+    );
   try {
-    let folder = selected;
-    if (!sourceOnly) await selected.getDirectoryHandle("public");
-    // Walk the rest of src/styles/themes below the chosen folder.
-    const below = sourceOnly
-      ? sourceFolders.slice(sourceFolders.indexOf(selected.name) + 1)
-      : sourceFolders;
-    for (const name of below) folder = await folder.getDirectoryHandle(name);
-    selectedFile = await folder.getFileHandle("colors.css");
+    if (isFile) selectedFile = selected;
+    else {
+      let folder = selected;
+      if (!sourceOnly) await selected.getDirectoryHandle("public");
+      // Walk the rest of src/styles/themes below the chosen folder.
+      const below = sourceOnly
+        ? sourceFolders.slice(sourceFolders.indexOf(selected.name) + 1)
+        : sourceFolders;
+      for (const name of below) folder = await folder.getDirectoryHandle(name);
+      selectedFile = await folder.getFileHandle("colors.css");
+    }
   } catch (error) {
     if (
       error instanceof DOMException &&
@@ -440,7 +450,7 @@ async function chooseProject(requireRoot = false, expectedFile = undefined) {
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
       status.textContent =
-        "Folder selection cancelled. Choose the project root or its src folder, not the CSS file.";
+        "Folder selection cancelled. Choose the project root or its src folder, or use Choose colors.css file.";
       return;
     }
     if (error instanceof DOMException && error.name === "NotAllowedError") {
@@ -455,7 +465,51 @@ async function chooseProject(requireRoot = false, expectedFile = undefined) {
   }
 }
 
+// Opens colors.css directly, for when the folder picker returns the wrong
+// folder. Works like opening src: Remove asks for the project folder first.
+async function chooseColorsFile() {
+  if (busy) return;
+  if (!("showOpenFilePicker" in window)) {
+    status.textContent =
+      "This browser does not support file access. Use Chrome or Edge on localhost or HTTPS.";
+    return;
+  }
+  setBusy(true);
+  removalStatus.textContent = "";
+  try {
+    status.textContent = "Choose src/styles/themes/colors.css.";
+    const [selected] = await window.showOpenFilePicker({
+      id: "websitebuilder-colors",
+      multiple: false,
+      types: [{ description: "CSS file", accept: { "text/css": [".css"] } }],
+      ...(rememberedProject ? { startIn: rememberedProject } : {}),
+    });
+    // The file picker only grants read access; saving needs write access.
+    const permission = await selected.requestPermission({ mode: "readwrite" });
+    if (permission !== "granted")
+      throw new Error(
+        "Write access to colors.css was not granted, so changes could not be saved. Choose the file again and allow editing.",
+      );
+    const sourceOnly = await openProject(selected, true);
+    openedStatus(sourceOnly);
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      status.textContent = "File selection cancelled.";
+      return;
+    }
+    if (error instanceof DOMException && error.name === "NotAllowedError") {
+      status.textContent =
+        "File access was denied. Allow access or open this page in Chrome or Edge.";
+      return;
+    }
+    report(error);
+  } finally {
+    setBusy(false);
+  }
+}
+
 open.addEventListener("click", () => chooseProject());
+openFile.addEventListener("click", () => chooseColorsFile());
 openForRemoval.addEventListener("click", () => chooseProject(true, cssFile));
 removeAll.addEventListener("click", () => removeFamilies());
 
