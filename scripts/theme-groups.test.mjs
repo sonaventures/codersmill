@@ -82,7 +82,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 19);
+  assert.equal(JSON.parse(json).version, 20);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -110,7 +110,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":20,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":21,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -171,7 +171,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 19);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 20);
 });
 
 test("brand and CTA assignments are page-wide and round-trip independently by theme", () => {
@@ -804,7 +804,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 19);
+  assert.equal(JSON.parse(first).version, 20);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -879,5 +879,28 @@ test("version 18 groups get a subsection background that matches card 03", () =>
 
   const edited = group();
   edited.themes.dark.section1.subsection = "var(--color-slate-800)";
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
+});
+
+test("version 19 groups get a default secondary button border", () => {
+  const saved = group();
+  for (const theme of ["light", "dark"])
+    for (const region of Object.keys(saved.themes[theme]))
+      delete saved.themes[theme][region]?.secondaryBorder;
+  const [restored] = parseThemeGroups(
+    JSON.stringify({ version: 19, groups: [saved] }),
+  );
+  assert.equal(restored.themes.light.hero.secondaryBorder, "theme");
+  assert.equal(
+    semanticToken("section2", "secondaryBorder"),
+    "accent-02-secondary-border",
+  );
+  assert.equal(
+    defaultColorReference("section1", "secondaryBorder"),
+    "var(--accent-01-secondary-border,var(--sample-accentBorder))",
+  );
+  assert.ok(isColorRoleVisible("footer", "secondaryBorder"));
+  const edited = group();
+  edited.themes.light.section1.secondaryBorder = "var(--color-rose-500)";
   assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });

@@ -281,6 +281,7 @@
   );
   --color-accent-01-secondary-clear: var(--accent-01-secondary, transparent);
   --color-accent-01-secondary-text: var(--accent-01-secondary-text, var(--ink-01));
+  --color-accent-01-secondary-border: var(--accent-01-secondary-border, var(--canvas-01-border));
   --color-accent-01-secondary-hover: var(--accent-01-secondary-hover, var(--accent-01-canvas));
   --color-accent-01-secondary-hover-text: var(
     --accent-01-secondary-hover-text,

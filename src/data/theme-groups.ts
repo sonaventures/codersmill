@@ -308,6 +308,7 @@ const detailFallbacks = {
 } as const;
 const detailDefaults = {
   // Secondary button preview defaults: the shared sample button colors.
+  secondaryBorder: "var(--sample-accentBorder)",
   secondaryShadow: "var(--sample-buttonShadow)",
   secondaryHover: "var(--sample-buttonHoverBackground)",
   secondaryHoverText: "var(--sample-buttonHoverText)",
@@ -319,6 +320,7 @@ const detailDefaults = {
 const detailTokens = {
   secondary: "accent-%-secondary",
   secondaryText: "accent-%-secondary-text",
+  secondaryBorder: "accent-%-secondary-border",
   secondaryShadow: "accent-%-secondary-shadow",
   secondaryHover: "accent-%-secondary-hover",
   secondaryHoverText: "accent-%-secondary-hover-text",
@@ -354,6 +356,11 @@ export const regionColorRoles = [
   { key: "highlight", label: "Highlight text", group: "ink" },
   { key: "secondary", label: "Secondary button", group: "accent" },
   { key: "secondaryText", label: "Secondary button text", group: "accent" },
+  {
+    key: "secondaryBorder",
+    label: "Secondary button border",
+    group: "accent",
+  },
   {
     key: "secondaryShadow",
     label: "Secondary button shadow",
@@ -391,6 +398,8 @@ const version12ColorRoles = ["muted", "highlight", "contrastCanvas"] as const;
 // Added in version 13.
 const version13ColorRoles = ["contrastText"] as const;
 // Added in version 18; until set they match the shared button colors.
+// Added in version 20; until set it matches the shared button border.
+const version20ColorRoles = ["secondaryBorder"] as const;
 // Added in version 19; until set it matches Card 03's background.
 const version19ColorRoles = ["subsection"] as const;
 const version18ColorRoles = [
@@ -811,12 +820,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 16 &&
       data.version !== 17 &&
       data.version !== 18 &&
-      data.version !== 19) ||
+      data.version !== 19 &&
+      data.version !== 20) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 19 theme group file with up to 100 groups.",
+      "Expected a version 1 through 20 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -895,7 +905,9 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             (data.version < 18 &&
               version18ColorRoles.some((key) => key === role)) ||
             (data.version < 19 &&
-              version19ColorRoles.some((key) => key === role))
+              version19ColorRoles.some((key) => key === role)) ||
+            (data.version < 20 &&
+              version20ColorRoles.some((key) => key === role))
           ) {
             regionColors[role] = "theme";
             continue;
@@ -1016,7 +1028,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 19, groups }, null, 2);
+  return JSON.stringify({ version: 20, groups }, null, 2);
 }
 
 /**

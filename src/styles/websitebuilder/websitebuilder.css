@@ -468,6 +468,7 @@
 /* The secondary button's own shadow and hover / focus colors. These outrank
    the shared button states. */
 .selector-shell [data-region] .sample-buttons .sample-secondary {
+  border-color: var(--sample-secondaryBorder);
   box-shadow: 0 3px 10px
     color-mix(in srgb, var(--sample-secondaryShadow) 20%, transparent);
 }
