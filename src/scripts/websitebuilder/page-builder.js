@@ -70,11 +70,11 @@ function renderAvailableIds() {
 }
 renderAvailableIds();
 
-// Style group classes from src/styles/themes/groups.css (theme builder).
+// Theme group classes from src/styles/themes/groups.css (theme builder).
 let availableClasses = parseGroupClasses(groupsCssFallback);
 
-// Fills a dropdown with style group classes: page classes for the page, or
-// hero and section classes (grouped by style group) for components.
+// Fills a dropdown with theme group classes: page classes for the page, or
+// hero and section classes (grouped by theme group) for components.
 function fillStyleClassSelect(select, forPage, current = select.value) {
   const classes = availableClasses.filter(
     ({ area }) => (area === "page") === forPage,
@@ -82,8 +82,8 @@ function fillStyleClassSelect(select, forPage, current = select.value) {
   const options = [
     new Option(
       classes.length
-        ? "No style group"
-        : "No style groups yet (save classes in the theme builder)",
+        ? "No theme group"
+        : "No theme groups yet (save classes in the theme builder)",
       "",
     ),
   ];
@@ -507,7 +507,7 @@ function renderSelection() {
     const styleLabel = document.createElement("label");
     styleLabel.htmlFor = `component-${index}-style-class`;
     styleLabel.className = "text-sm font-semibold";
-    styleLabel.textContent = "Style group (optional)";
+    styleLabel.textContent = "Theme group (optional)";
     const styleSelect = document.createElement("select");
     styleSelect.id = styleLabel.htmlFor;
     styleSelect.className =

@@ -246,7 +246,7 @@ development-server page reload. **Add family** still saves only the selected
 family and loads the next remaining family for individual review.
 Built-in Tailwind family
 names are reserved; the editor manages only custom families. The editor checks
-`src`, `public`, and this browser's saved style groups before removal
+`src`, `public`, and this browser's saved theme groups before removal
 and blocks explicit references it finds there. It cannot detect dynamically
 constructed references or inspect groups in other browsers or exported files
 outside those directories. Refresh the theme template or Theme Builder after a
@@ -288,7 +288,7 @@ defaults, and dark overrides, keeping each area's Canvas, Accent, Ink, and
 navigation roles together. Choose an area, a target role, and a palette family, then click a
 shade. You can also choose any palette color directly in a role's dropdown.
 Section tokens use zero-padded numbers (`canvas-01`, `accent-01-*`, `ink-01-*`
-through `06`). Saved style groups retain their existing section assignments;
+through `06`). Saved theme groups retain their existing section assignments;
 page-heading token names are unchanged.
 The compact **Color Picker** sits at the bottom of the preview and can be
 collapsed. In **Color Swatches**, the area, target role, and family dropdowns
@@ -298,7 +298,7 @@ custom colors are enabled. This row scrolls
 horizontally on narrow screens. In **Global Styles**, choose Sections (including
 the hero), Cards, or Subsections, then pick a visual corner-radius preset from
 None through 3XL. Corner radii apply across the preview in both themes and are
-saved and exported with the style group.
+saved and exported with the theme group.
 Selecting an editing area refreshes its current-theme color controls and brings
 that sample area to the top of the viewport, including the footer. If a
 page-wide brand/CTA role was selected, choosing another area switches the
@@ -359,7 +359,7 @@ Section assignments remain local to the sample. All overrides are scoped to Them
 Maker and do not change other site pages. Header/footer ink aliases and the page
 accent canvas are also exposed as Tailwind colors.
 
-Save a named style group to keep the entire page palette in this browser. Select a saved
+Save a named theme group to keep the entire page palette in this browser. Select a saved
 group to load/update it, or use **Save as new** to name a copy of the current
 palette. A group includes both themes.
 

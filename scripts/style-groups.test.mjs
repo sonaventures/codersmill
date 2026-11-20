@@ -23,7 +23,7 @@ const group = () => ({
   sectionIds: {},
 });
 
-test("style groups round-trip independent area palettes", () => {
+test("theme groups round-trip independent area palettes", () => {
   const saved = group();
   saved.themes.light.section3.background = "var(--color-magical-merlin-500)";
   saved.themes.dark.section3.background = "var(--color-dark-rift-900)";
@@ -38,7 +38,7 @@ test("style groups round-trip independent area palettes", () => {
   assert.notEqual(restored.themes.dark.section3.text, "#abcdef");
 });
 
-test("style groups round-trip independent global corner radii", () => {
+test("theme groups round-trip independent global corner radii", () => {
   const saved = group();
   saved.radii = { section: "3xl", card: "none", subsection: "sm" };
   assert.deepEqual(parseStyleGroups(serializeStyleGroups([saved])), [saved]);
@@ -55,7 +55,7 @@ test("style groups round-trip independent global corner radii", () => {
   );
 });
 
-test("version 9 style groups retain colors and get the original corner radii", () => {
+test("version 9 theme groups retain colors and get the original corner radii", () => {
   const saved = group();
   saved.themes.light.section1.border = "#123456";
   delete saved.radii;
@@ -562,7 +562,7 @@ test("older theme groups migrate shared card colors to three independent cards",
   }
 });
 
-test("style groups round-trip section IDs and reject unsafe ones", () => {
+test("theme groups round-trip section IDs and reject unsafe ones", () => {
   const saved = group();
   saved.sectionIds = { page: "landing", section1: "about", hero: "hero" };
   assert.deepEqual(parseStyleGroups(serializeStyleGroups([saved])), [saved]);
@@ -586,7 +586,7 @@ test("style groups round-trip section IDs and reject unsafe ones", () => {
   );
 });
 
-test("version 10 style groups load with default section IDs", () => {
+test("version 10 theme groups load with default section IDs", () => {
   const { sectionIds: _omitted, ...saved } = group();
   const [restored] = parseStyleGroups(
     JSON.stringify({ version: 10, groups: [saved] }),

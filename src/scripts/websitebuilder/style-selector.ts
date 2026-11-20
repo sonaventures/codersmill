@@ -69,7 +69,7 @@ if (root) {
     if (!element) throw new Error(`Missing selector control: ${selector}`);
     return element;
   };
-  const form = get<HTMLFormElement>("#style-group-form");
+  const form = get<HTMLFormElement>("#theme-group-form");
   const area = get<HTMLSelectElement>("#editing-region");
   const preview = get<HTMLElement>(".preview-column");
   const controlPanel = get<HTMLElement>(".selector-panel");
@@ -129,14 +129,14 @@ if (root) {
   const sectionIds = initSectionIds(get<HTMLElement>("#selector-sample-page"), {
     onChange(text) {
       dirty = true;
-      message(`${text} Save a style group to keep it.`);
+      message(`${text} Save a theme group to keep it.`);
     },
     onError: message,
   });
   const editingArea = () => area.value as Region;
   const markDirty = () => {
     dirty = true;
-    message("Unsaved changes. Save a style group to keep these styles.");
+    message("Unsaved changes. Save a theme group to keep these styles.");
   };
   const confirmDiscard = () =>
     !dirty || window.confirm("Discard unsaved style changes?");
@@ -604,7 +604,7 @@ if (root) {
   function persist(next: StyleGroup[]) {
     if (!storageReady) {
       message(
-        "Saving is disabled because saved style groups could not be read.",
+        "Saving is disabled because saved theme groups could not be read.",
       );
       return false;
     }
@@ -612,7 +612,7 @@ if (root) {
       localStorage.setItem(styleGroupsStorageKey, serializeStyleGroups(next));
     } catch (error) {
       reportError(
-        "Unable to save style groups. Your changes are still in the preview.",
+        "Unable to save theme groups. Your changes are still in the preview.",
         error,
       );
       return false;
@@ -627,7 +627,7 @@ if (root) {
   } catch (error) {
     storageReady = false;
     reportError(
-      "Unable to read saved style groups. Saving/importing is disabled to protect existing data.",
+      "Unable to read saved theme groups. Saving/importing is disabled to protect existing data.",
       error,
     );
   }
@@ -775,7 +775,7 @@ if (root) {
     event.preventDefault();
     const groupName = name.value.trim();
     if (!groupName) {
-      message("Enter a name for your style group.");
+      message("Enter a name for your theme group.");
       name.focus();
       return;
     }
@@ -839,17 +839,17 @@ if (root) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = "exclusive-group-style-groups.json";
+    link.download = "exclusive-group-theme-groups.json";
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     message(
-      `Exported ${groups.length} saved style group(s), including colors, global corner radii, and section IDs. Unsaved preview changes are not included.`,
+      `Exported ${groups.length} saved theme group(s), including colors, global corner radii, and section IDs. Unsaved preview changes are not included.`,
     );
   });
   publishButton.addEventListener("click", async () => {
     const group = groups.find(({ id }) => id === selectedId);
     if (!group) {
-      message("Save or load a style group first, then save its classes.");
+      message("Save or load a theme group first, then save its classes.");
       return;
     }
     if (dirty) {
@@ -889,7 +889,7 @@ if (root) {
         throw new Error("Choose a JSON file smaller than 1 MB.");
       const imported = parseStyleGroups(await file.text());
       if (!imported.length)
-        throw new Error("This file contains no style groups.");
+        throw new Error("This file contains no theme groups.");
       if (groups.length + imported.length > 100)
         throw new Error("Import would exceed the 100-group limit.");
       const names = new Set(groups.map((group) => group.name.toLowerCase()));
@@ -908,7 +908,7 @@ if (root) {
         `Imported ${copies.length} group(s). Existing groups and the current preview were kept. Select a saved group to load it.`,
       );
     } catch (error) {
-      reportError("Unable to import style groups.", error);
+      reportError("Unable to import theme groups.", error);
     } finally {
       fileInput.value = "";
     }

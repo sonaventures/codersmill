@@ -1,5 +1,5 @@
 // Header navigation for the builder pages, in workflow order: colors, then
-// style groups in the theme builder, then pages that use those groups.
+// theme groups in the theme builder, then pages that use those groups.
 export const builderPages = [
   {
     label: "Home",
@@ -15,13 +15,13 @@ export const builderPages = [
     label: "Theme Builder",
     href: "/website-builder/theme-builder/",
     description:
-      "Create style groups and save them as classes for the page builder.",
+      "Create theme groups and save them as classes for the page builder.",
   },
   {
     label: "Page Builder",
     href: "/website-builder/page-builder/",
     description:
-      "Create a page from the project's Astro components and assign style groups.",
+      "Create a page from the project's Astro components and assign theme groups.",
   },
   {
     label: "Site Nav Builder",

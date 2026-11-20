@@ -512,7 +512,7 @@ test("lists every component folder, including parents, for copy suggestions", ()
   );
 });
 
-test("style group classes wrap components and the whole page", () => {
+test("theme group classes wrap components and the whole page", () => {
   const hero = { path: "Hero.astro", properties: [] };
   const cards = { path: "Cards.astro", properties: [] };
   const page = generatePage(
@@ -551,18 +551,18 @@ test("style group classes wrap components and the whole page", () => {
     'sg-x-hero" onload="x',
     "",
   ]) {
-    assert.throws(() => validateStyleClass(bad), /not a style group class/);
+    assert.throws(() => validateStyleClass(bad), /not a theme group class/);
   }
   assert.throws(
     () =>
       generatePage("Bad", "", [
         { component: hero, values: {}, styleClass: 'sg-a-hero" x="' },
       ]),
-    /not a style group class/,
+    /not a theme group class/,
   );
   assert.throws(
     () =>
       generatePage("Bad", "", [{ component: hero, values: {} }], "sg-a-footer"),
-    /not a style group class/,
+    /not a theme group class/,
   );
 });

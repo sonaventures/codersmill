@@ -27,7 +27,7 @@
   }
 
   /* Text formatting colors from the theme builder. Components use the
-     section 01 variables, which style group classes remap for each area. */
+     section 01 variables, which theme group classes remap for each area. */
   strong {
     color: var(--ink-01-strong);
   }

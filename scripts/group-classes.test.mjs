@@ -24,7 +24,7 @@ const ruleFor = (css, selector) => {
   return css.slice(start, css.indexOf("}", start) + 1);
 };
 
-test("class names come from the style group name", () => {
+test("class names come from the theme group name", () => {
   assert.equal(groupClassSlug("Coastal Calm!"), "coastal-calm");
   assert.equal(groupClassSlug("Café  Crème"), "cafe-creme");
   assert.throws(() => groupClassSlug("***"), /at least one letter/);
@@ -96,10 +96,10 @@ test("saving a group again replaces its block and keeps everything else", () => 
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const updated = upsertGroupCss(withOther, changed);
-  assert.equal(updated.match(/style-group: coastal-calm \(/g).length, 1);
+  assert.equal(updated.match(/theme-group: coastal-calm \(/g).length, 1);
   assert.match(updated, /--canvas-hero: #123456;/);
   assert.match(updated, /\.hand-written \{ color: red; \}/);
-  assert.match(updated, /style-group: night-shift \(Night shift\)/);
+  assert.match(updated, /theme-group: night-shift \(Night shift\)/);
 });
 
 test("the page builder reads every group class with its area", () => {
@@ -173,4 +173,22 @@ test("CTA text, border, and hover colors go into the page class", () => {
   assert.match(page, /--cta-01-hover: var\(--color-orange-600\);/);
   assert.match(page, /--cta-02-border: #112233;/);
   assert.doesNotMatch(page, /--cta-01-text/);
+});
+
+test("blocks saved with the older style-group markers are still read and replaced", () => {
+  const current = generateGroupCss(group());
+  const older = current
+    .replace("/* theme-group: coastal-calm", "/* style-group: coastal-calm")
+    .replace(
+      "/* end theme-group: coastal-calm",
+      "/* end style-group: coastal-calm",
+    );
+  assert.match(older, /style-group: coastal-calm/);
+  assert.equal(parseGroupClasses(`${groupsCssHeader}\n${older}\n`).length, 8);
+  const changed = group();
+  changed.themes.light.hero.background = "#abcdef";
+  const updated = upsertGroupCss(`${groupsCssHeader}\n${older}\n`, changed);
+  assert.doesNotMatch(updated, /style-group/);
+  assert.equal(updated.match(/theme-group: coastal-calm \(/g).length, 1);
+  assert.match(updated, /--canvas-hero: #abcdef;/);
 });

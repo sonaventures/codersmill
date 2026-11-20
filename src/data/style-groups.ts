@@ -764,7 +764,7 @@ export function parseStyleGroups(json: string): StyleGroup[] {
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 16 style-group file with up to 100 groups.",
+      "Expected a version 1 through 16 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -781,12 +781,12 @@ export function parseStyleGroups(json: string): StyleGroup[] {
       (data.version === 1 ? !isRecord(value.colors) : !isRecord(value.themes))
     ) {
       throw new Error(
-        "Each style group needs an ID, a name, and a full palette.",
+        "Each theme group needs an ID, a name, and a full palette.",
       );
     }
     const name = value.name.trim();
     if (ids.has(value.id) || names.has(name.toLowerCase())) {
-      throw new Error("Style group IDs and names must be unique.");
+      throw new Error("Theme group IDs and names must be unique.");
     }
     ids.add(value.id);
     names.add(name.toLowerCase());

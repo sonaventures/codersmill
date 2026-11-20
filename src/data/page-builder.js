@@ -297,14 +297,14 @@ function literal(value) {
   );
 }
 
-// Style group classes from src/styles/themes/groups.css, e.g. sg-coastal-calm-hero.
+// Theme group classes from src/styles/themes/groups.css, e.g. sg-coastal-calm-hero.
 const styleClassPattern =
   /^sg-[a-z0-9]+(?:-[a-z0-9]+)*-(?:page|hero|section-[1-6])$/;
 
 export function validateStyleClass(value) {
   if (typeof value !== "string" || !styleClassPattern.test(value))
     throw new Error(
-      `"${value}" is not a style group class from src/styles/themes/groups.css.`,
+      `"${value}" is not a theme group class from src/styles/themes/groups.css.`,
     );
 }
 
@@ -380,7 +380,7 @@ export function generatePage(name, description, selected, pageClass = "") {
         : element;
     },
   );
-  // A page style group wraps everything between the header and footer.
+  // A page theme group wraps everything between the header and footer.
   const body = pageClass
     ? [
         `  <div class=${literal(pageClass)}>`,

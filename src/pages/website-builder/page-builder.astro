@@ -14,13 +14,13 @@ import Layout from "../../layouts/website-builder.astro";
         automatically.
       </p>
       <p>
-        To color the page and its components, first create style groups in the
+        To color the page and its components, first create theme groups in the
         <a class="underline" href="/website-builder/theme-builder/">
           Theme Builder
         </a>{" "}
         and select <strong>Save classes to groups.css</strong>. They then appear
-        here under <strong>Page style group</strong> and
-        <strong>Style group</strong>.
+        here under <strong>Page theme group</strong> and
+        <strong>Theme group</strong>.
       </p>
       <p>
         Folder access requires Chrome or Edge on localhost or HTTPS. Files stay
@@ -76,7 +76,7 @@ import Layout from "../../layouts/website-builder.astro";
         </div>
         <div class="grid gap-2">
           <label for="page-style-class" class="font-semibold">
-            Page style group (optional)
+            Page theme group (optional)
           </label>
           <p class="text-sm">
             Wraps the whole page, between the header and footer, in a page class
@@ -127,10 +127,10 @@ import Layout from "../../layouts/website-builder.astro";
           </div>
           <div class="grid gap-2">
             <label for="component-style-class" class="text-sm font-semibold">
-              Style group (optional)
+              Theme group (optional)
             </label>
             <p class="text-sm">
-              Colors this component with a hero or section class from a style
+              Colors this component with a hero or section class from a theme
               group saved by the theme builder.
             </p>
             <select

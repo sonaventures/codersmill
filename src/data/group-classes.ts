@@ -9,7 +9,7 @@ import {
   type Theme,
 } from "./style-groups.ts";
 
-/** Areas of a style group that become classes, in the order they are written. */
+/** Areas of a theme group that become classes, in the order they are written. */
 export const classGroupAreas = [
   { region: "page", suffix: "page", label: "Page" },
   { region: "hero", suffix: "hero", label: "Hero" },
@@ -39,14 +39,14 @@ const classNamePattern = /^sg-[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const areaPattern = classGroupAreas.map(({ suffix }) => suffix).join("|");
 
 export const groupsCssHeader = `/*
- * Style group classes, written by the Website Builder theme builder.
+ * Theme group classes, written by the Website Builder theme builder.
  * Assign them to components in the page builder. Each block between the
- * "style-group" markers is replaced when that group is saved again;
+ * "theme-group" markers is replaced when that group is saved again;
  * anything outside the markers is left alone.
  */
 `;
 
-/** Turns a style group name into the part of its class names, e.g. "coastal-calm". */
+/** Turns a theme group name into the part of its class names, e.g. "coastal-calm". */
 export function groupClassSlug(name: string): string {
   const slug = name
     .normalize("NFKD")
@@ -58,7 +58,7 @@ export function groupClassSlug(name: string): string {
     .replace(/-+$/, "");
   if (!slug)
     throw new Error(
-      "Use a style group name with at least one letter or number to create classes.",
+      "Use a theme group name with at least one letter or number to create classes.",
     );
   return slug;
 }
@@ -109,7 +109,7 @@ const themeSelectors: Record<Theme, string> = {
   dark: ':root[data-theme="dark"]',
 };
 
-/** The CSS block for one style group, wrapped in markers so it can be replaced. */
+/** The CSS block for one theme group, wrapped in markers so it can be replaced. */
 export function generateGroupCss(group: StyleGroup): string {
   const slug = groupClassSlug(group.name);
   const label = group.name.replace(/\*\//g, "* /").replace(/[\r\n]+/g, " ");
@@ -143,15 +143,16 @@ export function generateGroupCss(group: StyleGroup): string {
     }
   }
   return [
-    `/* style-group: ${slug} (${label}) */`,
+    `/* theme-group: ${slug} (${label}) */`,
     ...rules,
-    `/* end style-group: ${slug} */`,
+    `/* end theme-group: ${slug} */`,
   ].join("\n");
 }
 
 function blockPattern(slug: string) {
   return new RegExp(
-    `/\\* style-group: ${slug} \\(.*?\\) \\*/[\\s\\S]*?/\\* end style-group: ${slug} \\*/\\n?`,
+    // Blocks saved before the rename used "style-group" markers.
+    `/\\* (?:theme|style)-group: ${slug} \\(.*?\\) \\*/[\\s\\S]*?/\\* end (?:theme|style)-group: ${slug} \\*/\\n?`,
   );
 }
 
@@ -165,12 +166,12 @@ export function upsertGroupCss(css: string, group: StyleGroup): string {
   return `${base.replace(/\s*$/, "\n")}\n${block}`;
 }
 
-/** Every style-group class defined in groups.css, for the page builder. */
+/** Every theme group class defined in groups.css, for the page builder. */
 export function parseGroupClasses(css: string): GroupClass[] {
   if (typeof css !== "string") return [];
   const found = new Map<string, GroupClass>();
   const blocks = css.matchAll(
-    /\/\* style-group: ([a-z0-9-]+) \((.*?)\) \*\/([\s\S]*?)\/\* end style-group: \1 \*\//g,
+    /\/\* (?:theme|style)-group: ([a-z0-9-]+) \((.*?)\) \*\/([\s\S]*?)\/\* end (?:theme|style)-group: \1 \*\//g,
   );
   for (const [, group, groupName, body] of blocks) {
     for (const [, className] of body.matchAll(/\.(sg-[a-z0-9-]+)\s*\{/g)) {

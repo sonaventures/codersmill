@@ -321,7 +321,7 @@ async function removeFamilies(family) {
     const stored = localStorage.getItem(styleGroupsStorageKey);
     if (stored) {
       JSON.parse(stored);
-      checkReferences(stored, "saved style groups in this browser");
+      checkReferences(stored, "saved theme groups in this browser");
     }
     if (references.size) {
       status.textContent = all
