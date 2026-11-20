@@ -30,10 +30,18 @@ const exclusivePalette = await readFile(
   "utf8",
 );
 const shades = paletteShades.map(() => "oklch(62.6% 0.128 243.6)");
+// colors.css is user-editable, so tests add their own family instead of
+// relying on whichever custom families it currently contains.
+const fixtureFamily = "fixture-family";
+const cssWithFixture = addPalette(css, fixtureFamily, shades);
 
-test("exclusive color families are available without overriding Tailwind colors", () => {
+test("exclusive color families can be installed without overriding Tailwind colors", () => {
   const sourceFamilies = readOklchPalettes(exclusivePalette);
-  const cssFamilies = readPalette(css);
+  const sourceKeys = new Set(sourceFamilies.map(({ key }) => key));
+  const baseCss = readPalette(css)
+    .filter(({ key }) => sourceKeys.has(key))
+    .reduce((result, { key }) => removePalette(result, key), css);
+  const cssFamilies = readPalette(addPalettes(baseCss, sourceFamilies));
   const original = [...paletteFamilies];
   const normalizeValues = (values) =>
     values.map((value) => value.replace(/(\d)\.(\d*?)0+(?=[\s)])/g, "$1.$2"));
@@ -70,7 +78,10 @@ test("adds and removes a complete family without changing other CSS", () => {
 
 test("rejects incomplete families, duplicate names, and unsafe colors", () => {
   assert.throws(() => addPalette(css, "bad name", shades), /lowercase/);
-  assert.throws(() => addPalette(css, "iguana", shades), /already exists/);
+  assert.throws(
+    () => addPalette(cssWithFixture, fixtureFamily, shades),
+    /already exists/,
+  );
   assert.throws(() => addPalette(css, "sky", shades), /reserved/);
   assert.throws(() => addPalette(css, "none", shades), /reserved/);
   assert.throws(() => addPalette(css, "new", shades.slice(1)), /every shade/);
@@ -147,8 +158,12 @@ test("validates the entire batch before returning CSS to save", () => {
     /ocean-blue.*already exists/,
   );
   assert.throws(
-    () => addPalettes(css, [family("ocean-blue"), family("iguana")]),
-    /iguana.*already exists/,
+    () =>
+      addPalettes(cssWithFixture, [
+        family("ocean-blue"),
+        family(fixtureFamily),
+      ]),
+    /fixture-family.*already exists/,
   );
   assert.throws(
     () => addPalettes(css, [family("ocean-blue"), family("sky")]),
@@ -254,9 +269,9 @@ test("detects CSS and Tailwind references, including references from other palet
     findPaletteReferences("var(--color-ocean-blue-5000)", "ocean-blue"),
     false,
   );
-  const added = addPalette(css, "ocean-blue", shades);
+  const added = addPalette(cssWithFixture, "ocean-blue", shades);
   const linked = added.replace(
-    /(--color-iguana-50:)[^;]+;/,
+    /(--color-fixture-family-50:)[^;]+;/,
     "$1 var(--color-ocean-blue-500);",
   );
   assert.equal(

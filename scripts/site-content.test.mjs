@@ -14,9 +14,9 @@ test("all approved page routes exist", async () => {
     "src/pages/about.astro",
     "src/pages/template.astro",
     "src/pages/website-builder/custom-colors.astro",
-    "src/pages/website-builder/themebuilder.astro",
-    "src/pages/website-builder/pagebuilder.astro",
-    "src/pages/website-builder/typographybuilder.astro",
+    "src/pages/website-builder/theme-builder.astro",
+    "src/pages/website-builder/page-builder.astro",
+    "src/pages/website-builder/typography-builder.astro",
   ];
 
   for (const route of routes) {
