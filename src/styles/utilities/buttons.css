@@ -4,7 +4,7 @@
   }
 
   .btn-filled {
-    @apply border-cta-01 bg-cta-01 text-ink-page-dark hover:brightness-95;
+    @apply border-cta-01-border bg-cta-01 text-cta-01-text hover:bg-cta-01-hover hover:text-cta-01-hover-text hover:brightness-95 focus-visible:bg-cta-01-hover focus-visible:text-cta-01-hover-text;
   }
 
   .btn-outline {

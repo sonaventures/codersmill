@@ -377,11 +377,29 @@
   background: var(--sample-secondary);
   @apply text-(--sample-secondaryText);
 }
-.selector-shell .sample-buttons [data-cta="primary"] {
-  border-color: var(--sample-accentBorder);
+/* CTA preview buttons use the page-wide CTA colors, including hover/focus,
+   with the same fallbacks as colors.css. These outrank the area button
+   states below. */
+.selector-shell [data-region] .sample-buttons [data-cta="primary"] {
+  background: var(--cta-01);
+  border-color: var(--cta-01-border, var(--cta-01));
+  color: var(--cta-01-text, var(--ink-page-dark));
 }
-.selector-shell .sample-buttons [data-cta="secondary"] {
-  border-color: var(--sample-accentBorder);
+.selector-shell [data-region] .sample-buttons [data-cta="primary"]:is(:hover, :focus) {
+  background: var(--cta-01-hover, var(--cta-01));
+  color: var(--cta-01-hover-text, var(--cta-01-text, var(--ink-page-dark)));
+}
+.selector-shell [data-region] .sample-buttons [data-cta="secondary"] {
+  background: var(--cta-02);
+  border-color: var(--cta-02-border, var(--cta-02));
+  color: var(--cta-02-text, var(--ink-inverse));
+}
+.selector-shell [data-region] .sample-buttons [data-cta="secondary"]:is(:hover, :focus) {
+  background: var(--cta-02-hover, var(--cta-02));
+  color: var(--cta-02-hover-text, var(--cta-02-text, var(--ink-inverse)));
+}
+.selector-shell [data-region] .sample-buttons [data-cta] svg {
+  color: inherit;
 }
 .selector-shell .sample-buttons .sample-action-link {
   @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-[0.3rem] px-4 text-[0.75rem] font-bold no-underline;

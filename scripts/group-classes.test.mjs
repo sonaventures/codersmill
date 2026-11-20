@@ -160,3 +160,17 @@ test("form colors map onto section 01 and selection becomes a ::selection rule",
   );
   assert.equal(parseGroupClasses(upsertGroupCss("", saved)).length, 8);
 });
+
+test("CTA text, border, and hover colors go into the page class", () => {
+  const saved = group();
+  saved.themes.light.global.ctaPrimaryHover = "var(--color-orange-600)";
+  saved.themes.light.global.ctaSecondaryBorder = "#112233";
+  const css = generateGroupCss(saved);
+  const page = ruleFor(
+    css,
+    ':root:not([data-theme="dark"]) .sg-coastal-calm-page',
+  );
+  assert.match(page, /--cta-01-hover: var\(--color-orange-600\);/);
+  assert.match(page, /--cta-02-border: #112233;/);
+  assert.doesNotMatch(page, /--cta-01-text/);
+});

@@ -5,6 +5,7 @@ import {
   defaultColorReference,
   defaultRadii,
   getColor,
+  globalColorFallbacks,
   globalColorRoles,
   isGlobalColorRole,
   isColorRoleVisible,
@@ -222,6 +223,24 @@ if (root) {
     });
   }
 
+  // Page-wide colors left on "Theme default" may have no variable of their
+  // own (CTA text, border, hover); show the color components fall back to.
+  function globalSwatchColor(key: ColorRole, token: string | null): string {
+    const page = get<HTMLElement>('[data-region="page"]');
+    const value = token
+      ? getComputedStyle(page).getPropertyValue(`--${token}`).trim()
+      : "";
+    const fallback =
+      globalColorFallbacks[key as keyof typeof globalColorFallbacks];
+    if (value || !fallback) return value;
+    const probe = document.createElement("span");
+    probe.style.color = fallback;
+    page.append(probe);
+    const color = getComputedStyle(probe).color;
+    probe.remove();
+    return color;
+  }
+
   function renderColors() {
     const region = editingArea();
     const selectedArea = regions.find(({ key }) => key === region);
@@ -336,7 +355,7 @@ if (root) {
         color === "transparent"
           ? ""
           : isGlobalColorRole(key)
-            ? getComputedStyle(page).getPropertyValue(`--${token}`).trim()
+            ? globalSwatchColor(key, token)
             : computed.getPropertyValue(`--sample-${key}`).trim();
       // Text formatting defaults to "currentColor": show the area's text.
       if (/^currentcolor$/i.test(swatchColor))

@@ -44,9 +44,57 @@ export const globalColorRoles = [
     group: "cta",
   },
   {
+    key: "ctaPrimaryText",
+    label: "CTA 01 text",
+    token: "cta-01-text",
+    group: "cta",
+  },
+  {
+    key: "ctaPrimaryBorder",
+    label: "CTA 01 border",
+    token: "cta-01-border",
+    group: "cta",
+  },
+  {
+    key: "ctaPrimaryHover",
+    label: "CTA 01 hover / focus background",
+    token: "cta-01-hover",
+    group: "cta",
+  },
+  {
+    key: "ctaPrimaryHoverText",
+    label: "CTA 01 hover / focus text",
+    token: "cta-01-hover-text",
+    group: "cta",
+  },
+  {
     key: "ctaSecondary",
     label: "CTA 02",
     token: "cta-02",
+    group: "cta",
+  },
+  {
+    key: "ctaSecondaryText",
+    label: "CTA 02 text",
+    token: "cta-02-text",
+    group: "cta",
+  },
+  {
+    key: "ctaSecondaryBorder",
+    label: "CTA 02 border",
+    token: "cta-02-border",
+    group: "cta",
+  },
+  {
+    key: "ctaSecondaryHover",
+    label: "CTA 02 hover / focus background",
+    token: "cta-02-hover",
+    group: "cta",
+  },
+  {
+    key: "ctaSecondaryHoverText",
+    label: "CTA 02 hover / focus text",
+    token: "cta-02-hover-text",
     group: "cta",
   },
   {
@@ -310,6 +358,32 @@ const recentRegionColorRoles = [
 const version12ColorRoles = ["muted", "highlight", "contrastCanvas"] as const;
 // Added in version 13.
 const version13ColorRoles = ["contrastText"] as const;
+// Added in version 16.
+const version16ColorRoles = [
+  "ctaPrimaryText",
+  "ctaPrimaryBorder",
+  "ctaPrimaryHover",
+  "ctaPrimaryHoverText",
+  "ctaSecondaryText",
+  "ctaSecondaryBorder",
+  "ctaSecondaryHover",
+  "ctaSecondaryHoverText",
+] as const;
+
+/**
+ * Page-wide colors whose variable is unset until chosen, and the variable
+ * (or color) components use instead. Matches the fallbacks in colors.css.
+ */
+export const globalColorFallbacks: Partial<Record<GlobalColorRole, string>> = {
+  ctaPrimaryText: "var(--ink-page-dark)",
+  ctaPrimaryBorder: "var(--cta-01)",
+  ctaPrimaryHover: "var(--cta-01)",
+  ctaPrimaryHoverText: "var(--cta-01-text, var(--ink-page-dark))",
+  ctaSecondaryText: "var(--ink-inverse)",
+  ctaSecondaryBorder: "var(--cta-02)",
+  ctaSecondaryHover: "var(--cta-02)",
+  ctaSecondaryHoverText: "var(--cta-02-text, var(--ink-inverse))",
+};
 // Added in version 14.
 const version14ColorRoles = formattingColorRoles.map(({ key }) => key);
 // Added in version 15.
@@ -684,12 +758,13 @@ export function parseStyleGroups(json: string): StyleGroup[] {
       data.version !== 12 &&
       data.version !== 13 &&
       data.version !== 14 &&
-      data.version !== 15) ||
+      data.version !== 15 &&
+      data.version !== 16) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 15 style-group file with up to 100 groups.",
+      "Expected a version 1 through 16 style-group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -728,7 +803,9 @@ export function parseStyleGroups(json: string): StyleGroup[] {
             (data.version < 12 &&
               version12ColorRoles.some((role) => role === key)) ||
             (data.version < 13 &&
-              version13ColorRoles.some((role) => role === key))
+              version13ColorRoles.some((role) => role === key)) ||
+            (data.version < 16 &&
+              version16ColorRoles.some((role) => role === key))
           ) {
             colors.global[key] = "theme";
             continue;
@@ -856,5 +933,5 @@ export function parseStyleGroups(json: string): StyleGroup[] {
 }
 
 export function serializeStyleGroups(groups: StyleGroup[]): string {
-  return JSON.stringify({ version: 15, groups }, null, 2);
+  return JSON.stringify({ version: 16, groups }, null, 2);
 }
