@@ -27,6 +27,12 @@ export const typographyFonts = {
   "Arial, sans-serif": "Arial",
   "Georgia, serif": "Georgia",
   "'Times New Roman', serif": "Times New Roman",
+  "var(--font-space-grotesk)": "Space Grotesk",
+  "var(--font-ibm-plex-mono)": "IBM Plex Mono",
+  "var(--font-open-sans)": "Open Sans",
+  "var(--font-roboto)": "Roboto",
+  "var(--font-poppins)": "Poppins",
+  "var(--font-work-sans)": "Work Sans",
 };
 
 export const typographyProperties = [
