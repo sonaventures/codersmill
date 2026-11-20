@@ -309,6 +309,10 @@ const detailFallbacks = {
 const detailDefaults = {
   // Secondary button preview defaults: the shared sample button colors.
   secondaryBorder: "var(--sample-accentBorder)",
+  // Button hover / focus backgrounds: Primary matches the shared button
+  // hover; Learn more has no background until one is chosen.
+  primaryHover: "var(--sample-buttonHoverBackground)",
+  learnMoreHover: "transparent",
   secondaryShadow: "var(--sample-buttonShadow)",
   secondaryHover: "var(--sample-buttonHoverBackground)",
   secondaryHoverText: "var(--sample-buttonHoverText)",
@@ -321,6 +325,8 @@ const detailTokens = {
   secondary: "accent-%-secondary",
   secondaryText: "accent-%-secondary-text",
   secondaryBorder: "accent-%-secondary-border",
+  primaryHover: "accent-%-primary-hover",
+  learnMoreHover: "accent-%-learn-more-hover",
   secondaryShadow: "accent-%-secondary-shadow",
   secondaryHover: "accent-%-secondary-hover",
   secondaryHoverText: "accent-%-secondary-hover-text",
@@ -347,6 +353,16 @@ export const regionColorRoles = [
   { key: "accentBorder", label: "Button border", group: "accent" },
   { key: "buttonShadow", label: "Button shadow", group: "accent" },
   { key: "accentFocus", label: "Hover / focus", group: "accent" },
+  {
+    key: "primaryHover",
+    label: "Primary hover / focus",
+    group: "accent",
+  },
+  {
+    key: "learnMoreHover",
+    label: "Learn more hover / focus",
+    group: "accent",
+  },
   { key: "text", label: "Paragraph / text", group: "ink" },
   { key: "h1", label: "H1 heading", group: "ink" },
   { key: "h2", label: "H2 heading", group: "ink" },
@@ -398,6 +414,8 @@ const version12ColorRoles = ["muted", "highlight", "contrastCanvas"] as const;
 // Added in version 13.
 const version13ColorRoles = ["contrastText"] as const;
 // Added in version 18; until set they match the shared button colors.
+// Added in version 21.
+const version21ColorRoles = ["primaryHover", "learnMoreHover"] as const;
 // Added in version 20; until set it matches the shared button border.
 const version20ColorRoles = ["secondaryBorder"] as const;
 // Added in version 19; until set it matches Card 03's background.
@@ -821,12 +839,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 17 &&
       data.version !== 18 &&
       data.version !== 19 &&
-      data.version !== 20) ||
+      data.version !== 20 &&
+      data.version !== 21) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 20 theme group file with up to 100 groups.",
+      "Expected a version 1 through 21 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -907,7 +926,9 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             (data.version < 19 &&
               version19ColorRoles.some((key) => key === role)) ||
             (data.version < 20 &&
-              version20ColorRoles.some((key) => key === role))
+              version20ColorRoles.some((key) => key === role)) ||
+            (data.version < 21 &&
+              version21ColorRoles.some((key) => key === role))
           ) {
             regionColors[role] = "theme";
             continue;
@@ -1028,7 +1049,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 20, groups }, null, 2);
+  return JSON.stringify({ version: 21, groups }, null, 2);
 }
 
 /**

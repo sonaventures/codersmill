@@ -465,6 +465,14 @@
 .selector-shell [data-region] :is(button, a):active {
   color: var(--sample-linkActive);
 }
+/* Primary and Learn more hover / focus backgrounds. These outrank the
+   shared button states. */
+.selector-shell [data-region] .sample-buttons .sample-primary:is(:hover, :focus) {
+  background: var(--sample-primaryHover);
+}
+.selector-shell [data-region] .sample-buttons .sample-action-link:is(:hover, :focus) {
+  background: var(--sample-learnMoreHover);
+}
 /* The secondary button's own shadow and hover / focus colors. These outrank
    the shared button states. */
 .selector-shell [data-region] .sample-buttons .sample-secondary {
