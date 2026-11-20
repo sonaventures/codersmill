@@ -231,24 +231,12 @@
   @apply h-2 w-2 shrink-0 rounded-full;
   background: var(--accent-page-focus);
 }
-.selector-shell .sample-id-badge {
-  @apply truncate rounded-sm px-1.5 py-0.5 font-mono text-[0.7rem];
+.selector-shell .sample-class-name {
+  @apply m-0 flex items-center gap-1.5 text-[0.7rem];
+}
+.selector-shell .sample-class-name code {
+  @apply rounded-sm px-1.5 py-0.5 font-mono;
   border: 1px solid var(--canvas-page-border);
-}
-.selector-shell .sample-id-bar-select-wrap {
-  @apply ml-auto flex items-center gap-2;
-}
-.selector-shell .sample-id-bar-select-wrap label {
-  @apply m-0 text-[0.7rem] font-[650] whitespace-nowrap;
-}
-.selector-shell .sample-id-select {
-  @apply h-8 w-60 max-w-full min-w-0 rounded-[0.35rem] p-[0.3rem] text-[0.75rem] text-ink-page;
-  border: 1px solid var(--selector-control-border, var(--canvas-page-border));
-  background: var(--canvas-page);
-}
-.selector-shell .sample-id-select:focus-visible {
-  outline: 2px solid var(--accent-page-focus);
-  @apply outline-offset-2;
 }
 .selector-shell .sample-heading-level {
   color: color-mix(in srgb, var(--sample-text) 75%, transparent);

@@ -34,7 +34,6 @@ import {
   applyTailwindPaletteOnly,
   usesTailwindPaletteOnly,
 } from "./palette-preference";
-import { initSectionIds } from "./theme-section-ids";
 import {
   chooseThemesDirectory,
   readTextFile,
@@ -126,13 +125,19 @@ if (root) {
       `${text} ${error instanceof Error ? error.message : "Please try again."}`,
     );
   };
-  const sectionIds = initSectionIds(get<HTMLElement>("#selector-sample-page"), {
-    onChange(text) {
-      dirty = true;
-      message(`${text} Save a theme group to keep it.`);
-    },
-    onError: message,
-  });
+  // Each area's bar shows the class it becomes in groups.css, from the name.
+  const renderClassNames = () => {
+    let slug = "";
+    try {
+      slug = name.value.trim() ? groupClassSlug(name.value) : "";
+    } catch {
+      slug = "";
+    }
+    for (const code of root.querySelectorAll<HTMLElement>("[data-group-class]"))
+      code.textContent = slug
+        ? `.sg-${slug}-${code.dataset.groupClass}`
+        : "Name the group to see it";
+  };
   const editingArea = () => area.value as Region;
   const markDirty = () => {
     dirty = true;
@@ -590,6 +595,7 @@ if (root) {
   }
 
   function renderGroups() {
+    renderClassNames();
     saved.replaceChildren(new Option("Unsaved palette", ""));
     for (const group of groups) saved.add(new Option(group.name, group.id));
     saved.value = selectedId;
@@ -761,20 +767,17 @@ if (root) {
         };
     colors = themes[currentTheme()];
     radii = { ...(group?.radii ?? defaultRadii) };
-    const idProblems = sectionIds.set(group?.sectionIds ?? {});
     name.value = group?.name ?? "";
     dirty = false;
     renderColors();
     renderRadii();
     renderGroups();
-    message(
-      [
-        group ? `Loaded "${group.name}".` : "Started a fresh palette.",
-        ...idProblems,
-      ].join(" "),
-    );
+    message(group ? `Loaded "${group.name}".` : "Started a fresh palette.");
   });
-  name.addEventListener("input", markDirty);
+  name.addEventListener("input", () => {
+    renderClassNames();
+    markDirty();
+  });
   get<HTMLButtonElement>("#new-group").addEventListener("click", () => {
     selectedId = "";
     name.value = "";
@@ -813,7 +816,11 @@ if (root) {
       name: groupName,
       themes: structuredClone(themes),
       radii: { ...radii },
-      sectionIds: sectionIds.get(),
+      // Section IDs are set per page in the Page Builder now; keep any
+      // saved with older groups as they were.
+      sectionIds: structuredClone(
+        groups.find(({ id }) => id === selectedId)?.sectionIds ?? {},
+      ),
       typography: structuredClone(
         groups.find(({ id }) => id === selectedId)?.typography ?? {},
       ),

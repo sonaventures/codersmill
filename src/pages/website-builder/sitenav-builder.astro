@@ -7,6 +7,47 @@ import {
 } from "../../data/palette.js";
 import Layout from "../../layouts/website-builder.astro";
 import paletteCss from "../../styles/themes/colors.css?raw";
+import idCss from "../../styles/themes/id.css?raw";
+import { parseIdsFromCss } from "../../data/page-builder.js";
+
+// Destination suggestions: every site page, each section ID on those pages
+// (e.g. /services/#faq), and the shared section names from id.css as
+// same-page anchors (e.g. #contact). Read when this page loads.
+const pageSources = import.meta.glob<string>("../**/*.astro", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+const pageDestinations = Object.entries(pageSources)
+  .filter(
+    // Skip the builder pages themselves (this folder) and dynamic routes.
+    ([path]) =>
+      !path.startsWith("./") &&
+      !path.includes("website-builder/") &&
+      !path.includes("["),
+  )
+  .map(([path, source]) => {
+    const name = path.replace(/^(\.\.\/)+/, "").replace(/\.astro$/, "");
+    const route = name === "index" ? "/" : `/${name.replace(/\/?index$/, "")}/`;
+    const ids = [
+      ...source.matchAll(/<section\b[^>]*?\sid=(?:"([^"]+)"|\{"([^"]+)"\})/g),
+    ].map((match) => match[1] ?? match[2]);
+    return { route, ids: [...new Set(ids)] };
+  })
+  .sort((a, b) => a.route.localeCompare(b.route));
+const destinations = [
+  ...pageDestinations.flatMap(({ route, ids }) => [
+    { value: route, label: `Page ${route}` },
+    ...ids.map((id) => ({
+      value: `${route}#${id}`,
+      label: `Section #${id} on ${route}`,
+    })),
+  ]),
+  ...parseIdsFromCss(idCss).map((id) => ({
+    value: `#${id}`,
+    label: `#${id} on the current page`,
+  })),
+];
 
 const paletteFamilies = allPaletteFamilies(readPalette(paletteCss));
 const initialFamily = "slate";
@@ -332,8 +373,14 @@ const menuColorOptions = [
             Use a site path like <code>/about/</code>, an anchor like
             <code>#contact</code>, or a full URL starting with{" "}
             <code>https://</code>
-            or <code>http://</code>.
+            or <code>http://</code>. Destination suggests your pages and the
+            section IDs on them, such as <code>/services/#faq</code>.
           </p>
+          <datalist id="menu-destinations">
+            {destinations.map(({ value, label }) => (
+              <option value={value} label={label} />
+            ))}
+          </datalist>
           <ol id="site-menu-rows" class="grid gap-3" data-menu-rows></ol>
           <button
             type="button"
@@ -373,6 +420,8 @@ const menuColorOptions = [
                   inputmode="url"
                   placeholder="/contact/"
                   aria-describedby="menu-link-help"
+                  list="menu-destinations"
+                  autocomplete="off"
                   data-link-href
                 />
               </label>

@@ -14,20 +14,13 @@ interface Props {
   detail: string;
   fourth: string;
   style: string;
-  themeIds?: string[];
 }
 
-const {
-  id,
-  region,
-  label,
-  title,
-  subtitle,
-  detail,
-  fourth,
-  style,
-  themeIds = [],
-} = Astro.props;
+const { id, region, label, title, subtitle, detail, fourth, style } =
+  Astro.props;
+// The part of the theme group class for this area, e.g. sg-<group>-section-1.
+const classSuffix =
+  region === "hero" ? "hero" : region.replace(/^section/, "section-");
 ---
 
 <section
@@ -37,29 +30,15 @@ const {
   style={style}
   aria-labelledby={`${id}-heading`}
 >
-  <div class="sample-id-bar" data-section-id-control data-studio-chrome>
+  <div class="sample-id-bar" data-studio-chrome>
     <div class="sample-id-bar-info">
       <span class="sample-id-bar-dot"></span>
       <strong>{label}</strong>
-      <span class="sample-id-badge" id={`badge-${id}`}>
-        #{id}
-      </span>
     </div>
-    <div class="sample-id-bar-select-wrap">
-      <label for={`id-select-${id}`}>Apply CSS ID:</label>
-      <select
-        id={`id-select-${id}`}
-        class="sample-id-select"
-        data-region-target={region}
-        data-default-id={id}
-      >
-        <option value="">Default ({id})</option>
-        {themeIds.map((themeId) => (
-          <option value={themeId}>#{themeId}</option>
-        ))}
-        <option value="__custom__">Custom ID...</option>
-      </select>
-    </div>
+    <p class="sample-class-name">
+      Class:
+      <code data-group-class={classSuffix}>Name the group to see it</code>
+    </p>
   </div>
   <div class="sample-container">
     <p class="sample-kicker">{label}</p>
