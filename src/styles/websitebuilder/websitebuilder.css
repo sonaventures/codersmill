@@ -465,6 +465,16 @@
 .selector-shell [data-region] :is(button, a):active {
   color: var(--sample-linkActive);
 }
+/* The secondary button's own shadow and hover / focus colors. These outrank
+   the shared button states. */
+.selector-shell [data-region] .sample-buttons .sample-secondary {
+  box-shadow: 0 3px 10px
+    color-mix(in srgb, var(--sample-secondaryShadow) 20%, transparent);
+}
+.selector-shell [data-region] .sample-buttons .sample-secondary:is(:hover, :focus) {
+  background: var(--sample-secondaryHover);
+  color: var(--sample-secondaryHoverText);
+}
 .selector-shell [data-region] .sample-buttons button:hover {
   background: var(--sample-buttonHoverBackground);
   color: var(--sample-buttonHoverText);

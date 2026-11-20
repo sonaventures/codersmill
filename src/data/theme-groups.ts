@@ -338,6 +338,21 @@ export const regionColorRoles = [
   { key: "highlight", label: "Highlight text", group: "ink" },
   { key: "secondary", label: "Secondary button", group: "accent" },
   { key: "secondaryText", label: "Secondary button text", group: "accent" },
+  {
+    key: "secondaryShadow",
+    label: "Secondary button shadow",
+    group: "accent",
+  },
+  {
+    key: "secondaryHover",
+    label: "Secondary hover / focus",
+    group: "accent",
+  },
+  {
+    key: "secondaryHoverText",
+    label: "Secondary hover / focus text",
+    group: "accent",
+  },
   ...cardCanvasRoles,
   ...subsectionColorRoles,
   { key: "cardText", label: "Card text / all three cards", group: "ink" },
@@ -359,6 +374,12 @@ const recentRegionColorRoles = [
 const version12ColorRoles = ["muted", "highlight", "contrastCanvas"] as const;
 // Added in version 13.
 const version13ColorRoles = ["contrastText"] as const;
+// Added in version 18; until set they match the shared button colors.
+const version18ColorRoles = [
+  "secondaryShadow",
+  "secondaryHover",
+  "secondaryHoverText",
+] as const;
 // Added in version 16.
 const version16ColorRoles = [
   "ctaPrimaryText",
@@ -555,8 +576,7 @@ export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
       region === "page" || region === "hero" || region.startsWith("section")
     );
   }
-  if (role === "secondary" || role === "secondaryText")
-    return region !== "header";
+  if (role.startsWith("secondary")) return region !== "header";
   return true;
 }
 
@@ -710,6 +730,12 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
     case "buttonShadow":
     case "iconShadow":
       return "var(--sample-shadow)";
+    case "secondaryShadow":
+      return "var(--sample-buttonShadow)";
+    case "secondaryHover":
+      return "var(--sample-buttonHoverBackground)";
+    case "secondaryHoverText":
+      return "var(--sample-buttonHoverText)";
     case "iconBorder":
       return "var(--sample-accentBorder)";
     case "subsectionBorder":
@@ -771,12 +797,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 14 &&
       data.version !== 15 &&
       data.version !== 16 &&
-      data.version !== 17) ||
+      data.version !== 17 &&
+      data.version !== 18) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 17 theme group file with up to 100 groups.",
+      "Expected a version 1 through 18 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -851,7 +878,9 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             (data.version < 14 &&
               version14ColorRoles.some((key) => key === role)) ||
             (data.version < 15 &&
-              version15ColorRoles.some((key) => key === role))
+              version15ColorRoles.some((key) => key === role)) ||
+            (data.version < 18 &&
+              version18ColorRoles.some((key) => key === role))
           ) {
             regionColors[role] = "theme";
             continue;
@@ -972,7 +1001,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 17, groups }, null, 2);
+  return JSON.stringify({ version: 18, groups }, null, 2);
 }
 
 /**
