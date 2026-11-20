@@ -439,6 +439,43 @@
 .selector-shell .control-hint {
   @apply mb-4 text-[0.75rem] leading-[1.6] text-ink-page;
 }
+.selector-shell .panel-instructions {
+  @apply mb-3;
+  border: 1px solid var(--canvas-page-border);
+  @apply rounded-lg;
+}
+.selector-shell .panel-instructions summary {
+  @apply cursor-pointer select-none px-3 py-2 text-[0.75rem] font-[650];
+  list-style: none;
+}
+.selector-shell .panel-instructions summary::-webkit-details-marker {
+  display: none;
+}
+.selector-shell .panel-instructions summary span {
+  @apply float-right text-[0.7rem] font-normal text-ink-page;
+}
+.selector-shell .panel-instructions summary::before {
+  content: "▸";
+  @apply mr-1.5 inline-block text-[0.65rem] transition-transform duration-150;
+}
+.selector-shell .panel-instructions[open] summary::before {
+  content: "▾";
+}
+.selector-shell .panel-instructions:focus-within summary,
+.selector-shell .panel-instructions summary:focus-visible {
+  outline: 2px solid var(--accent-page-focus);
+  @apply rounded-lg outline-offset-2;
+}
+.selector-shell .panel-instructions-body {
+  @apply px-3 pb-3 pt-1;
+  border-top: 1px solid var(--canvas-page-border);
+}
+.selector-shell .panel-instructions-body p {
+  @apply mb-3 text-[0.75rem] leading-[1.6] text-ink-page;
+}
+.selector-shell .panel-instructions-body p:last-child {
+  @apply mb-0;
+}
 .selector-shell .selector-panel label,
 .selector-shell .palette-picker label,
 .selector-shell .color-fields legend {

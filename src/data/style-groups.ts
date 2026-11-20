@@ -304,11 +304,36 @@ export const defaultRadii: Readonly<GlobalRadii> = {
   subsection: "xl",
 };
 
+// Preview areas that can take a CSS ID from src/styles/themes/id.css.
+export const sectionIdRegions = [
+  "page",
+  "hero",
+  "section1",
+  "section2",
+  "section3",
+  "section4",
+  "section5",
+  "section6",
+] as const satisfies readonly Region[];
+export type SectionIdRegion = (typeof sectionIdRegions)[number];
+/** Chosen CSS IDs by area; areas left out keep their default preview ID. */
+export type SectionIds = Partial<Record<SectionIdRegion, string>>;
+
+export function isSectionId(value: unknown): value is string {
+  return (
+    typeof value === "string" &&
+    value.length > 0 &&
+    value.length <= 120 &&
+    !/[\s\u0000-\u001f\u007f]/u.test(value)
+  );
+}
+
 export interface StyleGroup {
   id: string;
   name: string;
   themes: Record<Theme, StyleColors>;
   radii: GlobalRadii;
+  sectionIds: SectionIds;
 }
 
 // Keep the storage key so version 1 groups remain available for migration.
@@ -484,12 +509,13 @@ export function parseStyleGroups(json: string): StyleGroup[] {
       data.version !== 7 &&
       data.version !== 8 &&
       data.version !== 9 &&
-      data.version !== 10) ||
+      data.version !== 10 &&
+      data.version !== 11) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 10 style-group file with up to 100 groups.",
+      "Expected a version 1 through 11 style-group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -614,10 +640,27 @@ export function parseStyleGroups(json: string): StyleGroup[] {
         radii[key] = preset.key;
       }
     }
-    return { id: value.id, name, themes: { light, dark }, radii };
+    const sectionIds: SectionIds = {};
+    if (data.version >= 11) {
+      const source = value.sectionIds;
+      if (!isRecord(source))
+        throw new Error(`Missing section IDs in "${name}".`);
+      const used = new Set<string>();
+      for (const [region, id] of Object.entries(source)) {
+        if (!sectionIdRegions.some((key) => key === region))
+          throw new Error(`Unknown section ID area "${region}" in "${name}".`);
+        if (!isSectionId(id))
+          throw new Error(`Invalid section ID for ${region} in "${name}".`);
+        if (used.has(id))
+          throw new Error(`Section ID #${id} is used twice in "${name}".`);
+        used.add(id);
+        sectionIds[region as SectionIdRegion] = id;
+      }
+    }
+    return { id: value.id, name, themes: { light, dark }, radii, sectionIds };
   });
 }
 
 export function serializeStyleGroups(groups: StyleGroup[]): string {
-  return JSON.stringify({ version: 10, groups }, null, 2);
+  return JSON.stringify({ version: 11, groups }, null, 2);
 }

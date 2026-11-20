@@ -33,6 +33,7 @@ import {
   applyTailwindPaletteOnly,
   usesTailwindPaletteOnly,
 } from "./palette-preference";
+import { initSectionIds } from "./theme-section-ids";
 
 setPaletteFamilies(readPalette(css));
 const root = document.querySelector<HTMLElement>("[data-selector]");
@@ -112,6 +113,13 @@ if (root) {
       `${text} ${error instanceof Error ? error.message : "Please try again."}`,
     );
   };
+  const sectionIds = initSectionIds(get<HTMLElement>("#selector-sample-page"), {
+    onChange(text) {
+      dirty = true;
+      message(`${text} Save a style group to keep it.`);
+    },
+    onError: message,
+  });
   const editingArea = () => area.value as Region;
   const markDirty = () => {
     dirty = true;
@@ -698,12 +706,18 @@ if (root) {
         };
     colors = themes[currentTheme()];
     radii = { ...(group?.radii ?? defaultRadii) };
+    const idProblems = sectionIds.set(group?.sectionIds ?? {});
     name.value = group?.name ?? "";
     dirty = false;
     renderColors();
     renderRadii();
     renderGroups();
-    message(group ? `Loaded "${group.name}".` : "Started a fresh palette.");
+    message(
+      [
+        group ? `Loaded "${group.name}".` : "Started a fresh palette.",
+        ...idProblems,
+      ].join(" "),
+    );
   });
   name.addEventListener("input", markDirty);
   get<HTMLButtonElement>("#new-group").addEventListener("click", () => {
@@ -744,6 +758,7 @@ if (root) {
       name: groupName,
       themes: structuredClone(themes),
       radii: { ...radii },
+      sectionIds: sectionIds.get(),
     };
     const next = selectedId
       ? groups.map((item) => (item.id === selectedId ? group : item))
@@ -784,7 +799,7 @@ if (root) {
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     message(
-      `Exported ${groups.length} saved style group(s), including colors and global corner radii. Unsaved preview changes are not included.`,
+      `Exported ${groups.length} saved style group(s), including colors, global corner radii, and section IDs. Unsaved preview changes are not included.`,
     );
   });
   importButton.addEventListener("click", () => fileInput.click());

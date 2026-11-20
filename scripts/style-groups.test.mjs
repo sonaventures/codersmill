@@ -20,6 +20,7 @@ const group = () => ({
   name: "Coastal calm",
   themes: { light: createDefaultColors(), dark: createDefaultColors() },
   radii: { ...defaultRadii },
+  sectionIds: {},
 });
 
 test("style groups round-trip independent area palettes", () => {
@@ -77,7 +78,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeStyleGroups([saved]);
-  assert.equal(JSON.parse(json).version, 10);
+  assert.equal(JSON.parse(json).version, 11);
   assert.deepEqual(parseStyleGroups(json), [saved]);
 
   const old = group();
@@ -105,7 +106,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":11,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":12,"groups":[]}']) {
     assert.throws(() => parseStyleGroups(json));
   }
   assert.throws(
@@ -166,7 +167,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 10);
+  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 11);
 });
 
 test("brand and CTA assignments are page-wide and round-trip independently by theme", () => {
@@ -559,4 +560,37 @@ test("older theme groups migrate shared card colors to three independent cards",
     assert.equal(restored.themes.light.section3.card, "#abcdef");
     assert.equal(restored.themes.light.section3.card03, "#abcdef");
   }
+});
+
+test("style groups round-trip section IDs and reject unsafe ones", () => {
+  const saved = group();
+  saved.sectionIds = { page: "landing", section1: "about", hero: "hero" };
+  assert.deepEqual(parseStyleGroups(serializeStyleGroups([saved])), [saved]);
+
+  for (const [sectionIds, error] of [
+    [{ section1: "has space" }, /Invalid section ID for section1/],
+    [{ section1: "" }, /Invalid section ID for section1/],
+    [{ section1: "x".repeat(121) }, /Invalid section ID for section1/],
+    [{ header: "top" }, /Unknown section ID area "header"/],
+    [{ section1: "about", section2: "about" }, /#about is used twice/],
+  ]) {
+    assert.throws(
+      () => parseStyleGroups(serializeStyleGroups([{ ...saved, sectionIds }])),
+      error,
+    );
+  }
+  const { sectionIds: _omitted, ...missing } = saved;
+  assert.throws(
+    () => parseStyleGroups(serializeStyleGroups([missing])),
+    /Missing section IDs/,
+  );
+});
+
+test("version 10 style groups load with default section IDs", () => {
+  const { sectionIds: _omitted, ...saved } = group();
+  const [restored] = parseStyleGroups(
+    JSON.stringify({ version: 10, groups: [saved] }),
+  );
+  assert.deepEqual(restored.sectionIds, {});
+  assert.deepEqual(restored.radii, saved.radii);
 });
