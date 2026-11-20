@@ -34,11 +34,7 @@ import {
   applyTailwindPaletteOnly,
   usesTailwindPaletteOnly,
 } from "./palette-preference";
-import {
-  chooseThemesDirectory,
-  readTextFile,
-  writeTextFile,
-} from "./project-themes";
+import { getThemesFolder, readTextFile, writeTextFile } from "./project-themes";
 import {
   classGroupAreas,
   groupClassSlug,
@@ -788,7 +784,7 @@ if (root) {
     markDirty();
     name.focus();
   });
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const groupName = name.value.trim();
     if (!groupName) {
@@ -836,7 +832,28 @@ if (root) {
     dirty = false;
     name.value = groupName;
     renderGroups();
-    message(`Saved "${groupName}" in this browser.`);
+    // Then update the group's classes in groups.css for the Page Builder.
+    message(`Saved "${groupName}" in this browser. Updating groups.css...`);
+    saveButton.disabled = true;
+    publishButton.disabled = true;
+    try {
+      await writeGroupClasses(group);
+      message(
+        `Saved "${groupName}" in this browser and updated its classes in src/styles/themes/groups.css.`,
+      );
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError")
+        message(
+          `Saved "${groupName}" in this browser. groups.css was not updated because no project folder was chosen; select Update group again to update it.`,
+        );
+      else
+        reportError(
+          `Saved "${groupName}" in this browser, but groups.css could not be updated.`,
+          error,
+        );
+    } finally {
+      renderGroups();
+    }
   });
   deleteButton.addEventListener("click", () => {
     const group = groups.find(({ id }) => id === selectedId);
@@ -870,21 +887,24 @@ if (root) {
       `Exported ${groups.length} saved theme group(s), including colors, global corner radii, and section IDs. Unsaved preview changes are not included.`,
     );
   });
+  // Writes a saved group's classes to src/styles/themes/groups.css, using
+  // the latest typography saved by the Typography Builder.
+  async function writeGroupClasses(saved: ThemeGroup): Promise<string[]> {
+    let group = saved;
+    const stored = localStorage.getItem(themeGroupsStorageKey);
+    const latest = stored
+      ? parseThemeGroups(stored).find(({ id }) => id === saved.id)
+      : undefined;
+    if (latest) group = { ...group, typography: latest.typography };
+    const slug = groupClassSlug(group.name);
+    themesFolder ??= await getThemesFolder();
+    const css = await readTextFile(themesFolder, "groups.css");
+    await writeTextFile(themesFolder, "groups.css", upsertGroupCss(css, group));
+    return classGroupAreas.map(({ suffix }) => `sg-${slug}-${suffix}`);
+  }
+
   publishButton.addEventListener("click", async () => {
-    let group = groups.find(({ id }) => id === selectedId);
-    // Use the latest typography saved by the Typography Builder.
-    try {
-      const stored = localStorage.getItem(themeGroupsStorageKey);
-      const latest = stored
-        ? parseThemeGroups(stored).find(({ id }) => id === selectedId)
-        : undefined;
-      if (group && latest) group = { ...group, typography: latest.typography };
-    } catch (error) {
-      console.warn(
-        "Theme builder: could not read the latest typography",
-        error,
-      );
-    }
+    const group = groups.find(({ id }) => id === selectedId);
     if (!group) {
       message("Save or load a theme group first, then save its classes.");
       return;
@@ -897,15 +917,7 @@ if (root) {
     }
     publishButton.disabled = true;
     try {
-      const slug = groupClassSlug(group.name);
-      themesFolder ??= await chooseThemesDirectory();
-      const css = await readTextFile(themesFolder, "groups.css");
-      await writeTextFile(
-        themesFolder,
-        "groups.css",
-        upsertGroupCss(css, group),
-      );
-      const names = classGroupAreas.map(({ suffix }) => `sg-${slug}-${suffix}`);
+      const names = await writeGroupClasses(group);
       message(
         `Saved classes for "${group.name}" to src/styles/themes/groups.css: ${names[0]}, ${names[1]}, and ${names[2]} through ${names.at(-1)}.`,
       );

@@ -39,6 +39,68 @@ export async function chooseThemesDirectory(): Promise<FileSystemDirectoryHandle
   );
 }
 
+// The chosen src/styles/themes folder is remembered in this browser so later
+// saves can write without asking again (the browser may ask to confirm).
+const folderDatabase = "website-builder-project-folder";
+const folderKey = "themes";
+
+function folderStore<T>(
+  mode: IDBTransactionMode,
+  operation: (store: IDBObjectStore) => IDBRequest<T>,
+): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const open = indexedDB.open(folderDatabase, 1);
+    open.onupgradeneeded = () => open.result.createObjectStore("folders");
+    open.onerror = () => reject(open.error);
+    open.onsuccess = () => {
+      const database = open.result;
+      const transaction = database.transaction("folders", mode);
+      const request = operation(transaction.objectStore("folders"));
+      transaction.oncomplete = () => {
+        database.close();
+        resolve(request.result);
+      };
+      transaction.onerror = () => {
+        database.close();
+        reject(transaction.error ?? request.error);
+      };
+    };
+  });
+}
+
+type PermissionHandle = FileSystemDirectoryHandle & {
+  queryPermission(options: { mode: "readwrite" }): Promise<PermissionState>;
+  requestPermission(options: { mode: "readwrite" }): Promise<PermissionState>;
+};
+
+/**
+ * The project's src/styles/themes folder: the remembered one when this
+ * browser still has (or is granted) access, otherwise the folder picker.
+ * Must be called from a click so the browser may show its prompts.
+ */
+export async function getThemesFolder(): Promise<FileSystemDirectoryHandle> {
+  try {
+    const saved = (await folderStore("readonly", (store) =>
+      store.get(folderKey),
+    )) as PermissionHandle | undefined;
+    if (saved) {
+      const mode = { mode: "readwrite" } as const;
+      if (
+        (await saved.queryPermission(mode)) === "granted" ||
+        (await saved.requestPermission(mode)) === "granted"
+      )
+        return saved;
+    }
+  } catch (error) {
+    console.warn("Could not use the remembered project folder:", error);
+  }
+  const folder = await chooseThemesDirectory();
+  await folderStore("readwrite", (store) => store.put(folder, folderKey)).catch(
+    (error) => console.warn("Could not remember the project folder:", error),
+  );
+  return folder;
+}
+
 /** Reads a text file in `folder`, or "" when it does not exist yet. */
 export async function readTextFile(
   folder: FileSystemDirectoryHandle,
