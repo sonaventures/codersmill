@@ -1,4 +1,4 @@
-import idCssFallback from "../../styles/theme/id.css?raw";
+import idCssFallback from "../../styles/themes/id.css?raw";
 import {
   componentSavePath,
   generatePage,

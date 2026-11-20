@@ -393,7 +393,7 @@ test("reads theme IDs from project directory handle", async () => {
             if (name === "styles") {
               return {
                 async getDirectoryHandle(name) {
-                  if (name === "theme") {
+                  if (name === "themes") {
                     return {
                       async getFileHandle(name) {
                         if (name === "id.css") {
@@ -426,8 +426,6 @@ test("reads theme IDs from project directory handle", async () => {
             if (name === "styles") {
               return {
                 async getDirectoryHandle(name) {
-                  if (name === "theme")
-                    throw new DOMException("Missing", "NotFoundError");
                   if (name === "themes") {
                     return {
                       async getFileHandle(name) {

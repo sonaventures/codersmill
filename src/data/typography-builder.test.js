@@ -225,7 +225,7 @@ test("reads and writes theme id.css using project directory handles", async () =
             if (name === "styles") {
               return {
                 async getDirectoryHandle(name) {
-                  if (name === "theme") {
+                  if (name === "themes") {
                     return {
                       async getFileHandle(name) {
                         if (name === "id.css") {

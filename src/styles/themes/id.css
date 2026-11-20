@@ -1,1 +1,92 @@
-../theme/id.css
+/* Section IDs for Website Builder */
+
+#hero {
+  border-top: 3px solid var(--color-sky-500, #0ea5e9);
+}
+#hero .sample-kicker {
+  color: var(--color-sky-600, #0284c7);
+}
+
+#about {
+  border-top: 3px solid var(--color-amber-500, #f59e0b);
+}
+#about .sample-kicker {
+  color: var(--color-amber-600, #d97706);
+}
+
+#features {
+  border-top: 3px solid var(--color-emerald-500, #10b981);
+}
+#features .sample-kicker {
+  color: var(--color-emerald-600, #059669);
+}
+
+#services {
+  border-top: 3px solid var(--color-indigo-500, #6366f1);
+}
+#services .sample-kicker {
+  color: var(--color-indigo-600, #4f46e5);
+}
+
+#portfolio {
+  border-top: 3px solid var(--color-purple-500, #a855f7);
+}
+#portfolio .sample-kicker {
+  color: var(--color-purple-600, #9333ea);
+}
+
+#gallery {
+  border-top: 3px solid var(--color-pink-500, #ec4899);
+}
+#gallery .sample-kicker {
+  color: var(--color-pink-600, #db2777);
+}
+
+#testimonials {
+  border-top: 3px solid var(--color-rose-500, #f43f5e);
+}
+#testimonials .sample-kicker {
+  color: var(--color-rose-600, #e11d48);
+}
+
+#team {
+  border-top: 3px solid var(--color-teal-500, #14b8a6);
+}
+#team .sample-kicker {
+  color: var(--color-teal-600, #0d9488);
+}
+
+#faq {
+  border-top: 3px solid var(--color-cyan-500, #06b6d4);
+}
+#faq .sample-kicker {
+  color: var(--color-cyan-600, #0891b2);
+}
+
+#blog {
+  border-top: 3px solid var(--color-orange-500, #f97316);
+}
+#blog .sample-kicker {
+  color: var(--color-orange-600, #ea580c);
+}
+
+#cta {
+  border-top: 3px solid var(--color-red-500, #ef4444);
+}
+#cta .sample-kicker {
+  color: var(--color-red-600, #dc2626);
+}
+
+#contact {
+  border-top: 3px solid var(--color-blue-500, #3b82f6);
+}
+#contact .sample-kicker {
+  color: var(--color-blue-600, #2563eb);
+}
+
+#pricing {
+  border-top: 3px solid var(--color-violet-500, #8b5cf6);
+}
+#pricing .sample-kicker {
+  color: var(--color-violet-600, #7c3aed);
+}

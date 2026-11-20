@@ -102,7 +102,7 @@ send form entries or save style changes.
 Use `/website-builder/typography-builder/` to set styles for `h1`–`h6`, `p`,
 `em`, `strong`, `code`, `cite`, `pre`, and `blockquote`. All 13 elements appear
 in the live preview, including a multiline preformatted sample.
-Choose **Site-wide defaults**, select an existing section ID from [`src/styles/theme/id.css`](./src/styles/theme/id.css),
+Choose **Site-wide defaults**, select an existing section ID from [`src/styles/themes/id.css`](./src/styles/themes/id.css),
 or enter a new ID (with the option to automatically add the new ID to `id.css`) to edit local overrides.
 Each element has font family, size, weight, line height, letter spacing, style,
 text transform, and color controls. Select Tailwind defaults by utility name:
@@ -165,8 +165,8 @@ do not block other components from loading. Reopen the project folder after
 changing a component. Existing pages are not moved.
 
 When adding components to a page, an optional section ID can be assigned to the outer
-`<section>` element from the IDs defined in [`src/styles/theme/id.css`](./src/styles/theme/id.css)
-(or `src/styles/themes/id.css`) or via a custom ID input. In the generated page, components
+`<section>` element from the IDs defined in [`src/styles/themes/id.css`](./src/styles/themes/id.css)
+or via a custom ID input. In the generated page, components
 with an assigned section ID are wrapped in `<section id="...">`, allowing theme overrides,
 anchor navigation, and Typography Builder rules to target the section directly.
 

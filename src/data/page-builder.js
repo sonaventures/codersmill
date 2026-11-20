@@ -122,13 +122,9 @@ export async function readThemeIds(projectDirectory) {
     const styles = await src.getDirectoryHandle("styles");
     let themeDir;
     try {
-      themeDir = await styles.getDirectoryHandle("theme");
+      themeDir = await styles.getDirectoryHandle("themes");
     } catch {
-      try {
-        themeDir = await styles.getDirectoryHandle("themes");
-      } catch {
-        return [];
-      }
+      return [];
     }
     const fileHandle = await themeDir.getFileHandle("id.css");
     const file = await fileHandle.getFile();

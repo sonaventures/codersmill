@@ -1,4 +1,4 @@
-import idCssFallback from "../../styles/theme/id.css?raw";
+import idCssFallback from "../../styles/themes/id.css?raw";
 import savedCss from "../../styles/themes/typography.css?raw";
 import {
   appendIdToCss,
@@ -501,7 +501,7 @@ async function saveTypography(direct = false) {
     }
     sourceCss = output;
     dirty = false;
-    const idMsg = savedIdCss ? " and src/styles/theme/id.css" : "";
+    const idMsg = savedIdCss ? " and src/styles/themes/id.css" : "";
     setStatus(
       direct
         ? "Saved to the selected typography.css file."

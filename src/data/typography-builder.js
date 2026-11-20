@@ -186,13 +186,9 @@ export async function readThemeIdFile(projectDirectory) {
     const styles = await src.getDirectoryHandle("styles");
     let themeDir;
     try {
-      themeDir = await styles.getDirectoryHandle("theme");
+      themeDir = await styles.getDirectoryHandle("themes");
     } catch {
-      try {
-        themeDir = await styles.getDirectoryHandle("themes");
-      } catch {
-        return { handle: null, css: "" };
-      }
+      return { handle: null, css: "" };
     }
     const fileHandle = await themeDir.getFileHandle("id.css");
     const file = await fileHandle.getFile();
@@ -212,12 +208,7 @@ export async function saveThemeIdFile(projectDirectory, content) {
     src = projectDirectory;
   }
   const styles = await src.getDirectoryHandle("styles");
-  let themeDir;
-  try {
-    themeDir = await styles.getDirectoryHandle("theme", { create: true });
-  } catch {
-    themeDir = await styles.getDirectoryHandle("themes", { create: true });
-  }
+  const themeDir = await styles.getDirectoryHandle("themes", { create: true });
   const fileHandle = await themeDir.getFileHandle("id.css", { create: true });
   const writable = await fileHandle.createWritable();
   try {
