@@ -25,10 +25,19 @@ const css = await readFile(
   new URL("../src/styles/themes/colors.css", import.meta.url),
   "utf8",
 );
-const exclusivePalette = await readFile(
-  new URL("../misc/exclusive-color-palette.txt", import.meta.url),
-  "utf8",
-);
+// A pasted OKLCH palette whose families share names with Tailwind colors only
+// through a prefix (exclusive-sky vs. sky). Trailing zeros, as tools export
+// them, must survive the round trip.
+const exclusivePalette = ["exclusive-sky", "exclusive-taupe"]
+  .map((family, hue) =>
+    paletteShades
+      .map(
+        (shade, index) =>
+          `--color-${family}-${shade}: oklch(${(97 - index * 7).toFixed(2)}% 0.${100 + index * 10} ${hue ? "60.50" : "236.62"});`,
+      )
+      .join("\n"),
+  )
+  .join("\n\n");
 const shades = paletteShades.map(() => "oklch(62.6% 0.128 243.6)");
 // colors.css is user-editable, so tests add their own family instead of
 // relying on whichever custom families it currently contains.
