@@ -271,6 +271,22 @@
   --color-accent-01-input-focus: var(--accent-01-input-focus, var(--accent-01-focus));
   --color-ink-01-blockquote: var(--ink-01-blockquote, var(--ink-01-muted));
   --color-canvas-01-divider: var(--canvas-01-divider, var(--canvas-01-border));
+
+  /* Section 01 secondary (outline) buttons. Background has three fallbacks
+     for the buttons that sit on the section, on a card, or on nothing. */
+  --color-accent-01-secondary: var(--accent-01-secondary, var(--canvas-01));
+  --color-accent-01-secondary-card: var(
+    --accent-01-secondary,
+    var(--canvas-01-card-01, var(--canvas-01))
+  );
+  --color-accent-01-secondary-clear: var(--accent-01-secondary, transparent);
+  --color-accent-01-secondary-text: var(--accent-01-secondary-text, var(--ink-01));
+  --color-accent-01-secondary-hover: var(--accent-01-secondary-hover, var(--accent-01-canvas));
+  --color-accent-01-secondary-hover-text: var(
+    --accent-01-secondary-hover-text,
+    var(--accent-01-secondary-text, var(--ink-01))
+  );
+  --color-accent-01-secondary-shadow: var(--accent-01-secondary-shadow, transparent);
   --color-ink-01-h1: var(--ink-01-h1);
   --color-ink-01-h2: var(--ink-01-h2);
   --color-ink-01-h3: var(--ink-01-h3);

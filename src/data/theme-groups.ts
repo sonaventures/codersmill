@@ -290,6 +290,8 @@ export const selectionColorRoles = [
 // New detail colors fall back to an existing color until one is chosen, so
 // the site looks the same by default.
 const detailFallbacks = {
+  secondary: "background",
+  secondaryText: "text",
   label: "text",
   inputText: "text",
   inputBackground: "background",
@@ -300,12 +302,21 @@ const detailFallbacks = {
   divider: "border",
 } as const;
 const detailDefaults = {
+  // Secondary button preview defaults: the shared sample button colors.
+  secondaryShadow: "var(--sample-buttonShadow)",
+  secondaryHover: "var(--sample-buttonHoverBackground)",
+  secondaryHoverText: "var(--sample-buttonHoverText)",
   blockquoteBorder: "currentColor",
   listMarker: "currentColor",
   selectionBackground: "Highlight",
   selectionText: "HighlightText",
 } as const;
 const detailTokens = {
+  secondary: "accent-%-secondary",
+  secondaryText: "accent-%-secondary-text",
+  secondaryShadow: "accent-%-secondary-shadow",
+  secondaryHover: "accent-%-secondary-hover",
+  secondaryHoverText: "accent-%-secondary-hover-text",
   label: "ink-%-label",
   inputText: "ink-%-input",
   inputBackground: "canvas-%-input",
@@ -564,6 +575,7 @@ export function isGlobalColorRole(role: ColorRole): role is GlobalColorRole {
 
 export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
   if (isGlobalColorRole(role)) return region === "page";
+  if (role.startsWith("secondary")) return region !== "header";
   if (
     role.startsWith("card") ||
     role.startsWith("subsection") ||
@@ -576,7 +588,6 @@ export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
       region === "page" || region === "hero" || region.startsWith("section")
     );
   }
-  if (role.startsWith("secondary")) return region !== "header";
   return true;
 }
 
@@ -694,9 +705,6 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
   }
   if (token) return `var(--${token})`;
   switch (role) {
-    case "secondary":
-      return `var(--${semanticToken(region, "background")})`;
-    case "secondaryText":
     case "cardText":
     case "muted":
     case "highlight":
@@ -730,12 +738,6 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
     case "buttonShadow":
     case "iconShadow":
       return "var(--sample-shadow)";
-    case "secondaryShadow":
-      return "var(--sample-buttonShadow)";
-    case "secondaryHover":
-      return "var(--sample-buttonHoverBackground)";
-    case "secondaryHoverText":
-      return "var(--sample-buttonHoverText)";
     case "iconBorder":
       return "var(--sample-accentBorder)";
     case "subsectionBorder":

@@ -844,8 +844,13 @@ test("version 17 groups get default secondary shadow and hover colors", () => {
   assert.equal(restored.themes.dark.footer.secondaryShadow, "theme");
   assert.equal(
     defaultColorReference("section1", "secondaryHover"),
-    "var(--sample-buttonHoverBackground)",
+    "var(--accent-01-secondary-hover,var(--sample-buttonHoverBackground))",
   );
+  assert.equal(
+    semanticToken("hero", "secondaryText"),
+    "accent-hero-secondary-text",
+  );
+  assert.equal(semanticToken("footer", "secondary"), null);
   assert.ok(isColorRoleVisible("footer", "secondaryHoverText"));
   assert.ok(!isColorRoleVisible("header", "secondaryShadow"));
 
