@@ -178,6 +178,11 @@ export function upsertGroupCss(css: string, group: ThemeGroup): string {
   return `${base.replace(/\s*$/, "\n")}\n${block}`;
 }
 
+/** groups.css without the group's block (theme groups deleted elsewhere). */
+export function removeGroupCss(css: string, name: string): string {
+  return css.replace(blockPattern(groupClassSlug(name)), "");
+}
+
 /** Every theme group class defined in groups.css, for the page builder. */
 export function parseGroupClasses(css: string): GroupClass[] {
   if (typeof css !== "string") return [];

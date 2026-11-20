@@ -8,7 +8,10 @@ import {
   getColor,
   interactiveColorRoles,
   isColorRoleVisible,
+  mergeThemeGroups,
   parseThemeGroups,
+  removeThemeGroupJson,
+  upsertThemeGroupJson,
   regions,
   semanticToken,
   setColor,
@@ -784,4 +787,40 @@ test("version 16 groups load with no group typography", () => {
   );
   assert.deepEqual(restored.typography, {});
   assert.equal(restored.themes.light.hero.background, "#123456");
+});
+
+test("project theme groups merge into a browser's groups without duplicates", () => {
+  const browser = [group()];
+  const sameId = { ...group(), name: "Renamed elsewhere" };
+  const sameName = { ...group(), id: "other-id", name: "COASTAL CALM" };
+  const fresh = { ...group(), id: "sample", name: "sample" };
+  const merged = mergeThemeGroups(browser, [sameId, sameName, fresh]);
+  assert.deepEqual(
+    merged.map(({ name }) => name),
+    ["Coastal calm", "sample"],
+  );
+  assert.equal(merged[0], browser[0]);
+});
+
+test("theme-groups.json gains, replaces, and loses groups", () => {
+  const first = upsertThemeGroupJson("", group());
+  assert.equal(JSON.parse(first).version, 17);
+  const changed = group();
+  changed.themes.light.hero.background = "#123456";
+  const second = upsertThemeGroupJson(
+    upsertThemeGroupJson(first, { ...group(), id: "sample", name: "sample" }),
+    changed,
+  );
+  const saved = parseThemeGroups(second);
+  assert.deepEqual(
+    saved.map(({ name }) => name),
+    ["sample", "Coastal calm"],
+  );
+  assert.equal(saved[1].themes.light.hero.background, "#123456");
+  assert.deepEqual(
+    parseThemeGroups(removeThemeGroupJson(second, "sample")).map(
+      ({ name }) => name,
+    ),
+    ["Coastal calm"],
+  );
 });

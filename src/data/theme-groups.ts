@@ -974,3 +974,37 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
   return JSON.stringify({ version: 17, groups }, null, 2);
 }
+
+/**
+ * Adds groups from the project's theme-groups.json that this browser does not
+ * have yet (matched by ID or name), so every browser sees the same groups.
+ */
+export function mergeThemeGroups(
+  browser: ThemeGroup[],
+  project: ThemeGroup[],
+): ThemeGroup[] {
+  const ids = new Set(browser.map(({ id }) => id));
+  const names = new Set(browser.map(({ name }) => name.toLowerCase()));
+  return [
+    ...browser,
+    ...project.filter(
+      ({ id, name }) => !ids.has(id) && !names.has(name.toLowerCase()),
+    ),
+  ].slice(0, 100);
+}
+
+/** theme-groups.json with `group` added, or replacing the one saved before. */
+export function upsertThemeGroupJson(json: string, group: ThemeGroup): string {
+  const saved = json.trim() ? parseThemeGroups(json) : [];
+  const others = saved.filter(
+    ({ id, name }) =>
+      id !== group.id && name.toLowerCase() !== group.name.toLowerCase(),
+  );
+  return `${serializeThemeGroups([...others, group])}\n`;
+}
+
+/** theme-groups.json without the group with this ID. */
+export function removeThemeGroupJson(json: string, id: string): string {
+  const saved = json.trim() ? parseThemeGroups(json) : [];
+  return `${serializeThemeGroups(saved.filter((group) => group.id !== id))}\n`;
+}

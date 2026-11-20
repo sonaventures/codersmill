@@ -22,6 +22,7 @@ import {
   setPaletteFamilies,
   setColor,
   serializeThemeGroups,
+  mergeThemeGroups,
   themeGroupsStorageKey,
   type GroupTypography,
   type Region,
@@ -39,12 +40,13 @@ import {
   applyTailwindPaletteOnly,
   usesTailwindPaletteOnly,
 } from "./palette-preference";
-import { getThemesFolder, readTextFile, writeTextFile } from "./project-themes";
 import {
-  classGroupAreas,
-  groupClassSlug,
-  upsertGroupCss,
-} from "../../data/group-classes";
+  fetchProjectThemeGroups,
+  getThemesFolder,
+  removeGroupFromProject,
+  saveGroupToProject,
+} from "./project-themes";
+import { classGroupAreas, groupClassSlug } from "../../data/group-classes";
 
 setPaletteFamilies(readPalette(css));
 const root = document.querySelector<HTMLElement>("[data-selector]");
@@ -661,6 +663,14 @@ if (root) {
   renderColors();
   renderRadii();
   renderGroups();
+  // Add groups saved to the project from other browsers.
+  if (storageReady)
+    void fetchProjectThemeGroups().then((project) => {
+      const merged = mergeThemeGroups(groups, project);
+      if (merged.length === groups.length) return;
+      groups = merged;
+      renderGroups();
+    });
 
   // Typography tab: per-area typography saved with the theme group.
   let typography: GroupTypography = {};
@@ -988,7 +998,7 @@ if (root) {
     try {
       await writeGroupClasses(group);
       message(
-        `Saved "${groupName}" in this browser and updated its classes in src/styles/themes/groups.css.`,
+        `Saved "${groupName}" to the project (groups.css and theme-groups.json in src/styles/themes) and in this browser.`,
       );
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError")
@@ -1004,12 +1014,12 @@ if (root) {
       renderGroups();
     }
   });
-  deleteButton.addEventListener("click", () => {
+  deleteButton.addEventListener("click", async () => {
     const group = groups.find(({ id }) => id === selectedId);
     if (
       !group ||
       !window.confirm(
-        `Delete "${group.name}"? This cannot be undone. The current preview will be kept.`,
+        `Delete "${group.name}"? This removes it from this browser and from the project's groups.css and theme-groups.json. The current preview will be kept.`,
       )
     )
       return;
@@ -1018,9 +1028,23 @@ if (root) {
     name.value = "";
     dirty = true;
     renderGroups();
-    message(
-      "Group deleted. The preview is still available to save as a new group.",
-    );
+    try {
+      themesFolder ??= await getThemesFolder();
+      await removeGroupFromProject(themesFolder, group);
+      message(
+        `Deleted "${group.name}" from this browser and the project. The preview is still available to save as a new group.`,
+      );
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError")
+        message(
+          `Deleted "${group.name}" from this browser. It is still in the project files because no folder was chosen.`,
+        );
+      else
+        reportError(
+          `Deleted "${group.name}" from this browser, but the project files could not be updated.`,
+          error,
+        );
+    }
   });
   exportButton.addEventListener("click", () => {
     const blob = new Blob([serializeThemeGroups(groups)], {
@@ -1047,8 +1071,9 @@ if (root) {
     if (latest) group = { ...group, typography: latest.typography };
     const slug = groupClassSlug(group.name);
     themesFolder ??= await getThemesFolder();
-    const css = await readTextFile(themesFolder, "groups.css");
-    await writeTextFile(themesFolder, "groups.css", upsertGroupCss(css, group));
+    // groups.css for the site and Page Builder; theme-groups.json so every
+    // browser (and git) has the group, not only this browser's storage.
+    await saveGroupToProject(themesFolder, group);
     return classGroupAreas.map(({ suffix }) => `sg-${slug}-${suffix}`);
   }
 

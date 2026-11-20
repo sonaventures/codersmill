@@ -7,16 +7,13 @@ import {
   validateTypographyValue,
 } from "../../data/typography-builder.js";
 import {
+  mergeThemeGroups,
   parseThemeGroups,
   serializeThemeGroups,
   themeGroupsStorageKey,
 } from "../../data/theme-groups";
-import {
-  classGroupAreas,
-  groupClassSlug,
-  upsertGroupCss,
-} from "../../data/group-classes";
-import { readTextFile, writeTextFile } from "./project-themes";
+import { classGroupAreas, groupClassSlug } from "../../data/group-classes";
+import { fetchProjectThemeGroups, saveGroupToProject } from "./project-themes";
 
 const root = document.querySelector("[data-typography-builder]");
 const get = (selector) => {
@@ -73,13 +70,19 @@ const changedGroups = new Set();
 const groupScopePrefix = "group:";
 const previewGroupSection = "__theme-group__";
 
+// Groups saved to the project (theme-groups.json) from any browser.
+let projectGroups = [];
+
 function loadThemeGroups() {
   try {
     const stored = localStorage.getItem(themeGroupsStorageKey);
-    themeGroups = stored ? parseThemeGroups(stored) : [];
+    themeGroups = mergeThemeGroups(
+      stored ? parseThemeGroups(stored) : [],
+      projectGroups,
+    );
   } catch (error) {
     console.warn("Typography builder: could not read theme groups", error);
-    themeGroups = [];
+    themeGroups = [...projectGroups];
   }
   for (const group of themeGroups)
     if (!changedGroups.has(group.id))
@@ -118,7 +121,11 @@ function tidyTypography(typography) {
 // starting from the latest saved groups so Theme Builder changes are kept.
 function saveGroupTypographyToBrowser() {
   const stored = localStorage.getItem(themeGroupsStorageKey);
-  const latest = stored ? parseThemeGroups(stored) : [];
+  // Include project-only groups so their typography is kept in this browser.
+  const latest = mergeThemeGroups(
+    stored ? parseThemeGroups(stored) : [],
+    themeGroups,
+  );
   const updated = latest.map((group) =>
     changedGroups.has(group.id)
       ? {
@@ -532,11 +539,9 @@ async function saveTypography(direct = false) {
       const saved = saveGroupTypographyToBrowser();
       const names = saved.map(({ name }) => `"${name}"`).join(", ");
       if (themes && saved.length) {
-        step = "writing src/styles/themes/groups.css";
-        let groupsCss = await readTextFile(themes, "groups.css");
-        for (const group of saved) groupsCss = upsertGroupCss(groupsCss, group);
-        await writeTextFile(themes, "groups.css", groupsCss);
-        groupMsg = ` and the classes for ${names} in src/styles/themes/groups.css`;
+        step = "writing src/styles/themes/groups.css and theme-groups.json";
+        for (const group of saved) await saveGroupToProject(themes, group);
+        groupMsg = ` and ${names} in src/styles/themes/groups.css and theme-groups.json`;
       } else if (saved.length) {
         groupMsg = `. Typography for ${names} was saved with its theme group; use Save classes to groups.css in the Theme Builder to update groups.css`;
       }
@@ -594,6 +599,15 @@ window.addEventListener("beforeunload", (event) => {
 // Reload theme groups when the Theme Builder saves (in another tab or frame).
 window.addEventListener("storage", (event) => {
   if (event.key !== themeGroupsStorageKey) return;
+  loadThemeGroups();
+  renderScopes();
+  renderControls();
+});
+
+// Add groups saved to the project from other browsers once they arrive.
+void fetchProjectThemeGroups().then((groups) => {
+  projectGroups = groups;
+  if (!config) return;
   loadThemeGroups();
   renderScopes();
   renderControls();

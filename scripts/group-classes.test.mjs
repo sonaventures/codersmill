@@ -6,6 +6,7 @@ import {
   groupsCssHeader,
   isGroupClassName,
   parseGroupClasses,
+  removeGroupCss,
   upsertGroupCss,
 } from "../src/data/group-classes.ts";
 import { createDefaultColors, defaultRadii } from "../src/data/theme-groups.ts";
@@ -222,4 +223,15 @@ test("group typography becomes rules under each area class", () => {
   );
   // Typography rules don't add classes to the page builder's list.
   assert.equal(parseGroupClasses(upsertGroupCss("", saved)).length, 8);
+});
+
+test("deleting a group removes only its block from groups.css", () => {
+  const css = upsertGroupCss(upsertGroupCss("", group()), group("Night shift"));
+  const removed = removeGroupCss(
+    `${css}\n.hand-written { color: red; }\n`,
+    "Coastal calm",
+  );
+  assert.doesNotMatch(removed, /coastal-calm/);
+  assert.match(removed, /theme-group: night-shift/);
+  assert.match(removed, /\.hand-written/);
 });

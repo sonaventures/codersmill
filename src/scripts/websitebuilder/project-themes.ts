@@ -1,3 +1,11 @@
+import {
+  parseThemeGroups,
+  removeThemeGroupJson,
+  upsertThemeGroupJson,
+  type ThemeGroup,
+} from "../../data/theme-groups";
+import { removeGroupCss, upsertGroupCss } from "../../data/group-classes";
+
 // Finds src/styles/themes in a folder chosen with the browser's folder picker.
 // Accepts the project root or its src, styles or themes folder, because the
 // Linux folder dialog often returns a highlighted subfolder.
@@ -129,4 +137,53 @@ export async function writeTextFile(
     await writable.abort().catch(() => undefined);
     throw error;
   }
+}
+
+export const themeGroupsFile = "theme-groups.json";
+
+/**
+ * Theme groups saved in the project (src/styles/themes/theme-groups.json),
+ * served by /website-builder/theme-groups.json. Empty if unavailable.
+ */
+export async function fetchProjectThemeGroups(): Promise<ThemeGroup[]> {
+  try {
+    const response = await fetch("/website-builder/theme-groups.json", {
+      cache: "no-store",
+    });
+    if (!response.ok) return [];
+    return parseThemeGroups(await response.text());
+  } catch (error) {
+    console.warn("Could not read the project's theme groups:", error);
+    return [];
+  }
+}
+
+/** Writes the group's classes to groups.css and its data to theme-groups.json. */
+export async function saveGroupToProject(
+  folder: FileSystemDirectoryHandle,
+  group: ThemeGroup,
+): Promise<void> {
+  const css = await readTextFile(folder, "groups.css");
+  const json = await readTextFile(folder, themeGroupsFile);
+  await writeTextFile(folder, "groups.css", upsertGroupCss(css, group));
+  await writeTextFile(
+    folder,
+    themeGroupsFile,
+    upsertThemeGroupJson(json, group),
+  );
+}
+
+/** Removes the group from groups.css and theme-groups.json. */
+export async function removeGroupFromProject(
+  folder: FileSystemDirectoryHandle,
+  group: ThemeGroup,
+): Promise<void> {
+  const css = await readTextFile(folder, "groups.css");
+  const json = await readTextFile(folder, themeGroupsFile);
+  await writeTextFile(folder, "groups.css", removeGroupCss(css, group.name));
+  await writeTextFile(
+    folder,
+    themeGroupsFile,
+    removeThemeGroupJson(json, group.id),
+  );
 }
