@@ -21,7 +21,11 @@ import { readPalette } from "../../data/palette.js";
 // rejected as unknown and the whole group is skipped.
 setPaletteFamilies(readPalette(colorsCss));
 import { classGroupAreas, groupClassSlug } from "../../data/group-classes";
-import { fetchProjectThemeGroups, saveGroupToProject } from "./project-themes";
+import {
+  fetchProjectThemeGroups,
+  getThemesFolder,
+  saveGroupToProject,
+} from "./project-themes";
 
 const root = document.querySelector("[data-typography-builder]");
 const get = (selector) => {
@@ -458,7 +462,7 @@ async function saveTypography(direct = false) {
   setStatus(
     direct
       ? "Select the existing src/styles/themes/typography.css file."
-      : "Choose the websitebuilder project folder and allow write access.",
+      : "Opening the project folder. The first time, choose the websitebuilder project folder and allow write access.",
   );
   let step = "selecting a save destination";
   let projectPath = "";
@@ -485,25 +489,9 @@ async function saveTypography(direct = false) {
         );
       }
     } else {
-      const project = await window.showDirectoryPicker({ mode: "readwrite" });
-      setStatus(`Checking the selected folder (${project.name})...`);
-      projectPath = "src";
-      const src = await project.getDirectoryHandle("src");
-      projectPath = "src/styles";
-      const styles = await src.getDirectoryHandle("styles");
-      projectPath = "src/styles/global.css";
-      const global = await (await styles.getFileHandle("global.css")).getFile();
-      if (
-        !/@import\s+["']\.\/themes\/typography\.css["']\s*;/.test(
-          await global.text(),
-        )
-      ) {
-        throw new Error(
-          "The selected folder's src/styles/global.css must import ./themes/typography.css.",
-        );
-      }
-      projectPath = "src/styles/themes";
-      themes = await styles.getDirectoryHandle("themes");
+      // The project folder is remembered in this browser (shared with the
+      // Theme Builder), so it is only chosen the first time.
+      themes = await getThemesFolder();
       projectPath = "src/styles/themes/typography.css";
       handle = await themes.getFileHandle("typography.css");
     }
