@@ -1,5 +1,5 @@
-// Header navigation for the builder pages, in workflow order: colors, then
-// theme groups in the theme builder, then pages that use those groups.
+// Header navigation for the builder pages, in workflow order: colors, theme
+// groups and their typography, then pages that use those groups.
 export const builderPages = [
   {
     label: "Home",
@@ -18,6 +18,11 @@ export const builderPages = [
       "Create theme groups and save them as classes for the page builder.",
   },
   {
+    label: "Typography Builder",
+    href: "/website-builder/typography-builder/",
+    description: "Set site-wide typography and section-specific overrides.",
+  },
+  {
     label: "Page Builder",
     href: "/website-builder/page-builder/",
     description:
@@ -27,11 +32,6 @@ export const builderPages = [
     label: "Site Nav Builder",
     href: "/website-builder/sitenav-builder/",
     description: "Build a website menu with a live header preview.",
-  },
-  {
-    label: "Typography Builder",
-    href: "/website-builder/typography-builder/",
-    description: "Set site-wide typography and section-specific overrides.",
   },
   {
     label: "Form Builder",
