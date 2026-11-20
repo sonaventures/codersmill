@@ -6,6 +6,7 @@ import {
   generatePage,
   inspectComponent,
   pageRoute,
+  parseGeneratedPage,
   pageSlug,
   parseIdsFromCss,
   readComponents,
@@ -565,4 +566,109 @@ test("theme group classes wrap components and the whole page", () => {
       generatePage("Bad", "", [{ component: hero, values: {} }], "sg-a-footer"),
     /not a theme group class/,
   );
+});
+
+test("pages created by the page builder load back exactly", () => {
+  const hero = {
+    path: "flowbite/hero/hero_1.astro",
+    properties: [
+      { name: "title", type: "string", optional: false },
+      { name: "count", type: "number", optional: true },
+      { name: "wide", type: "boolean", optional: true },
+    ],
+  };
+  const cards = { path: "Cards.astro", properties: [] };
+  const selected = [
+    {
+      component: hero,
+      values: { title: 'Say "hi" </script> & {more}', count: 0, wide: false },
+      sectionId: "intro",
+      styleClass: "sg-sample-hero",
+    },
+    { component: cards, values: {}, styleClass: "sg-sample-section-2" },
+    { component: cards, values: {} },
+    { component: hero, values: { title: "Again", count: 2.5, wide: true } },
+  ];
+  const page = generatePage(
+    "Our Services",
+    'A description with "quotes"',
+    selected,
+    "sg-sample-page",
+  );
+  assert.deepEqual(parseGeneratedPage(page), {
+    name: "Our Services",
+    description: 'A description with "quotes"',
+    pageClass: "sg-sample-page",
+    items: [
+      {
+        path: "flowbite/hero/hero_1.astro",
+        values: Object.assign(Object.create(null), {
+          title: 'Say "hi" </script> & {more}',
+          count: 0,
+          wide: false,
+        }),
+        sectionId: "intro",
+        styleClass: "sg-sample-hero",
+      },
+      {
+        path: "Cards.astro",
+        values: Object.create(null),
+        sectionId: undefined,
+        styleClass: "sg-sample-section-2",
+      },
+      {
+        path: "Cards.astro",
+        values: Object.create(null),
+        sectionId: undefined,
+        styleClass: undefined,
+      },
+      {
+        path: "flowbite/hero/hero_1.astro",
+        values: Object.assign(Object.create(null), {
+          title: "Again",
+          count: 2.5,
+          wide: true,
+        }),
+        sectionId: undefined,
+        styleClass: undefined,
+      },
+    ],
+  });
+  const plain = parseGeneratedPage(
+    generatePage("Plain", "", [{ component: cards, values: {} }]),
+  );
+  assert.equal(plain.description, "");
+  assert.equal(plain.pageClass, "");
+});
+
+test("pages not made by the page builder are refused with a reason", () => {
+  for (const [source, reason] of [
+    ["<h1>Hello</h1>", /shared layout/],
+    [
+      '---\nimport Layout from "../layouts/layout.astro";\nconst x = 1;\n---\n<Layout title={"A"}></Layout>',
+      /unexpected code/,
+    ],
+    [
+      '---\nimport Layout from "../layouts/layout.astro";\n---\n<Layout title={"A"}><p>hi</p></Layout>',
+      /unexpected markup/,
+    ],
+  ])
+    assert.throws(() => parseGeneratedPage(source), reason);
+});
+
+test("simple hand-written pages load too", () => {
+  const page = parseGeneratedPage(`---
+import Hero from "../components/flyonui/hero/hero_14.astro";
+import Layout from "../layouts/layout.astro";
+---
+
+<Layout title="Test">
+  <Hero heading="Hello" />
+</Layout>`);
+  assert.equal(page.name, "Test");
+  assert.deepEqual(
+    page.items.map(({ path }) => path),
+    ["flyonui/hero/hero_14.astro"],
+  );
+  assert.equal(page.items[0].values.heading, "Hello");
 });

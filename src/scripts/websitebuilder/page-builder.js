@@ -14,7 +14,9 @@ import {
   readThemeIds,
   rebaseComponentImports,
   saveComponentCopy,
+  parseGeneratedPage,
   saveNewPage,
+  updatePage,
   validateSectionId,
 } from "../../data/page-builder.js";
 
@@ -50,6 +52,11 @@ let copyNameEdited = false;
 const list = get("#selected-components");
 const empty = get("#selected-components-empty");
 const createdLink = get("#created-page-link");
+const loadPageSelect = get("#load-page");
+const loadPageButton = get("#load-page-button");
+const submitButton = get("#create-page");
+// The page loaded for editing; saving under the same name updates it.
+let loadedSlug = "";
 const folderOptions = get("#component-folders");
 let pageDirectory;
 let componentsRoot;
@@ -135,12 +142,99 @@ function updatePath() {
   try {
     const slug = pageSlug(name.value);
     name.setCustomValidity("");
-    path.textContent = `File: src/pages/${slug}.astro · Route: ${pageRoute(slug)}`;
+    const updating = loadedSlug && slug === loadedSlug;
+    path.textContent = `File: src/pages/${slug}.astro · Route: ${pageRoute(slug)}${
+      loadedSlug && !updating
+        ? ` · Saves a new page; src/pages/${loadedSlug}.astro stays as it is.`
+        : ""
+    }`;
+    submitButton.textContent = updating ? "Update page" : "Create page";
   } catch (error) {
     name.setCustomValidity(error.message);
     path.textContent = error.message;
   }
 }
+
+// Lists the pages in src/pages; only those the Page Builder can read can be
+// chosen.
+async function renderPageList() {
+  const pages = [];
+  for await (const [fileName, handle] of pageDirectory.entries()) {
+    if (handle.kind !== "file" || !fileName.endsWith(".astro")) continue;
+    let reason = "";
+    try {
+      parseGeneratedPage(await (await handle.getFile()).text());
+    } catch (error) {
+      reason = error.message;
+    }
+    pages.push({ fileName, reason });
+  }
+  pages.sort((a, b) => a.fileName.localeCompare(b.fileName));
+  loadPageSelect.replaceChildren(
+    new Option(pages.length ? "Choose a page…" : "No pages yet", ""),
+    ...pages.map(({ fileName, reason }) => {
+      const option = new Option(
+        reason ? `${fileName} (not made by the Page Builder)` : fileName,
+        fileName,
+      );
+      option.disabled = Boolean(reason);
+      option.title = reason;
+      return option;
+    }),
+  );
+}
+
+loadPageButton.addEventListener("click", async () => {
+  if (busy || !pageDirectory) return;
+  const fileName = loadPageSelect.value;
+  if (!fileName) {
+    status.textContent = "Choose a page to load.";
+    return;
+  }
+  if (
+    (selected.length || name.value.trim()) &&
+    !window.confirm(
+      `Load ${fileName}? The page and components you are building now will be replaced.`,
+    )
+  )
+    return;
+  setBusy(true);
+  try {
+    const source = await (
+      await (await pageDirectory.getFileHandle(fileName)).getFile()
+    ).text();
+    const page = parseGeneratedPage(source);
+    const missing = page.items
+      .map(({ path }) => path)
+      .filter((path) => !components.some((item) => item.path === path));
+    if (missing.length)
+      throw new Error(
+        `${fileName} uses components that are missing or cannot be edited: ${[...new Set(missing)].join(", ")}.`,
+      );
+    selected = page.items.map(({ path, values, sectionId, styleClass }) => {
+      const component = components.find((item) => item.path === path);
+      if (component.error)
+        throw new Error(`${path} cannot be edited: ${component.error}`);
+      const strings = Object.create(null);
+      for (const [key, value] of Object.entries(values))
+        strings[key] = String(value);
+      return { component, values: strings, sectionId, styleClass };
+    });
+    name.value = page.name;
+    description.value = page.description;
+    fillStyleClassSelect(pageStyleClass, true, page.pageClass);
+    loadedSlug = fileName.replace(/\.astro$/, "");
+    createdLink.href = pageRoute(loadedSlug);
+    createdLink.hidden = false;
+    updatePath();
+    renderSelection();
+    status.textContent = `Loaded ${fileName} with ${selected.length} component${selected.length === 1 ? "" : "s"}. Edit it, then select Update page.`;
+  } catch (error) {
+    report(error);
+  } finally {
+    setBusy(false);
+  }
+});
 
 function renderComponents() {
   available.replaceChildren(
@@ -602,6 +696,8 @@ open.addEventListener("click", async () => {
       console.warn("Page builder: could not read groups.css", error);
     }
     form.reset();
+    loadedSlug = "";
+    await renderPageList();
     customIdInput.value = "";
     renderAvailableIds();
     renderStyleClassOptions();
@@ -738,10 +834,28 @@ form.addEventListener("submit", async (event) => {
           `${component.path} changed. Choose the project folder again before creating a page.`,
         );
     }
-    await saveNewPage(pageDirectory, `${slug}.astro`, content);
+    if (loadedSlug && slug === loadedSlug) {
+      if (
+        !window.confirm(
+          `Update src/pages/${slug}.astro? Its current content will be replaced.`,
+        )
+      ) {
+        status.textContent = "Update cancelled. No files changed.";
+        return;
+      }
+      await updatePage(pageDirectory, `${slug}.astro`, content);
+      status.textContent = `Updated src/pages/${slug}.astro.`;
+    } else {
+      await saveNewPage(pageDirectory, `${slug}.astro`, content);
+      status.textContent = `Created src/pages/${slug}.astro.`;
+    }
+    // Keep editing the saved page: later saves update it.
+    loadedSlug = slug;
+    updatePath();
+    await renderPageList();
+    loadPageSelect.value = `${slug}.astro`;
     createdLink.href = pageRoute(slug);
     createdLink.hidden = false;
-    status.textContent = `Created src/pages/${slug}.astro.`;
   } catch (error) {
     report(error);
   } finally {

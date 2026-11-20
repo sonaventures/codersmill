@@ -455,3 +455,126 @@ export async function saveNewPage(directory, filename, content) {
     throw error;
   }
 }
+
+// Reading pages back: the Page Builder writes a fixed structure (see
+// generatePage), so a page it created can be loaded and edited again.
+const jsonString = String.raw`"(?:[^"\\]|\\.)*"`;
+const jsonValue = String.raw`${jsonString}|true|false|-?\d+(?:\.\d+)?(?:e[+-]?\d+)?`;
+
+function notBuilderPage(detail) {
+  return new Error(
+    `This page was not created by the Page Builder, so it cannot be loaded (${detail}).`,
+  );
+}
+
+/**
+ * The name, description, page theme group, and components of a page made by
+ * generatePage. Component values come back typed (string, number, boolean).
+ */
+export function parseGeneratedPage(source) {
+  if (typeof source !== "string") throw notBuilderPage("no content");
+  const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(source);
+  if (
+    !frontmatter ||
+    !frontmatter[1].includes('import Layout from "../layouts/layout.astro";')
+  )
+    throw notBuilderPage("missing the shared layout");
+  const imports = new Map();
+  for (const line of frontmatter[1].split(/\r?\n/)) {
+    if (!line.trim() || line.startsWith("import Layout ")) continue;
+    const match = new RegExp(
+      `^import ([A-Za-z_$][\\w$]*) from (${jsonString});?$`,
+    ).exec(line.trim());
+    if (!match) throw notBuilderPage("unexpected code before the layout");
+    const specifier = JSON.parse(match[2]);
+    if (!specifier.startsWith("../components/"))
+      throw notBuilderPage("a component outside src/components");
+    imports.set(match[1], specifier.slice("../components/".length));
+  }
+  // Titles and values may be written {"text"} (as generated) or "text".
+  const quoted = `\\{(${jsonString})\\}|(${jsonString})`;
+  const layout = new RegExp(
+    `<Layout\\s+title=(?:${quoted})(?:\\s+description=(?:${quoted}))?\\s*>([\\s\\S]*)</Layout>`,
+  ).exec(source);
+  if (!layout) throw notBuilderPage("no Layout title");
+  const name = JSON.parse(layout[1] ?? layout[2]);
+  const description =
+    (layout[3] ?? layout[4]) ? JSON.parse(layout[3] ?? layout[4]) : "";
+  let body = layout[5];
+  let pageClass = "";
+  const wrapper = new RegExp(
+    `^\\s*<div class=(${jsonString})>([\\s\\S]*)</div>\\s*$`,
+  ).exec(body);
+  if (wrapper) {
+    pageClass = JSON.parse(wrapper[1]);
+    body = wrapper[2];
+  }
+  const items = [];
+  let section = null;
+  for (const line of body.split(/\r?\n/).map((part) => part.trim())) {
+    if (!line) continue;
+    const open = new RegExp(
+      `^<section(?: id=(${jsonString}))?(?: class=(${jsonString}))?>$`,
+    ).exec(line);
+    if (open) {
+      if (section) throw notBuilderPage("nested sections");
+      section = {
+        sectionId: open[1] ? JSON.parse(open[1]) : undefined,
+        styleClass: open[2] ? JSON.parse(open[2]) : undefined,
+        used: false,
+      };
+      continue;
+    }
+    if (line === "</section>") {
+      if (!section?.used) throw notBuilderPage("an empty section");
+      section = null;
+      continue;
+    }
+    const element = /^<([A-Za-z_$][\w$]*)\b([\s\S]*?)\s*\/>$/.exec(line);
+    if (!element || !imports.has(element[1]))
+      throw notBuilderPage(`unexpected markup: ${line.slice(0, 40)}`);
+    const values = Object.create(null);
+    const attributes = new RegExp(
+      `\\s+(\\w+)=(?:\\{(${jsonValue})\\}|(${jsonString}))`,
+      "gy",
+    );
+    let rest = element[2];
+    let match;
+    let consumed = 0;
+    while ((match = attributes.exec(rest))) {
+      values[match[1]] = JSON.parse(match[2] ?? match[3]);
+      consumed = attributes.lastIndex;
+    }
+    if (rest.slice(consumed).trim())
+      throw notBuilderPage(`unsupported values on ${element[1]}`);
+    if (section?.used) throw notBuilderPage("two components in one section");
+    items.push({
+      path: imports.get(element[1]),
+      values,
+      sectionId: section?.sectionId,
+      styleClass: section?.styleClass,
+    });
+    if (section) section.used = true;
+  }
+  if (section) throw notBuilderPage("an unclosed section");
+  return { name, description, pageClass, items };
+}
+
+/** Rewrites an existing page created by the Page Builder. */
+export async function updatePage(directory, filename, content) {
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*\.astro$/.test(filename))
+    throw new Error("Invalid page file name.");
+  const file = await directory.getFileHandle(filename);
+  const writable = await file.createWritable();
+  try {
+    await writable.write(content);
+    await writable.close();
+  } catch (error) {
+    await writable
+      .abort()
+      .catch((abortError) =>
+        console.error("Unable to abort page file write:", abortError),
+      );
+    throw error;
+  }
+}
