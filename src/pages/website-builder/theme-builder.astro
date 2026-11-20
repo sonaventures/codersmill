@@ -7,6 +7,11 @@ import ThemeSampleExtras from "../../components/websitebuilder/ThemeSampleExtras
 import css from "../../styles/themes/colors.css?raw";
 import { builtinPaletteFamilies, readPalette } from "../../data/palette.js";
 import {
+  typographyElements,
+  typographyProperties,
+} from "../../data/typography-builder.js";
+import { classGroupAreas } from "../../data/group-classes";
+import {
   colorRoles,
   defaultColorReference,
   isColorRoleVisible,
@@ -494,6 +499,16 @@ const sampleMenu = [
         >
           Global Styles
         </button>
+        <button
+          type="button"
+          id="palette-typography-tab"
+          role="tab"
+          aria-selected="false"
+          aria-controls="palette-typography-panel"
+          tabindex="-1"
+        >
+          Typography
+        </button>
       </div>
       <div
         class="palette-content"
@@ -630,6 +645,77 @@ const sampleMenu = [
                 {label}
               </button>
             ))}
+          </div>
+        </div>
+      </div>
+      <div
+        class="palette-content"
+        id="palette-typography-panel"
+        role="tabpanel"
+        aria-labelledby="palette-typography-tab"
+        hidden
+      >
+        <p class="control-hint" id="theme-typography-context">
+          Typography for the page, hero, and each section, saved with the theme
+          group. Blank fields follow the site-wide defaults from the Typography
+          Builder.
+        </p>
+        <div class="palette-typography-toolbar">
+          <div>
+            <label for="theme-typography-area">Area</label>
+            <select id="theme-typography-area">
+              {classGroupAreas.map(({ region, label }) => (
+                <option value={region}>{label}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label for="theme-typography-element">Element</label>
+            <select id="theme-typography-element">
+              {typographyElements.map((element) => (
+                <option value={element}>{element}</option>
+              ))}
+            </select>
+          </div>
+          {typographyProperties.map((property) => (
+            <div class="theme-typography-field">
+              <label for={`theme-typography-${property.key}`}>
+                {property.label}
+              </label>
+              <select
+                id={`theme-typography-${property.key}`}
+                data-theme-typography={property.key}
+              >
+                <option value="">Default</option>
+                {Object.entries(property.options ?? property.presets ?? {}).map(
+                  ([value, label]) => (
+                    <option value={value}>{label}</option>
+                  ),
+                )}
+                {property.presets && <option value="custom">Custom…</option>}
+              </select>
+              {property.presets && (
+                <input
+                  type="text"
+                  aria-label={`Custom ${property.label.toLowerCase()}`}
+                  placeholder={property.placeholder}
+                  autocomplete="off"
+                  spellcheck="false"
+                  data-theme-typography-custom={property.key}
+                  hidden
+                />
+              )}
+            </div>
+          ))}
+          <div class="theme-typography-field">
+            <span class="theme-typography-spacer" aria-hidden="true"></span>
+            <button
+              type="button"
+              class="control-button"
+              id="reset-theme-typography-element"
+            >
+              Reset element
+            </button>
           </div>
         </div>
       </div>

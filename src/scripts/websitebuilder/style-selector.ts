@@ -23,11 +23,16 @@ import {
   setColor,
   serializeThemeGroups,
   themeGroupsStorageKey,
+  type GroupTypography,
   type Region,
   type ThemeGroup,
   type Theme,
   type ColorRole,
 } from "../../data/theme-groups";
+import {
+  typographyElements,
+  validateTypographyValue,
+} from "../../data/typography-builder.js";
 import css from "../../styles/themes/colors.css?raw";
 import { readPalette } from "../../data/palette.js";
 import {
@@ -145,10 +150,12 @@ if (root) {
   const paletteTabs = [
     get<HTMLButtonElement>("#palette-color-tab"),
     get<HTMLButtonElement>("#palette-global-tab"),
+    get<HTMLButtonElement>("#palette-typography-tab"),
   ];
   const palettePanels = [
     get<HTMLElement>("#palette-color-panel"),
     get<HTMLElement>("#palette-global-panel"),
+    get<HTMLElement>("#palette-typography-panel"),
   ];
   function activatePaletteTab(index: number) {
     paletteTabs.forEach((tab, i) => {
@@ -166,14 +173,16 @@ if (root) {
       let next: number;
       switch (event.key) {
         case "ArrowLeft":
+          next = (i - 1 + paletteTabs.length) % paletteTabs.length;
+          break;
         case "ArrowRight":
-          next = 1 - i;
+          next = (i + 1) % paletteTabs.length;
           break;
         case "Home":
           next = 0;
           break;
         case "End":
-          next = 1;
+          next = paletteTabs.length - 1;
           break;
         default:
           return;
@@ -606,7 +615,7 @@ if (root) {
     publishButton.disabled = !selectedId;
   }
 
-  function persist(next: ThemeGroup[]) {
+  function persist(next: ThemeGroup[], editedId = "") {
     if (!storageReady) {
       message(
         "Saving is disabled because saved theme groups could not be read.",
@@ -614,16 +623,18 @@ if (root) {
       return false;
     }
     try {
-      // Typography is edited in the Typography Builder. Keep the latest saved
-      // typography for each group so this page never overwrites it.
+      // Typography can also change in the Typography Builder. Keep the latest
+      // saved typography for every group except the one saved from here.
       const stored = localStorage.getItem(themeGroupsStorageKey);
       const latest = stored ? parseThemeGroups(stored) : [];
       next = next.map((group) => ({
         ...group,
         typography:
-          latest.find(({ id }) => id === group.id)?.typography ??
-          group.typography ??
-          {},
+          group.id === editedId
+            ? group.typography
+            : (latest.find(({ id }) => id === group.id)?.typography ??
+              group.typography ??
+              {}),
       }));
       localStorage.setItem(themeGroupsStorageKey, serializeThemeGroups(next));
     } catch (error) {
@@ -651,7 +662,145 @@ if (root) {
   renderRadii();
   renderGroups();
 
+  // Typography tab: per-area typography saved with the theme group.
+  let typography: GroupTypography = {};
+  const typographyArea = get<HTMLSelectElement>("#theme-typography-area");
+  const typographyElement = get<HTMLSelectElement>("#theme-typography-element");
+  const typographyControls = [
+    ...root.querySelectorAll<HTMLSelectElement>("[data-theme-typography]"),
+  ];
+  const typographyPreview = document.createElement("style");
+  document.head.append(typographyPreview);
+  const typographyRegion = () => typographyArea.value as keyof GroupTypography;
+  const customInput = (key: string) =>
+    root.querySelector<HTMLInputElement>(
+      `[data-theme-typography-custom="${key}"]`,
+    );
+
+  function tidyTypography(source: GroupTypography): GroupTypography {
+    const tidy: GroupTypography = {};
+    for (const [region, rules] of Object.entries(source)) {
+      const kept = Object.fromEntries(
+        Object.entries(rules ?? {}).filter(
+          ([, styles]) => Object.keys(styles).length,
+        ),
+      );
+      if (Object.keys(kept).length)
+        tidy[region as keyof GroupTypography] = structuredClone(kept);
+    }
+    return tidy;
+  }
+
+  // Previews each area's typography. The page's rules cover the whole sample
+  // page except the header, footer, and builder labels; hero and section
+  // rules come later and are more specific, so they win, as in groups.css.
+  function renderTypographyPreview() {
+    const rules: string[] = [];
+    for (const { region } of classGroupAreas) {
+      const scope =
+        region === "page"
+          ? "#selector-sample-page"
+          : `#selector-sample-page [data-region="${region}"]`;
+      for (const element of typographyElements) {
+        const styles = typography[region]?.[element] ?? {};
+        const declarations = Object.entries(styles)
+          .map(([key, value]) => `  ${key}: ${value};`)
+          .join("\n");
+        if (declarations)
+          rules.push(
+            `${scope} ${element}:not([data-studio-chrome] *, [data-region="header"] *, [data-region="footer"] *) {\n${declarations}\n}`,
+          );
+      }
+    }
+    typographyPreview.textContent = rules.join("\n");
+  }
+
+  function renderTypography() {
+    const styles =
+      typography[typographyRegion()]?.[typographyElement.value] ?? {};
+    for (const control of typographyControls) {
+      const key = control.dataset.themeTypography ?? "";
+      const value = styles[key] ?? "";
+      const custom = customInput(key);
+      const listed = [...control.options].some(
+        (option) => option.value === value,
+      );
+      control.value = !value || listed ? value : "custom";
+      if (custom) {
+        custom.hidden = control.value !== "custom";
+        custom.value = control.value === "custom" ? value : "";
+        custom.removeAttribute("aria-invalid");
+      }
+    }
+    get<HTMLElement>("#theme-typography-context").textContent =
+      `Typography for ${regions.find(({ key }) => key === typographyRegion())?.label ?? "this area"} / ${typographyElement.value}, saved with the theme group. Blank fields follow the site-wide defaults from the Typography Builder.`;
+    renderTypographyPreview();
+  }
+
+  function setTypographyValue(key: string, value: string) {
+    const region = typographyRegion();
+    const element = typographyElement.value;
+    const areaRules = (typography[region] ??= {});
+    const styles = (areaRules[element] ??= {});
+    if (value) styles[key] = value;
+    else delete styles[key];
+    renderTypographyPreview();
+    markDirty();
+  }
+
+  for (const control of typographyControls) {
+    const key = control.dataset.themeTypography ?? "";
+    const custom = customInput(key);
+    control.addEventListener("change", () => {
+      if (control.value === "custom") {
+        if (custom) {
+          custom.hidden = false;
+          custom.focus();
+        }
+        return;
+      }
+      if (custom) custom.hidden = true;
+      setTypographyValue(key, control.value);
+    });
+    custom?.addEventListener("input", () => {
+      const value = custom.value.trim();
+      try {
+        validateTypographyValue(key, value);
+        custom.removeAttribute("aria-invalid");
+        setTypographyValue(key, value);
+      } catch (error) {
+        custom.setAttribute("aria-invalid", "true");
+        message((error as Error).message);
+      }
+    });
+  }
+  typographyElement.addEventListener("change", renderTypography);
+  // The Typography tab's area and the color controls' editing area match.
+  typographyArea.addEventListener("change", () => {
+    renderTypography();
+    if (area.value !== typographyArea.value) {
+      area.value = typographyArea.value;
+      area.dispatchEvent(new Event("change"));
+    }
+  });
+  get<HTMLButtonElement>("#reset-theme-typography-element").addEventListener(
+    "click",
+    () => {
+      delete typography[typographyRegion()]?.[typographyElement.value];
+      renderTypography();
+      markDirty();
+    },
+  );
+  renderTypography();
+
   area.addEventListener("change", () => {
+    if (
+      classGroupAreas.some(({ region }) => region === area.value) &&
+      typographyArea.value !== area.value
+    ) {
+      typographyArea.value = area.value;
+      renderTypography();
+    }
     renderColors();
 
     // Reserve only the trailing space needed to top-align even the sample footer.
@@ -766,6 +915,8 @@ if (root) {
         };
     colors = themes[currentTheme()];
     radii = { ...(group?.radii ?? defaultRadii) };
+    typography = structuredClone(group?.typography ?? {});
+    renderTypography();
     name.value = group?.name ?? "";
     dirty = false;
     renderColors();
@@ -820,14 +971,12 @@ if (root) {
       sectionIds: structuredClone(
         groups.find(({ id }) => id === selectedId)?.sectionIds ?? {},
       ),
-      typography: structuredClone(
-        groups.find(({ id }) => id === selectedId)?.typography ?? {},
-      ),
+      typography: tidyTypography(typography),
     };
     const next = selectedId
       ? groups.map((item) => (item.id === selectedId ? group : item))
       : [...groups, group];
-    if (!persist(next)) return;
+    if (!persist(next, group.id)) return;
     selectedId = group.id;
     dirty = false;
     name.value = groupName;

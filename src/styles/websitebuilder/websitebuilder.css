@@ -641,6 +641,29 @@
 .selector-shell #radius-target {
   @apply m-0 h-8 p-1 text-xs;
 }
+.selector-shell .palette-typography-toolbar {
+  @apply grid grid-cols-[repeat(auto-fill,minmax(9.5rem,1fr))] items-end gap-x-3 gap-y-2 px-1 pb-2;
+}
+.selector-shell .palette-typography-toolbar label,
+.selector-shell .theme-typography-spacer {
+  @apply mb-1 block min-h-4 text-[0.65rem] whitespace-nowrap;
+}
+.selector-shell .palette-typography-toolbar select,
+.selector-shell .palette-typography-toolbar input {
+  @apply m-0 h-8 w-full min-w-0 p-[0.3rem] text-[0.75rem];
+  border: 1px solid var(--selector-control-border, var(--canvas-page-border));
+  @apply rounded-[0.35rem];
+  background: var(--canvas-page);
+}
+.selector-shell .palette-typography-toolbar input {
+  @apply mt-1 font-mono;
+}
+.selector-shell .palette-typography-toolbar input[aria-invalid="true"] {
+  outline: 2px solid var(--accent-page-focus);
+}
+.selector-shell .palette-typography-toolbar .control-button {
+  @apply h-8 w-full p-[0.3rem] text-[0.72rem];
+}
 .selector-shell .palette-radius-swatches {
   @apply flex flex-wrap gap-1.5;
 }
