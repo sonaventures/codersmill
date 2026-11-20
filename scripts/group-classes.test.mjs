@@ -68,7 +68,7 @@ test("each area maps its colors onto its own and the shared section 01 variables
     ':root:not([data-theme="dark"]) .sg-coastal-calm-page',
   );
   assert.match(page, /--canvas-contrast: var\(--color-orange-500\);/);
-  assert.match(page, /--ink-inverse: var\(--color-orange-50\);/);
+  assert.match(page, /--ink-contrast: var\(--color-orange-50\);/);
   assert.match(page, /background-color: var\(--canvas-page\);/);
 
   const section3 = ruleFor(

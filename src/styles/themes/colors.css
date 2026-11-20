@@ -698,7 +698,7 @@
   --accent-contrast-text: var(--color-sky-50);
   --accent-contrast-border: var(--color-cyan-950);
   --accent-contrast-focus: var(--color-cyan-950);
-  --ink-contrast: var(--color-cyan-950);
+  --ink-contrast: var(--color-sky-50);
   --ink-contrast-dark: var(--color-gray-800);
   --ink-contrast-highlight: var(--color-cyan-950);
   --ink-contrast-muted: var(--color-cyan-950);
@@ -894,7 +894,7 @@
   --accent-contrast-text: var(--color-gray-800);
   --accent-contrast-border: var(--color-cyan-800);
   --accent-contrast-focus: var(--color-slate-300);
-  --ink-contrast: var(--color-slate-300);
+  --ink-contrast: var(--color-gray-800);
   --ink-contrast-dark: var(--color-sky-50);
   --ink-contrast-highlight: var(--color-slate-400);
   --ink-contrast-muted: var(--color-slate-400);

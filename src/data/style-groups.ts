@@ -57,8 +57,8 @@ export const globalColorRoles = [
   },
   {
     key: "contrastText",
-    label: "Contrast band & inverse text",
-    token: "ink-inverse",
+    label: "Contrast band text",
+    token: "ink-contrast",
     group: "contrast",
   },
 ] as const;

@@ -281,8 +281,7 @@
 }
 .selector-shell .sample-contrast {
   background: var(--canvas-contrast);
-  /* Components pair bg-canvas-contrast with text-ink-inverse. */
-  color: var(--ink-inverse);
+  color: var(--ink-contrast);
   @apply my-5 grid gap-1 rounded-lg p-5 text-[0.85rem];
 }
 .selector-shell .sample-copy {
