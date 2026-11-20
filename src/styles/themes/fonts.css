@@ -53,6 +53,24 @@
 @import "@fontsource-variable/work-sans/wght.css";
 @import "@fontsource-variable/work-sans/wght-italic.css";
 
+@import "@fontsource-variable/noto-sans/wght.css";
+@import "@fontsource-variable/noto-sans/wght-italic.css";
+
+@import "@fontsource-variable/noto-sans-display/wght.css";
+@import "@fontsource-variable/noto-sans-display/wght-italic.css";
+
+@import "@fontsource-variable/sora/wght.css";
+
+@import "@fontsource-variable/roboto-flex/wght.css";
+
+@import "@fontsource-variable/roboto-mono/wght.css";
+@import "@fontsource-variable/roboto-mono/wght-italic.css";
+
+@import "@fontsource-variable/roboto-condensed/wght.css";
+@import "@fontsource-variable/roboto-condensed/wght-italic.css";
+
+@import "@fontsource-variable/roboto-slab/wght.css";
+
 @theme static {
   --font-inter: "Inter Variable", sans-serif;
   --font-plus-jakarta-sans: "Plus Jakarta Sans Variable", sans-serif;
@@ -65,4 +83,11 @@
   --font-roboto: "Roboto Variable", sans-serif;
   --font-poppins: "Poppins", sans-serif;
   --font-work-sans: "Work Sans Variable", sans-serif;
+  --font-noto-sans: "Noto Sans Variable", sans-serif;
+  --font-noto-sans-display: "Noto Sans Display Variable", sans-serif;
+  --font-sora: "Sora Variable", sans-serif;
+  --font-roboto-flex: "Roboto Flex Variable", sans-serif;
+  --font-roboto-mono: "Roboto Mono Variable", monospace;
+  --font-roboto-condensed: "Roboto Condensed Variable", sans-serif;
+  --font-roboto-slab: "Roboto Slab Variable", serif;
 }

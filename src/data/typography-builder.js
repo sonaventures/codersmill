@@ -33,6 +33,13 @@ export const typographyFonts = {
   "var(--font-roboto)": "Roboto",
   "var(--font-poppins)": "Poppins",
   "var(--font-work-sans)": "Work Sans",
+  "var(--font-noto-sans)": "Noto Sans",
+  "var(--font-noto-sans-display)": "Noto Sans Display",
+  "var(--font-sora)": "Sora",
+  "var(--font-roboto-flex)": "Roboto Flex",
+  "var(--font-roboto-mono)": "Roboto Mono",
+  "var(--font-roboto-condensed)": "Roboto Condensed",
+  "var(--font-roboto-slab)": "Roboto Slab",
 };
 
 export const typographyProperties = [

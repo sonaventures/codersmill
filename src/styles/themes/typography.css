@@ -1,3 +1,47 @@
-/* typography-builder: %7B%22version%22%3A1%2C%22defaults%22%3A%7B%7D%2C%22sections%22%3A%7B%7D%7D */
+/* typography-builder: %7B%22version%22%3A1%2C%22defaults%22%3A%7B%22h1%22%3A%7B%22font-family%22%3A%22var(--font-roboto-slab)%22%2C%22font-size%22%3A%222.25rem%22%2C%22font-weight%22%3A%22700%22%2C%22text-transform%22%3A%22none%22%2C%22letter-spacing%22%3A%220.05em%22%7D%2C%22h2%22%3A%7B%22font-family%22%3A%22var(--font-roboto-condensed)%22%2C%22font-weight%22%3A%22600%22%2C%22text-transform%22%3A%22none%22%2C%22font-size%22%3A%221.875rem%22%2C%22letter-spacing%22%3A%220.025em%22%7D%2C%22h3%22%3A%7B%22font-family%22%3A%22var(--font-roboto-condensed)%22%2C%22text-transform%22%3A%22none%22%2C%22font-size%22%3A%221.5rem%22%2C%22font-weight%22%3A%22600%22%7D%2C%22h4%22%3A%7B%22font-size%22%3A%221.25rem%22%2C%22font-family%22%3A%22var(--font-work-sans)%22%2C%22font-weight%22%3A%22600%22%7D%2C%22h5%22%3A%7B%22font-family%22%3A%22var(--font-work-sans)%22%2C%22font-size%22%3A%221.25rem%22%2C%22font-weight%22%3A%22500%22%7D%2C%22h6%22%3A%7B%22font-family%22%3A%22var(--font-work-sans)%22%2C%22font-size%22%3A%221.125rem%22%2C%22font-weight%22%3A%22500%22%7D%2C%22p%22%3A%7B%22font-family%22%3A%22var(--font-noto-sans)%22%2C%22letter-spacing%22%3A%220.025em%22%7D%7D%2C%22sections%22%3A%7B%7D%7D */
 
+h1 {
+  font-family: var(--font-roboto-slab);
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.05em;
+}
 
+h2 {
+  font-family: var(--font-roboto-condensed);
+  font-weight: 600;
+  text-transform: none;
+  font-size: 1.875rem;
+  letter-spacing: 0.025em;
+}
+
+h3 {
+  font-family: var(--font-roboto-condensed);
+  text-transform: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-family: var(--font-work-sans);
+  font-weight: 600;
+}
+
+h5 {
+  font-family: var(--font-work-sans);
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+h6 {
+  font-family: var(--font-work-sans);
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+p {
+  font-family: var(--font-noto-sans);
+  letter-spacing: 0.025em;
+}
