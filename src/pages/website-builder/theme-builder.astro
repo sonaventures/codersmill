@@ -195,6 +195,7 @@ const sampleMenu = [
             detail="Give your message room to shine"
             fourth="The details make it yours"
             style={regionStyle("hero")}
+            themeIds={themeIds}
           />
           <div class="sample-page-intro">
             <div class="sample-container">
@@ -246,6 +247,7 @@ const sampleMenu = [
                 detail={detail}
                 fourth={fourth}
                 style={regionStyle(`section${index + 1}` as Region)}
+                themeIds={themeIds}
               />
             ))}
           </div>
@@ -608,4 +610,5 @@ const sampleMenu = [
 
 <script>
   import "../../scripts/websitebuilder/style-selector";
+  import "../../scripts/websitebuilder/theme-section-ids";
 </script>
