@@ -10,8 +10,16 @@ import {
   mergeThemeGroups,
   parseThemeGroups,
   serializeThemeGroups,
+  setPaletteFamilies,
   themeGroupsStorageKey,
 } from "../../data/theme-groups";
+import colorsCss from "../../styles/themes/colors.css?raw";
+import { readPalette } from "../../data/palette.js";
+
+// Theme groups can use the custom color families in colors.css; register them
+// before reading groups, as the Theme Builder does, or those colors are
+// rejected as unknown and the whole group is skipped.
+setPaletteFamilies(readPalette(colorsCss));
 import { classGroupAreas, groupClassSlug } from "../../data/group-classes";
 import { fetchProjectThemeGroups, saveGroupToProject } from "./project-themes";
 
