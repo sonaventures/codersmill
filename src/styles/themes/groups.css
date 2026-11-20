@@ -7,7 +7,8 @@
 
 /* theme-group: sample (sample) */
 :root:not([data-theme="dark"]) .sg-sample-page {
-  --canvas-01: var(--canvas-page);
+  --canvas-page: var(--color-offwhite-50);
+  --canvas-01: var(--color-offwhite-50);
   --canvas-01-border: var(--canvas-page-border);
   --canvas-01-shadow: var(--canvas-page-shadow);
   --accent-01-canvas: var(--accent-page-canvas);
@@ -101,12 +102,15 @@
   color: var(--ink-page);
 }
 :root:not([data-theme="dark"]) .sg-sample-hero {
-  --canvas-hero: var(--color-platinum-100);
-  --canvas-01: var(--color-platinum-100);
-  --canvas-01-border: var(--canvas-hero-border);
+  --canvas-hero: var(--color-prusssianblue-100);
+  --canvas-01: var(--color-prusssianblue-100);
+  --canvas-hero-border: transparent;
+  --canvas-01-border: transparent;
   --canvas-01-shadow: var(--canvas-hero-shadow);
-  --accent-01-canvas: var(--accent-hero-canvas);
-  --accent-01-text: var(--accent-hero-text);
+  --accent-hero-canvas: var(--color-energeticorange-500);
+  --accent-01-canvas: var(--color-energeticorange-500);
+  --accent-hero-text: var(--color-platinum-50);
+  --accent-01-text: var(--color-platinum-50);
   --accent-01-border: var(--accent-hero-border);
   --accent-01-focus: var(--accent-hero-focus);
   --ink-hero: var(--color-platinum-800);
@@ -122,7 +126,8 @@
   --ink-01-muted: var(--ink-hero-muted);
   --ink-hero-highlight: var(--color-energeticorange-700);
   --ink-01-highlight: var(--color-energeticorange-700);
-  --accent-01-secondary: var(--accent-hero-secondary);
+  --accent-hero-secondary: transparent;
+  --accent-01-secondary: transparent;
   --accent-01-secondary-text: var(--accent-hero-secondary-text);
   --accent-01-secondary-shadow: var(--accent-hero-secondary-shadow);
   --accent-01-secondary-hover: var(--accent-hero-secondary-hover);

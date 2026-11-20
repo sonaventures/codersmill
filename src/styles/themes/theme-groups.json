@@ -27,7 +27,7 @@
             "contrastText": "theme"
           },
           "page": {
-            "background": "theme",
+            "background": "var(--color-offwhite-50)",
             "border": "theme",
             "shadow": "theme",
             "primary": "theme",
@@ -97,7 +97,7 @@
             "iconActive": "theme"
           },
           "header": {
-            "background": "theme",
+            "background": "var(--color-white)",
             "border": "theme",
             "shadow": "theme",
             "primary": "theme",
@@ -167,11 +167,11 @@
             "iconActive": "theme"
           },
           "hero": {
-            "background": "var(--color-platinum-100)",
-            "border": "theme",
+            "background": "var(--color-prusssianblue-100)",
+            "border": "transparent",
             "shadow": "theme",
-            "primary": "theme",
-            "primaryText": "theme",
+            "primary": "var(--color-energeticorange-500)",
+            "primaryText": "var(--color-platinum-50)",
             "accentBorder": "theme",
             "buttonShadow": "theme",
             "accentFocus": "theme",
@@ -182,7 +182,7 @@
             "h4": "var(--color-prusssianblue-600)",
             "muted": "theme",
             "highlight": "var(--color-energeticorange-700)",
-            "secondary": "theme",
+            "secondary": "transparent",
             "secondaryText": "theme",
             "secondaryShadow": "theme",
             "secondaryHover": "theme",
