@@ -40,7 +40,9 @@ const {
     <div class="sample-id-bar-info">
       <span class="sample-id-bar-dot"></span>
       <strong>{label}</strong>
-      <span class="sample-id-badge" id={`badge-${id}`}>#{id}</span>
+      <span class="sample-id-badge" id={`badge-${id}`}>
+        #{id}
+      </span>
     </div>
     <div class="sample-id-bar-select-wrap">
       <label for={`id-select-${id}`}>Apply CSS ID:</label>
@@ -73,7 +75,18 @@ const {
       Use <strong>strong text</strong> for emphasis, <em>em text</em> for a
       different voice, and <code>inlineCode()</code> for a short example. Add an
       <a href="#selector-sample-page"> anchor inside this paragraph</a> to style
-      inline links.
+      inline links. This allows us to apply styles to links that are part of the
+      paragraph text, without affecting links in other parts of the page. This
+      is useful for creating consistent styling across your website. This also
+      allows us to apply styles to links that are part of the paragraph text,
+      without affecting links in other parts of the page.
+    </p>
+    <p>
+      This is a test paragraph to see how the styles are applied to the
+      paragraph text.{" "}
+      <a href="#selector-sample-page">anchor inside this paragraph</a> This also
+      allows us to apply styles to links that are part of the paragraph text,
+      without affecting links in other parts of the page.
     </p>
     <pre class="sample-code"><code>const section = "sample";
 render(section);</code></pre>
