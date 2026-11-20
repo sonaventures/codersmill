@@ -500,8 +500,7 @@
   @apply rounded-none;
   background: var(--canvas-page);
 }
-.selector-shell .panel-heading h2,
-.selector-shell .saved-groups h2 {
+.selector-shell .panel-heading h2 {
   @apply m-[0.4rem_0_0.6rem] font-display text-[1.7rem] text-ink-page-second-header;
 }
 .selector-shell .panel-heading > p:last-child,
@@ -738,9 +737,40 @@
 .selector-shell .control-actions {
   @apply m-[0.7rem_0] flex flex-wrap gap-2;
 }
+/* Theme groups: an expandable bar stuck to the bottom of the color controls
+   panel. The negative margins span the panel's 1.5rem padding. */
 .selector-shell .saved-groups {
+  @apply sticky -bottom-6 z-10 -mx-6 -mb-6 mt-6 grid gap-2 px-6 pt-3 pb-4;
   border-top: 1px solid var(--canvas-page-border);
-  @apply mt-6 pt-4;
+  background: var(--canvas-page);
+  box-shadow: 0 -8px 20px
+    color-mix(in srgb, var(--canvas-page-shadow) 12%, transparent);
+}
+.selector-shell .saved-groups-details > summary {
+  @apply flex cursor-pointer list-none items-baseline justify-between gap-3 py-1;
+}
+.selector-shell .saved-groups-details > summary::-webkit-details-marker {
+  display: none;
+}
+.selector-shell .saved-groups-details > summary::before {
+  content: "▸";
+  @apply text-[0.8rem] transition-transform;
+}
+.selector-shell .saved-groups-details[open] > summary::before {
+  transform: rotate(90deg);
+}
+.selector-shell .saved-groups-title {
+  @apply mr-auto font-display text-[1.35rem] text-ink-page-second-header;
+}
+.selector-shell .saved-groups-current {
+  @apply max-w-[45%] truncate text-[0.75rem] font-semibold;
+}
+.selector-shell .saved-groups-details > summary:focus-visible {
+  outline: 2px solid var(--accent-page-focus);
+  @apply rounded-sm outline-offset-2;
+}
+.selector-shell .saved-groups-body {
+  @apply max-h-[min(34rem,65dvh)] overflow-y-auto pt-2 pr-1;
 }
 .selector-shell .class-groups {
   border-top: 1px solid var(--canvas-page-border);

@@ -375,82 +375,96 @@ const sampleMenu = [
           </p>
 
           <div class="saved-groups">
-            <h2>Theme groups</h2>
-            <p class="control-hint">
-              A group saves light and dark colors for each area and global
-              corner radii shared by both themes. Stored in this browser; export
-              a backup to reuse elsewhere.
-            </p>
-            <label for="saved-group">Saved groups</label>
-            <select id="saved-group">
-              <option value="">Unsaved palette</option>
-            </select>
-            <label for="group-name">Group name</label>
-            <input
-              id="group-name"
-              type="text"
-              placeholder="e.g. Coastal calm"
-              maxlength={80}
-              required
-            />
-            <div class="control-actions">
-              <button
-                type="submit"
-                class="control-button control-primary"
-                id="save-group"
-              >
-                Save group
-              </button>
-              <button type="button" class="control-button" id="new-group">
-                Save as new
-              </button>
-              <button
-                type="button"
-                class="control-button"
-                id="delete-group"
-                disabled
-              >
-                Delete group
-              </button>
-            </div>
-            <div class="control-actions">
-              <button
-                type="button"
-                class="control-button"
-                id="export-groups"
-                disabled
-              >
-                Export JSON
-              </button>
-              <button type="button" class="control-button" id="import-groups">
-                Import JSON
-              </button>
-              <input
-                id="import-file"
-                type="file"
-                accept=".json,application/json"
-                hidden
-              />
-            </div>
-            <div class="class-groups">
-              <h3>Classes for the page builder</h3>
-              <p class="control-hint">
-                Writes the selected saved group's page, hero, and section colors
-                to <code>src/styles/themes/groups.css</code> as classes, for
-                both themes. Assign them to components in the page builder.
-                Saving the same group again updates its classes.
-              </p>
-              <div class="control-actions">
-                <button
-                  type="button"
-                  class="control-button"
-                  id="publish-group-classes"
-                  disabled
-                >
-                  Save classes to groups.css
-                </button>
+            <details class="saved-groups-details">
+              <summary>
+                <span class="saved-groups-title">Theme groups</span>
+                <span class="saved-groups-current" data-current-group>
+                  Unsaved palette
+                </span>
+              </summary>
+              <div class="saved-groups-body">
+                <p class="control-hint">
+                  A group saves light and dark colors for each area and global
+                  corner radii shared by both themes. Stored in this browser;
+                  export a backup to reuse elsewhere.
+                </p>
+                <label for="saved-group">Saved groups</label>
+                <select id="saved-group">
+                  <option value="">Unsaved palette</option>
+                </select>
+                <label for="group-name">Group name</label>
+                <input
+                  id="group-name"
+                  type="text"
+                  placeholder="e.g. Coastal calm"
+                  maxlength={80}
+                  required
+                />
+                <div class="control-actions">
+                  <button
+                    type="submit"
+                    class="control-button control-primary"
+                    id="save-group"
+                  >
+                    Save group
+                  </button>
+                  <button type="button" class="control-button" id="new-group">
+                    Save as new
+                  </button>
+                  <button
+                    type="button"
+                    class="control-button"
+                    id="delete-group"
+                    disabled
+                  >
+                    Delete group
+                  </button>
+                </div>
+                <div class="control-actions">
+                  <button
+                    type="button"
+                    class="control-button"
+                    id="export-groups"
+                    disabled
+                  >
+                    Export JSON
+                  </button>
+                  <button
+                    type="button"
+                    class="control-button"
+                    id="import-groups"
+                  >
+                    Import JSON
+                  </button>
+                  <input
+                    id="import-file"
+                    type="file"
+                    accept=".json,application/json"
+                    hidden
+                  />
+                </div>
+                <div class="class-groups">
+                  <h3>Classes for the page builder</h3>
+                  <p class="control-hint">
+                    Writes the selected saved group's page, hero, and section
+                    colors to <code>src/styles/themes/groups.css</code> as
+                    classes, for both themes. Assign them to components in the
+                    page builder. Saving the same group again updates its
+                    classes.
+                  </p>
+                  <div class="control-actions">
+                    <button
+                      type="button"
+                      class="control-button"
+                      id="publish-group-classes"
+                      disabled
+                    >
+                      Save classes to groups.css
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
+            </details>
             <p id="selector-status" role="status" aria-live="polite"></p>
           </div>
         </form>

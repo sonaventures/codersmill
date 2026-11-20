@@ -596,6 +596,9 @@ if (root) {
 
   function renderGroups() {
     renderClassNames();
+    // The collapsed Theme groups bar shows which group is loaded.
+    get<HTMLElement>("[data-current-group]").textContent =
+      groups.find(({ id }) => id === selectedId)?.name ?? "Unsaved palette";
     saved.replaceChildren(new Option("Unsaved palette", ""));
     for (const group of groups) saved.add(new Option(group.name, group.id));
     saved.value = selectedId;
