@@ -40,6 +40,7 @@ test("each area maps its colors onto its own and the shared section 01 variables
   saved.themes.light.hero.muted = "#aabbcc";
   saved.themes.dark.hero.background = "var(--color-slate-950)";
   saved.themes.light.global.contrastCanvas = "var(--color-orange-500)";
+  saved.themes.light.global.contrastText = "var(--color-orange-50)";
   saved.themes.light.section3.highlight = "var(--color-yellow-400)";
   const css = generateGroupCss(saved);
 
@@ -67,6 +68,7 @@ test("each area maps its colors onto its own and the shared section 01 variables
     ':root:not([data-theme="dark"]) .sg-coastal-calm-page',
   );
   assert.match(page, /--canvas-contrast: var\(--color-orange-500\);/);
+  assert.match(page, /--ink-inverse: var\(--color-orange-50\);/);
   assert.match(page, /background-color: var\(--canvas-page\);/);
 
   const section3 = ruleFor(

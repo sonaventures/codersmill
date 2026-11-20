@@ -55,6 +55,12 @@ export const globalColorRoles = [
     token: "canvas-contrast",
     group: "contrast",
   },
+  {
+    key: "contrastText",
+    label: "Contrast band & inverse text",
+    token: "ink-inverse",
+    group: "contrast",
+  },
 ] as const;
 
 export const cardCanvasRoles = [
@@ -218,6 +224,8 @@ const recentRegionColorRoles = [
 
 // Added in version 12; older groups use the theme default for these.
 const version12ColorRoles = ["muted", "highlight", "contrastCanvas"] as const;
+// Added in version 13.
+const version13ColorRoles = ["contrastText"] as const;
 
 export const colorRoles = [...globalColorRoles, ...regionColorRoles];
 
@@ -537,12 +545,13 @@ export function parseStyleGroups(json: string): StyleGroup[] {
       data.version !== 9 &&
       data.version !== 10 &&
       data.version !== 11 &&
-      data.version !== 12) ||
+      data.version !== 12 &&
+      data.version !== 13) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 12 style-group file with up to 100 groups.",
+      "Expected a version 1 through 13 style-group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -578,8 +587,10 @@ export function parseStyleGroups(json: string): StyleGroup[] {
           throw new Error(`Missing brand/CTA colors in "${name}".`);
         for (const { key } of globalColorRoles) {
           if (
-            data.version < 12 &&
-            version12ColorRoles.some((role) => role === key)
+            (data.version < 12 &&
+              version12ColorRoles.some((role) => role === key)) ||
+            (data.version < 13 &&
+              version13ColorRoles.some((role) => role === key))
           ) {
             colors.global[key] = "theme";
             continue;
@@ -703,5 +714,5 @@ export function parseStyleGroups(json: string): StyleGroup[] {
 }
 
 export function serializeStyleGroups(groups: StyleGroup[]): string {
-  return JSON.stringify({ version: 12, groups }, null, 2);
+  return JSON.stringify({ version: 13, groups }, null, 2);
 }
