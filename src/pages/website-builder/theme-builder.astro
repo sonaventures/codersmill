@@ -3,6 +3,7 @@ import Layout from "../../layouts/website-builder.astro";
 import ThemeSampleCards from "../../components/websitebuilder/ThemeSampleCards.astro";
 import ThemeSampleIcon from "../../components/websitebuilder/ThemeSampleIcon.astro";
 import ThemeSampleSection from "../../components/websitebuilder/ThemeSampleSection.astro";
+import ThemeSampleExtras from "../../components/websitebuilder/ThemeSampleExtras.astro";
 import css from "../../styles/themes/colors.css?raw";
 import idCss from "../../styles/themes/id.css?raw";
 import { builtinPaletteFamilies, readPalette } from "../../data/palette.js";
@@ -219,6 +220,7 @@ const sampleMenu = [
                 </mark>{" "}
                 for emphasis.
               </p>
+              <ThemeSampleExtras id="selector-page" />
               <div class="sample-contrast" data-sample-role="contrastCanvas">
                 <strong data-sample-role="contrastText">Contrast band</strong>
                 <span data-sample-role="contrastText">

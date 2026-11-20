@@ -2,6 +2,7 @@
 import ThemeSampleCards from "./ThemeSampleCards.astro";
 import ThemeSampleIcon from "./ThemeSampleIcon.astro";
 import ThemeSampleSocialIcons from "./ThemeSampleSocialIcons.astro";
+import ThemeSampleExtras from "./ThemeSampleExtras.astro";
 import type { Region } from "../../data/style-groups";
 
 interface Props {
@@ -72,8 +73,10 @@ const {
     <h4>{fourth}</h4>
 
     <p class="sample-copy">
-      Use <strong>strong text</strong> for emphasis, <em>em text</em> for a
-      different voice, and <code>inlineCode()</code> for a short example. Add an
+      Use <strong data-sample-role="strong">strong text</strong> for emphasis,{" "}
+      <em data-sample-role="em">em text</em> for a different voice, and{" "}
+      <code data-sample-role="code">inlineCode()</code> for a short example. Add
+      an
       <a href="#selector-sample-page"> anchor inside this paragraph</a> to style
       inline links. This allows us to apply styles to links that are part of the
       paragraph text, without affecting links in other parts of the page. This
@@ -95,8 +98,12 @@ const {
       allows us to apply styles to links that are part of the paragraph text,
       without affecting links in other parts of the page.
     </p>
-    <pre class="sample-code"><code>const section = "sample";
+    <pre
+      class="sample-code"
+      data-sample-role="pre"
+    ><code>const section = "sample";
 render(section);</code></pre>
+    <ThemeSampleExtras id={id} />
 
     <div class="sample-buttons" role="group" aria-label={`${label} actions`}>
       <button type="button" class="sample-primary">

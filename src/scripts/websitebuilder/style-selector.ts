@@ -332,12 +332,20 @@ if (root) {
         token ?? "Preview-only override";
       const swatch = get<HTMLElement>(`[data-role-swatch="${key}"]`);
       swatch.dataset.transparent = String(color === "transparent");
-      swatch.style.backgroundColor =
+      let swatchColor =
         color === "transparent"
           ? ""
           : isGlobalColorRole(key)
             ? getComputedStyle(page).getPropertyValue(`--${token}`).trim()
             : computed.getPropertyValue(`--sample-${key}`).trim();
+      // Text formatting defaults to "currentColor": show the area's text.
+      if (/^currentcolor$/i.test(swatchColor))
+        swatchColor = computed.getPropertyValue("--sample-text").trim();
+      swatch.dataset.transparent = String(
+        color === "transparent" || swatchColor === "transparent",
+      );
+      swatch.style.backgroundColor =
+        swatchColor === "transparent" ? "" : swatchColor;
     }
     get<HTMLElement>("#theme-context").textContent =
       `Editing ${currentTheme()} theme. Use the site theme switch to edit the other theme.`;

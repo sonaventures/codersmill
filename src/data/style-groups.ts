@@ -190,6 +190,87 @@ export const subsectionColorRoles = [
   },
 ] as const;
 
+// Inline and block text formatting: strong, em, code, and pre.
+export const formattingColorRoles = [
+  { key: "strong", label: "Strong text", group: "formatting" },
+  { key: "em", label: "Emphasis (em) text", group: "formatting" },
+  { key: "code", label: "Inline code text", group: "formatting" },
+  {
+    key: "codeBackground",
+    label: "Inline code background",
+    group: "formatting",
+  },
+  { key: "pre", label: "Code block (pre) text", group: "formatting" },
+  {
+    key: "preBackground",
+    label: "Code block background",
+    group: "formatting",
+  },
+] as const;
+
+// Form fields: labels, inputs, textareas, and selects.
+export const formColorRoles = [
+  { key: "label", label: "Label text", group: "forms" },
+  { key: "inputText", label: "Input text", group: "forms" },
+  { key: "inputBackground", label: "Input background", group: "forms" },
+  { key: "inputBorder", label: "Input border", group: "forms" },
+  { key: "inputPlaceholder", label: "Placeholder text", group: "forms" },
+  { key: "inputFocus", label: "Input focus", group: "forms" },
+] as const;
+
+// Blockquotes, dividers, list bullets, and text selection.
+export const contentColorRoles = [
+  { key: "blockquote", label: "Quote text", group: "content" },
+  { key: "blockquoteBorder", label: "Quote border", group: "content" },
+  { key: "divider", label: "Divider (hr)", group: "content" },
+  { key: "listMarker", label: "List bullet", group: "content" },
+  {
+    key: "selectionBackground",
+    label: "Selection background",
+    group: "content",
+  },
+  { key: "selectionText", label: "Selection text", group: "content" },
+] as const;
+
+/** Text selection is written as a ::selection rule, not a variable. */
+export const selectionColorRoles = [
+  "selectionBackground",
+  "selectionText",
+] as const;
+
+// New detail colors fall back to an existing color until one is chosen, so
+// the site looks the same by default.
+const detailFallbacks = {
+  label: "text",
+  inputText: "text",
+  inputBackground: "background",
+  inputBorder: "border",
+  inputPlaceholder: "muted",
+  inputFocus: "accentFocus",
+  blockquote: "muted",
+  divider: "border",
+} as const;
+const detailDefaults = {
+  blockquoteBorder: "currentColor",
+  listMarker: "currentColor",
+  selectionBackground: "Highlight",
+  selectionText: "HighlightText",
+} as const;
+const detailTokens = {
+  label: "ink-%-label",
+  inputText: "ink-%-input",
+  inputBackground: "canvas-%-input",
+  inputBorder: "canvas-%-input-border",
+  inputPlaceholder: "ink-%-placeholder",
+  inputFocus: "accent-%-input-focus",
+  blockquote: "ink-%-blockquote",
+  blockquoteBorder: "canvas-%-blockquote-border",
+  divider: "canvas-%-divider",
+  listMarker: "ink-%-marker",
+  selectionBackground: "canvas-%-selection",
+  selectionText: "ink-%-selection",
+} as const;
+
 export const regionColorRoles = [
   { key: "background", label: "Background", group: "canvas" },
   { key: "border", label: "Border", group: "canvas" },
@@ -211,6 +292,9 @@ export const regionColorRoles = [
   ...cardCanvasRoles,
   ...subsectionColorRoles,
   { key: "cardText", label: "Card text / all three cards", group: "ink" },
+  ...formattingColorRoles,
+  ...formColorRoles,
+  ...contentColorRoles,
   ...interactiveColorRoles,
 ] as const;
 
@@ -226,6 +310,12 @@ const recentRegionColorRoles = [
 const version12ColorRoles = ["muted", "highlight", "contrastCanvas"] as const;
 // Added in version 13.
 const version13ColorRoles = ["contrastText"] as const;
+// Added in version 14.
+const version14ColorRoles = formattingColorRoles.map(({ key }) => key);
+// Added in version 15.
+const version15ColorRoles = [...formColorRoles, ...contentColorRoles].map(
+  ({ key }) => key,
+);
 
 export const colorRoles = [...globalColorRoles, ...regionColorRoles];
 
@@ -236,6 +326,9 @@ export const roleGroups = [
   { key: "canvas", label: "Canvas" },
   { key: "accent", label: "Accent" },
   { key: "ink", label: "Ink" },
+  { key: "formatting", label: "Text formatting" },
+  { key: "forms", label: "Form fields" },
+  { key: "content", label: "Quotes, dividers, lists & selection" },
   { key: "interactive", label: "Buttons, links & icons" },
 ] as const;
 
@@ -369,7 +462,9 @@ export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
     role.startsWith("card") ||
     role.startsWith("subsection") ||
     role === "muted" ||
-    role === "highlight"
+    role === "highlight" ||
+    formattingColorRoles.some(({ key }) => key === role) ||
+    role in detailTokens
   ) {
     return (
       region === "page" || region === "hero" || region.startsWith("section")
@@ -408,6 +503,12 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
   if (card && (region === "page" || region.startsWith("section"))) {
     return `canvas-${suffix}-card-${card.card}${card.part === "background" ? "" : `-${card.part}`}`;
   }
+  if (role in detailTokens)
+    return region === "page" ||
+      region === "hero" ||
+      region.startsWith("section")
+      ? detailTokens[role as keyof typeof detailTokens].replace("%", suffix)
+      : null;
   switch (role) {
     case "background":
       return `canvas-${suffix}`;
@@ -439,6 +540,23 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
       return region === "hero" || region.startsWith("section")
         ? `ink-${suffix}-h4`
         : null;
+    case "strong":
+    case "em":
+    case "code":
+    case "pre":
+    case "codeBackground":
+    case "preBackground": {
+      if (
+        region !== "page" &&
+        region !== "hero" &&
+        !region.startsWith("section")
+      )
+        return null;
+      const part = role.replace("Background", "");
+      return role.endsWith("Background")
+        ? `canvas-${suffix}-${part}`
+        : `ink-${suffix}-${part}`;
+    }
     case "muted":
     case "highlight":
       return region === "page" ||
@@ -458,6 +576,17 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
     const fallback = defaultColorReference(region, card.part);
     return token ? `var(--${token},${fallback})` : fallback;
   }
+  if (role in detailFallbacks) {
+    const fallback = defaultColorReference(
+      region,
+      detailFallbacks[role as keyof typeof detailFallbacks],
+    );
+    return token ? `var(--${token},${fallback})` : fallback;
+  }
+  if (role in detailDefaults) {
+    const fallback = detailDefaults[role as keyof typeof detailDefaults];
+    return token ? `var(--${token},${fallback})` : fallback;
+  }
   if (token) return `var(--${token})`;
   switch (role) {
     case "secondary":
@@ -466,7 +595,14 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
     case "cardText":
     case "muted":
     case "highlight":
+    case "strong":
+    case "em":
+    case "code":
+    case "pre":
       return `var(--${semanticToken(region, "text")})`;
+    case "codeBackground":
+    case "preBackground":
+      return "transparent";
     case "h4":
       return "var(--sample-h3)";
     case "buttonHoverBackground":
@@ -546,12 +682,14 @@ export function parseStyleGroups(json: string): StyleGroup[] {
       data.version !== 10 &&
       data.version !== 11 &&
       data.version !== 12 &&
-      data.version !== 13) ||
+      data.version !== 13 &&
+      data.version !== 14 &&
+      data.version !== 15) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 13 style-group file with up to 100 groups.",
+      "Expected a version 1 through 15 style-group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -619,8 +757,12 @@ export function parseStyleGroups(json: string): StyleGroup[] {
             continue;
           }
           if (
-            data.version < 12 &&
-            version12ColorRoles.some((key) => key === role)
+            (data.version < 12 &&
+              version12ColorRoles.some((key) => key === role)) ||
+            (data.version < 14 &&
+              version14ColorRoles.some((key) => key === role)) ||
+            (data.version < 15 &&
+              version15ColorRoles.some((key) => key === role))
           ) {
             regionColors[role] = "theme";
             continue;
@@ -714,5 +856,5 @@ export function parseStyleGroups(json: string): StyleGroup[] {
 }
 
 export function serializeStyleGroups(groups: StyleGroup[]): string {
-  return JSON.stringify({ version: 13, groups }, null, 2);
+  return JSON.stringify({ version: 15, groups }, null, 2);
 }

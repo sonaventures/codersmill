@@ -245,6 +245,21 @@
   --color-ink-01-dark: var(--ink-01-dark);
   --color-ink-01-highlight: var(--ink-01-highlight);
   --color-ink-01-muted: var(--ink-01-muted);
+
+  /* Section 01 form fields, quotes, and dividers. Each falls back to the
+     color components used before, until the theme builder sets one. */
+  --color-ink-01-label: var(--ink-01-label, var(--ink-01));
+  --color-ink-01-input: var(--ink-01-input, var(--ink-01));
+  --color-canvas-01-input: var(--canvas-01-input, var(--canvas-01));
+  --color-canvas-01-input-card: var(
+    --canvas-01-input,
+    var(--canvas-01-card-01, var(--canvas-01))
+  );
+  --color-canvas-01-input-border: var(--canvas-01-input-border, var(--canvas-01-border));
+  --color-ink-01-placeholder: var(--ink-01-placeholder, var(--ink-01-muted));
+  --color-accent-01-input-focus: var(--accent-01-input-focus, var(--accent-01-focus));
+  --color-ink-01-blockquote: var(--ink-01-blockquote, var(--ink-01-muted));
+  --color-canvas-01-divider: var(--canvas-01-divider, var(--canvas-01-border));
   --color-ink-01-h1: var(--ink-01-h1);
   --color-ink-01-h2: var(--ink-01-h2);
   --color-ink-01-h3: var(--ink-01-h3);
@@ -720,6 +735,59 @@
   --ink-footer-h2: var(--ink-inverse);
   --ink-footer-h3: var(--ink-inverse);
   --nav-footer-item: var(--color-sky-100);
+
+
+  /* Text formatting (strong, em, code, pre) for each area. The defaults keep
+     the surrounding text color and no background, in both themes; the
+     theme builder's Text formatting controls change them. */
+  --ink-page-strong: currentColor;
+  --ink-page-em: currentColor;
+  --ink-page-code: currentColor;
+  --canvas-page-code: transparent;
+  --ink-page-pre: currentColor;
+  --canvas-page-pre: transparent;
+  --ink-hero-strong: currentColor;
+  --ink-hero-em: currentColor;
+  --ink-hero-code: currentColor;
+  --canvas-hero-code: transparent;
+  --ink-hero-pre: currentColor;
+  --canvas-hero-pre: transparent;
+  --ink-01-strong: currentColor;
+  --ink-01-em: currentColor;
+  --ink-01-code: currentColor;
+  --canvas-01-code: transparent;
+  --ink-01-pre: currentColor;
+  --canvas-01-pre: transparent;
+  --ink-02-strong: currentColor;
+  --ink-02-em: currentColor;
+  --ink-02-code: currentColor;
+  --canvas-02-code: transparent;
+  --ink-02-pre: currentColor;
+  --canvas-02-pre: transparent;
+  --ink-03-strong: currentColor;
+  --ink-03-em: currentColor;
+  --ink-03-code: currentColor;
+  --canvas-03-code: transparent;
+  --ink-03-pre: currentColor;
+  --canvas-03-pre: transparent;
+  --ink-04-strong: currentColor;
+  --ink-04-em: currentColor;
+  --ink-04-code: currentColor;
+  --canvas-04-code: transparent;
+  --ink-04-pre: currentColor;
+  --canvas-04-pre: transparent;
+  --ink-05-strong: currentColor;
+  --ink-05-em: currentColor;
+  --ink-05-code: currentColor;
+  --canvas-05-code: transparent;
+  --ink-05-pre: currentColor;
+  --canvas-05-pre: transparent;
+  --ink-06-strong: currentColor;
+  --ink-06-em: currentColor;
+  --ink-06-code: currentColor;
+  --canvas-06-code: transparent;
+  --ink-06-pre: currentColor;
+  --canvas-06-pre: transparent;
 
   color-scheme: light;
 }

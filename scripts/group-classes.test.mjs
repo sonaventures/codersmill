@@ -116,3 +116,47 @@ test("the page builder reads every group class with its area", () => {
   assert.ok(!classes.some(({ className }) => className === "sg-fake-hero"));
   assert.deepEqual(parseGroupClasses(""), []);
 });
+
+test("text formatting colors carry into group classes", () => {
+  const saved = group();
+  saved.themes.light.section2.strong = "var(--color-rose-600)";
+  saved.themes.dark.section2.codeBackground = "var(--color-slate-800)";
+  const css = generateGroupCss(saved);
+  const light = ruleFor(
+    css,
+    ':root:not([data-theme="dark"]) .sg-coastal-calm-section-2',
+  );
+  assert.match(light, /--ink-02-strong: var\(--color-rose-600\);/);
+  assert.match(light, /--ink-01-strong: var\(--color-rose-600\);/);
+  assert.match(light, /--canvas-01-code: var\(--canvas-02-code\);/);
+  const dark = ruleFor(
+    css,
+    ':root[data-theme="dark"] .sg-coastal-calm-section-2',
+  );
+  assert.match(dark, /--canvas-01-code: var\(--color-slate-800\);/);
+});
+
+test("form colors map onto section 01 and selection becomes a ::selection rule", () => {
+  const saved = group();
+  saved.themes.light.hero.inputBorder = "var(--color-sky-400)";
+  saved.themes.light.hero.selectionBackground = "var(--color-yellow-200)";
+  const css = generateGroupCss(saved);
+  const hero = ruleFor(
+    css,
+    ':root:not([data-theme="dark"]) .sg-coastal-calm-hero',
+  );
+  assert.match(hero, /--canvas-hero-input-border: var\(--color-sky-400\);/);
+  assert.match(hero, /--canvas-01-input-border: var\(--color-sky-400\);/);
+  // Unset form colors point at the hero's, which fall back in the component.
+  assert.match(hero, /--ink-01-label: var\(--ink-hero-label\);/);
+  assert.doesNotMatch(hero, /selection/);
+  assert.ok(
+    css.includes(
+      ':root:not([data-theme="dark"]) .sg-coastal-calm-hero ::selection,\n:root:not([data-theme="dark"]) .sg-coastal-calm-hero::selection {\n  background-color: var(--color-yellow-200);\n}',
+    ),
+  );
+  assert.ok(
+    !css.includes(':root[data-theme="dark"] .sg-coastal-calm-hero ::selection'),
+  );
+  assert.equal(parseGroupClasses(upsertGroupCss("", saved)).length, 8);
+});

@@ -26,6 +26,45 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  /* Text formatting colors from the theme builder. Components use the
+     section 01 variables, which style group classes remap for each area. */
+  strong {
+    color: var(--ink-01-strong);
+  }
+
+  em {
+    color: var(--ink-01-em);
+  }
+
+  code {
+    color: var(--ink-01-code);
+    background-color: var(--canvas-01-code);
+  }
+
+  pre {
+    color: var(--ink-01-pre);
+    background-color: var(--canvas-01-pre);
+  }
+
+  pre code {
+    color: inherit;
+    background-color: transparent;
+  }
+
+  /* Quote borders, dividers, and list bullets. Until the theme builder sets
+     a color they keep the browser default (the text color). */
+  blockquote {
+    border-color: var(--canvas-01-blockquote-border, currentColor);
+  }
+
+  hr {
+    border-color: var(--canvas-01-divider, currentColor);
+  }
+
+  li::marker {
+    color: var(--ink-01-marker, currentColor);
+  }
+
   a:focus-visible,
   button:focus-visible {
     @apply outline-3 outline-offset-4 outline-accent-page-focus;

@@ -1,0 +1,35 @@
+---
+// Theme builder preview of form fields, quotes, lists, and dividers. Each
+// element opens its color control when clicked. The label is linked with
+// aria-labelledby, not for=, so clicking it opens the label's control rather
+// than forwarding the click to the input.
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div class="sample-extras">
+  <blockquote class="sample-quote" data-sample-role="blockquote">
+    “Good design is as little design as possible.”
+  </blockquote>
+  <ul class="sample-list" data-sample-role="listMarker">
+    <li>List bullets can take their own color</li>
+    <li>Select any text here to preview the selection colors</li>
+  </ul>
+  <hr class="sample-divider" data-sample-role="divider" />
+  <div class="sample-field">
+    <label id={`${id}-sample-email-label`} data-sample-role="label">
+      Email address
+    </label>
+    <input
+      id={`${id}-sample-email`}
+      aria-labelledby={`${id}-sample-email-label`}
+      type="email"
+      placeholder="you@example.com"
+      autocomplete="off"
+      data-sample-role="inputBorder"
+    />
+  </div>
+</div>

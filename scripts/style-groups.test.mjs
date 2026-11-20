@@ -78,7 +78,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeStyleGroups([saved]);
-  assert.equal(JSON.parse(json).version, 13);
+  assert.equal(JSON.parse(json).version, 15);
   assert.deepEqual(parseStyleGroups(json), [saved]);
 
   const old = group();
@@ -106,7 +106,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":14,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":16,"groups":[]}']) {
     assert.throws(() => parseStyleGroups(json));
   }
   assert.throws(
@@ -167,7 +167,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 13);
+  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 15);
 });
 
 test("brand and CTA assignments are page-wide and round-trip independently by theme", () => {
@@ -613,4 +613,96 @@ test("version 12 groups keep their contrast band and get the default band text",
   const edited = group();
   edited.themes.dark.global.contrastText = "var(--color-sky-50)";
   assert.deepEqual(parseStyleGroups(serializeStyleGroups([edited])), [edited]);
+});
+
+test("version 13 groups get theme defaults for text formatting colors", () => {
+  const saved = group();
+  saved.themes.light.section2.text = "#123456";
+  for (const theme of ["light", "dark"])
+    for (const region of Object.keys(saved.themes[theme]))
+      for (const role of [
+        "strong",
+        "em",
+        "code",
+        "codeBackground",
+        "pre",
+        "preBackground",
+      ])
+        delete saved.themes[theme][region]?.[role];
+  const [restored] = parseStyleGroups(
+    JSON.stringify({ version: 13, groups: [saved] }),
+  );
+  assert.equal(restored.themes.light.section2.text, "#123456");
+  assert.equal(restored.themes.light.section2.strong, "theme");
+  assert.equal(restored.themes.dark.hero.preBackground, "theme");
+
+  const edited = group();
+  edited.themes.light.hero.code = "var(--color-sky-700)";
+  edited.themes.dark.section4.preBackground = "transparent";
+  assert.deepEqual(parseStyleGroups(serializeStyleGroups([edited])), [edited]);
+});
+
+test("text formatting colors map to their own variables in each area", () => {
+  assert.equal(semanticToken("section1", "strong"), "ink-01-strong");
+  assert.equal(semanticToken("hero", "codeBackground"), "canvas-hero-code");
+  assert.equal(semanticToken("page", "pre"), "ink-page-pre");
+  assert.equal(semanticToken("header", "em"), null);
+  assert.ok(isColorRoleVisible("section3", "preBackground"));
+  assert.ok(!isColorRoleVisible("footer", "strong"));
+});
+
+test("version 14 groups get theme defaults for form, quote, list, and selection colors", () => {
+  const roles = [
+    "label",
+    "inputText",
+    "inputBackground",
+    "inputBorder",
+    "inputPlaceholder",
+    "inputFocus",
+    "blockquote",
+    "blockquoteBorder",
+    "divider",
+    "listMarker",
+    "selectionBackground",
+    "selectionText",
+  ];
+  const saved = group();
+  saved.themes.light.section1.strong = "#123456";
+  for (const theme of ["light", "dark"])
+    for (const region of Object.keys(saved.themes[theme]))
+      for (const role of roles) delete saved.themes[theme][region]?.[role];
+  const [restored] = parseStyleGroups(
+    JSON.stringify({ version: 14, groups: [saved] }),
+  );
+  assert.equal(restored.themes.light.section1.strong, "#123456");
+  for (const role of roles)
+    assert.equal(restored.themes.dark.hero[role], "theme", role);
+
+  const edited = group();
+  edited.themes.light.section5.inputBorder = "var(--color-sky-400)";
+  edited.themes.dark.page.selectionBackground = "var(--color-yellow-200)";
+  assert.deepEqual(parseStyleGroups(serializeStyleGroups([edited])), [edited]);
+});
+
+test("form and content colors fall back to the colors components used before", () => {
+  assert.equal(
+    semanticToken("section1", "inputBorder"),
+    "canvas-01-input-border",
+  );
+  assert.equal(semanticToken("hero", "label"), "ink-hero-label");
+  assert.equal(semanticToken("footer", "divider"), null);
+  assert.equal(
+    defaultColorReference("section1", "inputPlaceholder"),
+    "var(--ink-01-placeholder,var(--ink-01-muted))",
+  );
+  assert.equal(
+    defaultColorReference("section3", "divider"),
+    "var(--canvas-03-divider,var(--canvas-03-border))",
+  );
+  assert.equal(
+    defaultColorReference("hero", "listMarker"),
+    "var(--ink-hero-marker,currentColor)",
+  );
+  assert.ok(isColorRoleVisible("page", "selectionText"));
+  assert.ok(!isColorRoleVisible("header", "inputFocus"));
 });

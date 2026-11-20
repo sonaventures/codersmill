@@ -284,24 +284,72 @@
   color: var(--ink-contrast);
   @apply my-5 grid gap-1 rounded-lg p-5 text-[0.85rem];
 }
+.selector-shell .sample-extras {
+  @apply my-5 grid max-w-156 gap-4 text-[0.85rem];
+}
+.selector-shell .sample-quote {
+  color: var(--sample-blockquote);
+  border-left: 3px solid var(--sample-blockquoteBorder);
+  @apply m-0 pl-4 italic;
+}
+.selector-shell .sample-list {
+  @apply m-0 list-disc pl-5;
+}
+.selector-shell .sample-list li::marker {
+  color: var(--sample-listMarker);
+}
+.selector-shell .sample-divider {
+  border: 0;
+  border-top: 1px solid var(--sample-divider);
+  @apply m-0;
+}
+.selector-shell .sample-field {
+  @apply grid max-w-80 gap-1;
+}
+.selector-shell .sample-field label {
+  color: var(--sample-label);
+  @apply text-[0.75rem] font-semibold;
+}
+.selector-shell .sample-field input {
+  color: var(--sample-inputText);
+  background: var(--sample-inputBackground);
+  border: 1px solid var(--sample-inputBorder);
+  @apply rounded-md px-3 py-2;
+}
+.selector-shell .sample-field input::placeholder {
+  color: var(--sample-inputPlaceholder);
+}
+.selector-shell .sample-field input:focus {
+  outline: 2px solid var(--sample-inputFocus);
+  border-color: var(--sample-inputFocus);
+}
+.selector-shell [data-region] ::selection {
+  background: var(--sample-selectionBackground);
+  color: var(--sample-selectionText);
+}
 .selector-shell .sample-copy {
   @apply max-w-156;
 }
+.selector-shell .sample-copy strong {
+  color: var(--sample-strong);
+}
+.selector-shell .sample-copy em {
+  color: var(--sample-em);
+}
 .selector-shell .sample-copy code {
-  background: color-mix(in srgb, var(--sample-border) 28%, transparent);
+  background: var(--sample-codeBackground);
+  color: var(--sample-code);
   @apply rounded px-1 font-mono text-[0.8em];
 }
 .selector-shell .sample-code {
   @apply my-5 max-w-full overflow-x-auto rounded-lg p-4 text-[0.78rem] leading-[1.6];
   border: 1px solid var(--sample-border);
-  background: color-mix(
-    in srgb,
-    var(--sample-background) 85%,
-    var(--sample-text)
-  );
-  color: var(--sample-text);
+  background: var(--sample-preBackground);
+  color: var(--sample-pre);
 }
 .selector-shell .sample-code code {
+  background: transparent;
+  color: inherit;
   @apply font-mono;
 }
 .selector-shell .sample-buttons {

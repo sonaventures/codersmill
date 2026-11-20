@@ -1,6 +1,7 @@
 import {
   globalColorRoles,
   regionColorRoles,
+  selectionColorRoles,
   semanticToken,
   type Region,
   type StyleColors,
@@ -78,6 +79,7 @@ function areaDeclarations(colors: StyleColors, region: Region) {
   const declarations = new Map<string, string>();
   const area = colors[region];
   for (const { key: role } of regionColorRoles) {
+    if (selectionColorRoles.some((key) => key === role)) continue;
     const color = area[role];
     const own = semanticToken(region, role);
     if (own && color !== "theme") declarations.set(own, color);
@@ -125,6 +127,19 @@ export function generateGroupCss(group: StyleGroup): string {
             : "",
         ),
       );
+      // Selection colors only apply once chosen, so the browser's own
+      // highlight stays in place everywhere else.
+      const area = group.themes[theme][region];
+      const selection = [
+        area.selectionBackground !== "theme"
+          ? `  background-color: ${area.selectionBackground};`
+          : "",
+        area.selectionText !== "theme" ? `  color: ${area.selectionText};` : "",
+      ].filter(Boolean);
+      if (selection.length)
+        rules.push(
+          `${themeSelectors[theme]} .${className} ::selection,\n${themeSelectors[theme]} .${className}::selection {\n${selection.join("\n")}\n}`,
+        );
     }
   }
   return [
