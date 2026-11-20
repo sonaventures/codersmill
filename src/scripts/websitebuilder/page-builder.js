@@ -1,5 +1,6 @@
 import idCssFallback from "../../styles/themes/id.css?raw";
 import {
+  componentFolders,
   componentSavePath,
   generatePage,
   inspectComponent,
@@ -8,6 +9,7 @@ import {
   parseIdsFromCss,
   readComponents,
   readThemeIds,
+  rebaseComponentImports,
   saveComponentCopy,
   saveNewPage,
   validateSectionId,
@@ -36,6 +38,7 @@ const save = get("#save-component");
 const list = get("#selected-components");
 const empty = get("#selected-components-empty");
 const createdLink = get("#created-page-link");
+const folderOptions = get("#component-folders");
 let pageDirectory;
 let componentsRoot;
 let components = [];
@@ -97,6 +100,164 @@ function renderComponents() {
     }),
   );
   add.disabled = !components.some((component) => !component.error);
+  folderOptions.replaceChildren(
+    ...componentFolders(components)
+      .filter(Boolean)
+      .map((folder) => new Option(folder)),
+  );
+}
+
+// Writes a copy of `component` to src/components/<path>, with relative imports
+// adjusted for its new folder, and adds it to the component list.
+async function copyComponent(component, path) {
+  if (components.some((existing) => existing.path === path))
+    throw new Error(
+      `src/components/${path} already exists. Choose a different name or folder.`,
+    );
+  const source = rebaseComponentImports(component.source, component.path, path);
+  const handle = await saveComponentCopy(componentsRoot, path, source);
+  const copy = inspectComponent(path, source);
+  if (!copy || copy.error)
+    throw new Error(
+      `Saved src/components/${path}, but it cannot be selected: ${copy?.error ?? "the file name is reserved."}`,
+    );
+  const entry = { ...copy, handle, source };
+  const chosen = components[Number(available.value)];
+  components.push(entry);
+  components.sort((a, b) => a.path.localeCompare(b.path));
+  renderComponents();
+  if (chosen) available.value = String(components.indexOf(chosen));
+  return entry;
+}
+
+function copyPath(folder, fileName) {
+  const cleanFolder = folder.trim().replace(/^\/+|\/+$/g, "");
+  const cleanName = fileName.trim();
+  if (!cleanName) throw new Error("Enter a name for the copy.");
+  if (cleanName.includes("/"))
+    throw new Error("Put folders in the Folder field, not in the name.");
+  return componentSavePath(
+    cleanFolder ? `${cleanFolder}/${cleanName}` : cleanName,
+  );
+}
+
+function copyField(id, labelText, value, placeholder) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "grid min-w-[180px] flex-1 gap-1";
+  const label = document.createElement("label");
+  label.htmlFor = id;
+  label.className = "text-sm font-semibold";
+  label.textContent = labelText;
+  const input = document.createElement("input");
+  input.id = id;
+  input.value = value;
+  input.placeholder = placeholder;
+  input.maxLength = 200;
+  input.autocomplete = "off";
+  input.className =
+    "w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page";
+  wrapper.append(label, input);
+  return { wrapper, input };
+}
+
+// "Make a copy" form for one added component: choose a new name and folder,
+// save the copy, then switch this row to use it.
+function copyPanel(item, index, toggle) {
+  const panel = document.createElement("div");
+  panel.id = `component-${index}-copy`;
+  panel.className = "grid gap-3 rounded border border-canvas-page-border p-3";
+  panel.hidden = true;
+  const segments = item.component.path.split("/");
+  const original = segments.pop().replace(/\.astro$/, "");
+  const name = copyField(
+    `component-${index}-copy-name`,
+    "Name",
+    `${original}Copy`,
+    "For example, HomeHero",
+  );
+  const folder = copyField(
+    `component-${index}-copy-folder`,
+    "Folder in src/components (blank for the top level)",
+    segments.join("/"),
+    "For example, custom/home",
+  );
+  folder.input.setAttribute("list", folderOptions.id);
+  const preview = document.createElement("p");
+  preview.className = "text-sm";
+  preview.setAttribute("aria-live", "polite");
+  const fields = document.createElement("div");
+  fields.className = "flex flex-wrap gap-3";
+  fields.append(name.wrapper, folder.wrapper);
+
+  const saveCopy = document.createElement("button");
+  saveCopy.type = "button";
+  saveCopy.className = "btn btn-filled";
+  saveCopy.textContent = "Save copy";
+  const cancel = document.createElement("button");
+  cancel.type = "button";
+  cancel.className = "btn btn-outline";
+  cancel.textContent = "Cancel";
+  const buttons = document.createElement("div");
+  buttons.className = "flex flex-wrap gap-2";
+  buttons.append(saveCopy, cancel);
+
+  const updatePreview = () => {
+    try {
+      const path = copyPath(folder.input.value, name.input.value);
+      const taken = components.some((existing) => existing.path === path);
+      preview.textContent = taken
+        ? `src/components/${path} already exists. Choose a different name or folder.`
+        : `Saves to src/components/${path}`;
+      saveCopy.disabled = taken;
+    } catch (error) {
+      preview.textContent = error.message;
+      saveCopy.disabled = true;
+    }
+  };
+  name.input.addEventListener("input", updatePreview);
+  folder.input.addEventListener("input", updatePreview);
+  updatePreview();
+
+  const close = () => {
+    panel.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.focus();
+  };
+  cancel.addEventListener("click", close);
+  saveCopy.addEventListener("click", async () => {
+    if (busy) return;
+    setBusy(true);
+    const from = item.component.path;
+    try {
+      const copy = await copyComponent(
+        item.component,
+        copyPath(folder.input.value, name.input.value),
+      );
+      item.component = copy;
+      renderSelection();
+      list.children[index]
+        ?.querySelector('button[data-action="copy"]')
+        ?.focus();
+      status.textContent = `Saved src/components/${copy.path} as a copy of ${from}. This component now uses the copy.`;
+    } catch (error) {
+      report(error);
+    } finally {
+      setBusy(false);
+    }
+  });
+
+  panel.append(fields, preview, buttons);
+  toggle.addEventListener("click", () => {
+    const opening = panel.hidden;
+    panel.hidden = !opening;
+    toggle.setAttribute("aria-expanded", String(opening));
+    if (opening) {
+      updatePreview();
+      name.input.focus();
+      name.input.select();
+    }
+  });
+  return panel;
 }
 
 function actionButton(label, action, index, disabled = false) {
@@ -237,12 +398,24 @@ function renderSelection() {
 
     const actions = document.createElement("div");
     actions.className = "flex flex-wrap gap-2";
+    const copyToggle = document.createElement("button");
+    copyToggle.type = "button";
+    copyToggle.className = "btn btn-outline";
+    copyToggle.textContent = "Make a copy";
+    copyToggle.dataset.action = "copy";
+    copyToggle.setAttribute("aria-expanded", "false");
+    copyToggle.setAttribute("aria-controls", `component-${index}-copy`);
+    copyToggle.setAttribute(
+      "aria-label",
+      `Make a copy of ${item.component.path}`,
+    );
     actions.append(
       actionButton("Move up", "up", index, index === 0),
       actionButton("Move down", "down", index, index === selected.length - 1),
+      copyToggle,
       actionButton("Remove", "remove", index),
     );
-    row.append(actions);
+    row.append(actions, copyPanel(item, index, copyToggle));
     list.append(row);
   }
 }
@@ -358,23 +531,7 @@ save.addEventListener("click", async () => {
   setBusy(true);
   try {
     const path = componentSavePath(savePath.value);
-    if (components.some((existing) => existing.path === path))
-      throw new Error(
-        `src/components/${path} already exists. Choose a different name.`,
-      );
-    const handle = await saveComponentCopy(
-      componentsRoot,
-      path,
-      component.source,
-    );
-    const copy = inspectComponent(path, component.source);
-    if (!copy || copy.error)
-      throw new Error(
-        `Saved src/components/${path}, but it cannot be selected: ${copy?.error ?? "the file name is reserved."}`,
-      );
-    components.push({ ...copy, handle, source: component.source });
-    components.sort((a, b) => a.path.localeCompare(b.path));
-    renderComponents();
+    await copyComponent(component, path);
     available.value = String(
       components.findIndex((entry) => entry.path === path),
     );

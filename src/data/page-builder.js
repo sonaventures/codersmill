@@ -151,6 +151,71 @@ export function componentSavePath(input) {
   return path;
 }
 
+// Relative module specifiers: `from "./x"`, `import "./x"` and `import("./x")`.
+const relativeImportPattern =
+  /(\bfrom\s*|\bimport\s*\(?\s*)(["'])(\.\.?\/[^"'\n]*)\2/g;
+
+/**
+ * Rewrites relative imports in a component copied from `fromPath` to `toPath`
+ * (both relative to src/components) so they still resolve from the new folder.
+ */
+export function rebaseComponentImports(source, fromPath, toPath) {
+  const folder = (path) => [
+    "src",
+    "components",
+    ...path.split("/").slice(0, -1),
+  ];
+  const fromDir = folder(fromPath);
+  const toDir = folder(toPath);
+  if (fromDir.join("/") === toDir.join("/")) return source;
+  const rebase = (code) =>
+    code.replace(relativeImportPattern, (match, lead, quote, spec) => {
+      const target = [...fromDir];
+      for (const part of spec.split("/")) {
+        if (part === "." || part === "") continue;
+        if (part === "..") {
+          if (!target.length) return match;
+          target.pop();
+        } else target.push(part);
+      }
+      let shared = 0;
+      while (
+        shared < toDir.length &&
+        shared < target.length - 1 &&
+        toDir[shared] === target[shared]
+      )
+        shared++;
+      const rest = target.slice(shared).join("/");
+      const ups = toDir.length - shared;
+      const rebased =
+        (ups ? "../".repeat(ups) : "./") +
+        rest +
+        (spec.endsWith("/") ? "/" : "");
+      return `${lead}${quote}${rebased}${quote}`;
+    });
+  // Only touch code: the frontmatter and <script> blocks, never page text.
+  return source
+    .replace(
+      /^(---\s*\r?\n)([\s\S]*?)(\r?\n---)/,
+      (_, open, code, close) => `${open}${rebase(code)}${close}`,
+    )
+    .replace(
+      /(<script\b[^>]*>)([\s\S]*?)(<\/script>)/gi,
+      (_, open, code, close) => `${open}${rebase(code)}${close}`,
+    );
+}
+
+/** Every folder under src/components that already holds a component. */
+export function componentFolders(components) {
+  const folders = new Set([""]);
+  for (const { path } of components) {
+    const parts = path.split("/").slice(0, -1);
+    for (let i = 1; i <= parts.length; i++)
+      folders.add(parts.slice(0, i).join("/"));
+  }
+  return [...folders].sort((a, b) => a.localeCompare(b));
+}
+
 export async function saveComponentCopy(directory, path, content) {
   if (
     !componentPathPattern.test(path) ||

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  componentFolders,
   componentSavePath,
   generatePage,
   inspectComponent,
@@ -9,6 +10,7 @@ import {
   parseIdsFromCss,
   readComponents,
   readThemeIds,
+  rebaseComponentImports,
   saveComponentCopy,
   saveNewPage,
   validateSectionId,
@@ -450,4 +452,61 @@ test("reads theme IDs from project directory handle", async () => {
   assert.deepEqual(await readThemeIds(projectThemes), ["cta", "features"]);
 
   assert.deepEqual(await readThemeIds(null), []);
+});
+
+test("component copies keep relative imports working from their new folder", () => {
+  const source = `---
+import Cards from "./ThemeSampleCards.astro";
+import type { Region } from "../../data/style-groups";
+import "../styles/extra.css";
+import Layout from "astro:content";
+const lazy = await import("./lazy.js");
+---
+<p>Text that mentions from "./not-an-import" stays as written.</p>
+<script>
+  import "./client.js";
+</script>`;
+  const moved = rebaseComponentImports(
+    source,
+    "websitebuilder/ThemeSampleSection.astro",
+    "custom/home/HomeHero.astro",
+  );
+  assert.match(
+    moved,
+    /from "\.\.\/\.\.\/websitebuilder\/ThemeSampleCards\.astro"/,
+  );
+  assert.match(moved, /from "\.\.\/\.\.\/\.\.\/data\/style-groups"/);
+  assert.match(moved, /import "\.\.\/\.\.\/styles\/extra\.css"/);
+  assert.match(moved, /import\("\.\.\/\.\.\/websitebuilder\/lazy\.js"\)/);
+  assert.match(moved, /from "astro:content"/);
+  assert.match(moved, /from "\.\/not-an-import" stays/);
+  assert.match(moved, /import "\.\.\/\.\.\/websitebuilder\/client\.js"/);
+
+  const topLevel = rebaseComponentImports(
+    source,
+    "websitebuilder/ThemeSampleSection.astro",
+    "HomeHero.astro",
+  );
+  assert.match(topLevel, /from "\.\/websitebuilder\/ThemeSampleCards\.astro"/);
+  assert.match(topLevel, /from "\.\.\/data\/style-groups"/);
+
+  assert.equal(
+    rebaseComponentImports(
+      source,
+      "websitebuilder/A.astro",
+      "websitebuilder/B.astro",
+    ),
+    source,
+  );
+});
+
+test("lists every component folder, including parents, for copy suggestions", () => {
+  assert.deepEqual(
+    componentFolders([
+      { path: "Hero.astro" },
+      { path: "custom/home/Banner.astro" },
+      { path: "websitebuilder/Card.astro" },
+    ]),
+    ["", "custom", "custom/home", "websitebuilder"],
+  );
 });

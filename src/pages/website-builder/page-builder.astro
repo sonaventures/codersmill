@@ -139,7 +139,14 @@ import Layout from "../../layouts/website-builder.astro";
             Components in page order
           </h2>
           <p id="selected-components-empty">No components added yet.</p>
+          <p class="text-sm">
+            Use <strong>Make a copy</strong> on a component to save it under a
+            new name and folder in <code>src/components</code>. That component
+            then uses the copy, so you can customize it without changing the
+            original.
+          </p>
           <ol id="selected-components" class="grid list-none gap-4 p-0"></ol>
+          <datalist id="component-folders"></datalist>
         </section>
         <button
           class="btn btn-filled justify-self-start"
