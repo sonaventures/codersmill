@@ -20,6 +20,11 @@
   --ink-01-h3: var(--ink-page-third-header);
   --ink-01-muted: var(--ink-page-muted);
   --ink-01-highlight: var(--ink-page-highlight);
+  --accent-01-secondary: var(--accent-page-secondary);
+  --accent-01-secondary-text: var(--accent-page-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-page-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-page-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-page-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-page-card-01);
   --canvas-01-card-01-border: var(--canvas-page-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-page-card-01-shadow);
@@ -62,6 +67,11 @@
   --ink-01-h3: var(--ink-page-third-header);
   --ink-01-muted: var(--ink-page-muted);
   --ink-01-highlight: var(--ink-page-highlight);
+  --accent-01-secondary: var(--accent-page-secondary);
+  --accent-01-secondary-text: var(--accent-page-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-page-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-page-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-page-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-page-card-01);
   --canvas-01-card-01-border: var(--canvas-page-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-page-card-01-shadow);
@@ -112,6 +122,11 @@
   --ink-01-muted: var(--ink-hero-muted);
   --ink-hero-highlight: var(--color-energeticorange-700);
   --ink-01-highlight: var(--color-energeticorange-700);
+  --accent-01-secondary: var(--accent-hero-secondary);
+  --accent-01-secondary-text: var(--accent-hero-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-hero-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-hero-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-hero-secondary-hover-text);
   --ink-hero-strong: var(--color-platinum-950);
   --ink-01-strong: var(--color-platinum-950);
   --ink-hero-em: var(--color-platinum-800);
@@ -146,6 +161,11 @@
   --ink-01-h4: var(--ink-hero-h4);
   --ink-01-muted: var(--ink-hero-muted);
   --ink-01-highlight: var(--ink-hero-highlight);
+  --accent-01-secondary: var(--accent-hero-secondary);
+  --accent-01-secondary-text: var(--accent-hero-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-hero-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-hero-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-hero-secondary-hover-text);
   --ink-01-strong: var(--ink-hero-strong);
   --ink-01-em: var(--ink-hero-em);
   --ink-01-code: var(--ink-hero-code);
@@ -184,6 +204,11 @@
   --ink-01-h4: var(--ink-02-h4);
   --ink-01-muted: var(--ink-02-muted);
   --ink-01-highlight: var(--ink-02-highlight);
+  --accent-01-secondary: var(--accent-02-secondary);
+  --accent-01-secondary-text: var(--accent-02-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-02-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-02-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-02-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-02-card-01);
   --canvas-01-card-01-border: var(--canvas-02-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-02-card-01-shadow);
@@ -225,6 +250,11 @@
   --ink-01-h4: var(--ink-02-h4);
   --ink-01-muted: var(--ink-02-muted);
   --ink-01-highlight: var(--ink-02-highlight);
+  --accent-01-secondary: var(--accent-02-secondary);
+  --accent-01-secondary-text: var(--accent-02-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-02-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-02-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-02-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-02-card-01);
   --canvas-01-card-01-border: var(--canvas-02-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-02-card-01-shadow);
@@ -266,6 +296,11 @@
   --ink-01-h4: var(--ink-03-h4);
   --ink-01-muted: var(--ink-03-muted);
   --ink-01-highlight: var(--ink-03-highlight);
+  --accent-01-secondary: var(--accent-03-secondary);
+  --accent-01-secondary-text: var(--accent-03-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-03-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-03-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-03-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-03-card-01);
   --canvas-01-card-01-border: var(--canvas-03-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-03-card-01-shadow);
@@ -307,6 +342,11 @@
   --ink-01-h4: var(--ink-03-h4);
   --ink-01-muted: var(--ink-03-muted);
   --ink-01-highlight: var(--ink-03-highlight);
+  --accent-01-secondary: var(--accent-03-secondary);
+  --accent-01-secondary-text: var(--accent-03-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-03-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-03-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-03-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-03-card-01);
   --canvas-01-card-01-border: var(--canvas-03-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-03-card-01-shadow);
@@ -348,6 +388,11 @@
   --ink-01-h4: var(--ink-04-h4);
   --ink-01-muted: var(--ink-04-muted);
   --ink-01-highlight: var(--ink-04-highlight);
+  --accent-01-secondary: var(--accent-04-secondary);
+  --accent-01-secondary-text: var(--accent-04-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-04-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-04-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-04-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-04-card-01);
   --canvas-01-card-01-border: var(--canvas-04-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-04-card-01-shadow);
@@ -389,6 +434,11 @@
   --ink-01-h4: var(--ink-04-h4);
   --ink-01-muted: var(--ink-04-muted);
   --ink-01-highlight: var(--ink-04-highlight);
+  --accent-01-secondary: var(--accent-04-secondary);
+  --accent-01-secondary-text: var(--accent-04-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-04-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-04-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-04-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-04-card-01);
   --canvas-01-card-01-border: var(--canvas-04-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-04-card-01-shadow);
@@ -430,6 +480,11 @@
   --ink-01-h4: var(--ink-05-h4);
   --ink-01-muted: var(--ink-05-muted);
   --ink-01-highlight: var(--ink-05-highlight);
+  --accent-01-secondary: var(--accent-05-secondary);
+  --accent-01-secondary-text: var(--accent-05-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-05-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-05-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-05-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-05-card-01);
   --canvas-01-card-01-border: var(--canvas-05-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-05-card-01-shadow);
@@ -471,6 +526,11 @@
   --ink-01-h4: var(--ink-05-h4);
   --ink-01-muted: var(--ink-05-muted);
   --ink-01-highlight: var(--ink-05-highlight);
+  --accent-01-secondary: var(--accent-05-secondary);
+  --accent-01-secondary-text: var(--accent-05-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-05-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-05-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-05-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-05-card-01);
   --canvas-01-card-01-border: var(--canvas-05-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-05-card-01-shadow);
@@ -512,6 +572,11 @@
   --ink-01-h4: var(--ink-06-h4);
   --ink-01-muted: var(--ink-06-muted);
   --ink-01-highlight: var(--ink-06-highlight);
+  --accent-01-secondary: var(--accent-06-secondary);
+  --accent-01-secondary-text: var(--accent-06-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-06-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-06-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-06-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-06-card-01);
   --canvas-01-card-01-border: var(--canvas-06-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-06-card-01-shadow);
@@ -553,6 +618,11 @@
   --ink-01-h4: var(--ink-06-h4);
   --ink-01-muted: var(--ink-06-muted);
   --ink-01-highlight: var(--ink-06-highlight);
+  --accent-01-secondary: var(--accent-06-secondary);
+  --accent-01-secondary-text: var(--accent-06-secondary-text);
+  --accent-01-secondary-shadow: var(--accent-06-secondary-shadow);
+  --accent-01-secondary-hover: var(--accent-06-secondary-hover);
+  --accent-01-secondary-hover-text: var(--accent-06-secondary-hover-text);
   --canvas-01-card-01: var(--canvas-06-card-01);
   --canvas-01-card-01-border: var(--canvas-06-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-06-card-01-shadow);
@@ -578,5 +648,11 @@
   --canvas-01-blockquote-border: var(--canvas-06-blockquote-border);
   --canvas-01-divider: var(--canvas-06-divider);
   --ink-01-marker: var(--ink-06-marker);
+}
+.sg-sample-hero h1 {
+  font-family: var(--font-roboto);
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 /* end theme-group: sample */
