@@ -7,3 +7,6 @@ dist/
 .env.*
 !.env.example
 .dev.vars*
+
+# Claude Code local settings
+.claude/
