@@ -49,6 +49,12 @@ export const globalColorRoles = [
     token: "cta-02",
     group: "cta",
   },
+  {
+    key: "contrastCanvas",
+    label: "Contrast band background",
+    token: "canvas-contrast",
+    group: "contrast",
+  },
 ] as const;
 
 export const cardCanvasRoles = [
@@ -192,6 +198,8 @@ export const regionColorRoles = [
   { key: "h2", label: "H2 heading", group: "ink" },
   { key: "h3", label: "H3 heading", group: "ink" },
   { key: "h4", label: "H4 heading", group: "ink" },
+  { key: "muted", label: "Muted text", group: "ink" },
+  { key: "highlight", label: "Highlight text", group: "ink" },
   { key: "secondary", label: "Secondary button", group: "accent" },
   { key: "secondaryText", label: "Secondary button text", group: "accent" },
   ...cardCanvasRoles,
@@ -208,11 +216,15 @@ const recentRegionColorRoles = [
   "subsectionShadow",
 ] as const;
 
+// Added in version 12; older groups use the theme default for these.
+const version12ColorRoles = ["muted", "highlight", "contrastCanvas"] as const;
+
 export const colorRoles = [...globalColorRoles, ...regionColorRoles];
 
 export const roleGroups = [
   { key: "brand", label: "Brand / page-wide" },
   { key: "cta", label: "CTA / page-wide" },
+  { key: "contrast", label: "Contrast band / page-wide" },
   { key: "canvas", label: "Canvas" },
   { key: "accent", label: "Accent" },
   { key: "ink", label: "Ink" },
@@ -345,7 +357,12 @@ export function isGlobalColorRole(role: ColorRole): role is GlobalColorRole {
 
 export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
   if (isGlobalColorRole(role)) return region === "page";
-  if (role.startsWith("card") || role.startsWith("subsection")) {
+  if (
+    role.startsWith("card") ||
+    role.startsWith("subsection") ||
+    role === "muted" ||
+    role === "highlight"
+  ) {
     return (
       region === "page" || region === "hero" || region.startsWith("section")
     );
@@ -414,6 +431,13 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
       return region === "hero" || region.startsWith("section")
         ? `ink-${suffix}-h4`
         : null;
+    case "muted":
+    case "highlight":
+      return region === "page" ||
+        region === "hero" ||
+        region.startsWith("section")
+        ? `ink-${suffix}-${role}`
+        : null;
     default:
       return null;
   }
@@ -432,6 +456,8 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
       return `var(--${semanticToken(region, "background")})`;
     case "secondaryText":
     case "cardText":
+    case "muted":
+    case "highlight":
       return `var(--${semanticToken(region, "text")})`;
     case "h4":
       return "var(--sample-h3)";
@@ -510,12 +536,13 @@ export function parseStyleGroups(json: string): StyleGroup[] {
       data.version !== 8 &&
       data.version !== 9 &&
       data.version !== 10 &&
-      data.version !== 11) ||
+      data.version !== 11 &&
+      data.version !== 12) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 11 style-group file with up to 100 groups.",
+      "Expected a version 1 through 12 style-group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -550,6 +577,13 @@ export function parseStyleGroups(json: string): StyleGroup[] {
         if (!isRecord(global))
           throw new Error(`Missing brand/CTA colors in "${name}".`);
         for (const { key } of globalColorRoles) {
+          if (
+            data.version < 12 &&
+            version12ColorRoles.some((role) => role === key)
+          ) {
+            colors.global[key] = "theme";
+            continue;
+          }
           const color = global[key];
           if (!isColorValue(color))
             throw new Error(`Invalid ${key} color in "${name}".`);
@@ -569,6 +603,13 @@ export function parseStyleGroups(json: string): StyleGroup[] {
           if (
             data.version < 7 &&
             interactiveColorRoles.some(({ key }) => key === role)
+          ) {
+            regionColors[role] = "theme";
+            continue;
+          }
+          if (
+            data.version < 12 &&
+            version12ColorRoles.some((key) => key === role)
           ) {
             regionColors[role] = "theme";
             continue;
@@ -662,5 +703,5 @@ export function parseStyleGroups(json: string): StyleGroup[] {
 }
 
 export function serializeStyleGroups(groups: StyleGroup[]): string {
-  return JSON.stringify({ version: 11, groups }, null, 2);
+  return JSON.stringify({ version: 12, groups }, null, 2);
 }

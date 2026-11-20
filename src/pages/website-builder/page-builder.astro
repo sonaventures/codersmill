@@ -66,6 +66,20 @@ import Layout from "../../layouts/website-builder.astro";
           ></textarea>
         </div>
         <div class="grid gap-2">
+          <label for="page-style-class" class="font-semibold">
+            Page style group (optional)
+          </label>
+          <p class="text-sm">
+            Wraps the whole page, between the header and footer, in a page class
+            saved by the theme builder in
+            <code>src/styles/themes/groups.css</code>.
+          </p>
+          <select
+            id="page-style-class"
+            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+          ></select>
+        </div>
+        <div class="grid gap-2">
           <label for="available-components" class="font-semibold">
             Available components
           </label>
@@ -102,36 +116,82 @@ import Layout from "../../layouts/website-builder.astro";
               />
             </div>
           </div>
+          <div class="grid gap-2">
+            <label for="component-style-class" class="text-sm font-semibold">
+              Style group (optional)
+            </label>
+            <p class="text-sm">
+              Colors this component with a hero or section class from a style
+              group saved by the theme builder.
+            </p>
+            <select
+              id="component-style-class"
+              class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+            ></select>
+          </div>
+          <div class="grid gap-3 rounded border border-canvas-page-border p-4">
+            <label class="flex items-center gap-2 text-sm font-semibold">
+              <input
+                type="checkbox"
+                id="copy-before-add"
+                aria-controls="copy-before-add-fields"
+              />
+              Save a copy before adding (optional)
+            </label>
+            <p class="text-sm">
+              Saves the component under a new name in a folder of your choice
+              inside <code>src/components</code>, then adds the copy to the
+              page. The original stays unchanged.
+            </p>
+            <div id="copy-before-add-fields" class="grid gap-3" hidden>
+              <div class="flex flex-wrap gap-3">
+                <div class="grid min-w-[180px] flex-1 gap-1">
+                  <label for="copy-name" class="text-sm font-semibold">
+                    Name
+                  </label>
+                  <input
+                    id="copy-name"
+                    maxlength="120"
+                    autocomplete="off"
+                    placeholder="For example, HomeHero"
+                    class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+                  />
+                </div>
+                <div class="grid min-w-[180px] flex-1 gap-1">
+                  <label for="copy-folder" class="text-sm font-semibold">
+                    Folder in src/components
+                  </label>
+                  <select
+                    id="copy-folder"
+                    class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+                  ></select>
+                </div>
+                <div
+                  class="grid min-w-[180px] flex-1 gap-1"
+                  id="copy-new-folder-field"
+                  hidden
+                >
+                  <label for="copy-new-folder" class="text-sm font-semibold">
+                    New folder
+                  </label>
+                  <input
+                    id="copy-new-folder"
+                    maxlength="150"
+                    autocomplete="off"
+                    placeholder="For example, custom/home"
+                    class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+                  />
+                </div>
+              </div>
+              <p id="copy-path-preview" class="text-sm" aria-live="polite"></p>
+            </div>
+          </div>
           <button
             class="btn btn-outline justify-self-start"
             type="button"
             id="add-component"
           >
             Add component
-          </button>
-        </div>
-        <div class="grid gap-2">
-          <label for="component-save-path" class="font-semibold">
-            Save a copy of the selected component (optional)
-          </label>
-          <p class="text-sm">
-            Copies the component selected above to a new file under
-            <code>src/components</code> so you can rename and customize it. The
-            original template stays unchanged. Use <code>/</code> for
-            subfolders, for example <code>custom/my-hero</code>.
-          </p>
-          <input
-            id="component-save-path"
-            maxlength="200"
-            placeholder="For example, custom/my-hero"
-            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
-          />
-          <button
-            class="btn btn-outline justify-self-start"
-            type="button"
-            id="save-component"
-          >
-            Save component copy
           </button>
         </div>
         <section class="grid gap-3" aria-labelledby="selected-components-title">

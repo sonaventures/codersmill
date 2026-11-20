@@ -14,6 +14,7 @@ import {
   saveComponentCopy,
   saveNewPage,
   validateSectionId,
+  validateStyleClass,
 } from "../src/data/page-builder.js";
 
 test("discovers simple component properties and reports unsupported components", () => {
@@ -508,5 +509,60 @@ test("lists every component folder, including parents, for copy suggestions", ()
       { path: "websitebuilder/Card.astro" },
     ]),
     ["", "custom", "custom/home", "websitebuilder"],
+  );
+});
+
+test("style group classes wrap components and the whole page", () => {
+  const hero = { path: "Hero.astro", properties: [] };
+  const cards = { path: "Cards.astro", properties: [] };
+  const page = generatePage(
+    "Classes",
+    "",
+    [
+      {
+        component: hero,
+        values: {},
+        sectionId: "intro",
+        styleClass: "sg-coastal-calm-hero",
+      },
+      { component: cards, values: {}, styleClass: "sg-coastal-calm-section-2" },
+      { component: cards, values: {} },
+    ],
+    "sg-coastal-calm-page",
+  );
+  assert.ok(
+    page.includes(`<Layout title={"Classes"}>
+  <div class="sg-coastal-calm-page">
+    <section id="intro" class="sg-coastal-calm-hero">
+      <Component1 />
+    </section>
+    <section class="sg-coastal-calm-section-2">
+      <Component2 />
+    </section>
+    <Component2 />
+  </div>
+</Layout>`),
+    page,
+  );
+
+  for (const bad of [
+    "coastal-hero",
+    "sg-x-footer",
+    'sg-x-hero" onload="x',
+    "",
+  ]) {
+    assert.throws(() => validateStyleClass(bad), /not a style group class/);
+  }
+  assert.throws(
+    () =>
+      generatePage("Bad", "", [
+        { component: hero, values: {}, styleClass: 'sg-a-hero" x="' },
+      ]),
+    /not a style group class/,
+  );
+  assert.throws(
+    () =>
+      generatePage("Bad", "", [{ component: hero, values: {} }], "sg-a-footer"),
+    /not a style group class/,
   );
 });

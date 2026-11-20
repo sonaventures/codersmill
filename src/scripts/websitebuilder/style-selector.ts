@@ -34,6 +34,16 @@ import {
   usesTailwindPaletteOnly,
 } from "./palette-preference";
 import { initSectionIds } from "./theme-section-ids";
+import {
+  chooseThemesDirectory,
+  readTextFile,
+  writeTextFile,
+} from "./project-themes";
+import {
+  classGroupAreas,
+  groupClassSlug,
+  upsertGroupCss,
+} from "../../data/group-classes";
 
 setPaletteFamilies(readPalette(css));
 const root = document.querySelector<HTMLElement>("[data-selector]");
@@ -68,6 +78,8 @@ if (root) {
   const saveButton = get<HTMLButtonElement>("#save-group");
   const deleteButton = get<HTMLButtonElement>("#delete-group");
   const exportButton = get<HTMLButtonElement>("#export-groups");
+  const publishButton = get<HTMLButtonElement>("#publish-group-classes");
+  let themesFolder: FileSystemDirectoryHandle | undefined;
   const importButton = get<HTMLButtonElement>("#import-groups");
   const fileInput = get<HTMLInputElement>("#import-file");
   const paletteFamily = get<HTMLSelectElement>("#palette-family");
@@ -232,7 +244,7 @@ if (root) {
       get<HTMLElement>(
         `[data-control-group="${group.key}"] legend`,
       ).textContent =
-        group.key === "brand" || group.key === "cta"
+        group.key === "brand" || group.key === "cta" || group.key === "contrast"
           ? group.label
           : `${group.label} / ${selectedArea.label}`;
       const targetGroup = get<HTMLOptGroupElement>(
@@ -383,6 +395,10 @@ if (root) {
   }
 
   function previewTargetRole(target: HTMLElement): ColorRole {
+    const sampleRole = colorRoles.find(
+      ({ key }) => key === target.dataset.sampleRole,
+    );
+    if (sampleRole) return sampleRole.key;
     if (
       target.matches(".sample-heading-level") &&
       target.nextElementSibling instanceof HTMLElement
@@ -433,7 +449,7 @@ if (root) {
 
   const nativePreviewControls = "button, a, summary";
   const previewTargets = preview.querySelectorAll<HTMLElement>(
-    "[data-region], .sample-card, .sample-subsection, .sample-buttons button, .sample-logo .text-brand-01, .sample-logo .text-brand-02, .sample-navigation summary, a:not(.sample-logo), p, .sample-code, .sample-heading-level, h1, h2, h3, h4",
+    "[data-region], [data-sample-role], .sample-card, .sample-subsection, .sample-buttons button, .sample-logo .text-brand-01, .sample-logo .text-brand-02, .sample-navigation summary, a:not(.sample-logo), p, .sample-code, .sample-heading-level, h1, h2, h3, h4",
   );
   for (const target of previewTargets) {
     const role = previewTargetRole(target);
@@ -555,6 +571,7 @@ if (root) {
     deleteButton.disabled = !selectedId || !storageReady;
     importButton.disabled = !storageReady;
     exportButton.disabled = !groups.length;
+    publishButton.disabled = !selectedId;
   }
 
   function persist(next: StyleGroup[]) {
@@ -801,6 +818,40 @@ if (root) {
     message(
       `Exported ${groups.length} saved style group(s), including colors, global corner radii, and section IDs. Unsaved preview changes are not included.`,
     );
+  });
+  publishButton.addEventListener("click", async () => {
+    const group = groups.find(({ id }) => id === selectedId);
+    if (!group) {
+      message("Save or load a style group first, then save its classes.");
+      return;
+    }
+    if (dirty) {
+      message(
+        `"${group.name}" has unsaved changes. Select Update group first so the classes match what you see.`,
+      );
+      return;
+    }
+    publishButton.disabled = true;
+    try {
+      const slug = groupClassSlug(group.name);
+      themesFolder ??= await chooseThemesDirectory();
+      const css = await readTextFile(themesFolder, "groups.css");
+      await writeTextFile(
+        themesFolder,
+        "groups.css",
+        upsertGroupCss(css, group),
+      );
+      const names = classGroupAreas.map(({ suffix }) => `sg-${slug}-${suffix}`);
+      message(
+        `Saved classes for "${group.name}" to src/styles/themes/groups.css: ${names[0]}, ${names[1]}, and ${names[2]} through ${names.at(-1)}.`,
+      );
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError")
+        message("Folder selection cancelled. No classes were saved.");
+      else reportError("Unable to save the classes.", error);
+    } finally {
+      publishButton.disabled = !selectedId;
+    }
   });
   importButton.addEventListener("click", () => fileInput.click());
   fileInput.addEventListener("change", async () => {

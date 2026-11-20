@@ -297,8 +297,20 @@ function literal(value) {
   );
 }
 
-export function generatePage(name, description, selected) {
+// Style group classes from src/styles/themes/groups.css, e.g. sg-coastal-calm-hero.
+const styleClassPattern =
+  /^sg-[a-z0-9]+(?:-[a-z0-9]+)*-(?:page|hero|section-[1-6])$/;
+
+export function validateStyleClass(value) {
+  if (typeof value !== "string" || !styleClassPattern.test(value))
+    throw new Error(
+      `"${value}" is not a style group class from src/styles/themes/groups.css.`,
+    );
+}
+
+export function generatePage(name, description, selected, pageClass = "") {
   pageSlug(name);
+  if (pageClass) validateStyleClass(pageClass);
   if (typeof description !== "string")
     throw new Error("The page description must be text.");
   if (!Array.isArray(selected) || selected.length === 0)
@@ -323,44 +335,59 @@ export function generatePage(name, description, selected) {
   }
 
   const imports = new Map();
-  const elements = selected.map(({ component, values, sectionId }) => {
-    if (
-      !component ||
-      component.error ||
-      !componentPathPattern.test(component.path) ||
-      excludedComponents.has(component.path.split("/").at(-1)) ||
-      !Array.isArray(component.properties)
-    )
-      throw new Error("A selected component is not supported.");
-    if (!values || typeof values !== "object")
-      throw new Error(`Enter properties for ${component.path}.`);
-    if (!imports.has(component.path))
-      imports.set(component.path, `Component${imports.size + 1}`);
-    const attributes = component.properties.map((property) => {
-      const { name: key, type, optional } = property;
-      if (!propertyPattern.test(`${key}${optional ? "?" : ""}: ${type}`))
-        throw new Error(`Unsupported property in ${component.path}.`);
-      const value = values[key];
-      if (value === undefined || value === "") {
-        if (optional) return "";
-        throw new Error(`Enter ${key} for ${component.path}.`);
-      }
+  const elements = selected.map(
+    ({ component, values, sectionId, styleClass }) => {
       if (
-        typeof value !== type ||
-        (type === "number" && !Number.isFinite(value))
+        !component ||
+        component.error ||
+        !componentPathPattern.test(component.path) ||
+        excludedComponents.has(component.path.split("/").at(-1)) ||
+        !Array.isArray(component.properties)
       )
-        throw new Error(`Invalid ${key} for ${component.path}.`);
-      if (type === "string" && !value.trim() && !optional)
-        throw new Error(`Enter ${key} for ${component.path}.`);
-      return ` ${key}={${literal(value)}}`;
-    });
-    const element = `  <${imports.get(component.path)}${attributes.join("")} />`;
-    if (sectionId && typeof sectionId === "string" && sectionId.trim()) {
-      const cleanId = sectionId.trim().replace(/^#/, "");
-      return `  <section id=${literal(cleanId)}>\n  ${element}\n  </section>`;
-    }
-    return element;
-  });
+        throw new Error("A selected component is not supported.");
+      if (!values || typeof values !== "object")
+        throw new Error(`Enter properties for ${component.path}.`);
+      if (!imports.has(component.path))
+        imports.set(component.path, `Component${imports.size + 1}`);
+      const attributes = component.properties.map((property) => {
+        const { name: key, type, optional } = property;
+        if (!propertyPattern.test(`${key}${optional ? "?" : ""}: ${type}`))
+          throw new Error(`Unsupported property in ${component.path}.`);
+        const value = values[key];
+        if (value === undefined || value === "") {
+          if (optional) return "";
+          throw new Error(`Enter ${key} for ${component.path}.`);
+        }
+        if (
+          typeof value !== type ||
+          (type === "number" && !Number.isFinite(value))
+        )
+          throw new Error(`Invalid ${key} for ${component.path}.`);
+        if (type === "string" && !value.trim() && !optional)
+          throw new Error(`Enter ${key} for ${component.path}.`);
+        return ` ${key}={${literal(value)}}`;
+      });
+      const element = `  <${imports.get(component.path)}${attributes.join("")} />`;
+      const wrapper = [];
+      if (sectionId && typeof sectionId === "string" && sectionId.trim())
+        wrapper.push(` id=${literal(sectionId.trim().replace(/^#/, ""))}`);
+      if (styleClass) {
+        validateStyleClass(styleClass);
+        wrapper.push(` class=${literal(styleClass)}`);
+      }
+      return wrapper.length
+        ? `  <section${wrapper.join("")}>\n  ${element}\n  </section>`
+        : element;
+    },
+  );
+  // A page style group wraps everything between the header and footer.
+  const body = pageClass
+    ? [
+        `  <div class=${literal(pageClass)}>`,
+        ...elements.map((element) => element.replace(/^/gm, "  ")),
+        "  </div>",
+      ]
+    : elements;
   const componentImports = [...imports].map(
     ([path, alias]) =>
       `import ${alias} from ${literal(`../components/${path}`)};`,
@@ -375,7 +402,7 @@ export function generatePage(name, description, selected) {
     "---",
     "",
     `<Layout title={${literal(name.trim())}}${layoutDescription}>`,
-    ...elements,
+    ...body,
     "</Layout>",
     "",
   ].join("\n");

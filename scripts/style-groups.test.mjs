@@ -78,7 +78,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeStyleGroups([saved]);
-  assert.equal(JSON.parse(json).version, 11);
+  assert.equal(JSON.parse(json).version, 12);
   assert.deepEqual(parseStyleGroups(json), [saved]);
 
   const old = group();
@@ -106,7 +106,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":12,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":13,"groups":[]}']) {
     assert.throws(() => parseStyleGroups(json));
   }
   assert.throws(
@@ -167,7 +167,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 11);
+  assert.equal(JSON.parse(serializeStyleGroups([restored])).version, 12);
 });
 
 test("brand and CTA assignments are page-wide and round-trip independently by theme", () => {

@@ -212,6 +212,19 @@ const sampleMenu = [
                 Explore your page-level tokens here, then refine each section
                 below.
               </p>
+              <p class="sample-muted" data-sample-role="muted">
+                Muted text for supporting details, with{" "}
+                <mark class="sample-highlight" data-sample-role="highlight">
+                  highlight text
+                </mark>{" "}
+                for emphasis.
+              </p>
+              <div class="sample-contrast" data-sample-role="contrastCanvas">
+                <strong>Contrast band</strong>
+                <span>
+                  A page-wide background that stands apart from every area.
+                </span>
+              </div>
               <div class="sample-buttons">
                 <button
                   type="button"
@@ -293,22 +306,21 @@ const sampleMenu = [
               <div class="panel-instructions-body">
                 <p>
                   Assign palette colors to each area’s canvas, text, buttons,
-                  links, icons, and interactive states. Changes only affect
-                  the sample page.
+                  links, icons, and interactive states. Changes only affect the
+                  sample page.
                 </p>
                 <p>
-                  Click a heading, paragraph, button, menu item, card, or
-                  social icon in the preview to center and highlight its color
-                  control. Click the section background to edit its border.
+                  Click a heading, paragraph, button, menu item, card, or social
+                  icon in the preview to center and highlight its color control.
+                  Click the section background to edit its border.
                 </p>
                 <p class="control-hint">
-                  Choose the editing area in the floating Color Picker.
-                  Sections 1–6 use the first–sixth token groups. “Theme
-                  default” follows your existing light/dark theme. Choose Page
-                  canvas to edit page-wide brand and CTA colors. The
-                  interactive group includes button hover, focus, and active
-                  states; link, visited, hover, focus, and active states; and
-                  icon colors for each area.
+                  Choose the editing area in the floating Color Picker. Sections
+                  1–6 use the first–sixth token groups. “Theme default” follows
+                  your existing light/dark theme. Choose Page canvas to edit
+                  page-wide brand and CTA colors. The interactive group includes
+                  button hover, focus, and active states; link, visited, hover,
+                  focus, and active states; and icon colors for each area.
                 </p>
               </div>
             </details>
@@ -440,6 +452,25 @@ const sampleMenu = [
                 accept=".json,application/json"
                 hidden
               />
+            </div>
+            <div class="class-groups">
+              <h3>Classes for the page builder</h3>
+              <p class="control-hint">
+                Writes the selected saved group's page, hero, and section colors
+                to <code>src/styles/themes/groups.css</code> as classes, for
+                both themes. Assign them to components in the page builder.
+                Saving the same group again updates its classes.
+              </p>
+              <div class="control-actions">
+                <button
+                  type="button"
+                  class="control-button"
+                  id="publish-group-classes"
+                  disabled
+                >
+                  Save classes to groups.css
+                </button>
+              </div>
             </div>
             <p id="selector-status" role="status" aria-live="polite"></p>
           </div>

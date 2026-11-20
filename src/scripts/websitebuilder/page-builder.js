@@ -1,4 +1,7 @@
 import idCssFallback from "../../styles/themes/id.css?raw";
+import groupsCssFallback from "../../styles/themes/groups.css?raw";
+import { parseGroupClasses } from "../../data/group-classes";
+import { readTextFile, themesDirectory } from "./project-themes";
 import {
   componentFolders,
   componentSavePath,
@@ -28,13 +31,22 @@ const form = get("#page-builder-form");
 const fields = get("#page-builder-fields");
 const name = get("#page-name");
 const description = get("#page-description");
+const pageStyleClass = get("#page-style-class");
+const componentStyleClass = get("#component-style-class");
 const path = get("#page-path");
 const available = get("#available-components");
 const sectionIdSelect = get("#component-section-id");
 const customIdInput = get("#component-custom-id");
 const add = get("#add-component");
-const savePath = get("#component-save-path");
-const save = get("#save-component");
+const copyBeforeAdd = get("#copy-before-add");
+const copyFields = get("#copy-before-add-fields");
+const copyName = get("#copy-name");
+const copyFolder = get("#copy-folder");
+const copyNewFolderField = get("#copy-new-folder-field");
+const copyNewFolder = get("#copy-new-folder");
+const copyPreview = get("#copy-path-preview");
+const NEW_FOLDER = "__new__";
+let copyNameEdited = false;
 const list = get("#selected-components");
 const empty = get("#selected-components-empty");
 const createdLink = get("#created-page-link");
@@ -57,6 +69,50 @@ function renderAvailableIds() {
   }
 }
 renderAvailableIds();
+
+// Style group classes from src/styles/themes/groups.css (theme builder).
+let availableClasses = parseGroupClasses(groupsCssFallback);
+
+// Fills a dropdown with style group classes: page classes for the page, or
+// hero and section classes (grouped by style group) for components.
+function fillStyleClassSelect(select, forPage, current = select.value) {
+  const classes = availableClasses.filter(
+    ({ area }) => (area === "page") === forPage,
+  );
+  const options = [
+    new Option(
+      classes.length
+        ? "No style group"
+        : "No style groups yet (save classes in the theme builder)",
+      "",
+    ),
+  ];
+  if (forPage)
+    for (const { className, groupName } of classes)
+      options.push(new Option(`${groupName} (${className})`, className));
+  else
+    for (const groupName of new Set(classes.map((item) => item.groupName))) {
+      const group = document.createElement("optgroup");
+      group.label = groupName;
+      for (const item of classes.filter(
+        (entry) => entry.groupName === groupName,
+      ))
+        group.append(
+          new Option(`${item.areaLabel} (${item.className})`, item.className),
+        );
+      options.push(group);
+    }
+  select.replaceChildren(...options);
+  if (current && !classes.some(({ className }) => className === current))
+    select.append(new Option(`${current} (not in groups.css)`, current));
+  select.value = current;
+}
+
+function renderStyleClassOptions() {
+  fillStyleClassSelect(pageStyleClass, true);
+  fillStyleClassSelect(componentStyleClass, false);
+}
+renderStyleClassOptions();
 
 function setBusy(value) {
   busy = value;
@@ -105,6 +161,56 @@ function renderComponents() {
       .filter(Boolean)
       .map((folder) => new Option(folder)),
   );
+  renderCopyFolders();
+}
+
+// "Save a copy before adding": folder dropdown, default name, path preview.
+function renderCopyFolders() {
+  const current = copyFolder.value;
+  copyFolder.replaceChildren(
+    ...componentFolders(components).map(
+      (folder) => new Option(folder || "(top level of src/components)", folder),
+    ),
+    new Option("New folder…", NEW_FOLDER),
+  );
+  if ([...copyFolder.options].some((option) => option.value === current))
+    copyFolder.value = current;
+}
+
+function chosenCopyFolder() {
+  return copyFolder.value === NEW_FOLDER
+    ? copyNewFolder.value
+    : copyFolder.value;
+}
+
+// Start from the chosen component: "<Name>Copy" in the component's own folder.
+function resetCopyDefaults() {
+  const component = components[Number(available.value)];
+  if (!component) return;
+  const segments = component.path.split("/");
+  const base = segments.pop().replace(/\.astro$/, "");
+  if (!copyNameEdited) copyName.value = `${base}Copy`;
+  const folder = segments.join("/");
+  if (copyFolder.value !== NEW_FOLDER) copyFolder.value = folder;
+  updateCopyPreview();
+}
+
+function updateCopyPreview() {
+  copyNewFolderField.hidden = copyFolder.value !== NEW_FOLDER;
+  add.textContent = copyBeforeAdd.checked
+    ? "Save copy and add component"
+    : "Add component";
+  if (!copyBeforeAdd.checked) return;
+  try {
+    const path = copyPath(chosenCopyFolder(), copyName.value);
+    copyPreview.textContent = components.some(
+      (existing) => existing.path === path,
+    )
+      ? `src/components/${path} already exists. Choose a different name or folder.`
+      : `Saves to src/components/${path}`;
+  } catch (error) {
+    copyPreview.textContent = error.message;
+  }
 }
 
 // Writes a copy of `component` to src/components/<path>, with relative imports
@@ -396,6 +502,23 @@ function renderSelection() {
     sectionWrapper.append(sectionLabel, sectionFields);
     row.append(sectionWrapper);
 
+    const styleWrapper = document.createElement("div");
+    styleWrapper.className = "grid gap-2";
+    const styleLabel = document.createElement("label");
+    styleLabel.htmlFor = `component-${index}-style-class`;
+    styleLabel.className = "text-sm font-semibold";
+    styleLabel.textContent = "Style group (optional)";
+    const styleSelect = document.createElement("select");
+    styleSelect.id = styleLabel.htmlFor;
+    styleSelect.className =
+      "w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page";
+    fillStyleClassSelect(styleSelect, false, item.styleClass ?? "");
+    styleSelect.addEventListener("change", () => {
+      item.styleClass = styleSelect.value || undefined;
+    });
+    styleWrapper.append(styleLabel, styleSelect);
+    row.append(styleWrapper);
+
     const actions = document.createElement("div");
     actions.className = "flex flex-wrap gap-2";
     const copyToggle = document.createElement("button");
@@ -471,9 +594,17 @@ open.addEventListener("click", async () => {
     if (liveIds.length) {
       availableIds = liveIds;
     }
+    try {
+      availableClasses = parseGroupClasses(
+        await readTextFile(await themesDirectory(project), "groups.css"),
+      );
+    } catch (error) {
+      console.warn("Page builder: could not read groups.css", error);
+    }
     form.reset();
     customIdInput.value = "";
     renderAvailableIds();
+    renderStyleClassOptions();
     updatePath();
     renderComponents();
     renderSelection();
@@ -492,8 +623,9 @@ open.addEventListener("click", async () => {
 });
 
 name.addEventListener("input", updatePath);
-add.addEventListener("click", () => {
-  const component = components[Number(available.value)];
+add.addEventListener("click", async () => {
+  if (busy) return;
+  let component = components[Number(available.value)];
   if (!component || component.error) {
     status.textContent = "Choose a supported component.";
     return;
@@ -508,40 +640,65 @@ add.addEventListener("click", () => {
       return;
     }
   }
+  let copiedFrom;
+  if (copyBeforeAdd.checked) {
+    setBusy(true);
+    try {
+      const copy = await copyComponent(
+        component,
+        copyPath(chosenCopyFolder(), copyName.value),
+      );
+      copiedFrom = component.path;
+      component = copy;
+    } catch (error) {
+      report(error);
+      return;
+    } finally {
+      setBusy(false);
+    }
+    // Start fresh so the next add doesn't silently make another copy.
+    copyBeforeAdd.checked = false;
+    copyFields.hidden = true;
+    copyBeforeAdd.setAttribute("aria-expanded", "false");
+    copyNameEdited = false;
+    copyNewFolder.value = "";
+    updateCopyPreview();
+  }
   selected.push({
     component,
     values: Object.create(null),
     sectionId: selectedId || undefined,
+    styleClass: componentStyleClass.value || undefined,
   });
   sectionIdSelect.value = "";
   customIdInput.value = "";
+  componentStyleClass.value = "";
   renderSelection();
+  const added = copiedFrom
+    ? `Saved src/components/${component.path} as a copy of ${copiedFrom} and added it`
+    : `Added ${component.path}`;
   status.textContent = selectedId
-    ? `Added ${component.path} with section ID "${selectedId}".`
-    : `Added ${component.path}.`;
+    ? `${added} with section ID "${selectedId}".`
+    : `${added}.`;
 });
 
-save.addEventListener("click", async () => {
-  if (busy || !componentsRoot) return;
-  const component = components[Number(available.value)];
-  if (!component || component.error) {
-    status.textContent = "Choose a supported component to save a copy of.";
-    return;
-  }
-  setBusy(true);
-  try {
-    const path = componentSavePath(savePath.value);
-    await copyComponent(component, path);
-    available.value = String(
-      components.findIndex((entry) => entry.path === path),
-    );
-    savePath.value = "";
-    status.textContent = `Saved src/components/${path} and selected it in the component list.`;
-  } catch (error) {
-    report(error);
-  } finally {
-    setBusy(false);
-  }
+copyBeforeAdd.addEventListener("change", () => {
+  copyFields.hidden = !copyBeforeAdd.checked;
+  copyBeforeAdd.setAttribute("aria-expanded", String(copyBeforeAdd.checked));
+  if (copyBeforeAdd.checked) resetCopyDefaults();
+  else updateCopyPreview();
+});
+copyName.addEventListener("input", () => {
+  copyNameEdited = true;
+  updateCopyPreview();
+});
+copyFolder.addEventListener("change", () => {
+  updateCopyPreview();
+  if (copyFolder.value === NEW_FOLDER) copyNewFolder.focus();
+});
+copyNewFolder.addEventListener("input", updateCopyPreview);
+available.addEventListener("change", () => {
+  if (copyBeforeAdd.checked) resetCopyDefaults();
 });
 
 form.addEventListener("submit", async (event) => {
@@ -551,22 +708,29 @@ form.addEventListener("submit", async (event) => {
   createdLink.hidden = true;
   try {
     const slug = pageSlug(name.value);
-    const assignments = selected.map(({ component, values, sectionId }) => {
-      const typed = Object.create(null);
-      for (const property of component.properties) {
-        const value = values[property.name] ?? "";
-        typed[property.name] =
-          value === ""
-            ? ""
-            : property.type === "boolean"
-              ? value === "true"
-              : property.type === "number"
-                ? Number(value)
-                : value;
-      }
-      return { component, values: typed, sectionId };
-    });
-    const content = generatePage(name.value, description.value, assignments);
+    const assignments = selected.map(
+      ({ component, values, sectionId, styleClass }) => {
+        const typed = Object.create(null);
+        for (const property of component.properties) {
+          const value = values[property.name] ?? "";
+          typed[property.name] =
+            value === ""
+              ? ""
+              : property.type === "boolean"
+                ? value === "true"
+                : property.type === "number"
+                  ? Number(value)
+                  : value;
+        }
+        return { component, values: typed, sectionId, styleClass };
+      },
+    );
+    const content = generatePage(
+      name.value,
+      description.value,
+      assignments,
+      pageStyleClass.value,
+    );
     for (const { component } of selected) {
       const latest = await (await component.handle.getFile()).text();
       if (latest !== component.source)
