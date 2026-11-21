@@ -448,6 +448,7 @@ if (root) {
     if (target.matches(".sample-logo .text-brand-02")) return "brandSecond";
     if (target.matches('[data-cta="primary"]')) return "ctaPrimary";
     if (target.matches('[data-cta="secondary"]')) return "ctaSecondary";
+    if (target.matches('[data-cta="tertiary"]')) return "ctaTertiary";
     if (target.matches(".sample-primary")) return "primary";
     if (target.matches(".sample-secondary")) return "secondary";
     if (target.matches(".sample-social-icons a")) return "iconBorder";

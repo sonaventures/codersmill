@@ -293,3 +293,16 @@ test("deleting a group removes only its block from groups.css", () => {
   assert.match(removed, /theme-group: night-shift/);
   assert.match(removed, /\.hand-written/);
 });
+
+test("CTA 03 colors are written on the page class", () => {
+  const saved = group();
+  saved.themes.light.global.ctaTertiary = "var(--color-sky-600)";
+  saved.themes.light.global.ctaTertiaryHoverText = "var(--color-white)";
+  const page = ruleFor(
+    generateGroupCss(saved),
+    ':root:not([data-theme="dark"]) .sg-coastal-calm-page',
+  );
+  assert.match(page, /--cta-03: var\(--color-sky-600\);/);
+  assert.match(page, /--cta-03-hover-text: var\(--color-white\);/);
+  assert.doesNotMatch(page, /--cta-03-text/);
+});

@@ -73,6 +73,13 @@ export const stylePresets = [
       "bg-cta-02 text-cta-02-text inset-ring inset-ring-cta-02-border hover:bg-cta-02-hover hover:text-cta-02-hover-text focus-visible:bg-cta-02-hover focus-visible:text-cta-02-hover-text",
   },
   {
+    key: "cta-03",
+    label: "CTA 03 button",
+    group: "actions",
+    classes:
+      "bg-cta-03 text-cta-03-text inset-ring inset-ring-cta-03-border hover:bg-cta-03-hover hover:text-cta-03-hover-text focus-visible:bg-cta-03-hover focus-visible:text-cta-03-hover-text",
+  },
+  {
     key: "accent-01",
     label: "Accent 01 button",
     group: "actions",

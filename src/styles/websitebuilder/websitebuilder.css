@@ -386,6 +386,15 @@
   background: var(--cta-02-hover, var(--cta-02));
   color: var(--cta-02-hover-text, var(--cta-02-text, var(--ink-inverse)));
 }
+.selector-shell [data-region] .sample-buttons [data-cta="tertiary"] {
+  background: var(--cta-03);
+  border-color: var(--cta-03-border, var(--cta-03));
+  color: var(--cta-03-text, var(--ink-page-dark));
+}
+.selector-shell [data-region] .sample-buttons [data-cta="tertiary"]:is(:hover, :focus) {
+  background: var(--cta-03-hover, var(--cta-03));
+  color: var(--cta-03-hover-text, var(--cta-03-text, var(--ink-page-dark)));
+}
 .selector-shell [data-region] .sample-buttons [data-cta] svg {
   color: inherit;
 }

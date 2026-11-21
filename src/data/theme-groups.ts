@@ -99,6 +99,36 @@ export const globalColorRoles = [
     group: "cta",
   },
   {
+    key: "ctaTertiary",
+    label: "CTA 03",
+    token: "cta-03",
+    group: "cta",
+  },
+  {
+    key: "ctaTertiaryText",
+    label: "CTA 03 text",
+    token: "cta-03-text",
+    group: "cta",
+  },
+  {
+    key: "ctaTertiaryBorder",
+    label: "CTA 03 border",
+    token: "cta-03-border",
+    group: "cta",
+  },
+  {
+    key: "ctaTertiaryHover",
+    label: "CTA 03 hover / focus background",
+    token: "cta-03-hover",
+    group: "cta",
+  },
+  {
+    key: "ctaTertiaryHoverText",
+    label: "CTA 03 hover / focus text",
+    token: "cta-03-hover-text",
+    group: "cta",
+  },
+  {
     key: "contrastCanvas",
     label: "Contrast band background",
     token: "canvas-contrast",
@@ -452,6 +482,14 @@ const version16ColorRoles = [
   "ctaSecondaryHover",
   "ctaSecondaryHoverText",
 ] as const;
+// Added in version 23; until set CTA 03 looks like CTA 01 (see colors.css).
+const version23ColorRoles = [
+  "ctaTertiary",
+  "ctaTertiaryText",
+  "ctaTertiaryBorder",
+  "ctaTertiaryHover",
+  "ctaTertiaryHoverText",
+] as const;
 
 /**
  * Page-wide colors whose variable is unset until chosen, and the variable
@@ -466,6 +504,10 @@ export const globalColorFallbacks: Partial<Record<GlobalColorRole, string>> = {
   ctaSecondaryBorder: "var(--cta-02)",
   ctaSecondaryHover: "var(--cta-02)",
   ctaSecondaryHoverText: "var(--cta-02-text, var(--ink-inverse))",
+  ctaTertiaryText: "var(--ink-page-dark)",
+  ctaTertiaryBorder: "var(--cta-03)",
+  ctaTertiaryHover: "var(--cta-03)",
+  ctaTertiaryHoverText: "var(--cta-03-text, var(--ink-page-dark))",
 };
 // Added in version 14.
 const version14ColorRoles = formattingColorRoles.map(({ key }) => key);
@@ -871,12 +913,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 19 &&
       data.version !== 20 &&
       data.version !== 21 &&
-      data.version !== 22) ||
+      data.version !== 22 &&
+      data.version !== 23) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 22 theme group file with up to 100 groups.",
+      "Expected a version 1 through 23 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -917,7 +960,9 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             (data.version < 13 &&
               version13ColorRoles.some((role) => role === key)) ||
             (data.version < 16 &&
-              version16ColorRoles.some((role) => role === key))
+              version16ColorRoles.some((role) => role === key)) ||
+            (data.version < 23 &&
+              version23ColorRoles.some((role) => role === key))
           ) {
             colors.global[key] = "theme";
             continue;
@@ -1082,7 +1127,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 22, groups }, null, 2);
+  return JSON.stringify({ version: 23, groups }, null, 2);
 }
 
 /**

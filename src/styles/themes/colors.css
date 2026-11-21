@@ -105,6 +105,7 @@
   /* CTA */
   --color-cta-01: var(--cta-01);
   --color-cta-02: var(--cta-02);
+  --color-cta-03: var(--cta-03);
 
   /* CTA text, border, and hover / focus. Each falls back to today's look
      until the theme builder sets it. */
@@ -116,6 +117,10 @@
   --color-cta-02-border: var(--cta-02-border, var(--cta-02));
   --color-cta-02-hover: var(--cta-02-hover, var(--cta-02));
   --color-cta-02-hover-text: var(--cta-02-hover-text, var(--cta-02-text, var(--ink-inverse)));
+  --color-cta-03-text: var(--cta-03-text, var(--ink-page-dark));
+  --color-cta-03-border: var(--cta-03-border, var(--cta-03));
+  --color-cta-03-hover: var(--cta-03-hover, var(--cta-03));
+  --color-cta-03-hover-text: var(--cta-03-hover-text, var(--cta-03-text, var(--ink-page-dark)));
 
   /* Brand primary canvas */
   --color-canvas-brand-primary: var(--canvas-brand-primary);
@@ -595,6 +600,7 @@
   /* CTA */
   --cta-01: var(--color-yellow-500);
   --cta-02: var(--color-olive-500);
+  --cta-03: var(--color-yellow-500);
 
   /* Brand primary canvas */
   --canvas-brand-primary: var(--color-sky-50);
@@ -870,6 +876,7 @@
   /* CTA */
   --cta-01: var(--color-yellow-400);
   --cta-02: var(--color-olive-300);
+  --cta-03: var(--color-yellow-400);
 
   /* Brand primary canvas */
   --canvas-brand-primary: var(--color-slate-800);
