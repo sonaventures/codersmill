@@ -117,7 +117,7 @@ test("SVG fills map onto section 01 and fall back to the text color", () => {
   assert.match(header, /--ink-01-svg-01: var\(--color-sky-500\);/);
   assert.match(
     header,
-    /--ink-01-svg-02: var\(--ink-header-svg-02, currentColor\);/,
+    /--ink-01-svg-02: var\(--ink-header-svg-02, var\(--canvas-01\)\);/,
   );
 });
 

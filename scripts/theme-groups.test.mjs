@@ -947,7 +947,7 @@ test("version 21 groups get default SVG fills for every area", () => {
   assert.equal(semanticToken("section1", "svgFill3"), "ink-01-svg-03");
   assert.equal(
     defaultColorReference("footer", "svgFill2"),
-    "var(--ink-footer-svg-02,currentColor)",
+    "var(--ink-footer-svg-02,var(--canvas-footer))",
   );
   for (const { key } of regions)
     assert.ok(isColorRoleVisible(key, "svgFill1"), `svgFill1 in ${key}`);

@@ -287,7 +287,9 @@ export const contentColorRoles = [
 ] as const;
 
 // SVG fills: three colors for the shapes in an area's icons and
-// illustrations, e.g. fill-ink-01-svg-01. Until chosen they use the text color.
+// illustrations, e.g. fill-ink-01-svg-01. Until chosen, 01 (main shapes) and
+// 03 (secondary shapes) use the text color and 02 (cutouts, such as the play
+// button in a logo) uses the area's background.
 export const svgFillRoles = [
   { key: "svgFill1", number: "01", label: "SVG fill 01", group: "svg" },
   { key: "svgFill2", number: "02", label: "SVG fill 02", group: "svg" },
@@ -313,6 +315,7 @@ const detailFallbacks = {
   inputFocus: "accentFocus",
   blockquote: "muted",
   divider: "border",
+  svgFill2: "background",
 } as const;
 const detailDefaults = {
   // Secondary button preview defaults: the shared sample button colors.
@@ -329,7 +332,6 @@ const detailDefaults = {
   selectionBackground: "Highlight",
   selectionText: "HighlightText",
   svgFill1: "currentColor",
-  svgFill2: "currentColor",
   svgFill3: "currentColor",
 } as const;
 const detailTokens = {

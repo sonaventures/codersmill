@@ -95,13 +95,16 @@ function areaDeclarations(colors: StyleColors, region: Region) {
     if (!shared || declarations.has(shared)) continue;
     if (color !== "theme") declarations.set(shared, color);
     // "Theme default" in another area still means that area's colors. SVG
-    // fills have no theme variable, so they fall back to the text color.
+    // fills have no theme variable, so they fall back to the text color, or
+    // for SVG fill 02 (cutouts) the area's background.
     else if (own && own !== shared)
       declarations.set(
         shared,
-        svgFillRoles.some(({ key }) => key === role)
-          ? `var(--${own}, currentColor)`
-          : `var(--${own})`,
+        role === "svgFill2"
+          ? `var(--${own}, var(--canvas-01))`
+          : svgFillRoles.some(({ key }) => key === role)
+            ? `var(--${own}, currentColor)`
+            : `var(--${own})`,
       );
   }
   if (region === "page")
