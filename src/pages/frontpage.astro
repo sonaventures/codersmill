@@ -6,13 +6,15 @@ import Component3 from "../components/test/fp_features.astro";
 ---
 
 <Layout title={"frontpage"} description={"frontpage"}>
-  <section id="fp_hero" class="sg-fp-hero">
-    <Component1 />
-  </section>
-  <section id="fp_cta" class="sg-fp-section-1">
-    <Component2 />
-  </section>
-  <section id="fp_features" class="sg-fp-section-2">
-    <Component3 />
-  </section>
+  <div class="sg-fp-page">
+    <section id="fp_hero" class="sg-fp-hero">
+      <Component1 />
+    </section>
+    <section id="fp_cta" class="sg-fp-section-1">
+      <Component2 />
+    </section>
+    <section id="fp_features" class="sg-fp-section-2">
+      <Component3 />
+    </section>
+  </div>
 </Layout>
