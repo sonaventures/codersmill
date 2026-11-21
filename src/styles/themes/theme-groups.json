@@ -1,9 +1,9 @@
 {
-  "version": 21,
+  "version": 23,
   "groups": [
     {
-      "id": "73008acd-89b7-46c8-bf21-e119699f0af8",
-      "name": "sample",
+      "id": "b78efc38-5371-43e2-b8f7-397565c53053",
+      "name": "fp",
       "themes": {
         "light": {
           "global": {
@@ -13,21 +13,26 @@
             "brandFourth": "theme",
             "brandFifth": "theme",
             "brandSixth": "theme",
-            "ctaPrimary": "theme",
-            "ctaPrimaryText": "theme",
+            "ctaPrimary": "var(--color-energeticorange-500)",
+            "ctaPrimaryText": "var(--color-platinum-50)",
             "ctaPrimaryBorder": "theme",
             "ctaPrimaryHover": "theme",
             "ctaPrimaryHoverText": "theme",
-            "ctaSecondary": "theme",
-            "ctaSecondaryText": "theme",
+            "ctaSecondary": "var(--color-midnightblue-200)",
+            "ctaSecondaryText": "var(--color-midnightblue-900)",
             "ctaSecondaryBorder": "theme",
             "ctaSecondaryHover": "theme",
             "ctaSecondaryHoverText": "theme",
+            "ctaTertiary": "var(--color-platinum-50)",
+            "ctaTertiaryText": "var(--color-platinum-950)",
+            "ctaTertiaryBorder": "var(--color-platinum-950)",
+            "ctaTertiaryHover": "var(--color-platinum-100)",
+            "ctaTertiaryHoverText": "theme",
             "contrastCanvas": "theme",
             "contrastText": "theme"
           },
           "page": {
-            "background": "var(--color-offwhite-50)",
+            "background": "var(--color-platinum-50)",
             "border": "theme",
             "shadow": "theme",
             "primary": "theme",
@@ -97,11 +102,14 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "header": {
             "background": "var(--color-white)",
-            "border": "theme",
+            "border": "transparent",
             "shadow": "theme",
             "primary": "theme",
             "primaryText": "theme",
@@ -170,27 +178,30 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "hero": {
-            "background": "var(--color-prusssianblue-100)",
+            "background": "var(--color-midnightblue-50)",
             "border": "transparent",
             "shadow": "theme",
             "primary": "var(--color-energeticorange-500)",
-            "primaryText": "var(--color-platinum-50)",
+            "primaryText": "theme",
             "accentBorder": "theme",
             "buttonShadow": "theme",
             "accentFocus": "theme",
             "primaryHover": "theme",
             "learnMoreHover": "theme",
-            "text": "var(--color-platinum-800)",
-            "h1": "var(--color-midnightblue-900)",
-            "h2": "var(--color-midnightblue-800)",
+            "text": "var(--color-prusssianblue-800)",
+            "h1": "var(--color-midnightblue-800)",
+            "h2": "var(--color-midnightblue-700)",
             "h3": "var(--color-prusssianblue-700)",
-            "h4": "var(--color-prusssianblue-600)",
+            "h4": "var(--color-prusssianblue-700)",
             "muted": "theme",
-            "highlight": "var(--color-energeticorange-700)",
-            "secondary": "transparent",
+            "highlight": "var(--color-energeticorange-500)",
+            "secondary": "var(--color-midnightblue-200)",
             "secondaryText": "theme",
             "secondaryBorder": "theme",
             "secondaryShadow": "theme",
@@ -208,26 +219,26 @@
             "subsection": "theme",
             "subsectionBorder": "theme",
             "subsectionShadow": "theme",
-            "cardText": "var(--color-platinum-800)",
-            "strong": "var(--color-platinum-950)",
-            "em": "var(--color-platinum-800)",
-            "code": "theme",
+            "cardText": "theme",
+            "strong": "var(--color-prusssianblue-950)",
+            "em": "var(--color-prusssianblue-800)",
+            "code": "var(--color-prusssianblue-800)",
             "codeBackground": "theme",
-            "pre": "theme",
+            "pre": "var(--color-midnightblue-900)",
             "preBackground": "theme",
             "label": "theme",
             "inputText": "theme",
             "inputBackground": "theme",
-            "inputBorder": "theme",
+            "inputBorder": "var(--color-prusssianblue-800)",
             "inputPlaceholder": "theme",
             "inputFocus": "theme",
-            "blockquote": "theme",
+            "blockquote": "var(--color-midnightblue-900)",
             "blockquoteBorder": "theme",
             "divider": "theme",
             "listMarker": "theme",
             "selectionBackground": "theme",
             "selectionText": "theme",
-            "iconBorder": "theme",
+            "iconBorder": "var(--color-midnightblue-800)",
             "iconShadow": "theme",
             "buttonHoverBackground": "theme",
             "buttonHoverText": "theme",
@@ -235,7 +246,7 @@
             "buttonFocusText": "theme",
             "buttonActiveBackground": "theme",
             "buttonActiveText": "theme",
-            "linkColor": "theme",
+            "linkColor": "var(--color-midnightblue-800)",
             "visitedColor": "theme",
             "linkHover": "theme",
             "linkFocus": "theme",
@@ -243,7 +254,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "var(--color-midnightblue-500)",
+            "svgFill2": "theme",
+            "svgFill3": "var(--color-energeticorange-400)"
           },
           "section1": {
             "background": "theme",
@@ -316,7 +330,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section2": {
             "background": "theme",
@@ -389,7 +406,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section3": {
             "background": "theme",
@@ -462,7 +482,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section4": {
             "background": "theme",
@@ -535,7 +558,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section5": {
             "background": "theme",
@@ -608,7 +634,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section6": {
             "background": "theme",
@@ -681,7 +710,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "footer": {
             "background": "theme",
@@ -754,7 +786,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           }
         },
         "dark": {
@@ -775,6 +810,11 @@
             "ctaSecondaryBorder": "theme",
             "ctaSecondaryHover": "theme",
             "ctaSecondaryHoverText": "theme",
+            "ctaTertiary": "theme",
+            "ctaTertiaryText": "theme",
+            "ctaTertiaryBorder": "theme",
+            "ctaTertiaryHover": "theme",
+            "ctaTertiaryHoverText": "theme",
             "contrastCanvas": "theme",
             "contrastText": "theme"
           },
@@ -849,7 +889,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "header": {
             "background": "theme",
@@ -922,7 +965,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "hero": {
             "background": "theme",
@@ -995,7 +1041,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section1": {
             "background": "theme",
@@ -1068,7 +1117,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section2": {
             "background": "theme",
@@ -1141,7 +1193,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section3": {
             "background": "theme",
@@ -1214,7 +1269,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section4": {
             "background": "theme",
@@ -1287,7 +1345,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section5": {
             "background": "theme",
@@ -1360,7 +1421,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "section6": {
             "background": "theme",
@@ -1433,7 +1497,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           },
           "footer": {
             "background": "theme",
@@ -1506,7 +1573,10 @@
             "iconColor": "theme",
             "iconHover": "theme",
             "iconFocus": "theme",
-            "iconActive": "theme"
+            "iconActive": "theme",
+            "svgFill1": "theme",
+            "svgFill2": "theme",
+            "svgFill3": "theme"
           }
         }
       },
@@ -1516,16 +1586,7 @@
         "subsection": "xl"
       },
       "sectionIds": {},
-      "typography": {
-        "hero": {
-          "h1": {
-            "font-family": "var(--font-roboto)",
-            "font-size": "2.25rem",
-            "font-weight": "700",
-            "text-transform": "uppercase"
-          }
-        }
-      }
+      "typography": {}
     }
   ]
 }

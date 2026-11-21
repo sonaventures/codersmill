@@ -5,10 +5,10 @@
  * anything outside the markers is left alone.
  */
 
-/* theme-group: sample (sample) */
-:root:not([data-theme="dark"]) .sg-sample-page {
-  --canvas-page: var(--color-offwhite-50);
-  --canvas-01: var(--color-offwhite-50);
+/* theme-group: fp (fp) */
+:root:not([data-theme="dark"]) .sg-fp-page {
+  --canvas-page: var(--color-platinum-50);
+  --canvas-01: var(--color-platinum-50);
   --canvas-01-border: var(--canvas-page-border);
   --canvas-01-shadow: var(--canvas-page-shadow);
   --accent-01-canvas: var(--accent-page-canvas);
@@ -54,10 +54,21 @@
   --canvas-01-blockquote-border: var(--canvas-page-blockquote-border);
   --canvas-01-divider: var(--canvas-page-divider);
   --ink-01-marker: var(--ink-page-marker);
+  --ink-01-svg-01: var(--ink-page-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-page-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-page-svg-03, currentColor);
+  --cta-01: var(--color-energeticorange-500);
+  --cta-01-text: var(--color-platinum-50);
+  --cta-02: var(--color-midnightblue-200);
+  --cta-02-text: var(--color-midnightblue-900);
+  --cta-03: var(--color-platinum-50);
+  --cta-03-text: var(--color-platinum-950);
+  --cta-03-border: var(--color-platinum-950);
+  --cta-03-hover: var(--color-platinum-100);
   background-color: var(--canvas-page);
   color: var(--ink-page);
 }
-:root[data-theme="dark"] .sg-sample-page {
+:root[data-theme="dark"] .sg-fp-page {
   --canvas-01: var(--canvas-page);
   --canvas-01-border: var(--canvas-page-border);
   --canvas-01-shadow: var(--canvas-page-shadow);
@@ -104,63 +115,108 @@
   --canvas-01-blockquote-border: var(--canvas-page-blockquote-border);
   --canvas-01-divider: var(--canvas-page-divider);
   --ink-01-marker: var(--ink-page-marker);
+  --ink-01-svg-01: var(--ink-page-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-page-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-page-svg-03, currentColor);
   background-color: var(--canvas-page);
   color: var(--ink-page);
 }
-:root:not([data-theme="dark"]) .sg-sample-hero {
-  --canvas-hero: var(--color-prusssianblue-100);
-  --canvas-01: var(--color-prusssianblue-100);
+:root:not([data-theme="dark"]) .sg-fp-header {
+  --canvas-header: var(--color-white);
+  --canvas-01: var(--color-white);
+  --canvas-header-border: transparent;
+  --canvas-01-border: transparent;
+  --canvas-01-shadow: var(--canvas-header-shadow);
+  --accent-01-canvas: var(--accent-header-canvas);
+  --accent-01-text: var(--accent-header-text);
+  --accent-01-border: var(--accent-header-border);
+  --accent-01-focus: var(--accent-header-focus);
+  --ink-01: var(--ink-header);
+  --ink-01-h1: var(--ink-header-h1);
+  --ink-01-h2: var(--ink-header-h2);
+  --ink-01-h3: var(--ink-header-h3);
+  --ink-01-svg-01: var(--ink-header-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-header-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-header-svg-03, currentColor);
+}
+:root[data-theme="dark"] .sg-fp-header {
+  --canvas-01: var(--canvas-header);
+  --canvas-01-border: var(--canvas-header-border);
+  --canvas-01-shadow: var(--canvas-header-shadow);
+  --accent-01-canvas: var(--accent-header-canvas);
+  --accent-01-text: var(--accent-header-text);
+  --accent-01-border: var(--accent-header-border);
+  --accent-01-focus: var(--accent-header-focus);
+  --ink-01: var(--ink-header);
+  --ink-01-h1: var(--ink-header-h1);
+  --ink-01-h2: var(--ink-header-h2);
+  --ink-01-h3: var(--ink-header-h3);
+  --ink-01-svg-01: var(--ink-header-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-header-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-header-svg-03, currentColor);
+}
+:root:not([data-theme="dark"]) .sg-fp-hero {
+  --canvas-hero: var(--color-midnightblue-50);
+  --canvas-01: var(--color-midnightblue-50);
   --canvas-hero-border: transparent;
   --canvas-01-border: transparent;
   --canvas-01-shadow: var(--canvas-hero-shadow);
   --accent-hero-canvas: var(--color-energeticorange-500);
   --accent-01-canvas: var(--color-energeticorange-500);
-  --accent-hero-text: var(--color-platinum-50);
-  --accent-01-text: var(--color-platinum-50);
+  --accent-01-text: var(--accent-hero-text);
   --accent-01-border: var(--accent-hero-border);
   --accent-01-focus: var(--accent-hero-focus);
   --accent-01-primary-hover: var(--accent-hero-primary-hover);
   --accent-01-learn-more-hover: var(--accent-hero-learn-more-hover);
-  --ink-hero: var(--color-platinum-800);
-  --ink-01: var(--color-platinum-800);
-  --ink-hero-h1: var(--color-midnightblue-900);
-  --ink-01-h1: var(--color-midnightblue-900);
-  --ink-hero-h2: var(--color-midnightblue-800);
-  --ink-01-h2: var(--color-midnightblue-800);
+  --ink-hero: var(--color-prusssianblue-800);
+  --ink-01: var(--color-prusssianblue-800);
+  --ink-hero-h1: var(--color-midnightblue-800);
+  --ink-01-h1: var(--color-midnightblue-800);
+  --ink-hero-h2: var(--color-midnightblue-700);
+  --ink-01-h2: var(--color-midnightblue-700);
   --ink-hero-h3: var(--color-prusssianblue-700);
   --ink-01-h3: var(--color-prusssianblue-700);
-  --ink-hero-h4: var(--color-prusssianblue-600);
-  --ink-01-h4: var(--color-prusssianblue-600);
+  --ink-hero-h4: var(--color-prusssianblue-700);
+  --ink-01-h4: var(--color-prusssianblue-700);
   --ink-01-muted: var(--ink-hero-muted);
-  --ink-hero-highlight: var(--color-energeticorange-700);
-  --ink-01-highlight: var(--color-energeticorange-700);
-  --accent-hero-secondary: transparent;
-  --accent-01-secondary: transparent;
+  --ink-hero-highlight: var(--color-energeticorange-500);
+  --ink-01-highlight: var(--color-energeticorange-500);
+  --accent-hero-secondary: var(--color-midnightblue-200);
+  --accent-01-secondary: var(--color-midnightblue-200);
   --accent-01-secondary-text: var(--accent-hero-secondary-text);
   --accent-01-secondary-border: var(--accent-hero-secondary-border);
   --accent-01-secondary-shadow: var(--accent-hero-secondary-shadow);
   --accent-01-secondary-hover: var(--accent-hero-secondary-hover);
   --accent-01-secondary-hover-text: var(--accent-hero-secondary-hover-text);
-  --ink-hero-strong: var(--color-platinum-950);
-  --ink-01-strong: var(--color-platinum-950);
-  --ink-hero-em: var(--color-platinum-800);
-  --ink-01-em: var(--color-platinum-800);
-  --ink-01-code: var(--ink-hero-code);
+  --ink-hero-strong: var(--color-prusssianblue-950);
+  --ink-01-strong: var(--color-prusssianblue-950);
+  --ink-hero-em: var(--color-prusssianblue-800);
+  --ink-01-em: var(--color-prusssianblue-800);
+  --ink-hero-code: var(--color-prusssianblue-800);
+  --ink-01-code: var(--color-prusssianblue-800);
   --canvas-01-code: var(--canvas-hero-code);
-  --ink-01-pre: var(--ink-hero-pre);
+  --ink-hero-pre: var(--color-midnightblue-900);
+  --ink-01-pre: var(--color-midnightblue-900);
   --canvas-01-pre: var(--canvas-hero-pre);
   --ink-01-label: var(--ink-hero-label);
   --ink-01-input: var(--ink-hero-input);
   --canvas-01-input: var(--canvas-hero-input);
-  --canvas-01-input-border: var(--canvas-hero-input-border);
+  --canvas-hero-input-border: var(--color-prusssianblue-800);
+  --canvas-01-input-border: var(--color-prusssianblue-800);
   --ink-01-placeholder: var(--ink-hero-placeholder);
   --accent-01-input-focus: var(--accent-hero-input-focus);
-  --ink-01-blockquote: var(--ink-hero-blockquote);
+  --ink-hero-blockquote: var(--color-midnightblue-900);
+  --ink-01-blockquote: var(--color-midnightblue-900);
   --canvas-01-blockquote-border: var(--canvas-hero-blockquote-border);
   --canvas-01-divider: var(--canvas-hero-divider);
   --ink-01-marker: var(--ink-hero-marker);
+  --ink-hero-svg-01: var(--color-midnightblue-500);
+  --ink-01-svg-01: var(--color-midnightblue-500);
+  --ink-01-svg-02: var(--ink-hero-svg-02, var(--canvas-01));
+  --ink-hero-svg-03: var(--color-energeticorange-400);
+  --ink-01-svg-03: var(--color-energeticorange-400);
 }
-:root[data-theme="dark"] .sg-sample-hero {
+:root[data-theme="dark"] .sg-fp-hero {
   --canvas-01: var(--canvas-hero);
   --canvas-01-border: var(--canvas-hero-border);
   --canvas-01-shadow: var(--canvas-hero-shadow);
@@ -199,14 +255,17 @@
   --canvas-01-blockquote-border: var(--canvas-hero-blockquote-border);
   --canvas-01-divider: var(--canvas-hero-divider);
   --ink-01-marker: var(--ink-hero-marker);
+  --ink-01-svg-01: var(--ink-hero-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-hero-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-hero-svg-03, currentColor);
 }
-:root:not([data-theme="dark"]) .sg-sample-section-1 {
+:root:not([data-theme="dark"]) .sg-fp-section-1 {
 
 }
-:root[data-theme="dark"] .sg-sample-section-1 {
+:root[data-theme="dark"] .sg-fp-section-1 {
 
 }
-:root:not([data-theme="dark"]) .sg-sample-section-2 {
+:root:not([data-theme="dark"]) .sg-fp-section-2 {
   --canvas-01: var(--canvas-02);
   --canvas-01-border: var(--canvas-02-border);
   --canvas-01-shadow: var(--canvas-02-shadow);
@@ -254,8 +313,11 @@
   --canvas-01-blockquote-border: var(--canvas-02-blockquote-border);
   --canvas-01-divider: var(--canvas-02-divider);
   --ink-01-marker: var(--ink-02-marker);
+  --ink-01-svg-01: var(--ink-02-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-02-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-02-svg-03, currentColor);
 }
-:root[data-theme="dark"] .sg-sample-section-2 {
+:root[data-theme="dark"] .sg-fp-section-2 {
   --canvas-01: var(--canvas-02);
   --canvas-01-border: var(--canvas-02-border);
   --canvas-01-shadow: var(--canvas-02-shadow);
@@ -303,8 +365,11 @@
   --canvas-01-blockquote-border: var(--canvas-02-blockquote-border);
   --canvas-01-divider: var(--canvas-02-divider);
   --ink-01-marker: var(--ink-02-marker);
+  --ink-01-svg-01: var(--ink-02-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-02-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-02-svg-03, currentColor);
 }
-:root:not([data-theme="dark"]) .sg-sample-section-3 {
+:root:not([data-theme="dark"]) .sg-fp-section-3 {
   --canvas-01: var(--canvas-03);
   --canvas-01-border: var(--canvas-03-border);
   --canvas-01-shadow: var(--canvas-03-shadow);
@@ -352,8 +417,11 @@
   --canvas-01-blockquote-border: var(--canvas-03-blockquote-border);
   --canvas-01-divider: var(--canvas-03-divider);
   --ink-01-marker: var(--ink-03-marker);
+  --ink-01-svg-01: var(--ink-03-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-03-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-03-svg-03, currentColor);
 }
-:root[data-theme="dark"] .sg-sample-section-3 {
+:root[data-theme="dark"] .sg-fp-section-3 {
   --canvas-01: var(--canvas-03);
   --canvas-01-border: var(--canvas-03-border);
   --canvas-01-shadow: var(--canvas-03-shadow);
@@ -401,8 +469,11 @@
   --canvas-01-blockquote-border: var(--canvas-03-blockquote-border);
   --canvas-01-divider: var(--canvas-03-divider);
   --ink-01-marker: var(--ink-03-marker);
+  --ink-01-svg-01: var(--ink-03-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-03-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-03-svg-03, currentColor);
 }
-:root:not([data-theme="dark"]) .sg-sample-section-4 {
+:root:not([data-theme="dark"]) .sg-fp-section-4 {
   --canvas-01: var(--canvas-04);
   --canvas-01-border: var(--canvas-04-border);
   --canvas-01-shadow: var(--canvas-04-shadow);
@@ -450,8 +521,11 @@
   --canvas-01-blockquote-border: var(--canvas-04-blockquote-border);
   --canvas-01-divider: var(--canvas-04-divider);
   --ink-01-marker: var(--ink-04-marker);
+  --ink-01-svg-01: var(--ink-04-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-04-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-04-svg-03, currentColor);
 }
-:root[data-theme="dark"] .sg-sample-section-4 {
+:root[data-theme="dark"] .sg-fp-section-4 {
   --canvas-01: var(--canvas-04);
   --canvas-01-border: var(--canvas-04-border);
   --canvas-01-shadow: var(--canvas-04-shadow);
@@ -499,8 +573,11 @@
   --canvas-01-blockquote-border: var(--canvas-04-blockquote-border);
   --canvas-01-divider: var(--canvas-04-divider);
   --ink-01-marker: var(--ink-04-marker);
+  --ink-01-svg-01: var(--ink-04-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-04-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-04-svg-03, currentColor);
 }
-:root:not([data-theme="dark"]) .sg-sample-section-5 {
+:root:not([data-theme="dark"]) .sg-fp-section-5 {
   --canvas-01: var(--canvas-05);
   --canvas-01-border: var(--canvas-05-border);
   --canvas-01-shadow: var(--canvas-05-shadow);
@@ -548,8 +625,11 @@
   --canvas-01-blockquote-border: var(--canvas-05-blockquote-border);
   --canvas-01-divider: var(--canvas-05-divider);
   --ink-01-marker: var(--ink-05-marker);
+  --ink-01-svg-01: var(--ink-05-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-05-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-05-svg-03, currentColor);
 }
-:root[data-theme="dark"] .sg-sample-section-5 {
+:root[data-theme="dark"] .sg-fp-section-5 {
   --canvas-01: var(--canvas-05);
   --canvas-01-border: var(--canvas-05-border);
   --canvas-01-shadow: var(--canvas-05-shadow);
@@ -597,8 +677,11 @@
   --canvas-01-blockquote-border: var(--canvas-05-blockquote-border);
   --canvas-01-divider: var(--canvas-05-divider);
   --ink-01-marker: var(--ink-05-marker);
+  --ink-01-svg-01: var(--ink-05-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-05-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-05-svg-03, currentColor);
 }
-:root:not([data-theme="dark"]) .sg-sample-section-6 {
+:root:not([data-theme="dark"]) .sg-fp-section-6 {
   --canvas-01: var(--canvas-06);
   --canvas-01-border: var(--canvas-06-border);
   --canvas-01-shadow: var(--canvas-06-shadow);
@@ -646,8 +729,11 @@
   --canvas-01-blockquote-border: var(--canvas-06-blockquote-border);
   --canvas-01-divider: var(--canvas-06-divider);
   --ink-01-marker: var(--ink-06-marker);
+  --ink-01-svg-01: var(--ink-06-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-06-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-06-svg-03, currentColor);
 }
-:root[data-theme="dark"] .sg-sample-section-6 {
+:root[data-theme="dark"] .sg-fp-section-6 {
   --canvas-01: var(--canvas-06);
   --canvas-01-border: var(--canvas-06-border);
   --canvas-01-shadow: var(--canvas-06-shadow);
@@ -695,11 +781,40 @@
   --canvas-01-blockquote-border: var(--canvas-06-blockquote-border);
   --canvas-01-divider: var(--canvas-06-divider);
   --ink-01-marker: var(--ink-06-marker);
+  --ink-01-svg-01: var(--ink-06-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-06-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-06-svg-03, currentColor);
 }
-.sg-sample-hero h1 {
-  font-family: var(--font-roboto);
-  font-size: 2.25rem;
-  font-weight: 700;
-  text-transform: uppercase;
+:root:not([data-theme="dark"]) .sg-fp-footer {
+  --canvas-01: var(--canvas-footer);
+  --canvas-01-border: var(--canvas-footer-border);
+  --canvas-01-shadow: var(--canvas-footer-shadow);
+  --accent-01-canvas: var(--accent-footer-canvas);
+  --accent-01-text: var(--accent-footer-text);
+  --accent-01-border: var(--accent-footer-border);
+  --accent-01-focus: var(--accent-footer-focus);
+  --ink-01: var(--ink-footer);
+  --ink-01-h1: var(--ink-footer-h1);
+  --ink-01-h2: var(--ink-footer-h2);
+  --ink-01-h3: var(--ink-footer-h3);
+  --ink-01-svg-01: var(--ink-footer-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-footer-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-footer-svg-03, currentColor);
 }
-/* end theme-group: sample */
+:root[data-theme="dark"] .sg-fp-footer {
+  --canvas-01: var(--canvas-footer);
+  --canvas-01-border: var(--canvas-footer-border);
+  --canvas-01-shadow: var(--canvas-footer-shadow);
+  --accent-01-canvas: var(--accent-footer-canvas);
+  --accent-01-text: var(--accent-footer-text);
+  --accent-01-border: var(--accent-footer-border);
+  --accent-01-focus: var(--accent-footer-focus);
+  --ink-01: var(--ink-footer);
+  --ink-01-h1: var(--ink-footer-h1);
+  --ink-01-h2: var(--ink-footer-h2);
+  --ink-01-h3: var(--ink-footer-h3);
+  --ink-01-svg-01: var(--ink-footer-svg-01, currentColor);
+  --ink-01-svg-02: var(--ink-footer-svg-02, var(--canvas-01));
+  --ink-01-svg-03: var(--ink-footer-svg-03, currentColor);
+}
+/* end theme-group: fp */
