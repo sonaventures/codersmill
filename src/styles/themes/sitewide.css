@@ -9,12 +9,19 @@
 :root:not([data-sitewide-preview]):not([data-theme="dark"]) {
   --cta-01: var(--color-energeticorange-500);
   --cta-01-text: var(--color-platinum-50);
+  --cta-01-border: transparent;
+  --cta-01-hover: var(--color-energeticorange-600);
+  --cta-01-hover-text: var(--color-white);
   --cta-02: var(--color-midnightblue-200);
   --cta-02-text: var(--color-midnightblue-900);
+  --cta-02-border: transparent;
+  --cta-02-hover: var(--color-midnightblue-100);
+  --cta-02-hover-text: var(--color-midnightblue-950);
   --cta-03: var(--color-platinum-50);
   --cta-03-text: var(--color-platinum-950);
   --cta-03-border: var(--color-platinum-950);
   --cta-03-hover: var(--color-platinum-100);
+  --cta-03-hover-text: var(--color-platinum-900);
 }
 :root:not([data-sitewide-preview])[data-theme="dark"] {
 }

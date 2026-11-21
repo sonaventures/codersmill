@@ -188,8 +188,10 @@ if (root) {
     dirty = true;
     message("Unsaved changes. Save a theme group to keep these styles.");
   };
+  let onSitewideChange = () => {};
   const markSitewideDirty = () => {
     sitewideDirty = true;
+    onSitewideChange();
     message(
       "Unsaved sitewide changes. Select Save sitewide.css to keep them; they are not saved with a theme group.",
     );
@@ -1223,15 +1225,32 @@ if (root) {
   });
 
   // Sitewide colors: read from the project's sitewide.css, saved back to it.
-  const sitewideButton = get<HTMLButtonElement>("#save-sitewide");
-  sitewideButton.disabled = true;
+  // Two Save to sitewide.css buttons: in the Global section and the panel.
+  const sitewideButtons = [
+    ...root.querySelectorAll<HTMLButtonElement>("[data-save-sitewide]"),
+  ];
+  const sitewideState = get<HTMLElement>("[data-sitewide-state]");
+  const renderSitewideSave = (saving = false) => {
+    for (const button of sitewideButtons)
+      button.disabled = saving || !sitewideReady;
+    sitewideState.textContent = !sitewideReady
+      ? "Not loaded"
+      : saving
+        ? "Saving..."
+        : sitewideDirty
+          ? "Unsaved changes"
+          : "Saved";
+    sitewideState.dataset.state = sitewideDirty ? "unsaved" : "saved";
+  };
+  renderSitewideSave();
+  onSitewideChange = () => renderSitewideSave();
   void fetch("/website-builder/sitewide.css", { cache: "no-store" })
     .then((response) => (response.ok ? response.text() : ""))
     .then((css) => {
       const saved = parseSitewideCss(css);
       if (!sitewideDirty) sitewide = saved;
       sitewideReady = true;
-      sitewideButton.disabled = false;
+      renderSitewideSave();
       renderColors();
     })
     .catch((error) =>
@@ -1240,9 +1259,9 @@ if (root) {
         error,
       ),
     );
-  sitewideButton.addEventListener("click", async () => {
+  const saveSitewide = async () => {
     if (!sitewideReady) return;
-    sitewideButton.disabled = true;
+    renderSitewideSave(true);
     try {
       themesFolder ??= await getThemesFolder();
       // Keep the Typography Builder's section of the file.
@@ -1261,9 +1280,11 @@ if (root) {
         message("Folder selection cancelled. sitewide.css was not saved.");
       else reportError("Unable to save sitewide.css.", error);
     } finally {
-      sitewideButton.disabled = !sitewideReady;
+      renderSitewideSave();
     }
-  });
+  };
+  for (const button of sitewideButtons)
+    button.addEventListener("click", () => void saveSitewide());
   new MutationObserver(() => {
     colors = themes[currentTheme()];
     renderColors();

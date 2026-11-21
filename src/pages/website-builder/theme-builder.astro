@@ -127,9 +127,21 @@ const sampleMenu = [
               <span class="sample-id-bar-dot"></span>
               <strong>Global</strong>
             </div>
-            <p class="sample-class-name">
-              Saved to <code>src/styles/themes/sitewide.css</code>
-            </p>
+            <div class="sample-sitewide-save">
+              <p class="sample-class-name">
+                Saved to <code>src/styles/themes/sitewide.css</code>
+              </p>
+              <span class="sample-sitewide-state" data-sitewide-state>
+                Saved
+              </span>
+              <button
+                type="button"
+                class="control-button control-primary"
+                data-save-sitewide
+              >
+                Save to sitewide.css
+              </button>
+            </div>
           </div>
           <div class="sample-container">
             <p class="sample-kicker">Global / sitewide</p>
@@ -444,6 +456,7 @@ const sampleMenu = [
                 type="button"
                 class="control-button control-primary"
                 id="save-sitewide"
+                data-save-sitewide
               >
                 Save sitewide.css
               </button>
