@@ -271,3 +271,36 @@ test("deleting a group removes only its block from groups.css", () => {
   assert.match(removed, /\.hand-written/);
 });
 
+
+test("each area class maps its colors onto the elements inside it", () => {
+  const css = generateGroupCss(group());
+  const hero = css.slice(
+    css.indexOf("  :where(.sg-coastal-calm-hero) {"),
+    css.indexOf("  :where(.sg-coastal-calm-section-1) {"),
+  );
+  const expected = [
+    [/:where\(\.sg-coastal-calm-hero\) \{\n    background-color: var\(--canvas-01\);\n    border-color: var\(--canvas-01-border\);/],
+    [/--tw-shadow-color: color-mix\(in srgb, var\(--canvas-01-shadow\) 10%, transparent\)/],
+    [/:where\(\.sg-coastal-calm-hero\) p \{\n    color: var\(--ink-01\);/],
+    [/:where\(\.sg-coastal-calm-hero\) h1 \{\n    color: var\(--ink-01-h1\);/],
+    [/:where\(\.sg-coastal-calm-hero\) h4 \{\n    color: var\(--ink-01-h4, var\(--ink-01-h3\)\);/],
+    [/:where\(\.sg-coastal-calm-hero\) strong \{/],
+    [/:where\(\.sg-coastal-calm-hero\) em \{/],
+    [/:where\(\.sg-coastal-calm-hero\) code \{\n    color: var\(--ink-01-code, currentColor\);\n    background-color: var\(--canvas-01-code, transparent\);/],
+    [/:where\(\.sg-coastal-calm-hero\) pre \{/],
+    [/:where\(\.sg-coastal-calm-hero\) label \{\n    color: var\(--ink-01-label, var\(--ink-01\)\);/],
+    [/:where\(\.sg-coastal-calm-hero\) input:not\(\[type="button"\][^)]*\),\n  :where\(\.sg-coastal-calm-hero\) textarea,\n  :where\(\.sg-coastal-calm-hero\) select \{\n    color: var\(--ink-01-input, var\(--ink-01\)\);\n    background-color: var\(--canvas-01-input, var\(--canvas-01\)\);\n    border-color: var\(--canvas-01-input-border, var\(--canvas-01-border\)\);/],
+    [/:where\(\.sg-coastal-calm-hero\) ::placeholder \{\n    color: var\(--ink-01-placeholder, var\(--ink-01-muted\)\);/],
+    [/:where\(\.sg-coastal-calm-hero\) :is\(input, textarea, select\):focus-visible \{\n    outline-color: var\(--accent-01-input-focus, var\(--accent-01-focus\)\);/],
+    [/:where\(\.sg-coastal-calm-hero\) blockquote \{\n    color: var\(--ink-01-blockquote, var\(--ink-01-muted\)\);\n    border-color: var\(--canvas-01-blockquote-border, currentColor\);/],
+    [/:where\(\.sg-coastal-calm-hero\) hr \{\n    border-color: var\(--canvas-01-divider, var\(--canvas-01-border\)\);/],
+  ];
+  for (const [pattern] of expected) assert.match(hero, pattern);
+  // In the base layer, so color utilities on a component still win.
+  assert.match(css, /@layer base \{\n  :where\(\.sg-coastal-calm-hero\) \{/);
+  // The page class paints itself already, so only its elements are mapped.
+  assert.doesNotMatch(css, /:where\(\.sg-coastal-calm-page\) \{/);
+  assert.match(css, /:where\(\.sg-coastal-calm-page\) h1 \{/);
+  // Element rules don't add classes the page builder would list.
+  assert.equal(parseGroupClasses(upsertGroupCss("", group())).length, 8);
+});

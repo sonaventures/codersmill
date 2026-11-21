@@ -121,6 +121,110 @@ export function rule(selector: string, declarations: Map<string, string>, extra 
   return `${selector} {\n${lines.join("\n")}\n}`;
 }
 
+// Which element each area variable colors, e.g. .sg-fp-hero h1 gets
+// --ink-hero-h1. The rules read the shared section 01 variables, which every
+// area class remaps to its own (--ink-01-h1 is --ink-hero-h1 inside the
+// hero), so the nearest area class wins when areas are nested. Fallbacks
+// match the Theme Builder preview for colors left on the theme default.
+const inputSelector =
+  'input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]), textarea, select';
+
+export const areaElementMappings = [
+  // The outer element: the one that carries the class.
+  {
+    selector: "",
+    declarations: {
+      "background-color": "var(--canvas-01)",
+      "border-color": "var(--canvas-01-border)",
+      // Colors any shadow utility on it; it adds no shadow of its own.
+      "--tw-shadow-color":
+        "color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent)",
+    },
+  },
+  { selector: "p", declarations: { color: "var(--ink-01)" } },
+  { selector: "h1", declarations: { color: "var(--ink-01-h1)" } },
+  { selector: "h2", declarations: { color: "var(--ink-01-h2)" } },
+  { selector: "h3", declarations: { color: "var(--ink-01-h3)" } },
+  { selector: "h4", declarations: { color: "var(--ink-01-h4, var(--ink-01-h3))" } },
+  { selector: "strong", declarations: { color: "var(--ink-01-strong, currentColor)" } },
+  { selector: "em", declarations: { color: "var(--ink-01-em, currentColor)" } },
+  {
+    selector: "code",
+    declarations: {
+      color: "var(--ink-01-code, currentColor)",
+      "background-color": "var(--canvas-01-code, transparent)",
+    },
+  },
+  {
+    selector: "pre",
+    declarations: {
+      color: "var(--ink-01-pre, currentColor)",
+      "background-color": "var(--canvas-01-pre, transparent)",
+    },
+  },
+  // Code inside a pre block takes the pre colors.
+  {
+    selector: "pre code",
+    declarations: { color: "inherit", "background-color": "transparent" },
+  },
+  { selector: "label", declarations: { color: "var(--ink-01-label, var(--ink-01))" } },
+  {
+    selector: inputSelector,
+    declarations: {
+      color: "var(--ink-01-input, var(--ink-01))",
+      "background-color": "var(--canvas-01-input, var(--canvas-01))",
+      "border-color": "var(--canvas-01-input-border, var(--canvas-01-border))",
+    },
+  },
+  {
+    selector: "::placeholder",
+    declarations: { color: "var(--ink-01-placeholder, var(--ink-01-muted))" },
+  },
+  {
+    selector: ":is(input, textarea, select):focus-visible",
+    declarations: {
+      "outline-color": "var(--accent-01-input-focus, var(--accent-01-focus))",
+      "border-color": "var(--accent-01-input-focus, var(--accent-01-focus))",
+      // Colors focus:ring utilities on the field.
+      "--tw-ring-color": "var(--accent-01-input-focus, var(--accent-01-focus))",
+    },
+  },
+  {
+    selector: "blockquote",
+    declarations: {
+      color: "var(--ink-01-blockquote, var(--ink-01-muted))",
+      "border-color": "var(--canvas-01-blockquote-border, currentColor)",
+    },
+  },
+  {
+    selector: "hr",
+    declarations: { "border-color": "var(--canvas-01-divider, var(--canvas-01-border))" },
+  },
+] as const;
+
+/**
+ * The element rules for one area class, in the base layer and wrapped in
+ * :where() so any color utility on a component's element still wins.
+ */
+export function areaElementCss(className: string, region: Region): string {
+  const rules = areaElementMappings
+    // The page class already paints its own background and text color.
+    .filter(({ selector }) => selector || region !== "page")
+    .map(({ selector, declarations }) => {
+      const target = selector
+        ? selector
+            .split(/,\s*(?![^()]*\))/)
+            .map((part) => `  :where(.${className}) ${part}`)
+            .join(",\n")
+        : `  :where(.${className})`;
+      const lines = Object.entries(declarations).map(
+        ([property, value]) => `    ${property}: ${value};`,
+      );
+      return `${target} {\n${lines.join("\n")}\n  }`;
+    });
+  return `@layer base {\n${rules.join("\n")}\n}`;
+}
+
 const themeSelectors: Record<Theme, string> = {
   light: ':root:not([data-theme="dark"])',
   dark: ':root[data-theme="dark"]',
@@ -132,8 +236,10 @@ export function generateGroupCss(group: ThemeGroup): string {
   const label = group.name.replace(/\*\//g, "* /").replace(/[\r\n]+/g, " ");
   const rules: string[] = [];
   const typographyRules: string[] = [];
+  const elementRules: string[] = [];
   for (const { region, suffix } of classGroupAreas) {
     const className = `sg-${slug}-${suffix}`;
+    elementRules.push(areaElementCss(className, region));
     for (const theme of ["light", "dark"] as const) {
       rules.push(
         rule(
@@ -172,6 +278,7 @@ export function generateGroupCss(group: ThemeGroup): string {
   return [
     `/* theme-group: ${slug} (${label}) */`,
     ...rules,
+    ...elementRules,
     ...typographyRules,
     `/* end theme-group: ${slug} */`,
   ].join("\n");

@@ -743,4 +743,519 @@
   --ink-01-svg-02: var(--ink-06-svg-02, var(--canvas-01));
   --ink-01-svg-03: var(--ink-06-svg-03, currentColor);
 }
+@layer base {
+  :where(.sg-fp-page) p {
+    color: var(--ink-01);
+  }
+  :where(.sg-fp-page) h1 {
+    color: var(--ink-01-h1);
+  }
+  :where(.sg-fp-page) h2 {
+    color: var(--ink-01-h2);
+  }
+  :where(.sg-fp-page) h3 {
+    color: var(--ink-01-h3);
+  }
+  :where(.sg-fp-page) h4 {
+    color: var(--ink-01-h4, var(--ink-01-h3));
+  }
+  :where(.sg-fp-page) strong {
+    color: var(--ink-01-strong, currentColor);
+  }
+  :where(.sg-fp-page) em {
+    color: var(--ink-01-em, currentColor);
+  }
+  :where(.sg-fp-page) code {
+    color: var(--ink-01-code, currentColor);
+    background-color: var(--canvas-01-code, transparent);
+  }
+  :where(.sg-fp-page) pre {
+    color: var(--ink-01-pre, currentColor);
+    background-color: var(--canvas-01-pre, transparent);
+  }
+  :where(.sg-fp-page) pre code {
+    color: inherit;
+    background-color: transparent;
+  }
+  :where(.sg-fp-page) label {
+    color: var(--ink-01-label, var(--ink-01));
+  }
+  :where(.sg-fp-page) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]),
+  :where(.sg-fp-page) textarea,
+  :where(.sg-fp-page) select {
+    color: var(--ink-01-input, var(--ink-01));
+    background-color: var(--canvas-01-input, var(--canvas-01));
+    border-color: var(--canvas-01-input-border, var(--canvas-01-border));
+  }
+  :where(.sg-fp-page) ::placeholder {
+    color: var(--ink-01-placeholder, var(--ink-01-muted));
+  }
+  :where(.sg-fp-page) :is(input, textarea, select):focus-visible {
+    outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
+  }
+  :where(.sg-fp-page) blockquote {
+    color: var(--ink-01-blockquote, var(--ink-01-muted));
+    border-color: var(--canvas-01-blockquote-border, currentColor);
+  }
+  :where(.sg-fp-page) hr {
+    border-color: var(--canvas-01-divider, var(--canvas-01-border));
+  }
+}
+@layer base {
+  :where(.sg-fp-hero) {
+    background-color: var(--canvas-01);
+    border-color: var(--canvas-01-border);
+    --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+  }
+  :where(.sg-fp-hero) p {
+    color: var(--ink-01);
+  }
+  :where(.sg-fp-hero) h1 {
+    color: var(--ink-01-h1);
+  }
+  :where(.sg-fp-hero) h2 {
+    color: var(--ink-01-h2);
+  }
+  :where(.sg-fp-hero) h3 {
+    color: var(--ink-01-h3);
+  }
+  :where(.sg-fp-hero) h4 {
+    color: var(--ink-01-h4, var(--ink-01-h3));
+  }
+  :where(.sg-fp-hero) strong {
+    color: var(--ink-01-strong, currentColor);
+  }
+  :where(.sg-fp-hero) em {
+    color: var(--ink-01-em, currentColor);
+  }
+  :where(.sg-fp-hero) code {
+    color: var(--ink-01-code, currentColor);
+    background-color: var(--canvas-01-code, transparent);
+  }
+  :where(.sg-fp-hero) pre {
+    color: var(--ink-01-pre, currentColor);
+    background-color: var(--canvas-01-pre, transparent);
+  }
+  :where(.sg-fp-hero) pre code {
+    color: inherit;
+    background-color: transparent;
+  }
+  :where(.sg-fp-hero) label {
+    color: var(--ink-01-label, var(--ink-01));
+  }
+  :where(.sg-fp-hero) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]),
+  :where(.sg-fp-hero) textarea,
+  :where(.sg-fp-hero) select {
+    color: var(--ink-01-input, var(--ink-01));
+    background-color: var(--canvas-01-input, var(--canvas-01));
+    border-color: var(--canvas-01-input-border, var(--canvas-01-border));
+  }
+  :where(.sg-fp-hero) ::placeholder {
+    color: var(--ink-01-placeholder, var(--ink-01-muted));
+  }
+  :where(.sg-fp-hero) :is(input, textarea, select):focus-visible {
+    outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
+  }
+  :where(.sg-fp-hero) blockquote {
+    color: var(--ink-01-blockquote, var(--ink-01-muted));
+    border-color: var(--canvas-01-blockquote-border, currentColor);
+  }
+  :where(.sg-fp-hero) hr {
+    border-color: var(--canvas-01-divider, var(--canvas-01-border));
+  }
+}
+@layer base {
+  :where(.sg-fp-section-1) {
+    background-color: var(--canvas-01);
+    border-color: var(--canvas-01-border);
+    --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+  }
+  :where(.sg-fp-section-1) p {
+    color: var(--ink-01);
+  }
+  :where(.sg-fp-section-1) h1 {
+    color: var(--ink-01-h1);
+  }
+  :where(.sg-fp-section-1) h2 {
+    color: var(--ink-01-h2);
+  }
+  :where(.sg-fp-section-1) h3 {
+    color: var(--ink-01-h3);
+  }
+  :where(.sg-fp-section-1) h4 {
+    color: var(--ink-01-h4, var(--ink-01-h3));
+  }
+  :where(.sg-fp-section-1) strong {
+    color: var(--ink-01-strong, currentColor);
+  }
+  :where(.sg-fp-section-1) em {
+    color: var(--ink-01-em, currentColor);
+  }
+  :where(.sg-fp-section-1) code {
+    color: var(--ink-01-code, currentColor);
+    background-color: var(--canvas-01-code, transparent);
+  }
+  :where(.sg-fp-section-1) pre {
+    color: var(--ink-01-pre, currentColor);
+    background-color: var(--canvas-01-pre, transparent);
+  }
+  :where(.sg-fp-section-1) pre code {
+    color: inherit;
+    background-color: transparent;
+  }
+  :where(.sg-fp-section-1) label {
+    color: var(--ink-01-label, var(--ink-01));
+  }
+  :where(.sg-fp-section-1) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]),
+  :where(.sg-fp-section-1) textarea,
+  :where(.sg-fp-section-1) select {
+    color: var(--ink-01-input, var(--ink-01));
+    background-color: var(--canvas-01-input, var(--canvas-01));
+    border-color: var(--canvas-01-input-border, var(--canvas-01-border));
+  }
+  :where(.sg-fp-section-1) ::placeholder {
+    color: var(--ink-01-placeholder, var(--ink-01-muted));
+  }
+  :where(.sg-fp-section-1) :is(input, textarea, select):focus-visible {
+    outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
+  }
+  :where(.sg-fp-section-1) blockquote {
+    color: var(--ink-01-blockquote, var(--ink-01-muted));
+    border-color: var(--canvas-01-blockquote-border, currentColor);
+  }
+  :where(.sg-fp-section-1) hr {
+    border-color: var(--canvas-01-divider, var(--canvas-01-border));
+  }
+}
+@layer base {
+  :where(.sg-fp-section-2) {
+    background-color: var(--canvas-01);
+    border-color: var(--canvas-01-border);
+    --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+  }
+  :where(.sg-fp-section-2) p {
+    color: var(--ink-01);
+  }
+  :where(.sg-fp-section-2) h1 {
+    color: var(--ink-01-h1);
+  }
+  :where(.sg-fp-section-2) h2 {
+    color: var(--ink-01-h2);
+  }
+  :where(.sg-fp-section-2) h3 {
+    color: var(--ink-01-h3);
+  }
+  :where(.sg-fp-section-2) h4 {
+    color: var(--ink-01-h4, var(--ink-01-h3));
+  }
+  :where(.sg-fp-section-2) strong {
+    color: var(--ink-01-strong, currentColor);
+  }
+  :where(.sg-fp-section-2) em {
+    color: var(--ink-01-em, currentColor);
+  }
+  :where(.sg-fp-section-2) code {
+    color: var(--ink-01-code, currentColor);
+    background-color: var(--canvas-01-code, transparent);
+  }
+  :where(.sg-fp-section-2) pre {
+    color: var(--ink-01-pre, currentColor);
+    background-color: var(--canvas-01-pre, transparent);
+  }
+  :where(.sg-fp-section-2) pre code {
+    color: inherit;
+    background-color: transparent;
+  }
+  :where(.sg-fp-section-2) label {
+    color: var(--ink-01-label, var(--ink-01));
+  }
+  :where(.sg-fp-section-2) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]),
+  :where(.sg-fp-section-2) textarea,
+  :where(.sg-fp-section-2) select {
+    color: var(--ink-01-input, var(--ink-01));
+    background-color: var(--canvas-01-input, var(--canvas-01));
+    border-color: var(--canvas-01-input-border, var(--canvas-01-border));
+  }
+  :where(.sg-fp-section-2) ::placeholder {
+    color: var(--ink-01-placeholder, var(--ink-01-muted));
+  }
+  :where(.sg-fp-section-2) :is(input, textarea, select):focus-visible {
+    outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
+  }
+  :where(.sg-fp-section-2) blockquote {
+    color: var(--ink-01-blockquote, var(--ink-01-muted));
+    border-color: var(--canvas-01-blockquote-border, currentColor);
+  }
+  :where(.sg-fp-section-2) hr {
+    border-color: var(--canvas-01-divider, var(--canvas-01-border));
+  }
+}
+@layer base {
+  :where(.sg-fp-section-3) {
+    background-color: var(--canvas-01);
+    border-color: var(--canvas-01-border);
+    --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+  }
+  :where(.sg-fp-section-3) p {
+    color: var(--ink-01);
+  }
+  :where(.sg-fp-section-3) h1 {
+    color: var(--ink-01-h1);
+  }
+  :where(.sg-fp-section-3) h2 {
+    color: var(--ink-01-h2);
+  }
+  :where(.sg-fp-section-3) h3 {
+    color: var(--ink-01-h3);
+  }
+  :where(.sg-fp-section-3) h4 {
+    color: var(--ink-01-h4, var(--ink-01-h3));
+  }
+  :where(.sg-fp-section-3) strong {
+    color: var(--ink-01-strong, currentColor);
+  }
+  :where(.sg-fp-section-3) em {
+    color: var(--ink-01-em, currentColor);
+  }
+  :where(.sg-fp-section-3) code {
+    color: var(--ink-01-code, currentColor);
+    background-color: var(--canvas-01-code, transparent);
+  }
+  :where(.sg-fp-section-3) pre {
+    color: var(--ink-01-pre, currentColor);
+    background-color: var(--canvas-01-pre, transparent);
+  }
+  :where(.sg-fp-section-3) pre code {
+    color: inherit;
+    background-color: transparent;
+  }
+  :where(.sg-fp-section-3) label {
+    color: var(--ink-01-label, var(--ink-01));
+  }
+  :where(.sg-fp-section-3) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]),
+  :where(.sg-fp-section-3) textarea,
+  :where(.sg-fp-section-3) select {
+    color: var(--ink-01-input, var(--ink-01));
+    background-color: var(--canvas-01-input, var(--canvas-01));
+    border-color: var(--canvas-01-input-border, var(--canvas-01-border));
+  }
+  :where(.sg-fp-section-3) ::placeholder {
+    color: var(--ink-01-placeholder, var(--ink-01-muted));
+  }
+  :where(.sg-fp-section-3) :is(input, textarea, select):focus-visible {
+    outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
+  }
+  :where(.sg-fp-section-3) blockquote {
+    color: var(--ink-01-blockquote, var(--ink-01-muted));
+    border-color: var(--canvas-01-blockquote-border, currentColor);
+  }
+  :where(.sg-fp-section-3) hr {
+    border-color: var(--canvas-01-divider, var(--canvas-01-border));
+  }
+}
+@layer base {
+  :where(.sg-fp-section-4) {
+    background-color: var(--canvas-01);
+    border-color: var(--canvas-01-border);
+    --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+  }
+  :where(.sg-fp-section-4) p {
+    color: var(--ink-01);
+  }
+  :where(.sg-fp-section-4) h1 {
+    color: var(--ink-01-h1);
+  }
+  :where(.sg-fp-section-4) h2 {
+    color: var(--ink-01-h2);
+  }
+  :where(.sg-fp-section-4) h3 {
+    color: var(--ink-01-h3);
+  }
+  :where(.sg-fp-section-4) h4 {
+    color: var(--ink-01-h4, var(--ink-01-h3));
+  }
+  :where(.sg-fp-section-4) strong {
+    color: var(--ink-01-strong, currentColor);
+  }
+  :where(.sg-fp-section-4) em {
+    color: var(--ink-01-em, currentColor);
+  }
+  :where(.sg-fp-section-4) code {
+    color: var(--ink-01-code, currentColor);
+    background-color: var(--canvas-01-code, transparent);
+  }
+  :where(.sg-fp-section-4) pre {
+    color: var(--ink-01-pre, currentColor);
+    background-color: var(--canvas-01-pre, transparent);
+  }
+  :where(.sg-fp-section-4) pre code {
+    color: inherit;
+    background-color: transparent;
+  }
+  :where(.sg-fp-section-4) label {
+    color: var(--ink-01-label, var(--ink-01));
+  }
+  :where(.sg-fp-section-4) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]),
+  :where(.sg-fp-section-4) textarea,
+  :where(.sg-fp-section-4) select {
+    color: var(--ink-01-input, var(--ink-01));
+    background-color: var(--canvas-01-input, var(--canvas-01));
+    border-color: var(--canvas-01-input-border, var(--canvas-01-border));
+  }
+  :where(.sg-fp-section-4) ::placeholder {
+    color: var(--ink-01-placeholder, var(--ink-01-muted));
+  }
+  :where(.sg-fp-section-4) :is(input, textarea, select):focus-visible {
+    outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
+  }
+  :where(.sg-fp-section-4) blockquote {
+    color: var(--ink-01-blockquote, var(--ink-01-muted));
+    border-color: var(--canvas-01-blockquote-border, currentColor);
+  }
+  :where(.sg-fp-section-4) hr {
+    border-color: var(--canvas-01-divider, var(--canvas-01-border));
+  }
+}
+@layer base {
+  :where(.sg-fp-section-5) {
+    background-color: var(--canvas-01);
+    border-color: var(--canvas-01-border);
+    --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+  }
+  :where(.sg-fp-section-5) p {
+    color: var(--ink-01);
+  }
+  :where(.sg-fp-section-5) h1 {
+    color: var(--ink-01-h1);
+  }
+  :where(.sg-fp-section-5) h2 {
+    color: var(--ink-01-h2);
+  }
+  :where(.sg-fp-section-5) h3 {
+    color: var(--ink-01-h3);
+  }
+  :where(.sg-fp-section-5) h4 {
+    color: var(--ink-01-h4, var(--ink-01-h3));
+  }
+  :where(.sg-fp-section-5) strong {
+    color: var(--ink-01-strong, currentColor);
+  }
+  :where(.sg-fp-section-5) em {
+    color: var(--ink-01-em, currentColor);
+  }
+  :where(.sg-fp-section-5) code {
+    color: var(--ink-01-code, currentColor);
+    background-color: var(--canvas-01-code, transparent);
+  }
+  :where(.sg-fp-section-5) pre {
+    color: var(--ink-01-pre, currentColor);
+    background-color: var(--canvas-01-pre, transparent);
+  }
+  :where(.sg-fp-section-5) pre code {
+    color: inherit;
+    background-color: transparent;
+  }
+  :where(.sg-fp-section-5) label {
+    color: var(--ink-01-label, var(--ink-01));
+  }
+  :where(.sg-fp-section-5) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]),
+  :where(.sg-fp-section-5) textarea,
+  :where(.sg-fp-section-5) select {
+    color: var(--ink-01-input, var(--ink-01));
+    background-color: var(--canvas-01-input, var(--canvas-01));
+    border-color: var(--canvas-01-input-border, var(--canvas-01-border));
+  }
+  :where(.sg-fp-section-5) ::placeholder {
+    color: var(--ink-01-placeholder, var(--ink-01-muted));
+  }
+  :where(.sg-fp-section-5) :is(input, textarea, select):focus-visible {
+    outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
+  }
+  :where(.sg-fp-section-5) blockquote {
+    color: var(--ink-01-blockquote, var(--ink-01-muted));
+    border-color: var(--canvas-01-blockquote-border, currentColor);
+  }
+  :where(.sg-fp-section-5) hr {
+    border-color: var(--canvas-01-divider, var(--canvas-01-border));
+  }
+}
+@layer base {
+  :where(.sg-fp-section-6) {
+    background-color: var(--canvas-01);
+    border-color: var(--canvas-01-border);
+    --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+  }
+  :where(.sg-fp-section-6) p {
+    color: var(--ink-01);
+  }
+  :where(.sg-fp-section-6) h1 {
+    color: var(--ink-01-h1);
+  }
+  :where(.sg-fp-section-6) h2 {
+    color: var(--ink-01-h2);
+  }
+  :where(.sg-fp-section-6) h3 {
+    color: var(--ink-01-h3);
+  }
+  :where(.sg-fp-section-6) h4 {
+    color: var(--ink-01-h4, var(--ink-01-h3));
+  }
+  :where(.sg-fp-section-6) strong {
+    color: var(--ink-01-strong, currentColor);
+  }
+  :where(.sg-fp-section-6) em {
+    color: var(--ink-01-em, currentColor);
+  }
+  :where(.sg-fp-section-6) code {
+    color: var(--ink-01-code, currentColor);
+    background-color: var(--canvas-01-code, transparent);
+  }
+  :where(.sg-fp-section-6) pre {
+    color: var(--ink-01-pre, currentColor);
+    background-color: var(--canvas-01-pre, transparent);
+  }
+  :where(.sg-fp-section-6) pre code {
+    color: inherit;
+    background-color: transparent;
+  }
+  :where(.sg-fp-section-6) label {
+    color: var(--ink-01-label, var(--ink-01));
+  }
+  :where(.sg-fp-section-6) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]),
+  :where(.sg-fp-section-6) textarea,
+  :where(.sg-fp-section-6) select {
+    color: var(--ink-01-input, var(--ink-01));
+    background-color: var(--canvas-01-input, var(--canvas-01));
+    border-color: var(--canvas-01-input-border, var(--canvas-01-border));
+  }
+  :where(.sg-fp-section-6) ::placeholder {
+    color: var(--ink-01-placeholder, var(--ink-01-muted));
+  }
+  :where(.sg-fp-section-6) :is(input, textarea, select):focus-visible {
+    outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
+  }
+  :where(.sg-fp-section-6) blockquote {
+    color: var(--ink-01-blockquote, var(--ink-01-muted));
+    border-color: var(--canvas-01-blockquote-border, currentColor);
+  }
+  :where(.sg-fp-section-6) hr {
+    border-color: var(--canvas-01-divider, var(--canvas-01-border));
+  }
+}
 /* end theme-group: fp */
