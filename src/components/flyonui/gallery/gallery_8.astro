@@ -1,11 +1,11 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Header Section -->
     <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
         Explore Our Visual Story
       </h2>
-      <p class="text-ink-01-muted text-xl font-medium">
+      <p class="text-xl font-medium">
         A stunning collection of moments, creativity, and innovation captured in
         our gallery.
       </p>
@@ -17,7 +17,7 @@
       x-data="portfolioTabs('all', ['all', 'pages', 'templates', 'ui-elements'])"
     >
       <nav
-        class="border-canvas-01-border flex max-w-full overflow-x-auto border-b"
+        class="flex max-w-full overflow-x-auto border-b"
         aria-label="Tabs"
         role="tablist"
         aria-orientation="horizontal"
@@ -32,7 +32,7 @@
           x-bind:aria-controls="$id('gallery-panel', 'all')"
           x-bind:aria-selected="active === 'all'"
           x-bind:tabindex="active === 'all' ? 0 : -1"
-          x-bind:class="active === 'all' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'all' ? '' : 'border-transparent'"
           x-on:click="active = 'all'"
         >
           <span class="max-md:hidden">All</span>
@@ -47,7 +47,7 @@
           x-bind:aria-controls="$id('gallery-panel', 'pages')"
           x-bind:aria-selected="active === 'pages'"
           x-bind:tabindex="active === 'pages' ? 0 : -1"
-          x-bind:class="active === 'pages' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'pages' ? '' : 'border-transparent'"
           x-on:click="active = 'pages'"
         >
           <span class="max-md:hidden">Pages</span>
@@ -62,7 +62,7 @@
           x-bind:aria-controls="$id('gallery-panel', 'templates')"
           x-bind:aria-selected="active === 'templates'"
           x-bind:tabindex="active === 'templates' ? 0 : -1"
-          x-bind:class="active === 'templates' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'templates' ? '' : 'border-transparent'"
           x-on:click="active = 'templates'"
         >
           <span class="max-md:hidden">Templates</span>
@@ -77,7 +77,7 @@
           x-bind:aria-controls="$id('gallery-panel', 'ui-elements')"
           x-bind:aria-selected="active === 'ui-elements'"
           x-bind:tabindex="active === 'ui-elements' ? 0 : -1"
-          x-bind:class="active === 'ui-elements' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'ui-elements' ? '' : 'border-transparent'"
           x-on:click="active = 'ui-elements'"
         >
           <span class="max-md:hidden">UI Elements</span>
@@ -111,9 +111,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Wealth Management
                       </p>
                     </div>
@@ -129,9 +129,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         BloomTrack Application
                       </p>
                     </div>
@@ -147,9 +147,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Vuexy Admin Dashboard
                       </p>
                     </div>
@@ -165,9 +165,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         EventSphere
                       </p>
                     </div>
@@ -183,9 +183,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Password Manager
                       </p>
                     </div>
@@ -201,9 +201,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">FitQuest</p>
+                      <p class="text-xl font-semibold">FitQuest</p>
                     </div>
                   </div>
                 </div>
@@ -217,9 +217,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Materio Admin Dashboard
                       </p>
                     </div>
@@ -235,9 +235,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Sneat Admin Dashboard
                       </p>
                     </div>
@@ -253,9 +253,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">QuickPages</p>
+                      <p class="text-xl font-semibold">QuickPages</p>
                     </div>
                   </div>
                 </div>
@@ -269,9 +269,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Recording Application
                       </p>
                     </div>
@@ -287,9 +287,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Materialize Admin Dashboard
                       </p>
                     </div>
@@ -305,9 +305,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Travel Buddy
                       </p>
                     </div>
@@ -319,7 +319,7 @@
             <div class="mt-12 flex items-center justify-center gap-4 sm:mt-16 lg:mt-24">
               <button
                 type="button"
-                class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+                class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
                 aria-label="Previous gallery page"
                 x-on:click="go(page - 1)"
                 x-bind:disabled="page === 0"
@@ -328,7 +328,7 @@
               </button>
               <button
                 type="button"
-                class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+                class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
                 aria-label="Next gallery page"
                 x-on:click="go(page + 1)"
                 x-bind:disabled="page >= pages - 1"
@@ -365,9 +365,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">FitQuest</p>
+                      <p class="text-xl font-semibold">FitQuest</p>
                     </div>
                   </div>
                 </div>
@@ -381,9 +381,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">QuickPages</p>
+                      <p class="text-xl font-semibold">QuickPages</p>
                     </div>
                   </div>
                 </div>
@@ -397,9 +397,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         BloomTrack Application
                       </p>
                     </div>
@@ -415,9 +415,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Recording Application
                       </p>
                     </div>
@@ -429,7 +429,7 @@
             <div class="mt-12 flex items-center justify-center gap-4 sm:mt-16 lg:mt-24">
               <button
                 type="button"
-                class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+                class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
                 aria-label="Previous gallery page"
                 x-on:click="go(page - 1)"
                 x-bind:disabled="page === 0"
@@ -438,7 +438,7 @@
               </button>
               <button
                 type="button"
-                class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+                class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
                 aria-label="Next gallery page"
                 x-on:click="go(page + 1)"
                 x-bind:disabled="page >= pages - 1"
@@ -475,9 +475,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Materio Admin Dashboard
                       </p>
                     </div>
@@ -493,9 +493,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Vuexy Admin Dashboard
                       </p>
                     </div>
@@ -511,9 +511,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Sneat Admin Dashboard
                       </p>
                     </div>
@@ -529,9 +529,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Materialize Admin Dashboard
                       </p>
                     </div>
@@ -543,7 +543,7 @@
             <div class="mt-12 flex items-center justify-center gap-4 sm:mt-16 lg:mt-24">
               <button
                 type="button"
-                class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+                class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
                 aria-label="Previous gallery page"
                 x-on:click="go(page - 1)"
                 x-bind:disabled="page === 0"
@@ -552,7 +552,7 @@
               </button>
               <button
                 type="button"
-                class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+                class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
                 aria-label="Next gallery page"
                 x-on:click="go(page + 1)"
                 x-bind:disabled="page >= pages - 1"
@@ -589,9 +589,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         EventSphere
                       </p>
                     </div>
@@ -607,9 +607,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Wealth Management
                       </p>
                     </div>
@@ -625,9 +625,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Password Manager
                       </p>
                     </div>
@@ -643,9 +643,9 @@
                         class="h-full w-full rounded-xl object-cover"
                       />
                     </figure>
-                    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-canvas-contrast/85 to-transparent"></div>
+                    <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                     <div class="absolute right-6 bottom-6 left-6 w-fit space-y-4">
-                      <p class="text-xl font-semibold text-ink-contrast">
+                      <p class="text-xl font-semibold">
                         Travel Buddy
                       </p>
                     </div>
@@ -657,7 +657,7 @@
             <div class="mt-12 flex items-center justify-center gap-4 sm:mt-16 lg:mt-24">
               <button
                 type="button"
-                class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+                class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
                 aria-label="Previous gallery page"
                 x-on:click="go(page - 1)"
                 x-bind:disabled="page === 0"
@@ -666,7 +666,7 @@
               </button>
               <button
                 type="button"
-                class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+                class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
                 aria-label="Next gallery page"
                 x-on:click="go(page + 1)"
                 x-bind:disabled="page >= pages - 1"

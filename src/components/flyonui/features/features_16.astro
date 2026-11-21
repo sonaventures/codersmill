@@ -1,14 +1,14 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Heading Section -->
     <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-      <div class="text-ink-01-highlight text-sm font-medium uppercase">
+      <div class="text-sm font-medium uppercase">
         OUR BEST FEATURES
       </div>
-      <h2 class="text-ink-01-h2 mx-auto max-w-2xl text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="mx-auto max-w-2xl text-2xl font-semibold md:text-3xl lg:text-4xl">
         With clarity comes momentum. With momentum, opportunity follows.
       </h2>
-      <a href="#" class="btn btn-filled">
+      <a href="#" class="btn">
         See all features
       </a>
     </div>
@@ -19,7 +19,7 @@
       x-data="{ tab: 'creating', tabs: ['analytics', 'monitoring', 'creating', 'tool'], move(event) { let index = this.tabs.indexOf(this.tab); if (event.key === 'ArrowRight') index = (index + 1) % this.tabs.length; else if (event.key === 'ArrowLeft') index = (index + this.tabs.length - 1) % this.tabs.length; else if (event.key === 'Home') index = 0; else if (event.key === 'End') index = this.tabs.length - 1; else return; event.preventDefault(); this.tab = this.tabs[index]; this.$nextTick(() => this.$refs[this.tab].focus()); } }"
     >
       <nav
-        class="flex w-full overflow-x-auto border-b border-canvas-01-border"
+        class="flex w-full overflow-x-auto border-b"
         aria-label="Features Tabs"
         role="tablist"
         aria-orientation="horizontal"
@@ -33,7 +33,7 @@
           x-bind:aria-controls="$id('feature-panel', 'analytics')"
           x-bind:aria-selected="tab === 'analytics'"
           x-bind:tabindex="tab === 'analytics' ? 0 : -1"
-          x-bind:class="tab === 'analytics' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="tab === 'analytics' ? '' : 'border-transparent'"
           x-on:click="tab = 'analytics'"
           role="tab"
         >
@@ -47,7 +47,7 @@
           x-bind:aria-controls="$id('feature-panel', 'monitoring')"
           x-bind:aria-selected="tab === 'monitoring'"
           x-bind:tabindex="tab === 'monitoring' ? 0 : -1"
-          x-bind:class="tab === 'monitoring' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="tab === 'monitoring' ? '' : 'border-transparent'"
           x-on:click="tab = 'monitoring'"
           role="tab"
         >
@@ -61,7 +61,7 @@
           x-bind:aria-controls="$id('feature-panel', 'creating')"
           x-bind:aria-selected="tab === 'creating'"
           x-bind:tabindex="tab === 'creating' ? 0 : -1"
-          x-bind:class="tab === 'creating' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="tab === 'creating' ? '' : 'border-transparent'"
           x-on:click="tab = 'creating'"
           role="tab"
         >
@@ -75,7 +75,7 @@
           x-bind:aria-controls="$id('feature-panel', 'tool')"
           x-bind:aria-selected="tab === 'tool'"
           x-bind:tabindex="tab === 'tool' ? 0 : -1"
-          x-bind:class="tab === 'tool' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="tab === 'tool' ? '' : 'border-transparent'"
           x-on:click="tab = 'tool'"
           role="tab"
         >
@@ -96,7 +96,7 @@
           <img
             src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/features/features-27-1.png"
             alt="Our Story"
-            class="rounded-xl border-canvas-01-card-01-border size-full border object-cover"
+            class="rounded-xl size-full border object-cover"
           />
         </div>
         <div
@@ -110,7 +110,7 @@
           <img
             src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/features/features-28-1.png"
             alt="Our Story"
-            class="rounded-xl border-canvas-01-card-01-border size-full border object-cover"
+            class="rounded-xl size-full border object-cover"
           />
         </div>
         <div
@@ -123,7 +123,7 @@
           <img
             src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/features/features-26.png"
             alt="Our Story"
-            class="rounded-xl border-canvas-01-card-01-border size-full border object-cover"
+            class="rounded-xl size-full border object-cover"
           />
         </div>
         <div
@@ -137,7 +137,7 @@
           <img
             src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/features/features-29.png"
             alt="Our Story"
-            class="rounded-xl border-canvas-01-card-01-border size-full border object-cover"
+            class="rounded-xl size-full border object-cover"
           />
         </div>
       </div>

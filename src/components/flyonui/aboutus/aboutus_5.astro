@@ -1,15 +1,15 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col items-center gap-24">
       <div class="max-w-5xl space-y-4 text-center">
-        <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
           Our Mission & Values
         </h2>
-        <p class="text-ink-01-muted text-xl">
+        <p class="text-xl">
           We operate with integrity, innovation, and a relentless commitment to
           delivering superior results.
         </p>
-        <a href="#" class="btn btn-filled">
+        <a href="#" class="btn">
           Read More
           <span class="icon-[tabler--arrow-right] size-5 rtl:rotate-180"></span>
         </a>
@@ -22,20 +22,20 @@
           x-id="['about-tab', 'about-panel']"
           x-data="{ tab: 'vision', tabs: ['mission', 'vision', 'values'], move(event) { let index = this.tabs.indexOf(this.tab); if (event.key === 'ArrowRight') index = (index + 1) % this.tabs.length; else if (event.key === 'ArrowLeft') index = (index + this.tabs.length - 1) % this.tabs.length; else if (event.key === 'Home') index = 0; else if (event.key === 'End') index = this.tabs.length - 1; else return; event.preventDefault(); this.tab = this.tabs[index]; this.$nextTick(() => this.$refs[this.tab].focus()); } }"
         >
-          <h3 class="text-ink-01-h3 text-2xl">
+          <h3 class="text-2xl">
             We help in creating Educational Resources
           </h3>
-          <p class="text-ink-01-muted">
+          <p>
             We understand the significance of quality educational materials in
             the learning process and take our role in supporting educators
             seriously. We are committed to providing our users with the best
             possible resources and support.
           </p>
-          <div class="h-px w-full bg-canvas-01-border"></div>
+          <div class="h-px w-full"></div>
 
           <!-- Tab List -->
           <nav
-            class="flex overflow-x-auto border-b border-canvas-01-border"
+            class="flex overflow-x-auto border-b"
             aria-label="Tabs"
             role="tablist"
             aria-orientation="horizontal"
@@ -49,7 +49,7 @@
               x-bind:aria-controls="$id('about-panel', 'mission')"
               x-bind:aria-selected="tab === 'mission'"
               x-bind:tabindex="tab === 'mission' ? 0 : -1"
-              x-bind:class="tab === 'mission' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+              x-bind:class="tab === 'mission' ? '' : 'border-transparent'"
               x-on:click="tab = 'mission'"
               role="tab"
             >
@@ -63,7 +63,7 @@
               x-bind:aria-controls="$id('about-panel', 'vision')"
               x-bind:aria-selected="tab === 'vision'"
               x-bind:tabindex="tab === 'vision' ? 0 : -1"
-              x-bind:class="tab === 'vision' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+              x-bind:class="tab === 'vision' ? '' : 'border-transparent'"
               x-on:click="tab = 'vision'"
               role="tab"
             >
@@ -77,7 +77,7 @@
               x-bind:aria-controls="$id('about-panel', 'values')"
               x-bind:aria-selected="tab === 'values'"
               x-bind:tabindex="tab === 'values' ? 0 : -1"
-              x-bind:class="tab === 'values' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+              x-bind:class="tab === 'values' ? '' : 'border-transparent'"
               x-on:click="tab = 'values'"
               role="tab"
             >
@@ -94,7 +94,7 @@
               role="tabpanel"
               tabindex="0"
             >
-              <p class="text-ink-01-muted">
+              <p>
                 Our mission is to empower educators and institutions by
                 providing innovative, high-quality educational resources that
                 enhance learning outcomes. We strive to make education more
@@ -102,7 +102,7 @@
                 solutions and unwavering commitment to excellence in educational
                 content development.
               </p>
-              <p class="text-ink-01-muted mt-4">
+              <p class="mt-4">
                 Through collaboration with educators and continuous improvement
                 of our methodologies, we aim to transform the educational
                 landscape and contribute to the success of learners worldwide.
@@ -115,14 +115,14 @@
               role="tabpanel"
               tabindex="0"
             >
-              <p class="text-ink-01-muted">
+              <p>
                 Educational resources are essential for effective teaching, but
                 creating them can be challenging and time-consuming. Educators
                 often spend countless hours developing lesson plans, activities,
                 and assessments. This process can be overwhelming and divert a
                 teacher's attention from engaging with their students.
               </p>
-              <p class="text-ink-01-muted mt-4">
+              <p class="mt-4">
                 Our team of educational experts is always available to answer
                 questions, offer guidance, and assist our users in enhancing
                 their teaching methods.
@@ -136,10 +136,10 @@
               role="tabpanel"
               tabindex="0"
             >
-              <p class="text-ink-01-muted">
+              <p>
                 Our core values guide everything we do:
               </p>
-              <ul class="text-ink-01-muted mt-4 list-inside list-disc space-y-2">
+              <ul class="mt-4 list-inside list-disc space-y-2">
                 <li>
                   <span class="font-semibold">Excellence:</span>
                   We maintain the highest standards in educational content

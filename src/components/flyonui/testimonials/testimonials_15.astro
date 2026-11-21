@@ -1,21 +1,21 @@
-<section class="bg-canvas-01 text-ink-01 py-16 lg:py-24">
+<section class="py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4">
     <div class="grid grid-cols-1 items-start gap-7 lg:grid-cols-2">
       <!-- Header Section -->
       <div class="space-y-4">
         <div>
-          <span class="text-ink-01-highlight text-sm font-medium uppercase">
+          <span class="text-sm font-medium uppercase">
             TESTIMONIALS
           </span>
         </div>
-        <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+        <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
           Some of our valuable customers feedback
         </h2>
-        <p class="text-ink-01-muted leading-relaxed md:text-xl">
+        <p class="leading-relaxed md:text-xl">
           predictive analytics, and recommendations to optimize their processes
           and better business outcomes.
         </p>
-        <button class="btn btn-outline">More Customer Stories</button>
+        <button class="btn">More Customer Stories</button>
       </div>
 
       <!-- Testimonials Slider -->
@@ -27,9 +27,9 @@
         >
           <!-- Testimonial Slide 1 -->
           <div class="w-full shrink-0 snap-start p-2">
-            <div class="from-accent-01-focus to-accent-01-text grid h-full items-end justify-between gap-2.5 rounded-xl bg-linear-to-br md:grid-cols-5">
+            <div class="grid h-full items-end justify-between gap-2.5 rounded-xl md:grid-cols-5">
               <!-- Customer Info -->
-              <div class="p-6 text-ink-contrast/90 md:col-span-3">
+              <div class="p-6 md:col-span-3">
                 <p class="mb-7 leading-relaxed">
                   “I was impressed by the polished UI design. Everything feels
                   modern, intuitive, and perfectly suited for professional
@@ -71,9 +71,9 @@
           </div>
           <!-- Testimonial Slide 2 -->
           <div class="w-full shrink-0 snap-start p-2">
-            <div class="from-accent-01-focus to-accent-01-text grid h-full items-end justify-between gap-2.5 rounded-xl bg-linear-to-br md:grid-cols-5">
+            <div class="grid h-full items-end justify-between gap-2.5 rounded-xl md:grid-cols-5">
               <!-- Customer Info -->
-              <div class="p-6 text-ink-contrast/90 md:col-span-3">
+              <div class="p-6 md:col-span-3">
                 <p class="mb-7 leading-relaxed">
                   “ThemeSelection’s admin template stands out for its clean code
                   and thoughtful architecture. It’s clearly built with
@@ -115,9 +115,9 @@
           </div>
           <!-- Testimonial Slide 3 -->
           <div class="w-full shrink-0 snap-start p-2">
-            <div class="from-accent-01-focus to-accent-01-text grid h-full items-end justify-between gap-2.5 rounded-xl bg-linear-to-br md:grid-cols-5">
+            <div class="grid h-full items-end justify-between gap-2.5 rounded-xl md:grid-cols-5">
               <!-- Customer Info -->
-              <div class="p-6 text-ink-contrast/90 md:col-span-3">
+              <div class="p-6 md:col-span-3">
                 <p class="mb-7 leading-relaxed">
                   “The components are incredibly well-designed and easy to
                   customize. This has significantly accelerated our development
@@ -162,7 +162,7 @@
         <!-- Navigation Arrows -->
         <button
           type="button"
-          class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas bg-canvas-01 absolute top-1/2 inset-s-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
+          class="absolute top-1/2 inset-s-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
           aria-label="Previous testimonial"
           x-on:click="go(page - 1)"
           x-bind:disabled="page === 0"
@@ -171,7 +171,7 @@
         </button>
         <button
           type="button"
-          class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas bg-canvas-01 absolute top-1/2 inset-e-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
+          class="absolute top-1/2 inset-e-0 z-1 grid size-11.5 -translate-y-1/2 place-items-center rounded-full border disabled:opacity-50"
           aria-label="Next testimonial"
           x-on:click="go(page + 1)"
           x-bind:disabled="page >= pages - 1"
@@ -185,7 +185,7 @@
             <button
               type="button"
               class="size-3 rounded-full"
-              x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+              x-bind:class="page === number - 1 ? '' : ''"
               x-bind:aria-label="'Go to testimonial ' + number"
               x-bind:aria-current="page === number - 1 ? 'true' : null"
               x-on:click="go(number - 1)"

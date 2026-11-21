@@ -1,10 +1,10 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="mb-12 space-y-4 sm:mb-16 lg:mb-24">
-      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
         The Art of What We Do
       </h2>
-      <p class="text-ink-01-muted text-xl">
+      <p class="text-xl">
         Discover the beauty of our projects, collaborations, and achievements
         through our gallery.
       </p>
@@ -84,7 +84,7 @@
       <div class="mt-12 flex items-center justify-center gap-4 sm:mt-16 md:justify-end lg:mt-24">
         <button
           type="button"
-          class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
           aria-label="Previous gallery page"
           x-on:click="go(page - 1)"
           x-bind:disabled="page === 0"
@@ -96,7 +96,7 @@
             <button
               type="button"
               class="h-1 flex-1 rounded-full"
-              x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-canvas'"
+              x-bind:class="page === number - 1 ? '' : ''"
               x-bind:aria-label="'Go to gallery page ' + number"
               x-bind:aria-current="page === number - 1 ? 'true' : null"
               x-on:click="go(number - 1)"
@@ -105,7 +105,7 @@
         </div>
         <button
           type="button"
-          class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
           aria-label="Next gallery page"
           x-on:click="go(page + 1)"
           x-bind:disabled="page >= pages - 1"

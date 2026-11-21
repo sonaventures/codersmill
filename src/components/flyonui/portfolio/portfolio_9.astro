@@ -1,22 +1,22 @@
-<section class="bg-canvas-01 text-ink-01 pt-8 pb-28 sm:pt-16 sm:pb-36 lg:pt-24 lg:pb-43">
+<section class="pt-8 pb-28 sm:pt-16 sm:pb-36 lg:pt-24 lg:pb-43">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Header Section -->
     <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-      <p class="text-ink-01-highlight text-sm font-medium uppercase">
+      <p class="text-sm font-medium uppercase">
         Our Portfolio
       </p>
-      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
         Our
         <span class="relative z-1 font-bold">
           Recent
           <span
-            class="from-accent-01-focus absolute inset-s-0 bottom-0 -z-1 h-0.5 w-full bg-linear-to-r to-transparent to-100% max-sm:hidden"
+            class="absolute inset-s-0 bottom-0 -z-1 h-0.5 w-full max-sm:hidden"
             aria-hidden="true"
           ></span>
         </span>
         Projects
       </h2>
-      <p class="text-ink-01-muted text-xl">
+      <p class="text-xl">
         Welcome to our portfolio! Here, you will find a curated selection of our
         innovative applications and projects that showcase our commitment to
         quality, creativity, and user-centric design.
@@ -29,7 +29,7 @@
       x-data="portfolioTabs('all-projects', ['all-projects', 'branding', 'design', 'marketing', 'development'])"
     >
       <nav
-        class="flex max-w-full overflow-x-auto border-b border-canvas-01-border"
+        class="flex max-w-full overflow-x-auto border-b"
         aria-label="Tabs"
         role="tablist"
         aria-orientation="horizontal"
@@ -44,7 +44,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'all-projects')"
           x-bind:aria-selected="active === 'all-projects'"
           x-bind:tabindex="active === 'all-projects' ? 0 : -1"
-          x-bind:class="active === 'all-projects' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'all-projects' ? '' : 'border-transparent'"
           x-on:click="active = 'all-projects'"
         >
           All Projects
@@ -58,7 +58,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'branding')"
           x-bind:aria-selected="active === 'branding'"
           x-bind:tabindex="active === 'branding' ? 0 : -1"
-          x-bind:class="active === 'branding' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'branding' ? '' : 'border-transparent'"
           x-on:click="active = 'branding'"
         >
           Branding
@@ -72,7 +72,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'design')"
           x-bind:aria-selected="active === 'design'"
           x-bind:tabindex="active === 'design' ? 0 : -1"
-          x-bind:class="active === 'design' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'design' ? '' : 'border-transparent'"
           x-on:click="active = 'design'"
         >
           Design
@@ -86,7 +86,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'marketing')"
           x-bind:aria-selected="active === 'marketing'"
           x-bind:tabindex="active === 'marketing' ? 0 : -1"
-          x-bind:class="active === 'marketing' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'marketing' ? '' : 'border-transparent'"
           x-on:click="active = 'marketing'"
         >
           Marketing
@@ -100,7 +100,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'development')"
           x-bind:aria-selected="active === 'development'"
           x-bind:tabindex="active === 'development' ? 0 : -1"
-          x-bind:class="active === 'development' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'development' ? '' : 'border-transparent'"
           x-on:click="active = 'development'"
         >
           Development
@@ -126,15 +126,15 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">
                     Content Creation
                   </p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+                  <h3 class="text-xl font-medium">
                     Engaging Blog Series
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -149,13 +149,13 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">UI/UX</p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">UI/UX</p>
+                  <h3 class="text-xl font-medium">
                     Website Revamp
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -170,15 +170,15 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">
                     App Development
                   </p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+                  <h3 class="text-xl font-medium">
                     E-commerce Platform
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -193,11 +193,11 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">SEO</p>
-                  <h3 class="text-ink-01 text-xl font-medium">SEO Strategy</h3>
-                  <a href="#" class="btn btn-outline">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">SEO</p>
+                  <h3 class="text-xl font-medium">SEO Strategy</h3>
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -212,15 +212,15 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">
                     Content Creation
                   </p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+                  <h3 class="text-xl font-medium">
                     Social Media Campaign
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -235,13 +235,13 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">Marketing</p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">Marketing</p>
+                  <h3 class="text-xl font-medium">
                     Digital Marketing
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -269,15 +269,15 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">
                     Content Creation
                   </p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+                  <h3 class="text-xl font-medium">
                     Engaging Blog Series
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -292,15 +292,15 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">
                     Content Creation
                   </p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+                  <h3 class="text-xl font-medium">
                     Social Media Campaign
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -328,13 +328,13 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">UI/UX</p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">UI/UX</p>
+                  <h3 class="text-xl font-medium">
                     Website Revamp
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -362,11 +362,11 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">SEO</p>
-                  <h3 class="text-ink-01 text-xl font-medium">SEO Strategy</h3>
-                  <a href="#" class="btn btn-outline">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">SEO</p>
+                  <h3 class="text-xl font-medium">SEO Strategy</h3>
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -381,13 +381,13 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">Marketing</p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">Marketing</p>
+                  <h3 class="text-xl font-medium">
                     Digital Marketing
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -415,15 +415,15 @@
                   class="rounded-xl aspect-square"
                 />
               </figure>
-              <div class="border-canvas-01-card-01-border rounded-xl absolute right-6 -bottom-20 left-6 border">
-                <div class="rounded-xl bg-canvas-01-card-01 space-y-4 p-6 text-center">
-                  <p class="text-ink-01-highlight font-semibold">
+              <div class="rounded-xl absolute right-6 -bottom-20 left-6 border">
+                <div class="rounded-xl space-y-4 p-6 text-center">
+                  <p class="font-semibold">
                     App Development
                   </p>
-                  <h3 class="text-ink-01 text-xl font-medium">
+                  <h3 class="text-xl font-medium">
                     E-commerce Platform
                   </h3>
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>

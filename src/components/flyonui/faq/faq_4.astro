@@ -1,11 +1,11 @@
-<section class="bg-accent-01-canvas text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Header -->
     <div class="mb-12 text-center sm:mb-16 lg:mb-24">
-      <h1 class="text-ink-01-h1 mb-4 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h1 class="mb-4 text-2xl font-semibold md:text-3xl lg:text-4xl">
         Commonly Asked Questions
       </h1>
-      <p class="text-ink-01-muted text-xl">
+      <p class="text-xl">
         Utilize artificial intelligence algorithms to deliver valuable insights
         to users.
       </p>
@@ -29,7 +29,7 @@
           role="tab"
           x-bind:aria-selected="tab === 'general'"
           x-bind:tabindex="tab === 'general' ? 0 : -1"
-          x-bind:class="tab === 'general' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-bind:class="tab === 'general' ? '' : 'border-transparent'"
           x-on:click="tab = 'general'"
         >
           General
@@ -43,7 +43,7 @@
           role="tab"
           x-bind:aria-selected="tab === 'pricing'"
           x-bind:tabindex="tab === 'pricing' ? 0 : -1"
-          x-bind:class="tab === 'pricing' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-bind:class="tab === 'pricing' ? '' : 'border-transparent'"
           x-on:click="tab = 'pricing'"
         >
           Pricing
@@ -57,7 +57,7 @@
           role="tab"
           x-bind:aria-selected="tab === 'dashboard'"
           x-bind:tabindex="tab === 'dashboard' ? 0 : -1"
-          x-bind:class="tab === 'dashboard' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-bind:class="tab === 'dashboard' ? '' : 'border-transparent'"
           x-on:click="tab = 'dashboard'"
         >
           Dashboard
@@ -71,7 +71,7 @@
           role="tab"
           x-bind:aria-selected="tab === 'api'"
           x-bind:tabindex="tab === 'api' ? 0 : -1"
-          x-bind:class="tab === 'api' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-bind:class="tab === 'api' ? '' : 'border-transparent'"
           x-on:click="tab = 'api'"
         >
           API
@@ -85,7 +85,7 @@
           role="tab"
           x-bind:aria-selected="tab === 'licence'"
           x-bind:tabindex="tab === 'licence' ? 0 : -1"
-          x-bind:class="tab === 'licence' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted hover:text-ink-01-highlight'"
+          x-bind:class="tab === 'licence' ? '' : 'border-transparent'"
           x-on:click="tab = 'licence'"
         >
           Licence
@@ -104,7 +104,7 @@
           x-show="tab === 'general'"
         >
           <div
-            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            class="divide-y rounded-xl border shadow-sm"
             x-data="{ open: 'what-is-larasaas' }"
           >
             <div>
@@ -131,7 +131,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     LaraSaas is a Laravel boilerplate specifically designed to
                     help you launch your SaaS application quickly and
                     efficiently. It provides pre-built features for user
@@ -166,7 +166,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Yes, we offer a comprehensive demo that showcases all the
                     features and capabilities of our platform. You can access it
                     through our website and explore the interface firsthand.
@@ -199,7 +199,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     We support major payment providers including Stripe, PayPal,
                     and Square. Our platform is designed to be flexible and can
                     be integrated with additional payment gateways based on your
@@ -233,7 +233,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     The codebase is distributed through a private repository
                     system. Upon purchase, you'll receive access to the full
                     source code and all future updates through our version
@@ -268,7 +268,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     While it's possible to integrate LaraSaas into existing
                     projects, it's primarily designed as a standalone
                     boilerplate. We recommend starting fresh with LaraSaas for
@@ -290,7 +290,7 @@
           x-show="tab === 'pricing'"
         >
           <div
-            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            class="divide-y rounded-xl border shadow-sm"
             x-data="{ open: 'pricing-plans' }"
           >
             <div>
@@ -317,7 +317,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     We offer flexible pricing plans including Starter,
                     Professional, and Enterprise tiers. Each plan is designed to
                     cater to different business needs and scales with your
@@ -351,7 +351,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     We accept all major credit cards, PayPal, and bank
                     transfers. Enterprise plans also support purchase orders and
                     custom billing arrangements.
@@ -384,7 +384,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Billing cycles are monthly or annually, with significant
                     discounts for annual subscriptions. The cycle starts on your
                     subscription date.
@@ -417,7 +417,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     We offer a 30-day money-back guarantee for all plans. If
                     you're not satisfied, contact support for a full refund
                     within this period.
@@ -450,7 +450,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Yes, you can upgrade or downgrade your plan at any time.
                     Upgrades take effect immediately, while downgrades apply at
                     the next billing cycle.
@@ -471,7 +471,7 @@
           x-show="tab === 'dashboard'"
         >
           <div
-            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            class="divide-y rounded-xl border shadow-sm"
             x-data="{ open: 'dashboard-features' }"
           >
             <div>
@@ -498,7 +498,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Our dashboard includes real-time analytics, user management,
                     subscription tracking, and customizable reports.
                   </p>
@@ -530,7 +530,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Yes, you can arrange widgets, configure notifications, and
                     brand the interface with your company's colors and logo.
                   </p>
@@ -562,7 +562,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Admins can manage user roles, permissions, and access levels
                     through the dashboard's user management section.
                   </p>
@@ -594,7 +594,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     We offer usage analytics, user activity, performance
                     metrics, and custom report generation capabilities.
                   </p>
@@ -626,7 +626,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Dashboard data is automatically backed up daily with 30-day
                     retention. Enterprise plans include custom backup schedules.
                   </p>
@@ -646,7 +646,7 @@
           x-show="tab === 'api'"
         >
           <div
-            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            class="divide-y rounded-xl border shadow-sm"
             x-data="{ open: 'api-documentation' }"
           >
             <div>
@@ -673,7 +673,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Our comprehensive API documentation is available at our
                     developer portal with detailed endpoints and examples.
                   </p>
@@ -705,7 +705,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Yes, limits vary by plan. Basic plans include 1000 requests
                     per hour, with higher limits for premium plans.
                   </p>
@@ -737,7 +737,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     We use API keys and OAuth 2.0 for authentication. Secure
                     your credentials and never share them publicly.
                   </p>
@@ -769,7 +769,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     We maintain the current version and one previous version.
                     Legacy versions are supported for 6 months after
                     deprecation.
@@ -802,7 +802,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     We provide developer support through our dedicated API
                     support channel and developer community forum.
                   </p>
@@ -822,7 +822,7 @@
           x-show="tab === 'licence'"
         >
           <div
-            class="divide-canvas-01-border border-canvas-01-border shadow-canvas-01-shadow/20 divide-y rounded-xl border shadow-sm"
+            class="divide-y rounded-xl border shadow-sm"
             x-data="{ open: 'license-types' }"
           >
             <div>
@@ -849,7 +849,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     We offer Single-domain, Multi-domain, and Enterprise
                     licenses with one year of updates and support.
                   </p>
@@ -881,7 +881,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     License transfers are available on a case-by-case basis.
                     Contact support for transfer requests.
                   </p>
@@ -913,7 +913,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Licenses can be renewed annually with a discount.
                     Auto-renewal is available for convenience.
                   </p>
@@ -945,7 +945,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     Usage restrictions vary by license type. Single-domain is
                     for one production site, Multi-domain for multiple sites.
                   </p>
@@ -977,7 +977,7 @@
                 x-collapse
               >
                 <div class="px-8 pb-4">
-                  <p class="text-ink-01-muted text-base">
+                  <p class="text-base">
                     All licenses include email support and access to
                     documentation. Enterprise includes priority support.
                   </p>
@@ -991,11 +991,11 @@
 
     <!-- Support Link -->
     <div class="mt-12 text-center sm:mt-16 lg:mt-24">
-      <p class="text-ink-01-muted text-base">
+      <p class="text-base">
         Didn't find the answer you are looking for?{" "}
         <a
           href="#"
-          class="text-ink-01-highlight font-semibold underline-offset-4 hover:underline"
+          class="font-semibold underline-offset-4 hover:underline"
         >
           Contact our support
         </a>

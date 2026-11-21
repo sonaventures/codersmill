@@ -1,18 +1,18 @@
-<section class="bg-canvas-01 text-ink-01 px-4 py-8 sm:py-16 lg:py-24">
-  <div class="from-accent-01-canvas mx-auto max-w-7xl rounded-3xl bg-linear-to-b to-transparent to-90% px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+<section class="px-4 py-8 sm:py-16 lg:py-24">
+  <div class="mx-auto max-w-7xl rounded-3xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
     <!-- Header Section -->
     <div class="mb-16 space-y-4 text-center lg:mb-24">
-      <h5 class="text-ink-01-h2 text-3xl font-semibold md:text-4xl">
+      <h5 class="text-3xl font-semibold md:text-4xl">
         Don't just take our word for it.
         <br />
         They found Verified data with enrich.
       </h5>
-      <p class="text-ink-01-muted md:text-xl">
+      <p class="md:text-xl">
         Discover the enthusiastic feedback from our satisfied clients!
       </p>
       <!-- Call to Action Button -->
       <div>
-        <button class="btn btn-filled">More Customer Stories</button>
+        <button class="btn">More Customer Stories</button>
       </div>
     </div>
 
@@ -24,7 +24,7 @@
           <button
             type="button"
             class="size-3 rounded-full"
-            x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+            x-bind:class="page === number - 1 ? '' : ''"
             x-bind:aria-label="'Go to testimonial ' + number"
             x-bind:aria-current="page === number - 1 ? 'true' : null"
             x-on:click="go(number - 1)"
@@ -39,19 +39,19 @@
         >
           <!-- Slide 1 -->
           <div class="w-full shrink-0 snap-start px-3 py-1">
-            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border shadow-md lg:rounded-2xl">
+            <div class="rounded-xl border shadow-md lg:rounded-2xl">
               <div class="space-y-4 p-6">
                 <!-- Star Rating -->
                 <div class="flex justify-center gap-1">
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] size-6 shrink-0"></span>
                 </div>
 
                 <!-- Testimonial Text -->
-                <p class="text-ink-01-muted text-center leading-relaxed">
+                <p class="text-center leading-relaxed">
                   Outstanding product—well-crafted, user-friendly, and exactly
                   what I expected. The team went above and beyond to help.
                 </p>
@@ -63,10 +63,10 @@
                     alt="Marley Calzoni"
                     class="mx-auto mb-2 size-10 rounded-full object-cover"
                   />
-                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
-                  <p class="text-ink-01-muted text-xs">
+                  <h4 class="font-medium">Marley Calzoni</h4>
+                  <p class="text-xs">
                     CEO & Co-founder at
-                    <span class="text-ink-01 font-semibold">Lemoncompany</span>
+                    <span class="font-semibold">Lemoncompany</span>
                   </p>
                 </div>
               </div>
@@ -74,19 +74,19 @@
           </div>
           <!-- Slide 2 -->
           <div class="w-full shrink-0 snap-start px-3 py-1">
-            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border shadow-md lg:rounded-2xl">
+            <div class="rounded-xl border shadow-md lg:rounded-2xl">
               <div class="space-y-4 p-6">
                 <!-- Star Rating -->
                 <div class="flex justify-center gap-1">
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
                 </div>
 
                 <!-- Testimonial Text -->
-                <p class="text-ink-01-muted text-center leading-relaxed">
+                <p class="text-center leading-relaxed">
                   The service exceeded my expectations. The team was responsive,
                   and the product quality was top-notch. Highly recommend!
                 </p>
@@ -98,10 +98,10 @@
                     alt="Martin Dorwart"
                     class="mx-auto mb-2 size-10 rounded-full object-cover"
                   />
-                  <h4 class="text-ink-01 font-medium">Martin Dorwart</h4>
-                  <p class="text-ink-01-muted text-xs">
+                  <h4 class="font-medium">Martin Dorwart</h4>
+                  <p class="text-xs">
                     Product manager at
-                    <span class="text-ink-01 font-semibold">Orbit</span>
+                    <span class="font-semibold">Orbit</span>
                   </p>
                 </div>
               </div>
@@ -109,19 +109,19 @@
           </div>
           <!-- Slide 3 -->
           <div class="w-full shrink-0 snap-start px-3 py-1">
-            <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border rounded-xl border shadow-md lg:rounded-2xl">
+            <div class="rounded-xl border shadow-md lg:rounded-2xl">
               <div class="space-y-4 p-6">
                 <!-- Star Rating -->
                 <div class="flex justify-center gap-1">
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-filled] text-cta-01 size-6 shrink-0"></span>
-                  <span class="icon-[tabler--star-half-filled] text-cta-01 size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-filled] size-6 shrink-0"></span>
+                  <span class="icon-[tabler--star-half-filled] size-6 shrink-0"></span>
                 </div>
 
                 <!-- Testimonial Text -->
-                <p class="text-ink-01-muted text-center leading-relaxed">
+                <p class="text-center leading-relaxed">
                   Exceptional quality and service. The team was attentive to our
                   needs, and the final product was flawless. Will definitely use
                   again!
@@ -134,10 +134,10 @@
                     alt="Alexandra Lee"
                     class="mx-auto mb-2 size-10 rounded-full object-cover"
                   />
-                  <h4 class="text-ink-01 font-medium">Alexandra Lee</h4>
-                  <p class="text-ink-01-muted text-xs">
+                  <h4 class="font-medium">Alexandra Lee</h4>
+                  <p class="text-xs">
                     Lead Developer at
-                    <span class="text-ink-01 font-semibold">TechNova</span>
+                    <span class="font-semibold">TechNova</span>
                   </p>
                 </div>
               </div>

@@ -1,11 +1,11 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Header Section -->
     <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
         Transforming Visions into Reality
       </h2>
-      <p class="text-ink-01-muted text-xl">
+      <p class="text-xl">
         Explore our diverse portfolio of projects that push boundaries and
         inspire change.
       </p>
@@ -17,7 +17,7 @@
       x-data="portfolioTabs('application', ['application', 'branding', 'graphic-design', 'photography', 'promotion'])"
     >
       <nav
-        class="flex max-w-full overflow-x-auto border-b border-canvas-01-border"
+        class="flex max-w-full overflow-x-auto border-b"
         aria-label="Tabs"
         role="tablist"
         aria-orientation="horizontal"
@@ -32,7 +32,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'application')"
           x-bind:aria-selected="active === 'application'"
           x-bind:tabindex="active === 'application' ? 0 : -1"
-          x-bind:class="active === 'application' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'application' ? '' : 'border-transparent'"
           x-on:click="active = 'application'"
         >
           Application
@@ -46,7 +46,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'branding')"
           x-bind:aria-selected="active === 'branding'"
           x-bind:tabindex="active === 'branding' ? 0 : -1"
-          x-bind:class="active === 'branding' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'branding' ? '' : 'border-transparent'"
           x-on:click="active = 'branding'"
         >
           Branding
@@ -60,7 +60,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'graphic-design')"
           x-bind:aria-selected="active === 'graphic-design'"
           x-bind:tabindex="active === 'graphic-design' ? 0 : -1"
-          x-bind:class="active === 'graphic-design' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'graphic-design' ? '' : 'border-transparent'"
           x-on:click="active = 'graphic-design'"
         >
           Graphic Design
@@ -74,7 +74,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'photography')"
           x-bind:aria-selected="active === 'photography'"
           x-bind:tabindex="active === 'photography' ? 0 : -1"
-          x-bind:class="active === 'photography' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'photography' ? '' : 'border-transparent'"
           x-on:click="active = 'photography'"
         >
           Photography
@@ -88,7 +88,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'promotion')"
           x-bind:aria-selected="active === 'promotion'"
           x-bind:tabindex="active === 'promotion' ? 0 : -1"
-          x-bind:class="active === 'promotion' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'promotion' ? '' : 'border-transparent'"
           x-on:click="active = 'promotion'"
         >
           Promotion
@@ -124,12 +124,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Tech Innovations
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Application
                       </div>
                     </div>
@@ -148,12 +148,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Dashboard Insights
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Analytics & Reports
                       </div>
                     </div>
@@ -172,12 +172,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Tiktok
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Entertainment
                       </div>
                     </div>
@@ -196,12 +196,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Fitness
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Health & Wellness
                       </div>
                     </div>
@@ -220,12 +220,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Expense Tracker
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Finance
                       </div>
                     </div>
@@ -237,7 +237,7 @@
             <div class="mt-10 flex items-center justify-center gap-6">
               <button
                 type="button"
-                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                class="btn min-h-10 px-4 disabled:opacity-50"
                 aria-label="Previous portfolio page"
                 x-on:click="go(page - 1)"
                 x-bind:disabled="page === 0"
@@ -249,7 +249,7 @@
                   <button
                     type="button"
                     class="size-4 rounded-full"
-                    x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                    x-bind:class="page === number - 1 ? '' : ''"
                     x-bind:aria-label="'Go to portfolio page ' + number"
                     x-bind:aria-current="page === number - 1 ? 'true' : null"
                     x-on:click="go(number - 1)"
@@ -258,7 +258,7 @@
               </div>
               <button
                 type="button"
-                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                class="btn min-h-10 px-4 disabled:opacity-50"
                 aria-label="Next portfolio page"
                 x-on:click="go(page + 1)"
                 x-bind:disabled="page >= pages - 1"
@@ -298,12 +298,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Personalized care
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Healthcare
                       </div>
                     </div>
@@ -322,12 +322,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Sofa & Chair
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Furniture
                       </div>
                     </div>
@@ -346,12 +346,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Food
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Restaurant
                       </div>
                     </div>
@@ -370,12 +370,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Relify
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         E-commerce
                       </div>
                     </div>
@@ -394,12 +394,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Smart Travel
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Wearable Tech
                       </div>
                     </div>
@@ -411,7 +411,7 @@
             <div class="mt-10 flex items-center justify-center gap-6">
               <button
                 type="button"
-                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                class="btn min-h-10 px-4 disabled:opacity-50"
                 aria-label="Previous portfolio page"
                 x-on:click="go(page - 1)"
                 x-bind:disabled="page === 0"
@@ -423,7 +423,7 @@
                   <button
                     type="button"
                     class="size-4 rounded-full"
-                    x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                    x-bind:class="page === number - 1 ? '' : ''"
                     x-bind:aria-label="'Go to portfolio page ' + number"
                     x-bind:aria-current="page === number - 1 ? 'true' : null"
                     x-on:click="go(number - 1)"
@@ -432,7 +432,7 @@
               </div>
               <button
                 type="button"
-                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                class="btn min-h-10 px-4 disabled:opacity-50"
                 aria-label="Next portfolio page"
                 x-on:click="go(page + 1)"
                 x-bind:disabled="page >= pages - 1"
@@ -472,12 +472,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Finance
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Visual reports made simple
                       </div>
                     </div>
@@ -496,12 +496,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Dashboard Insights
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Creative Planning
                       </div>
                     </div>
@@ -520,12 +520,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Modern UI Systems
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Clean, crisp, data-driven
                       </div>
                     </div>
@@ -544,12 +544,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Travel App Aesthetics
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Explore with stunning UI
                       </div>
                     </div>
@@ -568,12 +568,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Smart Finance Design
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Track, manage, and shine
                       </div>
                     </div>
@@ -584,7 +584,7 @@
               <div class="mt-10 flex items-center justify-center gap-6">
                 <button
                   type="button"
-                  class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                  class="btn min-h-10 px-4 disabled:opacity-50"
                   aria-label="Previous portfolio page"
                   x-on:click="go(page - 1)"
                   x-bind:disabled="page === 0"
@@ -596,7 +596,7 @@
                     <button
                       type="button"
                       class="size-4 rounded-full"
-                      x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                      x-bind:class="page === number - 1 ? '' : ''"
                       x-bind:aria-label="'Go to portfolio page ' + number"
                       x-bind:aria-current="page === number - 1 ? 'true' : null"
                       x-on:click="go(number - 1)"
@@ -605,7 +605,7 @@
                 </div>
                 <button
                   type="button"
-                  class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                  class="btn min-h-10 px-4 disabled:opacity-50"
                   aria-label="Next portfolio page"
                   x-on:click="go(page + 1)"
                   x-bind:disabled="page >= pages - 1"
@@ -646,12 +646,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Creative Expression
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Design Meets Photography
                       </div>
                     </div>
@@ -670,12 +670,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Natural Beauty
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Serenity in Nature
                       </div>
                     </div>
@@ -694,12 +694,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Rhythm in Motion
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Energy Behind Beats
                       </div>
                     </div>
@@ -718,12 +718,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Virtual Adventures
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Exploring New Realms
                       </div>
                     </div>
@@ -742,12 +742,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Focused Creativity
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Ideas in Motion
                       </div>
                     </div>
@@ -759,7 +759,7 @@
             <div class="mt-10 flex items-center justify-center gap-6">
               <button
                 type="button"
-                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                class="btn min-h-10 px-4 disabled:opacity-50"
                 aria-label="Previous portfolio page"
                 x-on:click="go(page - 1)"
                 x-bind:disabled="page === 0"
@@ -771,7 +771,7 @@
                   <button
                     type="button"
                     class="size-4 rounded-full"
-                    x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                    x-bind:class="page === number - 1 ? '' : ''"
                     x-bind:aria-label="'Go to portfolio page ' + number"
                     x-bind:aria-current="page === number - 1 ? 'true' : null"
                     x-on:click="go(number - 1)"
@@ -780,7 +780,7 @@
               </div>
               <button
                 type="button"
-                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                class="btn min-h-10 px-4 disabled:opacity-50"
                 aria-label="Next portfolio page"
                 x-on:click="go(page + 1)"
                 x-bind:disabled="page >= pages - 1"
@@ -820,12 +820,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Smart Finance
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Manage Your Wealth
                       </div>
                     </div>
@@ -844,12 +844,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Event Discovery
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Stay Informed, Join Now
                       </div>
                     </div>
@@ -868,12 +868,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Focused Productivity
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Achieve Your Goals
                       </div>
                     </div>
@@ -892,12 +892,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Health Revolution
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Innovative Medical Aid
                       </div>
                     </div>
@@ -916,12 +916,12 @@
                         class="rounded-xl h-71 w-full object-cover"
                       />
                     </figure>
-                    <div class="bg-canvas-contrast/70 rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
+                    <div class="rounded-xl absolute inset-0 opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100"></div>
                     <div class="absolute top-1/2 right-6 left-6 -translate-y-1/2 text-center">
-                      <div class="text-lg font-semibold text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="text-lg font-semibold opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Data at Fingertips
                       </div>
-                      <div class="mt-1 text-xs text-ink-contrast opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
+                      <div class="mt-1 text-xs opacity-0 transition-opacity duration-500 max-md:opacity-100 [@media(hover:none)]:opacity-100 group-hover:opacity-100 group-focus-within:opacity-100">
                         Track, Analyze, Grow
                       </div>
                     </div>
@@ -933,7 +933,7 @@
             <div class="mt-10 flex items-center justify-center gap-6">
               <button
                 type="button"
-                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                class="btn min-h-10 px-4 disabled:opacity-50"
                 aria-label="Previous portfolio page"
                 x-on:click="go(page - 1)"
                 x-bind:disabled="page === 0"
@@ -945,7 +945,7 @@
                   <button
                     type="button"
                     class="size-4 rounded-full"
-                    x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+                    x-bind:class="page === number - 1 ? '' : ''"
                     x-bind:aria-label="'Go to portfolio page ' + number"
                     x-bind:aria-current="page === number - 1 ? 'true' : null"
                     x-on:click="go(number - 1)"
@@ -954,7 +954,7 @@
               </div>
               <button
                 type="button"
-                class="btn btn-outline min-h-10 px-4 disabled:opacity-50"
+                class="btn min-h-10 px-4 disabled:opacity-50"
                 aria-label="Next portfolio page"
                 x-on:click="go(page + 1)"
                 x-bind:disabled="page >= pages - 1"

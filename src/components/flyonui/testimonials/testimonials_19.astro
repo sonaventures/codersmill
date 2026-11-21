@@ -1,25 +1,25 @@
-<section class="bg-canvas-01 text-ink-01 py-16 lg:py-24">
+<section class="py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4">
     <div class="relative mb-20 w-full lg:mb-28" x-data="portfolioCarousel()">
       <!-- Header Section -->
       <div class="mb-16 flex items-center justify-between md:mb-24">
         <div class="space-y-4">
           <div>
-            <span class="bg-accent-01-canvas text-accent-01-text inline-flex items-center gap-1 rounded-full px-2 py-1 text-sm font-semibold">
+            <span class="inline-flex items-center gap-1 rounded-full px-2 py-1 text-sm font-semibold">
               Testimonial
             </span>
           </div>
-          <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+          <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
             Real Stories.
             <span class="relative z-1">
               <span class="font-bold">Real People</span>
               <span
-                class="from-accent-01-focus absolute inset-s-0 bottom-0 -z-1 h-0.5 w-full bg-linear-to-r to-transparent to-80%"
+                class="absolute inset-s-0 bottom-0 -z-1 h-0.5 w-full"
                 aria-hidden="true"
               ></span>
             </span>
           </h2>
-          <p class="text-ink-01-muted md:text-xl">
+          <p class="md:text-xl">
             Check out what our awesome clients are saying about us!
           </p>
         </div>
@@ -27,7 +27,7 @@
         <div class="flex items-center gap-6">
           <button
             type="button"
-            class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
+            class="relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
             aria-label="Previous testimonial"
             x-on:click="go(page - 1)"
             x-bind:disabled="page === 0"
@@ -36,7 +36,7 @@
           </button>
           <button
             type="button"
-            class="border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
+            class="relative grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
             aria-label="Next testimonial"
             x-on:click="go(page + 1)"
             x-bind:disabled="page >= pages - 1"
@@ -53,7 +53,7 @@
       >
         <!-- Testimonial Card 1 -->
         <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
-          <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border h-full -rotate-2 rounded-3xl border shadow-none">
+          <div class="h-full -rotate-2 rounded-3xl border shadow-none">
             <div class="flex flex-col gap-4 p-6">
               <!-- Customer -->
               <div class="flex items-center gap-2">
@@ -63,16 +63,16 @@
                   class="size-10 rounded-full object-cover"
                 />
                 <div>
-                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
-                  <p class="text-ink-01-muted text-xs">
+                  <h4 class="font-medium">Marley Calzoni</h4>
+                  <p class="text-xs">
                     CEO at
-                    <span class="text-ink-01 font-semibold">Google</span>
+                    <span class="font-semibold">Google</span>
                   </p>
                 </div>
               </div>
 
               <!-- Testimonial Quote -->
-              <blockquote class="text-ink-01-blockquote">
+              <blockquote>
                 "Clarity has been a total game-changer for our workflow. Its
                 pre-built components are not only visually consistent but also
                 incredibly intuitive."
@@ -83,7 +83,7 @@
 
         <!-- Testimonial Card 2 -->
         <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
-          <div class="bg-canvas-01-card-02 border-canvas-01-card-02-border h-full rotate-2 rounded-3xl border shadow-none">
+          <div class="h-full rotate-2 rounded-3xl border shadow-none">
             <div class="flex flex-col gap-4 p-6">
               <!-- Customer -->
               <div class="flex items-center gap-2">
@@ -93,16 +93,16 @@
                   class="size-10 rounded-full object-cover"
                 />
                 <div>
-                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
-                  <p class="text-ink-01-muted text-xs">
+                  <h4 class="font-medium">Marley Calzoni</h4>
+                  <p class="text-xs">
                     Co Founder at
-                    <span class="text-ink-01 font-semibold">Lemondeezy</span>
+                    <span class="font-semibold">Lemondeezy</span>
                   </p>
                 </div>
               </div>
 
               <!-- Testimonial Quote -->
-              <blockquote class="text-ink-01-blockquote">
+              <blockquote>
                 "We've saved countless hours thanks to Clarity. Everything is
                 modular, good, easy to use, and fits perfectly into our existing
                 stack."
@@ -113,7 +113,7 @@
 
         <!-- Testimonial Card 3 -->
         <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
-          <div class="bg-canvas-01-card-03 border-canvas-01-card-03-border h-full -rotate-2 rounded-3xl border shadow-none">
+          <div class="h-full -rotate-2 rounded-3xl border shadow-none">
             <div class="flex flex-col gap-4 p-6">
               <!-- Customer -->
               <div class="flex items-center gap-2">
@@ -123,16 +123,16 @@
                   class="size-10 rounded-full object-cover"
                 />
                 <div>
-                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
-                  <p class="text-ink-01-muted text-xs">
+                  <h4 class="font-medium">Marley Calzoni</h4>
+                  <p class="text-xs">
                     CEO at
-                    <span class="text-ink-01 font-semibold">Spotify</span>
+                    <span class="font-semibold">Spotify</span>
                   </p>
                 </div>
               </div>
 
               <!-- Testimonial Quote -->
-              <blockquote class="text-ink-01-blockquote">
+              <blockquote>
                 "From prototypes to production, Clarity delivers. It's
                 consistent, reliable, understandable and makes collaboration
                 between teams much more fluid."
@@ -143,7 +143,7 @@
 
         <!-- Testimonial Card 4 -->
         <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
-          <div class="bg-accent-01-canvas border-accent-01-border h-full rotate-2 rounded-3xl border shadow-none">
+          <div class="h-full rotate-2 rounded-3xl border shadow-none">
             <div class="flex flex-col gap-4 p-6">
               <!-- Customer -->
               <div class="flex items-center gap-2">
@@ -153,16 +153,16 @@
                   class="size-10 rounded-full object-cover"
                 />
                 <div>
-                  <h4 class="text-ink-01 font-medium">Marley Calzoni</h4>
-                  <p class="text-ink-01-muted text-xs">
+                  <h4 class="font-medium">Marley Calzoni</h4>
+                  <p class="text-xs">
                     Co Founder at
-                    <span class="text-ink-01 font-semibold">Lemondeezy</span>
+                    <span class="font-semibold">Lemondeezy</span>
                   </p>
                 </div>
               </div>
 
               <!-- Testimonial Quote -->
-              <blockquote class="text-ink-01-blockquote">
+              <blockquote>
                 "Clarity made our development process smoother. The interface is
                 clean, and the components work seamlessly across different
                 layouts."
@@ -174,7 +174,7 @@
         <!-- Additional Cards for the Slider -->
         <!-- Testimonial Card 5 -->
         <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
-          <div class="bg-canvas-01-card-01 border-canvas-01-card-01-border h-full -rotate-2 rounded-3xl border shadow-none">
+          <div class="h-full -rotate-2 rounded-3xl border shadow-none">
             <div class="flex flex-col gap-4 p-6">
               <!-- Customer -->
               <div class="flex items-center gap-2">
@@ -184,16 +184,16 @@
                   class="size-10 rounded-full object-cover"
                 />
                 <div>
-                  <h4 class="text-ink-01 font-medium">Sarah Johnson</h4>
-                  <p class="text-ink-01-muted text-xs">
+                  <h4 class="font-medium">Sarah Johnson</h4>
+                  <p class="text-xs">
                     Lead Designer at
-                    <span class="text-ink-01 font-semibold">Microsoft</span>
+                    <span class="font-semibold">Microsoft</span>
                   </p>
                 </div>
               </div>
 
               <!-- Testimonial Quote -->
-              <blockquote class="text-ink-01-blockquote">
+              <blockquote>
                 "The design system is exceptional. Every component is
                 thoughtfully crafted and maintains consistency across our entire
                 product suite."
@@ -204,7 +204,7 @@
 
         <!-- Testimonial Card 6 -->
         <div class="w-full shrink-0 snap-start p-3 sm:w-1/2 lg:w-1/3 xl:w-1/4">
-          <div class="bg-canvas-01-card-02 border-canvas-01-card-02-border h-full rotate-2 rounded-3xl border shadow-none">
+          <div class="h-full rotate-2 rounded-3xl border shadow-none">
             <div class="flex flex-col gap-4 p-6">
               <!-- Customer -->
               <div class="flex items-center gap-2">
@@ -214,16 +214,16 @@
                   class="size-10 rounded-full object-cover"
                 />
                 <div>
-                  <h4 class="text-ink-01 font-medium">David Chen</h4>
-                  <p class="text-ink-01-muted text-xs">
+                  <h4 class="font-medium">David Chen</h4>
+                  <p class="text-xs">
                     CTO at
-                    <span class="text-ink-01 font-semibold">TechStartup</span>
+                    <span class="font-semibold">TechStartup</span>
                   </p>
                 </div>
               </div>
 
               <!-- Testimonial Quote -->
-              <blockquote class="text-ink-01-blockquote">
+              <blockquote>
                 "Implementation was seamless. The documentation is clear,
                 components are well-structured, and the development experience
                 is fantastic."
@@ -239,7 +239,7 @@
           <button
             type="button"
             class="size-3 rounded-full"
-            x-bind:class="page === number - 1 ? 'bg-accent-01-focus' : 'bg-accent-01-border'"
+            x-bind:class="page === number - 1 ? '' : ''"
             x-bind:aria-label="'Go to testimonial page ' + number"
             x-bind:aria-current="page === number - 1 ? 'true' : null"
             x-on:click="go(number - 1)"
@@ -250,7 +250,7 @@
 
     <!-- Call to Action -->
     <div class="text-center">
-      <button class="btn btn-filled">More Customer Stories</button>
+      <button class="btn">More Customer Stories</button>
     </div>
   </div>
 </section>

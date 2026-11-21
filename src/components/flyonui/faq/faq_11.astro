@@ -1,14 +1,14 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- FAQ Header -->
     <div class="mb-12 space-y-4 md:mb-16 lg:mb-24">
-      <div class="text-ink-01-highlight text-sm font-medium uppercase">
+      <div class="text-sm font-medium uppercase">
         Faq's
       </div>
-      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
         Common Questions We Get
       </h2>
-      <p class="text-ink-01-muted text-xl">
+      <p class="text-xl">
         Here are some frequently asked questions about how AI can enhance user
         experience.
       </p>
@@ -33,7 +33,7 @@
           role="tab"
           x-bind:aria-selected="tab === 'general'"
           x-bind:tabindex="tab === 'general' ? 0 : -1"
-          x-bind:class="tab === 'general' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-canvas-01-border text-ink-01-muted'"
+          x-bind:class="tab === 'general' ? '' : ''"
           x-on:click="tab = 'general'"
         >
           <span class="icon-[tabler--briefcase] size-5"></span>
@@ -51,7 +51,7 @@
           role="tab"
           x-bind:aria-selected="tab === 'support'"
           x-bind:tabindex="tab === 'support' ? 0 : -1"
-          x-bind:class="tab === 'support' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-canvas-01-border text-ink-01-muted'"
+          x-bind:class="tab === 'support' ? '' : ''"
           x-on:click="tab = 'support'"
         >
           <span class="icon-[tabler--headphones] size-5"></span>
@@ -69,7 +69,7 @@
           role="tab"
           x-bind:aria-selected="tab === 'misc'"
           x-bind:tabindex="tab === 'misc' ? 0 : -1"
-          x-bind:class="tab === 'misc' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-canvas-01-border text-ink-01-muted'"
+          x-bind:class="tab === 'misc' ? '' : ''"
           x-on:click="tab = 'misc'"
         >
           <span class="icon-[tabler--lock] size-5"></span>
@@ -87,7 +87,7 @@
           role="tab"
           x-bind:aria-selected="tab === 'payment'"
           x-bind:tabindex="tab === 'payment' ? 0 : -1"
-          x-bind:class="tab === 'payment' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-canvas-01-border text-ink-01-muted'"
+          x-bind:class="tab === 'payment' ? '' : ''"
           x-on:click="tab = 'payment'"
         >
           <span class="icon-[tabler--credit-card] size-5"></span>
@@ -106,7 +106,7 @@
           x-show="tab === 'general'"
         >
           <div
-            class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+            class="w-full divide-y rounded-xl border"
             x-data="{ open: 'accommodation-bordered' }"
           >
             <div>
@@ -120,7 +120,7 @@
               >
                 What types of accommodations do you offer?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'accommodation-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -133,7 +133,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     We offer a variety of accommodations including hotels,
                     motels, and vacation rentals to suit every traveler's needs.
                     Our properties range from luxury resorts to budget-friendly
@@ -153,7 +153,7 @@
               >
                 How do I make a booking ?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'booking-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -167,7 +167,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Making a booking is simple! You can book directly through
                     our website by selecting your desired dates, location, and
                     accommodation type. Enter your details, choose your
@@ -188,7 +188,7 @@
               >
                 What is your cancellation policy ?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'cancellation-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -202,7 +202,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Our standard cancellation policy allows free cancellation up
                     to 48 hours before check-in. For cancellations made within
                     48 hours of check-in, a one-night charge may apply. Some
@@ -223,7 +223,7 @@
               >
                 Can I modify my booking after it has been confirmed ?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'modify-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -237,7 +237,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Yes, you can modify your booking after confirmation, subject
                     to availability. Changes can be made through your account or
                     by contacting our customer service team. Modifications made
@@ -259,7 +259,7 @@
               >
                 Are pets allowed in your accommodations ?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'pets-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -273,7 +273,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Many of our properties are pet-friendly, but policies vary
                     by location. Pet-friendly accommodations may require an
                     additional cleaning fee and have specific rules regarding
@@ -294,7 +294,7 @@
           x-show="tab === 'support'"
         >
           <div
-            class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+            class="w-full divide-y rounded-xl border"
             x-data="{ open: 'support-hours-bordered' }"
           >
             <div>
@@ -308,7 +308,7 @@
               >
                 What are your customer support hours?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'support-hours-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -321,7 +321,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Our customer support team is available 24/7, 365 days a
                     year. We provide round-the-clock assistance to ensure you
                     receive help whenever you need it, regardless of your time
@@ -341,7 +341,7 @@
               >
                 How can I contact customer support?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'contact-methods-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -355,7 +355,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     You can reach our support team through multiple channels:
                     live chat on our website, email at support@example.com,
                     phone at 1-800-SUPPORT, or through our mobile app. We
@@ -375,7 +375,7 @@
               >
                 What if I need emergency assistance during my stay?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'emergency-support-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -389,7 +389,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     For emergencies during your stay, we provide a dedicated
                     24/7 emergency hotline. The number is provided in your
                     booking confirmation and is also available in your room. Our
@@ -410,7 +410,7 @@
               >
                 How can I provide feedback about my experience?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'feedback-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -424,7 +424,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     We welcome your feedback! You can leave a review directly on
                     our website after your stay, respond to our follow-up email,
                     or contact our customer service team. Your feedback helps us
@@ -444,7 +444,7 @@
               >
                 Do you offer support in multiple languages?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'language-support-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -458,7 +458,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Yes, our support team is multilingual and can assist you in
                     English, Spanish, French, German, Chinese, and Japanese.
                     Just let us know your preferred language when contacting us.
@@ -477,7 +477,7 @@
           x-show="tab === 'misc'"
         >
           <div
-            class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+            class="w-full divide-y rounded-xl border"
             x-data="{ open: 'wifi-bordered' }"
           >
             <div>
@@ -491,7 +491,7 @@
               >
                 Is WiFi available at your properties?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'wifi-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -504,7 +504,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Yes, all our properties offer complimentary high-speed WiFi
                     access. Premium high-speed internet is also available for an
                     additional fee at select locations for guests requiring
@@ -524,7 +524,7 @@
               >
                 What are the parking options?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'parking-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -538,7 +538,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Parking options vary by location. Many properties offer free
                     self-parking, while others provide valet services for a fee.
                     Electric vehicle charging stations are available at select
@@ -559,7 +559,7 @@
               >
                 Is breakfast included in the stay?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'breakfast-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -573,7 +573,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Breakfast options vary by property and rate plan. Many of
                     our hotels offer complimentary continental breakfast, while
                     others have paid breakfast options. You can view breakfast
@@ -593,7 +593,7 @@
               >
                 What are the check-in and check-out times?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'checkin-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -607,7 +607,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Standard check-in time is 3:00 PM and check-out is 11:00 AM
                     local time. Early check-in and late check-out may be
                     available upon request, subject to availability and
@@ -627,7 +627,7 @@
               >
                 What amenities are available at your properties?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'amenities-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -641,7 +641,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Our properties offer various amenities including fitness
                     centers, swimming pools, restaurants, business centers, and
                     spa services. Specific amenities vary by location and are
@@ -661,7 +661,7 @@
           x-show="tab === 'payment'"
         >
           <div
-            class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+            class="w-full divide-y rounded-xl border"
             x-data="{ open: 'payment-methods-bordered' }"
           >
             <div>
@@ -675,7 +675,7 @@
               >
                 What payment methods do you accept?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'payment-methods-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -688,7 +688,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     We accept all major credit cards (Visa, MasterCard, American
                     Express, Discover), digital wallets (Apple Pay, Google Pay),
                     and PayPal. Some locations also accept direct bank transfers
@@ -708,7 +708,7 @@
               >
                 In which currency will I be charged?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'currency-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -722,7 +722,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     You can view and pay for your booking in multiple
                     currencies. The default is the local currency of the
                     property, but you can choose to pay in your preferred
@@ -742,7 +742,7 @@
               >
                 Is a deposit required for booking?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'deposit-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -756,7 +756,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Deposit requirements vary by property and length of stay.
                     Typically, we require a credit card authorization at
                     check-in for incidentals. Some special rates or peak season
@@ -776,7 +776,7 @@
               >
                 When will I be charged for my stay?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'billing-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -790,7 +790,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     For most bookings, payment is processed at check-out. Some
                     rates require prepayment at the time of booking. Any
                     incidental charges will be processed at check-out. You'll
@@ -810,7 +810,7 @@
               >
                 How long do refunds take to process?
                 <span
-                  class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'refund-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -824,7 +824,7 @@
                 x-collapse
               >
                 <div class="px-5 pb-4">
-                  <p class="text-ink-01-muted">
+                  <p>
                     Refunds are typically processed within 24-48 hours of
                     approval. The funds may take 5-10 business days to appear in
                     your account, depending on your bank or credit card issuer's

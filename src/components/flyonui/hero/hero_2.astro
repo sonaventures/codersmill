@@ -1,9 +1,9 @@
-<section class="bg-canvas-01 text-ink-01 relative min-h-screen overflow-hidden">
+<section class="relative min-h-screen overflow-hidden">
   <div class="py-16">
     <div class="mx-auto flex max-w-7xl justify-between gap-6 px-4 sm:px-6 lg:px-8">
       <div class="flex min-w-0 flex-col gap-7 lg:max-w-md xl:max-w-xl">
-        <div class="border-canvas-01-border rounded-lg flex w-fit flex-wrap items-center justify-center gap-4 border px-4 py-1.5">
-          <p class="text-ink-01 font-semibold uppercase max-md:hidden">
+        <div class="rounded-lg flex w-fit flex-wrap items-center justify-center gap-4 border px-4 py-1.5">
+          <p class="font-semibold uppercase max-md:hidden">
             Compatible With:
           </p>
           <div class="flex items-center justify-center gap-4">
@@ -51,7 +51,7 @@
             </span>
           </div>
         </div>
-        <h1 class="text-3xl leading-[1.15] font-bold md:text-4xl lg:text-5xl text-ink-01-h1">
+        <h1 class="text-3xl leading-[1.15] font-bold md:text-4xl lg:text-5xl">
           The{" "}
           <span
             x-data="{ words: ['Easiest', 'Effortless', 'Seamless'], index: 0, init() { if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) this.timer = setInterval(() => { this.index = (this.index + 1) % this.words.length }, 2500) }, destroy() { clearInterval(this.timer) } }"
@@ -76,7 +76,7 @@
             aria-disabled="true"
             tabindex="0"
             title="Sample link: destination not configured"
-            class="btn btn-filled w-fit"
+            class="btn w-fit"
           >
             Get Started
             <svg
@@ -90,30 +90,30 @@
                 fill-rule="evenodd"
                 clip-rule="evenodd"
                 d="M13.6783 11.0372L9.65442 5.82376C9.24779 5.29691 8.44959 5.30685 8.0562 5.84365L4.43062 10.791C4.24226 11.048 3.94268 11.1999 3.62402 11.1999H2.49548C1.66785 11.1999 1.19846 10.2519 1.70018 9.59366L8.05352 1.25842C8.45167 0.73607 9.2367 0.732843 9.63913 1.2519L16.2769 9.81346C16.7864 10.4705 16.3181 11.4262 15.4866 11.4262H14.4699C14.16 11.4262 13.8676 11.2825 13.6783 11.0372ZM9.62329 10.1552L11.1844 12.0259C11.7278 12.6771 11.2648 13.6666 10.4166 13.6666H7.45051C6.62615 13.6666 6.15586 12.7253 6.65092 12.0661L8.05591 10.1954C8.4432 9.67974 9.2101 9.66009 9.62329 10.1552Z"
-                fill="var(--ink-page-dark)"
+                fill="currentColor"
               />
             </svg>
           </a>
           <div
             x-data="{ message: '', async copy() { try { await navigator.clipboard.writeText(this.$refs.command.textContent.trim()); this.message = 'Copied to clipboard.' } catch (error) { console.error('Unable to copy the command.', error); this.message = 'Unable to copy. Select the command and copy it manually.' } } }"
-            class="border-canvas-01-border bg-canvas-01 relative inline-flex w-full max-w-fit items-center gap-1 rounded-sm border p-0.75"
+            class="relative inline-flex w-full max-w-fit items-center gap-1 rounded-sm border p-0.75"
           >
             <code
               x-ref="command"
-              class="text-ink-01 min-w-0 overflow-x-auto px-2 font-mono text-sm font-medium sm:text-lg"
+              class="min-w-0 overflow-x-auto px-2 font-mono text-sm font-medium sm:text-lg"
             >
               npm i -D flyonui@latest
             </code>
             <button
               type="button"
-              class="btn btn-outline min-h-8 px-3"
+              class="btn min-h-8 px-3"
               x-on:click="copy()"
               aria-label="Copy command"
             >
               ⧉
             </button>
             <span
-              class="text-ink-01-muted absolute top-full left-0 mt-1 text-xs"
+              class="absolute top-full left-0 mt-1 text-xs"
               aria-live="polite"
               x-text="message"
             ></span>

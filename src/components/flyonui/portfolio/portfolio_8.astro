@@ -1,11 +1,11 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Header Section -->
     <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
         Experience Our Excellence
       </h2>
-      <p class="text-ink-01-muted text-xl">
+      <p class="text-xl">
         A portfolio that highlights our dedication to innovation, quality, and
         meaningful solutions.
       </p>
@@ -17,7 +17,7 @@
       x-data="portfolioTabs('application', ['application', 'branding', 'graphic-design', 'photography', 'promotion'])"
     >
       <nav
-        class="flex max-w-full overflow-x-auto border-b border-canvas-01-border"
+        class="flex max-w-full overflow-x-auto border-b"
         aria-label="Tabs"
         role="tablist"
         aria-orientation="horizontal"
@@ -32,7 +32,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'application')"
           x-bind:aria-selected="active === 'application'"
           x-bind:tabindex="active === 'application' ? 0 : -1"
-          x-bind:class="active === 'application' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'application' ? '' : 'border-transparent'"
           x-on:click="active = 'application'"
         >
           Application
@@ -46,7 +46,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'branding')"
           x-bind:aria-selected="active === 'branding'"
           x-bind:tabindex="active === 'branding' ? 0 : -1"
-          x-bind:class="active === 'branding' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'branding' ? '' : 'border-transparent'"
           x-on:click="active = 'branding'"
         >
           Branding
@@ -60,7 +60,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'graphic-design')"
           x-bind:aria-selected="active === 'graphic-design'"
           x-bind:tabindex="active === 'graphic-design' ? 0 : -1"
-          x-bind:class="active === 'graphic-design' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'graphic-design' ? '' : 'border-transparent'"
           x-on:click="active = 'graphic-design'"
         >
           Graphic Design
@@ -74,7 +74,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'photography')"
           x-bind:aria-selected="active === 'photography'"
           x-bind:tabindex="active === 'photography' ? 0 : -1"
-          x-bind:class="active === 'photography' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'photography' ? '' : 'border-transparent'"
           x-on:click="active = 'photography'"
         >
           Photography
@@ -88,7 +88,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'promotion')"
           x-bind:aria-selected="active === 'promotion'"
           x-bind:tabindex="active === 'promotion' ? 0 : -1"
-          x-bind:class="active === 'promotion' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'promotion' ? '' : 'border-transparent'"
           x-on:click="active = 'promotion'"
         >
           Promotion
@@ -116,10 +116,10 @@
                     class="object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">January 15, 2023</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">January 15, 2023</p>
+                  <h5 class="text-lg font-semibold">
                     Virtual Reality
                   </h5>
                 </div>
@@ -135,10 +135,10 @@
                     class="h-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">December 20, 2022</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">December 20, 2022</p>
+                  <h5 class="text-lg font-semibold">
                     Urban Landscapes
                   </h5>
                 </div>
@@ -154,10 +154,10 @@
                     class="h-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">November 30, 2022</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">Emma Johnson</h5>
+                  <p class="text-xs">November 30, 2022</p>
+                  <h5 class="text-lg font-semibold">Emma Johnson</h5>
                 </div>
               </a>
             </div>
@@ -174,10 +174,10 @@
                     class="h-full w-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">September 5, 2022</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">Yoga App</h5>
+                  <p class="text-xs">September 5, 2022</p>
+                  <h5 class="text-lg font-semibold">Yoga App</h5>
                 </div>
               </a>
               <a
@@ -191,10 +191,10 @@
                     class="h-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">October 10, 2022</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">October 10, 2022</p>
+                  <h5 class="text-lg font-semibold">
                     Tech Innovations
                   </h5>
                 </div>
@@ -210,10 +210,10 @@
                     class="w-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">November 25, 2022</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">November 25, 2022</p>
+                  <h5 class="text-lg font-semibold">
                     Echo Music Festival
                   </h5>
                 </div>
@@ -229,10 +229,10 @@
                     class="w-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">September 5, 2022</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">September 5, 2022</p>
+                  <h5 class="text-lg font-semibold">
                     Augmented Reality
                   </h5>
                 </div>
@@ -263,10 +263,10 @@
                     class="h-full w-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">January 25, 2025</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">January 25, 2025</p>
+                  <h5 class="text-lg font-semibold">
                     Creative Innovation
                   </h5>
                 </div>
@@ -282,10 +282,10 @@
                     class="h-full w-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">January 28, 2025</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">January 28, 2025</p>
+                  <h5 class="text-lg font-semibold">
                     Digital Artistry
                   </h5>
                 </div>
@@ -302,10 +302,10 @@
                   class="object-cover"
                 />
               </figure>
-              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+              <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
               <div class="absolute bottom-6 left-6 space-y-2">
-                <p class="text-xs text-ink-contrast">January 30, 2025</p>
-                <h5 class="text-lg font-semibold text-ink-contrast">
+                <p class="text-xs">January 30, 2025</p>
+                <h5 class="text-lg font-semibold">
                   Modern Architecture
                 </h5>
               </div>
@@ -334,10 +334,10 @@
                   class="h-full w-full object-cover"
                 />
               </figure>
-              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+              <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
               <div class="absolute bottom-6 left-6 space-y-2">
-                <p class="text-xs text-ink-contrast">January 25, 2025</p>
-                <h5 class="text-lg font-semibold text-ink-contrast">
+                <p class="text-xs">January 25, 2025</p>
+                <h5 class="text-lg font-semibold">
                   Design Innovation
                 </h5>
               </div>
@@ -353,10 +353,10 @@
                   class="h-full w-full object-cover"
                 />
               </figure>
-              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+              <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
               <div class="absolute bottom-6 left-6 space-y-2">
-                <p class="text-xs text-ink-contrast">January 27, 2025</p>
-                <h5 class="text-lg font-semibold text-ink-contrast">
+                <p class="text-xs">January 27, 2025</p>
+                <h5 class="text-lg font-semibold">
                   Creative Studio
                 </h5>
               </div>
@@ -372,10 +372,10 @@
                   class="object-cover"
                 />
               </figure>
-              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+              <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
               <div class="absolute bottom-6 left-6 space-y-2">
-                <p class="text-xs text-ink-contrast">January 29, 2025</p>
-                <h5 class="text-lg font-semibold text-ink-contrast">
+                <p class="text-xs">January 29, 2025</p>
+                <h5 class="text-lg font-semibold">
                   Digital Workspace
                 </h5>
               </div>
@@ -391,10 +391,10 @@
                   class="object-cover"
                 />
               </figure>
-              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+              <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
               <div class="absolute bottom-6 left-6 space-y-2">
-                <p class="text-xs text-ink-contrast">January 30, 2025</p>
-                <h5 class="text-lg font-semibold text-ink-contrast">
+                <p class="text-xs">January 30, 2025</p>
+                <h5 class="text-lg font-semibold">
                   Modern Architecture
                 </h5>
               </div>
@@ -423,10 +423,10 @@
                   class="object-cover"
                 />
               </figure>
-              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+              <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
               <div class="absolute bottom-6 left-6 space-y-2">
-                <p class="text-xs text-ink-contrast">March 15, 2024</p>
-                <h5 class="text-lg font-semibold text-ink-contrast">
+                <p class="text-xs">March 15, 2024</p>
+                <h5 class="text-lg font-semibold">
                   Creative Innovation
                 </h5>
               </div>
@@ -444,10 +444,10 @@
                     class="h-full w-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">June 24, 2024</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">June 24, 2024</p>
+                  <h5 class="text-lg font-semibold">
                     Digital Studio
                   </h5>
                 </div>
@@ -463,10 +463,10 @@
                     class="h-full w-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">August 31, 2024</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">August 31, 2024</p>
+                  <h5 class="text-lg font-semibold">
                     Modern Workspace
                   </h5>
                 </div>
@@ -482,10 +482,10 @@
                     class="object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">October 17, 2024</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">October 17, 2024</p>
+                  <h5 class="text-lg font-semibold">
                     Design Portfolio
                   </h5>
                 </div>
@@ -501,10 +501,10 @@
                     class="object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">December 28, 2024</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">December 28, 2024</p>
+                  <h5 class="text-lg font-semibold">
                     Visual Architecture
                   </h5>
                 </div>
@@ -535,10 +535,10 @@
                     class="h-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">March 14, 2024</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">March 14, 2024</p>
+                  <h5 class="text-lg font-semibold">
                     Creative Studio
                   </h5>
                 </div>
@@ -554,10 +554,10 @@
                     class="h-full object-cover"
                   />
                 </figure>
-                <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+                <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
                 <div class="absolute bottom-6 left-6 space-y-2">
-                  <p class="text-xs text-ink-contrast">May 23, 2024</p>
-                  <h5 class="text-lg font-semibold text-ink-contrast">
+                  <p class="text-xs">May 23, 2024</p>
+                  <h5 class="text-lg font-semibold">
                     Digital Workspace
                   </h5>
                 </div>
@@ -574,10 +574,10 @@
                   class="object-cover"
                 />
               </figure>
-              <div class="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-b from-transparent to-canvas-contrast/85"></div>
+              <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
               <div class="absolute bottom-6 left-6 space-y-2">
-                <p class="text-xs text-ink-contrast">July 31, 2024</p>
-                <h5 class="text-lg font-semibold text-ink-contrast">
+                <p class="text-xs">July 31, 2024</p>
+                <h5 class="text-lg font-semibold">
                   Modern Innovation
                 </h5>
               </div>

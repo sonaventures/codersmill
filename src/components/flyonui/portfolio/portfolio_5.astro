@@ -1,14 +1,14 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Header Section -->
     <div class="mb-12 space-y-4 text-center sm:mb-16 lg:mb-24">
-      <p class="text-ink-01-highlight text-sm font-medium uppercase">
+      <p class="text-sm font-medium uppercase">
         Our Portfolio
       </p>
-      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
         Our Work Speaks for Itself
       </h2>
-      <p class="text-ink-01-muted text-xl">
+      <p class="text-xl">
         Explore a carefully curated collection of our finest projects, where
         creativity seamlessly blends with functionality to deliver impactful
         solutions, drive meaningful results, and set new benchmarks in
@@ -22,7 +22,7 @@
       x-data="portfolioTabs('all-projects', ['all-projects', 'branding', 'design', 'marketing', 'development'])"
     >
       <nav
-        class="flex max-w-full overflow-x-auto border-b border-canvas-01-border"
+        class="flex max-w-full overflow-x-auto border-b"
         aria-label="Tabs"
         role="tablist"
         aria-orientation="horizontal"
@@ -37,7 +37,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'all-projects')"
           x-bind:aria-selected="active === 'all-projects'"
           x-bind:tabindex="active === 'all-projects' ? 0 : -1"
-          x-bind:class="active === 'all-projects' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'all-projects' ? '' : 'border-transparent'"
           x-on:click="active = 'all-projects'"
         >
           All Projects
@@ -51,7 +51,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'branding')"
           x-bind:aria-selected="active === 'branding'"
           x-bind:tabindex="active === 'branding' ? 0 : -1"
-          x-bind:class="active === 'branding' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'branding' ? '' : 'border-transparent'"
           x-on:click="active = 'branding'"
         >
           Branding
@@ -65,7 +65,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'design')"
           x-bind:aria-selected="active === 'design'"
           x-bind:tabindex="active === 'design' ? 0 : -1"
-          x-bind:class="active === 'design' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'design' ? '' : 'border-transparent'"
           x-on:click="active = 'design'"
         >
           Design
@@ -79,7 +79,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'marketing')"
           x-bind:aria-selected="active === 'marketing'"
           x-bind:tabindex="active === 'marketing' ? 0 : -1"
-          x-bind:class="active === 'marketing' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'marketing' ? '' : 'border-transparent'"
           x-on:click="active = 'marketing'"
         >
           Marketing
@@ -93,7 +93,7 @@
           x-bind:aria-controls="$id('portfolio-panel', 'development')"
           x-bind:aria-selected="active === 'development'"
           x-bind:tabindex="active === 'development' ? 0 : -1"
-          x-bind:class="active === 'development' ? 'border-accent-01-focus text-ink-01-highlight' : 'border-transparent text-ink-01-muted'"
+          x-bind:class="active === 'development' ? '' : 'border-transparent'"
           x-on:click="active = 'development'"
         >
           Development
@@ -111,7 +111,7 @@
         >
           <div class="grid gap-6 sm:grid-cols-2">
             <!-- Project 1 -->
-            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+            <div class="flex flex-col rounded-xl border lg:flex-row max-w-full shadow-none">
               <figure>
                 <img
                   src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-22.png"
@@ -119,7 +119,7 @@
                 />
               </figure>
               <div class="flex flex-col p-6 max-w-80 gap-4">
-                <h5 class="text-lg font-semibold text-ink-01-h3">
+                <h5 class="text-lg font-semibold">
                   Optimize Cloud Costs
                 </h5>
                 <p>
@@ -127,14 +127,14 @@
                   management techniques.
                 </p>
                 <div class="flex flex-wrap">
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
               </div>
             </div>
             <!-- Project 2 -->
-            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+            <div class="flex flex-col rounded-xl border lg:flex-row max-w-full shadow-none">
               <figure>
                 <img
                   src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-15.png"
@@ -142,7 +142,7 @@
                 />
               </figure>
               <div class="flex flex-col p-6 max-w-80 gap-4">
-                <h5 class="text-lg font-semibold text-ink-01-h3">
+                <h5 class="text-lg font-semibold">
                   Secure Python Coding
                 </h5>
                 <p>
@@ -150,14 +150,14 @@
                   Python applications effortlessly.
                 </p>
                 <div class="flex flex-wrap">
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
               </div>
             </div>
             <!-- Project 3 -->
-            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+            <div class="flex flex-col rounded-xl border lg:flex-row max-w-full shadow-none">
               <figure>
                 <img
                   src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-14.png"
@@ -165,7 +165,7 @@
                 />
               </figure>
               <div class="flex flex-col p-6 max-w-80 gap-4">
-                <h5 class="text-lg font-semibold text-ink-01-h3">
+                <h5 class="text-lg font-semibold">
                   CI/CD Best Practices
                 </h5>
                 <p>
@@ -173,14 +173,14 @@
                   automated testing strategies.
                 </p>
                 <div class="flex flex-wrap">
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
               </div>
             </div>
             <!-- Project 4 -->
-            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+            <div class="flex flex-col rounded-xl border lg:flex-row max-w-full shadow-none">
               <figure>
                 <img
                   src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-13.png"
@@ -188,7 +188,7 @@
                 />
               </figure>
               <div class="flex flex-col p-6 max-w-80 gap-4">
-                <h5 class="text-lg font-semibold text-ink-01-h3">
+                <h5 class="text-lg font-semibold">
                   Kubernetes Monitoring
                 </h5>
                 <p>
@@ -196,7 +196,7 @@
                   performance tracking.
                 </p>
                 <div class="flex flex-wrap">
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -216,7 +216,7 @@
         >
           <div class="grid gap-6 sm:grid-cols-2">
             <!-- Project 1 -->
-            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+            <div class="flex flex-col rounded-xl border lg:flex-row max-w-full shadow-none">
               <figure>
                 <img
                   src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-22.png"
@@ -225,7 +225,7 @@
                 />
               </figure>
               <div class="flex flex-col p-6 max-w-80 gap-4">
-                <h5 class="text-lg font-semibold text-ink-01-h3">
+                <h5 class="text-lg font-semibold">
                   Engaging Blog Series
                 </h5>
                 <p>
@@ -233,7 +233,7 @@
                   and book.
                 </p>
                 <div class="flex flex-wrap">
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -253,7 +253,7 @@
         >
           <div class="grid gap-6 sm:grid-cols-2">
             <!-- Project 1 -->
-            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+            <div class="flex flex-col rounded-xl border lg:flex-row max-w-full shadow-none">
               <figure>
                 <img
                   src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-15.png"
@@ -261,7 +261,7 @@
                 />
               </figure>
               <div class="flex flex-col p-6 max-w-80 gap-4">
-                <h5 class="text-lg font-semibold text-ink-01-h3">
+                <h5 class="text-lg font-semibold">
                   Design Guidelines
                 </h5>
                 <p>
@@ -269,7 +269,7 @@
                   maintaining brand consistency.
                 </p>
                 <div class="flex flex-wrap">
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -289,7 +289,7 @@
         >
           <div class="grid gap-6 sm:grid-cols-2">
             <!-- Project 1 -->
-            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+            <div class="flex flex-col rounded-xl border lg:flex-row max-w-full shadow-none">
               <figure>
                 <img
                   src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-14.png"
@@ -297,7 +297,7 @@
                 />
               </figure>
               <div class="flex flex-col p-6 max-w-80 gap-4">
-                <h5 class="text-lg font-semibold text-ink-01-h3">
+                <h5 class="text-lg font-semibold">
                   Email Marketing Suite
                 </h5>
                 <p>
@@ -305,7 +305,7 @@
                   tracking, communications.
                 </p>
                 <div class="flex flex-wrap">
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>
@@ -325,7 +325,7 @@
         >
           <div class="grid gap-6 sm:grid-cols-2">
             <!-- Project 1 -->
-            <div class="flex flex-col rounded-xl border border-canvas-01-card-01-border bg-canvas-01-card-01 text-ink-01 lg:flex-row max-w-full shadow-none">
+            <div class="flex flex-col rounded-xl border lg:flex-row max-w-full shadow-none">
               <figure>
                 <img
                   src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/portfolio/portfolio-13.png"
@@ -333,7 +333,7 @@
                 />
               </figure>
               <div class="flex flex-col p-6 max-w-80 gap-4">
-                <h5 class="text-lg font-semibold text-ink-01-h3">
+                <h5 class="text-lg font-semibold">
                   Cloud Architecture
                 </h5>
                 <p>
@@ -341,7 +341,7 @@
                   automated deployment pipelines.
                 </p>
                 <div class="flex flex-wrap">
-                  <a href="#" class="btn btn-outline">
+                  <a href="#" class="btn">
                     View Details
                   </a>
                 </div>

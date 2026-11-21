@@ -1,14 +1,14 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Section Header with Badge -->
     <div class="mb-12 text-center sm:mb-16 lg:mb-24">
-      <div class="border-accent-01-border bg-accent-01-canvas text-accent-01-text mb-4 inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-medium">
+      <div class="mb-4 inline-flex w-fit items-center rounded-full border px-3 py-1 text-xs font-medium">
         Build intuitive Dashboards with ease
       </div>
-      <h2 class="text-ink-01-h2 mb-4 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="mb-4 text-2xl font-semibold md:text-3xl lg:text-4xl">
         Answers to Your Most Common Questions
       </h2>
-      <p class="text-ink-01-muted text-xl">
+      <p class="text-xl">
         Find Clear Answers to Your Most Frequently Asked Questions
       </p>
     </div>
@@ -16,7 +16,7 @@
     <div class="grid grid-cols-1 gap-16 lg:grid-cols-2">
       <!-- Left Accordion -->
       <div
-        class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border"
+        class="w-full divide-y rounded-xl border"
         x-data="{ open: 'products' }"
       >
         <div>
@@ -30,7 +30,7 @@
           >
             What products do you offer?
             <span
-              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'products' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -43,7 +43,7 @@
             x-collapse
           >
             <div class="px-5 pb-4">
-              <p class="text-ink-01-muted">
+              <p>
                 Placing an order is simple! Browse our products, add items to
                 your cart, and proceed to checkout. Select your shipping method,
                 enter your delivery address, choose your preferred payment
@@ -64,7 +64,7 @@
           >
             How do I place an order?
             <span
-              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'order-place' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -78,7 +78,7 @@
             x-collapse
           >
             <div class="px-5 pb-4">
-              <p class="text-ink-01-muted">
+              <p>
                 We offer a wide range of products including [categories like
                 clothing, electronics, home goods, beauty products, etc. Browse
                 our collections to find everything you need, whether it's the
@@ -99,7 +99,7 @@
           >
             What payment methods do you accept?
             <span
-              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'payment-methods' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -113,7 +113,7 @@
             x-collapse
           >
             <div class="px-5 pb-4">
-              <p class="text-ink-01-muted">
+              <p>
                 We accept various payment methods including credit/debit cards
                 (Visa, MasterCard, American Express), PayPal, Apple Pay, Google
                 Pay, and bank transfers. All transactions are secure and
@@ -133,7 +133,7 @@
           >
             Do you offer international shipping?
             <span
-              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'international-shipping' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -147,7 +147,7 @@
             x-collapse
           >
             <div class="px-5 pb-4">
-              <p class="text-ink-01-muted">
+              <p>
                 Yes, we offer international shipping to over 100 countries.
                 Shipping costs and delivery times vary by location.
                 International orders may be subject to customs duties and taxes,
@@ -168,7 +168,7 @@
           >
             How can I track my order?
             <span
-              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'track-order' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -182,7 +182,7 @@
             x-collapse
           >
             <div class="px-5 pb-4">
-              <p class="text-ink-01-muted">
+              <p>
                 You can easily track your order by logging into your account or
                 using the tracking number provided in your shipping confirmation
                 email. Our tracking system provides real-time updates on your
@@ -194,7 +194,7 @@
       </div>
       <!-- Right Accordion -->
       <div
-        class="divide-canvas-01-border border-canvas-01-border w-full divide-y rounded-xl border h-max"
+        class="w-full divide-y rounded-xl border h-max"
         x-data="{ open: null }"
       >
         <div>
@@ -208,7 +208,7 @@
           >
             What is your return policy?
             <span
-              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'return-policy' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -222,7 +222,7 @@
             x-collapse
           >
             <div class="px-5 pb-4">
-              <p class="text-ink-01-muted">
+              <p>
                 Our return policy allows returns within 30 days of delivery.
               </p>
             </div>
@@ -239,7 +239,7 @@
           >
             Can I change or cancel my order?
             <span
-              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'change-cancel' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -253,7 +253,7 @@
             x-collapse
           >
             <div class="px-5 pb-4">
-              <p class="text-ink-01-muted">
+              <p>
                 Orders can be modified or cancelled within 1 hour of placement.
               </p>
             </div>
@@ -270,7 +270,7 @@
           >
             Do you offer discounts or promotions?
             <span
-              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'discounts' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -284,7 +284,7 @@
             x-collapse
           >
             <div class="px-5 pb-4">
-              <p class="text-ink-01-muted">
+              <p>
                 Yes! We regularly offer seasonal sales and promotions.
               </p>
             </div>
@@ -301,7 +301,7 @@
           >
             How do I create an account?
             <span
-              class="icon-[tabler--chevron-down] text-ink-01 size-4.5 shrink-0 transition-transform duration-300"
+              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'create-account' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -315,7 +315,7 @@
             x-collapse
           >
             <div class="px-5 pb-4">
-              <p class="text-ink-01-muted">
+              <p>
                 Click the 'Sign Up' button and enter your details.
               </p>
             </div>

@@ -1,10 +1,10 @@
-<section class="bg-canvas-01 text-ink-01 py-8 sm:py-16 lg:py-24">
+<section class="py-8 sm:py-16 lg:py-24">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="mb-12 space-y-4 sm:mb-16 lg:mb-24">
-      <h2 class="text-ink-01-h2 text-2xl font-semibold md:text-3xl lg:text-4xl">
+      <h2 class="text-2xl font-semibold md:text-3xl lg:text-4xl">
         Our Top Destinations
       </h2>
-      <p class="text-ink-01-muted text-xl">
+      <p class="text-xl">
         Take a look at the moments that define our work, our people, and our
         vision.
       </p>
@@ -111,7 +111,7 @@
       <div class="mt-8 flex items-center justify-center gap-4">
         <button
           type="button"
-          class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
           aria-label="Previous destinations"
           x-on:click="go(page - 1)"
           x-bind:disabled="page === 0"
@@ -120,7 +120,7 @@
         </button>
         <button
           type="button"
-          class="grid size-11.5 place-items-center rounded-full border border-accent-01-border text-accent-01-text hover:bg-accent-01-canvas disabled:opacity-50"
+          class="grid size-11.5 place-items-center rounded-full border disabled:opacity-50"
           aria-label="Next destinations"
           x-on:click="go(page + 1)"
           x-bind:disabled="page >= pages - 1"

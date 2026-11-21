@@ -1,13 +1,13 @@
-<section class="bg-canvas-01 text-ink-01 relative flex flex-col before:pointer-events-none before:absolute before:inset-0 before:size-full before:bg-[url('https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/hero/hero-24.png')] before:bg-cover before:bg-center before:bg-no-repeat before:opacity-30">
+<section class="relative flex flex-col before:pointer-events-none before:absolute before:inset-0 before:size-full before:bg-[url('https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/hero/hero-24.png')] before:bg-cover before:bg-center before:bg-no-repeat before:opacity-30">
   <div class="grow">
     <div class="overflow-hidden">
       <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="gap-5 space-y-6 pt-10">
           <div class="grid items-end lg:grid-cols-3 lg:gap-3">
-            <h1 class="relative text-8xl leading-[1.15] font-black text-balance max-md:text-4xl lg:col-span-2 text-ink-01-h1">
+            <h1 class="relative text-8xl leading-[1.15] font-black text-balance max-md:text-4xl lg:col-span-2">
               CRUNCH INTO FLAVOR BLISS
             </h1>
-            <p class="text-ink-01-muted text-balance lg:mb-4">
+            <p class="text-balance lg:mb-4">
               Savor the perfect blend of crunch, taste, and bold seasoning with
               every bite. Crafted to delight snack lovers of all kinds, our
               grilled potato chips are your anytime, anywhere treat.
@@ -15,10 +15,10 @@
           </div>
           <div class="flex gap-2">
             <div class="max-w-32" x-data="{ quantity: 0 }">
-              <div class="flex items-center gap-1 rounded-full border border-accent-01-border bg-accent-01-canvas p-1">
+              <div class="flex items-center gap-1 rounded-full border p-1">
                 <button
                   type="button"
-                  class="btn btn-outline size-5.5 min-h-0 rounded-sm p-0"
+                  class="btn size-5.5 min-h-0 rounded-sm p-0"
                   aria-label="Decrement button"
                   x-on:click="quantity = Math.max(0, (Number(quantity) || 0) - 1)"
                 >
@@ -27,7 +27,7 @@
                   </span>
                 </button>
                 <input
-                  class="min-w-0 w-12 text-center text-accent-01-text"
+                  class="min-w-0 w-12 text-center"
                   type="number"
                   min="0"
                   step="1"
@@ -38,7 +38,7 @@
                 />
                 <button
                   type="button"
-                  class="btn btn-outline size-5.5 min-h-0 rounded-sm p-0"
+                  class="btn size-5.5 min-h-0 rounded-sm p-0"
                   aria-label="Increment button"
                   x-on:click="quantity = (Number(quantity) || 0) + 1"
                 >
@@ -53,7 +53,7 @@
               aria-disabled="true"
               tabindex="0"
               title="Sample link: destination not configured"
-              class="btn btn-filled rounded-full"
+              class="btn rounded-full"
             >
               Add to Cart
             </a>
@@ -69,8 +69,8 @@
               />
             </div>
             <div class="w-full space-y-2.5 p-2.5 *:flex *:items-center *:gap-4 *:px-4 lg:absolute lg:top-0 lg:-inset-e-8 lg:w-auto 2xl:-inset-e-20">
-              <div class="">
-                <div class="bg-canvas-01 flex size-15 items-center justify-center rounded-full">
+              <div>
+                <div class="flex size-15 items-center justify-center rounded-full">
                   <img
                     src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/hero/hero-29.png"
                     alt="Creamy Kick"
@@ -78,14 +78,14 @@
                   />
                 </div>
                 <div class="max-w-62">
-                  <h4 class="text-ink-01 text-lg font-semibold">Creamy Kick</h4>
-                  <p class="text-ink-01-muted">
+                  <h4 class="text-lg font-semibold">Creamy Kick</h4>
+                  <p>
                     Creamy sour cream melts in your mouth.
                   </p>
                 </div>
               </div>
-              <div class="">
-                <div class="bg-canvas-01 flex size-15 items-center justify-center rounded-full">
+              <div>
+                <div class="flex size-15 items-center justify-center rounded-full">
                   <img
                     src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/hero/hero-30.png"
                     alt="Creamy Kick"
@@ -93,14 +93,14 @@
                   />
                 </div>
                 <div class="max-w-62">
-                  <h4 class="text-ink-01 text-lg font-semibold">Zesty Onion</h4>
-                  <p class="text-ink-01-muted">
+                  <h4 class="text-lg font-semibold">Zesty Onion</h4>
+                  <p>
                     Crispy stix with tangy onion zing.
                   </p>
                 </div>
               </div>
-              <div class="">
-                <div class="bg-canvas-01 flex size-15 items-center justify-center rounded-full">
+              <div>
+                <div class="flex size-15 items-center justify-center rounded-full">
                   <img
                     src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/hero/hero-31.png"
                     alt="Creamy Kick"
@@ -108,10 +108,10 @@
                   />
                 </div>
                 <div class="max-w-62">
-                  <h4 class="text-ink-01 text-lg font-semibold">
+                  <h4 class="text-lg font-semibold">
                     Herb-Infused
                   </h4>
-                  <p class="text-ink-01-muted">
+                  <p>
                     A hint of garden herbs for balance.
                   </p>
                 </div>
@@ -121,30 +121,30 @@
         </div>
       </div>
       <div class="mx-auto w-full max-w-336 px-4 sm:px-6 lg:px-8">
-        <div class="bg-canvas-01 rounded-t-xl relative grid w-full gap-8 p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3 lg:p-10">
+        <div class="rounded-t-xl relative grid w-full gap-8 p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-3 lg:p-10">
           <div class="flex w-full">
             <img
               src="https://cdn.flyonui.com/fy-assets/blocks/marketing-ui/hero/hero-26.png"
               alt="Image"
               class="z-1 -m-2.5 w-full max-w-26"
             />
-            <div class="rounded-xl border-canvas-01-border -ms-2 flex w-full flex-col justify-between border p-3">
+            <div class="rounded-xl -ms-2 flex w-full flex-col justify-between border p-3">
               <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-1">
-                <h4 class="text-ink-01 max-w-50 grow text-lg font-bold">
+                <h4 class="max-w-50 grow text-lg font-bold">
                   Lays Spanish Tomato Tango
                 </h4>
-                <span class="text-ink-01-highlight text-xl font-medium">
+                <span class="text-xl font-medium">
                   $10
                 </span>
               </div>
-              <p class="text-ink-01-muted">
+              <p>
                 Crispy, tangy, and totally addictive.
               </p>
               <button
                 type="button"
                 disabled
                 title="Sample action: not connected"
-                class="btn btn-filled min-h-8 px-3 text-xs mt-3.5 w-fit rounded-full"
+                class="btn min-h-8 px-3 text-xs mt-3.5 w-fit rounded-full"
               >
                 Buy Now
               </button>
@@ -156,23 +156,23 @@
               alt="Image"
               class="z-1 -my-2.5 w-full max-w-26"
             />
-            <div class="rounded-xl border-canvas-01-border -ms-2 flex w-full flex-col justify-between border p-3">
+            <div class="rounded-xl -ms-2 flex w-full flex-col justify-between border p-3">
               <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-1">
-                <h4 class="text-ink-01 grow text-lg font-bold">
+                <h4 class="grow text-lg font-bold">
                   Lays Sizzlin’ Hot
                 </h4>
-                <span class="text-ink-01-highlight text-xl font-medium">
+                <span class="text-xl font-medium">
                   $12
                 </span>
               </div>
-              <p class="text-ink-01-muted">
+              <p>
                 Turns every bite into a flavor explosion.
               </p>
               <button
                 type="button"
                 disabled
                 title="Sample action: not connected"
-                class="btn btn-filled min-h-8 px-3 text-xs mt-3.5 w-fit rounded-full"
+                class="btn min-h-8 px-3 text-xs mt-3.5 w-fit rounded-full"
               >
                 Buy Now
               </button>
@@ -184,21 +184,21 @@
               alt="Image"
               class="z-1 -m-2.5 w-full max-w-26"
             />
-            <div class="rounded-xl border-canvas-01-border -ms-2 flex w-full flex-col justify-between border p-3">
+            <div class="rounded-xl -ms-2 flex w-full flex-col justify-between border p-3">
               <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-1">
-                <h4 class="text-ink-01 grow text-lg font-bold">
+                <h4 class="grow text-lg font-bold">
                   Lays Magic Masala
                 </h4>
-                <span class="text-ink-01-highlight text-xl font-medium">
+                <span class="text-xl font-medium">
                   $18
                 </span>
               </div>
-              <p class="text-ink-01-muted">Packed with bold Indian spices .</p>
+              <p>Packed with bold Indian spices .</p>
               <button
                 type="button"
                 disabled
                 title="Sample action: not connected"
-                class="btn btn-filled min-h-8 px-3 text-xs mt-3.5 w-fit rounded-full"
+                class="btn min-h-8 px-3 text-xs mt-3.5 w-fit rounded-full"
               >
                 Buy Now
               </button>
