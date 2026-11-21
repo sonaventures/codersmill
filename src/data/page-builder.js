@@ -311,18 +311,46 @@ export function validateStyleClass(value, area = "") {
     throw new Error(`"${value}" is not a theme group ${area} class.`);
 }
 
+// Header and footer choices: "" keeps the layout's site header / footer,
+// "none" hides it, and a component (from readComponents) replaces it.
+const slotAliases = { header: "PageHeader", footer: "PageFooter" };
+
+/** Whether a component can be a page's header or footer: no required props. */
+export function isSlotComponent(component) {
+  return Boolean(
+    component &&
+      !component.error &&
+      componentPathPattern.test(component.path) &&
+      !excludedComponents.has(component.path.split("/").at(-1)) &&
+      Array.isArray(component.properties) &&
+      component.properties.every(({ optional }) => optional),
+  );
+}
+
+function checkSlotChoice(choice, slot) {
+  if (choice === "" || choice === "none") return;
+  if (!isSlotComponent(choice))
+    throw new Error(
+      `The ${slot} must be a component without required properties.`,
+    );
+}
+
 /**
  * The source of a page. `pageClass` wraps everything between the header and
- * footer; `headerClass` and `footerClass` go on the site header and footer.
+ * footer. `header` and `footer` are "" (the layout's site header / footer),
+ * "none", or a component; `headerClass` and `footerClass` style whichever
+ * header and footer the page shows.
  */
 export function generatePage(
   name,
   description,
   selected,
   pageClass = "",
-  { headerClass = "", footerClass = "" } = {},
+  { headerClass = "", footerClass = "", header = "", footer = "" } = {},
 ) {
   pageSlug(name);
+  checkSlotChoice(header, "header");
+  checkSlotChoice(footer, "footer");
   if (pageClass) validateStyleClass(pageClass, "page");
   if (headerClass) validateStyleClass(headerClass, "header");
   if (footerClass) validateStyleClass(footerClass, "footer");
@@ -403,14 +431,29 @@ export function generatePage(
         "  </div>",
       ]
     : elements;
-  const componentImports = [...imports].map(
+  // A chosen header or footer fills the layout's slot, in its theme class.
+  const slotMarkup = (slot, choice, styleClass) =>
+    typeof choice === "object"
+      ? [
+          `  <div slot="${slot}"${styleClass ? ` class=${literal(styleClass)}` : ""}>`,
+          `    <${slotAliases[slot]} />`,
+          "  </div>",
+        ]
+      : [];
+  const componentImports = [
+    ...(typeof header === "object" ? [[header.path, slotAliases.header]] : []),
+    ...imports,
+    ...(typeof footer === "object" ? [[footer.path, slotAliases.footer]] : []),
+  ].map(
     ([path, alias]) =>
       `import ${alias} from ${literal(`../components/${path}`)};`,
   );
   const layoutAttributes = [
     description.trim() ? ` description={${literal(description.trim())}}` : "",
-    headerClass ? ` headerClass={${literal(headerClass)}}` : "",
-    footerClass ? ` footerClass={${literal(footerClass)}}` : "",
+    headerClass && header === "" ? ` headerClass={${literal(headerClass)}}` : "",
+    footerClass && footer === "" ? ` footerClass={${literal(footerClass)}}` : "",
+    header === "none" ? " showHeader={false}" : "",
+    footer === "none" ? " showFooter={false}" : "",
   ].join("");
   return [
     "---",
@@ -419,7 +462,9 @@ export function generatePage(
     "---",
     "",
     `<Layout title={${literal(name.trim())}}${layoutAttributes}>`,
+    ...slotMarkup("header", header, headerClass),
     ...body,
+    ...slotMarkup("footer", footer, footerClass),
     "</Layout>",
     "",
   ].join("\n");
@@ -511,7 +556,7 @@ export function parseGeneratedPage(source) {
   // Titles and values may be written {"text"} (as generated) or "text".
   const quoted = `\\{(${jsonString})\\}|(${jsonString})`;
   const layout = new RegExp(
-    `<Layout\\s+title=(?:${quoted})(?:\\s+description=(?:${quoted}))?(?:\\s+headerClass=(?:${quoted}))?(?:\\s+footerClass=(?:${quoted}))?\\s*>([\\s\\S]*)</Layout>`,
+    `<Layout\\s+title=(?:${quoted})(?:\\s+description=(?:${quoted}))?(?:\\s+headerClass=(?:${quoted}))?(?:\\s+footerClass=(?:${quoted}))?(\\s+showHeader=\\{false\\})?(\\s+showFooter=\\{false\\})?\\s*>([\\s\\S]*)</Layout>`,
   ).exec(source);
   if (!layout) throw notBuilderPage("no Layout title");
   const value = (index) =>
@@ -520,9 +565,36 @@ export function parseGeneratedPage(source) {
       : "";
   const name = value(1);
   const description = value(3);
-  const headerClass = value(5);
-  const footerClass = value(7);
-  let body = layout[9];
+  let headerClass = value(5);
+  let footerClass = value(7);
+  let header = layout[9] ? "none" : "";
+  let footer = layout[10] ? "none" : "";
+  let body = layout[11];
+  // A header or footer component in the layout's slot (see slotMarkup).
+  const slotPart = (slot) =>
+    `<div slot="${slot}"(?: class=(${jsonString}))?>\\s*<(${slotAliases[slot]}) />\\s*</div>`;
+  const takeSlot = (slot, pattern) => {
+    const match = pattern.exec(body);
+    if (!match) return null;
+    if (!imports.has(match[2]))
+      throw notBuilderPage(`a ${slot} component that is not imported`);
+    body = body.slice(0, match.index) + body.slice(match.index + match[0].length);
+    const path = imports.get(match[2]);
+    imports.delete(match[2]);
+    return { path, styleClass: match[1] ? JSON.parse(match[1]) : "" };
+  };
+  const headerSlot = takeSlot(
+    "header",
+    new RegExp(`^\\s*${slotPart("header")}`),
+  );
+  const footerSlot = takeSlot(
+    "footer",
+    new RegExp(`${slotPart("footer")}\\s*$`),
+  );
+  if ((headerSlot && header) || (footerSlot && footer))
+    throw notBuilderPage("a hidden header or footer with a component");
+  if (headerSlot) ({ path: header, styleClass: headerClass } = headerSlot);
+  if (footerSlot) ({ path: footer, styleClass: footerClass } = footerSlot);
   let pageClass = "";
   const wrapper = new RegExp(
     `^\\s*<div class=(${jsonString})>([\\s\\S]*)</div>\\s*$`,
@@ -579,7 +651,16 @@ export function parseGeneratedPage(source) {
     if (section) section.used = true;
   }
   if (section) throw notBuilderPage("an unclosed section");
-  return { name, description, pageClass, headerClass, footerClass, items };
+  return {
+    name,
+    description,
+    pageClass,
+    headerClass,
+    footerClass,
+    header,
+    footer,
+    items,
+  };
 }
 
 /** Rewrites an existing page created by the Page Builder. */

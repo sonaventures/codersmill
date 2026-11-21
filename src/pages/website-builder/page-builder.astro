@@ -11,7 +11,7 @@ import Layout from "../../layouts/website-builder.astro";
       <p>
         Choose your websitebuilder project folder to create a page directly in
         <code>src/pages</code>. The layout adds the site header and footer
-        automatically.
+        unless you pick a header or footer component, or none, for the page.
       </p>
       <p>
         To color the page and its components, first create theme groups in the
@@ -111,11 +111,40 @@ import Layout from "../../layouts/website-builder.astro";
         </div>
         <div class="grid gap-4 sm:grid-cols-2">
           <div class="grid content-start gap-2">
+            <label for="header-component" class="font-semibold">
+              Header
+            </label>
+            <p class="text-sm">
+              The site header from the layout, no header, or a header component
+              (components in <code>src/components</code> with "header" in their
+              path and no required properties).
+            </p>
+            <select
+              id="header-component"
+              class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+            ></select>
+          </div>
+          <div class="grid content-start gap-2">
+            <label for="footer-component" class="font-semibold">
+              Footer
+            </label>
+            <p class="text-sm">
+              The site footer from the layout, no footer, or a footer component
+              (with "footer" in its path and no required properties).
+            </p>
+            <select
+              id="footer-component"
+              class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+            ></select>
+          </div>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="grid content-start gap-2">
             <label for="header-style-class" class="font-semibold">
               Header theme group (optional)
             </label>
             <p class="text-sm">
-              Colors and typography for the site header on this page.
+              Colors and typography for this page's header.
             </p>
             <select
               id="header-style-class"
@@ -127,7 +156,7 @@ import Layout from "../../layouts/website-builder.astro";
               Footer theme group (optional)
             </label>
             <p class="text-sm">
-              Colors and typography for the site footer on this page.
+              Colors and typography for this page's footer.
             </p>
             <select
               id="footer-style-class"

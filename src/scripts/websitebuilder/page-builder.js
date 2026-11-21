@@ -7,6 +7,7 @@ import {
   componentSavePath,
   generatePage,
   inspectComponent,
+  isSlotComponent,
   pageRoute,
   pageSlug,
   parseIdsFromCss,
@@ -36,6 +37,8 @@ const description = get("#page-description");
 const pageStyleClass = get("#page-style-class");
 const headerStyleClass = get("#header-style-class");
 const footerStyleClass = get("#footer-style-class");
+const headerComponent = get("#header-component");
+const footerComponent = get("#footer-component");
 const componentStyleClass = get("#component-style-class");
 const path = get("#page-path");
 const available = get("#available-components");
@@ -209,9 +212,12 @@ loadPageButton.addEventListener("click", async () => {
       await (await pageDirectory.getFileHandle(fileName)).getFile()
     ).text();
     const page = parseGeneratedPage(source);
-    const missing = page.items
-      .map(({ path }) => path)
-      .filter((path) => !components.some((item) => item.path === path));
+    const missing = [
+      ...page.items.map(({ path }) => path),
+      ...[page.header, page.footer].filter(
+        (choice) => choice && choice !== "none",
+      ),
+    ].filter((path) => !components.some((item) => item.path === path));
     if (missing.length)
       throw new Error(
         `${fileName} uses components that are missing or cannot be edited: ${[...new Set(missing)].join(", ")}.`,
@@ -230,6 +236,8 @@ loadPageButton.addEventListener("click", async () => {
     fillStyleClassSelect(pageStyleClass, "page", page.pageClass);
     fillStyleClassSelect(headerStyleClass, "header", page.headerClass);
     fillStyleClassSelect(footerStyleClass, "footer", page.footerClass);
+    fillSlotSelect(headerComponent, "header", page.header);
+    fillSlotSelect(footerComponent, "footer", page.footer);
     loadedSlug = fileName.replace(/\.astro$/, "");
     createdLink.href = pageRoute(loadedSlug);
     createdLink.hidden = false;
@@ -243,7 +251,50 @@ loadPageButton.addEventListener("click", async () => {
   }
 });
 
+// Header / footer pickers: the layout's site header ("") or footer, none,
+// or a component with "header" / "footer" in its path.
+function fillSlotSelect(select, slot, current = select.value) {
+  const label = slot === "header" ? "Header" : "Footer";
+  select.replaceChildren(
+    new Option(`Site ${slot} from the layout (default)`, ""),
+    new Option(`No ${slot}`, "none"),
+  );
+  const matching = components.filter(
+    (component) =>
+      isSlotComponent(component) &&
+      component.path.toLowerCase().includes(slot),
+  );
+  if (matching.length) {
+    const group = document.createElement("optgroup");
+    group.label = `${label} components`;
+    group.append(...matching.map(({ path }) => new Option(path, path)));
+    select.append(group);
+  }
+  // A loaded page may use a component outside the usual names.
+  if (current && ![...select.options].some(({ value }) => value === current)) {
+    const component = components.find(({ path }) => path === current);
+    const option = new Option(
+      isSlotComponent(component) ? current : `${current} (cannot be used)`,
+      current,
+    );
+    option.disabled = !isSlotComponent(component);
+    select.append(option);
+  }
+  select.value = current;
+}
+
+// The header / footer choice for generatePage: "", "none", or a component.
+function slotChoice(select) {
+  if (select.value === "" || select.value === "none") return select.value;
+  const component = components.find(({ path }) => path === select.value);
+  if (!isSlotComponent(component))
+    throw new Error(`${select.value} cannot be used as a header or footer.`);
+  return component;
+}
+
 function renderComponents() {
+  fillSlotSelect(headerComponent, "header");
+  fillSlotSelect(footerComponent, "footer");
   available.replaceChildren(
     ...components.map((component, index) => {
       const option = new Option(
@@ -836,9 +887,15 @@ form.addEventListener("submit", async (event) => {
       {
         headerClass: headerStyleClass.value,
         footerClass: footerStyleClass.value,
+        header: slotChoice(headerComponent),
+        footer: slotChoice(footerComponent),
       },
     );
-    for (const { component } of selected) {
+    const slotComponents = [headerComponent, footerComponent]
+      .map(slotChoice)
+      .filter((choice) => typeof choice === "object")
+      .map((component) => ({ component }));
+    for (const { component } of [...selected, ...slotComponents]) {
       const latest = await (await component.handle.getFile()).text();
       if (latest !== component.source)
         throw new Error(

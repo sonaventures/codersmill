@@ -618,6 +618,8 @@ test("pages created by the page builder load back exactly", () => {
     name: "Our Services",
     description: 'A description with "quotes"',
     pageClass: "sg-sample-page",
+    header: "",
+    footer: "",
     headerClass: "sg-sample-header",
     footerClass: "sg-sample-footer",
     items: [
@@ -701,4 +703,61 @@ import Layout from "../layouts/layout.astro";
     ["flyonui/hero/hero_14.astro"],
   );
   assert.equal(page.items[0].values.heading, "Hello");
+});
+
+test("pages can use a header or footer component, or none, and load again", () => {
+  const hero = { path: "test/fp_hero.astro", properties: [] };
+  const header = { path: "flowbite/header/header_1.astro", properties: [] };
+  const footer = {
+    path: "flowbite/footer/footer_4.astro",
+    properties: [{ name: "year", optional: true, type: "number" }],
+  };
+  const source = generatePage(
+    "Front",
+    "",
+    [{ component: hero, values: {} }],
+    "sg-fp-page",
+    { headerClass: "sg-fp-header", footerClass: "sg-fp-footer", header, footer },
+  );
+  assert.match(
+    source,
+    /import PageHeader from "\.\.\/components\/flowbite\/header\/header_1\.astro";/,
+  );
+  assert.match(
+    source,
+    /<div slot="header" class="sg-fp-header">\n {4}<PageHeader \/>\n {2}<\/div>/,
+  );
+  assert.match(source, /<div slot="footer" class="sg-fp-footer">/);
+  assert.doesNotMatch(source, /headerClass=|footerClass=/);
+  const page = parseGeneratedPage(source);
+  assert.equal(page.header, header.path);
+  assert.equal(page.footer, footer.path);
+  assert.equal(page.headerClass, "sg-fp-header");
+  assert.equal(page.footerClass, "sg-fp-footer");
+  assert.equal(page.pageClass, "sg-fp-page");
+  assert.equal(page.items.length, 1);
+  assert.equal(page.items[0].path, hero.path);
+
+  const hidden = generatePage("Plain", "", [{ component: hero, values: {} }], "", {
+    headerClass: "sg-fp-header",
+    header: "none",
+    footer: "",
+    footerClass: "sg-fp-footer",
+  });
+  assert.match(hidden, /footerClass=\{"sg-fp-footer"\} showHeader=\{false\}>/);
+  const plain = parseGeneratedPage(hidden);
+  assert.equal(plain.header, "none");
+  assert.equal(plain.footer, "");
+  assert.equal(plain.footerClass, "sg-fp-footer");
+
+  assert.throws(
+    () =>
+      generatePage("Bad", "", [{ component: hero, values: {} }], "", {
+        header: {
+          path: "flowbite/header/header_2.astro",
+          properties: [{ name: "title", optional: false, type: "string" }],
+        },
+      }),
+    /required properties/,
+  );
 });
