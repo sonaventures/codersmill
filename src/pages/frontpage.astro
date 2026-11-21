@@ -1,11 +1,16 @@
 ---
 import Layout from "../layouts/layout.astro";
+import PageHeader from "../components/flowbite/header/header_1.astro";
 import Component1 from "../components/test/fp_hero.astro";
 import Component2 from "../components/test/fp_cta.astro";
 import Component3 from "../components/test/fp_features.astro";
+import PageFooter from "../components/flowbite/footer/footer_1.astro";
 ---
 
 <Layout title={"frontpage"} description={"frontpage"}>
+  <div slot="header" class="sw-header">
+    <PageHeader />
+  </div>
   <div class="sg-fp-page">
     <section id="fp_hero" class="sg-fp-hero">
       <Component1 />
@@ -16,5 +21,8 @@ import Component3 from "../components/test/fp_features.astro";
     <section id="fp_features" class="sg-fp-section-2">
       <Component3 />
     </section>
+  </div>
+  <div slot="footer" class="sw-footer">
+    <PageFooter />
   </div>
 </Layout>

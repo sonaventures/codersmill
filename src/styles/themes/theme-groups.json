@@ -169,7 +169,7 @@
             "svgFill3": "theme"
           },
           "hero": {
-            "background": "var(--color-midnightblue-50)",
+            "background": "var(--color-midnightblue-100)",
             "border": "transparent",
             "shadow": "theme",
             "primary": "var(--color-energeticorange-500)",
@@ -180,8 +180,8 @@
             "primaryHover": "theme",
             "learnMoreHover": "theme",
             "text": "var(--color-prusssianblue-800)",
-            "h1": "var(--color-midnightblue-800)",
-            "h2": "var(--color-midnightblue-700)",
+            "h1": "var(--color-midnightblue-900)",
+            "h2": "var(--color-midnightblue-800)",
             "h3": "var(--color-prusssianblue-700)",
             "h4": "var(--color-prusssianblue-700)",
             "muted": "theme",

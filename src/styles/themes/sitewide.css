@@ -29,24 +29,31 @@
 /* end sitewide: colors */
 
 /* sitewide: areas */
-/* theme-builder: %7B%22version%22%3A1%2C%22colors%22%3A%7B%22light%22%3A%7B%22header%22%3A%7B%22background%22%3A%22var(--color-white)%22%2C%22border%22%3A%22transparent%22%7D%2C%22footer%22%3A%7B%7D%7D%2C%22dark%22%3A%7B%22header%22%3A%7B%7D%2C%22footer%22%3A%7B%7D%7D%7D%2C%22typography%22%3A%7B%7D%7D */
+/* theme-builder: %7B%22version%22%3A1%2C%22colors%22%3A%7B%22light%22%3A%7B%22header%22%3A%7B%22background%22%3A%22var(--color-white)%22%2C%22border%22%3A%22transparent%22%2C%22primary%22%3A%22var(--color-platinum-200)%22%2C%22primaryText%22%3A%22var(--color-platinum-950)%22%2C%22accentBorder%22%3A%22transparent%22%2C%22accentFocus%22%3A%22var(--color-platinum-100)%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-500)%22%2C%22svgFill2%22%3A%22var(--color-midnightblue-800)%22%2C%22svgFill3%22%3A%22var(--color-energeticorange-500)%22%7D%2C%22footer%22%3A%7B%22background%22%3A%22var(--color-midnightblue-800)%22%2C%22text%22%3A%22var(--color-platinum-50)%22%2C%22h1%22%3A%22var(--color-platinum-50)%22%2C%22h2%22%3A%22var(--color-platinum-50)%22%2C%22h3%22%3A%22var(--color-platinum-50)%22%2C%22h4%22%3A%22var(--color-offwhite-50)%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-50)%22%2C%22svgFill2%22%3A%22var(--color-platinum-400)%22%2C%22svgFill3%22%3A%22var(--color-prusssianblue-200)%22%7D%7D%2C%22dark%22%3A%7B%22header%22%3A%7B%7D%2C%22footer%22%3A%7B%7D%7D%7D%2C%22typography%22%3A%7B%7D%7D */
 :root:not([data-sitewide-preview]):not([data-theme="dark"]) .sw-header {
   --canvas-header: var(--color-white);
   --canvas-01: var(--color-white);
   --canvas-header-border: transparent;
   --canvas-01-border: transparent;
   --canvas-01-shadow: var(--canvas-header-shadow);
-  --accent-01-canvas: var(--accent-header-canvas);
-  --accent-01-text: var(--accent-header-text);
-  --accent-01-border: var(--accent-header-border);
-  --accent-01-focus: var(--accent-header-focus);
+  --accent-header-canvas: var(--color-platinum-200);
+  --accent-01-canvas: var(--color-platinum-200);
+  --accent-header-text: var(--color-platinum-950);
+  --accent-01-text: var(--color-platinum-950);
+  --accent-header-border: transparent;
+  --accent-01-border: transparent;
+  --accent-header-focus: var(--color-platinum-100);
+  --accent-01-focus: var(--color-platinum-100);
   --ink-01: var(--ink-header);
   --ink-01-h1: var(--ink-header-h1);
   --ink-01-h2: var(--ink-header-h2);
   --ink-01-h3: var(--ink-header-h3);
-  --ink-01-svg-01: var(--ink-header-svg-01, currentColor);
-  --ink-01-svg-02: var(--ink-header-svg-02, var(--canvas-01));
-  --ink-01-svg-03: var(--ink-header-svg-03, currentColor);
+  --ink-header-svg-01: var(--color-prusssianblue-500);
+  --ink-01-svg-01: var(--color-prusssianblue-500);
+  --ink-header-svg-02: var(--color-midnightblue-800);
+  --ink-01-svg-02: var(--color-midnightblue-800);
+  --ink-header-svg-03: var(--color-energeticorange-500);
+  --ink-01-svg-03: var(--color-energeticorange-500);
   background-color: var(--canvas-header);
   color: var(--ink-header);
 }
@@ -69,20 +76,29 @@
   color: var(--ink-header);
 }
 :root:not([data-sitewide-preview]):not([data-theme="dark"]) .sw-footer {
-  --canvas-01: var(--canvas-footer);
+  --canvas-footer: var(--color-midnightblue-800);
+  --canvas-01: var(--color-midnightblue-800);
   --canvas-01-border: var(--canvas-footer-border);
   --canvas-01-shadow: var(--canvas-footer-shadow);
   --accent-01-canvas: var(--accent-footer-canvas);
   --accent-01-text: var(--accent-footer-text);
   --accent-01-border: var(--accent-footer-border);
   --accent-01-focus: var(--accent-footer-focus);
-  --ink-01: var(--ink-footer);
-  --ink-01-h1: var(--ink-footer-h1);
-  --ink-01-h2: var(--ink-footer-h2);
-  --ink-01-h3: var(--ink-footer-h3);
-  --ink-01-svg-01: var(--ink-footer-svg-01, currentColor);
-  --ink-01-svg-02: var(--ink-footer-svg-02, var(--canvas-01));
-  --ink-01-svg-03: var(--ink-footer-svg-03, currentColor);
+  --ink-footer: var(--color-platinum-50);
+  --ink-01: var(--color-platinum-50);
+  --ink-footer-h1: var(--color-platinum-50);
+  --ink-01-h1: var(--color-platinum-50);
+  --ink-footer-h2: var(--color-platinum-50);
+  --ink-01-h2: var(--color-platinum-50);
+  --ink-footer-h3: var(--color-platinum-50);
+  --ink-01-h3: var(--color-platinum-50);
+  --ink-01-h4: var(--color-offwhite-50);
+  --ink-footer-svg-01: var(--color-prusssianblue-50);
+  --ink-01-svg-01: var(--color-prusssianblue-50);
+  --ink-footer-svg-02: var(--color-platinum-400);
+  --ink-01-svg-02: var(--color-platinum-400);
+  --ink-footer-svg-03: var(--color-prusssianblue-200);
+  --ink-01-svg-03: var(--color-prusssianblue-200);
   background-color: var(--canvas-footer);
   color: var(--ink-footer);
 }

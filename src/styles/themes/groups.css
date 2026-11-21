@@ -114,8 +114,8 @@
   color: var(--ink-page);
 }
 :root:not([data-theme="dark"]) .sg-fp-hero {
-  --canvas-hero: var(--color-midnightblue-50);
-  --canvas-01: var(--color-midnightblue-50);
+  --canvas-hero: var(--color-midnightblue-100);
+  --canvas-01: var(--color-midnightblue-100);
   --canvas-hero-border: transparent;
   --canvas-01-border: transparent;
   --canvas-01-shadow: var(--canvas-hero-shadow);
@@ -128,10 +128,10 @@
   --accent-01-learn-more-hover: var(--accent-hero-learn-more-hover);
   --ink-hero: var(--color-prusssianblue-800);
   --ink-01: var(--color-prusssianblue-800);
-  --ink-hero-h1: var(--color-midnightblue-800);
-  --ink-01-h1: var(--color-midnightblue-800);
-  --ink-hero-h2: var(--color-midnightblue-700);
-  --ink-01-h2: var(--color-midnightblue-700);
+  --ink-hero-h1: var(--color-midnightblue-900);
+  --ink-01-h1: var(--color-midnightblue-900);
+  --ink-hero-h2: var(--color-midnightblue-800);
+  --ink-01-h2: var(--color-midnightblue-800);
   --ink-hero-h3: var(--color-prusssianblue-700);
   --ink-01-h3: var(--color-prusssianblue-700);
   --ink-hero-h4: var(--color-prusssianblue-700);
