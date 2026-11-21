@@ -252,6 +252,10 @@
   --color-accent-01-text: var(--accent-01-text);
   --color-accent-01-border: var(--accent-01-border);
   --color-accent-01-focus: var(--accent-01-focus);
+  /* Button hover / focus backgrounds from theme groups; until chosen, Primary
+   * uses the hover / focus color and Learn more has no background. */
+  --color-accent-01-primary-hover: var(--accent-01-primary-hover, var(--accent-01-focus));
+  --color-accent-01-learn-more-hover: var(--accent-01-learn-more-hover, transparent);
   --color-ink-01: var(--ink-01);
   --color-ink-01-dark: var(--ink-01-dark);
   --color-ink-01-highlight: var(--ink-01-highlight);

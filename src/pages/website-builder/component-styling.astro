@@ -1,0 +1,148 @@
+---
+import Layout from "../../layouts/website-builder.astro";
+import { elementKinds } from "../../data/component-styling.js";
+---
+
+<Layout
+  title="Component Styling"
+  description="Give the buttons, links, headings, and cards in a component their theme colors."
+>
+  <section class="container grid max-w-6xl gap-8 py-12" data-component-styling>
+    <header class="grid gap-3">
+      <p>
+        Load a page, choose one of its components, and give each element theme
+        classes: a CTA or accent button, a heading color, a card, and so on. The
+        classes use the shared <code>01</code> tokens, so they take their colors
+        from the theme group class the component sits in.
+      </p>
+      <p>
+        Saving rewrites the component file in <code>src/components</code>, so
+        every page that uses it changes. For styles on one page only, use
+        <strong>Make a copy</strong> in the
+        <a class="underline" href="/website-builder/page-builder/">
+          Page Builder
+        </a>{" "}
+        first and style the copy.
+      </p>
+      <p>
+        Folder access requires Chrome or Edge on localhost or HTTPS. Files stay
+        on your computer.
+      </p>
+    </header>
+
+    <div class="flex flex-wrap items-center gap-4">
+      <button class="btn btn-filled" type="button" id="open-styling-project">
+        Choose project folder
+      </button>
+      <span id="styling-project-name">No project selected</span>
+    </div>
+    <p id="styling-status" role="status" aria-live="polite">
+      Choose the project folder to begin.
+    </p>
+
+    <div id="styling-workspace" class="grid gap-6" hidden>
+      <div class="grid gap-4 rounded border border-canvas-page-border p-4 md:grid-cols-3">
+        <div class="grid content-start gap-2">
+          <label for="styling-page" class="font-semibold">
+            Page
+          </label>
+          <select
+            id="styling-page"
+            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+          ></select>
+        </div>
+        <div class="grid content-start gap-2">
+          <label for="styling-component" class="font-semibold">
+            Component
+          </label>
+          <select
+            id="styling-component"
+            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+          ></select>
+        </div>
+        <div class="grid content-start gap-2">
+          <label for="styling-group" class="font-semibold">
+            Theme group for the preview
+          </label>
+          <select
+            id="styling-group"
+            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+          ></select>
+          <p class="text-sm">
+            Defaults to the class the component has on the page. It only changes
+            the swatches here, not the page.
+          </p>
+        </div>
+      </div>
+
+      <p id="styling-component-note" class="text-sm" hidden></p>
+
+      <div class="flex flex-wrap items-end gap-4">
+        <div class="grid gap-2">
+          <label for="styling-kind" class="font-semibold">
+            Show
+          </label>
+          <select
+            id="styling-kind"
+            class="rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+          >
+            <option value="">All elements</option>
+            {elementKinds.map(({ key, label }) => (
+              <option value={key} selected={key === "actions"}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
+        <label class="flex items-center gap-2 pb-3">
+          <input type="checkbox" id="styling-styled-only" />
+          Only elements with theme classes
+        </label>
+        <span id="styling-count" class="pb-3 text-sm"></span>
+      </div>
+
+      <div id="styling-elements" class="grid gap-3"></div>
+
+      <div class="sticky bottom-0 z-30 flex flex-wrap items-center gap-3 rounded-t-xl border border-canvas-page-border bg-canvas-page p-3 text-ink-page shadow-lg">
+        <button class="btn btn-filled" type="button" id="styling-save" disabled>
+          Save component
+        </button>
+        <button
+          class="btn btn-outline"
+          type="button"
+          id="styling-discard"
+          disabled
+        >
+          Discard changes
+        </button>
+        <span id="styling-pending" class="text-sm">
+          No unsaved changes.
+        </span>
+      </div>
+
+      <details id="styling-preview" class="grid gap-3" open>
+        <summary class="cursor-pointer font-semibold">Page preview</summary>
+        <p class="text-sm">
+          The page as the dev server shows it. It reloads after each save.
+          <a
+            id="styling-page-link"
+            class="underline"
+            target="_blank"
+            rel="noopener"
+          >
+            Open in a new tab
+          </a>
+        </p>
+        <iframe
+          id="styling-frame"
+          title="Page preview"
+          class="h-[70vh] w-full rounded border border-canvas-page-border bg-canvas-page"
+        ></iframe>
+      </details>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import "../../scripts/websitebuilder/component-styling.js";
+</script>

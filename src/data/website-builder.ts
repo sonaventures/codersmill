@@ -29,6 +29,12 @@ export const builderPages = [
       "Create a page from the project's Astro components and assign theme groups.",
   },
   {
+    label: "Component Styling",
+    href: "/website-builder/component-styling/",
+    description:
+      "Give a page's buttons, links, headings, and cards their theme colors.",
+  },
+  {
     label: "Site Nav Builder",
     href: "/website-builder/sitenav-builder/",
     description: "Build a website menu with a live header preview.",
