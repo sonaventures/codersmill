@@ -1,7 +1,7 @@
 import { allPaletteFamilies } from "./palette.js";
 import { validateTypographyRules } from "./typography-builder.js";
 
-export const globalColorRoles = [
+const brandColorRoles = [
   {
     key: "brandFirst",
     label: "Brand 01 / Exclusive",
@@ -38,6 +38,14 @@ export const globalColorRoles = [
     token: "brand-06",
     group: "brand",
   },
+] as const;
+
+/**
+ * Sitewide colors: edited in the Theme Builder's Global area and saved to
+ * src/styles/themes/sitewide.css, not with a theme group, so they apply on
+ * every page whatever theme group is used.
+ */
+export const sitewideColorRoles = [
   {
     key: "ctaPrimary",
     label: "CTA 01",
@@ -128,6 +136,9 @@ export const globalColorRoles = [
     token: "cta-03-hover-text",
     group: "cta",
   },
+] as const;
+
+const contrastColorRoles = [
   {
     key: "contrastCanvas",
     label: "Contrast band background",
@@ -140,6 +151,12 @@ export const globalColorRoles = [
     token: "ink-contrast",
     group: "contrast",
   },
+] as const;
+
+/** Page-wide colors saved with a theme group (on its page class). */
+export const globalColorRoles = [
+  ...brandColorRoles,
+  ...contrastColorRoles,
 ] as const;
 
 export const cardCanvasRoles = [
@@ -391,19 +408,19 @@ export const regionColorRoles = [
   { key: "background", label: "Background", group: "canvas" },
   { key: "border", label: "Border", group: "canvas" },
   { key: "shadow", label: "Shadow", group: "canvas" },
-  { key: "primary", label: "Button canvas", group: "accent" },
-  { key: "primaryText", label: "Button text", group: "accent" },
-  { key: "accentBorder", label: "Button border", group: "accent" },
-  { key: "buttonShadow", label: "Button shadow", group: "accent" },
+  { key: "primary", label: "Accent 1 background", group: "accent" },
+  { key: "primaryText", label: "Accent 1 text", group: "accent" },
+  { key: "accentBorder", label: "Accent 1 / 3 border", group: "accent" },
+  { key: "buttonShadow", label: "Accent 1 / 3 shadow", group: "accent" },
   { key: "accentFocus", label: "Hover / focus", group: "accent" },
   {
     key: "primaryHover",
-    label: "Primary hover / focus",
+    label: "Accent 1 hover / focus",
     group: "accent",
   },
   {
     key: "learnMoreHover",
-    label: "Learn more hover / focus",
+    label: "Accent 3 hover / focus",
     group: "accent",
   },
   { key: "text", label: "Paragraph / text", group: "ink" },
@@ -413,26 +430,26 @@ export const regionColorRoles = [
   { key: "h4", label: "H4 heading", group: "ink" },
   { key: "muted", label: "Muted text", group: "ink" },
   { key: "highlight", label: "Highlight text", group: "ink" },
-  { key: "secondary", label: "Secondary button", group: "accent" },
-  { key: "secondaryText", label: "Secondary button text", group: "accent" },
+  { key: "secondary", label: "Accent 2 background", group: "accent" },
+  { key: "secondaryText", label: "Accent 2 text", group: "accent" },
   {
     key: "secondaryBorder",
-    label: "Secondary button border",
+    label: "Accent 2 border",
     group: "accent",
   },
   {
     key: "secondaryShadow",
-    label: "Secondary button shadow",
+    label: "Accent 2 shadow",
     group: "accent",
   },
   {
     key: "secondaryHover",
-    label: "Secondary hover / focus",
+    label: "Accent 2 hover / focus",
     group: "accent",
   },
   {
     key: "secondaryHoverText",
-    label: "Secondary hover / focus text",
+    label: "Accent 2 hover / focus text",
     group: "accent",
   },
   ...cardCanvasRoles,
@@ -471,31 +488,14 @@ const version18ColorRoles = [
   "secondaryHover",
   "secondaryHoverText",
 ] as const;
-// Added in version 16.
-const version16ColorRoles = [
-  "ctaPrimaryText",
-  "ctaPrimaryBorder",
-  "ctaPrimaryHover",
-  "ctaPrimaryHoverText",
-  "ctaSecondaryText",
-  "ctaSecondaryBorder",
-  "ctaSecondaryHover",
-  "ctaSecondaryHoverText",
-] as const;
-// Added in version 23; until set CTA 03 looks like CTA 01 (see colors.css).
-const version23ColorRoles = [
-  "ctaTertiary",
-  "ctaTertiaryText",
-  "ctaTertiaryBorder",
-  "ctaTertiaryHover",
-  "ctaTertiaryHoverText",
-] as const;
 
 /**
- * Page-wide colors whose variable is unset until chosen, and the variable
+ * Sitewide colors whose variable is unset until chosen, and the variable
  * (or color) components use instead. Matches the fallbacks in colors.css.
  */
-export const globalColorFallbacks: Partial<Record<GlobalColorRole, string>> = {
+export const sitewideColorFallbacks: Partial<
+  Record<SitewideColorRole, string>
+> = {
   ctaPrimaryText: "var(--ink-page-dark)",
   ctaPrimaryBorder: "var(--cta-01)",
   ctaPrimaryHover: "var(--cta-01)",
@@ -516,11 +516,14 @@ const version15ColorRoles = [...formColorRoles, ...contentColorRoles].map(
   ({ key }) => key,
 );
 
-export const colorRoles = [...globalColorRoles, ...regionColorRoles];
+/** Colors saved with a theme group. */
+export const groupColorRoles = [...globalColorRoles, ...regionColorRoles];
+/** Every color control in the Theme Builder, sitewide ones included. */
+export const colorRoles = [...groupColorRoles, ...sitewideColorRoles];
 
 export const roleGroups = [
   { key: "brand", label: "Brand / page-wide" },
-  { key: "cta", label: "CTA / page-wide" },
+  { key: "cta", label: "CTA / sitewide" },
   { key: "contrast", label: "Contrast band / page-wide" },
   { key: "canvas", label: "Canvas" },
   { key: "cards", label: "Cards & subsections" },
@@ -583,6 +586,10 @@ export const regions = [
 ] as const;
 
 export type ColorRole = (typeof colorRoles)[number]["key"];
+/** A color saved with a theme group (not a sitewide one). */
+export type GroupColorRole = (typeof groupColorRoles)[number]["key"];
+export type SitewideColorRole = (typeof sitewideColorRoles)[number]["key"];
+export type SitewideColors = Record<SitewideColorRole, string>;
 export type GlobalColorRole = (typeof globalColorRoles)[number]["key"];
 export type RegionColorRole = (typeof regionColorRoles)[number]["key"];
 export type Region = (typeof regions)[number]["key"];
@@ -654,7 +661,7 @@ export type TypographyRegion = (typeof typographyRegions)[number];
 export type TypographyRules = Record<string, Record<string, string>>;
 /**
  * Typography per area, edited in the Typography Builder. Areas left out
- * follow the site-wide defaults in typography.css. The same in both themes.
+ * follow the site-wide defaults in sitewide.css. The same in both themes.
  */
 export type GroupTypography = Partial<
   Record<TypographyRegion, TypographyRules>
@@ -677,7 +684,16 @@ export function isGlobalColorRole(role: ColorRole): role is GlobalColorRole {
   return globalColorRoles.some(({ key }) => key === role);
 }
 
+export function isSitewideColorRole(
+  role: ColorRole,
+): role is SitewideColorRole {
+  return sitewideColorRoles.some(({ key }) => key === role);
+}
+
+/** Whether an area's color controls include this role. Sitewide colors are
+ * only edited in the Global area, which is not a theme group area. */
 export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
+  if (isSitewideColorRole(role)) return false;
   if (isGlobalColorRole(role)) return region === "page";
   if (role.startsWith("secondary")) return region !== "header";
   if (
@@ -698,7 +714,7 @@ export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
 export function getColor(
   colors: StyleColors,
   region: Region,
-  role: ColorRole,
+  role: GroupColorRole,
 ): string {
   return isGlobalColorRole(role) ? colors.global[role] : colors[region][role];
 }
@@ -706,7 +722,7 @@ export function getColor(
 export function setColor(
   colors: StyleColors,
   region: Region,
-  role: ColorRole,
+  role: GroupColorRole,
   value: string,
 ): void {
   if (isGlobalColorRole(role)) colors.global[role] = value;
@@ -714,7 +730,9 @@ export function setColor(
 }
 
 export function semanticToken(region: Region, role: ColorRole): string | null {
-  const global = globalColorRoles.find(({ key }) => key === role);
+  const global = [...globalColorRoles, ...sitewideColorRoles].find(
+    ({ key }) => key === role,
+  );
   if (global) return global.token;
   const area = regions.find(({ key }) => key === region);
   if (!area) throw new Error(`Unknown style region: ${region}`);
@@ -914,12 +932,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 20 &&
       data.version !== 21 &&
       data.version !== 22 &&
-      data.version !== 23) ||
+      data.version !== 23 &&
+      data.version !== 24) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 23 theme group file with up to 100 groups.",
+      "Expected a version 1 through 24 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -952,17 +971,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       if (data.version >= 3) {
         const global = sourceColors.global;
         if (!isRecord(global))
-          throw new Error(`Missing brand/CTA colors in "${name}".`);
+          throw new Error(`Missing brand colors in "${name}".`);
         for (const { key } of globalColorRoles) {
           if (
             (data.version < 12 &&
               version12ColorRoles.some((role) => role === key)) ||
             (data.version < 13 &&
-              version13ColorRoles.some((role) => role === key)) ||
-            (data.version < 16 &&
-              version16ColorRoles.some((role) => role === key)) ||
-            (data.version < 23 &&
-              version23ColorRoles.some((role) => role === key))
+              version13ColorRoles.some((role) => role === key))
           ) {
             colors.global[key] = "theme";
             continue;
@@ -1127,7 +1142,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 23, groups }, null, 2);
+  return JSON.stringify({ version: 24, groups }, null, 2);
 }
 
 /**

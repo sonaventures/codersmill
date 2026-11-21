@@ -211,18 +211,13 @@ test("form colors map onto section 01 and selection becomes a ::selection rule",
   assert.equal(parseGroupClasses(upsertGroupCss("", saved)).length, 10);
 });
 
-test("CTA text, border, and hover colors go into the page class", () => {
+test("CTA colors are sitewide, so no group class sets them", () => {
   const saved = group();
   saved.themes.light.global.ctaPrimaryHover = "var(--color-orange-600)";
-  saved.themes.light.global.ctaSecondaryBorder = "#112233";
+  saved.themes.light.global.brandFirst = "var(--color-sky-600)";
   const css = generateGroupCss(saved);
-  const page = ruleFor(
-    css,
-    ':root:not([data-theme="dark"]) .sg-coastal-calm-page',
-  );
-  assert.match(page, /--cta-01-hover: var\(--color-orange-600\);/);
-  assert.match(page, /--cta-02-border: #112233;/);
-  assert.doesNotMatch(page, /--cta-01-text/);
+  assert.doesNotMatch(css, /--cta-/);
+  assert.match(css, /--brand-01: var\(--color-sky-600\);/);
 });
 
 test("blocks saved with the older style-group markers are still read and replaced", () => {
@@ -294,15 +289,3 @@ test("deleting a group removes only its block from groups.css", () => {
   assert.match(removed, /\.hand-written/);
 });
 
-test("CTA 03 colors are written on the page class", () => {
-  const saved = group();
-  saved.themes.light.global.ctaTertiary = "var(--color-sky-600)";
-  saved.themes.light.global.ctaTertiaryHoverText = "var(--color-white)";
-  const page = ruleFor(
-    generateGroupCss(saved),
-    ':root:not([data-theme="dark"]) .sg-coastal-calm-page',
-  );
-  assert.match(page, /--cta-03: var\(--color-sky-600\);/);
-  assert.match(page, /--cta-03-hover-text: var\(--color-white\);/);
-  assert.doesNotMatch(page, /--cta-03-text/);
-});

@@ -5,10 +5,10 @@ import {
   defaultColorReference,
   defaultRadii,
   getColor,
-  globalColorFallbacks,
   globalColorRoles,
   isGlobalColorRole,
   isColorRoleVisible,
+  isSitewideColorRole,
   paletteColors,
   paletteFamilies,
   paletteShades,
@@ -22,6 +22,8 @@ import {
   setPaletteFamilies,
   setColor,
   serializeThemeGroups,
+  sitewideColorFallbacks,
+  sitewideColorRoles,
   mergeThemeGroups,
   themeGroupsStorageKey,
   type GroupTypography,
@@ -44,8 +46,17 @@ import {
   fetchProjectThemeGroups,
   getThemesFolder,
   removeGroupFromProject,
+  readTextFile,
   saveGroupToProject,
+  writeTextFile,
 } from "./project-themes";
+import {
+  createDefaultSitewideThemes,
+  parseSitewideCss,
+  sitewideCss,
+  sitewideCssFile,
+  type SitewideThemes,
+} from "../../data/sitewide";
 import { classGroupAreas, groupClassSlug } from "../../data/group-classes";
 
 setPaletteFamilies(readPalette(css));
@@ -114,6 +125,13 @@ if (root) {
     dark: createDefaultColors(),
   };
   let colors = themes[currentTheme()];
+  // Sitewide colors (the Global area) are saved to sitewide.css, not with a
+  // theme group. While this page previews them, sitewide.css is turned off
+  // so "Theme default" shows the theme's color, not the saved one.
+  let sitewide: SitewideThemes = createDefaultSitewideThemes();
+  let sitewideDirty = false;
+  let sitewideReady = false;
+  document.documentElement.dataset.sitewidePreview = "";
   let radii = { ...defaultRadii };
   let groups: ThemeGroup[] = [];
   let selectedId = "";
@@ -141,11 +159,43 @@ if (root) {
         ? `.sg-${slug}-${code.dataset.groupClass}`
         : "Name the group to see it";
   };
-  const editingArea = () => area.value as Region;
+  // The Global area edits sitewide colors; every other area is a theme
+  // group area.
+  type EditingArea = Region | "global";
+  const isGlobalArea = () => area.value === "global";
+  // The theme group area being edited; the page while editing Global.
+  const editingArea = (): Region =>
+    isGlobalArea() ? "page" : (area.value as Region);
+  const areaLabel = (key: EditingArea) =>
+    key === "global"
+      ? "Global"
+      : (regions.find((region) => region.key === key)?.label ?? key);
+  const roleVisibleIn = (key: EditingArea, role: ColorRole) =>
+    key === "global"
+      ? isSitewideColorRole(role)
+      : isColorRoleVisible(key, role);
+  const roleVisible = (role: ColorRole) =>
+    roleVisibleIn(area.value as EditingArea, role);
+  const readColor = (role: ColorRole) =>
+    isSitewideColorRole(role)
+      ? sitewide[currentTheme()][role]
+      : getColor(colors, editingArea(), role);
+  const writeColor = (role: ColorRole, value: string) => {
+    if (isSitewideColorRole(role)) sitewide[currentTheme()][role] = value;
+    else setColor(colors, editingArea(), role, value);
+  };
   const markDirty = () => {
     dirty = true;
     message("Unsaved changes. Save a theme group to keep these styles.");
   };
+  const markSitewideDirty = () => {
+    sitewideDirty = true;
+    message(
+      "Unsaved sitewide changes. Select Save sitewide.css to keep them; they are not saved with a theme group.",
+    );
+  };
+  const markChanged = (role: ColorRole) =>
+    isSitewideColorRole(role) ? markSitewideDirty() : markDirty();
   const confirmDiscard = () =>
     !dirty || window.confirm("Discard unsaved style changes?");
 
@@ -235,15 +285,18 @@ if (root) {
     });
   }
 
-  // Page-wide colors left on "Theme default" may have no variable of their
-  // own (CTA text, border, hover); show the color components fall back to.
+  // Page-wide and sitewide colors left on "Theme default" may have no
+  // variable of their own (CTA text, border, hover); show the color
+  // components fall back to.
   function globalSwatchColor(key: ColorRole, token: string | null): string {
-    const page = get<HTMLElement>('[data-region="page"]');
+    const page = get<HTMLElement>(
+      `[data-region="${isSitewideColorRole(key) ? "global" : "page"}"]`,
+    );
     const value = token
       ? getComputedStyle(page).getPropertyValue(`--${token}`).trim()
       : "";
     const fallback =
-      globalColorFallbacks[key as keyof typeof globalColorFallbacks];
+      sitewideColorFallbacks[key as keyof typeof sitewideColorFallbacks];
     if (value || !fallback) return value;
     const probe = document.createElement("span");
     probe.style.color = fallback;
@@ -254,18 +307,20 @@ if (root) {
   }
 
   function renderColors() {
-    const region = editingArea();
-    const selectedArea = regions.find(({ key }) => key === region);
-    if (!selectedArea) throw new Error(`Unknown editing area: ${region}`);
+    const editing = area.value as EditingArea;
+    const selectedLabel = areaLabel(editing);
     get<HTMLElement>("#color-controls-title").textContent =
-      `Color controls / ${selectedArea.label}`;
-    if (!isColorRoleVisible(region, paletteTarget.value as ColorRole)) {
-      paletteTarget.value = "background";
+      `Color controls / ${selectedLabel}`;
+    if (!roleVisible(paletteTarget.value as ColorRole)) {
+      paletteTarget.value = isGlobalArea() ? "ctaPrimary" : "background";
     }
+    // Copying to all sections is for theme group areas only.
+    get<HTMLElement>("#group-area-actions").hidden = isGlobalArea();
+    get<HTMLElement>("#sitewide-actions").hidden = !isGlobalArea();
     for (const group of roleGroups) {
       const visible = colorRoles.some(
         ({ key, group: roleGroup }) =>
-          roleGroup === group.key && isColorRoleVisible(region, key),
+          roleGroup === group.key && roleVisible(key),
       );
       const fieldset = get<HTMLFieldSetElement>(
         `[data-control-group="${group.key}"]`,
@@ -277,7 +332,7 @@ if (root) {
       ).textContent =
         group.key === "brand" || group.key === "cta" || group.key === "contrast"
           ? group.label
-          : `${group.label} / ${selectedArea.label}`;
+          : `${group.label} / ${selectedLabel}`;
       const targetGroup = get<HTMLOptGroupElement>(
         `[data-target-group="${group.key}"]`,
       );
@@ -293,6 +348,12 @@ if (root) {
           element.style.removeProperty(`--${token}`);
         else element.style.setProperty(`--${token}`, color);
       }
+    }
+    const globalArea = get<HTMLElement>('[data-region="global"]');
+    for (const { key, token } of sitewideColorRoles) {
+      const color = sitewide[currentTheme()][key];
+      if (color === "theme") globalArea.style.removeProperty(`--${token}`);
+      else globalArea.style.setProperty(`--${token}`, color);
     }
     for (const { key: region } of regions) {
       const elements =
@@ -323,9 +384,9 @@ if (root) {
     const element = get<HTMLElement>(`[data-region="${editingArea()}"]`);
     const computed = getComputedStyle(element);
     for (const { key } of colorRoles) {
-      const visible = isColorRoleVisible(region, key);
+      const visible = roleVisible(key);
       get<HTMLElement>(`[data-color-field="${key}"]`).hidden = !visible;
-      const color = getColor(colors, editingArea(), key);
+      const color = readColor(key);
       const custom = color.startsWith("#");
       const control = get<HTMLSelectElement>(`[data-role-value="${key}"]`);
       const optionValue = custom ? "custom" : color;
@@ -366,7 +427,7 @@ if (root) {
       let swatchColor =
         color === "transparent"
           ? ""
-          : isGlobalColorRole(key)
+          : isGlobalColorRole(key) || isSitewideColorRole(key)
             ? globalSwatchColor(key, token)
             : computed.getPropertyValue(`--sample-${key}`).trim();
       // Text formatting defaults to "currentColor": show the area's text.
@@ -385,12 +446,13 @@ if (root) {
 
   function focusedPaletteColor(): string {
     const role = paletteTarget.value as ColorRole;
-    const color = getColor(colors, editingArea(), role);
+    const color = readColor(role);
     if (color !== "theme") return color;
 
-    const global = isGlobalColorRole(role);
+    const sitewideRole = isSitewideColorRole(role);
+    const global = isGlobalColorRole(role) || sitewideRole;
     const element = get<HTMLElement>(
-      `[data-region="${global ? "page" : editingArea()}"]`,
+      `[data-region="${sitewideRole ? "global" : global ? "page" : editingArea()}"]`,
     );
     const token = global
       ? semanticToken(editingArea(), role)
@@ -425,7 +487,10 @@ if (root) {
 
   function focusColorRole(role: ColorRole) {
     paletteTarget.value = role;
-    if (isGlobalColorRole(role) && editingArea() !== "page") {
+    if (isSitewideColorRole(role) && !isGlobalArea()) {
+      area.value = "global";
+      renderColors();
+    } else if (isGlobalColorRole(role) && area.value !== "page") {
       area.value = "page";
       renderColors();
     } else {
@@ -477,7 +542,8 @@ if (root) {
     return "background";
   }
 
-  function previewRegion(target: HTMLElement, role: ColorRole): Region {
+  function previewRegion(target: HTMLElement, role: ColorRole): EditingArea {
+    if (isSitewideColorRole(role)) return "global";
     if (isGlobalColorRole(role)) return "page";
     const regionName =
       target.closest<HTMLElement>("[data-region]")?.dataset.region;
@@ -488,13 +554,19 @@ if (root) {
   }
 
   const nativePreviewControls = "button, a, summary";
-  const previewTargets = preview.querySelectorAll<HTMLElement>(
-    "[data-region], [data-sample-role], .sample-card, .sample-subsection, .sample-buttons button, .sample-logo .text-brand-01, .sample-logo .text-brand-02, .sample-navigation summary, a:not(.sample-logo), p, .sample-code, .sample-heading-level, h1, h2, h3, h4",
+  // In the Global area only the CTA buttons have controls.
+  const previewTargets = [
+    ...preview.querySelectorAll<HTMLElement>(
+      "[data-region], [data-sample-role], .sample-card, .sample-subsection, .sample-buttons button, .sample-logo .text-brand-01, .sample-logo .text-brand-02, .sample-navigation summary, a:not(.sample-logo), p, .sample-code, .sample-heading-level, h1, h2, h3, h4",
+    ),
+  ].filter(
+    (target) =>
+      !target.closest('[data-region="global"]') || target.matches("[data-cta]"),
   );
   for (const target of previewTargets) {
     const role = previewTargetRole(target);
     const region = previewRegion(target, role);
-    const regionLabel = regions.find(({ key }) => key === region)?.label;
+    const regionLabel = areaLabel(region);
     const roleLabel = colorRoles.find(({ key }) => key === role)?.label;
     if (!regionLabel || !roleLabel)
       throw new Error("Unable to label the preview control.");
@@ -511,10 +583,10 @@ if (root) {
   const activatePreviewTarget = (target: HTMLElement) => {
     const role = previewTargetRole(target);
     const region = previewRegion(target, role);
-    if (!isColorRoleVisible(region, role)) {
+    if (!roleVisibleIn(region, role)) {
       throw new Error(`The ${role} control is unavailable for ${region}.`);
     }
-    if (editingArea() !== region) {
+    if (area.value !== region) {
       area.value = region;
       renderColors();
     }
@@ -823,7 +895,7 @@ if (root) {
 
     // Reserve only the trailing space needed to top-align even the sample footer.
     root.style.setProperty("--selector-scroll-space", "0px");
-    const sample = get<HTMLElement>(`[data-region="${editingArea()}"]`);
+    const sample = get<HTMLElement>(`[data-region="${area.value}"]`);
     const top = sample.getBoundingClientRect().top + window.scrollY;
     const extraSpace = Math.max(
       0,
@@ -848,9 +920,10 @@ if (root) {
     button.addEventListener("click", () => {
       const value = button.dataset.paletteValue;
       if (!value) throw new Error("Missing palette value.");
-      setColor(colors, editingArea(), paletteTarget.value as ColorRole, value);
+      const role = paletteTarget.value as ColorRole;
+      writeColor(role, value);
       renderColors();
-      markDirty();
+      markChanged(role);
     });
   }
   for (const { key } of colorRoles) {
@@ -885,9 +958,9 @@ if (root) {
         message("Enter a six-digit hex color for this override.");
         return;
       }
-      setColor(colors, editingArea(), key, value);
+      writeColor(key, value);
       renderColors();
-      markDirty();
+      markChanged(key);
     });
     hex.addEventListener("input", () => {
       const valid = /^#[0-9a-f]{6}$/i.test(hex.value);
@@ -899,12 +972,13 @@ if (root) {
         message("Enter a six-digit hex color, such as #317da6.");
         return;
       }
-      setColor(colors, editingArea(), key, hex.value.toLowerCase());
+      writeColor(key, hex.value.toLowerCase());
       renderColors();
-      markDirty();
+      markChanged(key);
     });
   }
   get<HTMLButtonElement>("#apply-all").addEventListener("click", () => {
+    if (isGlobalArea()) return;
     if (
       !window.confirm(
         "Replace all six section palettes with this area's colors?",
@@ -1145,7 +1219,50 @@ if (root) {
     }
   });
   window.addEventListener("beforeunload", (event) => {
-    if (dirty) event.preventDefault();
+    if (dirty || sitewideDirty) event.preventDefault();
+  });
+
+  // Sitewide colors: read from the project's sitewide.css, saved back to it.
+  const sitewideButton = get<HTMLButtonElement>("#save-sitewide");
+  sitewideButton.disabled = true;
+  void fetch("/website-builder/sitewide.css", { cache: "no-store" })
+    .then((response) => (response.ok ? response.text() : ""))
+    .then((css) => {
+      const saved = parseSitewideCss(css);
+      if (!sitewideDirty) sitewide = saved;
+      sitewideReady = true;
+      sitewideButton.disabled = false;
+      renderColors();
+    })
+    .catch((error) =>
+      reportError(
+        "Unable to read src/styles/themes/sitewide.css, so saving sitewide colors is disabled to protect it.",
+        error,
+      ),
+    );
+  sitewideButton.addEventListener("click", async () => {
+    if (!sitewideReady) return;
+    sitewideButton.disabled = true;
+    try {
+      themesFolder ??= await getThemesFolder();
+      // Keep the Typography Builder's section of the file.
+      const existing = await readTextFile(themesFolder, sitewideCssFile);
+      await writeTextFile(
+        themesFolder,
+        sitewideCssFile,
+        sitewideCss(sitewide, existing),
+      );
+      sitewideDirty = false;
+      message(
+        "Saved the sitewide colors to src/styles/themes/sitewide.css (its typography section was kept). They apply on every page, whatever theme group is used.",
+      );
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError")
+        message("Folder selection cancelled. sitewide.css was not saved.");
+      else reportError("Unable to save sitewide.css.", error);
+    } finally {
+      sitewideButton.disabled = !sitewideReady;
+    }
   });
   new MutationObserver(() => {
     colors = themes[currentTheme()];

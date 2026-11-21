@@ -82,7 +82,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 23);
+  assert.equal(JSON.parse(json).version, 24);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -110,7 +110,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":24,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":25,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -171,10 +171,10 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 23);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 24);
 });
 
-test("brand and CTA assignments are page-wide and round-trip independently by theme", () => {
+test("brand assignments are page-wide and round-trip independently by theme", () => {
   const saved = group();
   setColor(
     saved.themes.light,
@@ -184,15 +184,9 @@ test("brand and CTA assignments are page-wide and round-trip independently by th
   );
   setColor(saved.themes.light, "footer", "brandSecond", "#abcdef");
   setColor(
-    saved.themes.light,
-    "section3",
-    "ctaPrimary",
-    "var(--color-yellow-mana-400)",
-  );
-  setColor(
     saved.themes.dark,
     "page",
-    "ctaSecondary",
+    "brandThird",
     "var(--color-cardamom-300)",
   );
   const [restored] = parseThemeGroups(serializeThemeGroups([saved]));
@@ -202,8 +196,8 @@ test("brand and CTA assignments are page-wide and round-trip independently by th
     "var(--color-magical-merlin-500)",
   );
   assert.equal(
-    getColor(restored.themes.light, "header", "ctaPrimary"),
-    "var(--color-yellow-mana-400)",
+    getColor(restored.themes.dark, "header", "brandThird"),
+    "var(--color-cardamom-300)",
   );
   assert.equal(getColor(restored.themes.dark, "header", "brandFirst"), "theme");
   for (const [index, role] of [
@@ -235,21 +229,21 @@ test("version 2 groups retain area colors and adopt theme defaults for brand and
   );
   assert.equal(restored.themes.light.header.background, "#abcdef");
   assert.equal(restored.themes.light.global.brandFirst, "theme");
-  assert.equal(restored.themes.dark.global.ctaPrimary, "theme");
+  assert.equal(restored.themes.dark.global.brandSecond, "theme");
   assert.equal(restored.themes.dark.hero.text, "theme");
 });
 
 test("version 3 groups reject incomplete or invalid brand and CTA assignments", () => {
   const saved = group();
-  saved.themes.light.global.ctaPrimary = "var(--unknown)";
+  saved.themes.light.global.brandFirst = "var(--unknown)";
   assert.throws(
     () => parseThemeGroups(JSON.stringify({ version: 3, groups: [saved] })),
-    /Invalid ctaPrimary/,
+    /Invalid brandFirst/,
   );
   delete saved.themes.light.global;
   assert.throws(
     () => parseThemeGroups(JSON.stringify({ version: 3, groups: [saved] })),
-    /Missing brand\/CTA/,
+    /Missing brand/,
   );
 });
 
@@ -318,7 +312,7 @@ test("hero assignments round-trip by theme and remain independent of page colors
 test("version 3 groups keep their colors and adopt hero theme defaults", () => {
   const saved = group();
   saved.themes.light.page.background = "#abcdef";
-  saved.themes.dark.global.ctaPrimary = "var(--color-cardamom-300)";
+  saved.themes.dark.global.brandFirst = "var(--color-cardamom-300)";
   delete saved.themes.light.hero;
   delete saved.themes.dark.hero;
   const [restored] = parseThemeGroups(
@@ -326,7 +320,7 @@ test("version 3 groups keep their colors and adopt hero theme defaults", () => {
   );
   assert.equal(restored.themes.light.page.background, "#abcdef");
   assert.equal(
-    restored.themes.dark.global.ctaPrimary,
+    restored.themes.dark.global.brandFirst,
     "var(--color-cardamom-300)",
   );
   assert.deepEqual(restored.themes.light.hero, createDefaultColors().hero);
@@ -370,7 +364,8 @@ test("editing areas expose only their own controls without losing card and brand
   assert.equal(isColorRoleVisible("section3", "card"), true);
   assert.equal(isColorRoleVisible("section4", "cardText"), true);
   assert.equal(isColorRoleVisible("page", "brandFirst"), true);
-  assert.equal(isColorRoleVisible("page", "ctaPrimary"), true);
+  // CTA colors are sitewide: edited in the Global area, in no group area.
+  assert.equal(isColorRoleVisible("page", "ctaPrimary"), false);
   assert.equal(isColorRoleVisible("header", "secondary"), false);
 });
 
@@ -711,41 +706,25 @@ test("form and content colors fall back to the colors components used before", (
   assert.ok(!isColorRoleVisible("header", "inputFocus"));
 });
 
-test("version 15 groups keep their CTA colors and get default CTA text, border, and hover", () => {
-  const extras = [
-    "ctaPrimaryText",
-    "ctaPrimaryBorder",
-    "ctaPrimaryHover",
-    "ctaPrimaryHoverText",
-    "ctaSecondaryText",
-    "ctaSecondaryBorder",
-    "ctaSecondaryHover",
-    "ctaSecondaryHoverText",
-  ];
-  const saved = group();
-  saved.themes.light.global.ctaPrimary = "var(--color-orange-500)";
-  for (const theme of ["light", "dark"])
-    for (const key of extras) delete saved.themes[theme].global[key];
-  const [restored] = parseThemeGroups(
-    JSON.stringify({ version: 15, groups: [saved] }),
-  );
-  assert.equal(
-    restored.themes.light.global.ctaPrimary,
-    "var(--color-orange-500)",
-  );
-  for (const key of extras)
-    assert.equal(restored.themes.dark.global[key], "theme", key);
-
-  const edited = group();
-  edited.themes.light.global.ctaPrimaryHover = "var(--color-orange-600)";
-  edited.themes.dark.global.ctaSecondaryText = "#ffffff";
-  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
+test("groups saved before version 24 drop their CTA colors, which are sitewide now", () => {
+  for (const version of [15, 22, 23]) {
+    const saved = group();
+    saved.themes.light.global.ctaPrimary = "var(--color-orange-500)";
+    saved.themes.dark.global.ctaTertiaryHover = "#ffffff";
+    const [restored] = parseThemeGroups(
+      JSON.stringify({ version, groups: [saved] }),
+    );
+    assert.equal(restored.themes.light.global.ctaPrimary, undefined);
+    assert.equal(restored.themes.dark.global.ctaTertiaryHover, undefined);
+    assert.ok(!JSON.stringify(restored).includes("cta"));
+  }
   assert.equal(
     semanticToken("page", "ctaPrimaryHoverText"),
     "cta-01-hover-text",
   );
-  assert.ok(isColorRoleVisible("page", "ctaSecondaryBorder"));
-  assert.ok(!isColorRoleVisible("hero", "ctaSecondaryBorder"));
+  assert.equal(semanticToken("hero", "ctaTertiary"), "cta-03");
+  for (const region of ["page", "hero", "section1", "footer"])
+    assert.ok(!isColorRoleVisible(region, "ctaSecondaryBorder"));
 });
 
 test("theme groups round-trip typography per area and reject invalid rules", () => {
@@ -806,7 +785,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 23);
+  assert.equal(JSON.parse(first).version, 24);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -956,27 +935,3 @@ test("version 21 groups get default SVG fills for every area", () => {
   assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });
 
-test("version 22 groups get CTA 03, which starts out like CTA 01", () => {
-  const saved = group();
-  for (const theme of ["light", "dark"])
-    for (const role of [
-      "ctaTertiary",
-      "ctaTertiaryText",
-      "ctaTertiaryBorder",
-      "ctaTertiaryHover",
-      "ctaTertiaryHoverText",
-    ])
-      delete saved.themes[theme].global[role];
-  const [restored] = parseThemeGroups(
-    JSON.stringify({ version: 22, groups: [saved] }),
-  );
-  assert.equal(restored.themes.light.global.ctaTertiary, "theme");
-  assert.equal(restored.themes.dark.global.ctaTertiaryHoverText, "theme");
-  assert.equal(semanticToken("page", "ctaTertiary"), "cta-03");
-  assert.equal(semanticToken("page", "ctaTertiaryHover"), "cta-03-hover");
-  assert.equal(isColorRoleVisible("page", "ctaTertiary"), true);
-  assert.equal(isColorRoleVisible("hero", "ctaTertiary"), false);
-  const edited = group();
-  edited.themes.light.global.ctaTertiary = "var(--color-sky-600)";
-  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
-});

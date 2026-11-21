@@ -57,14 +57,6 @@
   --ink-01-svg-01: var(--ink-page-svg-01, currentColor);
   --ink-01-svg-02: var(--ink-page-svg-02, var(--canvas-01));
   --ink-01-svg-03: var(--ink-page-svg-03, currentColor);
-  --cta-01: var(--color-energeticorange-500);
-  --cta-01-text: var(--color-platinum-50);
-  --cta-02: var(--color-midnightblue-200);
-  --cta-02-text: var(--color-midnightblue-900);
-  --cta-03: var(--color-platinum-50);
-  --cta-03-text: var(--color-platinum-950);
-  --cta-03-border: var(--color-platinum-950);
-  --cta-03-hover: var(--color-platinum-100);
   background-color: var(--canvas-page);
   color: var(--ink-page);
 }

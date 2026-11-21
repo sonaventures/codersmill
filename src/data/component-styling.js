@@ -60,42 +60,42 @@ const kindByTag = new Map(
 export const stylePresets = [
   {
     key: "cta-01",
-    label: "CTA 01 button",
+    label: "CTA 01 button (sitewide)",
     group: "actions",
     classes:
       "bg-cta-01 text-cta-01-text inset-ring inset-ring-cta-01-border hover:bg-cta-01-hover hover:text-cta-01-hover-text focus-visible:bg-cta-01-hover focus-visible:text-cta-01-hover-text",
   },
   {
     key: "cta-02",
-    label: "CTA 02 button",
+    label: "CTA 02 button (sitewide)",
     group: "actions",
     classes:
       "bg-cta-02 text-cta-02-text inset-ring inset-ring-cta-02-border hover:bg-cta-02-hover hover:text-cta-02-hover-text focus-visible:bg-cta-02-hover focus-visible:text-cta-02-hover-text",
   },
   {
     key: "cta-03",
-    label: "CTA 03 button",
+    label: "CTA 03 button (sitewide)",
     group: "actions",
     classes:
       "bg-cta-03 text-cta-03-text inset-ring inset-ring-cta-03-border hover:bg-cta-03-hover hover:text-cta-03-hover-text focus-visible:bg-cta-03-hover focus-visible:text-cta-03-hover-text",
   },
   {
     key: "accent-01",
-    label: "Accent 01 button",
+    label: "Accent 1 button",
     group: "actions",
     classes:
       "bg-accent-01-canvas text-accent-01-text inset-ring inset-ring-accent-01-border hover:bg-accent-01-primary-hover focus-visible:bg-accent-01-primary-hover focus-visible:outline-accent-01-focus",
   },
   {
     key: "accent-01-secondary",
-    label: "Accent 01 secondary button",
+    label: "Accent 2 button",
     group: "actions",
     classes:
       "bg-accent-01-secondary text-accent-01-secondary-text inset-ring inset-ring-accent-01-secondary-border shadow-accent-01-secondary-shadow/20 hover:bg-accent-01-secondary-hover hover:text-accent-01-secondary-hover-text focus-visible:bg-accent-01-secondary-hover focus-visible:text-accent-01-secondary-hover-text",
   },
   {
     key: "accent-01-learn-more",
-    label: "Accent 01 learn more link",
+    label: "Accent 3 link",
     group: "actions",
     classes:
       "text-accent-01-focus inset-ring inset-ring-accent-01-border hover:bg-accent-01-learn-more-hover focus-visible:bg-accent-01-learn-more-hover",

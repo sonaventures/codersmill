@@ -115,6 +115,54 @@ const sampleMenu = [
   <div class="selector-shell" data-selector>
     <div class="selector-workspace">
       <div class="preview-column">
+        <section
+          class="sample-global"
+          id="selector-global"
+          data-region="global"
+          style={regionStyle("page")}
+          aria-labelledby="selector-global-heading"
+        >
+          <div class="sample-id-bar sample-id-bar-page" data-studio-chrome>
+            <div class="sample-id-bar-info">
+              <span class="sample-id-bar-dot"></span>
+              <strong>Global</strong>
+            </div>
+            <p class="sample-class-name">
+              Saved to <code>src/styles/themes/sitewide.css</code>
+            </p>
+          </div>
+          <div class="sample-container">
+            <p class="sample-kicker">Global / sitewide</p>
+            <h2 id="selector-global-heading">Calls to action</h2>
+            <p>
+              Not part of a theme group: these apply on every page, whatever
+              theme group is used.
+            </p>
+            <div class="sample-buttons">
+              <button
+                type="button"
+                class="bg-cta-01 text-cta-01-text inset-ring inset-ring-cta-01-border hover:bg-cta-01-hover hover:text-cta-01-hover-text focus-visible:bg-cta-01-hover focus-visible:text-cta-01-hover-text"
+                data-cta="primary"
+              >
+                CTA 01 <ThemeSampleIcon />
+              </button>
+              <button
+                type="button"
+                class="bg-cta-02 text-cta-02-text inset-ring inset-ring-cta-02-border hover:bg-cta-02-hover hover:text-cta-02-hover-text focus-visible:bg-cta-02-hover focus-visible:text-cta-02-hover-text"
+                data-cta="secondary"
+              >
+                CTA 02
+              </button>
+              <button
+                type="button"
+                class="bg-cta-03 text-cta-03-text inset-ring inset-ring-cta-03-border hover:bg-cta-03-hover hover:text-cta-03-hover-text focus-visible:bg-cta-03-hover focus-visible:text-cta-03-hover-text"
+                data-cta="tertiary"
+              >
+                CTA 03 <ThemeSampleIcon />
+              </button>
+            </div>
+          </div>
+        </section>
         <div
           class="sample-page"
           id="selector-sample-page"
@@ -213,28 +261,20 @@ const sampleMenu = [
                   A page-wide background that stands apart from every area.
                 </span>
               </div>
-              <div class="sample-buttons">
-                <button
-                  type="button"
-                  class="bg-cta-01 text-cta-01-text inset-ring inset-ring-cta-01-border hover:bg-cta-01-hover hover:text-cta-01-hover-text focus-visible:bg-cta-01-hover focus-visible:text-cta-01-hover-text"
-                  data-cta="primary"
-                >
-                  CTA 01 <ThemeSampleIcon />
+              <div
+                class="sample-buttons"
+                role="group"
+                aria-label="Page canvas actions"
+              >
+                <button type="button" class="sample-primary">
+                  Accent 1 <ThemeSampleIcon />
                 </button>
-                <button
-                  type="button"
-                  class="bg-cta-02 text-cta-02-text inset-ring inset-ring-cta-02-border hover:bg-cta-02-hover hover:text-cta-02-hover-text focus-visible:bg-cta-02-hover focus-visible:text-cta-02-hover-text"
-                  data-cta="secondary"
-                >
-                  CTA 02
+                <button type="button" class="sample-secondary">
+                  Accent 2 <ThemeSampleIcon />
                 </button>
-                <button
-                  type="button"
-                  class="bg-cta-03 text-cta-03-text inset-ring inset-ring-cta-03-border hover:bg-cta-03-hover hover:text-cta-03-hover-text focus-visible:bg-cta-03-hover focus-visible:text-cta-03-hover-text"
-                  data-cta="tertiary"
-                >
-                  CTA 03 <ThemeSampleIcon />
-                </button>
+                <a class="sample-action-link" href="#selector-sample-page">
+                  Accent 3 <ThemeSampleIcon />
+                </a>
               </div>
               <p>
                 <a class="sample-inline-link" href="#selector-section-1">
@@ -312,8 +352,10 @@ const sampleMenu = [
                 <p class="control-hint">
                   Choose the editing area in the floating Color Picker. Sections
                   1–6 use the first–sixth token groups. “Theme default” follows
-                  your existing light/dark theme. Choose Page canvas to edit
-                  page-wide brand and CTA colors. The interactive group includes
+                  your existing light/dark theme. Choose Global to edit the
+                  sitewide CTA colors, which are saved to sitewide.css rather
+                  than a theme group. Choose Page canvas to edit page-wide
+                  brand colors. The interactive group includes
                   button hover, focus, and active states; link, visited, hover,
                   focus, and active states; and icon colors for each area.
                 </p>
@@ -383,12 +425,30 @@ const sampleMenu = [
                 ))}
             </fieldset>
           ))}
-          <button type="button" class="control-button" id="apply-all">
-            Apply this palette to all six sections
-          </button>
-          <p class="control-hint">
-            Replaces all six section palettes with the editing area's colors.
-          </p>
+          <div id="group-area-actions">
+            <button type="button" class="control-button" id="apply-all">
+              Apply this palette to all six sections
+            </button>
+            <p class="control-hint">
+              Replaces all six section palettes with the editing area's colors.
+            </p>
+          </div>
+          <div id="sitewide-actions" hidden>
+            <p class="control-hint">
+              Sitewide colors are not saved with a theme group. Save them to{" "}
+              <code>src/styles/themes/sitewide.css</code>; they apply on every
+              page and in Component Styling whatever theme group is used.
+            </p>
+            <div class="control-actions">
+              <button
+                type="button"
+                class="control-button control-primary"
+                id="save-sitewide"
+              >
+                Save sitewide.css
+              </button>
+            </div>
+          </div>
 
           <div class="saved-groups">
             <details class="saved-groups-details">
@@ -534,8 +594,11 @@ const sampleMenu = [
               <div>
                 <label for="editing-region">Editing area</label>
                 <select id="editing-region">
+                  <option value="global">Global (sitewide)</option>
                   {regions.map(({ key, label }) => (
-                    <option value={key}>{label}</option>
+                    <option value={key} selected={key === "page"}>
+                      {label}
+                    </option>
                   ))}
                 </select>
               </div>

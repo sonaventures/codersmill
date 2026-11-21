@@ -1,4 +1,3 @@
-import savedCss from "../../styles/themes/typography.css?raw";
 import {
   parseTypography,
   serializeTypography,
@@ -26,6 +25,21 @@ import {
   getThemesFolder,
   saveGroupToProject,
 } from "./project-themes";
+import {
+  readSitewideSection,
+  sitewideCssFile,
+  writeSitewideSection,
+} from "../../data/sitewide";
+
+// Site-wide typography lives in the "typography" section of
+// src/styles/themes/sitewide.css; the Theme Builder owns its other sections.
+const sitewidePath = "src/styles/themes/sitewide.css";
+// Settings from a sitewide.css, or from an older or downloaded typography.css.
+function typographyFrom(css) {
+  return css.includes("/* sitewide: ")
+    ? readSitewideSection(css, "typography")
+    : css.trim();
+}
 
 const root = document.querySelector("[data-typography-builder]");
 const get = (selector) => {
@@ -72,7 +86,8 @@ let currentScope = "";
 let currentElement = element.value;
 let dirty = false;
 let busy = false;
-let sourceCss = savedCss;
+// The typography section of sitewide.css as this page loaded it.
+let sourceCss = "";
 
 // Theme groups saved by the Theme Builder in this browser. Typography edits
 // for their areas are kept in `groupTypography` until saved.
@@ -193,7 +208,7 @@ function renderPreview() {
   ].join("\n\n");
   const siteCss = typographyCss(config) || "/* No site-wide typography yet. */";
   get("#typography-css").textContent = area
-    ? `/* src/styles/themes/typography.css */\n${siteCss}\n\n/* src/styles/themes/groups.css (${area.group.name} / ${area.area.label}) */\n${
+    ? `/* src/styles/themes/sitewide.css (typography section) */\n${siteCss}\n\n/* src/styles/themes/groups.css (${area.group.name} / ${area.area.label}) */\n${
         typographyRulesCss(
           groupRules,
           `.sg-${groupClassSlug(area.group.name)}-${area.area.suffix} `,
@@ -390,7 +405,7 @@ download.addEventListener("click", () => {
   );
   const link = document.createElement("a");
   link.href = url;
-  link.download = "typography.css";
+  link.download = "sitewide-typography.css";
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
   let groupMsg = "";
@@ -404,7 +419,7 @@ download.addEventListener("click", () => {
     }
   }
   setStatus(
-    `CSS downloaded. Replace src/styles/themes/typography.css in your project to apply it. The download includes editable builder settings.${groupMsg}`,
+    `CSS downloaded. Import it here and select Save to project to put it in the typography section of ${sitewidePath}. The download includes editable builder settings.${groupMsg}`,
   );
 });
 
@@ -419,7 +434,7 @@ fileInput.addEventListener("change", async () => {
   try {
     if (file.size > 1_000_000)
       throw new Error("Typography CSS must be under 1 MB.");
-    const imported = parseTypography(await file.text());
+    const imported = parseTypography(typographyFrom(await file.text()));
     config = imported;
     currentScope = "";
     renderScopes();
@@ -453,7 +468,7 @@ async function saveTypography(direct = false) {
     : window.showDirectoryPicker;
   if (typeof picker !== "function") {
     setStatus(
-      "Saving requires Chrome or Edge on localhost or HTTPS. Download CSS and replace src/styles/themes/typography.css instead.",
+      `Saving requires Chrome or Edge on localhost or HTTPS. Download CSS and save it from a browser that can, or paste it into the typography section of ${sitewidePath}.`,
       true,
     );
     return;
@@ -461,7 +476,7 @@ async function saveTypography(direct = false) {
   setBusy(true);
   setStatus(
     direct
-      ? "Select the existing src/styles/themes/typography.css file."
+      ? `Select the existing ${sitewidePath} file.`
       : "Opening the project folder. The first time, choose the websitebuilder project folder and allow write access.",
   );
   let step = "selecting a save destination";
@@ -476,10 +491,10 @@ async function saveTypography(direct = false) {
         ],
         excludeAcceptAllOption: true,
       });
-      if (handle.name !== "typography.css") {
-        throw new Error("Select the project's existing typography.css file.");
+      if (handle.name !== sitewideCssFile) {
+        throw new Error("Select the project's existing sitewide.css file.");
       }
-      step = "requesting write access to the selected typography.css";
+      step = "requesting write access to the selected sitewide.css";
       if (
         (await handle.requestPermission({ mode: "readwrite" })) !== "granted"
       ) {
@@ -492,18 +507,21 @@ async function saveTypography(direct = false) {
       // The project folder is remembered in this browser (shared with the
       // Theme Builder), so it is only chosen the first time.
       themes = await getThemesFolder();
-      projectPath = "src/styles/themes/typography.css";
-      handle = await themes.getFileHandle("typography.css");
+      projectPath = sitewidePath;
+      handle = await themes.getFileHandle(sitewideCssFile, { create: true });
     }
-    step = "reading src/styles/themes/typography.css";
+    step = `reading ${sitewidePath}`;
     const existing = await (await handle.getFile()).text();
-    parseTypography(existing);
-    const output = serializeTypography(config);
+    const existingTypography = readSitewideSection(existing, "typography");
+    parseTypography(existingTypography);
+    const output = serializeTypography(config).trim();
     let confirmation;
     if (direct) {
-      confirmation =
-        "Replace the selected typography.css with the current preview? Make sure you selected src/styles/themes/typography.css in the project, not a downloaded copy.";
-    } else if (existing !== sourceCss && existing !== output) {
+      confirmation = `Replace the typography in the selected sitewide.css with the current preview? Its sitewide colors are kept. Make sure you selected ${sitewidePath} in the project, not a copy.`;
+    } else if (
+      existingTypography !== sourceCss &&
+      existingTypography !== output
+    ) {
       confirmation =
         "The selected project's typography differs from the version loaded by this page. Replace it with the current preview?";
     }
@@ -511,12 +529,15 @@ async function saveTypography(direct = false) {
       setStatus("Save canceled. No files changed.");
       return;
     }
-    step = "writing src/styles/themes/typography.css";
+    step = `writing ${sitewidePath}`;
     projectPath = "";
-    setStatus("Writing src/styles/themes/typography.css...");
+    setStatus(`Writing ${sitewidePath}...`);
     const writable = await handle.createWritable();
     try {
-      await writable.write(output);
+      // Only the typography section changes; the sitewide colors are kept.
+      await writable.write(
+        writeSitewideSection(existing, "typography", output),
+      );
       await writable.close();
     } catch (error) {
       await writable
@@ -545,8 +566,8 @@ async function saveTypography(direct = false) {
     dirty = false;
     setStatus(
       direct
-        ? `Saved to the selected typography.css file${groupMsg}.`
-        : `Saved src/styles/themes/typography.css${groupMsg}. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.`,
+        ? `Saved to the typography section of the selected sitewide.css file${groupMsg}.`
+        : `Saved the site-wide typography to ${sitewidePath}${groupMsg}. Settings now apply to pages using the shared layout. Rebuild and deploy to update your published site.`,
     );
   } catch (error) {
     if (
@@ -594,7 +615,7 @@ window.addEventListener("beforeunload", (event) => {
 
 // Reload theme groups when the Theme Builder saves (in another tab or frame).
 window.addEventListener("storage", (event) => {
-  if (event.key !== themeGroupsStorageKey) return;
+  if (event.key !== themeGroupsStorageKey || !config) return;
   loadThemeGroups();
   renderScopes();
   renderControls();
@@ -609,13 +630,24 @@ void fetchProjectThemeGroups().then((groups) => {
   renderControls();
 });
 
-try {
-  config = parseTypography(savedCss);
-  loadThemeGroups();
-  renderScopes();
-  renderControls();
-  setStatus("Project typography loaded. Select a scope and element to begin.");
-} catch (error) {
-  setBusy(true);
-  report(error);
-}
+// Read on each load (not imported), so saving sitewide.css from here or the
+// Theme Builder never reloads this page.
+setBusy(true);
+fetch("/website-builder/sitewide.css", { cache: "no-store" })
+  .then((response) => {
+    if (!response.ok)
+      throw new Error(`Could not read ${sitewidePath} (${response.status}).`);
+    return response.text();
+  })
+  .then((css) => {
+    sourceCss = readSitewideSection(css, "typography");
+    config = parseTypography(sourceCss);
+    loadThemeGroups();
+    renderScopes();
+    renderControls();
+    setBusy(false);
+    setStatus(
+      "Project typography loaded. Select a scope and element to begin.",
+    );
+  })
+  .catch((error) => report(error));

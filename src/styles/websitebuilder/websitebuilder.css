@@ -201,6 +201,17 @@
 .selector-shell .sample-page-intro {
   @apply py-8;
 }
+/* The Global area: sitewide CTA colors, above the theme group's page. */
+.selector-shell .sample-global {
+  @apply mb-6 pb-8;
+  border-bottom: 1px solid var(--canvas-page-border);
+}
+.selector-shell .sample-global h2 {
+  @apply mb-3 font-display text-[1.55rem] leading-[1.2] text-(--sample-h2);
+}
+.selector-shell .sample-global p:not(.sample-kicker) {
+  @apply max-w-156 text-[0.85rem] leading-[1.75];
+}
 .selector-shell .sample-page-intro p:not(.sample-kicker) {
   @apply text-[0.85rem] leading-[1.75];
 }
