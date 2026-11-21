@@ -1,3 +1,10 @@
+/* The site's content width. Components use max-w-site on the div that holds
+   their content. The Theme Builder sets it sitewide in sitewide.css, and a
+   theme group or the header and footer can override it for one area. */
+@theme static {
+  --container-site: 80rem;
+}
+
 @custom-variant tablet (@media (max-width: 760px));
 @custom-variant phone (@media (max-width: 500px));
 

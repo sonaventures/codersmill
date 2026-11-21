@@ -221,7 +221,7 @@ export const areaElementMappings = [
  * The element rules for one area class, in the base layer and wrapped in
  * :where() so any color utility on a component's element still wins.
  */
-export function areaElementCss(className: string, region: Region): string {
+export function areaElementCss(className: string): string {
   const rules = areaElementMappings.map(({ selector, declarations }) => {
     const target = selector
       ? selector
@@ -251,7 +251,11 @@ export function generateGroupCss(group: ThemeGroup): string {
   const elementRules: string[] = [];
   for (const { region, suffix } of classGroupAreas) {
     const className = `sg-${slug}-${suffix}`;
-    elementRules.push(areaElementCss(className, region));
+    elementRules.push(areaElementCss(className));
+    // The area's content width (max-w-site), the same in both themes.
+    // Areas without one inherit the sitewide width or an outer area's.
+    const width = group.widths?.[region];
+    if (width) rules.push(`.${className} {\n  --container-site: ${width};\n}`);
     for (const theme of ["light", "dark"] as const) {
       rules.push(
         rule(

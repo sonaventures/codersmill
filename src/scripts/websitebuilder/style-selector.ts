@@ -3,6 +3,7 @@ import {
   colorRoles,
   createDefaultColors,
   defaultColorReference,
+  defaultContentWidth,
   defaultRadii,
   getColor,
   globalColorRoles,
@@ -28,6 +29,7 @@ import {
   themeGroupsStorageKey,
   type GroupTypography,
   type Region,
+  type GroupWidths,
   type ThemeGroup,
   type Theme,
   type ColorRole,
@@ -56,10 +58,12 @@ import {
   isSitewideArea,
   parseSitewideAreas,
   parseSitewideCss,
+  parseSitewideLayout,
   sitewideAreas,
   sitewideAreasCss,
   sitewideCss,
   sitewideCssFile,
+  sitewideLayoutCss,
   writeSitewideSection,
   type SitewideAreaStyles,
   type SitewideThemes,
@@ -142,6 +146,11 @@ if (root) {
   let sitewideReady = false;
   document.documentElement.dataset.sitewidePreview = "";
   let radii = { ...defaultRadii };
+  // Content widths (--container-site, used by max-w-site): the sitewide
+  // width is saved to sitewide.css, area widths with the theme group, and the
+  // header and footer's in sitewideStyles. "" means not set.
+  let siteWidth = "";
+  let widths: GroupWidths = {};
   let groups: ThemeGroup[] = [];
   let selectedId = "";
   let dirty = false;
@@ -215,7 +224,7 @@ if (root) {
     sitewideDirty = true;
     onSitewideChange();
     message(
-      "Unsaved sitewide changes (CTA colors, header, or footer). Select Save to sitewide.css to keep them; they are not saved with a theme group.",
+      "Unsaved sitewide changes (content width, CTA colors, header, or footer). Select Save to sitewide.css to keep them; they are not saved with a theme group.",
     );
   };
   const markChanged = (role: ColorRole) =>
@@ -308,6 +317,56 @@ if (root) {
       markDirty();
     });
   }
+
+  const widthArea = get<HTMLSelectElement>("#content-width-area");
+  const widthValue = get<HTMLSelectElement>("#content-width-value");
+  const widthDefault = widthValue.options[0];
+  const widthFor = (area: string) =>
+    area === "site"
+      ? siteWidth
+      : isSitewideArea(area)
+        ? (sitewideStyles.widths[area] ?? "")
+        : (widths[area as keyof GroupWidths] ?? "");
+
+  function renderWidths() {
+    const area = widthArea.value;
+    widthDefault.textContent =
+      area === "site"
+        ? `Default / ${defaultContentWidth}`
+        : `Sitewide width / ${siteWidth || defaultContentWidth}`;
+    widthValue.value = widthFor(area);
+    // Preview the widths: the whole preview takes the sitewide width, and
+    // each area its own, the same way the classes nest on the site.
+    if (siteWidth) preview.style.setProperty("--container-site", siteWidth);
+    else preview.style.removeProperty("--container-site");
+    for (const element of preview.querySelectorAll<HTMLElement>(
+      "[data-region]",
+    )) {
+      const region = element.dataset.region ?? "";
+      const width = region === "global" ? "" : widthFor(region);
+      if (width) element.style.setProperty("--container-site", width);
+      else element.style.removeProperty("--container-site");
+    }
+  }
+
+  widthArea.addEventListener("change", renderWidths);
+  widthValue.addEventListener("change", () => {
+    const area = widthArea.value;
+    const value = widthValue.value;
+    if (widthFor(area) === value) return;
+    if (area === "site") siteWidth = value;
+    else if (isSitewideArea(area)) {
+      if (value) sitewideStyles.widths[area] = value;
+      else delete sitewideStyles.widths[area];
+    } else {
+      const key = area as keyof GroupWidths;
+      if (value) widths[key] = value;
+      else delete widths[key];
+    }
+    renderWidths();
+    if (area === "site" || isSitewideArea(area)) markSitewideDirty();
+    else markDirty();
+  });
 
   // Page-wide and sitewide colors left on "Theme default" may have no
   // variable of their own (CTA text, border, hover); show the color
@@ -1052,12 +1111,14 @@ if (root) {
         };
     colors = themes[currentTheme()];
     radii = { ...(group?.radii ?? defaultRadii) };
+    widths = { ...(group?.widths ?? {}) };
     typography = structuredClone(group?.typography ?? {});
     renderTypography();
     name.value = group?.name ?? "";
     dirty = false;
     renderColors();
     renderRadii();
+    renderWidths();
     renderGroups();
     message(group ? `Loaded "${group.name}".` : "Started a fresh palette.");
   });
@@ -1116,6 +1177,7 @@ if (root) {
         groups.find(({ id }) => id === selectedId)?.sectionIds ?? {},
       ),
       typography: tidyTypography(typography),
+      widths: { ...widths },
     };
     const next = selectedId
       ? groups.map((item) => (item.id === selectedId ? group : item))
@@ -1303,14 +1365,17 @@ if (root) {
     .then((css) => {
       const saved = parseSitewideCss(css);
       const savedStyles = parseSitewideAreas(css);
+      const savedWidth = parseSitewideLayout(css);
       if (!sitewideDirty) {
         sitewide = saved;
         sitewideStyles = savedStyles;
+        siteWidth = savedWidth;
       }
       sitewideReady = true;
       renderSitewideSave();
       renderColors();
       renderTypography();
+      renderWidths();
     })
     .catch((error) =>
       reportError(
@@ -1327,6 +1392,7 @@ if (root) {
       const existing = await readTextFile(themesFolder, sitewideCssFile);
       const tidyStyles = {
         colors: sitewideStyles.colors,
+        widths: sitewideStyles.widths,
         typography: Object.fromEntries(
           Object.entries(sitewideStyles.typography)
             .map(([region, rules]) => [
@@ -1344,14 +1410,18 @@ if (root) {
         themesFolder,
         sitewideCssFile,
         writeSitewideSection(
-          sitewideCss(sitewide, existing),
-          "areas",
-          sitewideAreasCss(tidyStyles),
+          writeSitewideSection(
+            sitewideCss(sitewide, existing),
+            "areas",
+            sitewideAreasCss(tidyStyles),
+          ),
+          "layout",
+          sitewideLayoutCss(siteWidth),
         ),
       );
       sitewideDirty = false;
       message(
-        "Saved the CTA colors, header, and footer to src/styles/themes/sitewide.css (its typography section was kept). They apply on every page, whatever theme group is used.",
+        "Saved the content width, CTA colors, header, and footer to src/styles/themes/sitewide.css (its typography section was kept). They apply on every page, whatever theme group is used.",
       );
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError")

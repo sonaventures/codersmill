@@ -24,6 +24,7 @@ const group = () => ({
   themes: { light: createDefaultColors(), dark: createDefaultColors() },
   radii: { ...defaultRadii },
   sectionIds: {},
+  widths: {},
   typography: {},
 });
 
@@ -82,7 +83,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 24);
+  assert.equal(JSON.parse(json).version, 25);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -110,7 +111,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":25,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":26,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -171,7 +172,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 24);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 25);
 });
 
 test("brand assignments are page-wide and round-trip independently by theme", () => {
@@ -785,7 +786,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 24);
+  assert.equal(JSON.parse(first).version, 25);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -935,3 +936,17 @@ test("version 21 groups get default SVG fills for every area", () => {
   assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });
 
+
+test("content widths round-trip by area, and older groups have none", () => {
+  const saved = { ...group(), widths: { page: "90rem", hero: "100%" } };
+  const [restored] = parseThemeGroups(serializeThemeGroups([saved]));
+  assert.deepEqual(restored.widths, { page: "90rem", hero: "100%" });
+  const older = JSON.parse(serializeThemeGroups([group()]));
+  older.version = 24;
+  delete older.groups[0].widths;
+  assert.deepEqual(parseThemeGroups(JSON.stringify(older))[0].widths, {});
+  for (const widths of [{ header: "80rem" }, { hero: "80vw" }, { hero: "1rem;x" }])
+    assert.throws(() =>
+      parseThemeGroups(serializeThemeGroups([{ ...group(), widths }])),
+    );
+});

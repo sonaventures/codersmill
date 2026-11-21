@@ -20,6 +20,7 @@ import {
   isColorRoleVisible,
   paletteFamilies,
   paletteShades,
+  contentWidthPresets,
   radiusPresets,
   radiusTargets,
   regions,
@@ -719,6 +720,38 @@ const sampleMenu = [
                 {label}
               </button>
             ))}
+          </div>
+        </div>
+        <p class="control-hint" id="content-width-hint">
+          Content width is the max-width of each component's content (the
+          max-w-site class). Set it for the whole site, then override it for
+          one area if needed.
+        </p>
+        <div class="palette-radius-toolbar">
+          <div>
+            <label for="content-width-area">Edit content width for</label>
+            <select id="content-width-area">
+              <option value="site">Whole site (sitewide)</option>
+              {classGroupAreas.map(({ region, label }) => (
+                <option value={region}>{label} (theme group)</option>
+              ))}
+              {sitewideAreas.map(({ region, label }) => (
+                <option value={region}>{label} (sitewide)</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label for="content-width-value">Content width</label>
+            <select id="content-width-value">
+              <option value="">
+                Default
+              </option>
+              {contentWidthPresets.map(({ value, label }) => (
+                <option value={value}>
+                  {label} / {value}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>

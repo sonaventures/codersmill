@@ -112,3 +112,36 @@ test("the header and footer are styled sitewide in sw-header / sw-footer", async
     /invalid background/,
   );
 });
+
+test("sitewide.css keeps the content width and the header and footer widths", async () => {
+  const {
+    createDefaultSitewideAreas,
+    parseSitewideAreas,
+    parseSitewideLayout,
+    sitewideAreasCss,
+    sitewideLayoutCss,
+    writeSitewideSection,
+  } = await import("../src/data/sitewide.ts");
+  const styles = createDefaultSitewideAreas();
+  styles.widths.header = "100%";
+  let css = sitewideCss(createDefaultSitewideThemes());
+  css = writeSitewideSection(css, "areas", sitewideAreasCss(styles));
+  css = writeSitewideSection(css, "layout", sitewideLayoutCss("72rem"));
+  assert.match(css, /\/\* sitewide: layout \*\/\n:root \{\n  --container-site: 72rem;\n\}/);
+  assert.ok(css.indexOf("sitewide: layout") < css.indexOf("sitewide: colors"));
+  assert.match(
+    css,
+    /:root:not\(\[data-sitewide-preview\]\) \.sw-header \{\n  --container-site: 100%;\n\}/,
+  );
+  assert.doesNotMatch(css, /\.sw-footer \{\n  --container-site/);
+  assert.equal(parseSitewideLayout(css), "72rem");
+  assert.deepEqual(parseSitewideAreas(css).widths, { header: "100%" });
+  // Leaving the width on the default removes the section.
+  const cleared = writeSitewideSection(css, "layout", sitewideLayoutCss(""));
+  assert.doesNotMatch(cleared, /sitewide: layout/);
+  assert.equal(parseSitewideLayout(cleared), "");
+  assert.throws(() => sitewideLayoutCss("72rem; color: red"));
+  assert.throws(() =>
+    parseSitewideLayout("/* sitewide: layout */\n:root { --container-site: calc(1px); }\n/* end sitewide: layout */"),
+  );
+});

@@ -706,7 +706,9 @@
 .selector-shell .palette-radius-toolbar {
   @apply flex flex-wrap items-end gap-x-4 gap-y-2 px-1 pb-2;
 }
-.selector-shell #radius-target {
+.selector-shell #radius-target,
+.selector-shell #content-width-area,
+.selector-shell #content-width-value {
   @apply m-0 h-8 p-1 text-xs;
 }
 .selector-shell .palette-typography-toolbar {

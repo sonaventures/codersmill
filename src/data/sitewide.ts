@@ -1,6 +1,7 @@
 import {
   createDefaultColors,
   isColorValue,
+  isContentWidth,
   regionColorRoles,
   sitewideColorRoles,
   type Colors,
@@ -29,8 +30,9 @@ export const sitewideCssFile = "sitewide.css";
 
 export const sitewideCssHeader = `/*
  * Sitewide styles: they apply on every page whatever theme group is used.
- * The Theme Builder writes the "colors" section (CTA 01-03) and the "areas"
- * section (header and footer); the Typography Builder writes the
+ * The Theme Builder writes the "layout" section (the content width), the
+ * "colors" section (CTA 01-03) and the "areas" section (header and
+ * footer); the Typography Builder writes the
  * "typography" section. Each builder replaces only its own sections. The
  * Theme Builder sets data-sitewide-preview on <html> while it previews
  * unsaved changes, which turns these rules off.
@@ -38,7 +40,12 @@ export const sitewideCssHeader = `/*
 `;
 
 /** The parts of sitewide.css, each written by one builder, in file order. */
-export const sitewideSections = ["colors", "areas", "typography"] as const;
+export const sitewideSections = [
+  "layout",
+  "colors",
+  "areas",
+  "typography",
+] as const;
 export type SitewideSection = (typeof sitewideSections)[number];
 
 const sectionStart = (name: SitewideSection) => `/* sitewide: ${name} */`;
@@ -149,6 +156,32 @@ export function parseSitewideCss(css: string): SitewideThemes {
   return themes;
 }
 
+// --- Content width ----------------------------------------------------------
+
+/**
+ * The "layout" section: the sitewide content width (--container-site, used by
+ * max-w-site), or "" when sitewide.css leaves it on the 80rem default from
+ * base.css. Theme groups and the header and footer can override it per area.
+ */
+export function sitewideLayoutCss(width: string): string {
+  if (!width) return "";
+  if (!isContentWidth(width))
+    throw new Error(`Invalid sitewide content width: ${width}`);
+  return `:root {\n  --container-site: ${width};\n}`;
+}
+
+/** The sitewide content width in a sitewide.css, or "" for the default. */
+export function parseSitewideLayout(css: string): string {
+  const section = readSitewideSection(css, "layout");
+  const match = /--container-site\s*:\s*([^;]+?)\s*;/.exec(section);
+  if (!match) return "";
+  if (!isContentWidth(match[1]))
+    throw new Error(
+      `sitewide.css: --container-site is not a rem or px width, or 100%.`,
+    );
+  return match[1];
+}
+
 // --- Header and footer ---------------------------------------------------
 
 /**
@@ -164,6 +197,8 @@ export type SitewideArea = (typeof sitewideAreas)[number]["region"];
 export interface SitewideAreaStyles {
   colors: Record<Theme, Record<SitewideArea, Colors>>;
   typography: Partial<Record<SitewideArea, TypographyRules>>;
+  /** Content widths; left out, the area uses the sitewide width. */
+  widths: Partial<Record<SitewideArea, string>>;
 }
 
 export function isSitewideArea(region: string): region is SitewideArea {
@@ -176,7 +211,11 @@ export function createDefaultSitewideAreas(): SitewideAreaStyles {
     header: { ...defaults.header },
     footer: { ...defaults.footer },
   });
-  return { colors: { light: theme(), dark: theme() }, typography: {} };
+  return {
+    colors: { light: theme(), dark: theme() },
+    typography: {},
+    widths: {},
+  };
 }
 
 const areasMarker = "/* theme-builder: ";
@@ -211,6 +250,7 @@ export function sitewideAreasCss(styles: SitewideAreaStyles): string {
       ]),
     ),
     typography: styles.typography,
+    widths: styles.widths,
   });
   const css = [`${areasMarker}${encodeURIComponent(settings)} */`];
   for (const { region, className } of sitewideAreas) {
@@ -237,6 +277,13 @@ export function sitewideAreasCss(styles: SitewideAreaStyles): string {
           `${selector} ::selection,\n${selector}::selection {\n${selection.join("\n")}\n}`,
         );
     }
+  }
+  for (const { region, className } of sitewideAreas) {
+    const width = styles.widths[region];
+    if (width)
+      css.push(
+        `:root:not([data-sitewide-preview]) .${className} {\n  --container-site: ${width};\n}`,
+      );
   }
   for (const { region, className } of sitewideAreas) {
     const rules = styles.typography[region];
@@ -277,6 +324,13 @@ export function parseSitewideAreas(css: string): SitewideAreaStyles {
     if (rules === undefined) continue;
     validateTypographyRules(rules);
     styles.typography[region] = structuredClone(rules);
+  }
+  for (const { region } of sitewideAreas) {
+    const width = data.widths?.[region];
+    if (width === undefined) continue;
+    if (!isContentWidth(width))
+      throw new Error(`sitewide.css: invalid ${region} content width.`);
+    styles.widths[region] = width;
   }
   return styles;
 }

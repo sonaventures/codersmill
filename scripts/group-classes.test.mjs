@@ -17,6 +17,7 @@ const group = (name = "Coastal calm") => ({
   themes: { light: createDefaultColors(), dark: createDefaultColors() },
   radii: { ...defaultRadii },
   sectionIds: {},
+  widths: {},
   typography: {},
 });
 
@@ -345,4 +346,13 @@ test("each area class maps its colors onto the elements inside it", () => {
     );
   // Element rules don't add classes the page builder would list.
   assert.equal(parseGroupClasses(upsertGroupCss("", group())).length, 8);
+});
+
+test("an area's content width goes on its class; others use the sitewide width", () => {
+  const saved = group();
+  saved.widths = { hero: "100%", section2: "64rem" };
+  const css = generateGroupCss(saved);
+  assert.match(css, /\n\.sg-coastal-calm-hero \{\n  --container-site: 100%;\n\}/);
+  assert.match(css, /\n\.sg-coastal-calm-section-2 \{\n  --container-site: 64rem;\n\}/);
+  assert.equal(css.match(/--container-site/g).length, 2);
 });

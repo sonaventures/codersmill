@@ -625,6 +625,30 @@ export const defaultRadii: Readonly<GlobalRadii> = {
   subsection: "xl",
 };
 
+/**
+ * Content widths: the max-width of the div that holds a component's content
+ * (the max-w-site class, set by --container-site). The site default is 80rem,
+ * Tailwind's max-w-7xl / max-w-screen-xl that the components used before.
+ */
+export const defaultContentWidth = "80rem";
+export const contentWidthPresets = [
+  { value: "48rem", label: "Narrow (768px)" },
+  { value: "64rem", label: "Medium (1024px)" },
+  { value: "72rem", label: "Wide (1152px)" },
+  { value: "80rem", label: "Extra wide (1280px)" },
+  { value: "90rem", label: "Large (1440px)" },
+  { value: "96rem", label: "Extra large (1536px)" },
+  { value: "100%", label: "Full width" },
+] as const;
+
+/** A CSS width the builder writes: a rem or px length, or 100%. */
+export function isContentWidth(value: unknown): value is string {
+  return (
+    typeof value === "string" &&
+    /^(?:(?:[1-9]\d{0,3}(?:\.\d{1,3})?)(?:rem|px)|100%)$/.test(value)
+  );
+}
+
 // Preview areas that can take a CSS ID from src/styles/themes/id.css.
 export const sectionIdRegions = [
   "page",
@@ -674,7 +698,12 @@ export interface ThemeGroup {
   radii: GlobalRadii;
   sectionIds: SectionIds;
   typography: GroupTypography;
+  /** Content widths by area; areas left out use the sitewide width. */
+  widths: GroupWidths;
 }
+
+/** Content widths by area. The header and footer's are sitewide. */
+export type GroupWidths = Partial<Record<SectionIdRegion, string>>;
 
 // Keep the storage key, including its older "style-groups" name, so groups
 // already saved in browsers (back to version 1) are still found.
@@ -933,12 +962,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 21 &&
       data.version !== 22 &&
       data.version !== 23 &&
-      data.version !== 24) ||
+      data.version !== 24 &&
+      data.version !== 25) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 24 theme group file with up to 100 groups.",
+      "Expected a version 1 through 25 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1130,6 +1160,18 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
         );
       }
     }
+    const widths: GroupWidths = {};
+    if (data.version >= 25) {
+      const source = value.widths;
+      if (!isRecord(source)) throw new Error(`Missing widths in "${name}".`);
+      for (const [region, width] of Object.entries(source)) {
+        if (!sectionIdRegions.some((key) => key === region))
+          throw new Error(`Unknown width area "${region}" in "${name}".`);
+        if (!isContentWidth(width))
+          throw new Error(`Invalid ${region} width in "${name}".`);
+        widths[region as SectionIdRegion] = width;
+      }
+    }
     return {
       id: value.id,
       name,
@@ -1137,12 +1179,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       radii,
       sectionIds,
       typography,
+      widths,
     };
   });
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 24, groups }, null, 2);
+  return JSON.stringify({ version: 25, groups }, null, 2);
 }
 
 /**
