@@ -37,6 +37,10 @@ const description = get("#page-description");
 const pageStyleClass = get("#page-style-class");
 const headerComponent = get("#header-component");
 const footerComponent = get("#footer-component");
+const slotControls = {
+  header: { select: headerComponent, copy: get("#header-component-copy-box") },
+  footer: { select: footerComponent, copy: get("#footer-component-copy-box") },
+};
 const componentStyleClass = get("#component-style-class");
 const path = get("#page-path");
 const available = get("#available-components");
@@ -275,6 +279,28 @@ function fillSlotSelect(select, slot, current = select.value) {
     select.append(option);
   }
   select.value = current;
+  renderSlotCopy(slot);
+}
+
+// "Save a copy" for the chosen header or footer component: saves the copy,
+// then this page uses it, so it can be edited without changing the original.
+function renderSlotCopy(slot) {
+  const { select, copy: box } = slotControls[slot];
+  box.replaceChildren();
+  const component = components.find(({ path }) => path === select.value);
+  if (!isSlotComponent(component)) return;
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "btn btn-outline justify-self-start";
+  toggle.textContent = `Save a copy of this ${slot}`;
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.setAttribute("aria-controls", `${slot}-component-copy`);
+  const panel = copyPanel(component, `${slot}-component`, toggle, (copy, from) => {
+    fillSlotSelect(select, slot, copy.path);
+    box.querySelector("button")?.focus();
+    status.textContent = `Saved src/components/${copy.path} as a copy of ${from}. This page's ${slot} now uses the copy.`;
+  });
+  box.append(toggle, panel);
 }
 
 // The header / footer choice for generatePage: "", "none", or a component.
@@ -412,34 +438,58 @@ function copyField(id, labelText, value, placeholder) {
   return { wrapper, input };
 }
 
-// "Make a copy" form for one added component: choose a new name and folder,
-// save the copy, then switch this row to use it.
-function copyPanel(item, index, toggle) {
+// "Make a copy" form for a component: choose a new name and folder, save the
+// copy, then `onCopied(copy, fromPath)` switches whatever used it to the copy.
+// `id` prefixes the form's element IDs; `toggle` is the button that opens it.
+function copyPanel(component, id, toggle, onCopied) {
   const panel = document.createElement("div");
-  panel.id = `component-${index}-copy`;
+  panel.id = `${id}-copy`;
   panel.className = "grid gap-3 rounded border border-canvas-page-border p-3";
   panel.hidden = true;
-  const segments = item.component.path.split("/");
+  const segments = component.path.split("/");
   const original = segments.pop().replace(/\.astro$/, "");
   const name = copyField(
-    `component-${index}-copy-name`,
+    `${id}-copy-name`,
     "Name",
     `${original}Copy`,
     "For example, HomeHero",
   );
-  const folder = copyField(
-    `component-${index}-copy-folder`,
-    "Folder in src/components (blank for the top level)",
-    segments.join("/"),
-    "For example, custom/home",
+  // Where to save it: any folder in src/components, or a new one.
+  const folderWrapper = document.createElement("div");
+  folderWrapper.className = "grid min-w-[180px] flex-1 gap-1";
+  const folderLabel = document.createElement("label");
+  folderLabel.htmlFor = `${id}-copy-folder`;
+  folderLabel.className = "text-sm font-semibold";
+  folderLabel.textContent = "Folder in src/components";
+  const folderSelect = document.createElement("select");
+  folderSelect.id = `${id}-copy-folder`;
+  folderSelect.className =
+    "w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page";
+  folderSelect.append(
+    ...componentFolders(components).map(
+      (folder) => new Option(folder || "(top level of src/components)", folder),
+    ),
+    new Option("New folder…", NEW_FOLDER),
   );
-  folder.input.setAttribute("list", folderOptions.id);
+  folderSelect.value = segments.join("/");
+  folderWrapper.append(folderLabel, folderSelect);
+  const newFolder = copyField(
+    `${id}-copy-new-folder`,
+    "New folder",
+    "",
+    "For example, custom/headers",
+  );
+  newFolder.wrapper.hidden = true;
+  const chosenFolder = () =>
+    folderSelect.value === NEW_FOLDER
+      ? newFolder.input.value
+      : folderSelect.value;
   const preview = document.createElement("p");
   preview.className = "text-sm";
   preview.setAttribute("aria-live", "polite");
   const fields = document.createElement("div");
   fields.className = "flex flex-wrap gap-3";
-  fields.append(name.wrapper, folder.wrapper);
+  fields.append(name.wrapper, folderWrapper, newFolder.wrapper);
 
   const saveCopy = document.createElement("button");
   saveCopy.type = "button";
@@ -455,7 +505,9 @@ function copyPanel(item, index, toggle) {
 
   const updatePreview = () => {
     try {
-      const path = copyPath(folder.input.value, name.input.value);
+      if (folderSelect.value === NEW_FOLDER && !newFolder.input.value.trim())
+        throw new Error("Enter a name for the new folder.");
+      const path = copyPath(chosenFolder(), name.input.value);
       const taken = components.some((existing) => existing.path === path);
       preview.textContent = taken
         ? `src/components/${path} already exists. Choose a different name or folder.`
@@ -467,7 +519,12 @@ function copyPanel(item, index, toggle) {
     }
   };
   name.input.addEventListener("input", updatePreview);
-  folder.input.addEventListener("input", updatePreview);
+  folderSelect.addEventListener("change", () => {
+    newFolder.wrapper.hidden = folderSelect.value !== NEW_FOLDER;
+    if (!newFolder.wrapper.hidden) newFolder.input.focus();
+    updatePreview();
+  });
+  newFolder.input.addEventListener("input", updatePreview);
   updatePreview();
 
   const close = () => {
@@ -479,18 +536,13 @@ function copyPanel(item, index, toggle) {
   saveCopy.addEventListener("click", async () => {
     if (busy) return;
     setBusy(true);
-    const from = item.component.path;
+    const from = component.path;
     try {
       const copy = await copyComponent(
-        item.component,
-        copyPath(folder.input.value, name.input.value),
+        component,
+        copyPath(chosenFolder(), name.input.value),
       );
-      item.component = copy;
-      renderSelection();
-      list.children[index]
-        ?.querySelector('button[data-action="copy"]')
-        ?.focus();
-      status.textContent = `Saved src/components/${copy.path} as a copy of ${from}. This component now uses the copy.`;
+      onCopied(copy, from);
     } catch (error) {
       report(error);
     } finally {
@@ -684,7 +736,17 @@ function renderSelection() {
       copyToggle,
       actionButton("Remove", "remove", index),
     );
-    row.append(actions, copyPanel(item, index, copyToggle));
+    row.append(
+      actions,
+      copyPanel(item.component, `component-${index}`, copyToggle, (copy, from) => {
+        item.component = copy;
+        renderSelection();
+        list.children[index]
+          ?.querySelector('button[data-action="copy"]')
+          ?.focus();
+        status.textContent = `Saved src/components/${copy.path} as a copy of ${from}. This component now uses the copy.`;
+      }),
+    );
     list.append(row);
   }
 }
@@ -845,6 +907,10 @@ copyFolder.addEventListener("change", () => {
   if (copyFolder.value === NEW_FOLDER) copyNewFolder.focus();
 });
 copyNewFolder.addEventListener("input", updateCopyPreview);
+for (const slot of ["header", "footer"])
+  slotControls[slot].select.addEventListener("change", () =>
+    renderSlotCopy(slot),
+  );
 available.addEventListener("change", () => {
   if (copyBeforeAdd.checked) resetCopyDefaults();
 });

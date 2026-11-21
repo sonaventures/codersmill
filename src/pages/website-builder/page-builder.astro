@@ -49,6 +49,39 @@ import Layout from "../../layouts/website-builder.astro";
 
     <form id="page-builder-form" hidden>
       <fieldset id="page-builder-fields" class="grid gap-6">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="grid content-start gap-2">
+            <label for="header-component" class="font-semibold">
+              Header
+            </label>
+            <p class="text-sm">
+              The site header from the layout, no header, or a header component
+              (components in <code>src/components</code> with "header" in their
+              path and no required properties). Headers are styled sitewide in
+              the Theme Builder.
+            </p>
+            <select
+              id="header-component"
+              class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+            ></select>
+            <div id="header-component-copy-box" class="grid gap-2"></div>
+          </div>
+          <div class="grid content-start gap-2">
+            <label for="footer-component" class="font-semibold">
+              Footer
+            </label>
+            <p class="text-sm">
+              The site footer from the layout, no footer, or a footer component
+              (with "footer" in its path and no required properties). Footers
+              are styled sitewide in the Theme Builder.
+            </p>
+            <select
+              id="footer-component"
+              class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+            ></select>
+            <div id="footer-component-copy-box" class="grid gap-2"></div>
+          </div>
+        </div>
         <div class="grid gap-2 rounded border border-canvas-page-border p-4">
           <label for="load-page" class="font-semibold">
             Load an existing page (optional)
@@ -108,37 +141,6 @@ import Layout from "../../layouts/website-builder.astro";
             id="page-style-class"
             class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
           ></select>
-        </div>
-        <div class="grid gap-4 sm:grid-cols-2">
-          <div class="grid content-start gap-2">
-            <label for="header-component" class="font-semibold">
-              Header
-            </label>
-            <p class="text-sm">
-              The site header from the layout, no header, or a header component
-              (components in <code>src/components</code> with "header" in their
-              path and no required properties). Headers are styled sitewide in
-              the Theme Builder.
-            </p>
-            <select
-              id="header-component"
-              class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
-            ></select>
-          </div>
-          <div class="grid content-start gap-2">
-            <label for="footer-component" class="font-semibold">
-              Footer
-            </label>
-            <p class="text-sm">
-              The site footer from the layout, no footer, or a footer component
-              (with "footer" in its path and no required properties). Footers
-              are styled sitewide in the Theme Builder.
-            </p>
-            <select
-              id="footer-component"
-              class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
-            ></select>
-          </div>
         </div>
         <div class="grid gap-2">
           <label for="available-components" class="font-semibold">
