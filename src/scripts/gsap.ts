@@ -8,7 +8,7 @@ document
     const toggle = viewport.parentElement?.querySelector<HTMLButtonElement>(
       "[data-featured-toggle]",
     );
-    const hero = viewport.closest("section");
+    const hero = viewport.closest("[data-hero], section");
     const left = hero?.querySelectorAll<HTMLElement>("[data-hero-left]");
     const right = hero?.querySelector<HTMLElement>("[data-hero-right]");
     const badge = hero?.querySelector<HTMLElement>("[data-hero-badge]");
