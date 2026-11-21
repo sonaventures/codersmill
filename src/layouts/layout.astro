@@ -9,9 +9,11 @@ interface Props {
   description?: string;
   showHeader?: boolean;
   showFooter?: boolean;
-  /** A theme group header class from groups.css, e.g. sg-sample-header. */
+  /**
+   * Extra classes for the site header and footer. Their colors and
+   * typography are sitewide (sw-header / sw-footer in sitewide.css).
+   */
   headerClass?: string;
-  /** A theme group footer class from groups.css, e.g. sg-sample-footer. */
   footerClass?: string;
 }
 
@@ -74,7 +76,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
     </a>
     {showHeader && (
       <slot name="header">
-        <Header class={headerClass} />
+        <Header class:list={["sw-header", headerClass]} />
       </slot>
     )}
     <main id="main-content">
@@ -82,7 +84,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
     </main>
     {showFooter && (
       <slot name="footer">
-        <Footer class={footerClass} />
+        <Footer class:list={["sw-footer", footerClass]} />
       </slot>
     )}
     <script>

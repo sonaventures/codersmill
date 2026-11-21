@@ -1,0 +1,36 @@
+---
+// The bar at the top of a sitewide preview area (Global, Header, Footer):
+// what it is, where it is saved, and a Save to sitewide.css button.
+interface Props {
+  label: string;
+  /** The class the area's styles go on, e.g. sw-header. */
+  className?: string;
+}
+
+const { label, className } = Astro.props;
+---
+
+<div class="sample-id-bar sample-id-bar-page" data-studio-chrome>
+  <div class="sample-id-bar-info">
+    <span class="sample-id-bar-dot"></span>
+    <strong>{label}</strong>
+  </div>
+  <div class="sample-sitewide-save">
+    <p class="sample-class-name">
+      {className && (
+        <>
+          Class: <code>.{className}</code> /
+        </>
+      )}
+      Saved to <code>src/styles/themes/sitewide.css</code>
+    </p>
+    <span class="sample-sitewide-state" data-sitewide-state>Saved</span>
+    <button
+      type="button"
+      class="control-button control-primary"
+      data-save-sitewide
+    >
+      Save to sitewide.css
+    </button>
+  </div>
+</div>

@@ -338,22 +338,20 @@ function checkSlotChoice(choice, slot) {
 /**
  * The source of a page. `pageClass` wraps everything between the header and
  * footer. `header` and `footer` are "" (the layout's site header / footer),
- * "none", or a component; `headerClass` and `footerClass` style whichever
- * header and footer the page shows.
+ * "none", or a component. Headers and footers are styled sitewide
+ * (sw-header / sw-footer in sitewide.css), not by a theme group.
  */
 export function generatePage(
   name,
   description,
   selected,
   pageClass = "",
-  { headerClass = "", footerClass = "", header = "", footer = "" } = {},
+  { header = "", footer = "" } = {},
 ) {
   pageSlug(name);
   checkSlotChoice(header, "header");
   checkSlotChoice(footer, "footer");
   if (pageClass) validateStyleClass(pageClass, "page");
-  if (headerClass) validateStyleClass(headerClass, "header");
-  if (footerClass) validateStyleClass(footerClass, "footer");
   if (typeof description !== "string")
     throw new Error("The page description must be text.");
   if (!Array.isArray(selected) || selected.length === 0)
@@ -431,11 +429,12 @@ export function generatePage(
         "  </div>",
       ]
     : elements;
-  // A chosen header or footer fills the layout's slot, in its theme class.
-  const slotMarkup = (slot, choice, styleClass) =>
+  // A chosen header or footer fills the layout's slot, in the sitewide
+  // header / footer class (the layout adds it to the site header itself).
+  const slotMarkup = (slot, choice) =>
     typeof choice === "object"
       ? [
-          `  <div slot="${slot}"${styleClass ? ` class=${literal(styleClass)}` : ""}>`,
+          `  <div slot="${slot}" class="sw-${slot}">`,
           `    <${slotAliases[slot]} />`,
           "  </div>",
         ]
@@ -450,8 +449,6 @@ export function generatePage(
   );
   const layoutAttributes = [
     description.trim() ? ` description={${literal(description.trim())}}` : "",
-    headerClass && header === "" ? ` headerClass={${literal(headerClass)}}` : "",
-    footerClass && footer === "" ? ` footerClass={${literal(footerClass)}}` : "",
     header === "none" ? " showHeader={false}" : "",
     footer === "none" ? " showFooter={false}" : "",
   ].join("");
@@ -462,9 +459,9 @@ export function generatePage(
     "---",
     "",
     `<Layout title={${literal(name.trim())}}${layoutAttributes}>`,
-    ...slotMarkup("header", header, headerClass),
+    ...slotMarkup("header", header),
     ...body,
-    ...slotMarkup("footer", footer, footerClass),
+    ...slotMarkup("footer", footer),
     "</Layout>",
     "",
   ].join("\n");
@@ -565,8 +562,9 @@ export function parseGeneratedPage(source) {
       : "";
   const name = value(1);
   const description = value(3);
-  let headerClass = value(5);
-  let footerClass = value(7);
+  // Older pages set theme group header / footer classes (headerClass,
+  // footerClass, or a class on the slot); headers and footers are sitewide
+  // now, so those are read but dropped.
   let header = layout[9] ? "none" : "";
   let footer = layout[10] ? "none" : "";
   let body = layout[11];
@@ -581,7 +579,7 @@ export function parseGeneratedPage(source) {
     body = body.slice(0, match.index) + body.slice(match.index + match[0].length);
     const path = imports.get(match[2]);
     imports.delete(match[2]);
-    return { path, styleClass: match[1] ? JSON.parse(match[1]) : "" };
+    return path;
   };
   const headerSlot = takeSlot(
     "header",
@@ -593,8 +591,8 @@ export function parseGeneratedPage(source) {
   );
   if ((headerSlot && header) || (footerSlot && footer))
     throw notBuilderPage("a hidden header or footer with a component");
-  if (headerSlot) ({ path: header, styleClass: headerClass } = headerSlot);
-  if (footerSlot) ({ path: footer, styleClass: footerClass } = footerSlot);
+  if (headerSlot) header = headerSlot;
+  if (footerSlot) footer = footerSlot;
   let pageClass = "";
   const wrapper = new RegExp(
     `^\\s*<div class=(${jsonString})>([\\s\\S]*)</div>\\s*$`,
@@ -655,8 +653,6 @@ export function parseGeneratedPage(source) {
     name,
     description,
     pageClass,
-    headerClass,
-    footerClass,
     header,
     footer,
     items,

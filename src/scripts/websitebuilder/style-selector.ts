@@ -51,10 +51,17 @@ import {
   writeTextFile,
 } from "./project-themes";
 import {
+  createDefaultSitewideAreas,
   createDefaultSitewideThemes,
+  isSitewideArea,
+  parseSitewideAreas,
   parseSitewideCss,
+  sitewideAreas,
+  sitewideAreasCss,
   sitewideCss,
   sitewideCssFile,
+  writeSitewideSection,
+  type SitewideAreaStyles,
   type SitewideThemes,
 } from "../../data/sitewide";
 import { classGroupAreas, groupClassSlug } from "../../data/group-classes";
@@ -129,6 +136,8 @@ if (root) {
   // theme group. While this page previews them, sitewide.css is turned off
   // so "Theme default" shows the theme's color, not the saved one.
   let sitewide: SitewideThemes = createDefaultSitewideThemes();
+  // The header and footer are sitewide too: colors and typography.
+  let sitewideStyles: SitewideAreaStyles = createDefaultSitewideAreas();
   let sitewideDirty = false;
   let sitewideReady = false;
   document.documentElement.dataset.sitewidePreview = "";
@@ -176,13 +185,26 @@ if (root) {
       : isColorRoleVisible(key, role);
   const roleVisible = (role: ColorRole) =>
     roleVisibleIn(area.value as EditingArea, role);
+  // An area's colors: the header and footer's are sitewide.
+  const areaColors = (region: Region) =>
+    isSitewideArea(region)
+      ? sitewideStyles.colors[currentTheme()][region]
+      : colors[region];
+  // Whether editing this role changes sitewide.css rather than the group.
+  const isSitewideEdit = (role: ColorRole) =>
+    isSitewideColorRole(role) ||
+    (isSitewideArea(editingArea()) && !isGlobalColorRole(role));
   const readColor = (role: ColorRole) =>
     isSitewideColorRole(role)
       ? sitewide[currentTheme()][role]
-      : getColor(colors, editingArea(), role);
+      : isGlobalColorRole(role)
+        ? getColor(colors, editingArea(), role)
+        : areaColors(editingArea())[role];
   const writeColor = (role: ColorRole, value: string) => {
     if (isSitewideColorRole(role)) sitewide[currentTheme()][role] = value;
-    else setColor(colors, editingArea(), role, value);
+    else if (isGlobalColorRole(role))
+      setColor(colors, editingArea(), role, value);
+    else areaColors(editingArea())[role] = value;
   };
   const markDirty = () => {
     dirty = true;
@@ -193,11 +215,11 @@ if (root) {
     sitewideDirty = true;
     onSitewideChange();
     message(
-      "Unsaved sitewide changes. Select Save sitewide.css to keep them; they are not saved with a theme group.",
+      "Unsaved sitewide changes (CTA colors, header, or footer). Select Save to sitewide.css to keep them; they are not saved with a theme group.",
     );
   };
   const markChanged = (role: ColorRole) =>
-    isSitewideColorRole(role) ? markSitewideDirty() : markDirty();
+    isSitewideEdit(role) ? markSitewideDirty() : markDirty();
   const confirmDiscard = () =>
     !dirty || window.confirm("Discard unsaved style changes?");
 
@@ -318,7 +340,8 @@ if (root) {
     }
     // Copying to all sections is for theme group areas only.
     get<HTMLElement>("#group-area-actions").hidden = isGlobalArea();
-    get<HTMLElement>("#sitewide-actions").hidden = !isGlobalArea();
+    get<HTMLElement>("#sitewide-actions").hidden =
+      !isGlobalArea() && !isSitewideArea(editingArea());
     for (const group of roleGroups) {
       const visible = colorRoles.some(
         ({ key, group: roleGroup }) =>
@@ -364,7 +387,7 @@ if (root) {
           : [get<HTMLElement>(`[data-region="${region}"]`)];
       for (const element of elements) {
         for (const { key: role } of regionColorRoles) {
-          const selected = colors[region][role];
+          const selected = areaColors(region)[role];
           const color =
             region === "page" && element !== page && selected === "transparent"
               ? "theme"
@@ -620,6 +643,8 @@ if (root) {
 
   preview.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;
+    // The sitewide save buttons in the preview's area bars are not colors.
+    if (event.target.closest("[data-save-sitewide]")) return;
     const target = event.target.closest<HTMLElement>("[data-control-target]");
     if (!target) return;
     if (event.target.closest("a")) event.preventDefault();
@@ -763,9 +788,24 @@ if (root) {
       `[data-theme-typography-custom="${key}"]`,
     );
 
+  // Typography rules for an area: the header and footer's are sitewide.
+  type TypographyArea = keyof GroupTypography;
+  const areaTypography = (region: TypographyArea) =>
+    isSitewideArea(region)
+      ? sitewideStyles.typography
+      : (typography as Partial<Record<TypographyArea, Record<string, Record<string, string>>>>);
+  const typographyAreas = [
+    ...classGroupAreas.map(({ region }) => region),
+    ...sitewideAreas.map(({ region }) => region),
+  ] as TypographyArea[];
+  const markTypographyChange = (region: TypographyArea) =>
+    isSitewideArea(region) ? markSitewideDirty() : markDirty();
+
   function tidyTypography(source: GroupTypography): GroupTypography {
     const tidy: GroupTypography = {};
     for (const [region, rules] of Object.entries(source)) {
+      // The header and footer are sitewide, not saved with a group.
+      if (isSitewideArea(region)) continue;
       const kept = Object.fromEntries(
         Object.entries(rules ?? {}).filter(
           ([, styles]) => Object.keys(styles).length,
@@ -784,7 +824,7 @@ if (root) {
   // groups.css.
   function renderTypographyPreview() {
     const rules: string[] = [];
-    for (const { region } of classGroupAreas) {
+    for (const region of typographyAreas) {
       const scope =
         region === "page"
           ? "#selector-sample-page"
@@ -794,7 +834,7 @@ if (root) {
           ? '[data-studio-chrome] *, [data-region="header"] *, [data-region="footer"] *'
           : "[data-studio-chrome] *";
       for (const element of typographyElements) {
-        const styles = typography[region]?.[element] ?? {};
+        const styles = areaTypography(region)[region]?.[element] ?? {};
         const declarations = Object.entries(styles)
           .map(([key, value]) => `  ${key}: ${value};`)
           .join("\n");
@@ -809,7 +849,9 @@ if (root) {
 
   function renderTypography() {
     const styles =
-      typography[typographyRegion()]?.[typographyElement.value] ?? {};
+      areaTypography(typographyRegion())[typographyRegion()]?.[
+        typographyElement.value
+      ] ?? {};
     for (const control of typographyControls) {
       const key = control.dataset.themeTypography ?? "";
       const value = styles[key] ?? "";
@@ -832,12 +874,12 @@ if (root) {
   function setTypographyValue(key: string, value: string) {
     const region = typographyRegion();
     const element = typographyElement.value;
-    const areaRules = (typography[region] ??= {});
+    const areaRules = (areaTypography(region)[region] ??= {});
     const styles = (areaRules[element] ??= {});
     if (value) styles[key] = value;
     else delete styles[key];
     renderTypographyPreview();
-    markDirty();
+    markTypographyChange(region);
   }
 
   for (const control of typographyControls) {
@@ -878,16 +920,17 @@ if (root) {
   get<HTMLButtonElement>("#reset-theme-typography-element").addEventListener(
     "click",
     () => {
-      delete typography[typographyRegion()]?.[typographyElement.value];
+      const region = typographyRegion();
+      delete areaTypography(region)[region]?.[typographyElement.value];
       renderTypography();
-      markDirty();
+      markTypographyChange(region);
     },
   );
   renderTypography();
 
   area.addEventListener("change", () => {
     if (
-      classGroupAreas.some(({ region }) => region === area.value) &&
+      typographyAreas.some((region) => region === area.value) &&
       typographyArea.value !== area.value
     ) {
       typographyArea.value = area.value;
@@ -987,7 +1030,7 @@ if (root) {
       )
     )
       return;
-    const palette = { ...colors[editingArea()] };
+    const palette = { ...areaColors(editingArea()) };
     for (const { key } of regions) {
       if (key.startsWith("section")) colors[key] = { ...palette };
     }
@@ -1055,10 +1098,17 @@ if (root) {
       );
       return;
     }
+    // The header and footer are sitewide (sitewide.css), so a group keeps
+    // only theme defaults for them.
+    const groupThemes = structuredClone(themes);
+    const defaults = createDefaultColors();
+    for (const theme of ["light", "dark"] as const)
+      for (const { region } of sitewideAreas)
+        groupThemes[theme][region] = { ...defaults[region] };
     const group: ThemeGroup = {
       id: selectedId || crypto.randomUUID(),
       name: groupName,
-      themes: structuredClone(themes),
+      themes: groupThemes,
       radii: { ...radii },
       // Section IDs are set per page in the Page Builder now; keep any
       // saved with older groups as they were.
@@ -1229,18 +1279,22 @@ if (root) {
   const sitewideButtons = [
     ...root.querySelectorAll<HTMLButtonElement>("[data-save-sitewide]"),
   ];
-  const sitewideState = get<HTMLElement>("[data-sitewide-state]");
+  const sitewideStates = [
+    ...root.querySelectorAll<HTMLElement>("[data-sitewide-state]"),
+  ];
   const renderSitewideSave = (saving = false) => {
     for (const button of sitewideButtons)
       button.disabled = saving || !sitewideReady;
-    sitewideState.textContent = !sitewideReady
-      ? "Not loaded"
-      : saving
-        ? "Saving..."
-        : sitewideDirty
-          ? "Unsaved changes"
-          : "Saved";
-    sitewideState.dataset.state = sitewideDirty ? "unsaved" : "saved";
+    for (const state of sitewideStates) {
+      state.textContent = !sitewideReady
+        ? "Not loaded"
+        : saving
+          ? "Saving..."
+          : sitewideDirty
+            ? "Unsaved changes"
+            : "Saved";
+      state.dataset.state = sitewideDirty ? "unsaved" : "saved";
+    }
   };
   renderSitewideSave();
   onSitewideChange = () => renderSitewideSave();
@@ -1248,10 +1302,15 @@ if (root) {
     .then((response) => (response.ok ? response.text() : ""))
     .then((css) => {
       const saved = parseSitewideCss(css);
-      if (!sitewideDirty) sitewide = saved;
+      const savedStyles = parseSitewideAreas(css);
+      if (!sitewideDirty) {
+        sitewide = saved;
+        sitewideStyles = savedStyles;
+      }
       sitewideReady = true;
       renderSitewideSave();
       renderColors();
+      renderTypography();
     })
     .catch((error) =>
       reportError(
@@ -1266,14 +1325,33 @@ if (root) {
       themesFolder ??= await getThemesFolder();
       // Keep the Typography Builder's section of the file.
       const existing = await readTextFile(themesFolder, sitewideCssFile);
+      const tidyStyles = {
+        colors: sitewideStyles.colors,
+        typography: Object.fromEntries(
+          Object.entries(sitewideStyles.typography)
+            .map(([region, rules]) => [
+              region,
+              Object.fromEntries(
+                Object.entries(rules ?? {}).filter(
+                  ([, styles]) => Object.keys(styles).length,
+                ),
+              ),
+            ])
+            .filter(([, rules]) => Object.keys(rules).length),
+        ),
+      };
       await writeTextFile(
         themesFolder,
         sitewideCssFile,
-        sitewideCss(sitewide, existing),
+        writeSitewideSection(
+          sitewideCss(sitewide, existing),
+          "areas",
+          sitewideAreasCss(tidyStyles),
+        ),
       );
       sitewideDirty = false;
       message(
-        "Saved the sitewide colors to src/styles/themes/sitewide.css (its typography section was kept). They apply on every page, whatever theme group is used.",
+        "Saved the CTA colors, header, and footer to src/styles/themes/sitewide.css (its typography section was kept). They apply on every page, whatever theme group is used.",
       );
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError")

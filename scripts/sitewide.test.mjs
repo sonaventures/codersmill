@@ -63,3 +63,52 @@ test("each builder replaces only its own section of sitewide.css", async () => {
     /end marker/,
   );
 });
+
+test("the header and footer are styled sitewide in sw-header / sw-footer", async () => {
+  const {
+    createDefaultSitewideAreas,
+    parseSitewideAreas,
+    sitewideAreasCss,
+    writeSitewideSection,
+    readSitewideSection,
+  } = await import("../src/data/sitewide.ts");
+  const styles = createDefaultSitewideAreas();
+  styles.colors.light.header.background = "var(--color-sky-900)";
+  styles.colors.dark.footer.text = "#abcdef";
+  styles.colors.light.header.svgFill1 = "var(--color-sky-500)";
+  styles.colors.light.footer.selectionBackground = "var(--color-yellow-200)";
+  styles.typography.footer = { h2: { "text-transform": "uppercase" } };
+  const section = sitewideAreasCss(styles);
+  const light =
+    ':root:not([data-sitewide-preview]):not([data-theme="dark"]) .sw-header {';
+  const header = section.slice(section.indexOf(light), section.indexOf("}", section.indexOf(light)));
+  assert.match(header, /--canvas-header: var\(--color-sky-900\);/);
+  // Like a theme group class, it maps onto the shared 01 variables too.
+  assert.match(header, /--canvas-01: var\(--color-sky-900\);/);
+  assert.match(header, /--ink-01-svg-01: var\(--color-sky-500\);/);
+  assert.match(header, /background-color: var\(--canvas-header\);/);
+  assert.match(section, /\[data-theme="dark"\] \.sw-footer \{[^}]*--ink-footer: #abcdef;/);
+  assert.match(section, /\.sw-footer ::selection,/);
+  assert.match(section, /\.sw-footer h2 \{\n {2}text-transform: uppercase;\n\}/);
+
+  const css = writeSitewideSection(sitewideCss(createDefaultSitewideThemes()), "areas", section);
+  assert.ok(css.indexOf("sitewide: colors") < css.indexOf("sitewide: areas"));
+  const restored = parseSitewideAreas(css);
+  assert.equal(restored.colors.light.header.background, "var(--color-sky-900)");
+  assert.equal(restored.colors.dark.footer.text, "#abcdef");
+  assert.equal(restored.colors.dark.header.background, "theme");
+  assert.deepEqual(restored.typography.footer, styles.typography.footer);
+  // The other sections are kept when the areas change.
+  assert.ok(readSitewideSection(css, "colors"));
+  assert.deepEqual(parseSitewideAreas(""), createDefaultSitewideAreas());
+  assert.throws(
+    () =>
+      parseSitewideAreas(
+        css.replace("var(--color-sky-900)", "red").replace(
+          encodeURIComponent("var(--color-sky-900)"),
+          "red",
+        ),
+      ),
+    /invalid background/,
+  );
+});

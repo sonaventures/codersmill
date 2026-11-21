@@ -113,40 +113,6 @@
   background-color: var(--canvas-page);
   color: var(--ink-page);
 }
-:root:not([data-theme="dark"]) .sg-fp-header {
-  --canvas-header: var(--color-white);
-  --canvas-01: var(--color-white);
-  --canvas-header-border: transparent;
-  --canvas-01-border: transparent;
-  --canvas-01-shadow: var(--canvas-header-shadow);
-  --accent-01-canvas: var(--accent-header-canvas);
-  --accent-01-text: var(--accent-header-text);
-  --accent-01-border: var(--accent-header-border);
-  --accent-01-focus: var(--accent-header-focus);
-  --ink-01: var(--ink-header);
-  --ink-01-h1: var(--ink-header-h1);
-  --ink-01-h2: var(--ink-header-h2);
-  --ink-01-h3: var(--ink-header-h3);
-  --ink-01-svg-01: var(--ink-header-svg-01, currentColor);
-  --ink-01-svg-02: var(--ink-header-svg-02, var(--canvas-01));
-  --ink-01-svg-03: var(--ink-header-svg-03, currentColor);
-}
-:root[data-theme="dark"] .sg-fp-header {
-  --canvas-01: var(--canvas-header);
-  --canvas-01-border: var(--canvas-header-border);
-  --canvas-01-shadow: var(--canvas-header-shadow);
-  --accent-01-canvas: var(--accent-header-canvas);
-  --accent-01-text: var(--accent-header-text);
-  --accent-01-border: var(--accent-header-border);
-  --accent-01-focus: var(--accent-header-focus);
-  --ink-01: var(--ink-header);
-  --ink-01-h1: var(--ink-header-h1);
-  --ink-01-h2: var(--ink-header-h2);
-  --ink-01-h3: var(--ink-header-h3);
-  --ink-01-svg-01: var(--ink-header-svg-01, currentColor);
-  --ink-01-svg-02: var(--ink-header-svg-02, var(--canvas-01));
-  --ink-01-svg-03: var(--ink-header-svg-03, currentColor);
-}
 :root:not([data-theme="dark"]) .sg-fp-hero {
   --canvas-hero: var(--color-midnightblue-50);
   --canvas-01: var(--color-midnightblue-50);
@@ -776,37 +742,5 @@
   --ink-01-svg-01: var(--ink-06-svg-01, currentColor);
   --ink-01-svg-02: var(--ink-06-svg-02, var(--canvas-01));
   --ink-01-svg-03: var(--ink-06-svg-03, currentColor);
-}
-:root:not([data-theme="dark"]) .sg-fp-footer {
-  --canvas-01: var(--canvas-footer);
-  --canvas-01-border: var(--canvas-footer-border);
-  --canvas-01-shadow: var(--canvas-footer-shadow);
-  --accent-01-canvas: var(--accent-footer-canvas);
-  --accent-01-text: var(--accent-footer-text);
-  --accent-01-border: var(--accent-footer-border);
-  --accent-01-focus: var(--accent-footer-focus);
-  --ink-01: var(--ink-footer);
-  --ink-01-h1: var(--ink-footer-h1);
-  --ink-01-h2: var(--ink-footer-h2);
-  --ink-01-h3: var(--ink-footer-h3);
-  --ink-01-svg-01: var(--ink-footer-svg-01, currentColor);
-  --ink-01-svg-02: var(--ink-footer-svg-02, var(--canvas-01));
-  --ink-01-svg-03: var(--ink-footer-svg-03, currentColor);
-}
-:root[data-theme="dark"] .sg-fp-footer {
-  --canvas-01: var(--canvas-footer);
-  --canvas-01-border: var(--canvas-footer-border);
-  --canvas-01-shadow: var(--canvas-footer-shadow);
-  --accent-01-canvas: var(--accent-footer-canvas);
-  --accent-01-text: var(--accent-footer-text);
-  --accent-01-border: var(--accent-footer-border);
-  --accent-01-focus: var(--accent-footer-focus);
-  --ink-01: var(--ink-footer);
-  --ink-01-h1: var(--ink-footer-h1);
-  --ink-01-h2: var(--ink-footer-h2);
-  --ink-01-h3: var(--ink-footer-h3);
-  --ink-01-svg-01: var(--ink-footer-svg-01, currentColor);
-  --ink-01-svg-02: var(--ink-footer-svg-02, var(--canvas-01));
-  --ink-01-svg-03: var(--ink-footer-svg-03, currentColor);
 }
 /* end theme-group: fp */

@@ -5,6 +5,8 @@ import ThemeSampleIcon from "../../components/websitebuilder/ThemeSampleIcon.ast
 import ThemeSampleSection from "../../components/websitebuilder/ThemeSampleSection.astro";
 import ThemeSampleExtras from "../../components/websitebuilder/ThemeSampleExtras.astro";
 import ThemeSampleSvg from "../../components/websitebuilder/ThemeSampleSvg.astro";
+import ThemeSitewideBar from "../../components/websitebuilder/ThemeSitewideBar.astro";
+import { sitewideAreas } from "../../data/sitewide";
 import css from "../../styles/themes/colors.css?raw";
 import { builtinPaletteFamilies, readPalette } from "../../data/palette.js";
 import {
@@ -122,27 +124,7 @@ const sampleMenu = [
           style={regionStyle("page")}
           aria-labelledby="selector-global-heading"
         >
-          <div class="sample-id-bar sample-id-bar-page" data-studio-chrome>
-            <div class="sample-id-bar-info">
-              <span class="sample-id-bar-dot"></span>
-              <strong>Global</strong>
-            </div>
-            <div class="sample-sitewide-save">
-              <p class="sample-class-name">
-                Saved to <code>src/styles/themes/sitewide.css</code>
-              </p>
-              <span class="sample-sitewide-state" data-sitewide-state>
-                Saved
-              </span>
-              <button
-                type="button"
-                class="control-button control-primary"
-                data-save-sitewide
-              >
-                Save to sitewide.css
-              </button>
-            </div>
-          </div>
+          <ThemeSitewideBar label="Global" />
           <div class="sample-container">
             <p class="sample-kicker">Global / sitewide</p>
             <h2 id="selector-global-heading">Calls to action</h2>
@@ -196,6 +178,7 @@ const sampleMenu = [
             data-region="header"
             style={regionStyle("header")}
           >
+            <ThemeSitewideBar label="Header" className="sw-header" />
             <div class="sample-container">
               <a
                 class="sample-logo"
@@ -315,6 +298,7 @@ const sampleMenu = [
             data-region="footer"
             style={regionStyle("footer")}
           >
+            <ThemeSitewideBar label="Footer" className="sw-footer" />
             <div class="sample-container">
               <h2>Good things start with a little color.</h2>
               <p>Exclusive Studio / Sample footer</p>
@@ -364,9 +348,9 @@ const sampleMenu = [
                 <p class="control-hint">
                   Choose the editing area in the floating Color Picker. Sections
                   1–6 use the first–sixth token groups. “Theme default” follows
-                  your existing light/dark theme. Choose Global to edit the
-                  sitewide CTA colors, which are saved to sitewide.css rather
-                  than a theme group. Choose Page canvas to edit page-wide
+                  your existing light/dark theme. Global (the CTA colors),
+                  Header, and Footer are sitewide: they are saved to
+                  sitewide.css rather than a theme group. Choose Page canvas to edit page-wide
                   brand colors. The interactive group includes
                   button hover, focus, and active states; link, visited, hover,
                   focus, and active states; and icon colors for each area.
@@ -447,7 +431,8 @@ const sampleMenu = [
           </div>
           <div id="sitewide-actions" hidden>
             <p class="control-hint">
-              Sitewide colors are not saved with a theme group. Save them to{" "}
+              The CTA colors, header, and footer are sitewide: not saved with
+              a theme group. Save them to{" "}
               <code>src/styles/themes/sitewide.css</code>; they apply on every
               page and in Component Styling whatever theme group is used.
             </p>
@@ -458,7 +443,7 @@ const sampleMenu = [
                 id="save-sitewide"
                 data-save-sitewide
               >
-                Save sitewide.css
+                Save to sitewide.css
               </button>
             </div>
           </div>
@@ -611,6 +596,8 @@ const sampleMenu = [
                   {regions.map(({ key, label }) => (
                     <option value={key} selected={key === "page"}>
                       {label}
+                      {sitewideAreas.some(({ region }) => region === key) &&
+                        " (sitewide)"}
                     </option>
                   ))}
                 </select>
@@ -753,6 +740,9 @@ const sampleMenu = [
             <select id="theme-typography-area">
               {classGroupAreas.map(({ region, label }) => (
                 <option value={region}>{label}</option>
+              ))}
+              {sitewideAreas.map(({ region, label }) => (
+                <option value={region}>{label} (sitewide)</option>
               ))}
             </select>
           </div>

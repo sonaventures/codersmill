@@ -35,8 +35,6 @@ const fields = get("#page-builder-fields");
 const name = get("#page-name");
 const description = get("#page-description");
 const pageStyleClass = get("#page-style-class");
-const headerStyleClass = get("#header-style-class");
-const footerStyleClass = get("#footer-style-class");
 const headerComponent = get("#header-component");
 const footerComponent = get("#footer-component");
 const componentStyleClass = get("#component-style-class");
@@ -85,9 +83,9 @@ renderAvailableIds();
 // Theme group classes from src/styles/themes/groups.css (theme builder).
 let availableClasses = parseGroupClasses(groupsCssFallback);
 
-// Fills a dropdown with theme group classes: one area's classes for the page,
-// header, or footer ("page", "header", "footer"), or every other area's classes
-// (grouped by theme group) for components ("component").
+// Fills a dropdown with theme group classes: the page classes ("page"), or
+// every other area's classes (grouped by theme group) for components
+// ("component").
 function fillStyleClassSelect(select, kind, current = select.value) {
   const classes = availableClasses.filter(({ area }) =>
     kind === "component" ? area !== "page" : area === kind,
@@ -123,8 +121,6 @@ function fillStyleClassSelect(select, kind, current = select.value) {
 
 function renderStyleClassOptions() {
   fillStyleClassSelect(pageStyleClass, "page");
-  fillStyleClassSelect(headerStyleClass, "header");
-  fillStyleClassSelect(footerStyleClass, "footer");
   fillStyleClassSelect(componentStyleClass, "component");
 }
 renderStyleClassOptions();
@@ -234,8 +230,6 @@ loadPageButton.addEventListener("click", async () => {
     name.value = page.name;
     description.value = page.description;
     fillStyleClassSelect(pageStyleClass, "page", page.pageClass);
-    fillStyleClassSelect(headerStyleClass, "header", page.headerClass);
-    fillStyleClassSelect(footerStyleClass, "footer", page.footerClass);
     fillSlotSelect(headerComponent, "header", page.header);
     fillSlotSelect(footerComponent, "footer", page.footer);
     loadedSlug = fileName.replace(/\.astro$/, "");
@@ -885,8 +879,6 @@ form.addEventListener("submit", async (event) => {
       assignments,
       pageStyleClass.value,
       {
-        headerClass: headerStyleClass.value,
-        footerClass: footerStyleClass.value,
         header: slotChoice(headerComponent),
         footer: slotChoice(footerComponent),
       },

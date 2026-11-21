@@ -15,10 +15,10 @@ import { typographyRulesCss } from "./typography-builder.js";
 /**
  * Areas of a theme group that become classes, in the order they are written.
  * The page comes first so the other areas' typography wins where they overlap.
+ * The header and footer are sitewide (sitewide.css), not part of a group.
  */
 export const classGroupAreas = [
   { region: "page", suffix: "page", label: "Page" },
-  { region: "header", suffix: "header", label: "Header" },
   { region: "hero", suffix: "hero", label: "Hero" },
   { region: "section1", suffix: "section-1", label: "Section 01" },
   { region: "section2", suffix: "section-2", label: "Section 02" },
@@ -26,7 +26,6 @@ export const classGroupAreas = [
   { region: "section4", suffix: "section-4", label: "Section 04" },
   { region: "section5", suffix: "section-5", label: "Section 05" },
   { region: "section6", suffix: "section-6", label: "Section 06" },
-  { region: "footer", suffix: "footer", label: "Footer" },
 ] as const satisfies readonly {
   region: TypographyRegion;
   suffix: string;
@@ -83,7 +82,7 @@ export function isGroupClassName(value: unknown): value is string {
 // The variables one area's class sets, for one theme. Components mostly use
 // the Section 01 variables (bg-canvas-01, text-ink-01, ...), so every area
 // class maps its colors onto those as well as onto the area's own variables.
-function areaDeclarations(colors: StyleColors, region: Region) {
+export function areaDeclarations(colors: StyleColors, region: Region) {
   const declarations = new Map<string, string>();
   const area = colors[region];
   for (const { key: role } of regionColorRoles) {
@@ -114,7 +113,7 @@ function areaDeclarations(colors: StyleColors, region: Region) {
   return declarations;
 }
 
-function rule(selector: string, declarations: Map<string, string>, extra = "") {
+export function rule(selector: string, declarations: Map<string, string>, extra = "") {
   const lines = [...declarations].map(
     ([token, value]) => `  --${token}: ${value};`,
   );

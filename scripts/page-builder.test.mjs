@@ -566,20 +566,6 @@ test("theme group classes wrap components and the whole page", () => {
       generatePage("Bad", "", [{ component: hero, values: {} }], "sg-a-footer"),
     /not a theme group page class/,
   );
-  assert.throws(
-    () =>
-      generatePage("Bad", "", [{ component: hero, values: {} }], "", {
-        headerClass: "sg-a-footer",
-      }),
-    /not a theme group header class/,
-  );
-  assert.throws(
-    () =>
-      generatePage("Bad", "", [{ component: hero, values: {} }], "", {
-        footerClass: "sg-a-header",
-      }),
-    /not a theme group footer class/,
-  );
 });
 
 test("pages created by the page builder load back exactly", () => {
@@ -608,11 +594,10 @@ test("pages created by the page builder load back exactly", () => {
     'A description with "quotes"',
     selected,
     "sg-sample-page",
-    { headerClass: "sg-sample-header", footerClass: "sg-sample-footer" },
   );
   assert.match(
     page,
-    /<Layout title=\{"Our Services"\} description=\{"A description with \\"quotes\\""\} headerClass=\{"sg-sample-header"\} footerClass=\{"sg-sample-footer"\}>/,
+    /<Layout title=\{"Our Services"\} description=\{"A description with \\"quotes\\""\}>/,
   );
   assert.deepEqual(parseGeneratedPage(page), {
     name: "Our Services",
@@ -620,8 +605,6 @@ test("pages created by the page builder load back exactly", () => {
     pageClass: "sg-sample-page",
     header: "",
     footer: "",
-    headerClass: "sg-sample-header",
-    footerClass: "sg-sample-footer",
     items: [
       {
         path: "flowbite/hero/hero_1.astro",
@@ -662,15 +645,8 @@ test("pages created by the page builder load back exactly", () => {
   );
   assert.equal(plain.description, "");
   assert.equal(plain.pageClass, "");
-  assert.equal(plain.headerClass, "");
-  assert.equal(plain.footerClass, "");
-  const footerOnly = parseGeneratedPage(
-    generatePage("Plain", "", [{ component: cards, values: {} }], "", {
-      footerClass: "sg-sample-footer",
-    }),
-  );
-  assert.equal(footerOnly.headerClass, "");
-  assert.equal(footerOnly.footerClass, "sg-sample-footer");
+  assert.equal(plain.header, "");
+  assert.equal(plain.footer, "");
 });
 
 test("pages not made by the page builder are refused with a reason", () => {
@@ -717,38 +693,41 @@ test("pages can use a header or footer component, or none, and load again", () =
     "",
     [{ component: hero, values: {} }],
     "sg-fp-page",
-    { headerClass: "sg-fp-header", footerClass: "sg-fp-footer", header, footer },
+    { header, footer },
   );
   assert.match(
     source,
     /import PageHeader from "\.\.\/components\/flowbite\/header\/header_1\.astro";/,
   );
+  // Headers and footers are styled sitewide, in sw-header / sw-footer.
   assert.match(
     source,
-    /<div slot="header" class="sg-fp-header">\n {4}<PageHeader \/>\n {2}<\/div>/,
+    /<div slot="header" class="sw-header">\n {4}<PageHeader \/>\n {2}<\/div>/,
   );
-  assert.match(source, /<div slot="footer" class="sg-fp-footer">/);
-  assert.doesNotMatch(source, /headerClass=|footerClass=/);
+  assert.match(source, /<div slot="footer" class="sw-footer">/);
   const page = parseGeneratedPage(source);
   assert.equal(page.header, header.path);
   assert.equal(page.footer, footer.path);
-  assert.equal(page.headerClass, "sg-fp-header");
-  assert.equal(page.footerClass, "sg-fp-footer");
   assert.equal(page.pageClass, "sg-fp-page");
   assert.equal(page.items.length, 1);
   assert.equal(page.items[0].path, hero.path);
 
   const hidden = generatePage("Plain", "", [{ component: hero, values: {} }], "", {
-    headerClass: "sg-fp-header",
     header: "none",
-    footer: "",
-    footerClass: "sg-fp-footer",
   });
-  assert.match(hidden, /footerClass=\{"sg-fp-footer"\} showHeader=\{false\}>/);
-  const plain = parseGeneratedPage(hidden);
-  assert.equal(plain.header, "none");
-  assert.equal(plain.footer, "");
-  assert.equal(plain.footerClass, "sg-fp-footer");
+  assert.match(hidden, /<Layout title=\{"Plain"\} showHeader=\{false\}>/);
+  assert.equal(parseGeneratedPage(hidden).header, "none");
+  assert.equal(parseGeneratedPage(hidden).footer, "");
+
+  // Pages saved with theme group header / footer classes still load.
+  const older = source
+    .replace('class="sw-header"', 'class="sg-fp-header"')
+    .replace(
+      '<Layout title={"Front"}>',
+      '<Layout title={"Front"} footerClass={"sg-fp-footer"}>',
+    );
+  assert.equal(parseGeneratedPage(older).header, header.path);
+  assert.equal(parseGeneratedPage(older).headerClass, undefined);
 
   assert.throws(
     () =>

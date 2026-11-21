@@ -93,8 +93,8 @@
             "svgFill3": "theme"
           },
           "header": {
-            "background": "var(--color-white)",
-            "border": "transparent",
+            "background": "theme",
+            "border": "theme",
             "shadow": "theme",
             "primary": "theme",
             "primaryText": "theme",
