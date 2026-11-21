@@ -1,5 +1,5 @@
 <header>
-  <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+  <nav class="px-4 lg:px-6 py-2.5">
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
       <a href="https://flowbite.com" class="flex items-center">
         <img
@@ -7,7 +7,7 @@
           class="mr-3 h-6 sm:h-9"
           alt="Flowbite Logo"
         />
-        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+        <span class="self-center text-xl font-semibold whitespace-nowrap">
           Flowbite
         </span>
       </a>
@@ -15,14 +15,14 @@
         <form id="search-form" class="hidden mr-3 w-full lg:inline-block">
           <label
             for="search-bar"
-            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
+            class="mb-2 text-sm font-medium sr-only"
           >
             Search
           </label>
           <div class="relative">
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
-                class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                class="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -39,7 +39,7 @@
             <input
               type="search"
               id="search-bar"
-              class="block py-2 px-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              class="block py-2 px-4 pl-10 w-full text-sm rounded-lg border"
               placeholder="Search"
               required
             />
@@ -50,7 +50,7 @@
           aria-controls="mobile-menu-search"
           aria-expanded="false"
           type="button"
-          class="lg:hidden inline-flex mr-2 lg:mr-0 items-center text-gray-800 dark:text-gray-400 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2.5 lg:px-5 py-2.5 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+          class="lg:hidden inline-flex mr-2 lg:mr-0 items-center focus:ring-4 font-medium rounded-lg text-sm px-2.5 lg:px-5 py-2.5 focus:outline-none"
         >
           <svg
             class="w-5 h-5 lg:mr-2"
@@ -65,11 +65,11 @@
             ></path>
           </svg>
         </button>
-        <span class="hidden mx-2 w-px h-5 bg-gray-200 lg:inline lg:mx-3"></span>
+        <span class="hidden mx-2 w-px h-5 lg:inline lg:mx-3"></span>
         <button
           type="button"
           data-dropdown-toggle="language-dropdown"
-          class="inline-flex items-center text-gray-800 dark:text-gray-300 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-2.5 lg:px-5 py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+          class="inline-flex items-center focus:ring-4 font-medium rounded-lg text-sm px-2.5 lg:px-5 py-2.5 mr-2 focus:outline-none"
         >
           <svg
             class="mr-2 w-5 h-5 rounded-full"
@@ -126,14 +126,14 @@
         </button>
         <!-- Dropdown -->
         <div
-          class="hidden z-50 my-4 w-48 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
+          class="hidden z-50 my-4 w-48 text-base list-none rounded divide-y shadow"
           id="language-dropdown"
         >
           <ul class="py-1" role="none">
             <li>
               <a
                 href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                class="block py-2 px-4 text-sm"
                 role="menuitem"
               >
                 <div class="inline-flex items-center">
@@ -175,7 +175,7 @@
             <li>
               <a
                 href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                class="block py-2 px-4 text-sm"
                 role="menuitem"
               >
                 <div class="inline-flex items-center">
@@ -196,7 +196,7 @@
             <li>
               <a
                 href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                class="block py-2 px-4 text-sm"
                 role="menuitem"
               >
                 <div class="inline-flex items-center">
@@ -219,7 +219,7 @@
             <li>
               <a
                 href="#"
-                class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                class="block py-2 px-4 text-sm"
                 role="menuitem"
               >
                 <div class="inline-flex items-center">
@@ -278,7 +278,7 @@
         <button
           data-collapse-toggle="mobile-menu-search"
           type="button"
-          class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          class="inline-flex items-center p-2 ml-1 text-sm rounded-lg lg:hidden focus:outline-none focus:ring-2"
           aria-controls="mobile-menu-search"
           aria-expanded="false"
         >
@@ -320,7 +320,7 @@
           <div class="relative w-full">
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
-                class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                class="w-5 h-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -335,14 +335,14 @@
             <input
               type="search"
               id="search-mobile"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              class="border text-sm rounded-lg block w-full pl-10 p-2.5"
               placeholder="Search for anything..."
               required
             />
           </div>
           <button
             type="submit"
-            class="inline-flex items-center p-2.5 ml-2 text-sm font-medium text-white bg-primary-700 rounded-lg border border-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            class="inline-flex items-center p-2.5 ml-2 text-sm font-medium rounded-lg border focus:ring-4 focus:outline-none"
           >
             <svg
               class="mr-2 w-5 h-5"
@@ -365,7 +365,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 text-primary-700 dark:hover:bg-gray-700 hover:bg-gray-50 text-white rounded lg:text-primary-700 lg:p-0 dark:text-white"
+              class="block py-2 pr-4 pl-3 rounded lg:p-0"
               aria-current="page"
             >
               Home
@@ -374,7 +374,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-white lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+              class="block py-2 pr-4 pl-3 border-b lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
             >
               Company
             </a>
@@ -382,7 +382,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-white lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+              class="block py-2 pr-4 pl-3 border-b lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
             >
               Features
             </a>
@@ -390,7 +390,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-white lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+              class="block py-2 pr-4 pl-3 border-b lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
             >
               Team
             </a>
@@ -398,7 +398,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-white lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+              class="block py-2 pr-4 pl-3 border-b lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
             >
               Contact
             </a>
