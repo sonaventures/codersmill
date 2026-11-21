@@ -9,6 +9,10 @@ interface Props {
   description?: string;
   showHeader?: boolean;
   showFooter?: boolean;
+  /** A theme group header class from groups.css, e.g. sg-sample-header. */
+  headerClass?: string;
+  /** A theme group footer class from groups.css, e.g. sg-sample-footer. */
+  footerClass?: string;
 }
 
 const {
@@ -17,6 +21,8 @@ const {
   description = "A central directory for Exclusive Group.",
   showHeader = true,
   showFooter = true,
+  headerClass,
+  footerClass,
 } = Astro.props;
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 ---
@@ -68,7 +74,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
     </a>
     {showHeader && (
       <slot name="header">
-        <Header />
+        <Header class={headerClass} />
       </slot>
     )}
     <main id="main-content">
@@ -76,7 +82,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
     </main>
     {showFooter && (
       <slot name="footer">
-        <Footer />
+        <Footer class={footerClass} />
       </slot>
     )}
     <script>

@@ -543,6 +543,39 @@
   --color-ink-footer-h2: var(--ink-footer-h2);
   --color-ink-footer-h3: var(--ink-footer-h3);
   --color-nav-footer-item: var(--nav-footer-item);
+
+  /* SVG fills: three colors per area for icons and illustrations, e.g.
+   * fill-ink-01-svg-01. Until a theme group sets one, it is the text color. */
+  --color-ink-page-svg-01: var(--ink-page-svg-01, currentColor);
+  --color-ink-page-svg-02: var(--ink-page-svg-02, currentColor);
+  --color-ink-page-svg-03: var(--ink-page-svg-03, currentColor);
+  --color-ink-header-svg-01: var(--ink-header-svg-01, currentColor);
+  --color-ink-header-svg-02: var(--ink-header-svg-02, currentColor);
+  --color-ink-header-svg-03: var(--ink-header-svg-03, currentColor);
+  --color-ink-hero-svg-01: var(--ink-hero-svg-01, currentColor);
+  --color-ink-hero-svg-02: var(--ink-hero-svg-02, currentColor);
+  --color-ink-hero-svg-03: var(--ink-hero-svg-03, currentColor);
+  --color-ink-01-svg-01: var(--ink-01-svg-01, currentColor);
+  --color-ink-01-svg-02: var(--ink-01-svg-02, currentColor);
+  --color-ink-01-svg-03: var(--ink-01-svg-03, currentColor);
+  --color-ink-02-svg-01: var(--ink-02-svg-01, currentColor);
+  --color-ink-02-svg-02: var(--ink-02-svg-02, currentColor);
+  --color-ink-02-svg-03: var(--ink-02-svg-03, currentColor);
+  --color-ink-03-svg-01: var(--ink-03-svg-01, currentColor);
+  --color-ink-03-svg-02: var(--ink-03-svg-02, currentColor);
+  --color-ink-03-svg-03: var(--ink-03-svg-03, currentColor);
+  --color-ink-04-svg-01: var(--ink-04-svg-01, currentColor);
+  --color-ink-04-svg-02: var(--ink-04-svg-02, currentColor);
+  --color-ink-04-svg-03: var(--ink-04-svg-03, currentColor);
+  --color-ink-05-svg-01: var(--ink-05-svg-01, currentColor);
+  --color-ink-05-svg-02: var(--ink-05-svg-02, currentColor);
+  --color-ink-05-svg-03: var(--ink-05-svg-03, currentColor);
+  --color-ink-06-svg-01: var(--ink-06-svg-01, currentColor);
+  --color-ink-06-svg-02: var(--ink-06-svg-02, currentColor);
+  --color-ink-06-svg-03: var(--ink-06-svg-03, currentColor);
+  --color-ink-footer-svg-01: var(--ink-footer-svg-01, currentColor);
+  --color-ink-footer-svg-02: var(--ink-footer-svg-02, currentColor);
+  --color-ink-footer-svg-03: var(--ink-footer-svg-03, currentColor);
 }
 
 :root {

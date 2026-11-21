@@ -299,18 +299,33 @@ function literal(value) {
 
 // Theme group classes from src/styles/themes/groups.css, e.g. sg-coastal-calm-hero.
 const styleClassPattern =
-  /^sg-[a-z0-9]+(?:-[a-z0-9]+)*-(?:page|hero|section-[1-6])$/;
+  /^sg-[a-z0-9]+(?:-[a-z0-9]+)*-(?:page|header|hero|section-[1-6]|footer)$/;
 
-export function validateStyleClass(value) {
+/** Checks a theme group class, and its area ("page", "header", ...) if given. */
+export function validateStyleClass(value, area = "") {
   if (typeof value !== "string" || !styleClassPattern.test(value))
     throw new Error(
       `"${value}" is not a theme group class from src/styles/themes/groups.css.`,
     );
+  if (area && !value.endsWith(`-${area}`))
+    throw new Error(`"${value}" is not a theme group ${area} class.`);
 }
 
-export function generatePage(name, description, selected, pageClass = "") {
+/**
+ * The source of a page. `pageClass` wraps everything between the header and
+ * footer; `headerClass` and `footerClass` go on the site header and footer.
+ */
+export function generatePage(
+  name,
+  description,
+  selected,
+  pageClass = "",
+  { headerClass = "", footerClass = "" } = {},
+) {
   pageSlug(name);
-  if (pageClass) validateStyleClass(pageClass);
+  if (pageClass) validateStyleClass(pageClass, "page");
+  if (headerClass) validateStyleClass(headerClass, "header");
+  if (footerClass) validateStyleClass(footerClass, "footer");
   if (typeof description !== "string")
     throw new Error("The page description must be text.");
   if (!Array.isArray(selected) || selected.length === 0)
@@ -392,16 +407,18 @@ export function generatePage(name, description, selected, pageClass = "") {
     ([path, alias]) =>
       `import ${alias} from ${literal(`../components/${path}`)};`,
   );
-  const layoutDescription = description.trim()
-    ? ` description={${literal(description.trim())}}`
-    : "";
+  const layoutAttributes = [
+    description.trim() ? ` description={${literal(description.trim())}}` : "",
+    headerClass ? ` headerClass={${literal(headerClass)}}` : "",
+    footerClass ? ` footerClass={${literal(footerClass)}}` : "",
+  ].join("");
   return [
     "---",
     'import Layout from "../layouts/layout.astro";',
     ...componentImports,
     "---",
     "",
-    `<Layout title={${literal(name.trim())}}${layoutDescription}>`,
+    `<Layout title={${literal(name.trim())}}${layoutAttributes}>`,
     ...body,
     "</Layout>",
     "",
@@ -494,13 +511,18 @@ export function parseGeneratedPage(source) {
   // Titles and values may be written {"text"} (as generated) or "text".
   const quoted = `\\{(${jsonString})\\}|(${jsonString})`;
   const layout = new RegExp(
-    `<Layout\\s+title=(?:${quoted})(?:\\s+description=(?:${quoted}))?\\s*>([\\s\\S]*)</Layout>`,
+    `<Layout\\s+title=(?:${quoted})(?:\\s+description=(?:${quoted}))?(?:\\s+headerClass=(?:${quoted}))?(?:\\s+footerClass=(?:${quoted}))?\\s*>([\\s\\S]*)</Layout>`,
   ).exec(source);
   if (!layout) throw notBuilderPage("no Layout title");
-  const name = JSON.parse(layout[1] ?? layout[2]);
-  const description =
-    (layout[3] ?? layout[4]) ? JSON.parse(layout[3] ?? layout[4]) : "";
-  let body = layout[5];
+  const value = (index) =>
+    (layout[index] ?? layout[index + 1])
+      ? JSON.parse(layout[index] ?? layout[index + 1])
+      : "";
+  const name = value(1);
+  const description = value(3);
+  const headerClass = value(5);
+  const footerClass = value(7);
+  let body = layout[9];
   let pageClass = "";
   const wrapper = new RegExp(
     `^\\s*<div class=(${jsonString})>([\\s\\S]*)</div>\\s*$`,
@@ -557,7 +579,7 @@ export function parseGeneratedPage(source) {
     if (section) section.used = true;
   }
   if (section) throw notBuilderPage("an unclosed section");
-  return { name, description, pageClass, items };
+  return { name, description, pageClass, headerClass, footerClass, items };
 }
 
 /** Rewrites an existing page created by the Page Builder. */

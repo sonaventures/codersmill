@@ -109,6 +109,32 @@ import Layout from "../../layouts/website-builder.astro";
             class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
           ></select>
         </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="grid content-start gap-2">
+            <label for="header-style-class" class="font-semibold">
+              Header theme group (optional)
+            </label>
+            <p class="text-sm">
+              Colors and typography for the site header on this page.
+            </p>
+            <select
+              id="header-style-class"
+              class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+            ></select>
+          </div>
+          <div class="grid content-start gap-2">
+            <label for="footer-style-class" class="font-semibold">
+              Footer theme group (optional)
+            </label>
+            <p class="text-sm">
+              Colors and typography for the site footer on this page.
+            </p>
+            <select
+              id="footer-style-class"
+              class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
+            ></select>
+          </div>
+        </div>
         <div class="grid gap-2">
           <label for="available-components" class="font-semibold">
             Available components

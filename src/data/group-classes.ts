@@ -3,16 +3,22 @@ import {
   regionColorRoles,
   selectionColorRoles,
   semanticToken,
+  svgFillRoles,
   type Region,
   type StyleColors,
   type ThemeGroup,
   type Theme,
+  type TypographyRegion,
 } from "./theme-groups.ts";
 import { typographyRulesCss } from "./typography-builder.js";
 
-/** Areas of a theme group that become classes, in the order they are written. */
+/**
+ * Areas of a theme group that become classes, in the order they are written.
+ * The page comes first so the other areas' typography wins where they overlap.
+ */
 export const classGroupAreas = [
   { region: "page", suffix: "page", label: "Page" },
+  { region: "header", suffix: "header", label: "Header" },
   { region: "hero", suffix: "hero", label: "Hero" },
   { region: "section1", suffix: "section-1", label: "Section 01" },
   { region: "section2", suffix: "section-2", label: "Section 02" },
@@ -20,8 +26,9 @@ export const classGroupAreas = [
   { region: "section4", suffix: "section-4", label: "Section 04" },
   { region: "section5", suffix: "section-5", label: "Section 05" },
   { region: "section6", suffix: "section-6", label: "Section 06" },
+  { region: "footer", suffix: "footer", label: "Footer" },
 ] as const satisfies readonly {
-  region: Region;
+  region: TypographyRegion;
   suffix: string;
   label: string;
 }[];
@@ -87,8 +94,15 @@ function areaDeclarations(colors: StyleColors, region: Region) {
     const shared = semanticToken("section1", role);
     if (!shared || declarations.has(shared)) continue;
     if (color !== "theme") declarations.set(shared, color);
-    // "Theme default" in another area still means that area's colors.
-    else if (own && own !== shared) declarations.set(shared, `var(--${own})`);
+    // "Theme default" in another area still means that area's colors. SVG
+    // fills have no theme variable, so they fall back to the text color.
+    else if (own && own !== shared)
+      declarations.set(
+        shared,
+        svgFillRoles.some(({ key }) => key === role)
+          ? `var(--${own}, currentColor)`
+          : `var(--${own})`,
+      );
   }
   if (region === "page")
     for (const { key, token } of globalColorRoles)

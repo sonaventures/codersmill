@@ -316,7 +316,7 @@
 
   /* Footer */
   .site-footer {
-    @apply bg-canvas-footer pt-14 pb-5 text-ink-inverse;
+    @apply bg-canvas-footer pt-14 pb-5 text-ink-footer;
   }
 
   .footer-inner {
@@ -324,11 +324,11 @@
   }
 
   .footer-wordmark {
-    @apply font-display text-[1.9rem] font-medium text-ink-inverse no-underline;
+    @apply font-display text-[1.9rem] font-medium text-ink-footer no-underline;
   }
 
   .footer-intro p {
-    @apply mt-[0.6rem] text-[0.9rem] text-ink-inverse/75;
+    @apply mt-[0.6rem] text-[0.9rem] text-ink-footer/75;
   }
 
   .footer-links {
@@ -344,6 +344,6 @@
   }
 
   .footer-bottom {
-    @apply flex justify-between gap-4 border-t border-canvas-footer-border pt-[1.1rem] text-[0.78rem] text-ink-inverse/75 tablet:flex-col;
+    @apply flex justify-between gap-4 border-t border-canvas-footer-border pt-[1.1rem] text-[0.78rem] text-ink-footer/75 tablet:flex-col;
   }
 }

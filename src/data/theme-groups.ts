@@ -286,6 +286,14 @@ export const contentColorRoles = [
   { key: "selectionText", label: "Selection text", group: "content" },
 ] as const;
 
+// SVG fills: three colors for the shapes in an area's icons and
+// illustrations, e.g. fill-ink-01-svg-01. Until chosen they use the text color.
+export const svgFillRoles = [
+  { key: "svgFill1", number: "01", label: "SVG fill 01", group: "svg" },
+  { key: "svgFill2", number: "02", label: "SVG fill 02", group: "svg" },
+  { key: "svgFill3", number: "03", label: "SVG fill 03", group: "svg" },
+] as const;
+
 /** Text selection is written as a ::selection rule, not a variable. */
 export const selectionColorRoles = [
   "selectionBackground",
@@ -320,6 +328,9 @@ const detailDefaults = {
   listMarker: "currentColor",
   selectionBackground: "Highlight",
   selectionText: "HighlightText",
+  svgFill1: "currentColor",
+  svgFill2: "currentColor",
+  svgFill3: "currentColor",
 } as const;
 const detailTokens = {
   secondary: "accent-%-secondary",
@@ -399,6 +410,7 @@ export const regionColorRoles = [
   ...formColorRoles,
   ...contentColorRoles,
   ...interactiveColorRoles,
+  ...svgFillRoles,
 ] as const;
 
 const recentRegionColorRoles = [
@@ -416,6 +428,8 @@ const version13ColorRoles = ["contrastText"] as const;
 // Added in version 18; until set they match the shared button colors.
 // Added in version 21.
 const version21ColorRoles = ["primaryHover", "learnMoreHover"] as const;
+// Added in version 22; until set they use the text color.
+const version22ColorRoles = svgFillRoles.map(({ key }) => key);
 // Added in version 20; until set it matches the shared button border.
 const version20ColorRoles = ["secondaryBorder"] as const;
 // Added in version 19; until set it matches Card 03's background.
@@ -472,6 +486,7 @@ export const roleGroups = [
   { key: "forms", label: "Form fields" },
   { key: "content", label: "Quotes, dividers, lists & selection" },
   { key: "interactive", label: "Buttons, links & icons" },
+  { key: "svg", label: "SVG fills" },
 ] as const;
 
 export const paletteFamilies: { key: string; label: string }[] =
@@ -583,13 +598,23 @@ export function isSectionId(value: unknown): value is string {
   );
 }
 
+/** Areas that can take their own typography: every area with a class. */
+export const typographyRegions = [
+  ...sectionIdRegions,
+  "header",
+  "footer",
+] as const satisfies readonly Region[];
+export type TypographyRegion = (typeof typographyRegions)[number];
+
 /** Typography rules for one area: { h1: { "font-size": "2rem" }, ... }. */
 export type TypographyRules = Record<string, Record<string, string>>;
 /**
  * Typography per area, edited in the Typography Builder. Areas left out
  * follow the site-wide defaults in typography.css. The same in both themes.
  */
-export type GroupTypography = Partial<Record<SectionIdRegion, TypographyRules>>;
+export type GroupTypography = Partial<
+  Record<TypographyRegion, TypographyRules>
+>;
 
 export interface ThemeGroup {
   id: string;
@@ -650,6 +675,9 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
   const area = regions.find(({ key }) => key === region);
   if (!area) throw new Error(`Unknown style region: ${region}`);
   const suffix = area.token;
+  // Every area, including the header and footer, has its own SVG fills.
+  const svg = svgFillRoles.find(({ key }) => key === role);
+  if (svg) return `ink-${suffix}-svg-${svg.number}`;
   const card = cardCanvasRoles.find(({ key }) => key === role);
   if (card && (region === "page" || region.startsWith("section"))) {
     return `canvas-${suffix}-card-${card.card}${card.part === "background" ? "" : `-${card.part}`}`;
@@ -840,12 +868,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 18 &&
       data.version !== 19 &&
       data.version !== 20 &&
-      data.version !== 21) ||
+      data.version !== 21 &&
+      data.version !== 22) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 21 theme group file with up to 100 groups.",
+      "Expected a version 1 through 22 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -928,7 +957,9 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             (data.version < 20 &&
               version20ColorRoles.some((key) => key === role)) ||
             (data.version < 21 &&
-              version21ColorRoles.some((key) => key === role))
+              version21ColorRoles.some((key) => key === role)) ||
+            (data.version < 22 &&
+              version22ColorRoles.some((key) => key === role))
           ) {
             regionColors[role] = "theme";
             continue;
@@ -1023,7 +1054,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       if (!isRecord(source))
         throw new Error(`Missing typography in "${name}".`);
       for (const [region, rules] of Object.entries(source)) {
-        if (!sectionIdRegions.some((key) => key === region))
+        if (!typographyRegions.some((key) => key === region))
           throw new Error(`Unknown typography area "${region}" in "${name}".`);
         try {
           validateTypographyRules(rules);
@@ -1032,7 +1063,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             `Invalid ${region} typography in "${name}": ${(error as Error).message}`,
           );
         }
-        typography[region as SectionIdRegion] = structuredClone(
+        typography[region as TypographyRegion] = structuredClone(
           rules as TypographyRules,
         );
       }
@@ -1049,7 +1080,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 21, groups }, null, 2);
+  return JSON.stringify({ version: 22, groups }, null, 2);
 }
 
 /**

@@ -12,6 +12,8 @@ export const typographyElements = [
   "cite",
   "pre",
   "blockquote",
+  // Links, e.g. the menu and logo in a header or the links in a footer.
+  "a",
 ];
 
 export const typographyFonts = {

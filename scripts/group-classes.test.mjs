@@ -32,7 +32,9 @@ test("class names come from the theme group name", () => {
   assert.throws(() => groupClassSlug("***"), /at least one letter/);
   assert.ok(isGroupClassName("sg-coastal-calm-hero"));
   assert.ok(isGroupClassName("sg-coastal-calm-section-3"));
-  assert.ok(!isGroupClassName("sg-coastal-calm-footer"));
+  assert.ok(isGroupClassName("sg-coastal-calm-header"));
+  assert.ok(isGroupClassName("sg-coastal-calm-footer"));
+  assert.ok(!isGroupClassName("sg-coastal-calm-sidebar"));
   assert.ok(!isGroupClassName("coastal-calm-hero"));
 });
 
@@ -88,6 +90,37 @@ test("each area maps its colors onto its own and the shared section 01 variables
   assert.doesNotMatch(section1, /--/);
 });
 
+test("header and footer colors become their own classes", () => {
+  const saved = group();
+  saved.themes.light.header.background = "var(--color-sky-900)";
+  saved.themes.dark.footer.text = "var(--color-slate-100)";
+  const css = generateGroupCss(saved);
+  const header = ruleFor(
+    css,
+    ':root:not([data-theme="dark"]) .sg-coastal-calm-header',
+  );
+  assert.match(header, /--canvas-header: var\(--color-sky-900\);/);
+  assert.match(header, /--canvas-01: var\(--color-sky-900\);/);
+  const footer = ruleFor(css, ':root[data-theme="dark"] .sg-coastal-calm-footer');
+  assert.match(footer, /--ink-footer: var\(--color-slate-100\);/);
+});
+
+test("SVG fills map onto section 01 and fall back to the text color", () => {
+  const saved = group();
+  saved.themes.light.header.svgFill1 = "var(--color-sky-500)";
+  const css = generateGroupCss(saved);
+  const header = ruleFor(
+    css,
+    ':root:not([data-theme="dark"]) .sg-coastal-calm-header',
+  );
+  assert.match(header, /--ink-header-svg-01: var\(--color-sky-500\);/);
+  assert.match(header, /--ink-01-svg-01: var\(--color-sky-500\);/);
+  assert.match(
+    header,
+    /--ink-01-svg-02: var\(--ink-header-svg-02, currentColor\);/,
+  );
+});
+
 test("saving a group again replaces its block and keeps everything else", () => {
   const first = upsertGroupCss("", group());
   assert.ok(first.startsWith(groupsCssHeader));
@@ -107,14 +140,29 @@ test("saving a group again replaces its block and keeps everything else", () => 
 test("the page builder reads every group class with its area", () => {
   const css = upsertGroupCss(upsertGroupCss("", group()), group("Night shift"));
   const classes = parseGroupClasses(`${css}\n.sg-fake-hero { color: red; }`);
-  assert.equal(classes.length, 16);
-  assert.deepEqual(classes[1], {
+  assert.equal(classes.length, 20);
+  assert.deepEqual(classes[2], {
     className: "sg-coastal-calm-hero",
     group: "coastal-calm",
     groupName: "Coastal calm",
     area: "hero",
     areaLabel: "Hero",
   });
+  assert.deepEqual(
+    classes.slice(0, 10).map(({ area }) => area),
+    [
+      "page",
+      "header",
+      "hero",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4",
+      "section-5",
+      "section-6",
+      "footer",
+    ],
+  );
   assert.ok(!classes.some(({ className }) => className === "sg-fake-hero"));
   assert.deepEqual(parseGroupClasses(""), []);
 });
@@ -160,7 +208,7 @@ test("form colors map onto section 01 and selection becomes a ::selection rule",
   assert.ok(
     !css.includes(':root[data-theme="dark"] .sg-coastal-calm-hero ::selection'),
   );
-  assert.equal(parseGroupClasses(upsertGroupCss("", saved)).length, 8);
+  assert.equal(parseGroupClasses(upsertGroupCss("", saved)).length, 10);
 });
 
 test("CTA text, border, and hover colors go into the page class", () => {
@@ -186,7 +234,7 @@ test("blocks saved with the older style-group markers are still read and replace
       "/* end style-group: coastal-calm",
     );
   assert.match(older, /style-group: coastal-calm/);
-  assert.equal(parseGroupClasses(`${groupsCssHeader}\n${older}\n`).length, 8);
+  assert.equal(parseGroupClasses(`${groupsCssHeader}\n${older}\n`).length, 10);
   const changed = group();
   changed.themes.light.hero.background = "#abcdef";
   const updated = upsertGroupCss(`${groupsCssHeader}\n${older}\n`, changed);
@@ -200,8 +248,18 @@ test("group typography becomes rules under each area class", () => {
   saved.typography = {
     page: { p: { "font-family": "var(--font-serif)" } },
     hero: { h1: { "font-size": "3rem", "letter-spacing": "-0.02em" } },
+    header: { a: { "font-weight": "600" } },
+    footer: { h2: { "text-transform": "uppercase" } },
   };
   const css = generateGroupCss(saved);
+  assert.ok(
+    css.includes(".sg-coastal-calm-header a {\n  font-weight: 600;\n}"),
+  );
+  assert.ok(
+    css.includes(
+      ".sg-coastal-calm-footer h2 {\n  text-transform: uppercase;\n}",
+    ),
+  );
   assert.ok(
     css.includes(
       ".sg-coastal-calm-page p {\n  font-family: var(--font-serif);\n}",
@@ -222,7 +280,7 @@ test("group typography becomes rules under each area class", () => {
       css.indexOf("/* end theme-group"),
   );
   // Typography rules don't add classes to the page builder's list.
-  assert.equal(parseGroupClasses(upsertGroupCss("", saved)).length, 8);
+  assert.equal(parseGroupClasses(upsertGroupCss("", saved)).length, 10);
 });
 
 test("deleting a group removes only its block from groups.css", () => {

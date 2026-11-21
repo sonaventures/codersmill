@@ -552,7 +552,8 @@ if (root) {
   });
   preview.addEventListener("keydown", (event) => {
     if (event.key !== "Enter" && event.key !== " ") return;
-    if (!(event.target instanceof HTMLElement)) return;
+    // Element, not HTMLElement, so the sample SVG's shapes work too.
+    if (!(event.target instanceof Element)) return;
     const target = event.target.closest<HTMLElement>("[data-control-target]");
     if (!target || target.matches(nativePreviewControls)) return;
     event.preventDefault();
@@ -702,8 +703,10 @@ if (root) {
   }
 
   // Previews each area's typography. The page's rules cover the whole sample
-  // page except the header, footer, and builder labels; hero and section
-  // rules come later and are more specific, so they win, as in groups.css.
+  // page except the header, footer, and builder labels, because on the site
+  // the page class wraps only what is between the header and footer. The
+  // other areas' rules come later and are more specific, so they win, as in
+  // groups.css.
   function renderTypographyPreview() {
     const rules: string[] = [];
     for (const { region } of classGroupAreas) {
@@ -711,6 +714,10 @@ if (root) {
         region === "page"
           ? "#selector-sample-page"
           : `#selector-sample-page [data-region="${region}"]`;
+      const excluded =
+        region === "page"
+          ? '[data-studio-chrome] *, [data-region="header"] *, [data-region="footer"] *'
+          : "[data-studio-chrome] *";
       for (const element of typographyElements) {
         const styles = typography[region]?.[element] ?? {};
         const declarations = Object.entries(styles)
@@ -718,7 +725,7 @@ if (root) {
           .join("\n");
         if (declarations)
           rules.push(
-            `${scope} ${element}:not([data-studio-chrome] *, [data-region="header"] *, [data-region="footer"] *) {\n${declarations}\n}`,
+            `${scope} ${element}:not(${excluded}) {\n${declarations}\n}`,
           );
       }
     }

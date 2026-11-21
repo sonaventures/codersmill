@@ -1,0 +1,42 @@
+---
+// A sample illustration with three shapes, one for each SVG fill of the area
+// it sits in. Click a shape in the theme builder to edit that fill.
+interface Props {
+  /** A smaller version without a caption, e.g. for the header. */
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<figure class:list={["sample-svg", { "sample-svg-compact": compact }]}>
+  <svg
+    viewBox="0 0 120 64"
+    role="img"
+    aria-label="Sample SVG with three fills"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="92"
+      cy="18"
+      r="11"
+      data-sample-role="svgFill3"
+      style="fill: var(--sample-svgFill3)"></circle>
+    <path
+      d="M30 64 66 18l38 46Z"
+      data-sample-role="svgFill2"
+      style="fill: var(--sample-svgFill2)"></path>
+    <path
+      d="M0 64 34 28l26 24 14-12 26 24Z"
+      data-sample-role="svgFill1"
+      style="fill: var(--sample-svgFill1)"></path>
+  </svg>
+  {
+    !compact && (
+      <figcaption>
+        SVG fills: front <code>01</code>, back <code>02</code>, sun{" "}
+        <code>03</code>
+      </figcaption>
+    )
+  }
+</figure>

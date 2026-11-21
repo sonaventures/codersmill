@@ -548,7 +548,7 @@ test("theme group classes wrap components and the whole page", () => {
 
   for (const bad of [
     "coastal-hero",
-    "sg-x-footer",
+    "sg-x-sidebar",
     'sg-x-hero" onload="x',
     "",
   ]) {
@@ -564,7 +564,21 @@ test("theme group classes wrap components and the whole page", () => {
   assert.throws(
     () =>
       generatePage("Bad", "", [{ component: hero, values: {} }], "sg-a-footer"),
-    /not a theme group class/,
+    /not a theme group page class/,
+  );
+  assert.throws(
+    () =>
+      generatePage("Bad", "", [{ component: hero, values: {} }], "", {
+        headerClass: "sg-a-footer",
+      }),
+    /not a theme group header class/,
+  );
+  assert.throws(
+    () =>
+      generatePage("Bad", "", [{ component: hero, values: {} }], "", {
+        footerClass: "sg-a-header",
+      }),
+    /not a theme group footer class/,
   );
 });
 
@@ -594,11 +608,18 @@ test("pages created by the page builder load back exactly", () => {
     'A description with "quotes"',
     selected,
     "sg-sample-page",
+    { headerClass: "sg-sample-header", footerClass: "sg-sample-footer" },
+  );
+  assert.match(
+    page,
+    /<Layout title=\{"Our Services"\} description=\{"A description with \\"quotes\\""\} headerClass=\{"sg-sample-header"\} footerClass=\{"sg-sample-footer"\}>/,
   );
   assert.deepEqual(parseGeneratedPage(page), {
     name: "Our Services",
     description: 'A description with "quotes"',
     pageClass: "sg-sample-page",
+    headerClass: "sg-sample-header",
+    footerClass: "sg-sample-footer",
     items: [
       {
         path: "flowbite/hero/hero_1.astro",
@@ -639,6 +660,15 @@ test("pages created by the page builder load back exactly", () => {
   );
   assert.equal(plain.description, "");
   assert.equal(plain.pageClass, "");
+  assert.equal(plain.headerClass, "");
+  assert.equal(plain.footerClass, "");
+  const footerOnly = parseGeneratedPage(
+    generatePage("Plain", "", [{ component: cards, values: {} }], "", {
+      footerClass: "sg-sample-footer",
+    }),
+  );
+  assert.equal(footerOnly.headerClass, "");
+  assert.equal(footerOnly.footerClass, "sg-sample-footer");
 });
 
 test("pages not made by the page builder are refused with a reason", () => {

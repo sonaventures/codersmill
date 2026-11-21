@@ -1,8 +1,15 @@
 ---
 import { navigation } from "../data/group";
+
+interface Props {
+  /** A theme group footer class, e.g. sg-sample-footer. */
+  class?: string;
+}
+
+const { class: className } = Astro.props;
 ---
 
-<footer class="site-footer">
+<footer class:list={["site-footer", className]}>
   <div class="footer-inner">
     <div class="footer-intro">
       <a class="footer-wordmark" href="/">

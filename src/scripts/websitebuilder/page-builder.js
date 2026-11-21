@@ -34,6 +34,8 @@ const fields = get("#page-builder-fields");
 const name = get("#page-name");
 const description = get("#page-description");
 const pageStyleClass = get("#page-style-class");
+const headerStyleClass = get("#header-style-class");
+const footerStyleClass = get("#footer-style-class");
 const componentStyleClass = get("#component-style-class");
 const path = get("#page-path");
 const available = get("#available-components");
@@ -80,11 +82,12 @@ renderAvailableIds();
 // Theme group classes from src/styles/themes/groups.css (theme builder).
 let availableClasses = parseGroupClasses(groupsCssFallback);
 
-// Fills a dropdown with theme group classes: page classes for the page, or
-// hero and section classes (grouped by theme group) for components.
-function fillStyleClassSelect(select, forPage, current = select.value) {
-  const classes = availableClasses.filter(
-    ({ area }) => (area === "page") === forPage,
+// Fills a dropdown with theme group classes: one area's classes for the page,
+// header, or footer ("page", "header", "footer"), or every other area's classes
+// (grouped by theme group) for components ("component").
+function fillStyleClassSelect(select, kind, current = select.value) {
+  const classes = availableClasses.filter(({ area }) =>
+    kind === "component" ? area !== "page" : area === kind,
   );
   const options = [
     new Option(
@@ -94,7 +97,7 @@ function fillStyleClassSelect(select, forPage, current = select.value) {
       "",
     ),
   ];
-  if (forPage)
+  if (kind !== "component")
     for (const { className, groupName } of classes)
       options.push(new Option(`${groupName} (${className})`, className));
   else
@@ -116,8 +119,10 @@ function fillStyleClassSelect(select, forPage, current = select.value) {
 }
 
 function renderStyleClassOptions() {
-  fillStyleClassSelect(pageStyleClass, true);
-  fillStyleClassSelect(componentStyleClass, false);
+  fillStyleClassSelect(pageStyleClass, "page");
+  fillStyleClassSelect(headerStyleClass, "header");
+  fillStyleClassSelect(footerStyleClass, "footer");
+  fillStyleClassSelect(componentStyleClass, "component");
 }
 renderStyleClassOptions();
 
@@ -222,7 +227,9 @@ loadPageButton.addEventListener("click", async () => {
     });
     name.value = page.name;
     description.value = page.description;
-    fillStyleClassSelect(pageStyleClass, true, page.pageClass);
+    fillStyleClassSelect(pageStyleClass, "page", page.pageClass);
+    fillStyleClassSelect(headerStyleClass, "header", page.headerClass);
+    fillStyleClassSelect(footerStyleClass, "footer", page.footerClass);
     loadedSlug = fileName.replace(/\.astro$/, "");
     createdLink.href = pageRoute(loadedSlug);
     createdLink.hidden = false;
@@ -606,7 +613,7 @@ function renderSelection() {
     styleSelect.id = styleLabel.htmlFor;
     styleSelect.className =
       "w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page";
-    fillStyleClassSelect(styleSelect, false, item.styleClass ?? "");
+    fillStyleClassSelect(styleSelect, "component", item.styleClass ?? "");
     styleSelect.addEventListener("change", () => {
       item.styleClass = styleSelect.value || undefined;
     });
@@ -826,6 +833,10 @@ form.addEventListener("submit", async (event) => {
       description.value,
       assignments,
       pageStyleClass.value,
+      {
+        headerClass: headerStyleClass.value,
+        footerClass: footerStyleClass.value,
+      },
     );
     for (const { component } of selected) {
       const latest = await (await component.handle.getFile()).text();
