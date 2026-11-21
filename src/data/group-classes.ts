@@ -113,7 +113,11 @@ export function areaDeclarations(colors: StyleColors, region: Region) {
   return declarations;
 }
 
-export function rule(selector: string, declarations: Map<string, string>, extra = "") {
+export function rule(
+  selector: string,
+  declarations: Map<string, string>,
+  extra = "",
+) {
   const lines = [...declarations].map(
     ([token, value]) => `  --${token}: ${value};`,
   );
@@ -145,8 +149,14 @@ export const areaElementMappings = [
   { selector: "h1", declarations: { color: "var(--ink-01-h1)" } },
   { selector: "h2", declarations: { color: "var(--ink-01-h2)" } },
   { selector: "h3", declarations: { color: "var(--ink-01-h3)" } },
-  { selector: "h4", declarations: { color: "var(--ink-01-h4, var(--ink-01-h3))" } },
-  { selector: "strong", declarations: { color: "var(--ink-01-strong, currentColor)" } },
+  {
+    selector: "h4",
+    declarations: { color: "var(--ink-01-h4, var(--ink-01-h3))" },
+  },
+  {
+    selector: "strong",
+    declarations: { color: "var(--ink-01-strong, currentColor)" },
+  },
   { selector: "em", declarations: { color: "var(--ink-01-em, currentColor)" } },
   {
     selector: "code",
@@ -167,7 +177,10 @@ export const areaElementMappings = [
     selector: "pre code",
     declarations: { color: "inherit", "background-color": "transparent" },
   },
-  { selector: "label", declarations: { color: "var(--ink-01-label, var(--ink-01))" } },
+  {
+    selector: "label",
+    declarations: { color: "var(--ink-01-label, var(--ink-01))" },
+  },
   {
     selector: inputSelector,
     declarations: {
@@ -198,7 +211,9 @@ export const areaElementMappings = [
   },
   {
     selector: "hr",
-    declarations: { "border-color": "var(--canvas-01-divider, var(--canvas-01-border))" },
+    declarations: {
+      "border-color": "var(--canvas-01-divider, var(--canvas-01-border))",
+    },
   },
 ] as const;
 
@@ -207,21 +222,18 @@ export const areaElementMappings = [
  * :where() so any color utility on a component's element still wins.
  */
 export function areaElementCss(className: string, region: Region): string {
-  const rules = areaElementMappings
-    // The page class already paints its own background and text color.
-    .filter(({ selector }) => selector || region !== "page")
-    .map(({ selector, declarations }) => {
-      const target = selector
-        ? selector
-            .split(/,\s*(?![^()]*\))/)
-            .map((part) => `  :where(.${className}) ${part}`)
-            .join(",\n")
-        : `  :where(.${className})`;
-      const lines = Object.entries(declarations).map(
-        ([property, value]) => `    ${property}: ${value};`,
-      );
-      return `${target} {\n${lines.join("\n")}\n  }`;
-    });
+  const rules = areaElementMappings.map(({ selector, declarations }) => {
+    const target = selector
+      ? selector
+          .split(/,\s*(?![^()]*\))/)
+          .map((part) => `  :where(.${className}) ${part}`)
+          .join(",\n")
+      : `  :where(.${className})`;
+    const lines = Object.entries(declarations).map(
+      ([property, value]) => `    ${property}: ${value};`,
+    );
+    return `${target} {\n${lines.join("\n")}\n  }`;
+  });
   return `@layer base {\n${rules.join("\n")}\n}`;
 }
 

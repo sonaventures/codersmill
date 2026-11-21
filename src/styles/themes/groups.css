@@ -744,6 +744,11 @@
   --ink-01-svg-03: var(--ink-06-svg-03, currentColor);
 }
 @layer base {
+  :where(.sg-fp-page) {
+    background-color: var(--canvas-01);
+    border-color: var(--canvas-01-border);
+    --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+  }
   :where(.sg-fp-page) p {
     color: var(--ink-01);
   }
