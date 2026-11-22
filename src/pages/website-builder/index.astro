@@ -1,14 +1,37 @@
 ---
 import Layout from "../../layouts/layout.astro";
 import "../../styles/websitebuilder/websitebuilder.css";
+import ColorEditorGuide from "../../components/websitebuilder/guides/ColorEditorGuide.astro";
+import ThemeColorControlsGuide from "../../components/websitebuilder/guides/ThemeColorControlsGuide.astro";
+import TypographyGuide from "../../components/websitebuilder/guides/TypographyGuide.astro";
 
 // Build theme groups before pages: the page builder assigns the classes the
-// theme builder saves to the page and its components.
-const steps = [
-  { label: "Add custom colors", slug: "custom-colors" },
+// theme builder saves to the page and its components. A step's guide is
+// shown under it, closed until opened.
+const steps: {
+  label: string;
+  slug: string;
+  guide?: { label: string; component: typeof ColorEditorGuide };
+}[] = [
+  {
+    label: "Add custom colors",
+    slug: "custom-colors",
+    guide: { label: "Color editor guide", component: ColorEditorGuide },
+  },
   { label: "Add custom fonts", slug: "custom-fonts" },
-  { label: "Create theme groups (Theme Builder)", slug: "theme-builder" },
-  { label: "Typography Builder", slug: "typography-builder" },
+  {
+    label: "Create theme groups (Theme Builder)",
+    slug: "theme-builder",
+    guide: {
+      label: "How to use color controls",
+      component: ThemeColorControlsGuide,
+    },
+  },
+  {
+    label: "Typography Builder",
+    slug: "typography-builder",
+    guide: { label: "Typography guide", component: TypographyGuide },
+  },
   {
     label: "Create a page and assign theme groups",
     slug: "page-builder",
@@ -31,6 +54,7 @@ const initialPath = toolPath(steps[0].slug);
 >
   <div class="builder-workspace" data-website-builder-content>
     <aside
+      id="builder-workspace-guide"
       class="builder-workspace-guide"
       aria-labelledby="builder-guide-title"
       tabindex="0"
@@ -40,7 +64,7 @@ const initialPath = toolPath(steps[0].slug);
       </h1>
       <nav aria-labelledby="builder-guide-title">
         <ol class="my-4 grid list-decimal gap-2 ps-6">
-          {steps.map(({ label, slug }, index) => (
+          {steps.map(({ label, slug, guide }, index) => (
             <li>
               <a
                 class="builder-workspace-link"
@@ -51,6 +75,14 @@ const initialPath = toolPath(steps[0].slug);
               >
                 {label}
               </a>
+              {guide && (
+                <details class="builder-step-guide">
+                  <summary>{guide.label}</summary>
+                  <div class="builder-step-guide-body">
+                    <guide.component />
+                  </div>
+                </details>
+              )}
             </li>
           ))}
         </ol>
@@ -90,6 +122,18 @@ const initialPath = toolPath(steps[0].slug);
         <p id="builder-palette-status" class="text-sm" role="status"></p>
       </div>
     </aside>
+
+    <div
+      class="builder-workspace-resize"
+      id="builder-workspace-resize"
+      role="separator"
+      aria-orientation="vertical"
+      aria-label="Resize the builder guide"
+      aria-controls="builder-workspace-guide"
+      title="Drag to resize the builder guide. Double-click to reset."
+      tabindex="0"
+    >
+    </div>
 
     <section class="builder-workspace-tool" aria-label="Selected builder">
       <a
@@ -202,6 +246,104 @@ const initialPath = toolPath(steps[0].slug);
         status.textContent =
           "Could not save your palette preference. Check your browser storage settings.";
     }
+  }
+
+  // The builder guide's width: drag the handle between the guide and the
+  // tool, or focus it and use the arrow keys (Shift for bigger steps), Home
+  // and End. Double-click resets it. The width is remembered in this browser.
+  const workspace = document.querySelector<HTMLElement>(".builder-workspace");
+  const guide = document.querySelector<HTMLElement>("#builder-workspace-guide");
+  const handle = document.querySelector<HTMLElement>("#builder-workspace-resize");
+  const widthKey = "website-builder-guide-width";
+  const minWidth = 192;
+  // Keep at least this much room for the tool.
+  const toolRoom = 320;
+
+  function widthLimits() {
+    const total = workspace?.clientWidth ?? window.innerWidth;
+    return { min: minWidth, max: Math.max(minWidth, total - toolRoom) };
+  }
+
+  function setGuideWidth(width: number | null, save = true) {
+    if (!workspace || !handle || !guide) return;
+    if (width === null) {
+      workspace.style.removeProperty("--guide-width");
+      if (save)
+        try {
+          localStorage.removeItem(widthKey);
+        } catch {}
+    } else {
+      const { min, max } = widthLimits();
+      const clamped = Math.round(Math.min(max, Math.max(min, width)));
+      workspace.style.setProperty("--guide-width", `${clamped}px`);
+      if (save)
+        try {
+          localStorage.setItem(widthKey, String(clamped));
+        } catch {}
+    }
+    const { min, max } = widthLimits();
+    handle.setAttribute("aria-valuemin", String(min));
+    handle.setAttribute("aria-valuemax", String(max));
+    handle.setAttribute(
+      "aria-valuenow",
+      String(Math.round(guide.getBoundingClientRect().width)),
+    );
+  }
+
+  if (workspace && guide && handle) {
+    let saved: number | null = null;
+    try {
+      const value = Number(localStorage.getItem(widthKey));
+      if (Number.isFinite(value) && value > 0) saved = value;
+    } catch {}
+    setGuideWidth(saved, false);
+
+    let dragging = false;
+    handle.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+      dragging = true;
+      handle.setPointerCapture(event.pointerId);
+      // The tool's iframe would swallow the pointer while dragging over it.
+      workspace.dataset.resizing = "";
+      event.preventDefault();
+    });
+    handle.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      setGuideWidth(event.clientX - guide.getBoundingClientRect().left);
+    });
+    const stop = (event: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      delete workspace.dataset.resizing;
+      if (handle.hasPointerCapture(event.pointerId))
+        handle.releasePointerCapture(event.pointerId);
+    };
+    handle.addEventListener("pointerup", stop);
+    handle.addEventListener("pointercancel", stop);
+    handle.addEventListener("dblclick", () => setGuideWidth(null));
+    handle.addEventListener("keydown", (event) => {
+      const current = guide.getBoundingClientRect().width;
+      const step = event.shiftKey ? 64 : 16;
+      const { min, max } = widthLimits();
+      const next =
+        event.key === "ArrowLeft"
+          ? current - step
+          : event.key === "ArrowRight"
+            ? current + step
+            : event.key === "Home"
+              ? min
+              : event.key === "End"
+                ? max
+                : null;
+      if (next === null) return;
+      event.preventDefault();
+      setGuideWidth(next);
+    });
+    // Keep a saved width within the window when it is resized.
+    window.addEventListener("resize", () => {
+      const width = workspace.style.getPropertyValue("--guide-width");
+      setGuideWidth(width ? parseFloat(width) : null, false);
+    });
   }
 
   showPalettePreference();

@@ -1,0 +1,71 @@
+---
+// The color editor guide, shown under "Add custom colors" in the Builder
+// Guide (src/pages/website-builder/index.astro).
+import { paletteImportExample, paletteShades } from "../../../data/palette.js";
+---
+
+<p>
+  Choose the <strong>websitebuilder project folder</strong> to add or remove
+  color families. You can also choose its <code>src</code> folder to add or
+  import families. Both options save to{" "}
+  <code>src/styles/themes/colors.css</code>.
+</p>
+<p>
+  This requires a browser that supports the File System Access API, such as
+  Chrome or Edge, and a secure connection or localhost. Files are read locally
+  and are not uploaded.
+</p>
+<p>
+  The editor remembers your folder for this tab and reconnects after a
+  development-page reload. If your browser asks for permission again, select{" "}
+  <strong>Reconnect project</strong>; you do not need to find the folder again.
+</p>
+
+<section aria-labelledby="import-format-title" class="min-w-0">
+  <h3 id="import-format-title" class="font-semibold">
+    Import color families from text files
+  </h3>
+  <p id="import-format-help">
+    Choose one or more plain-text UTF-8 files ending in .txt or .css, up to 1 MB
+    combined. Use one declaration per line in the format
+    <code>--color-FAMILY-SHADE: oklch(L% C H);</code>. L is lightness (0-100%),
+    C is chroma (0 or greater), and H is hue (0-360 degrees). Include the
+    semicolon after every color.
+  </p>
+  <p>
+    Each family needs all 11 shades: {paletteShades.join(", ")}. Use a unique
+    lowercase family name starting with a letter, with letters, numbers, and
+    single hyphens between words (up to 60 characters). Do not use built-in
+    names such as blue or red, existing family names, or the reserved names
+    custom, theme, none, and solid. Do not repeat a shade within the same
+    family.
+  </p>
+  <p>
+    For multiple families, put each complete set in the same file or select
+    several files together using Ctrl-click (Command-click on Mac) or
+    Shift-click. Every family needs a different name. CSS wrappers such as :root
+    are optional; JSON, commas, and code fences are not needed.
+  </p>
+  <p>
+    Choose your project folder or its <code>src</code> folder, then use{" "}
+    <strong>Import color families</strong>
+    below. Review families using the selector, then click{" "}
+    <strong>Save all imported families to colors.css</strong> to save every
+    family from all selected files at once. Your name and shade edits are
+    included. Nothing is saved if any family is invalid or already exists. Use{" "}
+    <strong>Add family</strong> to save only the selected family instead.
+  </p>
+  <details class="min-w-0">
+    <summary class="cursor-pointer">
+      Example .txt file with two complete families
+    </summary>
+    <pre class="mt-4 max-w-full overflow-x-auto rounded border border-canvas-page-border p-4 text-sm"><code>{paletteImportExample}</code></pre>
+  </details>
+  <a
+    class="w-fit wrap-anywhere underline"
+    href={`data:text/plain;charset=utf-8,${encodeURIComponent(paletteImportExample + "\n")}`}
+    download="color-families.txt"
+  >
+    Download example color-families.txt
+  </a>
+</section>

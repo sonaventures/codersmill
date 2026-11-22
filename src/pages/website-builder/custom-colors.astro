@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/website-builder.astro";
-import { paletteImportExample, paletteShades } from "../../data/palette.js";
+import { paletteShades } from "../../data/palette.js";
 ---
 
 <Layout
@@ -8,93 +8,9 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
   description="Add and remove source color families."
 >
   <section
-    class="palette-editor w-full items-start px-4 sm:px-6 lg:px-8 lg:has-[>.color-guide[open]]:grid-cols-[minmax(16rem,20rem)_minmax(0,1fr)]"
+    class="palette-editor w-full items-start px-4 sm:px-6 lg:px-8"
     data-palette-editor
   >
-    <details class="color-guide group min-w-0 lg:sticky lg:top-4" open>
-      <summary class="w-fit cursor-pointer rounded border border-canvas-page-border bg-canvas-page px-4 py-3 font-semibold">
-        <span class="group-open:hidden">Show color editor guide</span>
-        <span class="hidden group-open:inline">Hide color editor guide</span>
-      </summary>
-      <aside
-        class="mt-2 grid max-h-[50dvh] min-w-0 gap-4 overflow-y-auto rounded-lg border border-canvas-page-border bg-canvas-page p-4 lg:max-h-[calc(100dvh-6rem)]"
-        aria-labelledby="color-guide-title"
-        tabindex="0"
-      >
-        <header>
-          <h2 id="color-guide-title">Color editor guide</h2>
-          <p>
-            Choose the <strong>websitebuilder project folder</strong> to add or
-            remove color families. You can also choose its <code>src</code>{" "}
-            folder to add or import families. Both options save to{" "}
-            <code>src/styles/themes/colors.css</code>.
-          </p>
-          <p>
-            This requires a browser that supports the File System Access API,
-            such as Chrome or Edge, and a secure connection or localhost. Files
-            are read locally and are not uploaded.
-          </p>
-          <p>
-            The editor remembers your folder for this tab and reconnects after a
-            development-page reload. If your browser asks for permission again,
-            select <strong>Reconnect project</strong>; you do not need to find
-            the folder again.
-          </p>
-        </header>
-
-        <section aria-labelledby="import-format-title" class="min-w-0">
-          <h3 id="import-format-title" class="font-semibold">
-            Import color families from text files
-          </h3>
-          <p id="import-format-help">
-            Choose one or more plain-text UTF-8 files ending in .txt or .css, up
-            to 1 MB combined. Use one declaration per line in the format
-            <code>--color-FAMILY-SHADE: oklch(L% C H);</code>. L is lightness
-            (0-100%), C is chroma (0 or greater), and H is hue (0-360 degrees).
-            Include the semicolon after every color.
-          </p>
-          <p>
-            Each family needs all 11 shades: {paletteShades.join(", ")}. Use a
-            unique lowercase family name starting with a letter, with letters,
-            numbers, and single hyphens between words (up to 60 characters). Do
-            not use built-in names such as blue or red, existing family names,
-            or the reserved names custom, theme, none, and solid. Do not repeat
-            a shade within the same family.
-          </p>
-          <p>
-            For multiple families, put each complete set in the same file or
-            select several files together using Ctrl-click (Command-click on
-            Mac) or Shift-click. Every family needs a different name. CSS
-            wrappers such as :root are optional; JSON, commas, and code fences
-            are not needed.
-          </p>
-          <p>
-            Choose your project folder or its <code>src</code> folder, then use{" "}
-            <strong>Import color families</strong>
-            below. Review families using the selector, then click{" "}
-            <strong>Save all imported families to colors.css</strong> to save
-            every family from all selected files at once. Your name and shade
-            edits are included. Nothing is saved if any family is invalid or
-            already exists. Use <strong>Add family</strong> to save only the
-            selected family instead.
-          </p>
-          <details class="min-w-0">
-            <summary class="cursor-pointer">
-              Example .txt file with two complete families
-            </summary>
-            <pre class="mt-4 max-w-full overflow-x-auto rounded border border-canvas-page-border p-4 text-sm"><code>{paletteImportExample}</code></pre>
-          </details>
-          <a
-            class="w-fit wrap-anywhere underline"
-            href={`data:text/plain;charset=utf-8,${encodeURIComponent(paletteImportExample + "\n")}`}
-            download="color-families.txt"
-          >
-            Download example color-families.txt
-          </a>
-        </section>
-      </aside>
-    </details>
-
     <div class="grid min-w-0 gap-4">
       <div class="editor-toolbar">
         <button type="button" id="open-project">
@@ -126,7 +42,6 @@ import { paletteImportExample, paletteShades } from "../../data/palette.js";
               <button
                 type="button"
                 id="choose-import-file"
-                aria-describedby="import-format-help"
               >
                 Choose File
               </button>

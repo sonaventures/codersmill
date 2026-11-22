@@ -26,42 +26,6 @@ const sampleText: Record<string, string> = {
     data-typography-builder
   >
     <div class="typography-workspace grid items-start gap-8 lg:grid-cols-2">
-      <details class="typography-guide group relative z-20 min-w-0 justify-self-start lg:col-span-2">
-        <summary class="cursor-pointer rounded border border-canvas-page-border bg-canvas-page px-4 py-3 font-semibold">
-          <span class="group-open:hidden">Open typography guide</span>
-          <span class="hidden group-open:inline">Close typography guide</span>
-        </summary>
-        <div class="typography-guide-panel grid gap-3 rounded border border-canvas-page-border bg-canvas-page p-4 text-sm wrap-anywhere">
-          <p>
-            Set site-wide styles for headings, paragraphs, emphasis, strong
-            text, code, citations, preformatted text, and block quotations. Then
-            give each theme group area (page, hero, and sections) its own
-            typography. It travels with the theme group's classes, so assigning
-            a theme group in the Page Builder applies its colors and typography
-            together.
-          </p>
-          <p>
-            Blank fields keep existing site styles, or follow site-wide defaults
-            when editing a section. Changes stay in the preview until you save
-            the stylesheet. Saved rules override Tailwind typography utilities.
-            Inline styles, important declarations, and more-specific unlayered
-            CSS can still take priority.
-          </p>
-          <p>
-            In Chrome or Edge on localhost or HTTPS, click Save to project. The
-            first time, choose the websitebuilder project folder; it is
-            remembered after that, shared with the Theme Builder. Site-wide
-            defaults are saved to the typography section of{" "}
-            <code>src/styles/themes/sitewide.css</code>, next to the sitewide
-            colors from the Theme Builder;
-            theme group typography is saved with the theme group and written to{" "}
-            <code>src/styles/themes/groups.css</code>. If folder access fails,
-            use Save directly to CSS for the defaults, then Save classes to
-            groups.css in the Theme Builder.
-          </p>
-        </div>
-      </details>
-
       <div class="grid min-w-0 gap-6" data-builder-ui>
         <div class="grid gap-2">
           <label for="typography-scope" class="font-semibold">

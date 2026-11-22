@@ -581,43 +581,6 @@
 .selector-shell .control-hint {
   @apply mb-4 text-[0.75rem] leading-[1.6] text-ink-page;
 }
-.selector-shell .panel-instructions {
-  @apply mb-3;
-  border: 1px solid var(--canvas-page-border);
-  @apply rounded-lg;
-}
-.selector-shell .panel-instructions summary {
-  @apply cursor-pointer select-none px-3 py-2 text-[0.75rem] font-[650];
-  list-style: none;
-}
-.selector-shell .panel-instructions summary::-webkit-details-marker {
-  display: none;
-}
-.selector-shell .panel-instructions summary span {
-  @apply float-right text-[0.7rem] font-normal text-ink-page;
-}
-.selector-shell .panel-instructions summary::before {
-  content: "▸";
-  @apply mr-1.5 inline-block text-[0.65rem] transition-transform duration-150;
-}
-.selector-shell .panel-instructions[open] summary::before {
-  content: "▾";
-}
-.selector-shell .panel-instructions:focus-within summary,
-.selector-shell .panel-instructions summary:focus-visible {
-  outline: 2px solid var(--accent-page-focus);
-  @apply rounded-lg outline-offset-2;
-}
-.selector-shell .panel-instructions-body {
-  @apply px-3 pb-3 pt-1;
-  border-top: 1px solid var(--canvas-page-border);
-}
-.selector-shell .panel-instructions-body p {
-  @apply mb-3 text-[0.75rem] leading-[1.6] text-ink-page;
-}
-.selector-shell .panel-instructions-body p:last-child {
-  @apply mb-0;
-}
 .selector-shell .selector-panel label,
 .selector-shell .palette-picker label,
 .selector-shell .color-fields legend {
@@ -1366,6 +1329,10 @@
   @apply grid gap-4 p-4;
   grid-template-areas: "guide" "tool";
 }
+/* The resize handle only shows beside the guide on wider screens. */
+.builder-workspace-resize {
+  display: none;
+}
 .builder-workspace-guide {
   @apply max-h-64 min-h-0 overflow-y-auto rounded-lg border border-canvas-page-border bg-canvas-page p-4;
   grid-area: guide;
@@ -1375,6 +1342,22 @@
 }
 .builder-workspace-link[aria-current="step"] {
   @apply bg-canvas-page-card-01 underline underline-offset-4;
+}
+/* A step's guide in the Builder Guide, closed until opened. */
+.builder-step-guide {
+  @apply mt-1 ms-3 text-sm;
+}
+.builder-step-guide summary {
+  @apply w-fit cursor-pointer rounded-md px-2 py-1 font-semibold hover:bg-canvas-page-card-01;
+}
+.builder-step-guide-body {
+  @apply mt-2 grid min-w-0 gap-3 rounded-md border border-canvas-page-border p-3 wrap-anywhere;
+}
+.builder-step-guide-body :is(h2, h3) {
+  @apply text-sm font-semibold;
+}
+.builder-step-guide-body pre {
+  @apply max-w-full overflow-x-auto text-xs;
 }
 .builder-workspace-tool {
   @apply grid min-h-[65dvh] min-w-0 overflow-hidden rounded-lg border border-canvas-page-border bg-canvas-page;
@@ -1390,9 +1373,31 @@
 @media (width >= 40rem) {
   .builder-workspace {
     @apply h-dvh;
-    grid-template-areas: "guide tool";
-    grid-template-columns: clamp(12rem, 25vw, 21rem) minmax(0, 1fr);
+    grid-template-areas: "guide resize tool";
+    /* --guide-width is set by dragging the resize handle. */
+    grid-template-columns:
+      var(--guide-width, clamp(12rem, 25vw, 21rem)) 0.75rem
+      minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
+    column-gap: 0.25rem;
+  }
+  .builder-workspace-resize {
+    @apply relative block cursor-col-resize rounded-full outline-offset-2;
+    grid-area: resize;
+    touch-action: none;
+  }
+  .builder-workspace-resize::before {
+    @apply absolute inset-y-0 left-1/2 w-0.5 -translate-x-1/2 rounded-full bg-canvas-page-border transition-colors content-[''];
+  }
+  .builder-workspace-resize:is(:hover, :focus-visible)::before,
+  .builder-workspace[data-resizing] .builder-workspace-resize::before {
+    @apply w-1 bg-accent-page-focus;
+  }
+  .builder-workspace[data-resizing] {
+    @apply cursor-col-resize select-none;
+  }
+  .builder-workspace[data-resizing] iframe {
+    pointer-events: none;
   }
 
   /* Builder chrome uses its own tokens; editable previews keep the site theme. */
