@@ -48,7 +48,8 @@ let pending = new Map(); // element index -> theme classes
 let busy = false;
 
 const kindLabel = new Map(elementKinds.map(({ key, label }) => [key, label]));
-const libraryFolders = ["flowbite/", "flyonui/"];
+// Library originals: everything in src/components/blocks.
+const libraryFolders = ["blocks/"];
 
 function report(error) {
   console.error("Component styling:", error);

@@ -63,7 +63,7 @@ utility such as `font-thin` (100), `font-bold` (700), `font-extrabold` (800),
 or `font-[1000]` (DM Sans).
 
 Builder pages live in `src/pages/website-builder/` and use the shared Website
-Builder layout. Builder-specific components live in `src/components/websitebuilder/`.
+Builder layout. Builder-specific components live in `src/components/website-builder/`.
 Standalone builder scripts live in `src/scripts/websitebuilder/`.
 The header and footer link to the tools, the current page is
 highlighted, and the header includes the light/dark toggle. Browser titles use
@@ -171,23 +171,25 @@ with an assigned section ID are wrapped in `<section id="...">`, allowing theme 
 anchor navigation, and Typography Builder rules to target the section directly.
 
 **Save component copy** saves the component selected in the list to a new file
-under `src/components/`, so templates such as those in `src/components/flowbite/`
-and `src/components/flyonui/` can be renamed and customized without changing
+under `src/components/`, so templates such as the blocks in `src/components/blocks/`
+(Flowbite, FlyonUI, and Coders Mill) can be renamed and customized without changing
 the originals. Enter a path such as `custom/my-hero` (the `.astro` extension is
 added automatically, and missing folders are created), then select **Save
 component copy**. The copy is selected in the list, ready to add to the page.
 Existing files are never overwritten, and reserved names such as the shared
 site header are refused.
 
-FlyonUI components with markup use `<section>` for their outer wrapper;
-inner layout containers can still use `<div>`.
+The blocks use a `<div>` for their outer wrapper, because the Page Builder
+already wraps each component in a `<section>`. The Flowbite headers and footers
+are in `src/components/blocks/flowbite/header/` and
+`src/components/blocks/flowbite/footer/`.
 
-The hero examples in `src/components/flyonui/hero/` use Section 01 theme
+The hero examples in `src/components/blocks/flyonui/hero/` use Section 01 theme
 colors and the shared layout header. Their sample links, forms, and purchase
 actions are not connected. Alpine powers local interactions such as the meal
 carousel, quantity selector, and copy button.
 
-The Flowbite hero examples in `src/components/flowbite/hero/` use Section 01
+The Flowbite hero examples in `src/components/blocks/flowbite/hero/` use Section 01
 and CTA theme colors; image-backed overlays use the Hero theme colors. Their
 light and dark mockups follow the shared Alpine-powered header theme switch.
 
