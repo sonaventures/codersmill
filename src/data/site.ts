@@ -9,6 +9,9 @@ export const host = {
   url: "https://codersmill.com",
 } as const;
 
+// The builder tools CodersMill is the home of, at /website-builder/.
+export const builderName = "Website Builder";
+
 export const navigation = [
   { label: "Home", href: "/" },
   { label: "Tools", href: "/tools/" },
@@ -18,8 +21,8 @@ export const navigation = [
 ] as const;
 
 export const pageDescriptions = {
-  home: `Build and style Astro websites with ${siteName}, hosted by ${host.name}.`,
+  home: `Build and style Astro websites with ${builderName}, on ${siteName}.`,
   tools: `The ${siteName} tools, in the order you use them.`,
   blocks: `The ready-made HTML blocks ${siteName} builds pages from.`,
-  about: `About ${siteName} and its host, ${host.name}.`,
+  about: `About ${siteName}, the home of ${builderName}, and how its tools work.`,
 } as const;

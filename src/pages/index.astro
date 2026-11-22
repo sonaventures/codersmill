@@ -2,7 +2,7 @@
 import FpHero from "../components/fp_hero.astro";
 import Layout from "../layouts/layout.astro";
 import { builderPages } from "../data/website-builder/builder-pages";
-import { host, pageDescriptions, siteName } from "../data/site";
+import { builderName, host, pageDescriptions, siteName } from "../data/site";
 
 // The builder's tools, in workflow order (its home page is the builder).
 const tools = builderPages.filter(({ label }) => label !== "Home");
@@ -39,10 +39,10 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
 
   <section class="home-note">
     <div class="container home-note-inner">
-      <p class="eyebrow">Hosted by {host.name}</p>
+      <p class="eyebrow">{builderName}</p>
       <p>
-        {siteName} is hosted by {host.name}. Open the builder to start a site,
-        or read more about how it works.
+        {builderName} runs in your browser, hosted by {host.name}. Open the
+        builder to start a site, or read more about how it works.
       </p>
       <a class="text-link" href="/about/">
         About {siteName} <span aria-hidden="true">→</span>
