@@ -1,20 +1,20 @@
 <nav
   x-data="{ open: false }"
-  class="bg-canvas-header text-ink-header shadow-canvas-header-shadow/20 flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm"
+  class="flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm"
 >
-  <div class="bg-canvas-header w-full md:flex md:flex-col">
-    <div class="mx-auto hidden w-full max-w-7xl px-4 sm:px-6 md:flex md:items-center md:gap-2 lg:px-8">
+  <div class="w-full md:flex md:flex-col">
+    <div class="mx-auto hidden w-full max-w-site px-4 sm:px-6 md:flex md:items-center md:gap-2 lg:px-8">
       <div class="flex items-center justify-between">
         <div class="flex w-max items-center justify-between">
-          <div class="text-nav-header-sitenav-top *:hover:text-nav-header-sitenav-item *:active:text-nav-header-sitenav-item flex gap-6 text-base font-medium max-md:mt-3 max-md:flex-col md:items-center">
+          <div class="flex gap-6 text-base font-medium max-md:mt-3 max-md:flex-col md:items-center">
             <a href="#">How to use</a>
             <a href="#">Careers</a>
             <a href="#">Blogs</a>
           </div>
         </div>
       </div>
-      <div class="text-ink-header *:hover:text-accent-header-focus *:active:text-accent-header-focus hidden grow basis-full items-center justify-end gap-4 overflow-hidden md:flex">
-        <span class="icon-[tabler--search] text-ink-header size-5 cursor-pointer"></span>
+      <div class="hidden grow basis-full items-center justify-end gap-4 overflow-hidden md:flex">
+        <span class="nav-icon icon-[tabler--search] size-5 cursor-pointer"></span>
         <a href="#" class="icon-[tabler--user] size-5" aria-label="Account"></a>
         <a
           href="#"
@@ -23,12 +23,12 @@
         ></a>
       </div>
     </div>
-    <div class="bg-canvas-header-border my-2.5 h-px w-full max-md:hidden"></div>
-    <div class="mx-auto w-full max-w-7xl px-4 py-3.25 sm:px-6 md:flex md:items-center md:gap-2 md:py-4 lg:px-8">
+    <div class="my-2.5 h-px w-full max-md:hidden"></div>
+    <div class="mx-auto w-full max-w-site px-4 py-3.25 sm:px-6 md:flex md:items-center md:gap-2 md:py-4 lg:px-8">
       <div class="flex items-center justify-between">
         <div class="flex w-1/2 items-center justify-between max-md:w-full max-md:gap-5">
           <a
-            class="text-ink-header flex items-center gap-3 text-xl font-bold"
+            class="flex items-center gap-3 text-xl font-bold"
             href="#"
           >
             <img
@@ -39,8 +39,8 @@
             FlyonUI
           </a>
           <div class="flex items-center gap-5 md:hidden">
-            <div class="text-ink-header *:hover:text-accent-header-focus *:active:text-accent-header-focus flex items-center gap-4">
-              <span class="icon-[tabler--search] text-ink-header size-5 cursor-pointer"></span>
+            <div class="flex items-center gap-4">
+              <span class="nav-icon icon-[tabler--search] size-5 cursor-pointer"></span>
               <a
                 href="#"
                 class="icon-[tabler--user] size-5"
@@ -54,18 +54,18 @@
             </div>
             <button
               type="button"
-              class="border-accent-header-border text-accent-header-text hover:border-accent-header-focus hover:bg-accent-header-canvas grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border transition-colors"
+              class="button grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border transition-colors"
               x-on:click="open = !open"
               x-bind:aria-expanded="open.toString()"
               aria-controls="navbar-block-2"
               aria-label="Toggle navigation"
             >
               <span
-                class="icon-[tabler--menu-2] size-5.5"
+                class="button-icon icon-[tabler--menu-2] size-5.5"
                 x-show="!open"
               ></span>
               <span
-                class="icon-[tabler--x] size-5.5"
+                class="button-icon icon-[tabler--x] size-5.5"
                 x-cloak
                 x-show="open"
               ></span>
@@ -78,13 +78,13 @@
         class="grow basis-full overflow-hidden max-md:w-full max-md:hidden md:flex md:items-center md:justify-end"
         x-bind:class="{ 'max-md:hidden': !open }"
       >
-        <div class="text-nav-header-sitenav-top *:hover:text-nav-header-sitenav-item *:active:text-nav-header-sitenav-item flex gap-6 text-base font-medium max-md:mt-4 max-md:flex-col sm:gap-5 md:items-center">
+        <div class="flex gap-6 text-base font-medium max-md:mt-4 max-md:flex-col sm:gap-5 md:items-center">
           <a href="#">Home</a>
-          <div class="bg-canvas-header-border my-0.75 w-px self-stretch max-md:hidden"></div>
+          <div class="my-0.75 w-px self-stretch max-md:hidden"></div>
           <a href="#">Products</a>
-          <div class="bg-canvas-header-border my-0.75 w-px self-stretch max-md:hidden"></div>
+          <div class="my-0.75 w-px self-stretch max-md:hidden"></div>
           <a href="#">About Us</a>
-          <div class="bg-canvas-header-border my-0.75 w-px self-stretch max-md:hidden"></div>
+          <div class="my-0.75 w-px self-stretch max-md:hidden"></div>
           <a href="#">Contacts</a>
           <a href="#" class="md:hidden">
             How to use

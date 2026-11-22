@@ -1,0 +1,78 @@
+<nav class="flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm">
+  <div class="mx-auto flex w-full max-w-site items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
+    <div>
+      <!-- Logo -->
+      <a
+        class="flex shrink-0 items-center gap-3 text-xl font-bold"
+        href="#"
+      >
+        <img
+          src="https://cdn.flyonui.com/fy-assets/logo/logo.png"
+          class="size-8"
+          alt="brand-logo"
+        />
+        <span class="max-[550px]:hidden">FlyonUI</span>
+      </a>
+    </div>
+
+    <!-- Search -->
+    <div class="flex w-full max-w-80 items-center rounded-full border px-4 py-2.5 max-md:hidden">
+      <span class="nav-icon icon-[tabler--search] my-auto me-3 size-5 shrink-0"></span>
+      <label class="sr-only" for="search">
+        Search here...
+      </label>
+      <input
+        type="text"
+        class="min-w-0 grow bg-transparent focus:outline-none"
+        placeholder="Search here..."
+        id="search"
+      />
+    </div>
+
+    <div class="flex items-center gap-4">
+      <div class="flex items-center">
+        <button
+          type="button"
+          class="button grid size-10 shrink-0 cursor-pointer place-items-center rounded-full transition-colors md:hidden"
+          aria-label="Search"
+        >
+          <span class="button-icon icon-[tabler--search] size-5.5"></span>
+        </button>
+        <button
+          type="button"
+          class="button grid size-10 shrink-0 cursor-pointer place-items-center rounded-full transition-colors"
+          aria-label="Calendar"
+        >
+          <span class="button-icon icon-[tabler--calendar] size-5.5"></span>
+        </button>
+        <button
+          type="button"
+          class="button grid size-10 shrink-0 cursor-pointer place-items-center rounded-full transition-colors"
+          aria-label="Notifications"
+        >
+          <div class="relative">
+            <span class="absolute -end-0.5 -top-0.5 size-1.5 rounded-full"></span>
+            <span class="button-icon icon-[tabler--bell] size-5.5"></span>
+          </div>
+        </button>
+        <button
+          type="button"
+          class="button grid size-10 shrink-0 cursor-pointer place-items-center rounded-full transition-colors"
+          aria-label="Messages"
+        >
+          <div class="relative">
+            <span class="absolute -end-0.5 -top-0.5 size-1.5 rounded-full"></span>
+            <span class="button-icon icon-[tabler--mail] size-5.5"></span>
+          </div>
+        </button>
+      </div>
+      <div class="size-9.5 shrink-0 overflow-hidden rounded-lg">
+        <img
+          src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png"
+          alt="avatar 1"
+          class="size-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</nav>

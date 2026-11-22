@@ -1,11 +1,11 @@
 <nav
   x-data="{ open: false }"
-  class="bg-canvas-header text-ink-header shadow-canvas-header-shadow/20 flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm"
+  class="flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm"
 >
   <div class="mx-auto w-full md:flex md:flex-col md:items-center">
-    <div class="w-full max-w-7xl px-4 py-3.25 sm:px-6 md:flex md:flex-col md:items-center md:gap-2 lg:px-8">
+    <div class="w-full max-w-site px-4 py-3.25 sm:px-6 md:flex md:flex-col md:items-center md:gap-2 lg:px-8">
       <div class="flex w-full items-center justify-between">
-        <div class="text-ink-header *:hover:text-accent-header-focus *:active:text-accent-header-focus flex w-1/2 items-center justify-start gap-4 max-md:hidden">
+        <div class="flex w-1/2 items-center justify-start gap-4 max-md:hidden">
           <a
             href="#"
             class="icon-[tabler--brand-github] size-5"
@@ -20,7 +20,7 @@
         </div>
         <div class="flex shrink-0 items-center max-md:order-1 max-md:w-1/2 max-md:justify-start">
           <a
-            class="text-ink-header flex items-center gap-3 text-xl font-bold"
+            class="flex items-center gap-3 text-xl font-bold"
             href="#"
           >
             <img
@@ -32,30 +32,30 @@
           </a>
         </div>
         <div class="flex w-1/2 items-center justify-end gap-4 max-md:order-3 max-md:w-max sm:gap-6">
-          <div class="border-canvas-header-border bg-canvas-header focus-within:border-accent-header-focus flex w-full max-w-56 items-center rounded-full border px-3 py-2 max-sm:hidden">
+          <div class="flex w-full max-w-56 items-center rounded-full border px-3 py-2 max-sm:hidden">
             <label class="sr-only" for="searchInput">
               Search
             </label>
             <input
               type="search"
-              class="text-ink-header placeholder:text-ink-header/60 min-w-0 grow bg-transparent focus:outline-none"
+              class="min-w-0 grow bg-transparent focus:outline-none"
               placeholder="Search here..."
               id="searchInput"
             />
-            <span class="icon-[tabler--search] text-ink-header/80 my-auto ms-1.5 size-5 shrink-0"></span>
+            <span class="nav-icon icon-[tabler--search] my-auto ms-1.5 size-5 shrink-0"></span>
           </div>
-          <span class="icon-[tabler--search] hover:text-accent-header-focus active:text-accent-header-focus text-ink-header size-5 cursor-pointer sm:hidden"></span>
+          <span class="nav-icon icon-[tabler--search] size-5 cursor-pointer sm:hidden"></span>
           <button
             type="button"
-            class="border-accent-header-border text-accent-header-text hover:border-accent-header-focus hover:bg-accent-header-canvas grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border transition-colors md:hidden"
+            class="button grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border transition-colors md:hidden"
             x-on:click="open = !open"
             x-bind:aria-expanded="open.toString()"
             aria-controls="navbar-block-3"
             aria-label="Toggle navigation"
           >
-            <span class="icon-[tabler--menu-2] size-5.5" x-show="!open"></span>
+            <span class="button-icon icon-[tabler--menu-2] size-5.5" x-show="!open"></span>
             <span
-              class="icon-[tabler--x] size-5.5"
+              class="button-icon icon-[tabler--x] size-5.5"
               x-cloak
               x-show="open"
             ></span>
@@ -63,50 +63,50 @@
         </div>
       </div>
     </div>
-    <div class="bg-canvas-header-border my-2.5 h-px w-full max-md:hidden"></div>
+    <div class="my-2.5 h-px w-full max-md:hidden"></div>
     <div
       id="navbar-block-3"
-      class="max-w-7xl grow basis-full overflow-hidden px-4 max-md:hidden sm:px-6 lg:px-8"
+      class="max-w-site grow basis-full overflow-hidden px-4 max-md:hidden sm:px-6 lg:px-8"
       x-bind:class="{ 'max-md:hidden': !open }"
     >
-      <div class="text-nav-header-sitenav-top flex gap-10 text-base font-medium max-md:mt-4 max-md:flex-col max-md:gap-6 md:items-center md:justify-center">
+      <div class="flex gap-10 text-base font-medium max-md:mt-4 max-md:flex-col max-md:gap-6 md:items-center md:justify-center">
         <a
           href="#"
-          class="hover:text-nav-header-sitenav-item active:text-nav-header-sitenav-item"
+         
         >
           Home
         </a>
         <a
           href="#"
-          class="hover:text-nav-header-sitenav-item active:text-nav-header-sitenav-item"
+         
         >
           Products
         </a>
         <a
           href="#"
-          class="hover:text-nav-header-sitenav-item active:text-nav-header-sitenav-item"
+         
         >
           About Us
         </a>
         <a
           href="#"
-          class="hover:text-nav-header-sitenav-item active:text-nav-header-sitenav-item"
+         
         >
           Pricing
         </a>
         <a
           href="#"
-          class="hover:text-nav-header-sitenav-item active:text-nav-header-sitenav-item"
+         
         >
           Blog
         </a>
         <a
           href="#"
-          class="hover:text-nav-header-sitenav-item active:text-nav-header-sitenav-item"
+         
         >
           Contact
         </a>
-        <div class="text-ink-header *:hover:text-accent-header-focus *:active:text-accent-header-focus flex items-center gap-4 md:hidden">
+        <div class="flex items-center gap-4 md:hidden">
           <a
             href="#"
             class="icon-[tabler--brand-github] size-5"

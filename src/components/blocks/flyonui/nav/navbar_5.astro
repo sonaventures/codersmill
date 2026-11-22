@@ -1,11 +1,11 @@
 <nav
   x-data="{ open: false }"
-  class="bg-canvas-header text-ink-header shadow-canvas-header-shadow/20 mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-2 px-4 py-2 shadow-sm sm:px-6 lg:px-8"
+  class="mx-auto flex w-full max-w-site flex-wrap items-center justify-between gap-2 px-4 py-2 shadow-sm sm:px-6 lg:px-8"
 >
   <div class="w-full max-md:my-4 md:flex md:h-16 md:items-center md:gap-2">
     <div class="flex w-1/2 items-center justify-between max-md:w-full">
       <a
-        class="text-ink-header flex items-center gap-3 text-xl font-bold"
+        class="flex items-center gap-3 text-xl font-bold"
         href="#"
       >
         <img
@@ -16,19 +16,19 @@
         FlyonUI
       </a>
       <div class="flex items-center gap-5 md:hidden">
-        <a href="#" class="btn btn-filled">
+        <a href="#" class="cta-anchor btn">
           Login
         </a>
         <button
           type="button"
-          class="border-accent-header-border text-accent-header-text hover:border-accent-header-focus hover:bg-accent-header-canvas grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border transition-colors"
+          class="button grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border transition-colors"
           x-on:click="open = !open"
           x-bind:aria-expanded="open.toString()"
           aria-controls="navbar-block-4"
           aria-label="Toggle navigation"
         >
-          <span class="icon-[tabler--menu-2] size-5.5" x-show="!open"></span>
-          <span class="icon-[tabler--x] size-5.5" x-cloak x-show="open"></span>
+          <span class="button-icon icon-[tabler--menu-2] size-5.5" x-show="!open"></span>
+          <span class="button-icon icon-[tabler--x] size-5.5" x-cloak x-show="open"></span>
         </button>
       </div>
     </div>
@@ -37,23 +37,23 @@
       class="grow overflow-hidden font-medium max-md:hidden md:flex md:shrink-0 md:items-center"
       x-bind:class="{ 'max-md:hidden': !open }"
     >
-      <div class="text-nav-header-sitenav-top flex gap-6 text-base max-md:mt-4 max-md:flex-col md:items-center">
-        <a href="#" class="hover:text-nav-header-sitenav-item">
+      <div class="flex gap-6 text-base max-md:mt-4 max-md:flex-col md:items-center">
+        <a href="#">
           Home
         </a>
-        <a href="#" class="hover:text-nav-header-sitenav-item">
+        <a href="#">
           Products
         </a>
-        <a href="#" class="hover:text-nav-header-sitenav-item">
+        <a href="#">
           About Us
         </a>
-        <a href="#" class="hover:text-nav-header-sitenav-item">
+        <a href="#">
           Contacts
         </a>
       </div>
     </div>
     <div class="flex w-1/2 items-center justify-end max-md:hidden">
-      <a href="#" class="btn btn-filled">
+      <a href="#" class="cta-anchor btn">
         Login
       </a>
     </div>
