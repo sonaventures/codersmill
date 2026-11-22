@@ -3609,4 +3609,22 @@
     border-color: var(--canvas-01-divider, var(--canvas-01-border));
   }
 }
+.sg-codersmill-hero h1 {
+  font-family: var(--font-roboto-mono);
+  font-size: 3rem;
+  font-weight: 700;
+}
+.sg-codersmill-hero h2 {
+  font-family: var(--font-roboto-condensed);
+  font-size: 1.875rem;
+  font-weight: 500;
+}
+.sg-codersmill-hero h3 {
+  font-family: var(--font-roboto);
+  font-size: 1.5rem;
+}
+.sg-codersmill-hero h4 {
+  font-family: var(--font-roboto);
+  font-size: 1.25rem;
+}
 /* end theme-group: codersmill */

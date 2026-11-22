@@ -9,7 +9,10 @@ import ThemeSampleSvgTypes from "../../components/website-builder/ThemeSampleSvg
 import ThemeSitewideBar from "../../components/website-builder/ThemeSitewideBar.astro";
 import { sitewideAreas } from "../../data/website-builder/sitewide";
 import css from "../../styles/themes/colors.css?raw";
-import { builtinPaletteFamilies, readPalette } from "../../data/website-builder/palette.js";
+import {
+  builtinPaletteFamilies,
+  readPalette,
+} from "../../data/website-builder/palette.js";
 import {
   typographyElements,
   typographyProperties,
@@ -407,8 +410,8 @@ const sampleMenu = [
           </div>
           <div id="sitewide-actions" hidden>
             <p class="control-hint">
-              The CTA colors, header, and footer are sitewide: not saved with
-              a theme group. Save them to{" "}
+              The CTA colors, header, and footer are sitewide: not saved with a
+              theme group. Save them to{" "}
               <code>src/styles/themes/sitewide.css</code>; they apply on every
               page and in Component Styling whatever theme group is used.
             </p>
@@ -699,8 +702,8 @@ const sampleMenu = [
         </div>
         <p class="control-hint" id="content-width-hint">
           Content width is the max-width of each component's content (the
-          max-w-site class). Set it for the whole site, then override it for
-          one area if needed.
+          max-w-site class). Set it for the whole site, then override it for one
+          area if needed.
         </p>
         <div class="palette-radius-toolbar">
           <div>
@@ -718,9 +721,7 @@ const sampleMenu = [
           <div>
             <label for="content-width-value">Content width</label>
             <select id="content-width-value">
-              <option value="">
-                Default
-              </option>
+              <option value="">Default</option>
               {contentWidthPresets.map(({ value, label }) => (
                 <option value={value}>
                   {label} / {value}
@@ -738,9 +739,9 @@ const sampleMenu = [
         hidden
       >
         <p class="control-hint" id="theme-typography-context">
-          Typography for the page, header, hero, each section, and footer,
-          saved with the theme group. Blank fields follow the site-wide defaults from the Typography
-          Builder.
+          Typography for the page, header, hero, each section, and footer, saved
+          with the theme group. Blank fields follow the site-wide defaults from
+          the Typography Builder.
         </p>
         <div class="palette-typography-toolbar">
           <div>
@@ -802,6 +803,22 @@ const sampleMenu = [
               Reset element
             </button>
           </div>
+        </div>
+        <div class="theme-typography-save">
+          <div class="theme-typography-save-actions">
+            <button
+              type="button"
+              class="control-button control-primary"
+              id="save-theme-typography"
+            >
+              Save group
+            </button>
+            <span class="sample-sitewide-state" id="theme-typography-state">
+              Saved
+            </span>
+          </div>
+          <p class="control-hint" id="theme-typography-save-hint"></p>
+          <p class="control-hint" id="theme-typography-status"></p>
         </div>
       </div>
     </details>

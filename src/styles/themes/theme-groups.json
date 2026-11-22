@@ -5998,7 +5998,28 @@
         "cta": "sm"
       },
       "sectionIds": {},
-      "typography": {},
+      "typography": {
+        "hero": {
+          "h1": {
+            "font-family": "var(--font-roboto-mono)",
+            "font-size": "3rem",
+            "font-weight": "700"
+          },
+          "h2": {
+            "font-family": "var(--font-roboto-condensed)",
+            "font-size": "1.875rem",
+            "font-weight": "500"
+          },
+          "h3": {
+            "font-family": "var(--font-roboto)",
+            "font-size": "1.5rem"
+          },
+          "h4": {
+            "font-family": "var(--font-roboto)",
+            "font-size": "1.25rem"
+          }
+        }
+      },
       "widths": {}
     }
   ]

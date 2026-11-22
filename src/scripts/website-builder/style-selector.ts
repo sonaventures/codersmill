@@ -155,8 +155,14 @@ if (root) {
   let selectedId = "";
   let dirty = false;
   let storageReady = true;
+  // The Typography tab repeats the status, since the panel's is out of
+  // sight while the tab is open.
+  const typographyStatus = root.querySelector<HTMLElement>(
+    "#theme-typography-status",
+  );
   const message = (text: string) => {
     status.textContent = text;
+    if (typographyStatus) typographyStatus.textContent = text;
   };
   const reportError = (text: string, error: unknown) => {
     console.error(text, error);
@@ -215,8 +221,11 @@ if (root) {
       setColor(colors, editingArea(), role, value);
     else areaColors(editingArea())[role] = value;
   };
+  // Set by the Typography tab, which shows whether its changes are saved.
+  let onGroupChange = () => {};
   const markDirty = () => {
     dirty = true;
+    onGroupChange();
     message("Unsaved changes. Save a theme group to keep these styles.");
   };
   let onSitewideChange = () => {};
@@ -777,6 +786,7 @@ if (root) {
     importButton.disabled = !storageReady;
     exportButton.disabled = !groups.length;
     publishButton.disabled = !selectedId;
+    onGroupChange();
   }
 
   function persist(next: ThemeGroup[], editedId = "") {
@@ -978,6 +988,56 @@ if (root) {
       area.dispatchEvent(new Event("change"));
     }
   });
+  // Saving from the Typography tab: an area's typography is saved with the
+  // theme group (Update group), the header and footer's to sitewide.css.
+  const typographySave = get<HTMLButtonElement>("#save-theme-typography");
+  const typographyState = get<HTMLElement>("#theme-typography-state");
+  const typographySaveHint = get<HTMLElement>("#theme-typography-save-hint");
+  function renderTypographySave() {
+    const region = typographyRegion();
+    const label =
+      regions.find(({ key }) => key === region)?.label ?? "this area";
+    const sitewideArea = isSitewideArea(region);
+    const unsaved = sitewideArea ? sitewideDirty : dirty;
+    typographyState.textContent = unsaved ? "Unsaved changes" : "Saved";
+    typographyState.dataset.state = unsaved ? "unsaved" : "saved";
+    if (sitewideArea) {
+      typographySave.textContent = "Save to sitewide.css";
+      typographySave.disabled = !sitewideReady;
+      typographySaveHint.textContent = `The ${label.toLowerCase()} is sitewide: its typography is saved to src/styles/themes/sitewide.css, with its colors and content width.`;
+      return;
+    }
+    const group = groups.find(({ id }) => id === selectedId);
+    typographySave.textContent = group
+      ? `Update "${group.name}"`
+      : "Save as a theme group";
+    typographySave.disabled = !storageReady;
+    typographySaveHint.textContent = group
+      ? `Saves the ${label} typography with "${group.name}", along with the group's colors, to this browser and the project (groups.css and theme-groups.json).`
+      : `${label} typography is saved with a theme group. Name the group in Theme groups, then save it here.`;
+  }
+  onGroupChange = renderTypographySave;
+  typographyArea.addEventListener("change", renderTypographySave);
+  typographySave.addEventListener("click", () => {
+    if (isSitewideArea(typographyRegion())) {
+      void saveSitewide();
+      return;
+    }
+    if (!name.value.trim()) {
+      const details = root.querySelector<HTMLDetailsElement>(
+        ".saved-groups-details",
+      );
+      if (details) details.open = true;
+      name.focus();
+      message(
+        "Name the theme group in Theme groups, then select Save as a theme group again.",
+      );
+      return;
+    }
+    form.requestSubmit();
+  });
+  renderTypographySave();
+
   get<HTMLButtonElement>("#reset-theme-typography-element").addEventListener(
     "click",
     () => {
@@ -1347,6 +1407,9 @@ if (root) {
     ...root.querySelectorAll<HTMLElement>("[data-sitewide-state]"),
   ];
   const renderSitewideSave = (saving = false) => {
+    renderTypographySave();
+    if (saving && isSitewideArea(typographyRegion()))
+      typographySave.disabled = true;
     for (const button of sitewideButtons)
       button.disabled = saving || !sitewideReady;
     for (const state of sitewideStates) {
