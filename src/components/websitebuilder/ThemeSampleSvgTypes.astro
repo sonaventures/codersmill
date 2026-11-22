@@ -1,0 +1,105 @@
+---
+// One clickable example of each SVG type (svg, nav-svg, button-svg,
+// anchor-svg) in the area it sits in. Click the example to edit its fill, or
+// a labelled chip to edit that color; hover and press the example to see the
+// hover / focus and active colors.
+import { svgStates, svgTypes } from "../../data/theme-groups";
+
+// A closed shape for each type, so both its fill and its stroke show.
+const shapes: Record<(typeof svgTypes)[number]["key"], string> = {
+  svgIcon:
+    "M12 20.5s-7.2-4.4-9.4-9A5.2 5.2 0 0 1 12 5.9a5.2 5.2 0 0 1 9.4 5.6c-2.2 4.6-9.4 9-9.4 9Z",
+  navSvg: "M5.5 9h13L12 16.5Z",
+  buttonSvg: "M3.5 9.5h9V5.5l8 6.5-8 6.5v-4h-9Z",
+  anchorSvg:
+    "m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9Z",
+};
+---
+
+<div class="sample-svg-types" role="group" aria-label="SVG types">
+  {
+    svgTypes.map((type) => {
+      const icon = (
+        <svg
+          class:list={[type.className, "sample-svg-type-icon"]}
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke-width="1.8"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d={shapes[type.key]} />
+        </svg>
+      );
+      const fill = `${type.key}Fill`;
+      return (
+        <div class="sample-svg-type" data-svg-type={type.key}>
+          <p class="sample-svg-type-label">
+            <strong>{type.label}</strong> <code>.{type.className}</code>
+            <span>{type.detail}</span>
+          </p>
+          <div class="sample-svg-type-example">
+            {type.key === "svgIcon" && (
+              <a
+                href="#selector-sample-page"
+                class="sample-svg-type-social"
+                aria-label="Sample social link"
+                data-sample-role={fill}
+              >
+                {icon}
+              </a>
+            )}
+            {type.key === "navSvg" && (
+              <a
+                href="#selector-sample-page"
+                class="sample-svg-type-nav"
+                data-sample-role={fill}
+              >
+                Menu item {icon}
+              </a>
+            )}
+            {type.key === "buttonSvg" && (
+              <button
+                type="button"
+                class="sample-svg-type-button"
+                data-sample-role={fill}
+              >
+                Button {icon}
+              </button>
+            )}
+            {type.key === "anchorSvg" && (
+              <a
+                href="#selector-sample-page"
+                class="sample-svg-type-anchor"
+                data-sample-role={fill}
+              >
+                Anchor link {icon}
+              </a>
+            )}
+          </div>
+          <ul class="sample-svg-type-roles">
+            {svgStates.map((state) => {
+              const role = `${type.key}${state.key}`;
+              return (
+                <li>
+                  <button
+                    type="button"
+                    class="sample-svg-type-role"
+                    data-sample-role={role}
+                  >
+                    <span
+                      class="sample-svg-type-swatch"
+                      style={`background: var(--sample-${role})`}
+                      aria-hidden="true"
+                    />
+                    {state.label}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      );
+    })
+  }
+</div>

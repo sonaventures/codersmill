@@ -1523,3 +1523,95 @@
     @apply min-h-0;
   }
 }
+
+/* SVG types: one clickable example of each, with labelled color chips. */
+.selector-shell .sample-svg-types {
+  @apply mt-6 grid gap-3 sm:grid-cols-2;
+}
+.selector-shell .sample-svg-type {
+  @apply rounded-[0.3rem] border border-dashed p-3;
+  border-color: color-mix(in srgb, currentColor 25%, transparent);
+}
+.selector-shell .sample-svg-type-label {
+  @apply m-0 mb-2 flex flex-wrap items-baseline gap-x-2 text-[0.75rem];
+}
+.selector-shell .sample-svg-type-label span {
+  @apply opacity-70;
+}
+.selector-shell .sample-svg-type-example {
+  @apply mb-2 flex items-center;
+}
+.selector-shell .sample-svg-type-example :is(a, button) {
+  @apply inline-flex cursor-pointer items-center gap-2 bg-transparent p-1 text-[0.8rem] font-semibold no-underline;
+  color: inherit;
+}
+.selector-shell .sample-svg-type-button {
+  @apply rounded-[0.3rem] border px-3 py-1.5;
+  border-color: currentColor;
+}
+.selector-shell .sample-svg-type-anchor {
+  @apply underline underline-offset-4;
+}
+.selector-shell .sample-svg-type-icon {
+  @apply size-6 shrink-0;
+}
+.selector-shell .sample-svg-type-roles {
+  @apply m-0 flex list-none flex-wrap gap-1 p-0;
+}
+.selector-shell .sample-svg-type-role {
+  @apply inline-flex cursor-pointer items-center gap-1 rounded-[0.3rem] border bg-transparent px-1.5 py-0.5 text-[0.65rem];
+  border-color: color-mix(in srgb, currentColor 25%, transparent);
+  color: inherit;
+}
+.selector-shell .sample-svg-type-swatch {
+  @apply inline-block size-3 rounded-full border;
+  border-color: color-mix(in srgb, currentColor 40%, transparent);
+}
+.selector-shell .sample-svg-types .svg {
+  fill: var(--sample-svgIconFill);
+  stroke: var(--sample-svgIconStroke);
+}
+.selector-shell .sample-svg-types :is(a, button):is(:hover, :focus-visible) .svg {
+  fill: var(--sample-svgIconFillHover);
+  stroke: var(--sample-svgIconStrokeHover);
+}
+.selector-shell .sample-svg-types :is(a, button):active .svg {
+  fill: var(--sample-svgIconFillActive);
+  stroke: var(--sample-svgIconStrokeActive);
+}
+.selector-shell .sample-svg-types .nav-svg {
+  fill: var(--sample-navSvgFill);
+  stroke: var(--sample-navSvgStroke);
+}
+.selector-shell .sample-svg-types :is(a, button):is(:hover, :focus-visible) .nav-svg {
+  fill: var(--sample-navSvgFillHover);
+  stroke: var(--sample-navSvgStrokeHover);
+}
+.selector-shell .sample-svg-types :is(a, button):active .nav-svg {
+  fill: var(--sample-navSvgFillActive);
+  stroke: var(--sample-navSvgStrokeActive);
+}
+.selector-shell .sample-svg-types .button-svg {
+  fill: var(--sample-buttonSvgFill);
+  stroke: var(--sample-buttonSvgStroke);
+}
+.selector-shell .sample-svg-types :is(a, button):is(:hover, :focus-visible) .button-svg {
+  fill: var(--sample-buttonSvgFillHover);
+  stroke: var(--sample-buttonSvgStrokeHover);
+}
+.selector-shell .sample-svg-types :is(a, button):active .button-svg {
+  fill: var(--sample-buttonSvgFillActive);
+  stroke: var(--sample-buttonSvgStrokeActive);
+}
+.selector-shell .sample-svg-types .anchor-svg {
+  fill: var(--sample-anchorSvgFill);
+  stroke: var(--sample-anchorSvgStroke);
+}
+.selector-shell .sample-svg-types :is(a, button):is(:hover, :focus-visible) .anchor-svg {
+  fill: var(--sample-anchorSvgFillHover);
+  stroke: var(--sample-anchorSvgStrokeHover);
+}
+.selector-shell .sample-svg-types :is(a, button):active .anchor-svg {
+  fill: var(--sample-anchorSvgFillActive);
+  stroke: var(--sample-anchorSvgStrokeActive);
+}

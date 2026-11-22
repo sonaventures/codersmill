@@ -3,6 +3,13 @@
    theme group or the header and footer can override it for one area. */
 @theme static {
   --container-site: 80rem;
+  /* Corner radii from the theme group (rounded-section, rounded-card, ...).
+     These match the Theme Builder defaults; group classes override them. */
+  --radius-section: 0px;
+  --radius-card: 0.75rem;
+  --radius-subsection: 0.75rem;
+  --radius-accent: 0.25rem;
+  --radius-cta: 0.25rem;
 }
 
 @custom-variant tablet (@media (max-width: 760px));

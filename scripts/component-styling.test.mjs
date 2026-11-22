@@ -141,3 +141,25 @@ test("expression classes and unsafe classes are refused", () => {
     "hover:bg-[#fff]",
   ]);
 });
+
+test("button and card presets carry the theme group's corner radius", () => {
+  const radius = (key) =>
+    stylePresets
+      .find((preset) => preset.key === key)
+      .classes.split(" ")
+      .find((name) => name.startsWith("rounded-"));
+  for (const key of ["cta-01", "cta-02", "cta-03"])
+    assert.equal(radius(key), "rounded-cta!");
+  for (const key of ["accent-01", "accent-01-secondary", "accent-01-learn-more"])
+    assert.equal(radius(key), "rounded-accent!");
+  for (const key of ["card-01", "card-02", "card-03"])
+    assert.equal(radius(key), "rounded-card!");
+  assert.ok(isThemeClass("rounded-cta!"));
+  assert.ok(isThemeClass("rounded-section"));
+  assert.ok(!isThemeClass("rounded-lg"));
+  // The element's own rounded class stays, so removing the preset restores it.
+  const cta = stylePresets.find(({ key }) => key === "cta-01").classes;
+  const styled = applyThemeClasses(component, { 3: cta });
+  assert.match(findStyleableElements(styled)[3].classValue, /\brounded-lg\b.*rounded-cta!/);
+  assert.equal(applyThemeClasses(styled, { 3: "" }), component);
+});

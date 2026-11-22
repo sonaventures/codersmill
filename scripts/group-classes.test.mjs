@@ -328,8 +328,18 @@ test("each area class maps its colors onto the elements inside it", () => {
         `@layer base \\{\\n  :where\\(\\.sg-coastal-calm-${area}\\) \\{[\\s\\S]*?\\n\\}`,
       ),
     )?.[0];
+  // The page keeps square corners; sections and the hero take the radius.
+  assert.match(
+    elementBlock("hero"),
+    /border-radius: var\(--radius-section\);/,
+  );
+  assert.equal(
+    elementBlock("page"),
+    elementBlock("hero")
+      .replaceAll("sg-coastal-calm-hero", "sg-coastal-calm-page")
+      .replace("    border-radius: var(--radius-section);\n", ""),
+  );
   for (const area of [
-    "page",
     "section-1",
     "section-2",
     "section-3",
@@ -355,4 +365,51 @@ test("an area's content width goes on its class; others use the sitewide width",
   assert.match(css, /\n\.sg-coastal-calm-hero \{\n  --container-site: 100%;\n\}/);
   assert.match(css, /\n\.sg-coastal-calm-section-2 \{\n  --container-site: 64rem;\n\}/);
   assert.equal(css.match(/--container-site/g).length, 2);
+});
+
+test("the group's corner radii are variables on every one of its classes", () => {
+  const saved = group();
+  saved.radii = { section: "lg", card: "none", subsection: "2xl", accent: "full", cta: "md" };
+  const css = generateGroupCss(saved);
+  const block = css.match(/\.sg-coastal-calm-page,\n[\s\S]*?\{\n[\s\S]*?\n\}/)?.[0];
+  assert.ok(block, "radius rule");
+  for (const suffix of ["page", "hero", "section-1", "section-6"])
+    assert.match(block, new RegExp(`\\.sg-coastal-calm-${suffix}[,\\s]`));
+  assert.match(block, /--radius-section: 0\.5rem;/);
+  assert.match(block, /--radius-card: 0px;/);
+  assert.match(block, /--radius-subsection: 1rem;/);
+  assert.match(block, /--radius-accent: 9999px;/);
+  assert.match(block, /--radius-cta: 0\.375rem;/);
+  // The page builder still lists the classes in area order.
+  assert.deepEqual(
+    parseGroupClasses(upsertGroupCss("", saved)).map(({ area }) => area),
+    ["page", "hero", "section-1", "section-2", "section-3", "section-4", "section-5", "section-6"],
+  );
+});
+
+test("SVG type colors become rules for their marker classes, only once chosen", () => {
+  const saved = group();
+  saved.themes.light.hero.navSvgFill = "var(--color-sky-500)";
+  saved.themes.light.hero.navSvgStrokeHover = "var(--color-sky-700)";
+  saved.themes.dark.section2.buttonSvgFillActive = "#123456";
+  const css = generateGroupCss(saved);
+  const light = ':root:not\\(\\[data-theme="dark"\\]\\)';
+  assert.match(
+    css,
+    new RegExp(`${light} :where\\(\\.sg-coastal-calm-hero\\) \\.nav-svg \\{\\n    fill: var\\(--ink-hero-nav-svg-fill\\);`),
+  );
+  assert.match(
+    css,
+    new RegExp(`${light} :where\\(\\.sg-coastal-calm-hero\\) :is\\(a, button, summary\\):is\\(:hover, :focus-visible\\) \\.nav-svg \\{\\n    stroke: var\\(--ink-hero-nav-svg-stroke-hover\\);`),
+  );
+  assert.match(
+    css,
+    /:root\[data-theme="dark"\] :where\(\.sg-coastal-calm-section-2\) :is\(a, button, summary\):active \.button-svg \{\n {4}fill: var\(--ink-02-button-svg-fill-active\);/,
+  );
+  // The colors themselves are set on the class like every other color.
+  assert.match(css, /--ink-hero-nav-svg-fill: var\(--color-sky-500\);/);
+  assert.match(css, /--ink-01-nav-svg-fill: var\(--color-sky-500\);/);
+  // Nothing else gets an SVG type rule, so other SVGs keep their own colors.
+  assert.equal(css.match(/\n {4}(?:fill|stroke): var\(--ink-/g).length, 3);
+  assert.doesNotMatch(generateGroupCss(group()), /\.(?:nav-|button-|anchor-)?svg \{/);
 });

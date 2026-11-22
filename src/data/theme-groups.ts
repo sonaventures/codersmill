@@ -343,6 +343,71 @@ export const svgFillRoles = [
   { key: "svgFill3", number: "03", label: "SVG fill 03", group: "svg" },
 ] as const;
 
+/**
+ * SVG types: the marker class a component puts on an SVG (class="nav-svg")
+ * and the colors it takes in each state. Hover covers focus too, and the
+ * states fall back in order (active to hover to the base color). Left on
+ * "Theme default", an SVG keeps its own fill and stroke attributes.
+ */
+export const svgTypes = [
+  { key: "svgIcon", className: "svg", label: "SVG", detail: "Icons such as social links" },
+  { key: "navSvg", className: "nav-svg", label: "Nav SVG", detail: "Icons in menus" },
+  { key: "buttonSvg", className: "button-svg", label: "Button SVG", detail: "Icons in buttons" },
+  { key: "anchorSvg", className: "anchor-svg", label: "Anchor SVG", detail: "Icons in links" },
+] as const;
+export const svgStates = [
+  { key: "Fill", token: "fill", property: "fill", state: "base", label: "fill" },
+  { key: "Stroke", token: "stroke", property: "stroke", state: "base", label: "stroke" },
+  { key: "FillHover", token: "fill-hover", property: "fill", state: "hover", label: "fill hover / focus" },
+  { key: "FillActive", token: "fill-active", property: "fill", state: "active", label: "fill active" },
+  { key: "StrokeHover", token: "stroke-hover", property: "stroke", state: "hover", label: "stroke hover / focus" },
+  { key: "StrokeActive", token: "stroke-active", property: "stroke", state: "active", label: "stroke active" },
+] as const;
+export type SvgType = (typeof svgTypes)[number];
+export type SvgState = (typeof svgStates)[number];
+
+export const svgTypeColorRoles = [
+  { key: "svgIconFill", label: "SVG fill", group: "svgIcon" },
+  { key: "svgIconStroke", label: "SVG stroke", group: "svgIcon" },
+  { key: "svgIconFillHover", label: "SVG fill hover / focus", group: "svgIcon" },
+  { key: "svgIconFillActive", label: "SVG fill active", group: "svgIcon" },
+  { key: "svgIconStrokeHover", label: "SVG stroke hover / focus", group: "svgIcon" },
+  { key: "svgIconStrokeActive", label: "SVG stroke active", group: "svgIcon" },
+  { key: "navSvgFill", label: "Nav SVG fill", group: "navSvg" },
+  { key: "navSvgStroke", label: "Nav SVG stroke", group: "navSvg" },
+  { key: "navSvgFillHover", label: "Nav SVG fill hover / focus", group: "navSvg" },
+  { key: "navSvgFillActive", label: "Nav SVG fill active", group: "navSvg" },
+  { key: "navSvgStrokeHover", label: "Nav SVG stroke hover / focus", group: "navSvg" },
+  { key: "navSvgStrokeActive", label: "Nav SVG stroke active", group: "navSvg" },
+  { key: "buttonSvgFill", label: "Button SVG fill", group: "buttonSvg" },
+  { key: "buttonSvgStroke", label: "Button SVG stroke", group: "buttonSvg" },
+  { key: "buttonSvgFillHover", label: "Button SVG fill hover / focus", group: "buttonSvg" },
+  { key: "buttonSvgFillActive", label: "Button SVG fill active", group: "buttonSvg" },
+  { key: "buttonSvgStrokeHover", label: "Button SVG stroke hover / focus", group: "buttonSvg" },
+  { key: "buttonSvgStrokeActive", label: "Button SVG stroke active", group: "buttonSvg" },
+  { key: "anchorSvgFill", label: "Anchor SVG fill", group: "anchorSvg" },
+  { key: "anchorSvgStroke", label: "Anchor SVG stroke", group: "anchorSvg" },
+  { key: "anchorSvgFillHover", label: "Anchor SVG fill hover / focus", group: "anchorSvg" },
+  { key: "anchorSvgFillActive", label: "Anchor SVG fill active", group: "anchorSvg" },
+  { key: "anchorSvgStrokeHover", label: "Anchor SVG stroke hover / focus", group: "anchorSvg" },
+  { key: "anchorSvgStrokeActive", label: "Anchor SVG stroke active", group: "anchorSvg" },
+] as const;
+
+/** The SVG type and state of an SVG type color role, or null. */
+export function svgTypeRole(
+  role: string,
+): { type: SvgType; state: SvgState } | null {
+  for (const type of svgTypes)
+    for (const state of svgStates)
+      if (role === `${type.key}${state.key}`) return { type, state };
+  return null;
+}
+
+/** The variable name part for an SVG type color, e.g. "nav-svg-fill-hover". */
+export function svgTypeToken(type: SvgType, state: SvgState): string {
+  return `${type.className}-${state.token}`;
+}
+
 /** Text selection is written as a ::selection rule, not a variable. */
 export const selectionColorRoles = [
   "selectionBackground",
@@ -460,6 +525,7 @@ export const regionColorRoles = [
   ...contentColorRoles,
   ...interactiveColorRoles,
   ...svgFillRoles,
+  ...svgTypeColorRoles,
 ] as const;
 
 const recentRegionColorRoles = [
@@ -479,6 +545,8 @@ const version13ColorRoles = ["contrastText"] as const;
 const version21ColorRoles = ["primaryHover", "learnMoreHover"] as const;
 // Added in version 22; until set they use the text color.
 const version22ColorRoles = svgFillRoles.map(({ key }) => key);
+// Added in version 27; until set an SVG keeps its own colors.
+const version27ColorRoles = svgTypeColorRoles.map(({ key }) => key);
 // Added in version 20; until set it matches the shared button border.
 const version20ColorRoles = ["secondaryBorder"] as const;
 // Added in version 19; until set it matches Card 03's background.
@@ -534,6 +602,10 @@ export const roleGroups = [
   { key: "content", label: "Quotes, dividers, lists & selection" },
   { key: "interactive", label: "Buttons, links & icons" },
   { key: "svg", label: "SVG fills" },
+  { key: "svgIcon", label: "SVG / .svg" },
+  { key: "navSvg", label: "Nav SVG / .nav-svg" },
+  { key: "buttonSvg", label: "Button SVG / .button-svg" },
+  { key: "anchorSvg", label: "Anchor SVG / .anchor-svg" },
 ] as const;
 
 export const paletteFamilies: { key: string; label: string }[] =
@@ -616,6 +688,7 @@ export const radiusPresets = [
   { key: "xl", label: "XL", size: "0.75rem" },
   { key: "2xl", label: "2XL", size: "1rem" },
   { key: "3xl", label: "3XL", size: "1.5rem" },
+  { key: "full", label: "Full", size: "9999px" },
 ] as const;
 
 type RadiusPreset = (typeof radiusPresets)[number]["key"];
@@ -737,6 +810,7 @@ export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
     role === "muted" ||
     role === "highlight" ||
     formattingColorRoles.some(({ key }) => key === role) ||
+    svgTypeRole(role) ||
     role in detailTokens
   ) {
     return (
@@ -775,6 +849,14 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
   // Every area, including the header and footer, has its own SVG fills.
   const svg = svgFillRoles.find(({ key }) => key === role);
   if (svg) return `ink-${suffix}-svg-${svg.number}`;
+  // SVG types are for the page, hero and sections, like the form colors.
+  const svgType = svgTypeRole(role);
+  if (svgType)
+    return region === "page" ||
+      region === "hero" ||
+      region.startsWith("section")
+      ? `ink-${suffix}-${svgTypeToken(svgType.type, svgType.state)}`
+      : null;
   const card = cardCanvasRoles.find(({ key }) => key === role);
   if (card && (region === "page" || region.startsWith("section"))) {
     return `canvas-${suffix}-card-${card.card}${card.part === "background" ? "" : `-${card.part}`}`;
@@ -861,6 +943,23 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
   }
   if (role in detailDefaults) {
     const fallback = detailDefaults[role as keyof typeof detailDefaults];
+    return token ? `var(--${token},${fallback})` : fallback;
+  }
+  // SVG types: active falls back to hover, hover to the base color, and the
+  // base colors to the text color (currentColor), as in colors.css.
+  const svgType = svgTypeRole(role);
+  if (svgType) {
+    const previous = { base: null, hover: "", active: "Hover" }[
+      svgType.state.state
+    ];
+    const property = svgType.state.property === "fill" ? "Fill" : "Stroke";
+    const fallback =
+      previous === null
+        ? "currentColor"
+        : defaultColorReference(
+            region,
+            `${svgType.type.key}${property}${previous}` as ColorRole,
+          );
     return token ? `var(--${token},${fallback})` : fallback;
   }
   if (token) return `var(--${token})`;
@@ -970,12 +1069,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 23 &&
       data.version !== 24 &&
       data.version !== 25 &&
-      data.version !== 26) ||
+      data.version !== 26 &&
+      data.version !== 27) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 26 theme group file with up to 100 groups.",
+      "Expected a version 1 through 27 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1058,7 +1158,9 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             (data.version < 21 &&
               version21ColorRoles.some((key) => key === role)) ||
             (data.version < 22 &&
-              version22ColorRoles.some((key) => key === role))
+              version22ColorRoles.some((key) => key === role)) ||
+            (data.version < 27 &&
+              version27ColorRoles.some((key) => key === role))
           ) {
             regionColors[role] = "theme";
             continue;
@@ -1197,7 +1299,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 26, groups }, null, 2);
+  return JSON.stringify({ version: 27, groups }, null, 2);
 }
 
 /**

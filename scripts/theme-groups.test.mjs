@@ -91,7 +91,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 26);
+  assert.equal(JSON.parse(json).version, 27);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -119,7 +119,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":27,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":28,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -180,7 +180,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 26);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 27);
 });
 
 test("brand assignments are page-wide and round-trip independently by theme", () => {
@@ -794,7 +794,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 26);
+  assert.equal(JSON.parse(first).version, 27);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -974,4 +974,29 @@ test("accent and CTA corner radii round-trip, and older groups get the defaults"
   const missing = JSON.parse(serializeThemeGroups([group()]));
   delete missing.groups[0].radii.cta;
   assert.throws(() => parseThemeGroups(JSON.stringify(missing)), /cta corner radius/);
+});
+
+test("SVG types have six colors each for the page, hero and sections only", async () => {
+  const { svgTypeColorRoles, semanticToken, defaultColorReference, isColorRoleVisible } =
+    await import("../src/data/theme-groups.ts");
+  assert.equal(svgTypeColorRoles.length, 24);
+  assert.equal(semanticToken("hero", "navSvgFillHover"), "ink-hero-nav-svg-fill-hover");
+  assert.equal(semanticToken("section1", "svgIconStroke"), "ink-01-svg-stroke");
+  assert.equal(semanticToken("page", "anchorSvgStrokeActive"), "ink-page-anchor-svg-stroke-active");
+  assert.equal(semanticToken("header", "navSvgFill"), null);
+  assert.ok(!isColorRoleVisible("footer", "buttonSvgFill"));
+  assert.ok(isColorRoleVisible("section4", "buttonSvgFill"));
+  // Active falls back to hover, hover to the base color, the base to the text.
+  assert.equal(
+    defaultColorReference("hero", "buttonSvgFillActive"),
+    "var(--ink-hero-button-svg-fill-active,var(--ink-hero-button-svg-fill-hover,var(--ink-hero-button-svg-fill,currentColor)))",
+  );
+  // Groups saved before version 27 get theme defaults for them.
+  const older = JSON.parse(serializeThemeGroups([group()]));
+  older.version = 26;
+  for (const theme of ["light", "dark"])
+    for (const colors of Object.values(older.groups[0].themes[theme]))
+      for (const { key } of svgTypeColorRoles) delete colors[key];
+  const [restored] = parseThemeGroups(JSON.stringify(older));
+  assert.equal(restored.themes.light.hero.navSvgFill, "theme");
 });

@@ -743,6 +743,20 @@
   --ink-01-svg-02: var(--ink-06-svg-02, var(--canvas-01));
   --ink-01-svg-03: var(--ink-06-svg-03, currentColor);
 }
+.sg-fp-page,
+.sg-fp-hero,
+.sg-fp-section-1,
+.sg-fp-section-2,
+.sg-fp-section-3,
+.sg-fp-section-4,
+.sg-fp-section-5,
+.sg-fp-section-6 {
+  --radius-section: 0px;
+  --radius-card: 0.75rem;
+  --radius-subsection: 0.75rem;
+  --radius-accent: 9999px;
+  --radius-cta: 0.5rem;
+}
 @layer base {
   :where(.sg-fp-page) {
     background-color: var(--canvas-01);
@@ -813,6 +827,7 @@
     background-color: var(--canvas-01);
     border-color: var(--canvas-01-border);
     --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+    border-radius: var(--radius-section);
   }
   :where(.sg-fp-hero) p {
     color: var(--ink-01);
@@ -878,6 +893,7 @@
     background-color: var(--canvas-01);
     border-color: var(--canvas-01-border);
     --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+    border-radius: var(--radius-section);
   }
   :where(.sg-fp-section-1) p {
     color: var(--ink-01);
@@ -943,6 +959,7 @@
     background-color: var(--canvas-01);
     border-color: var(--canvas-01-border);
     --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+    border-radius: var(--radius-section);
   }
   :where(.sg-fp-section-2) p {
     color: var(--ink-01);
@@ -1008,6 +1025,7 @@
     background-color: var(--canvas-01);
     border-color: var(--canvas-01-border);
     --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+    border-radius: var(--radius-section);
   }
   :where(.sg-fp-section-3) p {
     color: var(--ink-01);
@@ -1073,6 +1091,7 @@
     background-color: var(--canvas-01);
     border-color: var(--canvas-01-border);
     --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+    border-radius: var(--radius-section);
   }
   :where(.sg-fp-section-4) p {
     color: var(--ink-01);
@@ -1138,6 +1157,7 @@
     background-color: var(--canvas-01);
     border-color: var(--canvas-01-border);
     --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+    border-radius: var(--radius-section);
   }
   :where(.sg-fp-section-5) p {
     color: var(--ink-01);
@@ -1203,6 +1223,7 @@
     background-color: var(--canvas-01);
     border-color: var(--canvas-01-border);
     --tw-shadow-color: color-mix(in srgb, var(--canvas-01-shadow) 10%, transparent);
+    border-radius: var(--radius-section);
   }
   :where(.sg-fp-section-6) p {
     color: var(--ink-01);

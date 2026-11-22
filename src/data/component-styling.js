@@ -63,42 +63,42 @@ export const stylePresets = [
     label: "CTA 01 button (sitewide)",
     group: "actions",
     classes:
-      "bg-cta-01 text-cta-01-text inset-ring inset-ring-cta-01-border hover:bg-cta-01-hover hover:text-cta-01-hover-text focus-visible:bg-cta-01-hover focus-visible:text-cta-01-hover-text",
+      "rounded-cta! bg-cta-01 text-cta-01-text inset-ring inset-ring-cta-01-border hover:bg-cta-01-hover hover:text-cta-01-hover-text focus-visible:bg-cta-01-hover focus-visible:text-cta-01-hover-text",
   },
   {
     key: "cta-02",
     label: "CTA 02 button (sitewide)",
     group: "actions",
     classes:
-      "bg-cta-02 text-cta-02-text inset-ring inset-ring-cta-02-border hover:bg-cta-02-hover hover:text-cta-02-hover-text focus-visible:bg-cta-02-hover focus-visible:text-cta-02-hover-text",
+      "rounded-cta! bg-cta-02 text-cta-02-text inset-ring inset-ring-cta-02-border hover:bg-cta-02-hover hover:text-cta-02-hover-text focus-visible:bg-cta-02-hover focus-visible:text-cta-02-hover-text",
   },
   {
     key: "cta-03",
     label: "CTA 03 button (sitewide)",
     group: "actions",
     classes:
-      "bg-cta-03 text-cta-03-text inset-ring inset-ring-cta-03-border hover:bg-cta-03-hover hover:text-cta-03-hover-text focus-visible:bg-cta-03-hover focus-visible:text-cta-03-hover-text",
+      "rounded-cta! bg-cta-03 text-cta-03-text inset-ring inset-ring-cta-03-border hover:bg-cta-03-hover hover:text-cta-03-hover-text focus-visible:bg-cta-03-hover focus-visible:text-cta-03-hover-text",
   },
   {
     key: "accent-01",
     label: "Accent 1 button",
     group: "actions",
     classes:
-      "bg-accent-01-canvas text-accent-01-text inset-ring inset-ring-accent-01-border hover:bg-accent-01-primary-hover focus-visible:bg-accent-01-primary-hover focus-visible:outline-accent-01-focus",
+      "rounded-accent! bg-accent-01-canvas text-accent-01-text inset-ring inset-ring-accent-01-border hover:bg-accent-01-primary-hover focus-visible:bg-accent-01-primary-hover focus-visible:outline-accent-01-focus",
   },
   {
     key: "accent-01-secondary",
     label: "Accent 2 button",
     group: "actions",
     classes:
-      "bg-accent-01-secondary text-accent-01-secondary-text inset-ring inset-ring-accent-01-secondary-border shadow-accent-01-secondary-shadow/20 hover:bg-accent-01-secondary-hover hover:text-accent-01-secondary-hover-text focus-visible:bg-accent-01-secondary-hover focus-visible:text-accent-01-secondary-hover-text",
+      "rounded-accent! bg-accent-01-secondary text-accent-01-secondary-text inset-ring inset-ring-accent-01-secondary-border shadow-accent-01-secondary-shadow/20 hover:bg-accent-01-secondary-hover hover:text-accent-01-secondary-hover-text focus-visible:bg-accent-01-secondary-hover focus-visible:text-accent-01-secondary-hover-text",
   },
   {
     key: "accent-01-learn-more",
     label: "Accent 3 link",
     group: "actions",
     classes:
-      "text-accent-01-focus inset-ring inset-ring-accent-01-border hover:bg-accent-01-learn-more-hover focus-visible:bg-accent-01-learn-more-hover",
+      "rounded-accent! text-accent-01-focus inset-ring inset-ring-accent-01-border hover:bg-accent-01-learn-more-hover focus-visible:bg-accent-01-learn-more-hover",
   },
   {
     key: "link",
@@ -198,21 +198,21 @@ export const stylePresets = [
     label: "Card 01",
     group: "surfaces",
     classes:
-      "bg-canvas-01-card-01 border-canvas-01-card-01-border shadow-canvas-01-card-01-shadow/20",
+      "rounded-card! bg-canvas-01-card-01 border-canvas-01-card-01-border shadow-canvas-01-card-01-shadow/20",
   },
   {
     key: "card-02",
     label: "Card 02",
     group: "surfaces",
     classes:
-      "bg-canvas-01-card-02 border-canvas-01-card-02-border shadow-canvas-01-card-02-shadow/20",
+      "rounded-card! bg-canvas-01-card-02 border-canvas-01-card-02-border shadow-canvas-01-card-02-shadow/20",
   },
   {
     key: "card-03",
     label: "Card 03",
     group: "surfaces",
     classes:
-      "bg-canvas-01-card-03 border-canvas-01-card-03-border shadow-canvas-01-card-03-shadow/20",
+      "rounded-card! bg-canvas-01-card-03 border-canvas-01-card-03-border shadow-canvas-01-card-03-shadow/20",
   },
   {
     key: "accent-canvas",
@@ -253,6 +253,10 @@ const colorFamily = "(?:canvas|ink|accent|cta|brand|nav|contrast)";
 const themeColorPattern = new RegExp(
   `^-?${colorPrefix}-${colorFamily}(?:-[a-z0-9.]+)*(?:\\/(?:\\d+|\\[[^\\]]+\\]))?$`,
 );
+// Corner radii from the theme group. Presets add them with "!" so they win
+// over any rounded-* class the element already has, which is kept.
+const themeRadiusPattern =
+  /^rounded-(?:section|card|subsection|accent|cta)!?$/;
 // Theme builder SVG fills are set on SVGs, not here, so they are left alone.
 const svgFillPattern = /^(?:fill|stroke)-ink-[a-z0-9]+-svg-0[1-3]$/;
 
@@ -266,6 +270,7 @@ export function isThemeClass(className) {
   if (svgFillPattern.test(base)) return false;
   return (
     themeColorPattern.test(base) ||
+    themeRadiusPattern.test(base) ||
     base === "inset-ring" ||
     base === "btn-filled" ||
     base === "btn-outline"

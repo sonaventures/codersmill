@@ -1,8 +1,12 @@
 import {
   globalColorRoles,
+  radiusPresets,
+  radiusTargets,
   regionColorRoles,
   selectionColorRoles,
   semanticToken,
+  svgStates,
+  svgTypes,
   svgFillRoles,
   type Region,
   type StyleColors,
@@ -221,8 +225,14 @@ export const areaElementMappings = [
  * The element rules for one area class, in the base layer and wrapped in
  * :where() so any color utility on a component's element still wins.
  */
-export function areaElementCss(className: string): string {
-  const rules = areaElementMappings.map(({ selector, declarations }) => {
+export function areaElementCss(className: string, region: Region): string {
+  const rules = areaElementMappings.map(({ selector, declarations: mapped }) => {
+    // Sections and the hero take the section corner radius; the page class
+    // wraps a whole page, so it keeps square corners.
+    const declarations: Record<string, string> =
+      !selector && region !== "page"
+        ? { ...mapped, "border-radius": "var(--radius-section)" }
+        : mapped;
     const target = selector
       ? selector
           .split(/,\s*(?![^()]*\))/)
@@ -235,6 +245,61 @@ export function areaElementCss(className: string): string {
     return `${target} {\n${lines.join("\n")}\n  }`;
   });
   return `@layer base {\n${rules.join("\n")}\n}`;
+}
+
+/**
+ * The group's corner radii as variables on every one of its classes, so
+ * rounded-section, rounded-card, rounded-subsection, rounded-accent and
+ * rounded-cta follow whichever group class an element sits in.
+ */
+export function radiusCss(slug: string, group: ThemeGroup): string {
+  const selector = classGroupAreas
+    .map(({ suffix }) => `.sg-${slug}-${suffix}`)
+    .join(",\n");
+  const lines = radiusTargets.map(({ key }) => {
+    const preset = radiusPresets.find(
+      (preset) => preset.key === group.radii[key],
+    );
+    if (!preset) throw new Error(`Unknown corner radius preset for ${key}.`);
+    return `  --radius-${key}: ${preset.size};`;
+  });
+  return `${selector} {\n${lines.join("\n")}\n}`;
+}
+
+// Where each SVG type state applies: hover and focus, then active, of the
+// link, button or menu item the SVG sits in.
+const svgStateSelectors = {
+  base: (svg: string) => [svg],
+  hover: (svg: string) => [
+    `:is(a, button, summary):is(:hover, :focus-visible) ${svg}`,
+  ],
+  active: (svg: string) => [`:is(a, button, summary):active ${svg}`],
+} as const;
+
+/**
+ * Rules for the SVG type classes (svg, nav-svg, button-svg, anchor-svg) in
+ * one area and theme. Only chosen colors get a rule, so an SVG left on
+ * "Theme default" keeps its own fill and stroke attributes.
+ */
+export function svgTypeCss(
+  themeSelector: string,
+  className: string,
+  colors: StyleColors,
+  region: Region,
+): string[] {
+  const rules: string[] = [];
+  for (const type of svgTypes)
+    for (const state of svgStates) {
+      const role = `${type.key}${state.key}` as keyof StyleColors[Region];
+      if (colors[region][role] === "theme") continue;
+      const token = semanticToken(region, role);
+      if (!token) continue;
+      const selectors = svgStateSelectors[state.state](`.${type.className}`)
+        .map((selector) => `  ${themeSelector} :where(.${className}) ${selector}`)
+        .join(",\n");
+      rules.push(`${selectors} {\n    ${state.property}: var(--${token});\n  }`);
+    }
+  return rules;
 }
 
 const themeSelectors: Record<Theme, string> = {
@@ -251,7 +316,12 @@ export function generateGroupCss(group: ThemeGroup): string {
   const elementRules: string[] = [];
   for (const { region, suffix } of classGroupAreas) {
     const className = `sg-${slug}-${suffix}`;
-    elementRules.push(areaElementCss(className));
+    elementRules.push(areaElementCss(className, region));
+    const svgRules = (["light", "dark"] as const).flatMap((theme) =>
+      svgTypeCss(themeSelectors[theme], className, group.themes[theme], region),
+    );
+    if (svgRules.length)
+      elementRules.push(`@layer base {\n${svgRules.join("\n")}\n}`);
     // The area's content width (max-w-site), the same in both themes.
     // Areas without one inherit the sitewide width or an outer area's.
     const width = group.widths?.[region];
@@ -294,6 +364,8 @@ export function generateGroupCss(group: ThemeGroup): string {
   return [
     `/* theme-group: ${slug} (${label}) */`,
     ...rules,
+    // After the area rules, so the page builder lists classes in area order.
+    radiusCss(slug, group),
     ...elementRules,
     ...typographyRules,
     `/* end theme-group: ${slug} */`,

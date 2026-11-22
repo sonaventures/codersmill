@@ -1,5 +1,5 @@
 {
-  "version": 24,
+  "version": 26,
   "groups": [
     {
       "id": "b78efc38-5371-43e2-b8f7-397565c53053",
@@ -1553,10 +1553,13 @@
       "radii": {
         "section": "none",
         "card": "xl",
-        "subsection": "xl"
+        "subsection": "xl",
+        "accent": "full",
+        "cta": "lg"
       },
       "sectionIds": {},
-      "typography": {}
+      "typography": {},
+      "widths": {}
     }
   ]
 }

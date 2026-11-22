@@ -586,6 +586,41 @@
   --color-ink-footer-svg-01: var(--ink-footer-svg-01, currentColor);
   --color-ink-footer-svg-02: var(--ink-footer-svg-02, var(--canvas-footer));
   --color-ink-footer-svg-03: var(--ink-footer-svg-03, currentColor);
+
+  /* SVG types: the colors for SVGs with the svg, nav-svg, button-svg or
+   * anchor-svg class, e.g. fill-ink-01-nav-svg-fill or
+   * group-hover:stroke-ink-01-button-svg-stroke-hover. Theme group classes
+   * remap these 01 variables for each area. Hover covers focus too; active
+   * falls back to hover, hover to the base color, and the base colors to
+   * the text color. */
+  /* SVG: icons such as social links */
+  --color-ink-01-svg-fill: var(--ink-01-svg-fill, currentColor);
+  --color-ink-01-svg-fill-hover: var(--ink-01-svg-fill-hover, var(--ink-01-svg-fill, currentColor));
+  --color-ink-01-svg-fill-active: var(--ink-01-svg-fill-active, var(--ink-01-svg-fill-hover, var(--ink-01-svg-fill, currentColor)));
+  --color-ink-01-svg-stroke: var(--ink-01-svg-stroke, currentColor);
+  --color-ink-01-svg-stroke-hover: var(--ink-01-svg-stroke-hover, var(--ink-01-svg-stroke, currentColor));
+  --color-ink-01-svg-stroke-active: var(--ink-01-svg-stroke-active, var(--ink-01-svg-stroke-hover, var(--ink-01-svg-stroke, currentColor)));
+  /* Nav SVG: icons in menus */
+  --color-ink-01-nav-svg-fill: var(--ink-01-nav-svg-fill, currentColor);
+  --color-ink-01-nav-svg-fill-hover: var(--ink-01-nav-svg-fill-hover, var(--ink-01-nav-svg-fill, currentColor));
+  --color-ink-01-nav-svg-fill-active: var(--ink-01-nav-svg-fill-active, var(--ink-01-nav-svg-fill-hover, var(--ink-01-nav-svg-fill, currentColor)));
+  --color-ink-01-nav-svg-stroke: var(--ink-01-nav-svg-stroke, currentColor);
+  --color-ink-01-nav-svg-stroke-hover: var(--ink-01-nav-svg-stroke-hover, var(--ink-01-nav-svg-stroke, currentColor));
+  --color-ink-01-nav-svg-stroke-active: var(--ink-01-nav-svg-stroke-active, var(--ink-01-nav-svg-stroke-hover, var(--ink-01-nav-svg-stroke, currentColor)));
+  /* Button SVG: icons in buttons */
+  --color-ink-01-button-svg-fill: var(--ink-01-button-svg-fill, currentColor);
+  --color-ink-01-button-svg-fill-hover: var(--ink-01-button-svg-fill-hover, var(--ink-01-button-svg-fill, currentColor));
+  --color-ink-01-button-svg-fill-active: var(--ink-01-button-svg-fill-active, var(--ink-01-button-svg-fill-hover, var(--ink-01-button-svg-fill, currentColor)));
+  --color-ink-01-button-svg-stroke: var(--ink-01-button-svg-stroke, currentColor);
+  --color-ink-01-button-svg-stroke-hover: var(--ink-01-button-svg-stroke-hover, var(--ink-01-button-svg-stroke, currentColor));
+  --color-ink-01-button-svg-stroke-active: var(--ink-01-button-svg-stroke-active, var(--ink-01-button-svg-stroke-hover, var(--ink-01-button-svg-stroke, currentColor)));
+  /* Anchor SVG: icons in links */
+  --color-ink-01-anchor-svg-fill: var(--ink-01-anchor-svg-fill, currentColor);
+  --color-ink-01-anchor-svg-fill-hover: var(--ink-01-anchor-svg-fill-hover, var(--ink-01-anchor-svg-fill, currentColor));
+  --color-ink-01-anchor-svg-fill-active: var(--ink-01-anchor-svg-fill-active, var(--ink-01-anchor-svg-fill-hover, var(--ink-01-anchor-svg-fill, currentColor)));
+  --color-ink-01-anchor-svg-stroke: var(--ink-01-anchor-svg-stroke, currentColor);
+  --color-ink-01-anchor-svg-stroke-hover: var(--ink-01-anchor-svg-stroke-hover, var(--ink-01-anchor-svg-stroke, currentColor));
+  --color-ink-01-anchor-svg-stroke-active: var(--ink-01-anchor-svg-stroke-active, var(--ink-01-anchor-svg-stroke-hover, var(--ink-01-anchor-svg-stroke, currentColor)));
 }
 
 :root {
