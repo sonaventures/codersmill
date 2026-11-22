@@ -1,0 +1,25 @@
+// The Website Builder site: its name, host, navigation, and page
+// descriptions, shared by the layout, header, footer, and pages.
+export const siteName = "Website Builder";
+
+// The company that hosts Website Builder, at codersmill.com (also the
+// `site` in astro.config.mjs).
+export const host = {
+  name: "Coders Mill",
+  url: "https://codersmill.com",
+} as const;
+
+export const navigation = [
+  { label: "Home", href: "/" },
+  { label: "Tools", href: "/tools/" },
+  { label: "Blocks", href: "/blocks/" },
+  { label: "About", href: "/about/" },
+  { label: "Open the builder", href: "/website-builder/" },
+] as const;
+
+export const pageDescriptions = {
+  home: `Build and style Astro websites with ${siteName}, hosted by ${host.name}.`,
+  tools: `The ${siteName} tools, in the order you use them.`,
+  blocks: `The ready-made HTML blocks ${siteName} builds pages from.`,
+  about: `About ${siteName} and its host, ${host.name}.`,
+} as const;

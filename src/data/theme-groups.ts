@@ -4,13 +4,13 @@ import { validateTypographyRules } from "./typography-builder.js";
 const brandColorRoles = [
   {
     key: "brandFirst",
-    label: "Brand 01 / Exclusive",
+    label: "Brand 01 / Website",
     token: "brand-01",
     group: "brand",
   },
   {
     key: "brandSecond",
-    label: "Brand 02 / Group",
+    label: "Brand 02 / Builder",
     token: "brand-02",
     group: "brand",
   },

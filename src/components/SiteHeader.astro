@@ -1,5 +1,5 @@
 ---
-import { navigation } from "../data/group";
+import { navigation, siteName } from "../data/site";
 
 interface Props {
   title?: string;
@@ -21,9 +21,9 @@ const currentPath = Astro.url.pathname;
         <slot />
       </div>
     ) : (
-      <a class="wordmark" href="/" aria-label="Exclusive Group home">
-        <span class="wordmark-name">Exclusive</span>
-        <span class="wordmark-group">GROUP</span>
+      <a class="wordmark" href="/" aria-label={`${siteName} home`}>
+        <span class="wordmark-name">Website</span>
+        <span class="wordmark-group">BUILDER</span>
       </a>
     )}
 
@@ -81,7 +81,7 @@ const currentPath = Astro.url.pathname;
             document.querySelector('meta[name="theme-color"]')
               ?.setAttribute("content", themeColor);
             try {
-              localStorage.setItem("exclusive-group-theme", theme);
+              localStorage.setItem("website-builder-theme", theme);
             } catch (error) {
               console.warn("Unable to save the theme preference.", error);
             }

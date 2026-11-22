@@ -8,9 +8,8 @@ const readProjectFile = (path) => readFile(new URL(path, root), "utf8");
 test("all approved page routes exist", async () => {
   const routes = [
     "src/pages/index.astro",
-    "src/pages/companies.astro",
-    "src/pages/projects.astro",
-    "src/pages/partners.astro",
+    "src/pages/tools.astro",
+    "src/pages/blocks.astro",
     "src/pages/about.astro",
     "src/pages/template.astro",
     "src/pages/website-builder/custom-colors.astro",
@@ -24,56 +23,47 @@ test("all approved page routes exist", async () => {
   }
 });
 
-test("company destinations remain configurable and deferred", async () => {
-  const directory = await readProjectFile("src/data/group.ts");
-
-  for (const name of [
-    "Exclusive House Cleaning",
-    "Exclusive Home Remodeling",
-    "Exclusive Recycling",
-    "Exclusive Carpet Cleaning",
-  ]) {
-    assert.ok(directory.includes(name), `${name} should be listed`);
-  }
-
-  assert.equal((directory.match(/websiteUrl: null/g) ?? []).length, 4);
+test("the site is Website Builder, hosted by Coders Mill", async () => {
+  const site = await readProjectFile("src/data/site.ts");
+  assert.match(site, /siteName = "Website Builder"/);
+  assert.match(site, /name: "Coders Mill"/);
+  assert.match(site, /url: "https:\/\/codersmill\.com"/);
 });
 
-test("company, project, and partner content have a shared data source", async () => {
-  const [directory, companiesPage, projectsPage, partnersPage] =
-    await Promise.all([
-      readProjectFile("src/data/group.ts"),
-      readProjectFile("src/pages/companies.astro"),
-      readProjectFile("src/pages/projects.astro"),
-      readProjectFile("src/pages/partners.astro"),
-    ]);
-
-  assert.match(directory, /export const projects: Project\[\] = \[\]/);
-  assert.match(directory, /export const partners: Partner\[\] = \[\]/);
-  assert.match(companiesPage, /from "\.\.\/data\/group"/);
-  assert.match(projectsPage, /projects\.map/);
-  assert.match(partnersPage, /partners\.map/);
-});
-
-test("empty content states do not invent projects or contact routes", async () => {
-  const [projects, partners] = await Promise.all([
-    readProjectFile("src/pages/projects.astro"),
-    readProjectFile("src/pages/partners.astro"),
+test("codersmill.com is the site URL and the package's home", async () => {
+  const [config, pkg] = await Promise.all([
+    readProjectFile("astro.config.mjs"),
+    readProjectFile("package.json").then(JSON.parse),
   ]);
-
-  assert.match(projects, /No projects published yet/);
-  assert.match(partners, /contact route have not been provided/);
-  assert.doesNotMatch(partners, /mailto:|tel:/);
+  assert.match(config, /site: "https:\/\/codersmill\.com"/);
+  assert.equal(pkg.homepage, "https://codersmill.com");
+  assert.equal(pkg.author.url, "https://codersmill.com");
+  assert.match(pkg.repository.url, /github\.com\/sonaventures\/codersmill\.git$/);
 });
 
-test("site metadata and copy are group-specific", async () => {
-  const [layout, footer] = await Promise.all([
+test("the layout, header, and footer use the shared site details", async () => {
+  const [layout, header, footer] = await Promise.all([
     readProjectFile("src/layouts/layout.astro"),
+    readProjectFile("src/components/SiteHeader.astro"),
     readProjectFile("src/components/SiteFooter.astro"),
   ]);
 
-  assert.match(layout, /Exclusive Group/);
-  assert.match(footer, /Exclusive Group/);
-  assert.doesNotMatch(layout, /LocalBusiness|telephone|address/);
-  assert.doesNotMatch(footer, /BBB|Patch|703/);
+  for (const file of [layout, header, footer])
+    assert.match(file, /from "\.\.\/data\/site"/);
+  assert.match(layout, /og:site_name/);
+  assert.match(layout, /rel="canonical"/);
+  assert.match(layout, /"@type": "Organization", name: host\.name, url: host\.url/);
+  assert.match(footer, /Hosted by <a href=\{host\.url\}>\{host\.name\}<\/a>/);
+  for (const file of [layout, header, footer])
+    assert.doesNotMatch(file, /Exclusive Group|LocalBusiness|telephone/);
+});
+
+test("the tools and blocks pages read from their sources", async () => {
+  const [tools, blocks] = await Promise.all([
+    readProjectFile("src/pages/tools.astro"),
+    readProjectFile("src/pages/blocks.astro"),
+  ]);
+
+  assert.match(tools, /from "\.\.\/data\/website-builder"/);
+  assert.match(blocks, /import\.meta\.glob\(\s*"\.\.\/components\/blocks\/\*\*\/\*\.astro"/);
 });

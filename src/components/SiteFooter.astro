@@ -1,5 +1,5 @@
 ---
-import { navigation } from "../data/group";
+import { host, navigation, siteName } from "../data/site";
 
 interface Props {
   /** A theme group footer class, e.g. sg-sample-footer. */
@@ -13,9 +13,9 @@ const { class: className } = Astro.props;
   <div class="footer-inner">
     <div class="footer-intro">
       <a class="footer-wordmark" href="/">
-        Exclusive Group
+        {siteName}
       </a>
-      <p>A shared directory for the companies listed here.</p>
+      <p>Build and style Astro websites from ready-made blocks.</p>
     </div>
     <nav aria-label="Footer">
       <ul class="footer-links">
@@ -28,7 +28,9 @@ const { class: className } = Astro.props;
     </nav>
   </div>
   <div class="footer-bottom">
-    <p>© {new Date().getFullYear()} Exclusive Group</p>
-    <p>Company links and additional details are added as they are provided.</p>
+    <p>© {new Date().getFullYear()} {siteName}</p>
+    <p>
+      Hosted by <a href={host.url}>{host.name}</a>
+    </p>
   </div>
 </footer>

@@ -1,7 +1,20 @@
 {
-  "name": "exclusive-group",
+  "name": "website-builder",
   "version": "0.1.0",
   "private": true,
+  "description": "Website Builder: build and style Astro websites, hosted by Coders Mill at codersmill.com.",
+  "homepage": "https://codersmill.com",
+  "author": {
+    "name": "Coders Mill",
+    "url": "https://codersmill.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sonaventures/codersmill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sonaventures/codersmill/issues"
+  },
   "type": "module",
   "scripts": {
     "dev": "astro dev",

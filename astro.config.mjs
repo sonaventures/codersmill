@@ -5,6 +5,8 @@ import tailwindcss from "@tailwindcss/vite";
 import partytown from "@astrojs/partytown";
 
 export default defineConfig({
+  // Website Builder is hosted by Coders Mill at codersmill.com.
+  site: "https://codersmill.com",
   output: "static",
   redirects: {
     "/pagebuilder/pagebuilder/": "/website-builder/page-builder/",

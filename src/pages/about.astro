@@ -1,26 +1,35 @@
 ---
 import PageIntro from "../components/PageIntro.astro";
 import Layout from "../layouts/layout.astro";
-import { pageDescriptions } from "../data/group";
+import { host, pageDescriptions, siteName } from "../data/site";
 ---
 
 <Layout title="About" description={pageDescriptions.about}>
   <PageIntro
     eyebrow="About"
-    title="Exclusive Group"
-    description="This site provides a shared directory for the companies listed with Exclusive Group."
+    title={siteName}
+    description={`${siteName} is a set of tools for building and styling Astro websites, hosted by ${host.name}.`}
   />
 
   <section class="container content-section about-copy">
-    <p class="eyebrow">About the group</p>
-    <h2>More information is still to come.</h2>
+    <p class="eyebrow">How it works</p>
+    <h2>Your design, saved to your project.</h2>
     <p>
-      Beyond the company names shown in the directory, background, structure,
-      and shared activities have not yet been provided. This page will be
-      updated when verified information is available.
+      Start with your colors, then group them into themes for each part of a
+      page: the page itself, the hero, and each section. Set the typography,
+      assemble pages from ready-made blocks, and give their buttons, links,
+      icons, and cards your theme's styles. The tools write plain CSS and Astro
+      files into your project, so the site you build is yours to keep.
     </p>
-    <a class="text-link" href="/companies/">
-      Explore the companies <span aria-hidden="true">→</span>
+    <p class="eyebrow">Hosting</p>
+    <p>
+      {siteName} is hosted by{" "}
+      <a class="text-link" href={host.url}>
+        {host.name} <span aria-hidden="true">↗</span>
+      </a>
+    </p>
+    <a class="text-link" href="/website-builder/">
+      Open the builder <span aria-hidden="true">→</span>
     </a>
   </section>
 </Layout>
