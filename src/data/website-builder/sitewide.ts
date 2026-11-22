@@ -3,6 +3,7 @@ import {
   isColorValue,
   isContentWidth,
   regionColorRoles,
+  renameAccentColors,
   sitewideColorRoles,
   type Colors,
   type SitewideColors,
@@ -131,7 +132,10 @@ export function sitewideCss(themes: SitewideThemes, existing = ""): string {
  */
 export function parseSitewideCss(css: string): SitewideThemes {
   const themes = createDefaultSitewideThemes();
-  const source = readSitewideSection(css, "colors").replace(/\/\*[\s\S]*?\*\//g, "");
+  const source = readSitewideSection(css, "colors").replace(
+    /\/\*[\s\S]*?\*\//g,
+    "",
+  );
   for (const theme of ["light", "dark"] as const) {
     const start = source.indexOf(`${selectors[theme]} {`);
     if (start === -1) continue;
@@ -237,7 +241,7 @@ export function sitewideAreasCss(styles: SitewideAreaStyles): string {
       Object.entries(colors).filter(([, value]) => value !== "theme"),
     );
   const settings = JSON.stringify({
-    version: 1,
+    version: 2,
     colors: Object.fromEntries(
       (["light", "dark"] as const).map((theme) => [
         theme,
@@ -304,12 +308,15 @@ export function parseSitewideAreas(css: string): SitewideAreaStyles {
   const data = JSON.parse(
     decodeURIComponent(section.slice(areasMarker.length, end)),
   );
-  if (data?.version !== 1)
+  if (data?.version !== 1 && data?.version !== 2)
     throw new Error("sitewide.css: unknown area settings version.");
   for (const theme of ["light", "dark"] as const)
-    for (const { region } of sitewideAreas)
+    for (const { region } of sitewideAreas) {
+      const saved = data.colors?.[theme]?.[region] ?? {};
+      // Version 2 renamed the accent colors (Accent 1-3, seven each).
+      const colors = data.version === 1 ? renameAccentColors(saved) : saved;
       for (const { key } of regionColorRoles) {
-        const value = data.colors?.[theme]?.[region]?.[key];
+        const value = colors[key];
         if (value === undefined) continue;
         if (!isColorValue(value))
           throw new Error(
@@ -319,6 +326,7 @@ export function parseSitewideAreas(css: string): SitewideAreaStyles {
           ? value.toLowerCase()
           : value;
       }
+    }
   for (const { region } of sitewideAreas) {
     const rules = data.typography?.[region];
     if (rules === undefined) continue;

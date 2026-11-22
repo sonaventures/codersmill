@@ -118,7 +118,7 @@
   }
 
   .theme-toggle {
-    @apply grid size-11 cursor-pointer place-items-center rounded-full border border-accent-header-border bg-canvas-header text-accent-header-text transition-[background-color,border-color,color] duration-180 ease-[ease] hover:border-accent-header-focus hover:bg-accent-header-canvas hover:text-accent-header-focus;
+    @apply grid size-11 cursor-pointer place-items-center rounded-full border border-accent-header-01-border bg-canvas-header text-accent-header-01-text transition-[background-color,border-color,color] duration-180 ease-[ease] hover:border-accent-header-focus hover:bg-accent-header-01 hover:text-accent-header-focus;
   }
 
   .theme-toggle:focus-visible,
@@ -162,11 +162,11 @@
   }
 
   .menu-toggle {
-    @apply hidden size-11 cursor-pointer content-center justify-items-center gap-1.25 rounded border border-accent-header-border bg-canvas-header hover:border-accent-header-focus hover:bg-accent-header-canvas tablet:grid;
+    @apply hidden size-11 cursor-pointer content-center justify-items-center gap-1.25 rounded border border-accent-header-01-border bg-canvas-header hover:border-accent-header-focus hover:bg-accent-header-01 tablet:grid;
   }
 
   .menu-toggle span {
-    @apply h-0.5 w-4.75 bg-accent-header-text;
+    @apply h-0.5 w-4.75 bg-accent-header-01-text;
   }
 
   /* Page intro / hero */
@@ -313,7 +313,7 @@
   }
 
   .empty-state-mark {
-    @apply mx-auto mb-8 grid size-14.5 place-items-center rounded-full border border-accent-01-border text-2xl text-accent-page-focus;
+    @apply mx-auto mb-8 grid size-14.5 place-items-center rounded-full border border-accent-01-01-border text-2xl text-accent-page-focus;
   }
 
   .empty-state > p:not(.eyebrow) {

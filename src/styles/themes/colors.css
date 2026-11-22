@@ -257,9 +257,72 @@
     --canvas-page-card-03-shadow,
     var(--canvas-page-shadow)
   );
-  --color-accent-page-canvas: var(--accent-page-canvas);
-  --color-accent-page-text: var(--accent-page-text);
-  --color-accent-page-border: var(--accent-page-border);
+  --color-accent-page-01: var(--accent-page-01);
+  --color-accent-page-01-hover: var(
+    --accent-page-01-hover,
+    var(--accent-page-01)
+  );
+  --color-accent-page-01-border: var(--accent-page-01-border);
+  --color-accent-page-01-hover-border: var(
+    --accent-page-01-hover-border,
+    var(--accent-page-01-border)
+  );
+  --color-accent-page-01-text: var(--accent-page-01-text);
+  --color-accent-page-01-hover-text: var(
+    --accent-page-01-hover-text,
+    var(--accent-page-01-text)
+  );
+  --color-accent-page-01-shadow: var(
+    --accent-page-01-shadow,
+    var(--canvas-page-shadow)
+  );
+  --color-accent-page-02: var(--accent-page-02, var(--canvas-page));
+  --color-accent-page-02-hover: var(
+    --accent-page-02-hover,
+    var(--accent-page-02, var(--canvas-page))
+  );
+  --color-accent-page-02-border: var(
+    --accent-page-02-border,
+    var(--accent-page-01-border)
+  );
+  --color-accent-page-02-hover-border: var(
+    --accent-page-02-hover-border,
+    var(--accent-page-02-border, var(--accent-page-01-border))
+  );
+  --color-accent-page-02-text: var(--accent-page-02-text, var(--ink-page));
+  --color-accent-page-02-hover-text: var(
+    --accent-page-02-hover-text,
+    var(--accent-page-02-text, var(--ink-page))
+  );
+  --color-accent-page-02-shadow: var(
+    --accent-page-02-shadow,
+    var(--accent-page-01-shadow, var(--canvas-page-shadow))
+  );
+  --color-accent-page-03: var(--accent-page-03, transparent);
+  --color-accent-page-03-hover: var(
+    --accent-page-03-hover,
+    var(--accent-page-03, transparent)
+  );
+  --color-accent-page-03-border: var(
+    --accent-page-03-border,
+    var(--accent-page-01-border)
+  );
+  --color-accent-page-03-hover-border: var(
+    --accent-page-03-hover-border,
+    var(--accent-page-03-border, var(--accent-page-01-border))
+  );
+  --color-accent-page-03-text: var(
+    --accent-page-03-text,
+    var(--accent-page-focus)
+  );
+  --color-accent-page-03-hover-text: var(
+    --accent-page-03-hover-text,
+    var(--accent-page-03-text, var(--accent-page-focus))
+  );
+  --color-accent-page-03-shadow: var(
+    --accent-page-03-shadow,
+    var(--accent-page-01-shadow, var(--canvas-page-shadow))
+  );
   --color-accent-page-focus: var(--accent-page-focus);
   --color-ink-page: var(--ink-page);
   --color-ink-page-dark: var(--ink-page-dark);
@@ -274,9 +337,75 @@
   --color-canvas-header: var(--canvas-header);
   --color-canvas-header-border: var(--canvas-header-border);
   --color-canvas-header-shadow: var(--canvas-header-shadow);
-  --color-accent-header-canvas: var(--accent-header-canvas);
-  --color-accent-header-text: var(--accent-header-text);
-  --color-accent-header-border: var(--accent-header-border);
+  --color-accent-header-01: var(--accent-header-01);
+  --color-accent-header-01-hover: var(
+    --accent-header-01-hover,
+    var(--accent-header-01)
+  );
+  --color-accent-header-01-border: var(--accent-header-01-border);
+  --color-accent-header-01-hover-border: var(
+    --accent-header-01-hover-border,
+    var(--accent-header-01-border)
+  );
+  --color-accent-header-01-text: var(--accent-header-01-text);
+  --color-accent-header-01-hover-text: var(
+    --accent-header-01-hover-text,
+    var(--accent-header-01-text)
+  );
+  --color-accent-header-01-shadow: var(
+    --accent-header-01-shadow,
+    var(--canvas-header-shadow)
+  );
+  --color-accent-header-02: var(--accent-header-02, var(--canvas-header));
+  --color-accent-header-02-hover: var(
+    --accent-header-02-hover,
+    var(--accent-header-02, var(--canvas-header))
+  );
+  --color-accent-header-02-border: var(
+    --accent-header-02-border,
+    var(--accent-header-01-border)
+  );
+  --color-accent-header-02-hover-border: var(
+    --accent-header-02-hover-border,
+    var(--accent-header-02-border, var(--accent-header-01-border))
+  );
+  --color-accent-header-02-text: var(
+    --accent-header-02-text,
+    var(--ink-header)
+  );
+  --color-accent-header-02-hover-text: var(
+    --accent-header-02-hover-text,
+    var(--accent-header-02-text, var(--ink-header))
+  );
+  --color-accent-header-02-shadow: var(
+    --accent-header-02-shadow,
+    var(--accent-header-01-shadow, var(--canvas-header-shadow))
+  );
+  --color-accent-header-03: var(--accent-header-03, transparent);
+  --color-accent-header-03-hover: var(
+    --accent-header-03-hover,
+    var(--accent-header-03, transparent)
+  );
+  --color-accent-header-03-border: var(
+    --accent-header-03-border,
+    var(--accent-header-01-border)
+  );
+  --color-accent-header-03-hover-border: var(
+    --accent-header-03-hover-border,
+    var(--accent-header-03-border, var(--accent-header-01-border))
+  );
+  --color-accent-header-03-text: var(
+    --accent-header-03-text,
+    var(--accent-header-focus)
+  );
+  --color-accent-header-03-hover-text: var(
+    --accent-header-03-hover-text,
+    var(--accent-header-03-text, var(--accent-header-focus))
+  );
+  --color-accent-header-03-shadow: var(
+    --accent-header-03-shadow,
+    var(--accent-header-01-shadow, var(--canvas-header-shadow))
+  );
   --color-accent-header-focus: var(--accent-header-focus);
   --color-ink-header: var(--ink-header);
   --color-ink-header-h1: var(--ink-header-h1);
@@ -295,9 +424,72 @@
   --color-canvas-hero: var(--canvas-hero);
   --color-canvas-hero-border: var(--canvas-hero-border);
   --color-canvas-hero-shadow: var(--canvas-hero-shadow);
-  --color-accent-hero-canvas: var(--accent-hero-canvas);
-  --color-accent-hero-text: var(--accent-hero-text);
-  --color-accent-hero-border: var(--accent-hero-border);
+  --color-accent-hero-01: var(--accent-hero-01);
+  --color-accent-hero-01-hover: var(
+    --accent-hero-01-hover,
+    var(--accent-hero-01)
+  );
+  --color-accent-hero-01-border: var(--accent-hero-01-border);
+  --color-accent-hero-01-hover-border: var(
+    --accent-hero-01-hover-border,
+    var(--accent-hero-01-border)
+  );
+  --color-accent-hero-01-text: var(--accent-hero-01-text);
+  --color-accent-hero-01-hover-text: var(
+    --accent-hero-01-hover-text,
+    var(--accent-hero-01-text)
+  );
+  --color-accent-hero-01-shadow: var(
+    --accent-hero-01-shadow,
+    var(--canvas-hero-shadow)
+  );
+  --color-accent-hero-02: var(--accent-hero-02, var(--canvas-hero));
+  --color-accent-hero-02-hover: var(
+    --accent-hero-02-hover,
+    var(--accent-hero-02, var(--canvas-hero))
+  );
+  --color-accent-hero-02-border: var(
+    --accent-hero-02-border,
+    var(--accent-hero-01-border)
+  );
+  --color-accent-hero-02-hover-border: var(
+    --accent-hero-02-hover-border,
+    var(--accent-hero-02-border, var(--accent-hero-01-border))
+  );
+  --color-accent-hero-02-text: var(--accent-hero-02-text, var(--ink-hero));
+  --color-accent-hero-02-hover-text: var(
+    --accent-hero-02-hover-text,
+    var(--accent-hero-02-text, var(--ink-hero))
+  );
+  --color-accent-hero-02-shadow: var(
+    --accent-hero-02-shadow,
+    var(--accent-hero-01-shadow, var(--canvas-hero-shadow))
+  );
+  --color-accent-hero-03: var(--accent-hero-03, transparent);
+  --color-accent-hero-03-hover: var(
+    --accent-hero-03-hover,
+    var(--accent-hero-03, transparent)
+  );
+  --color-accent-hero-03-border: var(
+    --accent-hero-03-border,
+    var(--accent-hero-01-border)
+  );
+  --color-accent-hero-03-hover-border: var(
+    --accent-hero-03-hover-border,
+    var(--accent-hero-03-border, var(--accent-hero-01-border))
+  );
+  --color-accent-hero-03-text: var(
+    --accent-hero-03-text,
+    var(--accent-hero-focus)
+  );
+  --color-accent-hero-03-hover-text: var(
+    --accent-hero-03-hover-text,
+    var(--accent-hero-03-text, var(--accent-hero-focus))
+  );
+  --color-accent-hero-03-shadow: var(
+    --accent-hero-03-shadow,
+    var(--accent-hero-01-shadow, var(--canvas-hero-shadow))
+  );
   --color-accent-hero-focus: var(--accent-hero-focus);
   --color-ink-hero: var(--ink-hero);
   --color-ink-hero-dark: var(--ink-hero-dark);
@@ -339,20 +531,67 @@
     --canvas-01-card-03-shadow,
     var(--canvas-01-shadow)
   );
-  --color-accent-01-canvas: var(--accent-01-canvas);
-  --color-accent-01-text: var(--accent-01-text);
-  --color-accent-01-border: var(--accent-01-border);
+  --color-accent-01-01: var(--accent-01-01);
+  --color-accent-01-01-hover: var(--accent-01-01-hover, var(--accent-01-01));
+  --color-accent-01-01-border: var(--accent-01-01-border);
+  --color-accent-01-01-hover-border: var(
+    --accent-01-01-hover-border,
+    var(--accent-01-01-border)
+  );
+  --color-accent-01-01-text: var(--accent-01-01-text);
+  --color-accent-01-01-hover-text: var(
+    --accent-01-01-hover-text,
+    var(--accent-01-01-text)
+  );
+  --color-accent-01-01-shadow: var(
+    --accent-01-01-shadow,
+    var(--canvas-01-shadow)
+  );
+  --color-accent-01-02: var(--accent-01-02, var(--canvas-01));
+  --color-accent-01-02-hover: var(
+    --accent-01-02-hover,
+    var(--accent-01-02, var(--canvas-01))
+  );
+  --color-accent-01-02-border: var(
+    --accent-01-02-border,
+    var(--accent-01-01-border)
+  );
+  --color-accent-01-02-hover-border: var(
+    --accent-01-02-hover-border,
+    var(--accent-01-02-border, var(--accent-01-01-border))
+  );
+  --color-accent-01-02-text: var(--accent-01-02-text, var(--ink-01));
+  --color-accent-01-02-hover-text: var(
+    --accent-01-02-hover-text,
+    var(--accent-01-02-text, var(--ink-01))
+  );
+  --color-accent-01-02-shadow: var(
+    --accent-01-02-shadow,
+    var(--accent-01-01-shadow, var(--canvas-01-shadow))
+  );
+  --color-accent-01-03: var(--accent-01-03, transparent);
+  --color-accent-01-03-hover: var(
+    --accent-01-03-hover,
+    var(--accent-01-03, transparent)
+  );
+  --color-accent-01-03-border: var(
+    --accent-01-03-border,
+    var(--accent-01-01-border)
+  );
+  --color-accent-01-03-hover-border: var(
+    --accent-01-03-hover-border,
+    var(--accent-01-03-border, var(--accent-01-01-border))
+  );
+  --color-accent-01-03-text: var(--accent-01-03-text, var(--accent-01-focus));
+  --color-accent-01-03-hover-text: var(
+    --accent-01-03-hover-text,
+    var(--accent-01-03-text, var(--accent-01-focus))
+  );
+  --color-accent-01-03-shadow: var(
+    --accent-01-03-shadow,
+    var(--accent-01-01-shadow, var(--canvas-01-shadow))
+  );
   --color-accent-01-focus: var(--accent-01-focus);
-  /* Button hover / focus backgrounds from theme groups; until chosen, Primary
-   * uses the hover / focus color and Learn more has no background. */
-  --color-accent-01-primary-hover: var(
-    --accent-01-primary-hover,
-    var(--accent-01-focus)
-  );
-  --color-accent-01-learn-more-hover: var(
-    --accent-01-learn-more-hover,
-    transparent
-  );
   --color-ink-01: var(--ink-01);
   --color-ink-01-dark: var(--ink-01-dark);
   --color-ink-01-highlight: var(--ink-01-highlight);
@@ -379,34 +618,6 @@
   --color-ink-01-blockquote: var(--ink-01-blockquote, var(--ink-01-muted));
   --color-canvas-01-divider: var(--canvas-01-divider, var(--canvas-01-border));
 
-  /* Section 01 secondary (outline) buttons. Background has three fallbacks
-     for the buttons that sit on the section, on a card, or on nothing. */
-  --color-accent-01-secondary: var(--accent-01-secondary, var(--canvas-01));
-  --color-accent-01-secondary-card: var(
-    --accent-01-secondary,
-    var(--canvas-01-card-01, var(--canvas-01))
-  );
-  --color-accent-01-secondary-clear: var(--accent-01-secondary, transparent);
-  --color-accent-01-secondary-text: var(
-    --accent-01-secondary-text,
-    var(--ink-01)
-  );
-  --color-accent-01-secondary-border: var(
-    --accent-01-secondary-border,
-    var(--canvas-01-border)
-  );
-  --color-accent-01-secondary-hover: var(
-    --accent-01-secondary-hover,
-    var(--accent-01-canvas)
-  );
-  --color-accent-01-secondary-hover-text: var(
-    --accent-01-secondary-hover-text,
-    var(--accent-01-secondary-text, var(--ink-01))
-  );
-  --color-accent-01-secondary-shadow: var(
-    --accent-01-secondary-shadow,
-    transparent
-  );
   --color-ink-01-h1: var(--ink-01-h1);
   --color-ink-01-h2: var(--ink-01-h2);
   --color-ink-01-h3: var(--ink-01-h3);
@@ -443,9 +654,66 @@
     --canvas-02-card-03-shadow,
     var(--canvas-02-shadow)
   );
-  --color-accent-02-canvas: var(--accent-02-canvas);
-  --color-accent-02-text: var(--accent-02-text);
-  --color-accent-02-border: var(--accent-02-border);
+  --color-accent-02-01: var(--accent-02-01);
+  --color-accent-02-01-hover: var(--accent-02-01-hover, var(--accent-02-01));
+  --color-accent-02-01-border: var(--accent-02-01-border);
+  --color-accent-02-01-hover-border: var(
+    --accent-02-01-hover-border,
+    var(--accent-02-01-border)
+  );
+  --color-accent-02-01-text: var(--accent-02-01-text);
+  --color-accent-02-01-hover-text: var(
+    --accent-02-01-hover-text,
+    var(--accent-02-01-text)
+  );
+  --color-accent-02-01-shadow: var(
+    --accent-02-01-shadow,
+    var(--canvas-02-shadow)
+  );
+  --color-accent-02-02: var(--accent-02-02, var(--canvas-02));
+  --color-accent-02-02-hover: var(
+    --accent-02-02-hover,
+    var(--accent-02-02, var(--canvas-02))
+  );
+  --color-accent-02-02-border: var(
+    --accent-02-02-border,
+    var(--accent-02-01-border)
+  );
+  --color-accent-02-02-hover-border: var(
+    --accent-02-02-hover-border,
+    var(--accent-02-02-border, var(--accent-02-01-border))
+  );
+  --color-accent-02-02-text: var(--accent-02-02-text, var(--ink-02));
+  --color-accent-02-02-hover-text: var(
+    --accent-02-02-hover-text,
+    var(--accent-02-02-text, var(--ink-02))
+  );
+  --color-accent-02-02-shadow: var(
+    --accent-02-02-shadow,
+    var(--accent-02-01-shadow, var(--canvas-02-shadow))
+  );
+  --color-accent-02-03: var(--accent-02-03, transparent);
+  --color-accent-02-03-hover: var(
+    --accent-02-03-hover,
+    var(--accent-02-03, transparent)
+  );
+  --color-accent-02-03-border: var(
+    --accent-02-03-border,
+    var(--accent-02-01-border)
+  );
+  --color-accent-02-03-hover-border: var(
+    --accent-02-03-hover-border,
+    var(--accent-02-03-border, var(--accent-02-01-border))
+  );
+  --color-accent-02-03-text: var(--accent-02-03-text, var(--accent-02-focus));
+  --color-accent-02-03-hover-text: var(
+    --accent-02-03-hover-text,
+    var(--accent-02-03-text, var(--accent-02-focus))
+  );
+  --color-accent-02-03-shadow: var(
+    --accent-02-03-shadow,
+    var(--accent-02-01-shadow, var(--canvas-02-shadow))
+  );
   --color-accent-02-focus: var(--accent-02-focus);
   --color-ink-02: var(--ink-02);
   --color-ink-02-dark: var(--ink-02-dark);
@@ -487,9 +755,66 @@
     --canvas-03-card-03-shadow,
     var(--canvas-03-shadow)
   );
-  --color-accent-03-canvas: var(--accent-03-canvas);
-  --color-accent-03-text: var(--accent-03-text);
-  --color-accent-03-border: var(--accent-03-border);
+  --color-accent-03-01: var(--accent-03-01);
+  --color-accent-03-01-hover: var(--accent-03-01-hover, var(--accent-03-01));
+  --color-accent-03-01-border: var(--accent-03-01-border);
+  --color-accent-03-01-hover-border: var(
+    --accent-03-01-hover-border,
+    var(--accent-03-01-border)
+  );
+  --color-accent-03-01-text: var(--accent-03-01-text);
+  --color-accent-03-01-hover-text: var(
+    --accent-03-01-hover-text,
+    var(--accent-03-01-text)
+  );
+  --color-accent-03-01-shadow: var(
+    --accent-03-01-shadow,
+    var(--canvas-03-shadow)
+  );
+  --color-accent-03-02: var(--accent-03-02, var(--canvas-03));
+  --color-accent-03-02-hover: var(
+    --accent-03-02-hover,
+    var(--accent-03-02, var(--canvas-03))
+  );
+  --color-accent-03-02-border: var(
+    --accent-03-02-border,
+    var(--accent-03-01-border)
+  );
+  --color-accent-03-02-hover-border: var(
+    --accent-03-02-hover-border,
+    var(--accent-03-02-border, var(--accent-03-01-border))
+  );
+  --color-accent-03-02-text: var(--accent-03-02-text, var(--ink-03));
+  --color-accent-03-02-hover-text: var(
+    --accent-03-02-hover-text,
+    var(--accent-03-02-text, var(--ink-03))
+  );
+  --color-accent-03-02-shadow: var(
+    --accent-03-02-shadow,
+    var(--accent-03-01-shadow, var(--canvas-03-shadow))
+  );
+  --color-accent-03-03: var(--accent-03-03, transparent);
+  --color-accent-03-03-hover: var(
+    --accent-03-03-hover,
+    var(--accent-03-03, transparent)
+  );
+  --color-accent-03-03-border: var(
+    --accent-03-03-border,
+    var(--accent-03-01-border)
+  );
+  --color-accent-03-03-hover-border: var(
+    --accent-03-03-hover-border,
+    var(--accent-03-03-border, var(--accent-03-01-border))
+  );
+  --color-accent-03-03-text: var(--accent-03-03-text, var(--accent-03-focus));
+  --color-accent-03-03-hover-text: var(
+    --accent-03-03-hover-text,
+    var(--accent-03-03-text, var(--accent-03-focus))
+  );
+  --color-accent-03-03-shadow: var(
+    --accent-03-03-shadow,
+    var(--accent-03-01-shadow, var(--canvas-03-shadow))
+  );
   --color-accent-03-focus: var(--accent-03-focus);
   --color-ink-03: var(--ink-03);
   --color-ink-03-dark: var(--ink-03-dark);
@@ -531,9 +856,66 @@
     --canvas-04-card-03-shadow,
     var(--canvas-04-shadow)
   );
-  --color-accent-04-canvas: var(--accent-04-canvas);
-  --color-accent-04-text: var(--accent-04-text);
-  --color-accent-04-border: var(--accent-04-border);
+  --color-accent-04-01: var(--accent-04-01);
+  --color-accent-04-01-hover: var(--accent-04-01-hover, var(--accent-04-01));
+  --color-accent-04-01-border: var(--accent-04-01-border);
+  --color-accent-04-01-hover-border: var(
+    --accent-04-01-hover-border,
+    var(--accent-04-01-border)
+  );
+  --color-accent-04-01-text: var(--accent-04-01-text);
+  --color-accent-04-01-hover-text: var(
+    --accent-04-01-hover-text,
+    var(--accent-04-01-text)
+  );
+  --color-accent-04-01-shadow: var(
+    --accent-04-01-shadow,
+    var(--canvas-04-shadow)
+  );
+  --color-accent-04-02: var(--accent-04-02, var(--canvas-04));
+  --color-accent-04-02-hover: var(
+    --accent-04-02-hover,
+    var(--accent-04-02, var(--canvas-04))
+  );
+  --color-accent-04-02-border: var(
+    --accent-04-02-border,
+    var(--accent-04-01-border)
+  );
+  --color-accent-04-02-hover-border: var(
+    --accent-04-02-hover-border,
+    var(--accent-04-02-border, var(--accent-04-01-border))
+  );
+  --color-accent-04-02-text: var(--accent-04-02-text, var(--ink-04));
+  --color-accent-04-02-hover-text: var(
+    --accent-04-02-hover-text,
+    var(--accent-04-02-text, var(--ink-04))
+  );
+  --color-accent-04-02-shadow: var(
+    --accent-04-02-shadow,
+    var(--accent-04-01-shadow, var(--canvas-04-shadow))
+  );
+  --color-accent-04-03: var(--accent-04-03, transparent);
+  --color-accent-04-03-hover: var(
+    --accent-04-03-hover,
+    var(--accent-04-03, transparent)
+  );
+  --color-accent-04-03-border: var(
+    --accent-04-03-border,
+    var(--accent-04-01-border)
+  );
+  --color-accent-04-03-hover-border: var(
+    --accent-04-03-hover-border,
+    var(--accent-04-03-border, var(--accent-04-01-border))
+  );
+  --color-accent-04-03-text: var(--accent-04-03-text, var(--accent-04-focus));
+  --color-accent-04-03-hover-text: var(
+    --accent-04-03-hover-text,
+    var(--accent-04-03-text, var(--accent-04-focus))
+  );
+  --color-accent-04-03-shadow: var(
+    --accent-04-03-shadow,
+    var(--accent-04-01-shadow, var(--canvas-04-shadow))
+  );
   --color-accent-04-focus: var(--accent-04-focus);
   --color-ink-04: var(--ink-04);
   --color-ink-04-dark: var(--ink-04-dark);
@@ -575,9 +957,66 @@
     --canvas-05-card-03-shadow,
     var(--canvas-05-shadow)
   );
-  --color-accent-05-canvas: var(--accent-05-canvas);
-  --color-accent-05-text: var(--accent-05-text);
-  --color-accent-05-border: var(--accent-05-border);
+  --color-accent-05-01: var(--accent-05-01);
+  --color-accent-05-01-hover: var(--accent-05-01-hover, var(--accent-05-01));
+  --color-accent-05-01-border: var(--accent-05-01-border);
+  --color-accent-05-01-hover-border: var(
+    --accent-05-01-hover-border,
+    var(--accent-05-01-border)
+  );
+  --color-accent-05-01-text: var(--accent-05-01-text);
+  --color-accent-05-01-hover-text: var(
+    --accent-05-01-hover-text,
+    var(--accent-05-01-text)
+  );
+  --color-accent-05-01-shadow: var(
+    --accent-05-01-shadow,
+    var(--canvas-05-shadow)
+  );
+  --color-accent-05-02: var(--accent-05-02, var(--canvas-05));
+  --color-accent-05-02-hover: var(
+    --accent-05-02-hover,
+    var(--accent-05-02, var(--canvas-05))
+  );
+  --color-accent-05-02-border: var(
+    --accent-05-02-border,
+    var(--accent-05-01-border)
+  );
+  --color-accent-05-02-hover-border: var(
+    --accent-05-02-hover-border,
+    var(--accent-05-02-border, var(--accent-05-01-border))
+  );
+  --color-accent-05-02-text: var(--accent-05-02-text, var(--ink-05));
+  --color-accent-05-02-hover-text: var(
+    --accent-05-02-hover-text,
+    var(--accent-05-02-text, var(--ink-05))
+  );
+  --color-accent-05-02-shadow: var(
+    --accent-05-02-shadow,
+    var(--accent-05-01-shadow, var(--canvas-05-shadow))
+  );
+  --color-accent-05-03: var(--accent-05-03, transparent);
+  --color-accent-05-03-hover: var(
+    --accent-05-03-hover,
+    var(--accent-05-03, transparent)
+  );
+  --color-accent-05-03-border: var(
+    --accent-05-03-border,
+    var(--accent-05-01-border)
+  );
+  --color-accent-05-03-hover-border: var(
+    --accent-05-03-hover-border,
+    var(--accent-05-03-border, var(--accent-05-01-border))
+  );
+  --color-accent-05-03-text: var(--accent-05-03-text, var(--accent-05-focus));
+  --color-accent-05-03-hover-text: var(
+    --accent-05-03-hover-text,
+    var(--accent-05-03-text, var(--accent-05-focus))
+  );
+  --color-accent-05-03-shadow: var(
+    --accent-05-03-shadow,
+    var(--accent-05-01-shadow, var(--canvas-05-shadow))
+  );
   --color-accent-05-focus: var(--accent-05-focus);
   --color-ink-05: var(--ink-05);
   --color-ink-05-dark: var(--ink-05-dark);
@@ -619,9 +1058,66 @@
     --canvas-06-card-03-shadow,
     var(--canvas-06-shadow)
   );
-  --color-accent-06-canvas: var(--accent-06-canvas);
-  --color-accent-06-text: var(--accent-06-text);
-  --color-accent-06-border: var(--accent-06-border);
+  --color-accent-06-01: var(--accent-06-01);
+  --color-accent-06-01-hover: var(--accent-06-01-hover, var(--accent-06-01));
+  --color-accent-06-01-border: var(--accent-06-01-border);
+  --color-accent-06-01-hover-border: var(
+    --accent-06-01-hover-border,
+    var(--accent-06-01-border)
+  );
+  --color-accent-06-01-text: var(--accent-06-01-text);
+  --color-accent-06-01-hover-text: var(
+    --accent-06-01-hover-text,
+    var(--accent-06-01-text)
+  );
+  --color-accent-06-01-shadow: var(
+    --accent-06-01-shadow,
+    var(--canvas-06-shadow)
+  );
+  --color-accent-06-02: var(--accent-06-02, var(--canvas-06));
+  --color-accent-06-02-hover: var(
+    --accent-06-02-hover,
+    var(--accent-06-02, var(--canvas-06))
+  );
+  --color-accent-06-02-border: var(
+    --accent-06-02-border,
+    var(--accent-06-01-border)
+  );
+  --color-accent-06-02-hover-border: var(
+    --accent-06-02-hover-border,
+    var(--accent-06-02-border, var(--accent-06-01-border))
+  );
+  --color-accent-06-02-text: var(--accent-06-02-text, var(--ink-06));
+  --color-accent-06-02-hover-text: var(
+    --accent-06-02-hover-text,
+    var(--accent-06-02-text, var(--ink-06))
+  );
+  --color-accent-06-02-shadow: var(
+    --accent-06-02-shadow,
+    var(--accent-06-01-shadow, var(--canvas-06-shadow))
+  );
+  --color-accent-06-03: var(--accent-06-03, transparent);
+  --color-accent-06-03-hover: var(
+    --accent-06-03-hover,
+    var(--accent-06-03, transparent)
+  );
+  --color-accent-06-03-border: var(
+    --accent-06-03-border,
+    var(--accent-06-01-border)
+  );
+  --color-accent-06-03-hover-border: var(
+    --accent-06-03-hover-border,
+    var(--accent-06-03-border, var(--accent-06-01-border))
+  );
+  --color-accent-06-03-text: var(--accent-06-03-text, var(--accent-06-focus));
+  --color-accent-06-03-hover-text: var(
+    --accent-06-03-hover-text,
+    var(--accent-06-03-text, var(--accent-06-focus))
+  );
+  --color-accent-06-03-shadow: var(
+    --accent-06-03-shadow,
+    var(--accent-06-01-shadow, var(--canvas-06-shadow))
+  );
   --color-accent-06-focus: var(--accent-06-focus);
   --color-ink-06: var(--ink-06);
   --color-ink-06-dark: var(--ink-06-dark);
@@ -636,9 +1132,75 @@
   --color-canvas-contrast: var(--canvas-contrast);
   --color-canvas-contrast-border: var(--canvas-contrast-border);
   --color-canvas-contrast-shadow: var(--canvas-contrast-shadow);
-  --color-accent-contrast-canvas: var(--accent-contrast-canvas);
-  --color-accent-contrast-text: var(--accent-contrast-text);
-  --color-accent-contrast-border: var(--accent-contrast-border);
+  --color-accent-contrast-01: var(--accent-contrast-01);
+  --color-accent-contrast-01-hover: var(
+    --accent-contrast-01-hover,
+    var(--accent-contrast-01)
+  );
+  --color-accent-contrast-01-border: var(--accent-contrast-01-border);
+  --color-accent-contrast-01-hover-border: var(
+    --accent-contrast-01-hover-border,
+    var(--accent-contrast-01-border)
+  );
+  --color-accent-contrast-01-text: var(--accent-contrast-01-text);
+  --color-accent-contrast-01-hover-text: var(
+    --accent-contrast-01-hover-text,
+    var(--accent-contrast-01-text)
+  );
+  --color-accent-contrast-01-shadow: var(
+    --accent-contrast-01-shadow,
+    var(--canvas-contrast-shadow)
+  );
+  --color-accent-contrast-02: var(--accent-contrast-02, var(--canvas-contrast));
+  --color-accent-contrast-02-hover: var(
+    --accent-contrast-02-hover,
+    var(--accent-contrast-02, var(--canvas-contrast))
+  );
+  --color-accent-contrast-02-border: var(
+    --accent-contrast-02-border,
+    var(--accent-contrast-01-border)
+  );
+  --color-accent-contrast-02-hover-border: var(
+    --accent-contrast-02-hover-border,
+    var(--accent-contrast-02-border, var(--accent-contrast-01-border))
+  );
+  --color-accent-contrast-02-text: var(
+    --accent-contrast-02-text,
+    var(--ink-contrast)
+  );
+  --color-accent-contrast-02-hover-text: var(
+    --accent-contrast-02-hover-text,
+    var(--accent-contrast-02-text, var(--ink-contrast))
+  );
+  --color-accent-contrast-02-shadow: var(
+    --accent-contrast-02-shadow,
+    var(--accent-contrast-01-shadow, var(--canvas-contrast-shadow))
+  );
+  --color-accent-contrast-03: var(--accent-contrast-03, transparent);
+  --color-accent-contrast-03-hover: var(
+    --accent-contrast-03-hover,
+    var(--accent-contrast-03, transparent)
+  );
+  --color-accent-contrast-03-border: var(
+    --accent-contrast-03-border,
+    var(--accent-contrast-01-border)
+  );
+  --color-accent-contrast-03-hover-border: var(
+    --accent-contrast-03-hover-border,
+    var(--accent-contrast-03-border, var(--accent-contrast-01-border))
+  );
+  --color-accent-contrast-03-text: var(
+    --accent-contrast-03-text,
+    var(--accent-contrast-focus)
+  );
+  --color-accent-contrast-03-hover-text: var(
+    --accent-contrast-03-hover-text,
+    var(--accent-contrast-03-text, var(--accent-contrast-focus))
+  );
+  --color-accent-contrast-03-shadow: var(
+    --accent-contrast-03-shadow,
+    var(--accent-contrast-01-shadow, var(--canvas-contrast-shadow))
+  );
   --color-accent-contrast-focus: var(--accent-contrast-focus);
   --color-ink-contrast: var(--ink-contrast);
   --color-ink-contrast-dark: var(--ink-contrast-dark);
@@ -653,9 +1215,75 @@
   --color-canvas-footer: var(--canvas-footer);
   --color-canvas-footer-border: var(--canvas-footer-border);
   --color-canvas-footer-shadow: var(--canvas-footer-shadow);
-  --color-accent-footer-canvas: var(--accent-footer-canvas);
-  --color-accent-footer-text: var(--accent-footer-text);
-  --color-accent-footer-border: var(--accent-footer-border);
+  --color-accent-footer-01: var(--accent-footer-01);
+  --color-accent-footer-01-hover: var(
+    --accent-footer-01-hover,
+    var(--accent-footer-01)
+  );
+  --color-accent-footer-01-border: var(--accent-footer-01-border);
+  --color-accent-footer-01-hover-border: var(
+    --accent-footer-01-hover-border,
+    var(--accent-footer-01-border)
+  );
+  --color-accent-footer-01-text: var(--accent-footer-01-text);
+  --color-accent-footer-01-hover-text: var(
+    --accent-footer-01-hover-text,
+    var(--accent-footer-01-text)
+  );
+  --color-accent-footer-01-shadow: var(
+    --accent-footer-01-shadow,
+    var(--canvas-footer-shadow)
+  );
+  --color-accent-footer-02: var(--accent-footer-02, var(--canvas-footer));
+  --color-accent-footer-02-hover: var(
+    --accent-footer-02-hover,
+    var(--accent-footer-02, var(--canvas-footer))
+  );
+  --color-accent-footer-02-border: var(
+    --accent-footer-02-border,
+    var(--accent-footer-01-border)
+  );
+  --color-accent-footer-02-hover-border: var(
+    --accent-footer-02-hover-border,
+    var(--accent-footer-02-border, var(--accent-footer-01-border))
+  );
+  --color-accent-footer-02-text: var(
+    --accent-footer-02-text,
+    var(--ink-footer)
+  );
+  --color-accent-footer-02-hover-text: var(
+    --accent-footer-02-hover-text,
+    var(--accent-footer-02-text, var(--ink-footer))
+  );
+  --color-accent-footer-02-shadow: var(
+    --accent-footer-02-shadow,
+    var(--accent-footer-01-shadow, var(--canvas-footer-shadow))
+  );
+  --color-accent-footer-03: var(--accent-footer-03, transparent);
+  --color-accent-footer-03-hover: var(
+    --accent-footer-03-hover,
+    var(--accent-footer-03, transparent)
+  );
+  --color-accent-footer-03-border: var(
+    --accent-footer-03-border,
+    var(--accent-footer-01-border)
+  );
+  --color-accent-footer-03-hover-border: var(
+    --accent-footer-03-hover-border,
+    var(--accent-footer-03-border, var(--accent-footer-01-border))
+  );
+  --color-accent-footer-03-text: var(
+    --accent-footer-03-text,
+    var(--accent-footer-focus)
+  );
+  --color-accent-footer-03-hover-text: var(
+    --accent-footer-03-hover-text,
+    var(--accent-footer-03-text, var(--accent-footer-focus))
+  );
+  --color-accent-footer-03-shadow: var(
+    --accent-footer-03-shadow,
+    var(--accent-footer-01-shadow, var(--canvas-footer-shadow))
+  );
   --color-accent-footer-focus: var(--accent-footer-focus);
   --color-ink-footer: var(--ink-footer);
   --color-ink-footer-h1: var(--ink-footer-h1);
@@ -838,9 +1466,9 @@
   --canvas-page: var(--color-sky-50);
   --canvas-page-border: var(--color-sky-100);
   --canvas-page-shadow: var(--color-gray-800);
-  --accent-page-canvas: var(--canvas-page);
-  --accent-page-text: var(--color-gray-800);
-  --accent-page-border: var(--color-sky-200);
+  --accent-page-01: var(--canvas-page);
+  --accent-page-01-text: var(--color-gray-800);
+  --accent-page-01-border: var(--color-sky-200);
   --accent-page-focus: var(--color-sky-600);
   --ink-page: var(--color-gray-800);
   --ink-page-dark: var(--color-mist-950);
@@ -855,9 +1483,9 @@
   --canvas-header: var(--color-sky-50);
   --canvas-header-border: var(--color-sky-100);
   --canvas-header-shadow: var(--color-gray-800);
-  --accent-header-canvas: var(--color-sky-50);
-  --accent-header-text: var(--color-sky-900);
-  --accent-header-border: var(--color-blue-200);
+  --accent-header-01: var(--color-sky-50);
+  --accent-header-01-text: var(--color-sky-900);
+  --accent-header-01-border: var(--color-blue-200);
   --accent-header-focus: var(--color-sky-600);
   --ink-header: var(--ink-page);
   --ink-header-h1: var(--ink-page-first-header);
@@ -876,9 +1504,9 @@
   --canvas-hero-border: var(--color-sky-700);
   --canvas-hero-shadow: var(--color-mist-950);
   --accent-hero-glow: var(--cta-01);
-  --accent-hero-canvas: var(--color-yellow-500);
-  --accent-hero-text: var(--color-mist-950);
-  --accent-hero-border: var(--color-yellow-400);
+  --accent-hero-01: var(--color-yellow-500);
+  --accent-hero-01-text: var(--color-mist-950);
+  --accent-hero-01-border: var(--color-yellow-400);
   --accent-hero-focus: var(--color-yellow-300);
   --ink-hero: var(--color-blue-50);
   --ink-hero-dark: var(--color-sky-50);
@@ -893,9 +1521,9 @@
   --canvas-01: var(--color-blue-50);
   --canvas-01-border: var(--color-sky-200);
   --canvas-01-shadow: var(--color-gray-800);
-  --accent-01-canvas: var(--color-sky-50);
-  --accent-01-text: var(--color-sky-900);
-  --accent-01-border: var(--color-blue-200);
+  --accent-01-01: var(--color-sky-50);
+  --accent-01-01-text: var(--color-sky-900);
+  --accent-01-01-border: var(--color-blue-200);
   --accent-01-focus: var(--color-sky-600);
   --ink-01: var(--color-sky-800);
   --ink-01-dark: var(--color-slate-800);
@@ -910,9 +1538,9 @@
   --canvas-02: var(--color-taupe-100);
   --canvas-02-border: var(--color-olive-300);
   --canvas-02-shadow: var(--color-gray-800);
-  --accent-02-canvas: var(--color-stone-100);
-  --accent-02-text: var(--color-olive-700);
-  --accent-02-border: var(--color-olive-200);
+  --accent-02-01: var(--color-stone-100);
+  --accent-02-01-text: var(--color-olive-700);
+  --accent-02-01-border: var(--color-olive-200);
   --accent-02-focus: var(--color-olive-500);
   --ink-02: var(--color-olive-600);
   --ink-02-dark: var(--color-olive-800);
@@ -927,9 +1555,9 @@
   --canvas-03: var(--color-olive-100);
   --canvas-03-border: var(--color-olive-200);
   --canvas-03-shadow: var(--color-gray-800);
-  --accent-03-canvas: var(--color-stone-100);
-  --accent-03-text: var(--color-olive-600);
-  --accent-03-border: var(--color-olive-200);
+  --accent-03-01: var(--color-stone-100);
+  --accent-03-01-text: var(--color-olive-600);
+  --accent-03-01-border: var(--color-olive-200);
   --accent-03-focus: var(--color-olive-500);
   --ink-03: var(--color-olive-600);
   --ink-03-dark: var(--color-olive-800);
@@ -944,9 +1572,9 @@
   --canvas-04: var(--color-yellow-100);
   --canvas-04-border: var(--color-yellow-300);
   --canvas-04-shadow: var(--color-gray-800);
-  --accent-04-canvas: var(--color-yellow-100);
-  --accent-04-text: var(--color-lime-900);
-  --accent-04-border: var(--color-yellow-300);
+  --accent-04-01: var(--color-yellow-100);
+  --accent-04-01-text: var(--color-lime-900);
+  --accent-04-01-border: var(--color-yellow-300);
   --accent-04-focus: var(--color-lime-700);
   --ink-04: var(--color-lime-800);
   --ink-04-dark: var(--color-lime-950);
@@ -961,9 +1589,9 @@
   --canvas-05: var(--color-sky-50);
   --canvas-05-border: var(--color-blue-200);
   --canvas-05-shadow: var(--color-gray-800);
-  --accent-05-canvas: var(--color-sky-50);
-  --accent-05-text: var(--color-sky-900);
-  --accent-05-border: var(--color-blue-200);
+  --accent-05-01: var(--color-sky-50);
+  --accent-05-01-text: var(--color-sky-900);
+  --accent-05-01-border: var(--color-blue-200);
   --accent-05-focus: var(--color-sky-600);
   --ink-05: var(--color-sky-800);
   --ink-05-dark: var(--color-slate-800);
@@ -978,9 +1606,9 @@
   --canvas-06: var(--color-sky-50);
   --canvas-06-border: var(--color-slate-300);
   --canvas-06-shadow: var(--color-gray-800);
-  --accent-06-canvas: var(--color-sky-50);
-  --accent-06-text: var(--color-cyan-950);
-  --accent-06-border: var(--color-slate-300);
+  --accent-06-01: var(--color-sky-50);
+  --accent-06-01-text: var(--color-cyan-950);
+  --accent-06-01-border: var(--color-slate-300);
   --accent-06-focus: var(--color-cyan-950);
   --ink-06: var(--color-cyan-950);
   --ink-06-dark: var(--color-gray-800);
@@ -995,9 +1623,9 @@
   --canvas-contrast: var(--color-gray-800);
   --canvas-contrast-border: var(--color-slate-600);
   --canvas-contrast-shadow: var(--color-mist-950);
-  --accent-contrast-canvas: var(--color-cyan-950);
-  --accent-contrast-text: var(--color-sky-50);
-  --accent-contrast-border: var(--color-cyan-950);
+  --accent-contrast-01: var(--color-cyan-950);
+  --accent-contrast-01-text: var(--color-sky-50);
+  --accent-contrast-01-border: var(--color-cyan-950);
   --accent-contrast-focus: var(--color-cyan-950);
   --ink-contrast: var(--color-sky-50);
   --ink-contrast-dark: var(--color-gray-800);
@@ -1012,9 +1640,9 @@
   --canvas-footer: var(--color-slate-800);
   --canvas-footer-border: var(--color-sky-800);
   --canvas-footer-shadow: var(--color-mist-950);
-  --accent-footer-canvas: var(--color-stone-100);
-  --accent-footer-text: var(--color-olive-700);
-  --accent-footer-border: var(--color-olive-200);
+  --accent-footer-01: var(--color-stone-100);
+  --accent-footer-01-text: var(--color-olive-700);
+  --accent-footer-01-border: var(--color-olive-200);
   --accent-footer-focus: var(--color-olive-500);
   --ink-footer: var(--ink-inverse);
   --ink-footer-h1: var(--ink-inverse);
@@ -1113,8 +1741,8 @@
   --canvas-page: var(--color-gray-800);
   --canvas-page-border: var(--color-slate-600);
   --canvas-page-shadow: var(--color-mist-950);
-  --accent-page-text: var(--color-blue-50);
-  --accent-page-border: var(--color-slate-600);
+  --accent-page-01-text: var(--color-blue-50);
+  --accent-page-01-border: var(--color-slate-600);
   --accent-page-focus: var(--color-blue-300);
   --ink-page: var(--color-blue-50);
   --ink-page-dark: var(--color-mist-950);
@@ -1129,9 +1757,9 @@
   --canvas-header: var(--color-gray-800);
   --canvas-header-border: var(--color-slate-600);
   --canvas-header-shadow: var(--color-mist-950);
-  --accent-header-canvas: var(--color-slate-800);
-  --accent-header-text: var(--color-sky-100);
-  --accent-header-border: var(--color-sky-800);
+  --accent-header-01: var(--color-slate-800);
+  --accent-header-01-text: var(--color-sky-100);
+  --accent-header-01-border: var(--color-sky-800);
   --accent-header-focus: var(--color-blue-300);
   --nav-header-sitenav-top: var(--color-blue-50);
   --nav-header-sitenav-submenu-title: var(--color-blue-200);
@@ -1142,9 +1770,9 @@
   --canvas-01: var(--color-gray-700);
   --canvas-01-border: var(--color-slate-500);
   --canvas-01-shadow: var(--color-mist-950);
-  --accent-01-canvas: var(--color-slate-800);
-  --accent-01-text: var(--color-sky-100);
-  --accent-01-border: var(--color-sky-800);
+  --accent-01-01: var(--color-slate-800);
+  --accent-01-01-text: var(--color-sky-100);
+  --accent-01-01-border: var(--color-sky-800);
   --accent-01-focus: var(--color-blue-300);
   --ink-01: var(--color-blue-200);
   --ink-01-dark: var(--color-sky-50);
@@ -1159,9 +1787,9 @@
   --canvas-02: var(--color-olive-700);
   --canvas-02-border: var(--color-olive-500);
   --canvas-02-shadow: var(--color-mist-950);
-  --accent-02-canvas: var(--color-olive-800);
-  --accent-02-text: var(--color-taupe-100);
-  --accent-02-border: var(--color-olive-600);
+  --accent-02-01: var(--color-olive-800);
+  --accent-02-01-text: var(--color-taupe-100);
+  --accent-02-01-border: var(--color-olive-600);
   --accent-02-focus: var(--color-olive-300);
   --ink-02: var(--color-olive-200);
   --ink-02-dark: var(--color-stone-100);
@@ -1176,9 +1804,9 @@
   --canvas-03: var(--color-olive-600);
   --canvas-03-border: var(--color-olive-500);
   --canvas-03-shadow: var(--color-mist-950);
-  --accent-03-canvas: var(--color-olive-800);
-  --accent-03-text: var(--color-olive-100);
-  --accent-03-border: var(--color-olive-600);
+  --accent-03-01: var(--color-olive-800);
+  --accent-03-01-text: var(--color-olive-100);
+  --accent-03-01-border: var(--color-olive-600);
   --accent-03-focus: var(--color-olive-200);
   --ink-03: var(--color-olive-200);
   --ink-03-dark: var(--color-stone-100);
@@ -1193,9 +1821,9 @@
   --canvas-04: var(--color-lime-950);
   --canvas-04-border: var(--color-lime-800);
   --canvas-04-shadow: var(--color-mist-950);
-  --accent-04-canvas: var(--color-lime-950);
-  --accent-04-text: var(--color-yellow-300);
-  --accent-04-border: var(--color-lime-800);
+  --accent-04-01: var(--color-lime-950);
+  --accent-04-01-text: var(--color-yellow-300);
+  --accent-04-01-border: var(--color-lime-800);
   --accent-04-focus: var(--color-yellow-400);
   --ink-04: var(--color-yellow-300);
   --ink-04-dark: var(--color-yellow-100);
@@ -1210,9 +1838,9 @@
   --canvas-05: var(--color-slate-800);
   --canvas-05-border: var(--color-sky-800);
   --canvas-05-shadow: var(--color-mist-950);
-  --accent-05-canvas: var(--color-slate-800);
-  --accent-05-text: var(--color-sky-100);
-  --accent-05-border: var(--color-sky-800);
+  --accent-05-01: var(--color-slate-800);
+  --accent-05-01-text: var(--color-sky-100);
+  --accent-05-01-border: var(--color-sky-800);
   --accent-05-focus: var(--color-blue-300);
   --ink-05: var(--color-blue-200);
   --ink-05-dark: var(--color-sky-50);
@@ -1227,9 +1855,9 @@
   --canvas-06: var(--color-gray-800);
   --canvas-06-border: var(--color-cyan-950);
   --canvas-06-shadow: var(--color-mist-950);
-  --accent-06-canvas: var(--color-gray-800);
-  --accent-06-text: var(--color-zinc-200);
-  --accent-06-border: var(--color-cyan-950);
+  --accent-06-01: var(--color-gray-800);
+  --accent-06-01-text: var(--color-zinc-200);
+  --accent-06-01-border: var(--color-cyan-950);
   --accent-06-focus: var(--color-slate-400);
   --ink-06: var(--color-slate-300);
   --ink-06-dark: var(--color-sky-50);
@@ -1244,9 +1872,9 @@
   --canvas-contrast: var(--color-blue-50);
   --canvas-contrast-border: var(--color-sky-200);
   --canvas-contrast-shadow: var(--color-mist-950);
-  --accent-contrast-canvas: var(--color-slate-300);
-  --accent-contrast-text: var(--color-gray-800);
-  --accent-contrast-border: var(--color-cyan-800);
+  --accent-contrast-01: var(--color-slate-300);
+  --accent-contrast-01-text: var(--color-gray-800);
+  --accent-contrast-01-border: var(--color-cyan-800);
   --accent-contrast-focus: var(--color-slate-300);
   --ink-contrast: var(--color-gray-800);
   --ink-contrast-dark: var(--color-sky-50);
@@ -1261,9 +1889,9 @@
   --canvas-footer: var(--color-mist-950);
   --canvas-footer-border: var(--color-gray-700);
   --canvas-footer-shadow: var(--color-mist-950);
-  --accent-footer-canvas: var(--color-olive-800);
-  --accent-footer-text: var(--color-taupe-100);
-  --accent-footer-border: var(--color-olive-600);
+  --accent-footer-01: var(--color-olive-800);
+  --accent-footer-01-text: var(--color-taupe-100);
+  --accent-footer-01-border: var(--color-olive-600);
   --accent-footer-focus: var(--color-olive-300);
   --nav-footer-item: var(--color-sky-100);
 

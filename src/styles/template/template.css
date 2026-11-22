@@ -41,7 +41,7 @@
   @apply text-ink-page-dark;
 }
 .theme-lab .lab-button-secondary {
-  @apply border-accent-page-border;
+  @apply border-accent-page-01-border;
   background: var(--canvas-page);
   @apply text-accent-page-focus;
 }

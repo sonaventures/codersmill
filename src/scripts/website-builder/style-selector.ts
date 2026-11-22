@@ -598,8 +598,9 @@ if (root) {
     if (target.matches('[data-cta="primary"]')) return "ctaPrimary";
     if (target.matches('[data-cta="secondary"]')) return "ctaSecondary";
     if (target.matches('[data-cta="tertiary"]')) return "ctaTertiary";
-    if (target.matches(".sample-primary")) return "primary";
-    if (target.matches(".sample-secondary")) return "secondary";
+    if (target.matches(".sample-primary")) return "accent1";
+    if (target.matches(".sample-secondary")) return "accent2";
+    if (target.matches(".sample-action-link")) return "accent3";
     if (target.matches(".sample-social-icons a")) return "iconBorder";
     if (target.matches(".sample-navigation summary, .sample-submenu a"))
       return "text";
@@ -621,7 +622,7 @@ if (root) {
       return role.key;
     }
 
-    if (target.matches(".sample-buttons button")) return "accentBorder";
+    if (target.matches(".sample-buttons button")) return "accent1Border";
     if (target.matches(".sample-section")) return "border";
     return "background";
   }

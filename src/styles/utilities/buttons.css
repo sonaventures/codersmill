@@ -8,7 +8,7 @@
   }
 
   .btn-outline {
-    @apply border-accent-01-border bg-transparent text-accent-page-focus hover:bg-accent-01-canvas;
+    @apply border-accent-01-01-border bg-transparent text-accent-page-focus hover:bg-accent-01-01;
   }
 
   .btn-group {

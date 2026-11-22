@@ -85,7 +85,12 @@ const kindByTag = new Map(
   elementKinds.flatMap(({ key, tags }) => tags.map((tag) => [tag, key])),
 );
 
-/** Named sets of theme classes, grouped for the style dropdown. */
+/**
+ * Named sets of theme classes, grouped for the style dropdown. Each accent
+ * button uses all seven of its colors: background, border (an inset ring),
+ * text, and shadow (for any shadow utility the element has), then their
+ * hover / focus colors.
+ */
 export const stylePresets = [
   {
     key: "cta-01",
@@ -113,21 +118,21 @@ export const stylePresets = [
     label: "Accent 1 button",
     group: "actions",
     classes:
-      "rounded-accent! bg-accent-01-canvas text-accent-01-text inset-ring inset-ring-accent-01-border hover:bg-accent-01-primary-hover focus-visible:bg-accent-01-primary-hover focus-visible:outline-accent-01-focus",
+      "rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border focus-visible:outline-accent-01-focus",
   },
   {
-    key: "accent-01-secondary",
+    key: "accent-02",
     label: "Accent 2 button",
     group: "actions",
     classes:
-      "rounded-accent! bg-accent-01-secondary text-accent-01-secondary-text inset-ring inset-ring-accent-01-secondary-border shadow-accent-01-secondary-shadow/20 hover:bg-accent-01-secondary-hover hover:text-accent-01-secondary-hover-text focus-visible:bg-accent-01-secondary-hover focus-visible:text-accent-01-secondary-hover-text",
+      "rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border focus-visible:outline-accent-01-focus",
   },
   {
-    key: "accent-01-learn-more",
-    label: "Accent 3 link",
+    key: "accent-03",
+    label: "Accent 3 button",
     group: "actions",
     classes:
-      "rounded-accent! text-accent-01-focus inset-ring inset-ring-accent-01-border hover:bg-accent-01-learn-more-hover focus-visible:bg-accent-01-learn-more-hover",
+      "rounded-accent! bg-accent-01-03 text-accent-01-03-text inset-ring inset-ring-accent-01-03-border shadow-accent-01-03-shadow/20 hover:bg-accent-01-03-hover hover:text-accent-01-03-hover-text hover:inset-ring-accent-01-03-hover-border focus-visible:bg-accent-01-03-hover focus-visible:text-accent-01-03-hover-text focus-visible:inset-ring-accent-01-03-hover-border focus-visible:outline-accent-01-focus",
   },
   {
     key: "link",
@@ -141,7 +146,7 @@ export const stylePresets = [
     label: "Contrast button",
     group: "actions",
     classes:
-      "bg-accent-contrast-canvas text-accent-contrast-text inset-ring inset-ring-accent-contrast-border hover:bg-accent-contrast-focus focus-visible:bg-accent-contrast-focus",
+      "bg-accent-contrast-01 text-accent-contrast-01-text inset-ring inset-ring-accent-contrast-01-border hover:bg-accent-contrast-01-hover hover:text-accent-contrast-01-hover-text focus-visible:bg-accent-contrast-01-hover focus-visible:text-accent-contrast-01-hover-text",
   },
   {
     key: "h1",
@@ -247,7 +252,7 @@ export const stylePresets = [
     key: "accent-canvas",
     label: "Accent canvas",
     group: "surfaces",
-    classes: "bg-accent-01-canvas text-accent-01-text",
+    classes: "bg-accent-01-01 text-accent-01-01-text",
   },
   {
     key: "contrast-band",
@@ -276,7 +281,12 @@ export const stylePresets = [
   },
   // The SVG types the Theme Builder colors (fill, stroke, hover, active).
   { key: "svg", label: "SVG icon (.svg)", group: "icons", classes: "svg" },
-  { key: "nav-svg", label: "Nav SVG (.nav-svg)", group: "icons", classes: "nav-svg" },
+  {
+    key: "nav-svg",
+    label: "Nav SVG (.nav-svg)",
+    group: "icons",
+    classes: "nav-svg",
+  },
   {
     key: "button-svg",
     label: "Button SVG (.button-svg)",
@@ -300,8 +310,7 @@ const themeColorPattern = new RegExp(
 );
 // Corner radii from the theme group. Presets add them with "!" so they win
 // over any rounded-* class the element already has, which is kept.
-const themeRadiusPattern =
-  /^rounded-(?:section|card|subsection|accent|cta)!?$/;
+const themeRadiusPattern = /^rounded-(?:section|card|subsection|accent|cta)!?$/;
 // Theme builder SVG fills are set on SVGs, not here, so they are left alone.
 const svgFillPattern = /^(?:fill|stroke)-ink-[a-z0-9]+-svg-0[1-3]$/;
 
@@ -555,7 +564,8 @@ export function applyThemeClasses(source, changes) {
       .split(/\s+/)
       .filter(
         (name) =>
-          name && (!isThemeClass(name) || (!theme.length && markerNames.has(name))),
+          name &&
+          (!isThemeClass(name) || (!theme.length && markerNames.has(name))),
       );
     const next = [
       ...kept,

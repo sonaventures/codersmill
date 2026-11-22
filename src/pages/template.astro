@@ -2,7 +2,10 @@
 import Layout from "../layouts/layout.astro";
 import "../styles/template/template.css";
 import css from "../styles/themes/colors.css?raw";
-import { allPaletteFamilies, readPalette } from "../data/website-builder/palette.js";
+import {
+  allPaletteFamilies,
+  readPalette,
+} from "../data/website-builder/palette.js";
 
 const canvasSamples = [
   {
@@ -83,7 +86,7 @@ const canvasSamples = [
     canvas: "canvas-contrast",
     border: "canvas-contrast-border",
     shadow: "canvas-contrast-shadow",
-    ink: "accent-contrast-text",
+    ink: "accent-contrast-01-text",
   },
   {
     label: "Header",
@@ -212,7 +215,7 @@ const shades = [50, 200, 400, 600, 800, 950];
           ({ label, canvas, border, shadow, ink, accent = "accent-01" }) => (
             <article
               class="canvas-card"
-              style={`--sample-canvas:var(--${canvas});--sample-border:var(--${border});--sample-shadow:var(--${shadow});--sample-ink:var(--${ink});--sample-accent-canvas:var(--${accent}-canvas);--sample-accent-text:var(--${accent}-text);--sample-accent-border:var(--${accent}-border)`}
+              style={`--sample-canvas:var(--${canvas});--sample-border:var(--${border});--sample-shadow:var(--${shadow});--sample-ink:var(--${ink});--sample-accent-canvas:var(--${accent}-01);--sample-accent-text:var(--${accent}-01-text);--sample-accent-border:var(--${accent}-01-border)`}
             >
               <p class="sample-kicker">Canvas / {label}</p>
               <h3>A clear, readable layer</h3>
@@ -260,7 +263,7 @@ const shades = [50, 200, 400, 600, 800, 950];
         {accents.map(({ label, prefix }) => (
           <article
             class="accent-card"
-            style={`--sample-accent-canvas:var(--${prefix}-canvas,transparent);--sample-accent-text:var(--${prefix}-text,var(--ink-page));--sample-accent-border:var(--${prefix}-border,var(--canvas-page-border));--sample-accent-focus:var(--${prefix}-focus,var(--brand-01))`}
+            style={`--sample-accent-canvas:var(--${prefix}-01,transparent);--sample-accent-text:var(--${prefix}-01-text,var(--ink-page));--sample-accent-border:var(--${prefix}-01-border,var(--canvas-page-border));--sample-accent-focus:var(--${prefix}-focus,var(--brand-01))`}
           >
             <p class="sample-kicker">{label} accent</p>
             <p class="accent-card-copy">
@@ -274,14 +277,14 @@ const shades = [50, 200, 400, 600, 800, 950];
               aria-label={`${label} accent color tokens`}
             >
               {[
-                { label: "canvas", property: "canvas" },
-                { label: "text", property: "text" },
-                { label: "border", property: "border" },
+                { label: "accent 1", property: "01" },
+                { label: "accent 1 text", property: "01-text" },
+                { label: "accent 1 border", property: "01-border" },
                 { label: "focus", property: "focus" },
               ].map(({ label: tokenLabel, property }) => (
                 <span
                   class="token-chip"
-                  title={`--${prefix}-${tokenLabel}`}
+                  title={`--${prefix}-${property}`}
                   style={`background-color:var(--${prefix}-${property},var(--brand-01))`}
                 >
                   <span class="sr-only">{tokenLabel}</span>
@@ -428,7 +431,7 @@ const shades = [50, 200, 400, 600, 800, 950];
           <button
             class="lab-button accent-option-button"
             type="button"
-            style={`--button-canvas:var(--${prefix}-canvas,var(--canvas-page));--button-text:var(--${prefix}-text,var(--accent-page-text));--button-border:var(--${prefix}-border,var(--accent-page-border));--button-focus:var(--${prefix}-focus,var(--accent-page-focus))`}
+            style={`--button-canvas:var(--${prefix}-01,var(--canvas-page));--button-text:var(--${prefix}-01-text,var(--accent-page-01-text));--button-border:var(--${prefix}-01-border,var(--accent-page-01-border));--button-focus:var(--${prefix}-focus,var(--accent-page-focus))`}
           >
             {label} accent
           </button>

@@ -17,10 +17,10 @@
 }
 .palette-editor button:not(:where(.family-row *)) {
   @apply w-fit p-[0.65rem_1rem];
-  border: 1px solid var(--accent-page-border);
+  border: 1px solid var(--accent-page-01-border);
   @apply rounded-[0.4rem];
-  background: var(--accent-page-canvas);
-  @apply cursor-pointer text-accent-page-text;
+  background: var(--accent-page-01);
+  @apply cursor-pointer text-accent-page-01-text;
 }
 .palette-editor button:not(:where(.family-row *)):disabled {
   @apply cursor-not-allowed opacity-[0.55];
@@ -169,12 +169,12 @@
 }
 .selector-shell .sample-navigation summary:hover,
 .selector-shell .sample-navigation details[open] summary {
-  background: var(--sample-primary);
-  @apply text-(--sample-primaryText);
+  background: var(--sample-accent1);
+  @apply text-(--sample-accent1Text);
 }
 .selector-shell .sample-submenu {
   @apply absolute top-[calc(100%+0.25rem)] left-0 z-2 m-0 w-[min(12rem,70vw)] list-none p-[0.35rem];
-  border: 1px solid var(--sample-accentBorder);
+  border: 1px solid var(--sample-accent1Border);
   @apply rounded-[0.35rem];
   background: var(--sample-background);
   box-shadow: 0 8px 24px
@@ -187,8 +187,8 @@
   @apply block rounded-[0.2rem] p-[0.7rem] text-[0.8rem] text-(--sample-text) no-underline;
 }
 .selector-shell .sample-submenu a:hover {
-  background: var(--sample-primary);
-  @apply text-(--sample-primaryText);
+  background: var(--sample-accent1);
+  @apply text-(--sample-accent1Text);
 }
 .selector-shell .sample-navigation summary:focus-visible,
 .selector-shell .sample-submenu a:focus-visible {
@@ -367,9 +367,9 @@
 }
 .selector-shell .sample-buttons button {
   @apply inline-flex items-center justify-center gap-2 p-[0.7rem_1rem] whitespace-nowrap;
-  border: 1px solid var(--sample-accentBorder);
+  border: 1px solid var(--sample-accent1Border);
   box-shadow: 0 3px 10px
-    color-mix(in srgb, var(--sample-buttonShadow) 20%, transparent);
+    color-mix(in srgb, var(--sample-accent1Shadow) 20%, transparent);
   @apply cursor-pointer text-[0.75rem] font-bold;
   border-radius: var(--sample-accent-radius, 0.25rem);
 }
@@ -384,13 +384,38 @@
   outline: 3px solid var(--sample-accentFocus);
   @apply outline-offset-3;
 }
+/* Accent 1-3 (the primary, secondary, and action link samples) each take
+   their own seven colors. */
 .selector-shell .sample-primary {
-  background: var(--sample-primary);
-  @apply text-(--sample-primaryText);
+  --accent-button: var(--sample-accent1);
+  --accent-button-hover: var(--sample-accent1Hover);
+  --accent-button-border: var(--sample-accent1Border);
+  --accent-button-hover-border: var(--sample-accent1HoverBorder);
+  --accent-button-text: var(--sample-accent1Text);
+  --accent-button-hover-text: var(--sample-accent1HoverText);
+  --accent-button-shadow: var(--sample-accent1Shadow);
 }
 .selector-shell .sample-secondary {
-  background: var(--sample-secondary);
-  @apply text-(--sample-secondaryText);
+  --accent-button: var(--sample-accent2);
+  --accent-button-hover: var(--sample-accent2Hover);
+  --accent-button-border: var(--sample-accent2Border);
+  --accent-button-hover-border: var(--sample-accent2HoverBorder);
+  --accent-button-text: var(--sample-accent2Text);
+  --accent-button-hover-text: var(--sample-accent2HoverText);
+  --accent-button-shadow: var(--sample-accent2Shadow);
+}
+.selector-shell .sample-action-link {
+  --accent-button: var(--sample-accent3);
+  --accent-button-hover: var(--sample-accent3Hover);
+  --accent-button-border: var(--sample-accent3Border);
+  --accent-button-hover-border: var(--sample-accent3HoverBorder);
+  --accent-button-text: var(--sample-accent3Text);
+  --accent-button-hover-text: var(--sample-accent3HoverText);
+  --accent-button-shadow: var(--sample-accent3Shadow);
+}
+.selector-shell :is(.sample-primary, .sample-secondary) {
+  background: var(--accent-button);
+  @apply text-(--accent-button-text);
 }
 /* CTA preview buttons use the page-wide CTA colors, including hover/focus,
    with the same fallbacks as colors.css. These outrank the area button
@@ -400,7 +425,10 @@
   border-color: var(--cta-01-border, var(--cta-01));
   color: var(--cta-01-text, var(--ink-page-dark));
 }
-.selector-shell [data-region] .sample-buttons [data-cta="primary"]:is(:hover, :focus) {
+.selector-shell
+  [data-region]
+  .sample-buttons
+  [data-cta="primary"]:is(:hover, :focus) {
   background: var(--cta-01-hover, var(--cta-01));
   color: var(--cta-01-hover-text, var(--cta-01-text, var(--ink-page-dark)));
 }
@@ -409,7 +437,10 @@
   border-color: var(--cta-02-border, var(--cta-02));
   color: var(--cta-02-text, var(--ink-inverse));
 }
-.selector-shell [data-region] .sample-buttons [data-cta="secondary"]:is(:hover, :focus) {
+.selector-shell
+  [data-region]
+  .sample-buttons
+  [data-cta="secondary"]:is(:hover, :focus) {
   background: var(--cta-02-hover, var(--cta-02));
   color: var(--cta-02-hover-text, var(--cta-02-text, var(--ink-inverse)));
 }
@@ -418,7 +449,10 @@
   border-color: var(--cta-03-border, var(--cta-03));
   color: var(--cta-03-text, var(--ink-page-dark));
 }
-.selector-shell [data-region] .sample-buttons [data-cta="tertiary"]:is(:hover, :focus) {
+.selector-shell
+  [data-region]
+  .sample-buttons
+  [data-cta="tertiary"]:is(:hover, :focus) {
   background: var(--cta-03-hover, var(--cta-03));
   color: var(--cta-03-hover-text, var(--cta-03-text, var(--ink-page-dark)));
 }
@@ -428,9 +462,7 @@
 .selector-shell .sample-buttons .sample-action-link {
   @apply inline-flex min-h-10 items-center justify-center gap-2 px-4 text-[0.75rem] font-bold no-underline;
   border-radius: var(--sample-accent-radius, 0.25rem);
-  border: 1px solid var(--sample-accentBorder);
-  box-shadow: 0 3px 10px
-    color-mix(in srgb, var(--sample-buttonShadow) 20%, transparent);
+  border: 1px solid var(--sample-accent1Border);
 }
 .selector-shell .sample-action-link:focus-visible {
   outline: 3px solid var(--sample-accentFocus);
@@ -520,24 +552,28 @@
 .selector-shell [data-region] :is(button, a):active {
   color: var(--sample-linkActive);
 }
-/* Primary and Learn more hover / focus backgrounds. These outrank the
-   shared button states. */
-.selector-shell [data-region] .sample-buttons .sample-primary:is(:hover, :focus) {
-  background: var(--sample-primaryHover);
-}
-.selector-shell [data-region] .sample-buttons .sample-action-link:is(:hover, :focus) {
-  background: var(--sample-learnMoreHover);
-}
-/* The secondary button's own shadow and hover / focus colors. These outrank
-   the shared button states. */
-.selector-shell [data-region] .sample-buttons .sample-secondary {
-  border-color: var(--sample-secondaryBorder);
+/* The accents' own colors, and their hover / focus colors. These outrank
+   the link colors and the shared button states. */
+.selector-shell
+  [data-region]
+  .sample-buttons
+  :is(.sample-primary, .sample-secondary, .sample-action-link) {
+  background: var(--accent-button);
+  border-color: var(--accent-button-border);
+  color: var(--accent-button-text);
   box-shadow: 0 3px 10px
-    color-mix(in srgb, var(--sample-secondaryShadow) 20%, transparent);
+    color-mix(in srgb, var(--accent-button-shadow) 20%, transparent);
 }
-.selector-shell [data-region] .sample-buttons .sample-secondary:is(:hover, :focus) {
-  background: var(--sample-secondaryHover);
-  color: var(--sample-secondaryHoverText);
+.selector-shell
+  [data-region]
+  .sample-buttons
+  :is(.sample-primary, .sample-secondary, .sample-action-link):is(
+    :hover,
+    :focus
+  ) {
+  background: var(--accent-button-hover);
+  border-color: var(--accent-button-hover-border);
+  color: var(--accent-button-hover-text);
 }
 .selector-shell [data-region] .sample-buttons button:hover {
   background: var(--sample-buttonHoverBackground);
@@ -711,8 +747,8 @@
 }
 .selector-shell .palette-radius-swatches span {
   @apply block h-8 w-9;
-  border: 1px solid var(--accent-page-border);
-  background: var(--accent-page-canvas);
+  border: 1px solid var(--accent-page-01-border);
+  background: var(--accent-page-01);
 }
 .selector-shell .palette-tabs button:focus-visible,
 .selector-shell .palette-radius-swatches button:focus-visible,
@@ -781,14 +817,14 @@
   outline: 2px solid var(--accent-page-focus);
 }
 .selector-shell .control-button {
-  border: 1px solid var(--accent-page-border);
+  border: 1px solid var(--accent-page-01-border);
   @apply rounded-[0.35rem];
   background: var(--canvas-page);
   @apply cursor-pointer p-[0.6rem_0.7rem] text-[0.75rem] font-[650] text-ink-page;
 }
 .selector-shell .control-primary {
-  background: var(--accent-page-canvas);
-  @apply text-accent-page-text;
+  background: var(--accent-page-01);
+  @apply text-accent-page-01-text;
 }
 .selector-shell .control-button:disabled {
   @apply cursor-not-allowed opacity-[0.45];
@@ -802,7 +838,7 @@
 /* Theme groups: an expandable bar stuck to the bottom of the color controls
    panel. The negative margins span the panel's 1.5rem padding. */
 .selector-shell .saved-groups {
-  @apply sticky -bottom-6 z-10 -mx-6 -mb-6 mt-6 grid gap-2 px-6 pt-3 pb-4;
+  @apply sticky -bottom-6 z-10 -mx-6 mt-6 -mb-6 grid gap-2 px-6 pt-3 pb-4;
   border-top: 1px solid var(--canvas-page-border);
   background: var(--canvas-page);
   box-shadow: 0 -8px 20px
@@ -848,7 +884,9 @@
 .selector-shell .saved-groups-body .control-actions {
   @apply my-1 grid grid-cols-3 gap-1.5;
 }
-.selector-shell .saved-groups-body .control-actions:has(> :nth-child(2):last-child),
+.selector-shell
+  .saved-groups-body
+  .control-actions:has(> :nth-child(2):last-child),
 .selector-shell .saved-groups-body .control-actions:has(> input:last-child) {
   @apply grid-cols-2;
 }
@@ -915,9 +953,9 @@
     color-mix(in srgb, var(--canvas-page-shadow) 5%, transparent);
 }
 .studio-header .theme-toggle {
-  background: var(--accent-page-canvas);
-  color: var(--accent-page-text);
-  border-color: var(--accent-page-border);
+  background: var(--accent-page-01);
+  color: var(--accent-page-01-text);
+  border-color: var(--accent-page-01-border);
 }
 .studio-header .theme-toggle:hover {
   background: var(--accent-page-focus);
@@ -1345,7 +1383,7 @@
 }
 /* A step's guide in the Builder Guide, closed until opened. */
 .builder-step-guide {
-  @apply mt-1 ms-3 text-sm;
+  @apply ms-3 mt-1 text-sm;
 }
 .builder-step-guide summary {
   @apply w-fit cursor-pointer rounded-md px-2 py-1 font-semibold hover:bg-canvas-page-card-01;
@@ -1452,14 +1490,14 @@
     --ink-page-first-header: var(--builder-ink);
     --color-ink-page-first-header: var(--ink-page-first-header);
     --color-ink-page-second-header: var(--builder-ink);
-    --accent-page-border: var(--builder-border);
-    --accent-page-canvas: var(--builder-subtle);
-    --accent-page-text: var(--builder-ink);
-    --color-accent-page-text: var(--accent-page-text);
+    --accent-page-01-border: var(--builder-border);
+    --accent-page-01: var(--builder-subtle);
+    --accent-page-01-text: var(--builder-ink);
+    --color-accent-page-01-text: var(--accent-page-01-text);
     --accent-page-focus: var(--builder-focus);
     --color-accent-page-focus: var(--accent-page-focus);
-    --color-accent-01-border: var(--builder-border);
-    --color-accent-01-canvas: var(--builder-subtle);
+    --color-accent-01-01-border: var(--builder-border);
+    --color-accent-01-01: var(--builder-subtle);
     --font-display: var(--font-montserrat);
     color: var(--builder-ink);
     font-family: var(--font-inter);
@@ -1576,7 +1614,10 @@
   fill: var(--sample-svgIconFill);
   stroke: var(--sample-svgIconStroke);
 }
-.selector-shell .sample-svg-types :is(a, button):is(:hover, :focus-visible) .svg {
+.selector-shell
+  .sample-svg-types
+  :is(a, button):is(:hover, :focus-visible)
+  .svg {
   fill: var(--sample-svgIconFillHover);
   stroke: var(--sample-svgIconStrokeHover);
 }
@@ -1588,7 +1629,10 @@
   fill: var(--sample-navSvgFill);
   stroke: var(--sample-navSvgStroke);
 }
-.selector-shell .sample-svg-types :is(a, button):is(:hover, :focus-visible) .nav-svg {
+.selector-shell
+  .sample-svg-types
+  :is(a, button):is(:hover, :focus-visible)
+  .nav-svg {
   fill: var(--sample-navSvgFillHover);
   stroke: var(--sample-navSvgStrokeHover);
 }
@@ -1600,7 +1644,10 @@
   fill: var(--sample-buttonSvgFill);
   stroke: var(--sample-buttonSvgStroke);
 }
-.selector-shell .sample-svg-types :is(a, button):is(:hover, :focus-visible) .button-svg {
+.selector-shell
+  .sample-svg-types
+  :is(a, button):is(:hover, :focus-visible)
+  .button-svg {
   fill: var(--sample-buttonSvgFillHover);
   stroke: var(--sample-buttonSvgStrokeHover);
 }
@@ -1612,7 +1659,10 @@
   fill: var(--sample-anchorSvgFill);
   stroke: var(--sample-anchorSvgStroke);
 }
-.selector-shell .sample-svg-types :is(a, button):is(:hover, :focus-visible) .anchor-svg {
+.selector-shell
+  .sample-svg-types
+  :is(a, button):is(:hover, :focus-visible)
+  .anchor-svg {
   fill: var(--sample-anchorSvgFillHover);
   stroke: var(--sample-anchorSvgStrokeHover);
 }

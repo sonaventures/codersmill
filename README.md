@@ -98,6 +98,15 @@ the outer element's background, border, and shadow color, then `p`, `h1`–`h4`,
 `blockquote`, and `hr`. These rules sit in Tailwind's base layer, so a color
 utility on a component's element still wins.
 
+Each area also has three **accents**, Accent 1–3, for its buttons and
+action links. Each accent has seven colors: background, border, text, and
+shadow, and a hover / focus background, border, and text. Their variables
+name the area and the accent, e.g. `--accent-01-02-hover-border` is Accent
+2's hover / focus border in Section 01. Left on **Theme default**, hover /
+focus colors use the accent's own colors, Accent 2 and 3 use Accent 1's
+border and shadow, Accent 2 takes the area's background and text, and Accent
+3 is a text link in the area's focus color.
+
 A group also holds:
 
 - **Corner radii** for sections, cards, subsections, accent buttons, and CTA
@@ -114,8 +123,8 @@ sitewide.css** and applied whatever group a page uses: the Global area's CTA
 `sw-footer`), and the site's content width.
 
 Groups are kept in the browser and in the project's `theme-groups.json`, and
-can be exported and imported as JSON (format version 27; older files still
-load).
+can be exported and imported as JSON (format version 28; older files still
+load, with their accent colors moved to the new names).
 
 ### 4. Typography Builder
 

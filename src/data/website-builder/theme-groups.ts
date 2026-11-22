@@ -350,18 +350,74 @@ export const svgFillRoles = [
  * "Theme default", an SVG keeps its own fill and stroke attributes.
  */
 export const svgTypes = [
-  { key: "svgIcon", className: "svg", label: "SVG", detail: "Icons such as social links" },
-  { key: "navSvg", className: "nav-svg", label: "Nav SVG", detail: "Icons in menus" },
-  { key: "buttonSvg", className: "button-svg", label: "Button SVG", detail: "Icons in buttons" },
-  { key: "anchorSvg", className: "anchor-svg", label: "Anchor SVG", detail: "Icons in links" },
+  {
+    key: "svgIcon",
+    className: "svg",
+    label: "SVG",
+    detail: "Icons such as social links",
+  },
+  {
+    key: "navSvg",
+    className: "nav-svg",
+    label: "Nav SVG",
+    detail: "Icons in menus",
+  },
+  {
+    key: "buttonSvg",
+    className: "button-svg",
+    label: "Button SVG",
+    detail: "Icons in buttons",
+  },
+  {
+    key: "anchorSvg",
+    className: "anchor-svg",
+    label: "Anchor SVG",
+    detail: "Icons in links",
+  },
 ] as const;
 export const svgStates = [
-  { key: "Fill", token: "fill", property: "fill", state: "base", label: "fill" },
-  { key: "Stroke", token: "stroke", property: "stroke", state: "base", label: "stroke" },
-  { key: "FillHover", token: "fill-hover", property: "fill", state: "hover", label: "fill hover / focus" },
-  { key: "FillActive", token: "fill-active", property: "fill", state: "active", label: "fill active" },
-  { key: "StrokeHover", token: "stroke-hover", property: "stroke", state: "hover", label: "stroke hover / focus" },
-  { key: "StrokeActive", token: "stroke-active", property: "stroke", state: "active", label: "stroke active" },
+  {
+    key: "Fill",
+    token: "fill",
+    property: "fill",
+    state: "base",
+    label: "fill",
+  },
+  {
+    key: "Stroke",
+    token: "stroke",
+    property: "stroke",
+    state: "base",
+    label: "stroke",
+  },
+  {
+    key: "FillHover",
+    token: "fill-hover",
+    property: "fill",
+    state: "hover",
+    label: "fill hover / focus",
+  },
+  {
+    key: "FillActive",
+    token: "fill-active",
+    property: "fill",
+    state: "active",
+    label: "fill active",
+  },
+  {
+    key: "StrokeHover",
+    token: "stroke-hover",
+    property: "stroke",
+    state: "hover",
+    label: "stroke hover / focus",
+  },
+  {
+    key: "StrokeActive",
+    token: "stroke-active",
+    property: "stroke",
+    state: "active",
+    label: "stroke active",
+  },
 ] as const;
 export type SvgType = (typeof svgTypes)[number];
 export type SvgState = (typeof svgStates)[number];
@@ -369,28 +425,80 @@ export type SvgState = (typeof svgStates)[number];
 export const svgTypeColorRoles = [
   { key: "svgIconFill", label: "SVG fill", group: "svgIcon" },
   { key: "svgIconStroke", label: "SVG stroke", group: "svgIcon" },
-  { key: "svgIconFillHover", label: "SVG fill hover / focus", group: "svgIcon" },
+  {
+    key: "svgIconFillHover",
+    label: "SVG fill hover / focus",
+    group: "svgIcon",
+  },
   { key: "svgIconFillActive", label: "SVG fill active", group: "svgIcon" },
-  { key: "svgIconStrokeHover", label: "SVG stroke hover / focus", group: "svgIcon" },
+  {
+    key: "svgIconStrokeHover",
+    label: "SVG stroke hover / focus",
+    group: "svgIcon",
+  },
   { key: "svgIconStrokeActive", label: "SVG stroke active", group: "svgIcon" },
   { key: "navSvgFill", label: "Nav SVG fill", group: "navSvg" },
   { key: "navSvgStroke", label: "Nav SVG stroke", group: "navSvg" },
-  { key: "navSvgFillHover", label: "Nav SVG fill hover / focus", group: "navSvg" },
+  {
+    key: "navSvgFillHover",
+    label: "Nav SVG fill hover / focus",
+    group: "navSvg",
+  },
   { key: "navSvgFillActive", label: "Nav SVG fill active", group: "navSvg" },
-  { key: "navSvgStrokeHover", label: "Nav SVG stroke hover / focus", group: "navSvg" },
-  { key: "navSvgStrokeActive", label: "Nav SVG stroke active", group: "navSvg" },
+  {
+    key: "navSvgStrokeHover",
+    label: "Nav SVG stroke hover / focus",
+    group: "navSvg",
+  },
+  {
+    key: "navSvgStrokeActive",
+    label: "Nav SVG stroke active",
+    group: "navSvg",
+  },
   { key: "buttonSvgFill", label: "Button SVG fill", group: "buttonSvg" },
   { key: "buttonSvgStroke", label: "Button SVG stroke", group: "buttonSvg" },
-  { key: "buttonSvgFillHover", label: "Button SVG fill hover / focus", group: "buttonSvg" },
-  { key: "buttonSvgFillActive", label: "Button SVG fill active", group: "buttonSvg" },
-  { key: "buttonSvgStrokeHover", label: "Button SVG stroke hover / focus", group: "buttonSvg" },
-  { key: "buttonSvgStrokeActive", label: "Button SVG stroke active", group: "buttonSvg" },
+  {
+    key: "buttonSvgFillHover",
+    label: "Button SVG fill hover / focus",
+    group: "buttonSvg",
+  },
+  {
+    key: "buttonSvgFillActive",
+    label: "Button SVG fill active",
+    group: "buttonSvg",
+  },
+  {
+    key: "buttonSvgStrokeHover",
+    label: "Button SVG stroke hover / focus",
+    group: "buttonSvg",
+  },
+  {
+    key: "buttonSvgStrokeActive",
+    label: "Button SVG stroke active",
+    group: "buttonSvg",
+  },
   { key: "anchorSvgFill", label: "Anchor SVG fill", group: "anchorSvg" },
   { key: "anchorSvgStroke", label: "Anchor SVG stroke", group: "anchorSvg" },
-  { key: "anchorSvgFillHover", label: "Anchor SVG fill hover / focus", group: "anchorSvg" },
-  { key: "anchorSvgFillActive", label: "Anchor SVG fill active", group: "anchorSvg" },
-  { key: "anchorSvgStrokeHover", label: "Anchor SVG stroke hover / focus", group: "anchorSvg" },
-  { key: "anchorSvgStrokeActive", label: "Anchor SVG stroke active", group: "anchorSvg" },
+  {
+    key: "anchorSvgFillHover",
+    label: "Anchor SVG fill hover / focus",
+    group: "anchorSvg",
+  },
+  {
+    key: "anchorSvgFillActive",
+    label: "Anchor SVG fill active",
+    group: "anchorSvg",
+  },
+  {
+    key: "anchorSvgStrokeHover",
+    label: "Anchor SVG stroke hover / focus",
+    group: "anchorSvg",
+  },
+  {
+    key: "anchorSvgStrokeActive",
+    label: "Anchor SVG stroke active",
+    group: "anchorSvg",
+  },
 ] as const;
 
 /** The SVG type and state of an SVG type color role, or null. */
@@ -414,11 +522,124 @@ export const selectionColorRoles = [
   "selectionText",
 ] as const;
 
+/**
+ * The seven colors of each accent button. Every area has three accents,
+ * e.g. --accent-01-02-hover-border is Accent 2's hover / focus border in
+ * Section 01.
+ */
+export const accentParts = [
+  { key: "", suffix: "", label: "background" },
+  { key: "Hover", suffix: "-hover", label: "hover / focus background" },
+  { key: "Border", suffix: "-border", label: "border" },
+  {
+    key: "HoverBorder",
+    suffix: "-hover-border",
+    label: "hover / focus border",
+  },
+  { key: "Text", suffix: "-text", label: "text" },
+  { key: "HoverText", suffix: "-hover-text", label: "hover / focus text" },
+  { key: "Shadow", suffix: "-shadow", label: "shadow" },
+] as const;
+type AccentPart = (typeof accentParts)[number];
+
+const accentRoles = <N extends 1 | 2 | 3>(number: N) =>
+  accentParts.map(({ key, label }) => ({
+    key: `accent${number}${key}` as `accent${N}${AccentPart["key"]}`,
+    accent: number,
+    part: key,
+    label: `Accent ${number} ${label}`,
+    group: "accent" as const,
+  }));
+
+export const accentColorRoles = [
+  ...accentRoles(1),
+  ...accentRoles(2),
+  ...accentRoles(3),
+];
+
+/** The accent number and part of an accent color role, or null. */
+export function accentRole(
+  role: string,
+): { accent: 1 | 2 | 3; part: AccentPart } | null {
+  const found = accentColorRoles.find(({ key }) => key === role);
+  if (!found) return null;
+  const part = accentParts.find(({ key }) => key === found.part);
+  return part ? { accent: found.accent, part } : null;
+}
+
+/**
+ * What an accent color uses until one is chosen, matching the fallbacks in
+ * colors.css: hover / focus colors use the accent's own colors; Accent 2 and
+ * 3 use Accent 1's border and shadow; Accent 2's background and text are the
+ * area's, and Accent 3 is a text link (no background, the focus color).
+ * Accent 1's background, border, and text have theme values in colors.css.
+ */
+function accentFallback(
+  region: Region,
+  accent: 1 | 2 | 3,
+  part: AccentPart["key"],
+): string | null {
+  const own = (key: AccentPart["key"]) =>
+    defaultColorReference(region, `accent${accent}${key}` as ColorRole);
+  const first = (key: AccentPart["key"]) =>
+    defaultColorReference(region, `accent1${key}` as ColorRole);
+  switch (part) {
+    case "Hover":
+      return own("");
+    case "HoverBorder":
+      return own("Border");
+    case "HoverText":
+      return own("Text");
+    case "Shadow":
+      return accent === 1
+        ? defaultColorReference(region, "shadow")
+        : first("Shadow");
+    case "Border":
+      return accent === 1 ? null : first("Border");
+    case "":
+      return accent === 1
+        ? null
+        : accent === 2
+          ? defaultColorReference(region, "background")
+          : "transparent";
+    case "Text":
+      return accent === 1
+        ? null
+        : defaultColorReference(region, accent === 2 ? "text" : "accentFocus");
+  }
+}
+
+// Accent colors saved before version 28, under their old names. Accent 3's
+// border and shadow were Accent 1's, which is now their default.
+const accentRenames: Record<string, string> = {
+  accent1: "primary",
+  accent1Text: "primaryText",
+  accent1Border: "accentBorder",
+  accent1Shadow: "buttonShadow",
+  accent1Hover: "primaryHover",
+  accent2: "secondary",
+  accent2Text: "secondaryText",
+  accent2Border: "secondaryBorder",
+  accent2Shadow: "secondaryShadow",
+  accent2Hover: "secondaryHover",
+  accent2HoverText: "secondaryHoverText",
+  accent3Hover: "learnMoreHover",
+};
+
+/** Colors saved before version 28, with the accents under their new names. */
+export function renameAccentColors(
+  colors: Record<string, unknown>,
+): Record<string, unknown> {
+  const renamed = { ...colors };
+  for (const old of Object.values(accentRenames)) delete renamed[old];
+  for (const { key } of accentColorRoles)
+    renamed[key] = key in accentRenames ? colors[accentRenames[key]] : "theme";
+  return renamed;
+}
+
 // New detail colors fall back to an existing color until one is chosen, so
 // the site looks the same by default.
 const detailFallbacks = {
-  secondary: "background",
-  secondaryText: "text",
   label: "text",
   inputText: "text",
   inputBackground: "background",
@@ -430,15 +651,6 @@ const detailFallbacks = {
   svgFill2: "background",
 } as const;
 const detailDefaults = {
-  // Secondary button preview defaults: the shared sample button colors.
-  secondaryBorder: "var(--sample-accentBorder)",
-  // Button hover / focus backgrounds: Primary matches the shared button
-  // hover; Learn more has no background until one is chosen.
-  primaryHover: "var(--sample-buttonHoverBackground)",
-  learnMoreHover: "transparent",
-  secondaryShadow: "var(--sample-buttonShadow)",
-  secondaryHover: "var(--sample-buttonHoverBackground)",
-  secondaryHoverText: "var(--sample-buttonHoverText)",
   blockquoteBorder: "currentColor",
   listMarker: "currentColor",
   selectionBackground: "Highlight",
@@ -447,14 +659,6 @@ const detailDefaults = {
   svgFill3: "currentColor",
 } as const;
 const detailTokens = {
-  secondary: "accent-%-secondary",
-  secondaryText: "accent-%-secondary-text",
-  secondaryBorder: "accent-%-secondary-border",
-  primaryHover: "accent-%-primary-hover",
-  learnMoreHover: "accent-%-learn-more-hover",
-  secondaryShadow: "accent-%-secondary-shadow",
-  secondaryHover: "accent-%-secondary-hover",
-  secondaryHoverText: "accent-%-secondary-hover-text",
   label: "ink-%-label",
   inputText: "ink-%-input",
   inputBackground: "canvas-%-input",
@@ -473,21 +677,8 @@ export const regionColorRoles = [
   { key: "background", label: "Background", group: "canvas" },
   { key: "border", label: "Border", group: "canvas" },
   { key: "shadow", label: "Shadow", group: "canvas" },
-  { key: "primary", label: "Accent 1 background", group: "accent" },
-  { key: "primaryText", label: "Accent 1 text", group: "accent" },
-  { key: "accentBorder", label: "Accent 1 / 3 border", group: "accent" },
-  { key: "buttonShadow", label: "Accent 1 / 3 shadow", group: "accent" },
-  { key: "accentFocus", label: "Hover / focus", group: "accent" },
-  {
-    key: "primaryHover",
-    label: "Accent 1 hover / focus",
-    group: "accent",
-  },
-  {
-    key: "learnMoreHover",
-    label: "Accent 3 hover / focus",
-    group: "accent",
-  },
+  ...accentColorRoles,
+  { key: "accentFocus", label: "Focus / link hover", group: "accent" },
   { key: "text", label: "Paragraph / text", group: "ink" },
   { key: "h1", label: "H1 heading", group: "ink" },
   { key: "h2", label: "H2 heading", group: "ink" },
@@ -495,28 +686,6 @@ export const regionColorRoles = [
   { key: "h4", label: "H4 heading", group: "ink" },
   { key: "muted", label: "Muted text", group: "ink" },
   { key: "highlight", label: "Highlight text", group: "ink" },
-  { key: "secondary", label: "Accent 2 background", group: "accent" },
-  { key: "secondaryText", label: "Accent 2 text", group: "accent" },
-  {
-    key: "secondaryBorder",
-    label: "Accent 2 border",
-    group: "accent",
-  },
-  {
-    key: "secondaryShadow",
-    label: "Accent 2 shadow",
-    group: "accent",
-  },
-  {
-    key: "secondaryHover",
-    label: "Accent 2 hover / focus",
-    group: "accent",
-  },
-  {
-    key: "secondaryHoverText",
-    label: "Accent 2 hover / focus text",
-    group: "accent",
-  },
   ...cardCanvasRoles,
   ...subsectionColorRoles,
   { key: "cardText", label: "Card text / all three cards", group: "ink" },
@@ -529,7 +698,7 @@ export const regionColorRoles = [
 ] as const;
 
 const recentRegionColorRoles = [
-  "buttonShadow",
+  "accent1Shadow",
   "iconBorder",
   "iconShadow",
   "subsectionBorder",
@@ -540,21 +709,24 @@ const recentRegionColorRoles = [
 const version12ColorRoles = ["muted", "highlight", "contrastCanvas"] as const;
 // Added in version 13.
 const version13ColorRoles = ["contrastText"] as const;
-// Added in version 18; until set they match the shared button colors.
 // Added in version 21.
-const version21ColorRoles = ["primaryHover", "learnMoreHover"] as const;
+const version21ColorRoles = ["accent1Hover", "accent3Hover"] as const;
 // Added in version 22; until set they use the text color.
 const version22ColorRoles = svgFillRoles.map(({ key }) => key);
 // Added in version 27; until set an SVG keeps its own colors.
 const version27ColorRoles = svgTypeColorRoles.map(({ key }) => key);
 // Added in version 20; until set it matches the shared button border.
-const version20ColorRoles = ["secondaryBorder"] as const;
+const version20ColorRoles = ["accent2Border"] as const;
 // Added in version 19; until set it matches Card 03's background.
 const version19ColorRoles = ["subsection"] as const;
+// Added in version 28: the accent colors with no older equivalent.
+const version28ColorRoles = accentColorRoles
+  .map(({ key }) => key)
+  .filter((key) => !(key in accentRenames));
 const version18ColorRoles = [
-  "secondaryShadow",
-  "secondaryHover",
-  "secondaryHoverText",
+  "accent2Shadow",
+  "accent2Hover",
+  "accent2HoverText",
 ] as const;
 
 /**
@@ -803,7 +975,6 @@ export function isSitewideColorRole(
 export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
   if (isSitewideColorRole(role)) return false;
   if (isGlobalColorRole(role)) return region === "page";
-  if (role.startsWith("secondary")) return region !== "header";
   if (
     role.startsWith("card") ||
     role.startsWith("subsection") ||
@@ -857,6 +1028,9 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
       region.startsWith("section")
       ? `ink-${suffix}-${svgTypeToken(svgType.type, svgType.state)}`
       : null;
+  // Every area, including the header and footer, has three accents.
+  const accent = accentRole(role);
+  if (accent) return `accent-${suffix}-0${accent.accent}${accent.part.suffix}`;
   const card = cardCanvasRoles.find(({ key }) => key === role);
   if (card && (region === "page" || region.startsWith("section"))) {
     return `canvas-${suffix}-card-${card.card}${card.part === "background" ? "" : `-${card.part}`}`;
@@ -874,12 +1048,6 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
       return `canvas-${suffix}-border`;
     case "shadow":
       return `canvas-${suffix}-shadow`;
-    case "primary":
-      return `accent-${suffix}-canvas`;
-    case "primaryText":
-      return `accent-${suffix}-text`;
-    case "accentBorder":
-      return `accent-${suffix}-border`;
     case "accentFocus":
       return `accent-${suffix}-focus`;
     case "text":
@@ -929,6 +1097,11 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
 
 export function defaultColorReference(region: Region, role: ColorRole): string {
   const token = semanticToken(region, role);
+  const accent = accentRole(role);
+  if (accent) {
+    const fallback = accentFallback(region, accent.accent, accent.part.key);
+    return fallback ? `var(--${token},${fallback})` : `var(--${token})`;
+  }
   const card = cardCanvasRoles.find(({ key }) => key === role);
   if (card) {
     const fallback = defaultColorReference(region, card.part);
@@ -993,12 +1166,11 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
     case "buttonHoverText":
     case "buttonFocusText":
     case "buttonActiveText":
-      return "var(--sample-primaryText)";
-    case "buttonShadow":
+      return "var(--sample-accent1Text)";
     case "iconShadow":
       return "var(--sample-shadow)";
     case "iconBorder":
-      return "var(--sample-accentBorder)";
+      return "var(--sample-accent1Border)";
     case "subsection":
       return "var(--sample-card03)";
     case "subsectionBorder":
@@ -1070,12 +1242,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 24 &&
       data.version !== 25 &&
       data.version !== 26 &&
-      data.version !== 27) ||
+      data.version !== 27 &&
+      data.version !== 28) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 27 theme group file with up to 100 groups.",
+      "Expected a version 1 through 28 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1129,10 +1302,12 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       }
       for (const { key: region } of regions) {
         if (region === "hero" && data.version < 4) continue;
-        const source = sourceColors[region];
-        if (!isRecord(source)) {
+        const saved = sourceColors[region];
+        if (!isRecord(saved)) {
           throw new Error(`Missing colors for ${region} in "${name}".`);
         }
+        // Version 28 renamed the accent colors (Accent 1-3, seven each).
+        const source = data.version < 28 ? renameAccentColors(saved) : saved;
         const regionColors = {} as Colors;
         for (const { key: role } of regionColorRoles) {
           if (
@@ -1160,7 +1335,9 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             (data.version < 22 &&
               version22ColorRoles.some((key) => key === role)) ||
             (data.version < 27 &&
-              version27ColorRoles.some((key) => key === role))
+              version27ColorRoles.some((key) => key === role)) ||
+            (data.version < 28 &&
+              version28ColorRoles.some((key) => key === role))
           ) {
             regionColors[role] = "theme";
             continue;
@@ -1184,7 +1361,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
           }
           if (
             data.version === 1 &&
-            ["shadow", "accentBorder", "accentFocus"].includes(role)
+            ["shadow", "accent1Border", "accentFocus"].includes(role)
           ) {
             regionColors[role] =
               role === "shadow" ? "theme" : regionColors.border;
@@ -1299,7 +1476,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 27, groups }, null, 2);
+  return JSON.stringify({ version: 28, groups }, null, 2);
 }
 
 /**
