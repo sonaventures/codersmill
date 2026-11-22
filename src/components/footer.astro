@@ -1,5 +1,5 @@
 ---
-import { host, navigation, siteName } from "../data/site";
+import { builderName, host, navigation, siteName } from "../data/site";
 
 interface Props {
   /** A theme group footer class, e.g. sg-sample-footer. */
@@ -15,7 +15,10 @@ const { class: className } = Astro.props;
       <a class="footer-wordmark" href="/">
         {siteName}
       </a>
-      <p>Build and style Astro websites from ready-made blocks.</p>
+      <p>
+        The home of {builderName}: browser tools for building and styling Astro
+        websites from ready-made blocks.
+      </p>
     </div>
     <nav aria-label="Footer">
       <ul class="footer-links">
@@ -28,9 +31,9 @@ const { class: className } = Astro.props;
     </nav>
   </div>
   <div class="footer-bottom">
-    <p>© {new Date().getFullYear()} {siteName}</p>
     <p>
-      Hosted by <a href={host.url}>{host.name}</a>
+      © {new Date().getFullYear()} <a href={host.url}>{host.name}</a>
     </p>
+    <p>Your files stay in your project. Nothing is uploaded.</p>
   </div>
 </footer>

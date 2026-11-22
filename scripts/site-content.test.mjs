@@ -38,7 +38,10 @@ test("codersmill.com is the site URL and the package's home", async () => {
   assert.match(config, /site: "https:\/\/codersmill\.com"/);
   assert.equal(pkg.homepage, "https://codersmill.com");
   assert.equal(pkg.author.url, "https://codersmill.com");
-  assert.match(pkg.repository.url, /github\.com\/sonaventures\/codersmill\.git$/);
+  assert.match(
+    pkg.repository.url,
+    /github\.com\/sonaventures\/codersmill\.git$/,
+  );
 });
 
 test("the layout, header, and footer use the shared site details", async () => {
@@ -52,8 +55,14 @@ test("the layout, header, and footer use the shared site details", async () => {
     assert.match(file, /from "\.\.\/data\/site"/);
   assert.match(layout, /og:site_name/);
   assert.match(layout, /rel="canonical"/);
-  assert.match(layout, /"@type": "Organization", name: host\.name, url: host\.url/);
-  assert.match(footer, /Hosted by <a href=\{host\.url\}>\{host\.name\}<\/a>/);
+  assert.match(
+    layout,
+    /"@type": "Organization", name: host\.name, url: host\.url/,
+  );
+  assert.match(
+    footer,
+    /© \{new Date\(\)\.getFullYear\(\)\} <a href=\{host\.url\}>\{host\.name\}<\/a>/,
+  );
   for (const file of [layout, header, footer])
     assert.doesNotMatch(file, /Exclusive Group|LocalBusiness|telephone/);
 });
@@ -65,5 +74,8 @@ test("the tools and blocks pages read from their sources", async () => {
   ]);
 
   assert.match(tools, /from "\.\.\/data\/website-builder\/builder-pages"/);
-  assert.match(blocks, /import\.meta\.glob\(\s*"\.\.\/components\/blocks\/\*\*\/\*\.astro"/);
+  assert.match(
+    blocks,
+    /import\.meta\.glob\(\s*"\.\.\/components\/blocks\/\*\*\/\*\.astro"/,
+  );
 });
