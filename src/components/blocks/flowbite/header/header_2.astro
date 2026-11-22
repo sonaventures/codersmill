@@ -1,4 +1,16 @@
-<header x-data="{ menu: null }" x-on:click.outside="menu = null" x-on:keydown.escape="menu = null">
+<header x-data="{
+  menu: null,
+  place(button, id, side = 'below') {
+    const menu = this.$root.querySelector('#' + id);
+    menu.style.removeProperty('display');
+    const box = menu.offsetParent.getBoundingClientRect();
+    const item = button.getBoundingClientRect();
+    const room = document.documentElement.clientWidth - menu.offsetWidth - 8;
+    const x = Math.max(8, Math.min(side === 'right' ? item.right : item.left, room));
+    menu.style.left = x - box.left + 'px';
+    menu.style.top = (side === 'right' ? item.top : item.bottom) - box.top + 'px';
+  },
+}" x-on:click.outside="menu = null" x-on:keydown.escape="menu = null">
   <div class="px-4 lg:px-6 py-2.5">
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-site">
       <a href="https://flowbite.com" class="flex items-center">
@@ -91,7 +103,7 @@
           <li>
             <button
               type="button"
-              x-on:click="menu = menu === 4 ? null : 4"
+              x-on:click="menu = menu === 4 ? null : 4; $nextTick(() => menu === 4 && place($el, 'nav-menu-4'))"
               x-bind:aria-expanded="(menu === 4).toString()"
               aria-controls="nav-menu-4"
               class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium border-b lg:w-auto lg:hover:bg-transparent lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
@@ -130,7 +142,7 @@
         </ul>
         <div
           id="nav-menu-4"
-          class="grid absolute top-full left-0 z-10 w-full border shadow-md lg:rounded-lg lg:w-auto lg:grid-cols-3"
+          class="grid absolute z-10 w-full border shadow-md lg:rounded-lg lg:w-3xl lg:grid-cols-3"
           x-show="menu === 4"
           x-cloak
         >
