@@ -291,6 +291,78 @@ export const subsectionColorRoles = [
   },
 ] as const;
 
+/**
+ * The three cards and the subsection, which each style their own text. A
+ * card is found by its background class (the card and subsection presets in
+ * Component Styling), and inside it the area's text variables become the
+ * card's, e.g. --ink-01-h2 becomes --ink-card-02-h2 inside bg-canvas-01-card-02.
+ */
+export const cardTargets = [
+  { key: "card1", token: "card-01", label: "Card 01" },
+  { key: "card2", token: "card-02", label: "Card 02" },
+  { key: "card3", token: "card-03", label: "Card 03" },
+  { key: "subsection", token: "subsection", label: "Subsection" },
+] as const;
+type CardTarget = (typeof cardTargets)[number];
+
+/** The text colors each card has, and the area color each falls back to. */
+export const cardInkParts = [
+  { key: "Text", suffix: "", area: "text", label: "paragraph / text" },
+  { key: "H2", suffix: "-h2", area: "h2", label: "H2 heading" },
+  { key: "H3", suffix: "-h3", area: "h3", label: "H3 heading" },
+  { key: "Strong", suffix: "-strong", area: "strong", label: "strong text" },
+  { key: "Em", suffix: "-em", area: "em", label: "emphasis (em) text" },
+  { key: "Pre", suffix: "-pre", area: "pre", label: "code block (pre) text" },
+  { key: "Muted", suffix: "-muted", area: "muted", label: "muted text" },
+  {
+    key: "Highlight",
+    suffix: "-highlight",
+    area: "highlight",
+    label: "highlight text",
+  },
+  {
+    key: "Blockquote",
+    suffix: "-blockquote",
+    area: "blockquote",
+    label: "quote text",
+  },
+] as const;
+type CardInkPart = (typeof cardInkParts)[number];
+
+const cardInkRoles = <T extends CardTarget>(target: T) =>
+  cardInkParts.map(({ key, label }) => ({
+    key: `${target.key}${key}` as `${T["key"]}${CardInkPart["key"]}`,
+    label: `${target.label} ${label}`,
+    group: `${target.key}Ink` as `${T["key"]}Ink`,
+  }));
+
+export const cardInkColorRoles = [
+  ...cardInkRoles(cardTargets[0]),
+  ...cardInkRoles(cardTargets[1]),
+  ...cardInkRoles(cardTargets[2]),
+  ...cardInkRoles(cardTargets[3]),
+];
+
+/** The card and text part of a card text color role, or null. */
+export function cardInkRole(
+  role: string,
+): { target: CardTarget; part: CardInkPart } | null {
+  for (const target of cardTargets)
+    for (const part of cardInkParts)
+      if (role === `${target.key}${part.key}`) return { target, part };
+  return null;
+}
+
+/**
+ * The variable a theme group area class sets for a card text color, and the
+ * card reads, e.g. "ink-card-01-h2". It is not tied to an area, so the
+ * nearest area class decides it.
+ */
+export function cardInkVariable(role: string): string | null {
+  const card = cardInkRole(role);
+  return card ? `ink-${card.target.token}${card.part.suffix}` : null;
+}
+
 // Inline and block text formatting: strong, em, code, and pre.
 export const formattingColorRoles = [
   { key: "strong", label: "Strong text", group: "formatting" },
@@ -640,6 +712,9 @@ export function renameAccentColors(
 // New detail colors fall back to an existing color until one is chosen, so
 // the site looks the same by default.
 const detailFallbacks = {
+  subsection: "card03",
+  subsectionBorder: "card03Border",
+  subsectionShadow: "card03Shadow",
   label: "text",
   inputText: "text",
   inputBackground: "background",
@@ -659,6 +734,9 @@ const detailDefaults = {
   svgFill3: "currentColor",
 } as const;
 const detailTokens = {
+  subsection: "canvas-%-subsection",
+  subsectionBorder: "canvas-%-subsection-border",
+  subsectionShadow: "canvas-%-subsection-shadow",
   label: "ink-%-label",
   inputText: "ink-%-input",
   inputBackground: "canvas-%-input",
@@ -688,7 +766,7 @@ export const regionColorRoles = [
   { key: "highlight", label: "Highlight text", group: "ink" },
   ...cardCanvasRoles,
   ...subsectionColorRoles,
-  { key: "cardText", label: "Card text / all three cards", group: "ink" },
+  ...cardInkColorRoles,
   ...formattingColorRoles,
   ...formColorRoles,
   ...contentColorRoles,
@@ -767,6 +845,10 @@ export const roleGroups = [
   { key: "contrast", label: "Contrast band / page-wide" },
   { key: "canvas", label: "Canvas" },
   { key: "cards", label: "Cards & subsections" },
+  ...cardTargets.map(({ key, label }) => ({
+    key: `${key}Ink` as `${typeof key}Ink`,
+    label: `${label} text`,
+  })),
   { key: "accent", label: "Accent" },
   { key: "ink", label: "Ink" },
   { key: "formatting", label: "Text formatting" },
@@ -1031,6 +1113,14 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
   // Every area, including the header and footer, has three accents.
   const accent = accentRole(role);
   if (accent) return `accent-${suffix}-0${accent.accent}${accent.part.suffix}`;
+  // Card and subsection text, for the areas that have cards.
+  const cardInk = cardInkRole(role);
+  if (cardInk)
+    return region === "page" ||
+      region === "hero" ||
+      region.startsWith("section")
+      ? `ink-${suffix}-${cardInk.target.token}${cardInk.part.suffix}`
+      : null;
   const card = cardCanvasRoles.find(({ key }) => key === role);
   if (card && (region === "page" || region.startsWith("section"))) {
     return `canvas-${suffix}-card-${card.card}${card.part === "background" ? "" : `-${card.part}`}`;
@@ -1102,6 +1192,16 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
     const fallback = accentFallback(region, accent.accent, accent.part.key);
     return fallback ? `var(--${token},${fallback})` : `var(--${token})`;
   }
+  // Card text uses the area's until chosen. A card's quotes use the area's
+  // quote color, then the card's muted text, as the quote rule does.
+  const cardInk = cardInkRole(role);
+  if (cardInk) {
+    const fallback =
+      cardInk.part.key === "Blockquote"
+        ? `var(--${semanticToken(region, "blockquote")},${defaultColorReference(region, `${cardInk.target.key}Muted` as ColorRole)})`
+        : defaultColorReference(region, cardInk.part.area);
+    return token ? `var(--${token},${fallback})` : fallback;
+  }
   const card = cardCanvasRoles.find(({ key }) => key === role);
   if (card) {
     const fallback = defaultColorReference(region, card.part);
@@ -1137,7 +1237,6 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
   }
   if (token) return `var(--${token})`;
   switch (role) {
-    case "cardText":
     case "muted":
     case "highlight":
     case "strong":
@@ -1171,12 +1270,6 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
       return "var(--sample-shadow)";
     case "iconBorder":
       return "var(--sample-accent1Border)";
-    case "subsection":
-      return "var(--sample-card03)";
-    case "subsectionBorder":
-      return "var(--sample-card03Border)";
-    case "subsectionShadow":
-      return "var(--sample-card03Shadow)";
     case "linkColor":
     case "visitedColor":
     case "iconColor":
@@ -1243,12 +1336,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 25 &&
       data.version !== 26 &&
       data.version !== 27 &&
-      data.version !== 28) ||
+      data.version !== 28 &&
+      data.version !== 29) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 28 theme group file with up to 100 groups.",
+      "Expected a version 1 through 29 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1310,6 +1404,20 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
         const source = data.version < 28 ? renameAccentColors(saved) : saved;
         const regionColors = {} as Colors;
         for (const { key: role } of regionColorRoles) {
+          // Version 29 gave each card and the subsection their own text
+          // colors; the one card text color before it becomes each one's.
+          if (data.version < 29 && cardInkRole(role)) {
+            const old =
+              cardInkRole(role)?.part.key === "Text"
+                ? source.cardText
+                : "theme";
+            regionColors[role] = !isColorValue(old)
+              ? "theme"
+              : old.startsWith("#")
+                ? old.toLowerCase()
+                : old;
+            continue;
+          }
           if (
             data.version < 7 &&
             interactiveColorRoles.some(({ key }) => key === role)
@@ -1476,7 +1584,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 28, groups }, null, 2);
+  return JSON.stringify({ version: 29, groups }, null, 2);
 }
 
 /**

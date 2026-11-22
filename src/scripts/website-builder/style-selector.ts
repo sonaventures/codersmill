@@ -583,16 +583,17 @@ if (root) {
   }
 
   function previewTargetRole(target: HTMLElement): ColorRole {
-    const sampleRole = colorRoles.find(
-      ({ key }) => key === target.dataset.sampleRole,
-    );
-    if (sampleRole) return sampleRole.key;
+    // A heading level label edits the heading after it.
     if (
       target.matches(".sample-heading-level") &&
       target.nextElementSibling instanceof HTMLElement
     ) {
       target = target.nextElementSibling;
     }
+    const sampleRole = colorRoles.find(
+      ({ key }) => key === target.dataset.sampleRole,
+    );
+    if (sampleRole) return sampleRole.key;
     if (target.matches(".sample-logo .text-brand-01")) return "brandFirst";
     if (target.matches(".sample-logo .text-brand-02")) return "brandSecond";
     if (target.matches('[data-cta="primary"]')) return "ctaPrimary";

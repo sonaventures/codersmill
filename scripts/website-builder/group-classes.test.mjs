@@ -9,7 +9,10 @@ import {
   removeGroupCss,
   upsertGroupCss,
 } from "../../src/data/website-builder/group-classes.ts";
-import { createDefaultColors, defaultRadii } from "../../src/data/website-builder/theme-groups.ts";
+import {
+  createDefaultColors,
+  defaultRadii,
+} from "../../src/data/website-builder/theme-groups.ts";
 
 const group = (name = "Coastal calm") => ({
   id: "coastal",
@@ -329,10 +332,7 @@ test("each area class maps its colors onto the elements inside it", () => {
       ),
     )?.[0];
   // The page keeps square corners; sections and the hero take the radius.
-  assert.match(
-    elementBlock("hero"),
-    /border-radius: var\(--radius-section\);/,
-  );
+  assert.match(elementBlock("hero"), /border-radius: var\(--radius-section\);/);
   assert.equal(
     elementBlock("page"),
     elementBlock("hero")
@@ -362,16 +362,30 @@ test("an area's content width goes on its class; others use the sitewide width",
   const saved = group();
   saved.widths = { hero: "100%", section2: "64rem" };
   const css = generateGroupCss(saved);
-  assert.match(css, /\n\.sg-coastal-calm-hero \{\n  --container-site: 100%;\n\}/);
-  assert.match(css, /\n\.sg-coastal-calm-section-2 \{\n  --container-site: 64rem;\n\}/);
+  assert.match(
+    css,
+    /\n\.sg-coastal-calm-hero \{\n  --container-site: 100%;\n\}/,
+  );
+  assert.match(
+    css,
+    /\n\.sg-coastal-calm-section-2 \{\n  --container-site: 64rem;\n\}/,
+  );
   assert.equal(css.match(/--container-site/g).length, 2);
 });
 
 test("the group's corner radii are variables on every one of its classes", () => {
   const saved = group();
-  saved.radii = { section: "lg", card: "none", subsection: "2xl", accent: "full", cta: "md" };
+  saved.radii = {
+    section: "lg",
+    card: "none",
+    subsection: "2xl",
+    accent: "full",
+    cta: "md",
+  };
   const css = generateGroupCss(saved);
-  const block = css.match(/\.sg-coastal-calm-page,\n[\s\S]*?\{\n[\s\S]*?\n\}/)?.[0];
+  const block = css.match(
+    /\.sg-coastal-calm-page,\n[\s\S]*?\{\n[\s\S]*?\n\}/,
+  )?.[0];
   assert.ok(block, "radius rule");
   for (const suffix of ["page", "hero", "section-1", "section-6"])
     assert.match(block, new RegExp(`\\.sg-coastal-calm-${suffix}[,\\s]`));
@@ -383,7 +397,16 @@ test("the group's corner radii are variables on every one of its classes", () =>
   // The page builder still lists the classes in area order.
   assert.deepEqual(
     parseGroupClasses(upsertGroupCss("", saved)).map(({ area }) => area),
-    ["page", "hero", "section-1", "section-2", "section-3", "section-4", "section-5", "section-6"],
+    [
+      "page",
+      "hero",
+      "section-1",
+      "section-2",
+      "section-3",
+      "section-4",
+      "section-5",
+      "section-6",
+    ],
   );
 });
 
@@ -396,11 +419,15 @@ test("SVG type colors become rules for their marker classes, only once chosen", 
   const light = ':root:not\\(\\[data-theme="dark"\\]\\)';
   assert.match(
     css,
-    new RegExp(`${light} :where\\(\\.sg-coastal-calm-hero\\) \\.nav-svg \\{\\n    fill: var\\(--ink-hero-nav-svg-fill\\);`),
+    new RegExp(
+      `${light} :where\\(\\.sg-coastal-calm-hero\\) \\.nav-svg \\{\\n    fill: var\\(--ink-hero-nav-svg-fill\\);`,
+    ),
   );
   assert.match(
     css,
-    new RegExp(`${light} :where\\(\\.sg-coastal-calm-hero\\) :is\\(a, button, summary\\):is\\(:hover, :focus-visible\\) \\.nav-svg \\{\\n    stroke: var\\(--ink-hero-nav-svg-stroke-hover\\);`),
+    new RegExp(
+      `${light} :where\\(\\.sg-coastal-calm-hero\\) :is\\(a, button, summary\\):is\\(:hover, :focus-visible\\) \\.nav-svg \\{\\n    stroke: var\\(--ink-hero-nav-svg-stroke-hover\\);`,
+    ),
   );
   assert.match(
     css,
@@ -411,5 +438,51 @@ test("SVG type colors become rules for their marker classes, only once chosen", 
   assert.match(css, /--ink-01-nav-svg-fill: var\(--color-sky-500\);/);
   // Nothing else gets an SVG type rule, so other SVGs keep their own colors.
   assert.equal(css.match(/\n {4}(?:fill|stroke): var\(--ink-/g).length, 3);
-  assert.doesNotMatch(generateGroupCss(group()), /\.(?:nav-|button-|anchor-)?svg \{/);
+  assert.doesNotMatch(
+    generateGroupCss(group()),
+    /\.(?:nav-|button-|anchor-)?svg \{/,
+  );
+});
+
+test("area classes set the card text colors the cards read", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { areaDeclarations } =
+    await import("../../src/data/website-builder/group-classes.ts");
+  const {
+    cardInkParts,
+    cardTargets,
+    createDefaultColors: defaults,
+  } = await import("../../src/data/website-builder/theme-groups.ts");
+  const colors = defaults();
+  colors.section3.card2H2 = "var(--color-sky-600)";
+  const declarations = areaDeclarations(colors, "section3");
+  assert.equal(declarations.get("ink-03-card-02-h2"), "var(--color-sky-600)");
+  assert.equal(declarations.get("ink-card-02-h2"), "var(--color-sky-600)");
+  // Colors left on the theme default are not written.
+  assert.ok(
+    ![...declarations.keys()].some((token) => token.includes("card-01-h2")),
+  );
+  // cards.css points every card text variable at the area's, and remaps the
+  // area's text variables inside each card.
+  const css = await readFile(
+    new URL("../../src/styles/utilities/cards.css", import.meta.url),
+    "utf8",
+  );
+  for (const target of cardTargets)
+    for (const part of cardInkParts) {
+      assert.ok(
+        css.includes(
+          `--ink-${target.token}${part.suffix}: var(--ink-01${part.suffix});`,
+        ),
+        `default for ${target.key}${part.key}`,
+      );
+      assert.ok(
+        css.includes(
+          `--ink-01${part.suffix}: var(--ink-${target.token}${part.suffix});`,
+        ),
+        `remap for ${target.key}${part.key}`,
+      );
+    }
+  for (const target of cardTargets)
+    assert.ok(css.includes(`:where(.bg-canvas-01-${target.token})`));
 });

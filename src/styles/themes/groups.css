@@ -48,6 +48,9 @@
   --canvas-01-card-03: var(--canvas-page-card-03);
   --canvas-01-card-03-border: var(--canvas-page-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-page-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-page-subsection);
+  --canvas-01-subsection-border: var(--canvas-page-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-page-subsection-shadow);
   --ink-01-strong: var(--ink-page-strong);
   --ink-01-em: var(--ink-page-em);
   --ink-01-code: var(--ink-page-code);
@@ -135,6 +138,9 @@
   --canvas-01-card-03: var(--canvas-page-card-03);
   --canvas-01-card-03-border: var(--canvas-page-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-page-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-page-subsection);
+  --canvas-01-subsection-border: var(--canvas-page-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-page-subsection-shadow);
   --ink-01-strong: var(--ink-page-strong);
   --ink-01-em: var(--ink-page-em);
   --ink-01-code: var(--ink-page-code);
@@ -224,6 +230,9 @@
   --ink-01-muted: var(--ink-hero-muted);
   --ink-hero-highlight: var(--color-energeticorange-500);
   --ink-01-highlight: var(--color-energeticorange-500);
+  --canvas-01-subsection: var(--canvas-hero-subsection);
+  --canvas-01-subsection-border: var(--canvas-hero-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-hero-subsection-shadow);
   --ink-hero-strong: var(--color-prusssianblue-950);
   --ink-01-strong: var(--color-prusssianblue-950);
   --ink-hero-em: var(--color-prusssianblue-800);
@@ -309,6 +318,9 @@
   --ink-01-h4: var(--ink-hero-h4);
   --ink-01-muted: var(--ink-hero-muted);
   --ink-01-highlight: var(--ink-hero-highlight);
+  --canvas-01-subsection: var(--canvas-hero-subsection);
+  --canvas-01-subsection-border: var(--canvas-hero-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-hero-subsection-shadow);
   --ink-01-strong: var(--ink-hero-strong);
   --ink-01-em: var(--ink-hero-em);
   --ink-01-code: var(--ink-hero-code);
@@ -401,6 +413,9 @@
   --canvas-01-card-03: var(--canvas-02-card-03);
   --canvas-01-card-03-border: var(--canvas-02-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-02-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-02-subsection);
+  --canvas-01-subsection-border: var(--canvas-02-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-02-subsection-shadow);
   --ink-01-strong: var(--ink-02-strong);
   --ink-01-em: var(--ink-02-em);
   --ink-01-code: var(--ink-02-code);
@@ -487,6 +502,9 @@
   --canvas-01-card-03: var(--canvas-02-card-03);
   --canvas-01-card-03-border: var(--canvas-02-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-02-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-02-subsection);
+  --canvas-01-subsection-border: var(--canvas-02-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-02-subsection-shadow);
   --ink-01-strong: var(--ink-02-strong);
   --ink-01-em: var(--ink-02-em);
   --ink-01-code: var(--ink-02-code);
@@ -573,6 +591,9 @@
   --canvas-01-card-03: var(--canvas-03-card-03);
   --canvas-01-card-03-border: var(--canvas-03-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-03-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-03-subsection);
+  --canvas-01-subsection-border: var(--canvas-03-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-03-subsection-shadow);
   --ink-01-strong: var(--ink-03-strong);
   --ink-01-em: var(--ink-03-em);
   --ink-01-code: var(--ink-03-code);
@@ -659,6 +680,9 @@
   --canvas-01-card-03: var(--canvas-03-card-03);
   --canvas-01-card-03-border: var(--canvas-03-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-03-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-03-subsection);
+  --canvas-01-subsection-border: var(--canvas-03-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-03-subsection-shadow);
   --ink-01-strong: var(--ink-03-strong);
   --ink-01-em: var(--ink-03-em);
   --ink-01-code: var(--ink-03-code);
@@ -745,6 +769,9 @@
   --canvas-01-card-03: var(--canvas-04-card-03);
   --canvas-01-card-03-border: var(--canvas-04-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-04-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-04-subsection);
+  --canvas-01-subsection-border: var(--canvas-04-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-04-subsection-shadow);
   --ink-01-strong: var(--ink-04-strong);
   --ink-01-em: var(--ink-04-em);
   --ink-01-code: var(--ink-04-code);
@@ -831,6 +858,9 @@
   --canvas-01-card-03: var(--canvas-04-card-03);
   --canvas-01-card-03-border: var(--canvas-04-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-04-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-04-subsection);
+  --canvas-01-subsection-border: var(--canvas-04-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-04-subsection-shadow);
   --ink-01-strong: var(--ink-04-strong);
   --ink-01-em: var(--ink-04-em);
   --ink-01-code: var(--ink-04-code);
@@ -917,6 +947,9 @@
   --canvas-01-card-03: var(--canvas-05-card-03);
   --canvas-01-card-03-border: var(--canvas-05-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-05-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-05-subsection);
+  --canvas-01-subsection-border: var(--canvas-05-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-05-subsection-shadow);
   --ink-01-strong: var(--ink-05-strong);
   --ink-01-em: var(--ink-05-em);
   --ink-01-code: var(--ink-05-code);
@@ -1003,6 +1036,9 @@
   --canvas-01-card-03: var(--canvas-05-card-03);
   --canvas-01-card-03-border: var(--canvas-05-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-05-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-05-subsection);
+  --canvas-01-subsection-border: var(--canvas-05-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-05-subsection-shadow);
   --ink-01-strong: var(--ink-05-strong);
   --ink-01-em: var(--ink-05-em);
   --ink-01-code: var(--ink-05-code);
@@ -1089,6 +1125,9 @@
   --canvas-01-card-03: var(--canvas-06-card-03);
   --canvas-01-card-03-border: var(--canvas-06-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-06-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-06-subsection);
+  --canvas-01-subsection-border: var(--canvas-06-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-06-subsection-shadow);
   --ink-01-strong: var(--ink-06-strong);
   --ink-01-em: var(--ink-06-em);
   --ink-01-code: var(--ink-06-code);
@@ -1175,6 +1214,9 @@
   --canvas-01-card-03: var(--canvas-06-card-03);
   --canvas-01-card-03-border: var(--canvas-06-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-06-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-06-subsection);
+  --canvas-01-subsection-border: var(--canvas-06-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-06-subsection-shadow);
   --ink-01-strong: var(--ink-06-strong);
   --ink-01-em: var(--ink-06-em);
   --ink-01-code: var(--ink-06-code);
@@ -1805,6 +1847,9 @@
   --canvas-01-card-03: var(--canvas-page-card-03);
   --canvas-01-card-03-border: var(--canvas-page-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-page-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-page-subsection);
+  --canvas-01-subsection-border: var(--canvas-page-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-page-subsection-shadow);
   --ink-01-strong: var(--ink-page-strong);
   --ink-01-em: var(--ink-page-em);
   --ink-01-code: var(--ink-page-code);
@@ -1894,6 +1939,9 @@
   --canvas-01-card-03: var(--canvas-page-card-03);
   --canvas-01-card-03-border: var(--canvas-page-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-page-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-page-subsection);
+  --canvas-01-subsection-border: var(--canvas-page-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-page-subsection-shadow);
   --ink-01-strong: var(--ink-page-strong);
   --ink-01-em: var(--ink-page-em);
   --ink-01-code: var(--ink-page-code);
@@ -1991,6 +2039,9 @@
   --ink-01-muted: var(--color-prusssianblue-500);
   --ink-hero-highlight: var(--color-blaze-500);
   --ink-01-highlight: var(--color-blaze-500);
+  --canvas-01-subsection: var(--canvas-hero-subsection);
+  --canvas-01-subsection-border: var(--canvas-hero-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-hero-subsection-shadow);
   --ink-hero-strong: var(--color-smartblue-950);
   --ink-01-strong: var(--color-smartblue-950);
   --ink-hero-em: var(--color-smartblue-950);
@@ -2074,6 +2125,9 @@
   --ink-01-h4: var(--ink-hero-h4);
   --ink-01-muted: var(--ink-hero-muted);
   --ink-01-highlight: var(--ink-hero-highlight);
+  --canvas-01-subsection: var(--canvas-hero-subsection);
+  --canvas-01-subsection-border: var(--canvas-hero-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-hero-subsection-shadow);
   --ink-01-strong: var(--ink-hero-strong);
   --ink-01-em: var(--ink-hero-em);
   --ink-01-code: var(--ink-hero-code);
@@ -2166,6 +2220,9 @@
   --canvas-01-card-03: var(--canvas-02-card-03);
   --canvas-01-card-03-border: var(--canvas-02-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-02-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-02-subsection);
+  --canvas-01-subsection-border: var(--canvas-02-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-02-subsection-shadow);
   --ink-01-strong: var(--ink-02-strong);
   --ink-01-em: var(--ink-02-em);
   --ink-01-code: var(--ink-02-code);
@@ -2252,6 +2309,9 @@
   --canvas-01-card-03: var(--canvas-02-card-03);
   --canvas-01-card-03-border: var(--canvas-02-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-02-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-02-subsection);
+  --canvas-01-subsection-border: var(--canvas-02-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-02-subsection-shadow);
   --ink-01-strong: var(--ink-02-strong);
   --ink-01-em: var(--ink-02-em);
   --ink-01-code: var(--ink-02-code);
@@ -2338,6 +2398,9 @@
   --canvas-01-card-03: var(--canvas-03-card-03);
   --canvas-01-card-03-border: var(--canvas-03-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-03-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-03-subsection);
+  --canvas-01-subsection-border: var(--canvas-03-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-03-subsection-shadow);
   --ink-01-strong: var(--ink-03-strong);
   --ink-01-em: var(--ink-03-em);
   --ink-01-code: var(--ink-03-code);
@@ -2424,6 +2487,9 @@
   --canvas-01-card-03: var(--canvas-03-card-03);
   --canvas-01-card-03-border: var(--canvas-03-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-03-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-03-subsection);
+  --canvas-01-subsection-border: var(--canvas-03-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-03-subsection-shadow);
   --ink-01-strong: var(--ink-03-strong);
   --ink-01-em: var(--ink-03-em);
   --ink-01-code: var(--ink-03-code);
@@ -2510,6 +2576,9 @@
   --canvas-01-card-03: var(--canvas-04-card-03);
   --canvas-01-card-03-border: var(--canvas-04-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-04-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-04-subsection);
+  --canvas-01-subsection-border: var(--canvas-04-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-04-subsection-shadow);
   --ink-01-strong: var(--ink-04-strong);
   --ink-01-em: var(--ink-04-em);
   --ink-01-code: var(--ink-04-code);
@@ -2596,6 +2665,9 @@
   --canvas-01-card-03: var(--canvas-04-card-03);
   --canvas-01-card-03-border: var(--canvas-04-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-04-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-04-subsection);
+  --canvas-01-subsection-border: var(--canvas-04-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-04-subsection-shadow);
   --ink-01-strong: var(--ink-04-strong);
   --ink-01-em: var(--ink-04-em);
   --ink-01-code: var(--ink-04-code);
@@ -2682,6 +2754,9 @@
   --canvas-01-card-03: var(--canvas-05-card-03);
   --canvas-01-card-03-border: var(--canvas-05-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-05-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-05-subsection);
+  --canvas-01-subsection-border: var(--canvas-05-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-05-subsection-shadow);
   --ink-01-strong: var(--ink-05-strong);
   --ink-01-em: var(--ink-05-em);
   --ink-01-code: var(--ink-05-code);
@@ -2768,6 +2843,9 @@
   --canvas-01-card-03: var(--canvas-05-card-03);
   --canvas-01-card-03-border: var(--canvas-05-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-05-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-05-subsection);
+  --canvas-01-subsection-border: var(--canvas-05-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-05-subsection-shadow);
   --ink-01-strong: var(--ink-05-strong);
   --ink-01-em: var(--ink-05-em);
   --ink-01-code: var(--ink-05-code);
@@ -2854,6 +2932,9 @@
   --canvas-01-card-03: var(--canvas-06-card-03);
   --canvas-01-card-03-border: var(--canvas-06-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-06-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-06-subsection);
+  --canvas-01-subsection-border: var(--canvas-06-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-06-subsection-shadow);
   --ink-01-strong: var(--ink-06-strong);
   --ink-01-em: var(--ink-06-em);
   --ink-01-code: var(--ink-06-code);
@@ -2940,6 +3021,9 @@
   --canvas-01-card-03: var(--canvas-06-card-03);
   --canvas-01-card-03-border: var(--canvas-06-card-03-border);
   --canvas-01-card-03-shadow: var(--canvas-06-card-03-shadow);
+  --canvas-01-subsection: var(--canvas-06-subsection);
+  --canvas-01-subsection-border: var(--canvas-06-subsection-border);
+  --canvas-01-subsection-shadow: var(--canvas-06-subsection-shadow);
   --ink-01-strong: var(--ink-06-strong);
   --ink-01-em: var(--ink-06-em);
   --ink-01-code: var(--ink-06-code);

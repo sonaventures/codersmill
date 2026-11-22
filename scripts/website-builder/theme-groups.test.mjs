@@ -3,6 +3,7 @@ import test from "node:test";
 import {
   accentColorRoles,
   cardCanvasRoles,
+  cardInkColorRoles,
   createDefaultColors,
   defaultColorReference,
   defaultRadii,
@@ -35,7 +36,10 @@ const oldAccentNames = {
   accent3Hover: "learnMoreHover",
 };
 
-/** A theme group file from an older version, with the old accent names. */
+/**
+ * A theme group file from an older version: the accents under their old
+ * names (before 28), and one card text color for every card (before 29).
+ */
 function legacyJson(version, groups) {
   const old = structuredClone(groups);
   for (const saved of old) {
@@ -45,9 +49,15 @@ function legacyJson(version, groups) {
     for (const palette of palettes)
       for (const [region, colors] of Object.entries(palette)) {
         if (region === "global" || !colors) continue;
-        for (const [now, before] of Object.entries(oldAccentNames))
-          if (now in colors) colors[before] = colors[now];
-        for (const { key } of accentColorRoles) delete colors[key];
+        if (version < 28) {
+          for (const [now, before] of Object.entries(oldAccentNames))
+            if (now in colors) colors[before] = colors[now];
+          for (const { key } of accentColorRoles) delete colors[key];
+        }
+        if (version < 29) {
+          if ("card1Text" in colors) colors.cardText = colors.card1Text;
+          for (const { key } of cardInkColorRoles) delete colors[key];
+        }
       }
   }
   return JSON.stringify({ version, groups: old });
@@ -124,7 +134,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 28);
+  assert.equal(JSON.parse(json).version, 29);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -149,7 +159,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":29,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":30,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -207,7 +217,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 28);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 29);
 });
 
 test("brand assignments are page-wide and round-trip independently by theme", () => {
@@ -394,7 +404,9 @@ test("editing areas expose only their own controls without losing card and brand
   assert.equal(isColorRoleVisible("hero", "subsectionBorder"), true);
   assert.equal(isColorRoleVisible("header", "subsectionShadow"), false);
   assert.equal(isColorRoleVisible("section3", "card"), true);
-  assert.equal(isColorRoleVisible("section4", "cardText"), true);
+  assert.equal(isColorRoleVisible("section4", "card2H2"), true);
+  assert.equal(isColorRoleVisible("hero", "subsectionBlockquote"), true);
+  assert.equal(isColorRoleVisible("footer", "card1Text"), false);
   assert.equal(isColorRoleVisible("page", "brandFirst"), true);
   // CTA colors are sitewide: edited in the Global area, in no group area.
   assert.equal(isColorRoleVisible("page", "ctaPrimary"), false);
@@ -538,7 +550,7 @@ test("version 8 groups adopt theme defaults for component border and shadow colo
   assert.equal(restored.themes.dark.section6.subsectionShadow, "theme");
   assert.equal(
     defaultColorReference("section3", "subsectionBorder"),
-    "var(--sample-card03Border)",
+    "var(--canvas-03-subsection-border,var(--canvas-03-card-03-border,var(--canvas-03-border)))",
   );
   assert.equal(
     defaultColorReference("section3", "iconBorder"),
@@ -550,7 +562,7 @@ test("version 8 groups adopt theme defaults for component border and shadow colo
   );
   assert.equal(
     defaultColorReference("section3", "subsectionShadow"),
-    "var(--sample-card03Shadow)",
+    "var(--canvas-03-subsection-shadow,var(--canvas-03-card-03-shadow,var(--canvas-03-shadow)))",
   );
 });
 
@@ -559,7 +571,7 @@ test("older theme groups migrate shared card colors to three independent cards",
     const saved = group();
     saved.themes.light.section3.card = "#ABCDEF";
     saved.themes.dark.section3.card = "var(--color-cardamom-300)";
-    saved.themes.light.section3.cardText = "#123456";
+    saved.themes.light.section3.card1Text = "#123456";
     for (const colors of Object.values(saved.themes)) {
       for (const [region, palette] of Object.entries(colors)) {
         if (region === "global") continue;
@@ -580,7 +592,8 @@ test("older theme groups migrate shared card colors to three independent cards",
     );
     assert.equal(restored.themes.light.section3.card02Border, "theme");
     assert.equal(restored.themes.light.section3.card03Shadow, "theme");
-    assert.equal(restored.themes.light.section3.cardText, "#123456");
+    for (const target of ["card1", "card2", "card3", "subsection"])
+      assert.equal(restored.themes.light.section3[`${target}Text`], "#123456");
     restored.themes.light.section3.card02 = "#000000";
     assert.equal(restored.themes.light.section3.card, "#abcdef");
     assert.equal(restored.themes.light.section3.card03, "#abcdef");
@@ -799,7 +812,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 28);
+  assert.equal(JSON.parse(first).version, 29);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -844,7 +857,7 @@ test("version 18 groups get a subsection background that matches card 03", () =>
   assert.equal(restored.themes.light.section3.subsection, "theme");
   assert.equal(
     defaultColorReference("section3", "subsection"),
-    "var(--sample-card03)",
+    "var(--canvas-03-subsection,var(--canvas-03-card-03,var(--canvas-03)))",
   );
   assert.ok(isColorRoleVisible("hero", "subsection"));
   assert.ok(!isColorRoleVisible("footer", "subsection"));
@@ -1050,4 +1063,41 @@ test("SVG types have six colors each for the page, hero and sections only", asyn
       for (const { key } of svgTypeColorRoles) delete colors[key];
   const [restored] = parseThemeGroups(JSON.stringify(older));
   assert.equal(restored.themes.light.hero.navSvgFill, "theme");
+});
+
+test("each card and the subsection style their own text", async () => {
+  const { cardInkVariable } =
+    await import("../../src/data/website-builder/theme-groups.ts");
+  assert.equal(cardInkColorRoles.length, 36);
+  assert.equal(semanticToken("section3", "card2H2"), "ink-03-card-02-h2");
+  assert.equal(
+    semanticToken("page", "subsectionMuted"),
+    "ink-page-subsection-muted",
+  );
+  assert.equal(semanticToken("hero", "card1Text"), "ink-hero-card-01");
+  assert.equal(semanticToken("header", "card1Text"), null);
+  assert.equal(cardInkVariable("card3Blockquote"), "ink-card-03-blockquote");
+  // Until chosen, card text is the area's; quotes then use the card's muted.
+  assert.equal(
+    defaultColorReference("section2", "card1H3"),
+    "var(--ink-02-card-01-h3,var(--ink-02-h3))",
+  );
+  assert.equal(
+    defaultColorReference("section2", "subsectionBlockquote"),
+    "var(--ink-02-subsection-blockquote,var(--ink-02-blockquote,var(--ink-02-subsection-muted,var(--ink-02-muted))))",
+  );
+  const edited = group();
+  edited.themes.light.section1.card2Strong = "var(--color-sky-600)";
+  edited.themes.dark.hero.subsectionPre = "#abcdef";
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
+  // Before version 29 one color styled the text of every card.
+  const older = group();
+  older.themes.light.page.card1Text = "var(--color-sky-700)";
+  const [restored] = parseThemeGroups(legacyJson(28, [older]));
+  for (const target of ["card1", "card2", "card3", "subsection"])
+    assert.equal(
+      restored.themes.light.page[`${target}Text`],
+      "var(--color-sky-700)",
+    );
+  assert.equal(restored.themes.light.page.card2H2, "theme");
 });

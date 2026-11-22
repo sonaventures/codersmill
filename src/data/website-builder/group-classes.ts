@@ -1,4 +1,5 @@
 import {
+  cardInkVariable,
   globalColorRoles,
   radiusPresets,
   radiusTargets,
@@ -94,6 +95,13 @@ export function areaDeclarations(colors: StyleColors, region: Region) {
     const color = area[role];
     const own = semanticToken(region, role);
     if (own && color !== "theme") declarations.set(own, color);
+    // Card text is read by the cards through their own variable, which
+    // base.css points at the area's text until a color is chosen.
+    const card = cardInkVariable(role);
+    if (card) {
+      if (own && color !== "theme") declarations.set(card, color);
+      continue;
+    }
     const shared = semanticToken("section1", role);
     if (!shared || declarations.has(shared)) continue;
     if (color !== "theme") declarations.set(shared, color);
@@ -226,24 +234,26 @@ export const areaElementMappings = [
  * :where() so any color utility on a component's element still wins.
  */
 export function areaElementCss(className: string, region: Region): string {
-  const rules = areaElementMappings.map(({ selector, declarations: mapped }) => {
-    // Sections and the hero take the section corner radius; the page class
-    // wraps a whole page, so it keeps square corners.
-    const declarations: Record<string, string> =
-      !selector && region !== "page"
-        ? { ...mapped, "border-radius": "var(--radius-section)" }
-        : mapped;
-    const target = selector
-      ? selector
-          .split(/,\s*(?![^()]*\))/)
-          .map((part) => `  :where(.${className}) ${part}`)
-          .join(",\n")
-      : `  :where(.${className})`;
-    const lines = Object.entries(declarations).map(
-      ([property, value]) => `    ${property}: ${value};`,
-    );
-    return `${target} {\n${lines.join("\n")}\n  }`;
-  });
+  const rules = areaElementMappings.map(
+    ({ selector, declarations: mapped }) => {
+      // Sections and the hero take the section corner radius; the page class
+      // wraps a whole page, so it keeps square corners.
+      const declarations: Record<string, string> =
+        !selector && region !== "page"
+          ? { ...mapped, "border-radius": "var(--radius-section)" }
+          : mapped;
+      const target = selector
+        ? selector
+            .split(/,\s*(?![^()]*\))/)
+            .map((part) => `  :where(.${className}) ${part}`)
+            .join(",\n")
+        : `  :where(.${className})`;
+      const lines = Object.entries(declarations).map(
+        ([property, value]) => `    ${property}: ${value};`,
+      );
+      return `${target} {\n${lines.join("\n")}\n  }`;
+    },
+  );
   return `@layer base {\n${rules.join("\n")}\n}`;
 }
 
@@ -295,9 +305,13 @@ export function svgTypeCss(
       const token = semanticToken(region, role);
       if (!token) continue;
       const selectors = svgStateSelectors[state.state](`.${type.className}`)
-        .map((selector) => `  ${themeSelector} :where(.${className}) ${selector}`)
+        .map(
+          (selector) => `  ${themeSelector} :where(.${className}) ${selector}`,
+        )
         .join(",\n");
-      rules.push(`${selectors} {\n    ${state.property}: var(--${token});\n  }`);
+      rules.push(
+        `${selectors} {\n    ${state.property}: var(--${token});\n  }`,
+      );
     }
   return rules;
 }

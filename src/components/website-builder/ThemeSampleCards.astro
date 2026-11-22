@@ -1,39 +1,93 @@
 ---
-import { cardCanvasRoles } from "../../data/website-builder/theme-groups";
+import {
+  cardInkParts,
+  cardTargets,
+} from "../../data/website-builder/theme-groups";
+
+// Each card and the subsection style their own text: inside one, the area's
+// sample text colors become the card's (--sample-h2 is --sample-card2H2 in
+// Card 02), as the cards' text variables do on the site.
+const inkStyle = (target: string) =>
+  cardInkParts
+    .map(({ key, area }) => `--sample-${area}:var(--sample-${target}${key})`)
+    .join(";");
+const role = (target: string, part: string) => `${target}${part}`;
+const cards = cardTargets.filter(({ key }) => key !== "subsection");
 ---
 
 <div class="sample-cards">
-  {cardCanvasRoles
-    .filter(({ part }) => part === "background")
-    .map(({ key, card }) => (
+  {cards.map(({ key: target }, index) => {
+    const card = String(index + 1).padStart(2, "0");
+    const canvas = index ? `card${card}` : "card";
+    return (
       <article
         class="sample-card"
         data-sample-card={card}
-        style={`--card-canvas:var(--sample-${key});--card-border:var(--sample-${key}Border);--card-shadow:var(--sample-${key}Shadow)`}
+        style={`--card-canvas:var(--sample-${canvas});--card-border:var(--sample-${canvas}Border);--card-shadow:var(--sample-${canvas}Shadow);${inkStyle(target)}`}
       >
-        <p class="card-number">Card {card}</p>
-        <span class="sample-heading-level">H2</span>
-        <h2>Card {card}</h2>
-        <span class="sample-heading-level">H3</span>
-        <h3>A card with a clear focus</h3>
-        <p>
-          Add a short description that explains what makes this card useful.
+        <p class="card-number" data-sample-role={role(target, "Text")}>
+          Card {card}
         </p>
+        <span class="sample-heading-level">H2</span>
+        <h2 data-sample-role={role(target, "H2")}>Card {card}</h2>
+        <span class="sample-heading-level">H3</span>
+        <h3 data-sample-role={role(target, "H3")}>A card with a clear focus</h3>
+        <p class="sample-copy" data-sample-role={role(target, "Text")}>
+          A short description with{" "}
+          <strong data-sample-role={role(target, "Strong")}>strong</strong> and{" "}
+          <em data-sample-role={role(target, "Em")}>em</em> text.
+        </p>
+        <p class="sample-muted" data-sample-role={role(target, "Muted")}>
+          Muted detail with{" "}
+          <mark
+            class="sample-highlight"
+            data-sample-role={role(target, "Highlight")}
+          >
+            highlight
+          </mark>
+        </p>
+        <blockquote
+          class="sample-quote"
+          data-sample-role={role(target, "Blockquote")}
+        >
+          “A short quote.”
+        </blockquote>
+        <pre
+          class="sample-code"
+          data-sample-role={role(target, "Pre")}
+        ><code>card({card});</code></pre>
       </article>
-    ))}
+    );
+  })}
 </div>
 <article
   class="sample-subsection"
   data-sample-card="subsection"
-  style="--card-canvas:var(--sample-subsection);--card-border:var(--sample-card03Border);--card-shadow:var(--sample-card03Shadow)"
+  style={`--card-canvas:var(--sample-subsection);--card-border:var(--sample-subsectionBorder);--card-shadow:var(--sample-subsectionShadow);${inkStyle("subsection")}`}
 >
-  <p class="card-number">Subsection / large card</p>
-  <span class="sample-heading-level">H2</span>
-  <h2>A subsection with room to explore</h2>
-  <span class="sample-heading-level">H3</span>
-  <h3>A supporting idea</h3>
-  <p>
-    Use this larger card for a related topic, a deeper explanation, or a
-    highlighted piece of content.
+  <p class="card-number" data-sample-role="subsectionText">
+    Subsection / large card
   </p>
+  <span class="sample-heading-level">H2</span>
+  <h2 data-sample-role="subsectionH2">A subsection with room to explore</h2>
+  <span class="sample-heading-level">H3</span>
+  <h3 data-sample-role="subsectionH3">A supporting idea</h3>
+  <p class="sample-copy" data-sample-role="subsectionText">
+    Use this larger card for a related topic, with{" "}
+    <strong data-sample-role="subsectionStrong">strong</strong> and{" "}
+    <em data-sample-role="subsectionEm">em</em> text.
+  </p>
+  <p class="sample-muted" data-sample-role="subsectionMuted">
+    Muted detail with{" "}
+    <mark class="sample-highlight" data-sample-role="subsectionHighlight">
+      highlight
+    </mark>
+  </p>
+  <blockquote class="sample-quote" data-sample-role="subsectionBlockquote">
+    “A short quote.”
+  </blockquote>
+  <pre
+    class="sample-code"
+    data-sample-role="subsectionPre"
+  ><code>subsection();</code></pre>
 </article>

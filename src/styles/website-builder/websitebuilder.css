@@ -505,8 +505,17 @@
 .selector-shell .sample-card,
 .selector-shell .sample-subsection {
   background: var(--card-canvas);
-  color: var(--sample-cardText);
+  /* The card's own text color: each card remaps --sample-text. */
+  color: var(--sample-text);
   @apply min-w-0 rounded-xl p-5 wrap-anywhere;
+}
+.selector-shell
+  :is(.sample-card, .sample-subsection)
+  :is(.sample-muted, .sample-quote) {
+  @apply mt-3 text-[0.85rem];
+}
+.selector-shell :is(.sample-card, .sample-subsection) .sample-code {
+  @apply mt-3 mb-0 p-3;
 }
 .selector-shell .sample-card {
   border-radius: var(--sample-card-radius, var(--radius-xl));

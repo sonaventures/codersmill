@@ -257,6 +257,18 @@
     --canvas-page-card-03-shadow,
     var(--canvas-page-shadow)
   );
+  --color-canvas-page-subsection: var(
+    --canvas-page-subsection,
+    var(--canvas-page-card-03, var(--canvas-page))
+  );
+  --color-canvas-page-subsection-border: var(
+    --canvas-page-subsection-border,
+    var(--canvas-page-card-03-border, var(--canvas-page-border))
+  );
+  --color-canvas-page-subsection-shadow: var(
+    --canvas-page-subsection-shadow,
+    var(--canvas-page-card-03-shadow, var(--canvas-page-shadow))
+  );
   --color-accent-page-01: var(--accent-page-01);
   --color-accent-page-01-hover: var(
     --accent-page-01-hover,
@@ -531,6 +543,18 @@
     --canvas-01-card-03-shadow,
     var(--canvas-01-shadow)
   );
+  --color-canvas-01-subsection: var(
+    --canvas-01-subsection,
+    var(--canvas-01-card-03, var(--canvas-01))
+  );
+  --color-canvas-01-subsection-border: var(
+    --canvas-01-subsection-border,
+    var(--canvas-01-card-03-border, var(--canvas-01-border))
+  );
+  --color-canvas-01-subsection-shadow: var(
+    --canvas-01-subsection-shadow,
+    var(--canvas-01-card-03-shadow, var(--canvas-01-shadow))
+  );
   --color-accent-01-01: var(--accent-01-01);
   --color-accent-01-01-hover: var(--accent-01-01-hover, var(--accent-01-01));
   --color-accent-01-01-border: var(--accent-01-01-border);
@@ -654,6 +678,18 @@
     --canvas-02-card-03-shadow,
     var(--canvas-02-shadow)
   );
+  --color-canvas-02-subsection: var(
+    --canvas-02-subsection,
+    var(--canvas-02-card-03, var(--canvas-02))
+  );
+  --color-canvas-02-subsection-border: var(
+    --canvas-02-subsection-border,
+    var(--canvas-02-card-03-border, var(--canvas-02-border))
+  );
+  --color-canvas-02-subsection-shadow: var(
+    --canvas-02-subsection-shadow,
+    var(--canvas-02-card-03-shadow, var(--canvas-02-shadow))
+  );
   --color-accent-02-01: var(--accent-02-01);
   --color-accent-02-01-hover: var(--accent-02-01-hover, var(--accent-02-01));
   --color-accent-02-01-border: var(--accent-02-01-border);
@@ -754,6 +790,18 @@
   --color-canvas-03-card-03-shadow: var(
     --canvas-03-card-03-shadow,
     var(--canvas-03-shadow)
+  );
+  --color-canvas-03-subsection: var(
+    --canvas-03-subsection,
+    var(--canvas-03-card-03, var(--canvas-03))
+  );
+  --color-canvas-03-subsection-border: var(
+    --canvas-03-subsection-border,
+    var(--canvas-03-card-03-border, var(--canvas-03-border))
+  );
+  --color-canvas-03-subsection-shadow: var(
+    --canvas-03-subsection-shadow,
+    var(--canvas-03-card-03-shadow, var(--canvas-03-shadow))
   );
   --color-accent-03-01: var(--accent-03-01);
   --color-accent-03-01-hover: var(--accent-03-01-hover, var(--accent-03-01));
@@ -856,6 +904,18 @@
     --canvas-04-card-03-shadow,
     var(--canvas-04-shadow)
   );
+  --color-canvas-04-subsection: var(
+    --canvas-04-subsection,
+    var(--canvas-04-card-03, var(--canvas-04))
+  );
+  --color-canvas-04-subsection-border: var(
+    --canvas-04-subsection-border,
+    var(--canvas-04-card-03-border, var(--canvas-04-border))
+  );
+  --color-canvas-04-subsection-shadow: var(
+    --canvas-04-subsection-shadow,
+    var(--canvas-04-card-03-shadow, var(--canvas-04-shadow))
+  );
   --color-accent-04-01: var(--accent-04-01);
   --color-accent-04-01-hover: var(--accent-04-01-hover, var(--accent-04-01));
   --color-accent-04-01-border: var(--accent-04-01-border);
@@ -957,6 +1017,18 @@
     --canvas-05-card-03-shadow,
     var(--canvas-05-shadow)
   );
+  --color-canvas-05-subsection: var(
+    --canvas-05-subsection,
+    var(--canvas-05-card-03, var(--canvas-05))
+  );
+  --color-canvas-05-subsection-border: var(
+    --canvas-05-subsection-border,
+    var(--canvas-05-card-03-border, var(--canvas-05-border))
+  );
+  --color-canvas-05-subsection-shadow: var(
+    --canvas-05-subsection-shadow,
+    var(--canvas-05-card-03-shadow, var(--canvas-05-shadow))
+  );
   --color-accent-05-01: var(--accent-05-01);
   --color-accent-05-01-hover: var(--accent-05-01-hover, var(--accent-05-01));
   --color-accent-05-01-border: var(--accent-05-01-border);
@@ -1057,6 +1129,18 @@
   --color-canvas-06-card-03-shadow: var(
     --canvas-06-card-03-shadow,
     var(--canvas-06-shadow)
+  );
+  --color-canvas-06-subsection: var(
+    --canvas-06-subsection,
+    var(--canvas-06-card-03, var(--canvas-06))
+  );
+  --color-canvas-06-subsection-border: var(
+    --canvas-06-subsection-border,
+    var(--canvas-06-card-03-border, var(--canvas-06-border))
+  );
+  --color-canvas-06-subsection-shadow: var(
+    --canvas-06-subsection-shadow,
+    var(--canvas-06-card-03-shadow, var(--canvas-06-shadow))
   );
   --color-accent-06-01: var(--accent-06-01);
   --color-accent-06-01-hover: var(--accent-06-01-hover, var(--accent-06-01));

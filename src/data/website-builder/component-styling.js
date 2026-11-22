@@ -69,7 +69,7 @@ export const blockMarkers = [
   { className: "nav-icon", label: "Nav icon", preset: "nav-svg" },
   { className: "icon", label: "Icon", preset: "svg" },
   { className: "card", label: "Card", preset: "card-01" },
-  { className: "subsection", label: "Subsection", preset: "" },
+  { className: "subsection", label: "Subsection", preset: "subsection" },
 ];
 const markerNames = new Set(blockMarkers.map(({ className }) => className));
 
@@ -247,6 +247,13 @@ export const stylePresets = [
     group: "surfaces",
     classes:
       "rounded-card! bg-canvas-01-card-03 border-canvas-01-card-03-border shadow-canvas-01-card-03-shadow/20",
+  },
+  {
+    key: "subsection",
+    label: "Subsection",
+    group: "surfaces",
+    classes:
+      "rounded-subsection! bg-canvas-01-subsection border-canvas-01-subsection-border shadow-canvas-01-subsection-shadow/20",
   },
   {
     key: "accent-canvas",
