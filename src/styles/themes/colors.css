@@ -1,5 +1,82 @@
 /* Primitive ramps: use these to build semantic tokens, not directly in components. */
 @theme static {
+  --color-mutedteal-50: oklch(97% 0.028 153.77);
+  --color-mutedteal-100: oklch(93.44% 0.028 153.77);
+  --color-mutedteal-200: oklch(88.24% 0.028 153.77);
+  --color-mutedteal-300: oklch(82.16% 0.028 153.77);
+  --color-mutedteal-400: oklch(75.43% 0.028 153.77);
+  --color-mutedteal-500: oklch(68.16% 0.028 153.77);
+  --color-mutedteal-600: oklch(60.45% 0.028 153.77);
+  --color-mutedteal-700: oklch(52.34% 0.028 153.77);
+  --color-mutedteal-800: oklch(43.88% 0.028 153.77);
+  --color-mutedteal-900: oklch(35.09% 0.028 153.77);
+  --color-mutedteal-950: oklch(26% 0.028 153.77);
+  --color-softlinen-50: oklch(97% 0.016 130.43);
+  --color-softlinen-100: oklch(93.44% 0.016 130.43);
+  --color-softlinen-200: oklch(88.24% 0.016 130.43);
+  --color-softlinen-300: oklch(82.16% 0.016 130.43);
+  --color-softlinen-400: oklch(75.43% 0.016 130.43);
+  --color-softlinen-500: oklch(68.16% 0.016 130.43);
+  --color-softlinen-600: oklch(60.45% 0.016 130.43);
+  --color-softlinen-700: oklch(52.34% 0.016 130.43);
+  --color-softlinen-800: oklch(43.88% 0.016 130.43);
+  --color-softlinen-900: oklch(35.09% 0.016 130.43);
+  --color-softlinen-950: oklch(26% 0.016 130.43);
+  --color-limecream-50: oklch(97% 0.085 124.4);
+  --color-limecream-100: oklch(93.44% 0.121 124.4);
+  --color-limecream-200: oklch(88.24% 0.121 124.4);
+  --color-limecream-300: oklch(82.16% 0.121 124.4);
+  --color-limecream-400: oklch(75.43% 0.121 124.4);
+  --color-limecream-500: oklch(68.16% 0.121 124.4);
+  --color-limecream-600: oklch(60.45% 0.121 124.4);
+  --color-limecream-700: oklch(52.34% 0.121 124.4);
+  --color-limecream-800: oklch(43.88% 0.121 124.4);
+  --color-limecream-900: oklch(35.09% 0.102 124.4);
+  --color-limecream-950: oklch(26% 0.076 124.4);
+  --color-radioactive-50: oklch(97% 0.061 139.6);
+  --color-radioactive-100: oklch(93.44% 0.144 139.6);
+  --color-radioactive-200: oklch(88.24% 0.186 139.6);
+  --color-radioactive-300: oklch(82.16% 0.186 139.6);
+  --color-radioactive-400: oklch(75.43% 0.186 139.6);
+  --color-radioactive-500: oklch(68.16% 0.186 139.6);
+  --color-radioactive-600: oklch(60.45% 0.186 139.6);
+  --color-radioactive-700: oklch(52.34% 0.186 139.6);
+  --color-radioactive-800: oklch(43.88% 0.165 139.6);
+  --color-radioactive-900: oklch(35.09% 0.132 139.6);
+  --color-radioactive-950: oklch(26% 0.098 139.6);
+  --color-coolsteel-50: oklch(97% 0.041 197.55);
+  --color-coolsteel-100: oklch(93.44% 0.041 197.55);
+  --color-coolsteel-200: oklch(88.24% 0.041 197.55);
+  --color-coolsteel-300: oklch(82.16% 0.041 197.55);
+  --color-coolsteel-400: oklch(75.43% 0.041 197.55);
+  --color-coolsteel-500: oklch(68.16% 0.041 197.55);
+  --color-coolsteel-600: oklch(60.45% 0.041 197.55);
+  --color-coolsteel-700: oklch(52.34% 0.041 197.55);
+  --color-coolsteel-800: oklch(43.88% 0.041 197.55);
+  --color-coolsteel-900: oklch(35.09% 0.041 197.55);
+  --color-coolsteel-950: oklch(26% 0.041 197.55);
+  --color-blaze-50: oklch(97% 0.02 41.17);
+  --color-blaze-100: oklch(93.44% 0.045 41.17);
+  --color-blaze-200: oklch(88.24% 0.084 41.17);
+  --color-blaze-300: oklch(82.16% 0.134 41.17);
+  --color-blaze-400: oklch(75.43% 0.195 41.17);
+  --color-blaze-500: oklch(68.16% 0.201 41.17);
+  --color-blaze-600: oklch(60.45% 0.201 41.17);
+  --color-blaze-700: oklch(52.34% 0.181 41.17);
+  --color-blaze-800: oklch(43.88% 0.152 41.17);
+  --color-blaze-900: oklch(35.09% 0.122 41.17);
+  --color-blaze-950: oklch(26% 0.09 41.17);
+  --color-smartblue-50: oklch(97% 0.016 263.14);
+  --color-smartblue-100: oklch(85.07% 0.08 263.14);
+  --color-smartblue-200: oklch(76.09% 0.132 263.14);
+  --color-smartblue-300: oklch(67.96% 0.168 263.14);
+  --color-smartblue-400: oklch(60.34% 0.168 263.14);
+  --color-smartblue-500: oklch(53.08% 0.168 263.14);
+  --color-smartblue-600: oklch(46.09% 0.168 263.14);
+  --color-smartblue-700: oklch(39.32% 0.168 263.14);
+  --color-smartblue-800: oklch(32.73% 0.168 263.14);
+  --color-smartblue-900: oklch(26.3% 0.165 263.14);
+  --color-smartblue-950: oklch(20% 0.125 263.14);
   --color-offwhite-50: oklch(97% 0 none);
   --color-offwhite-100: oklch(93.44% 0 none);
   --color-offwhite-200: oklch(88.24% 0 none);
@@ -11,33 +88,33 @@
   --color-offwhite-800: oklch(43.88% 0 none);
   --color-offwhite-900: oklch(35.09% 0 none);
   --color-offwhite-950: oklch(26% 0 none);
-  --color-platinum-50: oklch(97% 0.007 247.9);
-  --color-platinum-100: oklch(93.44% 0.007 247.9);
-  --color-platinum-200: oklch(88.24% 0.007 247.9);
-  --color-platinum-300: oklch(82.16% 0.007 247.9);
-  --color-platinum-400: oklch(75.43% 0.007 247.9);
-  --color-platinum-500: oklch(68.16% 0.007 247.9);
-  --color-platinum-600: oklch(60.45% 0.007 247.9);
-  --color-platinum-700: oklch(52.34% 0.007 247.9);
-  --color-platinum-800: oklch(43.88% 0.007 247.9);
-  --color-platinum-900: oklch(35.09% 0.007 247.9);
-  --color-platinum-950: oklch(26% 0.007 247.9);
+  --color-platinum-50: oklch(97% 0 none);
+  --color-platinum-100: oklch(93.44% 0 none);
+  --color-platinum-200: oklch(88.24% 0 none);
+  --color-platinum-300: oklch(82.16% 0 none);
+  --color-platinum-400: oklch(75.43% 0 none);
+  --color-platinum-500: oklch(68.16% 0 none);
+  --color-platinum-600: oklch(60.45% 0 none);
+  --color-platinum-700: oklch(52.34% 0 none);
+  --color-platinum-800: oklch(43.88% 0 none);
+  --color-platinum-900: oklch(35.09% 0 none);
+  --color-platinum-950: oklch(26% 0 none);
   --color-prusssianblue-50: oklch(97% 0.015 265.75);
   --color-prusssianblue-100: oklch(93.44% 0.034 265.75);
-  --color-prusssianblue-200: oklch(88.24% 0.040 265.75);
-  --color-prusssianblue-300: oklch(82.16% 0.040 265.75);
-  --color-prusssianblue-400: oklch(75.43% 0.040 265.75);
-  --color-prusssianblue-500: oklch(68.16% 0.040 265.75);
-  --color-prusssianblue-600: oklch(60.45% 0.040 265.75);
-  --color-prusssianblue-700: oklch(52.34% 0.040 265.75);
-  --color-prusssianblue-800: oklch(43.88% 0.040 265.75);
-  --color-prusssianblue-900: oklch(35.09% 0.040 265.75);
-  --color-prusssianblue-950: oklch(26% 0.040 265.75);
+  --color-prusssianblue-200: oklch(88.24% 0.04 265.75);
+  --color-prusssianblue-300: oklch(82.16% 0.04 265.75);
+  --color-prusssianblue-400: oklch(75.43% 0.04 265.75);
+  --color-prusssianblue-500: oklch(68.16% 0.04 265.75);
+  --color-prusssianblue-600: oklch(60.45% 0.04 265.75);
+  --color-prusssianblue-700: oklch(52.34% 0.04 265.75);
+  --color-prusssianblue-800: oklch(43.88% 0.04 265.75);
+  --color-prusssianblue-900: oklch(35.09% 0.04 265.75);
+  --color-prusssianblue-950: oklch(26% 0.04 265.75);
   --color-energeticorange-50: oklch(97% 0.019 33.86);
   --color-energeticorange-100: oklch(93.44% 0.044 33.86);
   --color-energeticorange-200: oklch(88.24% 0.082 33.86);
-  --color-energeticorange-300: oklch(82.16% 0.130 33.86);
-  --color-energeticorange-400: oklch(75.43% 0.190 33.86);
+  --color-energeticorange-300: oklch(82.16% 0.13 33.86);
+  --color-energeticorange-400: oklch(75.43% 0.19 33.86);
   --color-energeticorange-500: oklch(68.16% 0.207 33.86);
   --color-energeticorange-600: oklch(60.45% 0.207 33.86);
   --color-energeticorange-700: oklch(52.34% 0.207 33.86);
@@ -112,15 +189,24 @@
   --color-cta-01-text: var(--cta-01-text, var(--ink-page-dark));
   --color-cta-01-border: var(--cta-01-border, var(--cta-01));
   --color-cta-01-hover: var(--cta-01-hover, var(--cta-01));
-  --color-cta-01-hover-text: var(--cta-01-hover-text, var(--cta-01-text, var(--ink-page-dark)));
+  --color-cta-01-hover-text: var(
+    --cta-01-hover-text,
+    var(--cta-01-text, var(--ink-page-dark))
+  );
   --color-cta-02-text: var(--cta-02-text, var(--ink-inverse));
   --color-cta-02-border: var(--cta-02-border, var(--cta-02));
   --color-cta-02-hover: var(--cta-02-hover, var(--cta-02));
-  --color-cta-02-hover-text: var(--cta-02-hover-text, var(--cta-02-text, var(--ink-inverse)));
+  --color-cta-02-hover-text: var(
+    --cta-02-hover-text,
+    var(--cta-02-text, var(--ink-inverse))
+  );
   --color-cta-03-text: var(--cta-03-text, var(--ink-page-dark));
   --color-cta-03-border: var(--cta-03-border, var(--cta-03));
   --color-cta-03-hover: var(--cta-03-hover, var(--cta-03));
-  --color-cta-03-hover-text: var(--cta-03-hover-text, var(--cta-03-text, var(--ink-page-dark)));
+  --color-cta-03-hover-text: var(
+    --cta-03-hover-text,
+    var(--cta-03-text, var(--ink-page-dark))
+  );
 
   /* Brand primary canvas */
   --color-canvas-brand-primary: var(--canvas-brand-primary);
@@ -259,8 +345,14 @@
   --color-accent-01-focus: var(--accent-01-focus);
   /* Button hover / focus backgrounds from theme groups; until chosen, Primary
    * uses the hover / focus color and Learn more has no background. */
-  --color-accent-01-primary-hover: var(--accent-01-primary-hover, var(--accent-01-focus));
-  --color-accent-01-learn-more-hover: var(--accent-01-learn-more-hover, transparent);
+  --color-accent-01-primary-hover: var(
+    --accent-01-primary-hover,
+    var(--accent-01-focus)
+  );
+  --color-accent-01-learn-more-hover: var(
+    --accent-01-learn-more-hover,
+    transparent
+  );
   --color-ink-01: var(--ink-01);
   --color-ink-01-dark: var(--ink-01-dark);
   --color-ink-01-highlight: var(--ink-01-highlight);
@@ -275,9 +367,15 @@
     --canvas-01-input,
     var(--canvas-01-card-01, var(--canvas-01))
   );
-  --color-canvas-01-input-border: var(--canvas-01-input-border, var(--canvas-01-border));
+  --color-canvas-01-input-border: var(
+    --canvas-01-input-border,
+    var(--canvas-01-border)
+  );
   --color-ink-01-placeholder: var(--ink-01-placeholder, var(--ink-01-muted));
-  --color-accent-01-input-focus: var(--accent-01-input-focus, var(--accent-01-focus));
+  --color-accent-01-input-focus: var(
+    --accent-01-input-focus,
+    var(--accent-01-focus)
+  );
   --color-ink-01-blockquote: var(--ink-01-blockquote, var(--ink-01-muted));
   --color-canvas-01-divider: var(--canvas-01-divider, var(--canvas-01-border));
 
@@ -289,14 +387,26 @@
     var(--canvas-01-card-01, var(--canvas-01))
   );
   --color-accent-01-secondary-clear: var(--accent-01-secondary, transparent);
-  --color-accent-01-secondary-text: var(--accent-01-secondary-text, var(--ink-01));
-  --color-accent-01-secondary-border: var(--accent-01-secondary-border, var(--canvas-01-border));
-  --color-accent-01-secondary-hover: var(--accent-01-secondary-hover, var(--accent-01-canvas));
+  --color-accent-01-secondary-text: var(
+    --accent-01-secondary-text,
+    var(--ink-01)
+  );
+  --color-accent-01-secondary-border: var(
+    --accent-01-secondary-border,
+    var(--canvas-01-border)
+  );
+  --color-accent-01-secondary-hover: var(
+    --accent-01-secondary-hover,
+    var(--accent-01-canvas)
+  );
   --color-accent-01-secondary-hover-text: var(
     --accent-01-secondary-hover-text,
     var(--accent-01-secondary-text, var(--ink-01))
   );
-  --color-accent-01-secondary-shadow: var(--accent-01-secondary-shadow, transparent);
+  --color-accent-01-secondary-shadow: var(
+    --accent-01-secondary-shadow,
+    transparent
+  );
   --color-ink-01-h1: var(--ink-01-h1);
   --color-ink-01-h2: var(--ink-01-h2);
   --color-ink-01-h3: var(--ink-01-h3);
@@ -595,32 +705,101 @@
    * the text color. */
   /* SVG: icons such as social links */
   --color-ink-01-svg-fill: var(--ink-01-svg-fill, currentColor);
-  --color-ink-01-svg-fill-hover: var(--ink-01-svg-fill-hover, var(--ink-01-svg-fill, currentColor));
-  --color-ink-01-svg-fill-active: var(--ink-01-svg-fill-active, var(--ink-01-svg-fill-hover, var(--ink-01-svg-fill, currentColor)));
+  --color-ink-01-svg-fill-hover: var(
+    --ink-01-svg-fill-hover,
+    var(--ink-01-svg-fill, currentColor)
+  );
+  --color-ink-01-svg-fill-active: var(
+    --ink-01-svg-fill-active,
+    var(--ink-01-svg-fill-hover, var(--ink-01-svg-fill, currentColor))
+  );
   --color-ink-01-svg-stroke: var(--ink-01-svg-stroke, currentColor);
-  --color-ink-01-svg-stroke-hover: var(--ink-01-svg-stroke-hover, var(--ink-01-svg-stroke, currentColor));
-  --color-ink-01-svg-stroke-active: var(--ink-01-svg-stroke-active, var(--ink-01-svg-stroke-hover, var(--ink-01-svg-stroke, currentColor)));
+  --color-ink-01-svg-stroke-hover: var(
+    --ink-01-svg-stroke-hover,
+    var(--ink-01-svg-stroke, currentColor)
+  );
+  --color-ink-01-svg-stroke-active: var(
+    --ink-01-svg-stroke-active,
+    var(--ink-01-svg-stroke-hover, var(--ink-01-svg-stroke, currentColor))
+  );
   /* Nav SVG: icons in menus */
   --color-ink-01-nav-svg-fill: var(--ink-01-nav-svg-fill, currentColor);
-  --color-ink-01-nav-svg-fill-hover: var(--ink-01-nav-svg-fill-hover, var(--ink-01-nav-svg-fill, currentColor));
-  --color-ink-01-nav-svg-fill-active: var(--ink-01-nav-svg-fill-active, var(--ink-01-nav-svg-fill-hover, var(--ink-01-nav-svg-fill, currentColor)));
+  --color-ink-01-nav-svg-fill-hover: var(
+    --ink-01-nav-svg-fill-hover,
+    var(--ink-01-nav-svg-fill, currentColor)
+  );
+  --color-ink-01-nav-svg-fill-active: var(
+    --ink-01-nav-svg-fill-active,
+    var(--ink-01-nav-svg-fill-hover, var(--ink-01-nav-svg-fill, currentColor))
+  );
   --color-ink-01-nav-svg-stroke: var(--ink-01-nav-svg-stroke, currentColor);
-  --color-ink-01-nav-svg-stroke-hover: var(--ink-01-nav-svg-stroke-hover, var(--ink-01-nav-svg-stroke, currentColor));
-  --color-ink-01-nav-svg-stroke-active: var(--ink-01-nav-svg-stroke-active, var(--ink-01-nav-svg-stroke-hover, var(--ink-01-nav-svg-stroke, currentColor)));
+  --color-ink-01-nav-svg-stroke-hover: var(
+    --ink-01-nav-svg-stroke-hover,
+    var(--ink-01-nav-svg-stroke, currentColor)
+  );
+  --color-ink-01-nav-svg-stroke-active: var(
+    --ink-01-nav-svg-stroke-active,
+    var(
+      --ink-01-nav-svg-stroke-hover,
+      var(--ink-01-nav-svg-stroke, currentColor)
+    )
+  );
   /* Button SVG: icons in buttons */
   --color-ink-01-button-svg-fill: var(--ink-01-button-svg-fill, currentColor);
-  --color-ink-01-button-svg-fill-hover: var(--ink-01-button-svg-fill-hover, var(--ink-01-button-svg-fill, currentColor));
-  --color-ink-01-button-svg-fill-active: var(--ink-01-button-svg-fill-active, var(--ink-01-button-svg-fill-hover, var(--ink-01-button-svg-fill, currentColor)));
-  --color-ink-01-button-svg-stroke: var(--ink-01-button-svg-stroke, currentColor);
-  --color-ink-01-button-svg-stroke-hover: var(--ink-01-button-svg-stroke-hover, var(--ink-01-button-svg-stroke, currentColor));
-  --color-ink-01-button-svg-stroke-active: var(--ink-01-button-svg-stroke-active, var(--ink-01-button-svg-stroke-hover, var(--ink-01-button-svg-stroke, currentColor)));
+  --color-ink-01-button-svg-fill-hover: var(
+    --ink-01-button-svg-fill-hover,
+    var(--ink-01-button-svg-fill, currentColor)
+  );
+  --color-ink-01-button-svg-fill-active: var(
+    --ink-01-button-svg-fill-active,
+    var(
+      --ink-01-button-svg-fill-hover,
+      var(--ink-01-button-svg-fill, currentColor)
+    )
+  );
+  --color-ink-01-button-svg-stroke: var(
+    --ink-01-button-svg-stroke,
+    currentColor
+  );
+  --color-ink-01-button-svg-stroke-hover: var(
+    --ink-01-button-svg-stroke-hover,
+    var(--ink-01-button-svg-stroke, currentColor)
+  );
+  --color-ink-01-button-svg-stroke-active: var(
+    --ink-01-button-svg-stroke-active,
+    var(
+      --ink-01-button-svg-stroke-hover,
+      var(--ink-01-button-svg-stroke, currentColor)
+    )
+  );
   /* Anchor SVG: icons in links */
   --color-ink-01-anchor-svg-fill: var(--ink-01-anchor-svg-fill, currentColor);
-  --color-ink-01-anchor-svg-fill-hover: var(--ink-01-anchor-svg-fill-hover, var(--ink-01-anchor-svg-fill, currentColor));
-  --color-ink-01-anchor-svg-fill-active: var(--ink-01-anchor-svg-fill-active, var(--ink-01-anchor-svg-fill-hover, var(--ink-01-anchor-svg-fill, currentColor)));
-  --color-ink-01-anchor-svg-stroke: var(--ink-01-anchor-svg-stroke, currentColor);
-  --color-ink-01-anchor-svg-stroke-hover: var(--ink-01-anchor-svg-stroke-hover, var(--ink-01-anchor-svg-stroke, currentColor));
-  --color-ink-01-anchor-svg-stroke-active: var(--ink-01-anchor-svg-stroke-active, var(--ink-01-anchor-svg-stroke-hover, var(--ink-01-anchor-svg-stroke, currentColor)));
+  --color-ink-01-anchor-svg-fill-hover: var(
+    --ink-01-anchor-svg-fill-hover,
+    var(--ink-01-anchor-svg-fill, currentColor)
+  );
+  --color-ink-01-anchor-svg-fill-active: var(
+    --ink-01-anchor-svg-fill-active,
+    var(
+      --ink-01-anchor-svg-fill-hover,
+      var(--ink-01-anchor-svg-fill, currentColor)
+    )
+  );
+  --color-ink-01-anchor-svg-stroke: var(
+    --ink-01-anchor-svg-stroke,
+    currentColor
+  );
+  --color-ink-01-anchor-svg-stroke-hover: var(
+    --ink-01-anchor-svg-stroke-hover,
+    var(--ink-01-anchor-svg-stroke, currentColor)
+  );
+  --color-ink-01-anchor-svg-stroke-active: var(
+    --ink-01-anchor-svg-stroke-active,
+    var(
+      --ink-01-anchor-svg-stroke-hover,
+      var(--ink-01-anchor-svg-stroke, currentColor)
+    )
+  );
 }
 
 :root {
@@ -842,7 +1021,6 @@
   --ink-footer-h2: var(--ink-inverse);
   --ink-footer-h3: var(--ink-inverse);
   --nav-footer-item: var(--color-sky-100);
-
 
   /* Text formatting (strong, em, code, pre) for each area. The defaults keep
      the surrounding text color and no background, in both themes; the
