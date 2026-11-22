@@ -1,0 +1,103 @@
+/* smartblue */
+--color-smartblue-50: oklch(97% 0.016 263.14);
+--color-smartblue-100: oklch(85.07% 0.080 263.14);
+--color-smartblue-200: oklch(76.09% 0.132 263.14);
+--color-smartblue-300: oklch(67.96% 0.168 263.14);
+--color-smartblue-400: oklch(60.34% 0.168 263.14);
+--color-smartblue-500: oklch(53.08% 0.168 263.14);
+--color-smartblue-600: oklch(46.09% 0.168 263.14);
+--color-smartblue-700: oklch(39.32% 0.168 263.14);
+--color-smartblue-800: oklch(32.73% 0.168 263.14);
+--color-smartblue-900: oklch(26.3% 0.165 263.14);
+--color-smartblue-950: oklch(20% 0.125 263.14);
+
+/* blaze */
+--color-blaze-50: oklch(97% 0.020 41.17);
+--color-blaze-100: oklch(93.44% 0.045 41.17);
+--color-blaze-200: oklch(88.24% 0.084 41.17);
+--color-blaze-300: oklch(82.16% 0.134 41.17);
+--color-blaze-400: oklch(75.43% 0.195 41.17);
+--color-blaze-500: oklch(68.16% 0.201 41.17);
+--color-blaze-600: oklch(60.45% 0.201 41.17);
+--color-blaze-700: oklch(52.34% 0.181 41.17);
+--color-blaze-800: oklch(43.88% 0.152 41.17);
+--color-blaze-900: oklch(35.09% 0.122 41.17);
+--color-blaze-950: oklch(26% 0.090 41.17);
+
+/* coolsteel */
+--color-coolsteel-50: oklch(97% 0.041 197.55);
+--color-coolsteel-100: oklch(93.44% 0.041 197.55);
+--color-coolsteel-200: oklch(88.24% 0.041 197.55);
+--color-coolsteel-300: oklch(82.16% 0.041 197.55);
+--color-coolsteel-400: oklch(75.43% 0.041 197.55);
+--color-coolsteel-500: oklch(68.16% 0.041 197.55);
+--color-coolsteel-600: oklch(60.45% 0.041 197.55);
+--color-coolsteel-700: oklch(52.34% 0.041 197.55);
+--color-coolsteel-800: oklch(43.88% 0.041 197.55);
+--color-coolsteel-900: oklch(35.09% 0.041 197.55);
+--color-coolsteel-950: oklch(26% 0.041 197.55);
+
+/* radioactive */
+--color-radioactive-50: oklch(97% 0.061 139.6);
+--color-radioactive-100: oklch(93.44% 0.144 139.6);
+--color-radioactive-200: oklch(88.24% 0.186 139.6);
+--color-radioactive-300: oklch(82.16% 0.186 139.6);
+--color-radioactive-400: oklch(75.43% 0.186 139.6);
+--color-radioactive-500: oklch(68.16% 0.186 139.6);
+--color-radioactive-600: oklch(60.45% 0.186 139.6);
+--color-radioactive-700: oklch(52.34% 0.186 139.6);
+--color-radioactive-800: oklch(43.88% 0.165 139.6);
+--color-radioactive-900: oklch(35.09% 0.132 139.6);
+--color-radioactive-950: oklch(26% 0.098 139.6);
+
+/* lime */
+--color-lime-50: oklch(97% 0.085 124.4);
+--color-lime-100: oklch(93.44% 0.121 124.4);
+--color-lime-200: oklch(88.24% 0.121 124.4);
+--color-lime-300: oklch(82.16% 0.121 124.4);
+--color-lime-400: oklch(75.43% 0.121 124.4);
+--color-lime-500: oklch(68.16% 0.121 124.4);
+--color-lime-600: oklch(60.45% 0.121 124.4);
+--color-lime-700: oklch(52.34% 0.121 124.4);
+--color-lime-800: oklch(43.88% 0.121 124.4);
+--color-lime-900: oklch(35.09% 0.102 124.4);
+--color-lime-950: oklch(26% 0.076 124.4);
+
+/* platinum */
+--color-platinum-50: oklch(97% 0 none);
+--color-platinum-100: oklch(93.44% 0 none);
+--color-platinum-200: oklch(88.24% 0 none);
+--color-platinum-300: oklch(82.16% 0 none);
+--color-platinum-400: oklch(75.43% 0 none);
+--color-platinum-500: oklch(68.16% 0 none);
+--color-platinum-600: oklch(60.45% 0 none);
+--color-platinum-700: oklch(52.34% 0 none);
+--color-platinum-800: oklch(43.88% 0 none);
+--color-platinum-900: oklch(35.09% 0 none);
+--color-platinum-950: oklch(26% 0 none);
+
+/* softlinen */
+--color-softlinen-50: oklch(97% 0.016 130.43);
+--color-softlinen-100: oklch(93.44% 0.016 130.43);
+--color-softlinen-200: oklch(88.24% 0.016 130.43);
+--color-softlinen-300: oklch(82.16% 0.016 130.43);
+--color-softlinen-400: oklch(75.43% 0.016 130.43);
+--color-softlinen-500: oklch(68.16% 0.016 130.43);
+--color-softlinen-600: oklch(60.45% 0.016 130.43);
+--color-softlinen-700: oklch(52.34% 0.016 130.43);
+--color-softlinen-800: oklch(43.88% 0.016 130.43);
+--color-softlinen-900: oklch(35.09% 0.016 130.43);
+--color-softlinen-950: oklch(26% 0.016 130.43);
+
+/* mutedteal */
+--color-mutedteal-50: oklch(97% 0.028 153.77);
+--color-mutedteal-100: oklch(93.44% 0.028 153.77);
+--color-mutedteal-200: oklch(88.24% 0.028 153.77);
+--color-mutedteal-300: oklch(82.16% 0.028 153.77);
+--color-mutedteal-400: oklch(75.43% 0.028 153.77);
+--color-mutedteal-500: oklch(68.16% 0.028 153.77);
+--color-mutedteal-600: oklch(60.45% 0.028 153.77);
+--color-mutedteal-700: oklch(52.34% 0.028 153.77);
+--color-mutedteal-800: oklch(43.88% 0.028 153.77);
+--color-mutedteal-900: oklch(35.09% 0.028 153.77);
+--color-mutedteal-950: oklch(26% 0.028 153.77);
