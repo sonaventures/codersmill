@@ -1,5 +1,5 @@
 ---
-import PageIntro from "../components/PageIntro.astro";
+import FpHero from "../components/fp_hero.astro";
 import Layout from "../layouts/layout.astro";
 import { builderPages } from "../data/website-builder";
 import { pageDescriptions, siteName } from "../data/site";
@@ -8,7 +8,7 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
 ---
 
 <Layout title="Tools" description={pageDescriptions.tools}>
-  <PageIntro
+  <FpHero
     eyebrow="Tools"
     title={`The ${siteName} tools`}
     description="Each tool handles one part of the site, from the color palette to the finished pages. They are listed in the order you use them."

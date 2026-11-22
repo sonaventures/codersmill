@@ -2,16 +2,18 @@ const componentPathPattern = /^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.astro$/;
 const componentSizeLimit = 5_000_000;
 const propertyPattern =
   /^([a-zA-Z_$][\w$]*)(\?)?\s*:\s*(string|number|boolean)$/;
-const excludedComponents = new Set([
-  "SiteHeader.astro",
-  "SiteFooter.astro",
-  "StudioHeader.astro",
-]);
+// The site's own header and footer (src/components/header.astro and
+// footer.astro) and the builder's header are not page components. Headers
+// and footers elsewhere, such as the blocks, are.
+const reservedPaths = new Set(["header.astro", "footer.astro"]);
+const reservedNames = new Set(["StudioHeader.astro"]);
+const isReserved = (path) =>
+  reservedPaths.has(path) || reservedNames.has(path.split("/").at(-1));
 
 export function inspectComponent(path, source) {
   if (!componentPathPattern.test(path))
     return { path, error: "The component file name is not supported." };
-  if (excludedComponents.has(path.split("/").at(-1))) return null;
+  if (isReserved(path)) return null;
 
   const frontmatter = /^---\s*\r?\n([\s\S]*?)\r?\n---(?:\s*\r?\n|$)/.exec(
     source,
@@ -146,7 +148,7 @@ export function componentSavePath(input) {
     throw new Error(
       "Use letters, numbers, hyphens, and underscores, with / between folders.",
     );
-  if (excludedComponents.has(path.split("/").at(-1)))
+  if (isReserved(path))
     throw new Error("That component file name is reserved.");
   return path;
 }
@@ -219,7 +221,7 @@ export function componentFolders(components) {
 export async function saveComponentCopy(directory, path, content) {
   if (
     !componentPathPattern.test(path) ||
-    excludedComponents.has(path.split("/").at(-1))
+    isReserved(path)
   )
     throw new Error("Invalid component file path.");
   if (typeof content !== "string" || !content)
@@ -321,7 +323,7 @@ export function isSlotComponent(component) {
     component &&
       !component.error &&
       componentPathPattern.test(component.path) &&
-      !excludedComponents.has(component.path.split("/").at(-1)) &&
+      !isReserved(component.path) &&
       Array.isArray(component.properties) &&
       component.properties.every(({ optional }) => optional),
   );
@@ -382,7 +384,7 @@ export function generatePage(
         !component ||
         component.error ||
         !componentPathPattern.test(component.path) ||
-        excludedComponents.has(component.path.split("/").at(-1)) ||
+        isReserved(component.path) ||
         !Array.isArray(component.properties)
       )
         throw new Error("A selected component is not supported.");

@@ -1,5 +1,5 @@
 ---
-import PageIntro from "../components/PageIntro.astro";
+import FpHero from "../components/fp_hero.astro";
 import Layout from "../layouts/layout.astro";
 import { pageDescriptions } from "../data/site";
 
@@ -32,7 +32,7 @@ const libraries = [...new Set(files.map(([library]) => library))]
 ---
 
 <Layout title="Blocks" description={pageDescriptions.blocks}>
-  <PageIntro
+  <FpHero
     eyebrow="Blocks"
     title="Pages are built from blocks"
     description="A block is a ready-made piece of HTML, such as a hero, a call to action, or a set of testimonials. The Page Builder stacks blocks into a page, and your theme groups color them."

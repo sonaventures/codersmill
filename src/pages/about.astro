@@ -1,11 +1,11 @@
 ---
-import PageIntro from "../components/PageIntro.astro";
+import FpHero from "../components/fp_hero.astro";
 import Layout from "../layouts/layout.astro";
 import { host, pageDescriptions, siteName } from "../data/site";
 ---
 
 <Layout title="About" description={pageDescriptions.about}>
-  <PageIntro
+  <FpHero
     eyebrow="About"
     title={siteName}
     description={`${siteName} is a set of tools for building and styling Astro websites, hosted by ${host.name}.`}

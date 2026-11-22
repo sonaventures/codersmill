@@ -1,5 +1,5 @@
 ---
-import PageIntro from "../components/PageIntro.astro";
+import FpHero from "../components/fp_hero.astro";
 import Layout from "../layouts/layout.astro";
 import { builderPages } from "../data/website-builder";
 import { host, pageDescriptions, siteName } from "../data/site";
@@ -9,7 +9,7 @@ const tools = builderPages.filter(({ label }) => label !== "Home");
 ---
 
 <Layout description={pageDescriptions.home}>
-  <PageIntro
+  <FpHero
     eyebrow={siteName}
     title="Build and style a website from blocks."
     description="Pick colors, group them into themes, set the typography, then assemble pages from ready-made blocks and give them your theme. Everything is saved to your Astro project."

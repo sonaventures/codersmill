@@ -43,7 +43,13 @@ const { title } = Astro.props;
     ).error,
     /supported/,
   );
-  assert.equal(inspectComponent("SiteHeader.astro", ""), null);
+  assert.equal(inspectComponent("header.astro", ""), null);
+  assert.equal(inspectComponent("footer.astro", ""), null);
+  // Headers and footers in folders, such as the blocks, are components.
+  assert.deepEqual(inspectComponent("blocks/flowbite/header/header.astro", ""), {
+    path: "blocks/flowbite/header/header.astro",
+    properties: [],
+  });
   assert.match(inspectComponent("Wrapper.astro", "<slot />").error, /slots/);
   assert.match(
     inspectComponent("Dynamic.astro", "---\nconst props = Astro['props'];\n---")
@@ -160,7 +166,9 @@ test("normalizes and validates component save paths", () => {
   assert.throws(() => componentSavePath(""), /Enter a component file path/);
   assert.throws(() => componentSavePath("../hack"), /letters, numbers/);
   assert.throws(() => componentSavePath("my hero"), /letters, numbers/);
-  assert.throws(() => componentSavePath("custom/SiteHeader"), /reserved/);
+  assert.throws(() => componentSavePath("header"), /reserved/);
+  assert.throws(() => componentSavePath("footer"), /reserved/);
+  assert.equal(componentSavePath("custom/header"), "custom/header.astro");
 });
 
 test("saves component copies without overwriting existing entries", async () => {
@@ -225,7 +233,7 @@ test("saves component copies without overwriting existing entries", async () => 
     /already exists as a folder/,
   );
   await assert.rejects(
-    saveComponentCopy(root, "SiteHeader.astro", "<section />"),
+    saveComponentCopy(root, "header.astro", "<section />"),
     /Invalid component file path/,
   );
   await assert.rejects(

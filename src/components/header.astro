@@ -1,0 +1,170 @@
+---
+import { navigation, siteName } from "../data/site";
+
+interface Props {
+  title?: string;
+  /** A theme group header class, e.g. sg-sample-header. */
+  class?: string;
+}
+
+const { title, class: className } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<header class:list={["site-header", className]}>
+  <div class="header-inner">
+    {title ? (
+      <div>
+        <span class="text-sm font-semibold tracking-wide text-ink-header">
+          {title}
+        </span>
+        <slot />
+      </div>
+    ) : (
+      <a class="wordmark" href="/" aria-label={`${siteName} home`}>
+        <span class="wordmark-name">Website</span>
+        <span class="wordmark-group">BUILDER</span>
+      </a>
+    )}
+
+    {!title && (
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-controls="primary-navigation"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    )}
+
+    <div class="header-actions">
+      {!title && (
+        <nav
+          id="primary-navigation"
+          class="primary-navigation"
+          aria-label="Main"
+        >
+          <ul>
+            {navigation.map(({ label, href }) => (
+              <li>
+                <a
+                  href={href}
+                  aria-current={currentPath === href ? "page" : undefined}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
+      <div
+        class="theme-switcher"
+        x-data={`{
+          dark: document.documentElement.dataset.theme === "dark",
+          toggle() {
+            this.dark = !this.dark;
+            const theme = this.dark ? "dark" : "light";
+            document.documentElement.dataset.theme = theme;
+            document.documentElement.style.colorScheme = theme;
+            const themeColor = getComputedStyle(document.documentElement)
+              .getPropertyValue("--canvas-page")
+              .trim() ||
+              (theme === "dark"
+                ? "oklch(12.67% 0.073 267.26)"
+                : "oklch(96.93% 0.014 78.26)");
+            document.querySelector('meta[name="theme-color"]')
+              ?.setAttribute("content", themeColor);
+            try {
+              localStorage.setItem("website-builder-theme", theme);
+            } catch (error) {
+              console.warn("Unable to save the theme preference.", error);
+            }
+          }
+        }`}
+      >
+        <button
+          class="theme-toggle"
+          type="button"
+          x-on:click="toggle()"
+          x-bind:aria-label="dark ? 'Switch to light theme' : 'Switch to dark theme'"
+          x-bind:title="dark ? 'Switch to light theme' : 'Switch to dark theme'"
+          x-bind:aria-pressed="dark.toString()"
+        >
+          <svg
+            x-cloak
+            x-show="dark"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+          </svg>
+          <svg
+            x-cloak
+            x-show="!dark"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />
+          </svg>
+        </button>
+      </div>
+      <slot name="actions" />
+    </div>
+  </div>
+</header>
+
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>(".menu-toggle");
+  const navigationPanel = document.querySelector<HTMLElement>(
+    "#primary-navigation",
+  );
+
+  if (menuButton && navigationPanel) {
+    const closeMenu = () => {
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open navigation menu");
+      navigationPanel.classList.remove("is-open");
+    };
+
+    menuButton.addEventListener("click", () => {
+      const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+      menuButton.setAttribute("aria-expanded", String(!isExpanded));
+      menuButton.setAttribute(
+        "aria-label",
+        isExpanded ? "Open navigation menu" : "Close navigation menu",
+      );
+      navigationPanel.classList.toggle("is-open", !isExpanded);
+    });
+
+    navigationPanel.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).closest("a")) closeMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+  }
+</script>
