@@ -23,9 +23,9 @@ test("all approved page routes exist", async () => {
   }
 });
 
-test("the site is Website Builder, hosted by Coders Mill", async () => {
+test("the site is CodersMill, hosted by Coders Mill", async () => {
   const site = await readProjectFile("src/data/site.ts");
-  assert.match(site, /siteName = "Website Builder"/);
+  assert.match(site, /siteName = "CodersMill"/);
   assert.match(site, /name: "Coders Mill"/);
   assert.match(site, /url: "https:\/\/codersmill\.com"/);
 });

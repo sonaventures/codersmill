@@ -1,6 +1,6 @@
 // The Website Builder site: its name, host, navigation, and page
 // descriptions, shared by the layout, header, footer, and pages.
-export const siteName = "Website Builder";
+export const siteName = "CodersMill";
 
 // The company that hosts Website Builder, at codersmill.com (also the
 // `site` in astro.config.mjs).
