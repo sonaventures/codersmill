@@ -1,8 +1,9 @@
 /*
- * Card and subsection text. Each card (Card 01-03) and the subsection styles
- * its own text, headings, strong, em, pre, muted, highlight, and quote
- * colors. A theme group's area class sets --ink-card-01 and the rest for the
- * colors chosen in the Theme Builder; until then they are the area's own.
+ * Card and subsection content. Each card (Card 01-03) and the subsection
+ * styles its own text, headings, strong, em, pre, muted, highlight, and quote
+ * colors, and its code block background. A theme group's area class sets
+ * --ink-card-01 and the rest for the colors chosen in the Theme Builder;
+ * until then they are the area's own.
  * Inside a card, found by the background class from Component Styling's card
  * and subsection presets, the area's text variables become the card's, so
  * the theme group's element colors and the text-ink-01-* utilities follow
@@ -20,6 +21,7 @@
     --ink-card-01-muted: var(--ink-01-muted);
     --ink-card-01-highlight: var(--ink-01-highlight);
     --ink-card-01-blockquote: var(--ink-01-blockquote);
+    --canvas-card-01-pre: var(--canvas-01-pre);
     --ink-card-02: var(--ink-01);
     --ink-card-02-h2: var(--ink-01-h2);
     --ink-card-02-h3: var(--ink-01-h3);
@@ -29,6 +31,7 @@
     --ink-card-02-muted: var(--ink-01-muted);
     --ink-card-02-highlight: var(--ink-01-highlight);
     --ink-card-02-blockquote: var(--ink-01-blockquote);
+    --canvas-card-02-pre: var(--canvas-01-pre);
     --ink-card-03: var(--ink-01);
     --ink-card-03-h2: var(--ink-01-h2);
     --ink-card-03-h3: var(--ink-01-h3);
@@ -38,6 +41,7 @@
     --ink-card-03-muted: var(--ink-01-muted);
     --ink-card-03-highlight: var(--ink-01-highlight);
     --ink-card-03-blockquote: var(--ink-01-blockquote);
+    --canvas-card-03-pre: var(--canvas-01-pre);
     --ink-subsection: var(--ink-01);
     --ink-subsection-h2: var(--ink-01-h2);
     --ink-subsection-h3: var(--ink-01-h3);
@@ -47,6 +51,7 @@
     --ink-subsection-muted: var(--ink-01-muted);
     --ink-subsection-highlight: var(--ink-01-highlight);
     --ink-subsection-blockquote: var(--ink-01-blockquote);
+    --canvas-subsection-pre: var(--canvas-01-pre);
   }
   :where(.bg-canvas-01-card-01) {
     --ink-01: var(--ink-card-01);
@@ -58,6 +63,7 @@
     --ink-01-muted: var(--ink-card-01-muted);
     --ink-01-highlight: var(--ink-card-01-highlight);
     --ink-01-blockquote: var(--ink-card-01-blockquote);
+    --canvas-01-pre: var(--canvas-card-01-pre);
     color: var(--ink-01);
   }
   :where(.bg-canvas-01-card-02) {
@@ -70,6 +76,7 @@
     --ink-01-muted: var(--ink-card-02-muted);
     --ink-01-highlight: var(--ink-card-02-highlight);
     --ink-01-blockquote: var(--ink-card-02-blockquote);
+    --canvas-01-pre: var(--canvas-card-02-pre);
     color: var(--ink-01);
   }
   :where(.bg-canvas-01-card-03) {
@@ -82,6 +89,7 @@
     --ink-01-muted: var(--ink-card-03-muted);
     --ink-01-highlight: var(--ink-card-03-highlight);
     --ink-01-blockquote: var(--ink-card-03-blockquote);
+    --canvas-01-pre: var(--canvas-card-03-pre);
     color: var(--ink-01);
   }
   :where(.bg-canvas-01-subsection) {
@@ -94,6 +102,7 @@
     --ink-01-muted: var(--ink-subsection-muted);
     --ink-01-highlight: var(--ink-subsection-highlight);
     --ink-01-blockquote: var(--ink-subsection-blockquote);
+    --canvas-01-pre: var(--canvas-subsection-pre);
     color: var(--ink-01);
   }
 }

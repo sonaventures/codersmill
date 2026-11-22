@@ -305,26 +305,68 @@ export const cardTargets = [
 ] as const;
 type CardTarget = (typeof cardTargets)[number];
 
-/** The text colors each card has, and the area color each falls back to. */
+/**
+ * The colors each card has for its content, and the area color each falls
+ * back to: text colors, and the code block background.
+ */
 export const cardInkParts = [
-  { key: "Text", suffix: "", area: "text", label: "paragraph / text" },
-  { key: "H2", suffix: "-h2", area: "h2", label: "H2 heading" },
-  { key: "H3", suffix: "-h3", area: "h3", label: "H3 heading" },
-  { key: "Strong", suffix: "-strong", area: "strong", label: "strong text" },
-  { key: "Em", suffix: "-em", area: "em", label: "emphasis (em) text" },
-  { key: "Pre", suffix: "-pre", area: "pre", label: "code block (pre) text" },
-  { key: "Muted", suffix: "-muted", area: "muted", label: "muted text" },
   {
+    family: "ink",
+    key: "Text",
+    suffix: "",
+    area: "text",
+    label: "paragraph / text",
+  },
+  { family: "ink", key: "H2", suffix: "-h2", area: "h2", label: "H2 heading" },
+  { family: "ink", key: "H3", suffix: "-h3", area: "h3", label: "H3 heading" },
+  {
+    family: "ink",
+    key: "Strong",
+    suffix: "-strong",
+    area: "strong",
+    label: "strong text",
+  },
+  {
+    family: "ink",
+    key: "Em",
+    suffix: "-em",
+    area: "em",
+    label: "emphasis (em) text",
+  },
+  {
+    family: "ink",
+    key: "Pre",
+    suffix: "-pre",
+    area: "pre",
+    label: "code block (pre) text",
+  },
+  {
+    family: "ink",
+    key: "Muted",
+    suffix: "-muted",
+    area: "muted",
+    label: "muted text",
+  },
+  {
+    family: "ink",
     key: "Highlight",
     suffix: "-highlight",
     area: "highlight",
     label: "highlight text",
   },
   {
+    family: "ink",
     key: "Blockquote",
     suffix: "-blockquote",
     area: "blockquote",
     label: "quote text",
+  },
+  {
+    family: "canvas",
+    key: "PreBackground",
+    suffix: "-pre",
+    area: "preBackground",
+    label: "code block background",
   },
 ] as const;
 type CardInkPart = (typeof cardInkParts)[number];
@@ -354,13 +396,15 @@ export function cardInkRole(
 }
 
 /**
- * The variable a theme group area class sets for a card text color, and the
- * card reads, e.g. "ink-card-01-h2". It is not tied to an area, so the
+ * The variable a theme group area class sets for a card color, and the card
+ * reads, e.g. "ink-card-01-h2" or "canvas-card-01-pre". It is not tied to an area, so the
  * nearest area class decides it.
  */
 export function cardInkVariable(role: string): string | null {
   const card = cardInkRole(role);
-  return card ? `ink-${card.target.token}${card.part.suffix}` : null;
+  return card
+    ? `${card.part.family}-${card.target.token}${card.part.suffix}`
+    : null;
 }
 
 // Inline and block text formatting: strong, em, code, and pre.
@@ -847,7 +891,7 @@ export const roleGroups = [
   { key: "cards", label: "Cards & subsections" },
   ...cardTargets.map(({ key, label }) => ({
     key: `${key}Ink` as `${typeof key}Ink`,
-    label: `${label} text`,
+    label: `${label} text & code block`,
   })),
   { key: "accent", label: "Accent" },
   { key: "ink", label: "Ink" },
@@ -1119,7 +1163,7 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
     return region === "page" ||
       region === "hero" ||
       region.startsWith("section")
-      ? `ink-${suffix}-${cardInk.target.token}${cardInk.part.suffix}`
+      ? `${cardInk.part.family}-${suffix}-${cardInk.target.token}${cardInk.part.suffix}`
       : null;
   const card = cardCanvasRoles.find(({ key }) => key === role);
   if (card && (region === "page" || region.startsWith("section"))) {
@@ -1337,12 +1381,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 26 &&
       data.version !== 27 &&
       data.version !== 28 &&
-      data.version !== 29) ||
+      data.version !== 29 &&
+      data.version !== 30) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 29 theme group file with up to 100 groups.",
+      "Expected a version 1 through 30 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1416,6 +1461,14 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
               : old.startsWith("#")
                 ? old.toLowerCase()
                 : old;
+            continue;
+          }
+          // Version 30 added each card's code block background.
+          if (
+            data.version < 30 &&
+            cardInkRole(role)?.part.key === "PreBackground"
+          ) {
+            regionColors[role] = "theme";
             continue;
           }
           if (
@@ -1584,7 +1637,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 29, groups }, null, 2);
+  return JSON.stringify({ version: 30, groups }, null, 2);
 }
 
 /**

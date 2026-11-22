@@ -472,13 +472,13 @@ test("area classes set the card text colors the cards read", async () => {
     for (const part of cardInkParts) {
       assert.ok(
         css.includes(
-          `--ink-${target.token}${part.suffix}: var(--ink-01${part.suffix});`,
+          `--${part.family}-${target.token}${part.suffix}: var(--${part.family}-01${part.suffix});`,
         ),
         `default for ${target.key}${part.key}`,
       );
       assert.ok(
         css.includes(
-          `--ink-01${part.suffix}: var(--ink-${target.token}${part.suffix});`,
+          `--${part.family}-01${part.suffix}: var(--${part.family}-${target.token}${part.suffix});`,
         ),
         `remap for ${target.key}${part.key}`,
       );
