@@ -33,13 +33,13 @@ import {
   type ThemeGroup,
   type Theme,
   type ColorRole,
-} from "../../data/theme-groups";
+} from "../../data/website-builder/theme-groups";
 import {
   typographyElements,
   validateTypographyValue,
-} from "../../data/typography-builder.js";
+} from "../../data/website-builder/typography-builder.js";
 import css from "../../styles/themes/colors.css?raw";
-import { readPalette } from "../../data/palette.js";
+import { readPalette } from "../../data/website-builder/palette.js";
 import {
   applyTailwindPaletteOnly,
   usesTailwindPaletteOnly,
@@ -67,8 +67,8 @@ import {
   writeSitewideSection,
   type SitewideAreaStyles,
   type SitewideThemes,
-} from "../../data/sitewide";
-import { classGroupAreas, groupClassSlug } from "../../data/group-classes";
+} from "../../data/website-builder/sitewide";
+import { classGroupAreas, groupClassSlug } from "../../data/website-builder/group-classes";
 
 setPaletteFamilies(readPalette(css));
 const root = document.querySelector<HTMLElement>("[data-selector]");

@@ -64,6 +64,6 @@ test("the tools and blocks pages read from their sources", async () => {
     readProjectFile("src/pages/blocks.astro"),
   ]);
 
-  assert.match(tools, /from "\.\.\/data\/website-builder"/);
+  assert.match(tools, /from "\.\.\/data\/website-builder\/builder-pages"/);
   assert.match(blocks, /import\.meta\.glob\(\s*"\.\.\/components\/blocks\/\*\*\/\*\.astro"/);
 });

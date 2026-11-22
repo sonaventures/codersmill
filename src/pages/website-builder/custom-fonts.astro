@@ -95,7 +95,7 @@ const fontExample = `@font-face {
         To list the font in Typography Builder, add{" "}
         <code>"var(--font-example-sans)": "Example Sans"</code> to{" "}
         <code>typographyFonts</code> in{" "}
-        <code>src/data/typography-builder.js</code>. Reopen Typography Builder
+        <code>src/data/website-builder/typography-builder.js</code>. Reopen Typography Builder
         and select it under <strong>Font family</strong>.
       </li>
     </ol>
@@ -103,7 +103,7 @@ const fontExample = `@font-face {
 </Layout>
 
 <script>
-  import { googleFontIds } from "../../data/google-font-names.js";
+  import { googleFontIds } from "../../data/website-builder/google-font-names.js";
 
   const form = document.querySelector<HTMLFormElement>("#google-font-command");
   const names =

@@ -6,8 +6,8 @@ import {
   readOklchPaletteFiles,
   readPalette,
   removePalette,
-} from "../../data/palette.js";
-import { themeGroupsStorageKey } from "../../data/theme-groups";
+} from "../../data/website-builder/palette.js";
+import { themeGroupsStorageKey } from "../../data/website-builder/theme-groups";
 
 const root = document.querySelector("[data-palette-editor]");
 const get = (selector) => {

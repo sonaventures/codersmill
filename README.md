@@ -193,14 +193,15 @@ canonical links and structured data naming Coders Mill as the publisher.
 
 ## Project layout
 
-| Path                              | Contents                                                                                |
-| --------------------------------- | --------------------------------------------------------------------------------------- |
-| `src/pages/website-builder/`      | The builder tools                                                                       |
-| `src/components/website-builder/` | Builder components, including the guides                                                |
-| `src/scripts/website-builder/`    | Builder scripts                                                                         |
-| `src/styles/website-builder/`     | Builder styles                                                                          |
-| `src/data/`                       | Shared logic: theme groups, group CSS, sitewide CSS, page generation, component styling |
-| `src/styles/themes/`              | `colors.css`, `fonts.css`, `sitewide.css`, `groups.css`, `theme-groups.json`, `id.css`  |
-| `src/styles/utilities/base.css`   | Base styles and the `max-w-site` and corner radius defaults                             |
-| `src/components/blocks/`          | The block libraries                                                                     |
-| `scripts/website-builder/`        | The font installer and the builder's tests                                              |
+| Path                              | Contents                                                                                 |
+| --------------------------------- | ---------------------------------------------------------------------------------------- |
+| `src/pages/website-builder/`      | The builder tools                                                                        |
+| `src/components/website-builder/` | Builder components, including the guides                                                 |
+| `src/scripts/website-builder/`    | Builder scripts                                                                          |
+| `src/styles/website-builder/`     | Builder styles                                                                           |
+| `src/data/website-builder/`       | Builder logic: theme groups, group CSS, sitewide CSS, page generation, component styling |
+| `src/data/site.ts`                | The site's name, host, navigation, and page descriptions                                 |
+| `src/styles/themes/`              | `colors.css`, `fonts.css`, `sitewide.css`, `groups.css`, `theme-groups.json`, `id.css`   |
+| `src/styles/utilities/base.css`   | Base styles and the `max-w-site` and corner radius defaults                              |
+| `src/components/blocks/`          | The block libraries                                                                      |
+| `scripts/website-builder/`        | The font installer and the builder's tests                                               |

@@ -1,5 +1,5 @@
 import groupsCssFallback from "../../styles/themes/groups.css?raw";
-import { parseGroupClasses } from "../../data/group-classes";
+import { parseGroupClasses } from "../../data/website-builder/group-classes";
 import {
   applyThemeClasses,
   elementKinds,
@@ -8,12 +8,12 @@ import {
   parseClassList,
   stylePresets,
   themeClassesOf,
-} from "../../data/component-styling.js";
+} from "../../data/website-builder/component-styling.js";
 import {
   pageRoute,
   parseGeneratedPage,
   readComponents,
-} from "../../data/page-builder.js";
+} from "../../data/website-builder/page-builder.js";
 import { readTextFile, themesDirectory } from "./project-themes";
 
 const root = document.querySelector("[data-component-styling]");

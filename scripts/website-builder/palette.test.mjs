@@ -13,13 +13,13 @@ import {
   readOklchPaletteFiles,
   readPalette,
   removePalette,
-} from "../../src/data/palette.js";
+} from "../../src/data/website-builder/palette.js";
 import {
   isColorValue,
   paletteColors,
   paletteFamilies,
   setPaletteFamilies,
-} from "../../src/data/theme-groups.ts";
+} from "../../src/data/website-builder/theme-groups.ts";
 
 const css = await readFile(
   new URL("../../src/styles/themes/colors.css", import.meta.url),

@@ -1,4 +1,4 @@
-import { builtinPaletteFamilies } from "../../data/palette.js";
+import { builtinPaletteFamilies } from "../../data/website-builder/palette.js";
 
 const storageKey = "website-builder-tailwind-palette-only";
 const builtinKeys = new Set(builtinPaletteFamilies.map(({ key }) => key));

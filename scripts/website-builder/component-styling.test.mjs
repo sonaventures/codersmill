@@ -9,7 +9,7 @@ import {
   parseClassList,
   stylePresets,
   themeClassesOf,
-} from "../../src/data/component-styling.js";
+} from "../../src/data/website-builder/component-styling.js";
 
 const component = `---
 interface Props {

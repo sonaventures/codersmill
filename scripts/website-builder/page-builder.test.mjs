@@ -16,7 +16,7 @@ import {
   saveNewPage,
   validateSectionId,
   validateStyleClass,
-} from "../../src/data/page-builder.js";
+} from "../../src/data/website-builder/page-builder.js";
 
 test("discovers simple component properties and reports unsupported components", () => {
   const component = inspectComponent(

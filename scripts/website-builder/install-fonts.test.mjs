@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { googleFontIds } from "../../src/data/google-font-names.js";
+import { googleFontIds } from "../../src/data/website-builder/google-font-names.js";
 
 test("turns pasted family names into unique Fontsource package IDs", () => {
   assert.deepEqual(

@@ -1,6 +1,6 @@
 import idCssFallback from "../../styles/themes/id.css?raw";
 import groupsCssFallback from "../../styles/themes/groups.css?raw";
-import { parseGroupClasses } from "../../data/group-classes";
+import { parseGroupClasses } from "../../data/website-builder/group-classes";
 import { readTextFile, themesDirectory } from "./project-themes";
 import {
   componentFolders,
@@ -19,7 +19,7 @@ import {
   saveNewPage,
   updatePage,
   validateSectionId,
-} from "../../data/page-builder.js";
+} from "../../data/website-builder/page-builder.js";
 
 const root = document.querySelector("[data-page-builder]");
 const get = (selector) => {

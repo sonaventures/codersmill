@@ -2,12 +2,12 @@ import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { googleFontIds } from "../../src/data/google-font-names.js";
+import { googleFontIds } from "../../src/data/website-builder/google-font-names.js";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const read = (file) => readFileSync(join(root, file), "utf8");
 const cssPath = "src/styles/themes/fonts.css";
-const typographyPath = "src/data/typography-builder.js";
+const typographyPath = "src/data/website-builder/typography-builder.js";
 const themeBlock = /^@theme static\s*\{[^{}]*^\}/gm;
 const fontOptions = /^export const typographyFonts = \{[^{}]*^\};/gm;
 

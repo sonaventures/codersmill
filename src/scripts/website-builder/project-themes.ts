@@ -3,8 +3,8 @@ import {
   removeThemeGroupJson,
   upsertThemeGroupJson,
   type ThemeGroup,
-} from "../../data/theme-groups";
-import { removeGroupCss, upsertGroupCss } from "../../data/group-classes";
+} from "../../data/website-builder/theme-groups";
+import { removeGroupCss, upsertGroupCss } from "../../data/website-builder/group-classes";
 
 // Finds src/styles/themes in a folder chosen with the browser's folder picker.
 // Accepts the project root or its src, styles or themes folder, because the

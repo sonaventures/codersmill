@@ -4,7 +4,7 @@ import {
   createDefaultSitewideThemes,
   parseSitewideCss,
   sitewideCss,
-} from "../../src/data/sitewide.ts";
+} from "../../src/data/website-builder/sitewide.ts";
 
 test("sitewide.css round-trips CTA colors in both themes", () => {
   const themes = createDefaultSitewideThemes();
@@ -38,7 +38,7 @@ test("sitewide.css rejects values the builder cannot show", () => {
 
 test("each builder replaces only its own section of sitewide.css", async () => {
   const { readSitewideSection, writeSitewideSection } = await import(
-    "../../src/data/sitewide.ts"
+    "../../src/data/website-builder/sitewide.ts"
   );
   const themes = createDefaultSitewideThemes();
   themes.light.ctaPrimary = "var(--color-sky-600)";
@@ -71,7 +71,7 @@ test("the header and footer are styled sitewide in sw-header / sw-footer", async
     sitewideAreasCss,
     writeSitewideSection,
     readSitewideSection,
-  } = await import("../../src/data/sitewide.ts");
+  } = await import("../../src/data/website-builder/sitewide.ts");
   const styles = createDefaultSitewideAreas();
   styles.colors.light.header.background = "var(--color-sky-900)";
   styles.colors.dark.footer.text = "#abcdef";
@@ -121,7 +121,7 @@ test("sitewide.css keeps the content width and the header and footer widths", as
     sitewideAreasCss,
     sitewideLayoutCss,
     writeSitewideSection,
-  } = await import("../../src/data/sitewide.ts");
+  } = await import("../../src/data/website-builder/sitewide.ts");
   const styles = createDefaultSitewideAreas();
   styles.widths.header = "100%";
   let css = sitewideCss(createDefaultSitewideThemes());

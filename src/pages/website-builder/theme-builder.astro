@@ -7,14 +7,14 @@ import ThemeSampleExtras from "../../components/website-builder/ThemeSampleExtra
 import ThemeSampleSvg from "../../components/website-builder/ThemeSampleSvg.astro";
 import ThemeSampleSvgTypes from "../../components/website-builder/ThemeSampleSvgTypes.astro";
 import ThemeSitewideBar from "../../components/website-builder/ThemeSitewideBar.astro";
-import { sitewideAreas } from "../../data/sitewide";
+import { sitewideAreas } from "../../data/website-builder/sitewide";
 import css from "../../styles/themes/colors.css?raw";
-import { builtinPaletteFamilies, readPalette } from "../../data/palette.js";
+import { builtinPaletteFamilies, readPalette } from "../../data/website-builder/palette.js";
 import {
   typographyElements,
   typographyProperties,
-} from "../../data/typography-builder.js";
-import { classGroupAreas } from "../../data/group-classes";
+} from "../../data/website-builder/typography-builder.js";
+import { classGroupAreas } from "../../data/website-builder/group-classes";
 import {
   colorRoles,
   defaultColorReference,
@@ -30,7 +30,7 @@ import {
   semanticToken,
   setPaletteFamilies,
   type Region,
-} from "../../data/theme-groups";
+} from "../../data/website-builder/theme-groups";
 
 setPaletteFamilies(readPalette(css));
 const builtinFamilyKeys = new Set(builtinPaletteFamilies.map(({ key }) => key));
