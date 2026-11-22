@@ -64,7 +64,7 @@ or `font-[1000]` (DM Sans).
 
 Builder pages live in `src/pages/website-builder/` and use the shared Website
 Builder layout. Builder-specific components live in `src/components/website-builder/`.
-Standalone builder scripts live in `src/scripts/websitebuilder/`.
+Standalone builder scripts live in `src/scripts/website-builder/`.
 The header and footer link to the tools, the current page is
 highlighted, and the header includes the light/dark toggle. Browser titles use
 Website Builder rather than the main site's name. Previous builder URLs
@@ -194,7 +194,7 @@ and CTA theme colors; image-backed overlays use the Hero theme colors. Their
 light and dark mockups follow the shared Alpine-powered header theme switch.
 
 The Website Builder layout loads
-[`websitebuilder.css`](./src/styles/websitebuilder/websitebuilder.css) for
+[`websitebuilder.css`](./src/styles/website-builder/websitebuilder.css) for
 builder-specific styles. The public theme template keeps its own
 [`template.css`](./src/styles/template/template.css). Tailwind utilities remain
 in the markup, and live previews still apply their dynamic styles separately.

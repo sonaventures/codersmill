@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "fonts:add": "node scripts/websitebuilder/install-fonts.mjs",
+    "fonts:add": "node scripts/website-builder/install-fonts.mjs",
     "test": "node --test"
   },
   "dependencies": {

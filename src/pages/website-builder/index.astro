@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/layout.astro";
-import "../../styles/websitebuilder/websitebuilder.css";
+import "../../styles/website-builder/websitebuilder.css";
 import ColorEditorGuide from "../../components/website-builder/guides/ColorEditorGuide.astro";
 import ThemeColorControlsGuide from "../../components/website-builder/guides/ThemeColorControlsGuide.astro";
 import TypographyGuide from "../../components/website-builder/guides/TypographyGuide.astro";
@@ -159,7 +159,7 @@ const initialPath = toolPath(steps[0].slug);
   import {
     setTailwindPaletteOnly,
     usesTailwindPaletteOnly,
-  } from "../../scripts/websitebuilder/palette-preference";
+  } from "../../scripts/website-builder/palette-preference";
 
   const tool = document.querySelector<HTMLIFrameElement>("#builder-tool");
   const fullPage =
