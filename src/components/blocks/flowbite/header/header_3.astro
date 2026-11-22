@@ -1,5 +1,5 @@
 <header x-data="{ menu: null }" x-on:click.outside="menu = null" x-on:keydown.escape="menu = null">
-  <nav class="px-4 lg:px-6 py-2.5">
+  <div class="px-4 lg:px-6 py-2.5">
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-site">
       <a href="https://flowbite.com" class="flex items-center">
         <img
@@ -233,7 +233,7 @@
           </svg>
         </button>
       </div>
-      <div
+      <nav aria-label="Main"
         class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
         id="mobile-menu-2"
       >
@@ -288,7 +288,7 @@
             </a>
           </li>
         </ul>
-      </div>
+      </nav>
     </div>
-  </nav>
+  </div>
 </header>

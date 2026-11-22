@@ -1,4 +1,4 @@
-<nav
+<header
   x-data="{ open: false, menu: null }"
   x-on:click.outside="menu = null"
   x-on:keydown.escape="menu = null"
@@ -8,11 +8,11 @@
     <div class="mx-auto hidden w-full max-w-site px-4 sm:px-6 md:flex md:items-center md:gap-2 lg:px-8">
       <div class="flex items-center justify-between">
         <div class="flex w-max items-center justify-between">
-          <div class="flex gap-6 text-base font-medium max-md:mt-3 max-md:flex-col md:items-center">
+          <nav aria-label="Secondary" class="flex gap-6 text-base font-medium max-md:mt-3 max-md:flex-col md:items-center">
             <a href="#">How to use</a>
             <a href="#">Careers</a>
             <a href="#">Blogs</a>
-          </div>
+          </nav>
         </div>
       </div>
       <div class="hidden grow basis-full items-center justify-end gap-4 overflow-hidden md:flex">
@@ -75,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div
+      <nav aria-label="Main"
         id="navbar-block-2"
         class="grow basis-full overflow-hidden max-md:w-full max-md:hidden md:flex md:items-center md:justify-end"
         x-bind:class="{ 'max-md:hidden': !open }"
@@ -112,7 +112,7 @@
             </a>
           </li>
         </ul>
-      </div>
+      </nav>
     </div>
   </div>
-</nav>
+</header>

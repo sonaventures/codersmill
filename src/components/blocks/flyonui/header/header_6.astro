@@ -1,7 +1,6 @@
-<nav class="flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm">
-  <div class="mx-auto flex w-full max-w-site items-center justify-between gap-2 px-4 sm:px-6 lg:px-8">
-    <div>
-      <!-- Logo -->
+<header class="flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm">
+  <div class="mx-auto flex w-full max-w-site items-center gap-2 px-4 sm:px-6 lg:px-8">
+    <div class="flex w-1/2 items-center justify-start gap-4">
       <a
         class="flex shrink-0 items-center gap-3 text-xl font-bold"
         href="#"
@@ -11,25 +10,22 @@
           class="size-8"
           alt="brand-logo"
         />
-        <span class="max-[550px]:hidden">FlyonUI</span>
+        <span class="max-sm:hidden">FlyonUI</span>
       </a>
+      <div class="flex h-10 w-full max-w-sm items-center max-md:hidden">
+        <span class="nav-icon icon-[tabler--search] my-auto me-2 size-5 shrink-0"></span>
+        <label class="sr-only" for="search">
+          Type to search...
+        </label>
+        <input
+          type="text"
+          class="min-w-0 grow bg-transparent focus:outline-none"
+          placeholder="Type to search..."
+          id="search"
+        />
+      </div>
     </div>
-
-    <!-- Search -->
-    <div class="flex w-full max-w-80 items-center rounded-full border px-4 py-2.5 max-md:hidden">
-      <span class="nav-icon icon-[tabler--search] my-auto me-3 size-5 shrink-0"></span>
-      <label class="sr-only" for="search">
-        Search here...
-      </label>
-      <input
-        type="text"
-        class="min-w-0 grow bg-transparent focus:outline-none"
-        placeholder="Search here..."
-        id="search"
-      />
-    </div>
-
-    <div class="flex items-center gap-4">
+    <div class="flex w-1/2 items-center justify-end gap-4">
       <div class="flex items-center">
         <button
           type="button"
@@ -51,7 +47,7 @@
           aria-label="Notifications"
         >
           <div class="relative">
-            <span class="absolute -end-0.5 -top-0.5 size-1.5 rounded-full"></span>
+            <span class="absolute -end-0.5 -top-0.5 size-2 rounded-full"></span>
             <span class="button-icon icon-[tabler--bell] size-5.5"></span>
           </div>
         </button>
@@ -61,7 +57,7 @@
           aria-label="Messages"
         >
           <div class="relative">
-            <span class="absolute -end-0.5 -top-0.5 size-1.5 rounded-full"></span>
+            <span class="absolute -end-0.5 -top-0.5 size-2 rounded-full"></span>
             <span class="button-icon icon-[tabler--mail] size-5.5"></span>
           </div>
         </button>
@@ -75,4 +71,4 @@
       </div>
     </div>
   </div>
-</nav>
+</header>

@@ -1,4 +1,4 @@
-<nav
+<header
   x-data="{ open: false, menu: null }"
   x-on:click.outside="menu = null"
   x-on:keydown.escape="menu = null"
@@ -34,7 +34,7 @@
         </button>
       </div>
     </div>
-    <div
+    <nav aria-label="Main"
       id="navbar-block-4"
       class="grow overflow-hidden font-medium max-md:hidden md:flex md:shrink-0 md:items-center"
       x-bind:class="{ 'max-md:hidden': !open }"
@@ -61,11 +61,11 @@
           </a>
         </li>
       </ul>
-    </div>
+    </nav>
     <div class="flex w-1/2 items-center justify-end max-md:hidden">
       <a href="#" class="cta-anchor btn">
         Login
       </a>
     </div>
   </div>
-</nav>
+</header>

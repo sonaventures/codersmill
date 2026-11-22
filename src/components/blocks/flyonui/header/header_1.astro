@@ -1,4 +1,4 @@
-<nav
+<header
   x-data="{ open: false, menu: null }"
   x-on:click.outside="menu = null"
   x-on:keydown.escape="menu = null"
@@ -33,7 +33,7 @@
         </button>
       </div>
     </div>
-    <div
+    <nav aria-label="Main"
       id="navbar-block-5"
       class="grow overflow-hidden max-lg:hidden lg:flex lg:shrink-0 lg:items-center"
       x-bind:class="{ 'max-lg:hidden': !open }"
@@ -73,9 +73,9 @@
           </a>
         </li>
       </ul>
-    </div>
+    </nav>
     <div class="flex w-1/2 items-center justify-end max-lg:hidden">
       <span class="nav-icon icon-[tabler--search] size-5 cursor-pointer"></span>
     </div>
   </div>
-</nav>
+</header>

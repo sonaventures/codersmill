@@ -1,4 +1,4 @@
-<nav
+<header
   x-data="{ open: false, menu: null }"
   x-on:click.outside="menu = null"
   x-on:keydown.escape="menu = null"
@@ -36,24 +36,26 @@
       class="grow basis-full overflow-hidden max-md:w-full max-md:hidden md:flex md:items-center md:justify-end"
       x-bind:class="{ 'max-md:hidden': !open }"
     >
-      <ul id="nav-header" class="flex gap-6 text-base font-medium max-md:mt-4 max-md:flex-col md:items-center">
-        <li>
-          <a href="#">Home</a>
-        </li>
-        <li>
-          <a href="#">Products</a>
-        </li>
-        <li>
-          <a href="#">About Us</a>
-        </li>
-        <li>
-          <a href="#">Contacts</a>
-        </li>
-      </ul>
+      <nav aria-label="Main">
+        <ul id="nav-header" class="flex gap-6 text-base font-medium max-md:mt-4 max-md:flex-col md:items-center">
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#">Products</a>
+          </li>
+          <li>
+            <a href="#">About Us</a>
+          </li>
+          <li>
+            <a href="#">Contacts</a>
+          </li>
+        </ul>
+      </nav>
       <div class="my-6 h-px w-full md:mx-6 md:my-2 md:h-auto md:w-px md:self-stretch"></div>
       <a href="#" class="cta-anchor btn max-md:w-full">
         Login
       </a>
     </div>
   </div>
-</nav>
+</header>
