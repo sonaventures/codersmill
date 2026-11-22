@@ -686,6 +686,7 @@ if (root) {
       renderColors();
     }
     focusColorRole(role);
+    selectTypographyTarget(target, region);
 
     selectedPreviewTarget?.removeAttribute("data-control-selected");
     target.dataset.controlSelected = "true";
@@ -1017,6 +1018,27 @@ if (root) {
       : `${label} typography is saved with a theme group. Name the group in Theme groups, then save it here.`;
   }
   onGroupChange = renderTypographySave;
+
+  // Clicking the preview also picks the area and element in this tab: the
+  // area clicked in, and the element when the tab lists it (a heading's
+  // level label picks the heading under it).
+  function selectTypographyTarget(target: HTMLElement, region: EditingArea) {
+    if (
+      ![...typographyArea.options].some((option) => option.value === region)
+    )
+      return;
+    typographyArea.value = region;
+    const element =
+      target.matches(".sample-heading-level") &&
+      target.nextElementSibling instanceof HTMLElement
+        ? target.nextElementSibling
+        : target;
+    const tag = element.tagName.toLowerCase();
+    if (typographyElements.some((name) => name === tag))
+      typographyElement.value = tag;
+    renderTypography();
+    renderTypographySave();
+  }
   typographyArea.addEventListener("change", renderTypographySave);
   typographySave.addEventListener("click", () => {
     if (isSitewideArea(typographyRegion())) {
