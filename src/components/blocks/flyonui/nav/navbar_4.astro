@@ -1,5 +1,7 @@
 <nav
-  x-data="{ open: false }"
+  x-data="{ open: false, menu: null }"
+  x-on:click.outside="menu = null"
+  x-on:keydown.escape="menu = null"
   class="flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm"
 >
   <div class="mx-auto w-full md:flex md:flex-col md:items-center">
@@ -69,44 +71,56 @@
       class="max-w-site grow basis-full overflow-hidden px-4 max-md:hidden sm:px-6 lg:px-8"
       x-bind:class="{ 'max-md:hidden': !open }"
     >
-      <div class="flex gap-10 text-base font-medium max-md:mt-4 max-md:flex-col max-md:gap-6 md:items-center md:justify-center">
-        <a
-          href="#"
+      <ul id="nav-header" class="flex gap-10 text-base font-medium max-md:mt-4 max-md:flex-col max-md:gap-6 md:items-center md:justify-center">
+        <li>
+          <a
+            href="#"
          
-        >
-          Home
-        </a>
-        <a
-          href="#"
+          >
+            Home
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
          
-        >
-          Products
-        </a>
-        <a
-          href="#"
+          >
+            Products
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
          
-        >
-          About Us
-        </a>
-        <a
-          href="#"
+          >
+            About Us
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
          
-        >
-          Pricing
-        </a>
-        <a
-          href="#"
+          >
+            Pricing
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
          
-        >
-          Blog
-        </a>
-        <a
-          href="#"
+          >
+            Blog
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
          
-        >
-          Contact
-        </a>
-        <div class="flex items-center gap-4 md:hidden">
+          >
+            Contact
+          </a>
+        </li>
+        <li class="flex items-center gap-4 md:hidden">
           <a
             href="#"
             class="icon-[tabler--brand-github] size-5"
@@ -118,8 +132,8 @@
             class="icon-[tabler--brand-discord] size-5"
             aria-label="Discord"
           ></a>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

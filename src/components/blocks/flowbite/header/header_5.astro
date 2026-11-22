@@ -1,4 +1,4 @@
-<header>
+<header x-data="{ menu: null, submenu: null }" x-on:click.outside="menu = null; submenu = null" x-on:keydown.escape="menu = null; submenu = null">
   <nav class="px-4 lg:px-6 py-2.5">
     <div class="flex flex-wrap justify-between items-center mx-auto max-w-site">
       <a href="https://flowbite.com" class="flex items-center">
@@ -59,10 +59,10 @@
         </button>
       </div>
       <div
-        class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+        class="hidden relative justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
         id="mobile-menu-2"
       >
-        <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+        <ul id="nav-header" class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
           <li>
             <a
               href="#"
@@ -91,8 +91,9 @@
           <li>
             <button
               type="button"
-              id="dropdown-button"
-              data-dropdown-toggle="dropdown"
+              x-on:click="menu = menu === 4 ? null : 4; submenu = null"
+              x-bind:aria-expanded="(menu === 4).toString()"
+              aria-controls="nav-menu-4"
               class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium border-b lg:w-auto lg:hover:bg-transparent lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
             >
               Company{" "}
@@ -109,208 +110,6 @@
                 ></path>
               </svg>
             </button>
-            <div
-              id="dropdown"
-              class="hidden z-10 rounded divide-y shadow"
-            >
-              <ul
-                class="py-1 text-sm font-light"
-                aria-labelledby="dropdown-button"
-              >
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center py-2 px-4 w-full"
-                  >
-                    <svg
-                      class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    Audience
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center py-2 px-4 w-full"
-                  >
-                    <svg
-                      class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z"></path>
-                    </svg>
-                    Marketing Automation
-                  </a>
-                </li>
-                <li>
-                  <button
-                    id="submenu-dropdown-button"
-                    data-dropdown-toggle="submenu-dropdown"
-                    data-dropdown-placement="right-end"
-                    type="button"
-                    class="flex justify-between items-center py-2 px-4 w-full"
-                  >
-                    <span class="flex items-center">
-                      <svg
-                        class="button-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                      Creative Tools
-                    </span>
-                    <svg
-                      class="button-icon w-4 h-4 fill-ink-01-svg-01"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div
-                    id="submenu-dropdown"
-                    class="hidden z-10 rounded divide-y shadow"
-                  >
-                    <ul
-                      class="py-1 text-sm font-light"
-                      aria-labelledby="dropdown-button"
-                    >
-                      <li>
-                        <a
-                          href="#"
-                          class="flex items-center py-2 px-4 w-full"
-                        >
-                          Marketing CRM
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="flex items-center py-2 px-4 w-full"
-                        >
-                          Sign up forms
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="flex items-center py-2 px-4 w-full"
-                        >
-                          Segmentation
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="flex items-center py-2 px-4 w-full"
-                        >
-                          Dynamic content
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="flex items-center py-2 px-4 w-full"
-                        >
-                          A/B Testing
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="flex items-center py-2 px-4 w-full"
-                        >
-                          Behavioural targeting
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="#"
-                          class="flex items-center py-2 px-4 w-full"
-                        >
-                          Integrations
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center py-2 px-4 w-full"
-                  >
-                    <svg
-                      class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
-                        clip-rule="evenodd"
-                      ></path>
-                    </svg>
-                    Insights & Analytics
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center py-2 px-4 w-full"
-                  >
-                    <svg
-                      class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                      <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                    </svg>
-                    Demographics
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="flex items-center py-2 px-4 w-full"
-                  >
-                    <svg
-                      class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                    </svg>
-                    Contact Profiles
-                  </a>
-                </li>
-              </ul>
-            </div>
           </li>
           <li>
             <a
@@ -329,6 +128,210 @@
             </a>
           </li>
         </ul>
+        <div
+          id="nav-menu-4"
+          class="absolute top-full left-0 z-10 w-56 rounded divide-y shadow"
+          x-show="menu === 4"
+          x-cloak
+        >
+          <ul
+            class="py-1 text-sm font-light"
+          >
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                <svg
+                  class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Audience
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                <svg
+                  class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z"></path>
+                </svg>
+                Marketing Automation
+              </a>
+            </li>
+            <li>
+              <button
+                type="button"
+                x-on:click="submenu = submenu === 3 ? null : 3"
+                x-bind:aria-expanded="(submenu === 3).toString()"
+                aria-controls="nav-menu-4-3"
+                class="flex justify-between items-center py-2 px-4 w-full"
+              >
+                <span class="flex items-center">
+                  <svg
+                    class="button-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  Creative Tools
+                </span>
+                <svg
+                  class="button-icon w-4 h-4 fill-ink-01-svg-01"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                <svg
+                  class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+                Insights & Analytics
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                <svg
+                  class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                  <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                </svg>
+                Demographics
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                <svg
+                  class="nav-icon mr-2 w-4 h-4 fill-ink-01-svg-01"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                Contact Profiles
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          id="nav-menu-4-3"
+          class="absolute top-full left-56 z-10 w-56 rounded divide-y shadow"
+          x-show="menu === 4 && submenu === 3"
+          x-cloak
+        >
+          <ul
+            class="py-1 text-sm font-light"
+          >
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                Marketing CRM
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                Sign up forms
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                Segmentation
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                Dynamic content
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                A/B Testing
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                Behavioural targeting
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                class="flex items-center py-2 px-4 w-full"
+              >
+                Integrations
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>

@@ -1,5 +1,7 @@
 <nav
-  x-data="{ open: false }"
+  x-data="{ open: false, menu: null }"
+  x-on:click.outside="menu = null"
+  x-on:keydown.escape="menu = null"
   class="flex w-full flex-wrap items-center justify-between gap-2 px-0 py-2 shadow-sm"
 >
   <div class="mx-auto w-full max-w-site px-4 py-4 sm:px-6 md:flex md:items-center md:gap-2 lg:px-8">
@@ -34,12 +36,20 @@
       class="grow basis-full overflow-hidden max-md:w-full max-md:hidden md:flex md:items-center md:justify-end"
       x-bind:class="{ 'max-md:hidden': !open }"
     >
-      <div class="flex gap-6 text-base font-medium max-md:mt-4 max-md:flex-col md:items-center">
-        <a href="#">Home</a>
-        <a href="#">Products</a>
-        <a href="#">About Us</a>
-        <a href="#">Contacts</a>
-      </div>
+      <ul id="nav-header" class="flex gap-6 text-base font-medium max-md:mt-4 max-md:flex-col md:items-center">
+        <li>
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <a href="#">Products</a>
+        </li>
+        <li>
+          <a href="#">About Us</a>
+        </li>
+        <li>
+          <a href="#">Contacts</a>
+        </li>
+      </ul>
       <div class="my-6 h-px w-full md:mx-6 md:my-2 md:h-auto md:w-px md:self-stretch"></div>
       <a href="#" class="cta-anchor btn max-md:w-full">
         Login

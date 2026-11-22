@@ -1,4 +1,4 @@
-<header class="shadow-md">
+<header x-data="{ menu: null }" x-on:click.outside="menu = null" x-on:keydown.escape="menu = null" class="shadow-md">
   <nav>
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-site px-4 md:px-6 py-2.5">
           <a href="https://flowbite.com" class="flex items-center">
@@ -121,12 +121,12 @@
               </div>
           </form>
           <div class="flex items-center lg:order-1">
-              <ul class="flex flex-row mt-0 space-x-8 text-sm font-medium">
+              <ul id="nav-header" class="flex flex-row mt-0 space-x-8 text-sm font-medium">
                   <li>
                       <a href="#" aria-current="page">Home</a>
                   </li>
                   <li>
-                      <button id="dropdown-button-megamenu" data-collapse-toggle="megamenu" class="flex justify-between items-center w-full font-medium md:p-0 md:w-auto">Company <svg class="button-icon ml-1 w-4 h-4 fill-ink-01-svg-01" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
+                      <button type="button" x-on:click="menu = menu === 2 ? null : 2" x-bind:aria-expanded="(menu === 2).toString()" aria-controls="nav-menu-2" class="flex justify-between items-center w-full font-medium md:p-0 md:w-auto">Company <svg class="button-icon ml-1 w-4 h-4 fill-ink-01-svg-01" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button>
                   </li>
                   <li>
                       <a href="#">Marketplace</a>
@@ -141,7 +141,7 @@
           </div>
       </div>
   </nav>
-  <nav id="megamenu" class="border-b">
+  <nav id="nav-menu-2" class="border-b" x-show="menu === 2" x-cloak>
       <div class="grid py-4 px-4 mx-auto max-w-site md:grid-cols-2 lg:grid-cols-4 md:px-6">
           <ul class="col-span-2 md:col-span-1">
               <li>

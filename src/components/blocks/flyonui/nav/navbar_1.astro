@@ -1,5 +1,7 @@
 <nav
-  x-data="{ open: false }"
+  x-data="{ open: false, menu: null }"
+  x-on:click.outside="menu = null"
+  x-on:keydown.escape="menu = null"
   class="flex w-full flex-wrap items-center justify-between gap-2 shadow-sm"
 >
   <div class="mx-auto w-full max-w-site px-4 py-4 sm:px-6 lg:flex lg:items-center lg:gap-2 lg:px-8">
@@ -36,31 +38,41 @@
       class="grow overflow-hidden max-lg:hidden lg:flex lg:shrink-0 lg:items-center"
       x-bind:class="{ 'max-lg:hidden': !open }"
     >
-      <div class="flex gap-6 text-base font-medium max-lg:mt-4 max-lg:flex-col lg:items-center lg:gap-16">
-        <a href="#">
-          Home
-        </a>
-        <a href="#">
-          Products
-        </a>
-        <a
-          class="flex items-center gap-3 text-xl font-bold max-lg:hidden"
-          href="#"
-        >
-          <img
-            src="https://cdn.flyonui.com/fy-assets/logo/logo.png"
-            class="size-8"
-            alt="brand-logo"
-          />
-          FlyonUI
-        </a>
-        <a href="#">
-          About Us
-        </a>
-        <a href="#">
-          Contacts
-        </a>
-      </div>
+      <ul id="nav-header" class="flex gap-6 text-base font-medium max-lg:mt-4 max-lg:flex-col lg:items-center lg:gap-16">
+        <li>
+          <a href="#">
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            Products
+          </a>
+        </li>
+        <li class="max-lg:hidden">
+          <a
+            class="flex items-center gap-3 text-xl font-bold"
+            href="#"
+          >
+            <img
+              src="https://cdn.flyonui.com/fy-assets/logo/logo.png"
+              class="size-8"
+              alt="brand-logo"
+            />
+            FlyonUI
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            About Us
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            Contacts
+          </a>
+        </li>
+      </ul>
     </div>
     <div class="flex w-1/2 items-center justify-end max-lg:hidden">
       <span class="nav-icon icon-[tabler--search] size-5 cursor-pointer"></span>

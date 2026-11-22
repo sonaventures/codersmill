@@ -1,4 +1,4 @@
-<header>
+<header x-data="{ menu: null }" x-on:click.outside="menu = null" x-on:keydown.escape="menu = null">
   <div class="flex justify-end items-center py-2 px-4 lg:px-6 lg:hidden">
     <a
       href="#"
@@ -139,7 +139,7 @@
         class="hidden col-span-3 justify-between items-center w-full lg:flex lg:w-auto lg:order-1 lg:col-span-1"
         id="mobile-menu-2"
       >
-        <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+        <ul id="nav-header" class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
           <li>
             <a
               href="#"
