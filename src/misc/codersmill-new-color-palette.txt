@@ -50,18 +50,18 @@
 --color-radioactive-900: oklch(35.09% 0.132 139.6);
 --color-radioactive-950: oklch(26% 0.098 139.6);
 
-/* lime */
---color-lime-50: oklch(97% 0.085 124.4);
---color-lime-100: oklch(93.44% 0.121 124.4);
---color-lime-200: oklch(88.24% 0.121 124.4);
---color-lime-300: oklch(82.16% 0.121 124.4);
---color-lime-400: oklch(75.43% 0.121 124.4);
---color-lime-500: oklch(68.16% 0.121 124.4);
---color-lime-600: oklch(60.45% 0.121 124.4);
---color-lime-700: oklch(52.34% 0.121 124.4);
---color-lime-800: oklch(43.88% 0.121 124.4);
---color-lime-900: oklch(35.09% 0.102 124.4);
---color-lime-950: oklch(26% 0.076 124.4);
+/* limecream */
+--color-limecream-50: oklch(97% 0.085 124.4);
+--color-limecream-100: oklch(93.44% 0.121 124.4);
+--color-limecream-200: oklch(88.24% 0.121 124.4);
+--color-limecream-300: oklch(82.16% 0.121 124.4);
+--color-limecream-400: oklch(75.43% 0.121 124.4);
+--color-limecream-500: oklch(68.16% 0.121 124.4);
+--color-limecream-600: oklch(60.45% 0.121 124.4);
+--color-limecream-700: oklch(52.34% 0.121 124.4);
+--color-limecream-800: oklch(43.88% 0.121 124.4);
+--color-limecream-900: oklch(35.09% 0.102 124.4);
+--color-limecream-950: oklch(26% 0.076 124.4);
 
 /* platinum */
 --color-platinum-50: oklch(97% 0 none);

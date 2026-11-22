@@ -1,0 +1,8 @@
+6094FF: cornflower blue
+FF661F: blaze orange
+042A2B: evergreen
+7DDF64: radioactivegreen
+C0DF85: limecream
+EEEEEE: platinum
+E2E8DD: softlinen
+B6C9BB: ashgray
