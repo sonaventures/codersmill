@@ -36,10 +36,10 @@
           x-bind:class="tab === 'general' ? '' : ''"
           x-on:click="tab = 'general'"
         >
-          <span class="icon-[tabler--briefcase] size-5"></span>
+          <span class="button-icon icon-[tabler--briefcase] size-5"></span>
           <span class="flex grow items-center justify-between gap-1 sm:gap-2">
             General Questions
-            <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+            <span class="button-icon icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
           </span>
         </button>
         <button
@@ -54,10 +54,10 @@
           x-bind:class="tab === 'support' ? '' : ''"
           x-on:click="tab = 'support'"
         >
-          <span class="icon-[tabler--headphones] size-5"></span>
+          <span class="button-icon icon-[tabler--headphones] size-5"></span>
           <span class="flex grow items-center justify-between gap-1 sm:gap-2">
             Support
-            <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+            <span class="button-icon icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
           </span>
         </button>
         <button
@@ -72,10 +72,10 @@
           x-bind:class="tab === 'misc' ? '' : ''"
           x-on:click="tab = 'misc'"
         >
-          <span class="icon-[tabler--lock] size-5"></span>
+          <span class="button-icon icon-[tabler--lock] size-5"></span>
           <span class="flex grow items-center justify-between gap-1 sm:gap-2">
             Miscellaneous
-            <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+            <span class="button-icon icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
           </span>
         </button>
         <button
@@ -90,10 +90,10 @@
           x-bind:class="tab === 'payment' ? '' : ''"
           x-on:click="tab = 'payment'"
         >
-          <span class="icon-[tabler--credit-card] size-5"></span>
+          <span class="button-icon icon-[tabler--credit-card] size-5"></span>
           <span class="flex grow items-center justify-between gap-1 sm:gap-2">
             Payment Information
-            <span class="icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
+            <span class="button-icon icon-[tabler--chevron-right] size-5 rtl:rotate-180"></span>
           </span>
         </button>
       </nav>
@@ -106,7 +106,7 @@
           x-show="tab === 'general'"
         >
           <div
-            class="w-full divide-y rounded-xl border"
+            class="subsection w-full divide-y rounded-xl border"
             x-data="{ open: 'accommodation-bordered' }"
           >
             <div>
@@ -120,7 +120,7 @@
               >
                 What types of accommodations do you offer?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'accommodation-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -153,7 +153,7 @@
               >
                 How do I make a booking ?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'booking-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -188,7 +188,7 @@
               >
                 What is your cancellation policy ?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'cancellation-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -223,7 +223,7 @@
               >
                 Can I modify my booking after it has been confirmed ?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'modify-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -259,7 +259,7 @@
               >
                 Are pets allowed in your accommodations ?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'pets-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -294,7 +294,7 @@
           x-show="tab === 'support'"
         >
           <div
-            class="w-full divide-y rounded-xl border"
+            class="subsection w-full divide-y rounded-xl border"
             x-data="{ open: 'support-hours-bordered' }"
           >
             <div>
@@ -308,7 +308,7 @@
               >
                 What are your customer support hours?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'support-hours-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -341,7 +341,7 @@
               >
                 How can I contact customer support?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'contact-methods-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -375,7 +375,7 @@
               >
                 What if I need emergency assistance during my stay?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'emergency-support-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -410,7 +410,7 @@
               >
                 How can I provide feedback about my experience?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'feedback-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -444,7 +444,7 @@
               >
                 Do you offer support in multiple languages?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'language-support-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -477,7 +477,7 @@
           x-show="tab === 'misc'"
         >
           <div
-            class="w-full divide-y rounded-xl border"
+            class="subsection w-full divide-y rounded-xl border"
             x-data="{ open: 'wifi-bordered' }"
           >
             <div>
@@ -491,7 +491,7 @@
               >
                 Is WiFi available at your properties?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'wifi-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -524,7 +524,7 @@
               >
                 What are the parking options?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'parking-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -559,7 +559,7 @@
               >
                 Is breakfast included in the stay?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'breakfast-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -593,7 +593,7 @@
               >
                 What are the check-in and check-out times?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'checkin-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -627,7 +627,7 @@
               >
                 What amenities are available at your properties?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'amenities-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -661,7 +661,7 @@
           x-show="tab === 'payment'"
         >
           <div
-            class="w-full divide-y rounded-xl border"
+            class="subsection w-full divide-y rounded-xl border"
             x-data="{ open: 'payment-methods-bordered' }"
           >
             <div>
@@ -675,7 +675,7 @@
               >
                 What payment methods do you accept?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'payment-methods-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -708,7 +708,7 @@
               >
                 In which currency will I be charged?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'currency-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -742,7 +742,7 @@
               >
                 Is a deposit required for booking?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'deposit-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -776,7 +776,7 @@
               >
                 When will I be charged for my stay?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'billing-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>
@@ -810,7 +810,7 @@
               >
                 How long do refunds take to process?
                 <span
-                  class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+                  class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
                   x-bind:class="open === 'refund-bordered' ? 'rotate-180' : ''"
                 ></span>
               </button>

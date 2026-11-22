@@ -4,6 +4,7 @@ import {
   applyThemeClasses,
   elementKinds,
   findStyleableElements,
+  markerOf,
   parseClassList,
   stylePresets,
   themeClassesOf,
@@ -352,6 +353,17 @@ function presetSelect(element, value) {
 function previewFor(element, classes) {
   const wrapper = document.createElement("div");
   wrapper.className = `${groupSelect.value} bg-canvas-01 text-ink-01 grid min-h-14 place-items-center rounded p-2`;
+  if (element.kind === "icons") {
+    // A sample link with an icon, so hover and active colors show too.
+    const link = document.createElement("a");
+    link.href = "#";
+    link.className = "inline-flex items-center gap-2 text-sm";
+    link.addEventListener("click", (event) => event.preventDefault());
+    link.innerHTML = `<svg class="size-6 ${classes}" viewBox="0 0 24 24" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9Z"/></svg>`;
+    link.append(element.text || `<${element.tag}>`);
+    wrapper.append(link);
+    return wrapper;
+  }
   const sample = document.createElement(
     element.kind === "fields"
       ? "input"
@@ -396,6 +408,18 @@ function elementRow(element) {
   text.textContent = element.text || "(no text)";
   text.title = element.text;
   about.append(title, text);
+  // The marker left in the block, and the style it suggests.
+  const marker = markerOf(element.classValue);
+  if (marker) {
+    const suggested = stylePresets.find(({ key }) => key === marker.preset);
+    const hint = document.createElement("span");
+    hint.className = "text-sm";
+    hint.dataset.marker = marker.className;
+    hint.textContent = `Marked ${marker.label} (.${marker.className})${
+      suggested ? `; suggested style: ${suggested.label}` : ""
+    }`;
+    about.append(hint);
+  }
 
   const preview = previewFor(element, value);
 

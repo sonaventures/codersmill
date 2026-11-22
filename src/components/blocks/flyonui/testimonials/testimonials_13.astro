@@ -25,12 +25,12 @@
       >
         <!-- Testimonial Slide 1 -->
         <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
-          <div class="relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+          <div class="subsection relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
             <div class="grid items-center gap-6 p-6 lg:grid-cols-5">
               <!-- Customer Info -->
               <div class="lg:col-span-3">
                 <div class="absolute inset-s-0 top-0 z-1 flex w-full -translate-y-1/2 justify-center">
-                  <svg
+                  <svg class="icon"
                     width="40"
                     height="31"
                     viewBox="0 0 21 16"
@@ -70,12 +70,12 @@
 
         <!-- Testimonial Slide 2 -->
         <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
-          <div class="relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+          <div class="subsection relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
             <div class="grid items-center gap-6 p-6 lg:grid-cols-5">
               <!-- Customer Info -->
               <div class="lg:col-span-3">
                 <div class="absolute inset-s-0 top-0 z-1 flex w-full -translate-y-1/2 justify-center">
-                  <svg
+                  <svg class="icon"
                     width="40"
                     height="31"
                     viewBox="0 0 21 16"
@@ -115,12 +115,12 @@
 
         <!-- Testimonial Slide 3 -->
         <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
-          <div class="relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+          <div class="subsection relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
             <div class="grid items-center gap-6 p-6 lg:grid-cols-5">
               <!-- Customer Info -->
               <div class="lg:col-span-3">
                 <div class="absolute inset-s-0 top-0 z-1 flex w-full -translate-y-1/2 justify-center">
-                  <svg
+                  <svg class="icon"
                     width="40"
                     height="31"
                     viewBox="0 0 21 16"
@@ -160,12 +160,12 @@
 
         <!-- Testimonial Slide 4 -->
         <div class="w-full shrink-0 snap-start md:w-[calc((100%-1.5rem)/2)]">
-          <div class="relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
+          <div class="subsection relative h-full rounded-xl border bg-transparent shadow-none transition-colors duration-300">
             <div class="grid items-center gap-6 p-6 lg:grid-cols-5">
               <!-- Customer Info -->
               <div class="lg:col-span-3">
                 <div class="absolute inset-s-0 top-0 z-1 flex w-full -translate-y-1/2 justify-center">
-                  <svg
+                  <svg class="icon"
                     width="40"
                     height="31"
                     viewBox="0 0 21 16"
@@ -212,7 +212,7 @@
         x-on:click="go(page - 1)"
         x-bind:disabled="page === 0"
       >
-        <span class="icon-[tabler--arrow-left] size-5.5"></span>
+        <span class="button-icon icon-[tabler--arrow-left] size-5.5"></span>
       </button>
       <button
         type="button"
@@ -221,7 +221,7 @@
         x-on:click="go(page + 1)"
         x-bind:disabled="page >= pages - 1"
       >
-        <span class="icon-[tabler--arrow-right] size-5.5"></span>
+        <span class="button-icon icon-[tabler--arrow-right] size-5.5"></span>
       </button>
 
       <!-- Pagination Dots -->
@@ -241,9 +241,9 @@
 
     <!-- Call to Action Button -->
     <div class="mt-16 text-center lg:mt-24">
-      <button class="btn">
+      <button class="button btn">
         View All Reviews
-        <span class="icon-[tabler--external-link] size-5"></span>
+        <span class="button-icon icon-[tabler--external-link] size-5"></span>
       </button>
     </div>
   </div>

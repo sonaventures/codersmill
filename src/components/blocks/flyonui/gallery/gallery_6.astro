@@ -89,7 +89,7 @@
           x-on:click="go(page - 1)"
           x-bind:disabled="page === 0"
         >
-          <span class="icon-[tabler--arrow-narrow-left] size-8"></span>
+          <span class="button-icon icon-[tabler--arrow-narrow-left] size-8"></span>
         </button>
         <div class="flex w-52 items-center justify-start gap-2 rounded-full">
           <template x-for="number in pages" x-bind:key="number">
@@ -110,7 +110,7 @@
           x-on:click="go(page + 1)"
           x-bind:disabled="page >= pages - 1"
         >
-          <span class="icon-[tabler--arrow-narrow-right] size-8"></span>
+          <span class="button-icon icon-[tabler--arrow-narrow-right] size-8"></span>
         </button>
       </div>
     </div>

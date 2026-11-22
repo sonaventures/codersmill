@@ -50,7 +50,36 @@ export const elementKinds = [
     label: "Form fields",
     tags: ["input", "textarea", "select"],
   },
+  // SVGs, and iconify spans (class="icon-[tabler--arrow-right]").
+  { key: "icons", label: "Icons", tags: ["svg"] },
 ];
+
+/**
+ * Marker classes left in src/components/blocks to show what an element is,
+ * so it can be given the matching theme group classes here. Applying a
+ * style replaces the marker; "No theme colors" keeps it. `preset` is the
+ * suggested style.
+ */
+export const blockMarkers = [
+  { className: "cta-anchor", label: "CTA anchor", preset: "cta-01" },
+  { className: "accent-anchor", label: "Accent anchor", preset: "accent-01" },
+  { className: "button", label: "Button", preset: "accent-01" },
+  { className: "button-icon", label: "Button icon", preset: "button-svg" },
+  { className: "anchor-icon", label: "Anchor icon", preset: "anchor-svg" },
+  { className: "nav-icon", label: "Nav icon", preset: "nav-svg" },
+  { className: "icon", label: "Icon", preset: "svg" },
+  { className: "card", label: "Card", preset: "card-01" },
+  { className: "subsection", label: "Subsection", preset: "" },
+];
+const markerNames = new Set(blockMarkers.map(({ className }) => className));
+
+/** The block marker in an element's classes, or null. */
+export function markerOf(classValue) {
+  const name = (classValue ?? "")
+    .split(/\s+/)
+    .find((className) => markerNames.has(className));
+  return blockMarkers.find(({ className }) => className === name) ?? null;
+}
 
 const kindByTag = new Map(
   elementKinds.flatMap(({ key, tags }) => tags.map((tag) => [tag, key])),
@@ -245,7 +274,23 @@ export const stylePresets = [
     classes:
       "bg-canvas-01-input text-ink-01-input border-canvas-01-input-border placeholder:text-ink-01-placeholder focus:border-accent-01-input-focus focus:outline-accent-01-input-focus",
   },
+  // The SVG types the Theme Builder colors (fill, stroke, hover, active).
+  { key: "svg", label: "SVG icon (.svg)", group: "icons", classes: "svg" },
+  { key: "nav-svg", label: "Nav SVG (.nav-svg)", group: "icons", classes: "nav-svg" },
+  {
+    key: "button-svg",
+    label: "Button SVG (.button-svg)",
+    group: "icons",
+    classes: "button-svg",
+  },
+  {
+    key: "anchor-svg",
+    label: "Anchor SVG (.anchor-svg)",
+    group: "icons",
+    classes: "anchor-svg",
+  },
 ];
+const svgTypeNames = new Set(["svg", "nav-svg", "button-svg", "anchor-svg"]);
 
 const colorPrefix =
   "(?:bg|text|border(?:-[xytblrse])?|divide|ring-offset|inset-ring|ring|shadow|outline|fill|stroke|from|via|to|placeholder|decoration|accent|caret)";
@@ -271,6 +316,8 @@ export function isThemeClass(className) {
   return (
     themeColorPattern.test(base) ||
     themeRadiusPattern.test(base) ||
+    markerNames.has(className) ||
+    svgTypeNames.has(className) ||
     base === "inset-ring" ||
     base === "btn-filled" ||
     base === "btn-outline"
@@ -449,15 +496,17 @@ export function findStyleableElements(source) {
       continue;
     }
     index = tag.end;
-    if (tag.name === "svg") {
-      // Shapes inside an SVG are styled with the SVG fills instead.
+    if (tag.name === "svg" && !tag.selfClosing) {
+      // The SVG is listed; its shapes are styled with the SVG fills instead.
       const end = source.indexOf("</svg>", tag.end);
       index = end === -1 ? tag.end : end + "</svg>".length;
-      continue;
     }
-    const kind = kindByTag.get(tag.name.toLowerCase());
-    if (!kind) continue;
     const classAttr = tag.attributes.find(({ name }) => name === "class");
+    const iconSpan =
+      /^(?:span|i)$/.test(tag.name) &&
+      /(?:^|\s)icon-\[/.test(classAttr?.value ?? "");
+    const kind = iconSpan ? "icons" : kindByTag.get(tag.name.toLowerCase());
+    if (!kind) continue;
     const dynamicClass = tag.attributes.some(
       ({ name, dynamic }) =>
         name === "class:list" || (name === "class" && (dynamic || !classAttr)),
@@ -501,9 +550,13 @@ export function applyThemeClasses(source, changes) {
     const theme = parseClassList(
       Array.isArray(value) ? value.join(" ") : value,
     );
+    // A block marker stays until a style replaces it.
     const kept = element.classValue
       .split(/\s+/)
-      .filter((name) => name && !isThemeClass(name));
+      .filter(
+        (name) =>
+          name && (!isThemeClass(name) || (!theme.length && markerNames.has(name))),
+      );
     const next = [
       ...kept,
       ...theme.filter((name) => !kept.includes(name)),

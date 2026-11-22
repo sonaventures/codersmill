@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   applyThemeClasses,
+  blockMarkers,
+  markerOf,
   findStyleableElements,
   isThemeClass,
   parseClassList,
@@ -43,6 +45,7 @@ test("styleable elements come from the markup only, with their text", () => {
       ["h2", "headings", true],
       ["p", "text", true],
       ["a", "actions", true],
+      ["svg", "icons", true],
       ["button", "actions", false],
       ["input", "fields", true],
     ],
@@ -53,7 +56,7 @@ test("styleable elements come from the markup only, with their text", () => {
     elements[3].classValue,
     "px-4 py-2 rounded-lg hover:brightness-95",
   );
-  assert.equal(elements[5].text, "placeholder: Your email");
+  assert.equal(elements[6].text, "placeholder: Your email");
   assert.equal(elements[1].line, 11);
 });
 
@@ -128,7 +131,7 @@ test("applying classes replaces only theme classes and keeps the rest", () => {
 
 test("expression classes and unsafe classes are refused", () => {
   assert.throws(
-    () => applyThemeClasses(component, { 4: "bg-cta-01" }),
+    () => applyThemeClasses(component, { 5: "bg-cta-01" }),
     /sets its class with an expression/,
   );
   assert.throws(() => applyThemeClasses(component, { 99: "x" }), /no longer/);
@@ -162,4 +165,32 @@ test("button and card presets carry the theme group's corner radius", () => {
   const styled = applyThemeClasses(component, { 3: cta });
   assert.match(findStyleableElements(styled)[3].classValue, /\brounded-lg\b.*rounded-cta!/);
   assert.equal(applyThemeClasses(styled, { 3: "" }), component);
+});
+
+test("block markers say what an element is until a style replaces them", () => {
+  const block = `<div class="card rounded-xl border p-6">
+  <a href="#" class="cta-anchor btn">Start <span class="anchor-icon icon-[tabler--arrow-right] size-5"></span></a>
+  <svg class="icon size-6" viewBox="0 0 24 24"><path d="M0 0" /></svg>
+</div>`;
+  const elements = findStyleableElements(block);
+  assert.deepEqual(
+    elements.map(({ tag, kind }) => [tag, kind]),
+    [["div", "surfaces"], ["a", "actions"], ["span", "icons"], ["svg", "icons"]],
+  );
+  assert.deepEqual(
+    elements.map(({ classValue }) => markerOf(classValue)?.className),
+    ["card", "cta-anchor", "anchor-icon", "icon"],
+  );
+  // Every suggested preset exists, and markers count as theme classes.
+  for (const { className, preset } of blockMarkers) {
+    assert.ok(isThemeClass(className), className);
+    if (preset) assert.ok(stylePresets.some(({ key }) => key === preset), preset);
+  }
+  // A style replaces the marker; "No theme colors" keeps it.
+  const cta = stylePresets.find(({ key }) => key === "cta-01").classes;
+  const styled = applyThemeClasses(block, { 1: cta, 3: "nav-svg" });
+  assert.doesNotMatch(styled, /cta-anchor/);
+  assert.match(styled, /<a href="#" class="btn [^"]*bg-cta-01/);
+  assert.match(styled, /<svg class="size-6 nav-svg"/);
+  assert.equal(applyThemeClasses(block, { 0: "", 1: "" }), block);
 });

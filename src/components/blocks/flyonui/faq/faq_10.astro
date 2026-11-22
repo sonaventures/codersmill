@@ -16,7 +16,7 @@
     <div class="grid grid-cols-1 gap-16 lg:grid-cols-2">
       <!-- Left Accordion -->
       <div
-        class="w-full divide-y rounded-xl border"
+        class="card w-full divide-y rounded-xl border"
         x-data="{ open: 'products' }"
       >
         <div>
@@ -30,7 +30,7 @@
           >
             What products do you offer?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'products' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -64,7 +64,7 @@
           >
             How do I place an order?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'order-place' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -99,7 +99,7 @@
           >
             What payment methods do you accept?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'payment-methods' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -133,7 +133,7 @@
           >
             Do you offer international shipping?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'international-shipping' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -168,7 +168,7 @@
           >
             How can I track my order?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'track-order' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -194,7 +194,7 @@
       </div>
       <!-- Right Accordion -->
       <div
-        class="w-full divide-y rounded-xl border h-max"
+        class="card w-full divide-y rounded-xl border h-max"
         x-data="{ open: null }"
       >
         <div>
@@ -208,7 +208,7 @@
           >
             What is your return policy?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'return-policy' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -239,7 +239,7 @@
           >
             Can I change or cancel my order?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'change-cancel' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -270,7 +270,7 @@
           >
             Do you offer discounts or promotions?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'discounts' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -301,7 +301,7 @@
           >
             How do I create an account?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'create-account' ? 'rotate-180' : ''"
             ></span>
           </button>

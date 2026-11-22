@@ -14,7 +14,7 @@
     <div class="grid grid-cols-1 gap-16 md:grid-cols-2 xl:grid-cols-3">
       <!-- Left Column - Accordion -->
       <div
-        class="h-max divide-y rounded-xl border xl:col-span-2"
+        class="subsection h-max divide-y rounded-xl border xl:col-span-2"
         x-data="{ open: 'accommodation-types' }"
       >
         <!-- Accordion Item 1 -->
@@ -30,7 +30,7 @@
             Could you please provide details on the various types of
             accommodations available?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'accommodation-types' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -66,7 +66,7 @@
           >
             What is the process for making a booking?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'booking-process' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -102,7 +102,7 @@
           >
             Could you please provide details regarding your cancellation policy?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'cancellation-policy' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -138,7 +138,7 @@
           >
             Is it possible to modify my booking after it has been confirmed?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'modify-booking' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -173,7 +173,7 @@
           >
             Are pets permitted in your accommodations?
             <span
-              class="icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
+              class="button-icon icon-[tabler--chevron-down] size-4.5 shrink-0 transition-transform duration-300"
               x-bind:class="open === 'pet-policy' ? 'rotate-180' : ''"
             ></span>
           </button>
@@ -198,15 +198,15 @@
         </div>
       </div>
       <!-- Right Column - Support Card -->
-      <div class="h-max justify-self-center rounded-xl border bg-transparent md:max-w-3xl">
+      <div class="subsection h-max justify-self-center rounded-xl border bg-transparent md:max-w-3xl">
         <div class="flex flex-col items-center gap-4 p-6 text-center">
-          <span class="icon-[tabler--messages] mb-2 size-16"></span>
+          <span class="icon icon-[tabler--messages] mb-2 size-16"></span>
           <h3 class="text-lg font-medium">Need Assistance?</h3>
           <p>
             Our team will answer all your questions. we ensure a quick response.
           </p>
-          <a href="#" class="btn">
-            <span class="icon-[tabler--phone] size-5"></span>
+          <a href="#" class="cta-anchor btn">
+            <span class="anchor-icon icon-[tabler--phone] size-5"></span>
             Contact Support Team
           </a>
         </div>

@@ -8,9 +8,9 @@
         Explore a collection of visuals that highlight our best work,
         milestones, and creative moments.
       </p>
-      <a href="#" class="btn">
+      <a href="#" class="cta-anchor btn">
         See All
-        <span class="icon-[tabler--arrow-right] size-5 rtl:rotate-180"></span>
+        <span class="anchor-icon icon-[tabler--arrow-right] size-5 rtl:rotate-180"></span>
       </a>
     </div>
 
@@ -103,7 +103,7 @@
             x-on:click="go(page - 1)"
             x-bind:disabled="page === 0"
           >
-            <span class="icon-[tabler--chevron-left] size-5 cursor-pointer"></span>
+            <span class="button-icon icon-[tabler--chevron-left] size-5 cursor-pointer"></span>
             <span class="sr-only">Previous</span>
           </button>
           <!-- Next Slide -->
@@ -113,7 +113,7 @@
             x-on:click="go(page + 1)"
             x-bind:disabled="page >= pages - 1"
           >
-            <span class="icon-[tabler--chevron-right] size-5"></span>
+            <span class="button-icon icon-[tabler--chevron-right] size-5"></span>
             <span class="sr-only">Next</span>
           </button>
         </div>
