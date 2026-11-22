@@ -1,9 +1,9 @@
-// The Website Builder site: its name, host, navigation, and page
-// descriptions, shared by the layout, header, footer, and pages.
+// The CodersMill site: its name, host, navigation, and page descriptions,
+// shared by the layout, header, footer, and pages.
 export const siteName = "CodersMill";
 
-// The company that hosts Website Builder, at codersmill.com (also the
-// `site` in astro.config.mjs).
+// The company that hosts CodersMill, at codersmill.com (also the `site` in
+// astro.config.mjs).
 export const host = {
   name: "Coders Mill",
   url: "https://codersmill.com",

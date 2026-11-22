@@ -1,12 +1,13 @@
-# Website Builder
+# CodersMill
 
-Website Builder is a set of browser tools for building and styling
-[Astro](https://astro.build) websites from ready-made blocks. You pick colors,
-group them into themes, set the typography, assemble pages from blocks, and
-give their buttons, links, icons, and cards your theme. Each tool writes plain
-CSS and Astro files into the project, so the site you build stays yours.
+CodersMill is the home of Website Builder, a set of browser tools for
+building and styling [Astro](https://astro.build) websites from ready-made
+blocks. You pick colors, group them into themes, set the typography, assemble
+pages from blocks, and give their buttons, links, icons, and cards your theme.
+Each tool writes plain CSS and Astro files into the project, so the site you
+build stays yours.
 
-Website Builder is hosted by [Coders Mill](https://codersmill.com) at
+CodersMill is hosted by [Coders Mill](https://codersmill.com) at
 codersmill.com. The repository is
 [sonaventures/codersmill](https://github.com/sonaventures/codersmill).
 
