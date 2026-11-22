@@ -42,6 +42,7 @@ export const typographyFonts = {
   "var(--font-roboto-mono)": "Roboto Mono",
   "var(--font-roboto-condensed)": "Roboto Condensed",
   "var(--font-roboto-slab)": "Roboto Slab",
+  "var(--font-source-code-pro)": "Source Code Pro",
 };
 
 export const typographyProperties = [

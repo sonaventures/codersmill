@@ -71,6 +71,9 @@
 
 @import "@fontsource-variable/roboto-slab/wght.css";
 
+@import "@fontsource-variable/source-code-pro/wght.css";
+@import "@fontsource-variable/source-code-pro/wght-italic.css";
+
 @theme static {
   --font-inter: "Inter Variable", sans-serif;
   --font-plus-jakarta-sans: "Plus Jakarta Sans Variable", sans-serif;
@@ -90,4 +93,5 @@
   --font-roboto-mono: "Roboto Mono Variable", monospace;
   --font-roboto-condensed: "Roboto Condensed Variable", sans-serif;
   --font-roboto-slab: "Roboto Slab Variable", serif;
+  --font-source-code-pro: "Source Code Pro Variable", monospace;
 }
