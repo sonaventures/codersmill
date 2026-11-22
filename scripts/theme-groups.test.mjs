@@ -45,7 +45,13 @@ test("theme groups round-trip independent area palettes", () => {
 
 test("theme groups round-trip independent global corner radii", () => {
   const saved = group();
-  saved.radii = { section: "3xl", card: "none", subsection: "sm" };
+  saved.radii = {
+    section: "3xl",
+    card: "none",
+    subsection: "sm",
+    accent: "lg",
+    cta: "3xl",
+  };
   assert.deepEqual(parseThemeGroups(serializeThemeGroups([saved])), [saved]);
 
   saved.radii.card = "1px; color: red";
@@ -72,6 +78,8 @@ test("version 9 theme groups retain colors and get the original corner radii", (
     section: "none",
     card: "xl",
     subsection: "xl",
+    accent: "sm",
+    cta: "sm",
   });
 });
 
@@ -83,7 +91,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 25);
+  assert.equal(JSON.parse(json).version, 26);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -111,7 +119,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":26,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":27,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -172,7 +180,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 25);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 26);
 });
 
 test("brand assignments are page-wide and round-trip independently by theme", () => {
@@ -717,7 +725,7 @@ test("groups saved before version 24 drop their CTA colors, which are sitewide n
     );
     assert.equal(restored.themes.light.global.ctaPrimary, undefined);
     assert.equal(restored.themes.dark.global.ctaTertiaryHover, undefined);
-    assert.ok(!JSON.stringify(restored).includes("cta"));
+    assert.ok(!JSON.stringify(restored.themes).includes("cta"));
   }
   assert.equal(
     semanticToken("page", "ctaPrimaryHoverText"),
@@ -786,7 +794,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 25);
+  assert.equal(JSON.parse(first).version, 26);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -949,4 +957,21 @@ test("content widths round-trip by area, and older groups have none", () => {
     assert.throws(() =>
       parseThemeGroups(serializeThemeGroups([{ ...group(), widths }])),
     );
+});
+
+test("accent and CTA corner radii round-trip, and older groups get the defaults", () => {
+  const saved = { ...group(), radii: { ...group().radii, accent: "2xl", cta: "none" } };
+  const [restored] = parseThemeGroups(serializeThemeGroups([saved]));
+  assert.equal(restored.radii.accent, "2xl");
+  assert.equal(restored.radii.cta, "none");
+  const older = JSON.parse(serializeThemeGroups([group()]));
+  older.version = 25;
+  delete older.groups[0].radii.accent;
+  delete older.groups[0].radii.cta;
+  const [migrated] = parseThemeGroups(JSON.stringify(older));
+  assert.equal(migrated.radii.accent, "sm");
+  assert.equal(migrated.radii.cta, "sm");
+  const missing = JSON.parse(serializeThemeGroups([group()]));
+  delete missing.groups[0].radii.cta;
+  assert.throws(() => parseThemeGroups(JSON.stringify(missing)), /cta corner radius/);
 });

@@ -370,7 +370,12 @@
   border: 1px solid var(--sample-accentBorder);
   box-shadow: 0 3px 10px
     color-mix(in srgb, var(--sample-buttonShadow) 20%, transparent);
-  @apply cursor-pointer rounded-[0.3rem] text-[0.75rem] font-bold;
+  @apply cursor-pointer text-[0.75rem] font-bold;
+  border-radius: var(--sample-accent-radius, 0.25rem);
+}
+/* CTA buttons take the CTA corner radius. */
+.selector-shell .sample-buttons [data-cta] {
+  border-radius: var(--sample-cta-radius, 0.25rem);
 }
 .selector-shell .sample-buttons button > .sample-icon {
   @apply shrink-0;
@@ -421,7 +426,8 @@
   color: inherit;
 }
 .selector-shell .sample-buttons .sample-action-link {
-  @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-[0.3rem] px-4 text-[0.75rem] font-bold no-underline;
+  @apply inline-flex min-h-10 items-center justify-center gap-2 px-4 text-[0.75rem] font-bold no-underline;
+  border-radius: var(--sample-accent-radius, 0.25rem);
   border: 1px solid var(--sample-accentBorder);
   box-shadow: 0 3px 10px
     color-mix(in srgb, var(--sample-buttonShadow) 20%, transparent);

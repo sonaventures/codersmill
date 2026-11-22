@@ -602,7 +602,11 @@ export const radiusTargets = [
   { key: "section", label: "Sections (including the hero)" },
   { key: "card", label: "Cards" },
   { key: "subsection", label: "Subsections" },
+  { key: "accent", label: "Accent buttons (Accent 1 / 2 / 3)" },
+  { key: "cta", label: "CTA buttons (CTA 01 / 02 / 03)" },
 ] as const;
+// Added in version 26; older groups get the default for these.
+const version26RadiusTargets = ["accent", "cta"] as const;
 
 export const radiusPresets = [
   { key: "none", label: "None", size: "0px" },
@@ -623,6 +627,8 @@ export const defaultRadii: Readonly<GlobalRadii> = {
   section: "none",
   card: "xl",
   subsection: "xl",
+  accent: "sm",
+  cta: "sm",
 };
 
 /**
@@ -963,12 +969,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 22 &&
       data.version !== 23 &&
       data.version !== 24 &&
-      data.version !== 25) ||
+      data.version !== 25 &&
+      data.version !== 26) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 25 theme group file with up to 100 groups.",
+      "Expected a version 1 through 26 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1115,6 +1122,11 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       if (!isRecord(source))
         throw new Error(`Missing corner radii in "${name}".`);
       for (const { key } of radiusTargets) {
+        if (
+          data.version < 26 &&
+          version26RadiusTargets.some((target) => target === key)
+        )
+          continue;
         const preset = radiusPresets.find(
           (preset) => preset.key === source[key],
         );
@@ -1185,7 +1197,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 25, groups }, null, 2);
+  return JSON.stringify({ version: 26, groups }, null, 2);
 }
 
 /**
