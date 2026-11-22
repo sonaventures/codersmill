@@ -8,8 +8,8 @@ import {
   parseGroupClasses,
   removeGroupCss,
   upsertGroupCss,
-} from "../src/data/group-classes.ts";
-import { createDefaultColors, defaultRadii } from "../src/data/theme-groups.ts";
+} from "../../src/data/group-classes.ts";
+import { createDefaultColors, defaultRadii } from "../../src/data/theme-groups.ts";
 
 const group = (name = "Coastal calm") => ({
   id: "coastal",

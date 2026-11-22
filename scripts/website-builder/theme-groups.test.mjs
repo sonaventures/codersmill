@@ -16,7 +16,7 @@ import {
   semanticToken,
   setColor,
   serializeThemeGroups,
-} from "../src/data/theme-groups.ts";
+} from "../../src/data/theme-groups.ts";
 
 const group = () => ({
   id: "coastal",
@@ -978,7 +978,7 @@ test("accent and CTA corner radii round-trip, and older groups get the defaults"
 
 test("SVG types have six colors each for the page, hero and sections only", async () => {
   const { svgTypeColorRoles, semanticToken, defaultColorReference, isColorRoleVisible } =
-    await import("../src/data/theme-groups.ts");
+    await import("../../src/data/theme-groups.ts");
   assert.equal(svgTypeColorRoles.length, 24);
   assert.equal(semanticToken("hero", "navSvgFillHover"), "ink-hero-nav-svg-fill-hover");
   assert.equal(semanticToken("section1", "svgIconStroke"), "ink-01-svg-stroke");
