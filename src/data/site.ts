@@ -30,7 +30,7 @@ export interface NavSection {
 }
 
 // The main menu: each section has its own page and a submenu. Pages that are
-// not written yet show a placeholder (src/components/placeholder-page.astro).
+// not written yet show a placeholder (src/components/codersmill/placeholder-page.astro).
 export const navigation: NavSection[] = [
   {
     label: "Services",

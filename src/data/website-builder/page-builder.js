@@ -2,10 +2,13 @@ const componentPathPattern = /^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.astro$/;
 const componentSizeLimit = 5_000_000;
 const propertyPattern =
   /^([a-zA-Z_$][\w$]*)(\?)?\s*:\s*(string|number|boolean)$/;
-// The site's own header and footer (src/components/header.astro and
-// footer.astro) and the builder's header are not page components. Headers
-// and footers elsewhere, such as the blocks, are.
-const reservedPaths = new Set(["header.astro", "footer.astro"]);
+// The site's own header and footer (src/components/codersmill/header.astro
+// and footer.astro) and the builder's header are not page components.
+// Headers and footers elsewhere, such as the blocks, are.
+const reservedPaths = new Set([
+  "codersmill/header.astro",
+  "codersmill/footer.astro",
+]);
 const reservedNames = new Set(["StudioHeader.astro"]);
 const isReserved = (path) =>
   reservedPaths.has(path) || reservedNames.has(path.split("/").at(-1));
@@ -219,10 +222,7 @@ export function componentFolders(components) {
 }
 
 export async function saveComponentCopy(directory, path, content) {
-  if (
-    !componentPathPattern.test(path) ||
-    isReserved(path)
-  )
+  if (!componentPathPattern.test(path) || isReserved(path))
     throw new Error("Invalid component file path.");
   if (typeof content !== "string" || !content)
     throw new Error("The component has no content to save.");
@@ -321,11 +321,11 @@ const slotAliases = { header: "PageHeader", footer: "PageFooter" };
 export function isSlotComponent(component) {
   return Boolean(
     component &&
-      !component.error &&
-      componentPathPattern.test(component.path) &&
-      !isReserved(component.path) &&
-      Array.isArray(component.properties) &&
-      component.properties.every(({ optional }) => optional),
+    !component.error &&
+    componentPathPattern.test(component.path) &&
+    !isReserved(component.path) &&
+    Array.isArray(component.properties) &&
+    component.properties.every(({ optional }) => optional),
   );
 }
 
@@ -578,7 +578,8 @@ export function parseGeneratedPage(source) {
     if (!match) return null;
     if (!imports.has(match[2]))
       throw notBuilderPage(`a ${slot} component that is not imported`);
-    body = body.slice(0, match.index) + body.slice(match.index + match[0].length);
+    body =
+      body.slice(0, match.index) + body.slice(match.index + match[0].length);
     const path = imports.get(match[2]);
     imports.delete(match[2]);
     return path;

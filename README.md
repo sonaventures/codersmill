@@ -239,7 +239,7 @@ that lists its pages. Tools goes to the website builder's home, which lists
 its tools. Signing in is handled by Cloudflare and Google Workspace, so the
 site has no login page. The header and footer read it. A page in the
 menu that is not written yet shows a "coming soon" placeholder
-([`placeholder-page.astro`](./src/components/placeholder-page.astro)) with the
+([`placeholder-page.astro`](./src/components/codersmill/placeholder-page.astro)) with the
 title and description from the menu; replace it with the page's content when
 it is ready. `/about/` redirects to `/us/who-we-are/`, `/tools/` to `/website-builder/`, and
 `/blocks/` to Display Blocks.
@@ -255,6 +255,7 @@ naming Coders Mill as the publisher.
 | Path                              | Contents                                                                                 |
 | --------------------------------- | ---------------------------------------------------------------------------------------- |
 | `src/pages/website-builder/`      | The builder tools                                                                        |
+| `src/components/codersmill/`      | The CodersMill site's header, footer, page hero, section page, and placeholder page      |
 | `src/components/website-builder/` | Builder components, including the guides                                                 |
 | `src/scripts/website-builder/`    | Builder scripts                                                                          |
 | `src/styles/website-builder/`     | Builder styles                                                                           |

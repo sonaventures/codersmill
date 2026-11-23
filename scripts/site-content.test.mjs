@@ -44,12 +44,12 @@ test("codersmill.com is the site URL and the package's home", async () => {
 test("the layout, header, and footer use the shared site details", async () => {
   const [layout, header, footer] = await Promise.all([
     readProjectFile("src/layouts/layout.astro"),
-    readProjectFile("src/components/header.astro"),
-    readProjectFile("src/components/footer.astro"),
+    readProjectFile("src/components/codersmill/header.astro"),
+    readProjectFile("src/components/codersmill/footer.astro"),
   ]);
 
   for (const file of [layout, header, footer])
-    assert.match(file, /from "\.\.\/data\/site"/);
+    assert.match(file, /from "(?:\.\.\/)+data\/site"/);
   assert.match(layout, /og:site_name/);
   assert.match(layout, /rel="canonical"/);
   assert.match(

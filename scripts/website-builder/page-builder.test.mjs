@@ -43,13 +43,16 @@ const { title } = Astro.props;
     ).error,
     /supported/,
   );
-  assert.equal(inspectComponent("header.astro", ""), null);
-  assert.equal(inspectComponent("footer.astro", ""), null);
+  assert.equal(inspectComponent("codersmill/header.astro", ""), null);
+  assert.equal(inspectComponent("codersmill/footer.astro", ""), null);
   // Headers and footers in folders, such as the blocks, are components.
-  assert.deepEqual(inspectComponent("blocks/flowbite/header/header.astro", ""), {
-    path: "blocks/flowbite/header/header.astro",
-    properties: [],
-  });
+  assert.deepEqual(
+    inspectComponent("blocks/flowbite/header/header.astro", ""),
+    {
+      path: "blocks/flowbite/header/header.astro",
+      properties: [],
+    },
+  );
   assert.match(inspectComponent("Wrapper.astro", "<slot />").error, /slots/);
   assert.match(
     inspectComponent("Dynamic.astro", "---\nconst props = Astro['props'];\n---")
@@ -166,8 +169,8 @@ test("normalizes and validates component save paths", () => {
   assert.throws(() => componentSavePath(""), /Enter a component file path/);
   assert.throws(() => componentSavePath("../hack"), /letters, numbers/);
   assert.throws(() => componentSavePath("my hero"), /letters, numbers/);
-  assert.throws(() => componentSavePath("header"), /reserved/);
-  assert.throws(() => componentSavePath("footer"), /reserved/);
+  assert.throws(() => componentSavePath("codersmill/header"), /reserved/);
+  assert.throws(() => componentSavePath("codersmill/footer"), /reserved/);
   assert.equal(componentSavePath("custom/header"), "custom/header.astro");
 });
 
@@ -233,7 +236,7 @@ test("saves component copies without overwriting existing entries", async () => 
     /already exists as a folder/,
   );
   await assert.rejects(
-    saveComponentCopy(root, "header.astro", "<section />"),
+    saveComponentCopy(root, "codersmill/header.astro", "<section />"),
     /Invalid component file path/,
   );
   await assert.rejects(
@@ -720,9 +723,15 @@ test("pages can use a header or footer component, or none, and load again", () =
   assert.equal(page.items.length, 1);
   assert.equal(page.items[0].path, hero.path);
 
-  const hidden = generatePage("Plain", "", [{ component: hero, values: {} }], "", {
-    header: "none",
-  });
+  const hidden = generatePage(
+    "Plain",
+    "",
+    [{ component: hero, values: {} }],
+    "",
+    {
+      header: "none",
+    },
+  );
   assert.match(hidden, /<Layout title=\{"Plain"\} showHeader=\{false\}>/);
   assert.equal(parseGeneratedPage(hidden).header, "none");
   assert.equal(parseGeneratedPage(hidden).footer, "");
