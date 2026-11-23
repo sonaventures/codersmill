@@ -8,6 +8,8 @@ export default defineConfig({
   // CodersMill is hosted by Coders Mill at codersmill.com.
   site: "https://codersmill.com",
   output: "static",
+  // No Astro dev toolbar on any page.
+  devToolbar: { enabled: false },
   redirects: {
     "/pagebuilder/pagebuilder/": "/website-builder/page-builder/",
     "/themebuilder/colors/": "/website-builder/custom-colors/",
