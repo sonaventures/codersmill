@@ -1,5 +1,6 @@
 ---
 import { builderLink, navigation, siteName } from "../../data/site";
+import Logo from "./logo.astro";
 
 interface Props {
   title?: string;
@@ -26,8 +27,7 @@ const inSection = (section: (typeof navigation)[number]) =>
       </div>
     ) : (
       <a class="wordmark" href="/" aria-label={`${siteName} home`}>
-        <span class="wordmark-name">Coders</span>
-        <span class="wordmark-group">Mill</span>
+        <Logo />
       </a>
     )}
 

@@ -130,12 +130,22 @@
     @apply flex items-baseline gap-2 whitespace-nowrap text-brand-01 no-underline;
   }
 
-  .wordmark-name {
-    @apply font-display text-[2rem] font-semibold tracking-[-0.035em] tablet:text-[1.8rem];
+  /* The Coders Mill logo in the header: "coders" takes the header's text
+     color, and the blue lightens in dark mode to stay readable. */
+  .codersmill-logo {
+    @apply block h-14 w-auto tablet:h-12;
   }
 
-  .wordmark-group {
-    @apply text-[0.65rem] font-bold tracking-[0.2em] text-brand-03;
+  .codersmill-logo-blue {
+    fill: var(--color-smartblue-700);
+  }
+
+  .codersmill-logo-ink {
+    fill: var(--color-ink-header);
+  }
+
+  :root[data-theme="dark"] .codersmill-logo-blue {
+    fill: var(--color-smartblue-300);
   }
 
   .primary-navigation .nav-list,
