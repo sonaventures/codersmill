@@ -55,6 +55,9 @@ function legacyJson(version, groups) {
             if (now in colors) colors[before] = colors[now];
           for (const { key } of accentColorRoles) delete colors[key];
         }
+        if (version < 32)
+          for (const { key } of cardInkColorRoles)
+            if (/Code(Background)?$/.test(key)) delete colors[key];
         if (version < 31)
           for (const { key } of cardAccentColorRoles) delete colors[key];
         if (version < 30)
@@ -140,7 +143,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 31);
+  assert.equal(JSON.parse(json).version, 32);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -165,7 +168,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":32,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":33,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -223,7 +226,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 31);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 32);
 });
 
 test("brand assignments are page-wide and round-trip independently by theme", () => {
@@ -818,7 +821,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 31);
+  assert.equal(JSON.parse(first).version, 32);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -1074,7 +1077,7 @@ test("SVG types have six colors each for the page, hero and sections only", asyn
 test("each card and the subsection style their own text", async () => {
   const { cardInkVariable } =
     await import("../../src/data/website-builder/theme-groups.ts");
-  assert.equal(cardInkColorRoles.length, 40);
+  assert.equal(cardInkColorRoles.length, 48);
   assert.equal(semanticToken("section3", "card2H2"), "ink-03-card-02-h2");
   assert.equal(
     semanticToken("page", "subsectionMuted"),
@@ -1124,6 +1127,33 @@ test("each card and the subsection have their own code block background", () => 
   assert.equal(restored.themes.light.section1.card1PreBackground, "theme");
   const edited = group();
   edited.themes.dark.section4.card3PreBackground = "var(--color-slate-900)";
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
+});
+
+test("each card and the subsection have their own inline code colors", () => {
+  assert.equal(semanticToken("section3", "card2Code"), "ink-03-card-02-code");
+  assert.equal(
+    defaultColorReference("page", "subsectionCode"),
+    "var(--ink-page-subsection-code,var(--ink-page-code))",
+  );
+  assert.equal(
+    semanticToken("section3", "card2CodeBackground"),
+    "canvas-03-card-02-code",
+  );
+  assert.equal(
+    defaultColorReference("page", "subsectionCodeBackground"),
+    "var(--canvas-page-subsection-code,var(--canvas-page-code))",
+  );
+  // Groups saved before version 32 start on the theme default.
+  const older = group();
+  older.themes.light.section1.card1CodeBackground = "#123456";
+  older.themes.light.section1.card1Code = "#654321";
+  const [restored] = parseThemeGroups(legacyJson(31, [older]));
+  assert.equal(restored.themes.light.section1.card1CodeBackground, "theme");
+  assert.equal(restored.themes.light.section1.card1Code, "theme");
+  const edited = group();
+  edited.themes.dark.section4.card3CodeBackground = "var(--color-slate-900)";
+  edited.themes.dark.section4.card3Code = "var(--color-amber-300)";
   assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });
 

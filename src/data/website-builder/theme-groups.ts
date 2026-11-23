@@ -307,7 +307,8 @@ type CardTarget = (typeof cardTargets)[number];
 
 /**
  * The colors each card has for its content, and the area color each falls
- * back to: text colors, and the code block background.
+ * back to: text colors (inline code included), and the inline code and code
+ * block backgrounds.
  */
 export const cardInkParts = [
   {
@@ -360,6 +361,20 @@ export const cardInkParts = [
     suffix: "-blockquote",
     area: "blockquote",
     label: "quote text",
+  },
+  {
+    family: "ink",
+    key: "Code",
+    suffix: "-code",
+    area: "code",
+    label: "inline code text",
+  },
+  {
+    family: "canvas",
+    key: "CodeBackground",
+    suffix: "-code",
+    area: "codeBackground",
+    label: "inline code background",
   },
   {
     family: "canvas",
@@ -1485,12 +1500,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 28 &&
       data.version !== 29 &&
       data.version !== 30 &&
-      data.version !== 31) ||
+      data.version !== 31 &&
+      data.version !== 32) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 31 theme group file with up to 100 groups.",
+      "Expected a version 1 through 32 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1571,10 +1587,14 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             regionColors[role] = "theme";
             continue;
           }
-          // Version 30 added each card's code block background.
+          // Version 30 added each card's code block background, and version
+          // 32 its inline code text and background.
           if (
-            data.version < 30 &&
-            cardInkRole(role)?.part.key === "PreBackground"
+            (data.version < 30 &&
+              cardInkRole(role)?.part.key === "PreBackground") ||
+            (data.version < 32 &&
+              (cardInkRole(role)?.part.key === "Code" ||
+                cardInkRole(role)?.part.key === "CodeBackground"))
           ) {
             regionColors[role] = "theme";
             continue;
@@ -1748,7 +1768,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 31, groups }, null, 2);
+  return JSON.stringify({ version: 32, groups }, null, 2);
 }
 
 /**

@@ -109,7 +109,7 @@ border and shadow, Accent 2 takes the area's background and text, and Accent
 
 Each card (Card 01–03) and the subsection in the page, hero, and section
 areas also styles its own content: paragraph text, H2, H3, strong, em, pre,
-muted, highlight, and quote colors, and a code block background (`--ink-03-card-02-h2` is Card 02's H2 in
+muted, highlight, quote, and inline code colors, and inline code and code block backgrounds (`--ink-03-card-02-h2` is Card 02's H2 in
 Section 03). Left on **Theme default**, they are the area's colors. A card is
 found by the background class from Component Styling's card and subsection
 presets (`bg-canvas-01-card-02`, `bg-canvas-01-subsection`), and
@@ -139,7 +139,7 @@ sitewide.css** and applied whatever group a page uses: the Global area's CTA
 `sw-footer`), and the site's content width.
 
 Groups are kept in the browser and in the project's `theme-groups.json`, and
-can be exported and imported as JSON (format version 31; older files still
+can be exported and imported as JSON (format version 32; older files still
 load, with their accent colors moved to the new names and their card text
 color given to every card).
 
