@@ -1806,8 +1806,8 @@
 
 /* theme-group: codersmill (codersmill) */
 :root:not([data-theme="dark"]) .sg-codersmill-page {
-  --canvas-page: var(--color-platinum-50);
-  --canvas-01: var(--color-platinum-50);
+  --canvas-page: var(--color-gray-50);
+  --canvas-01: var(--color-gray-50);
   --canvas-01-border: var(--canvas-page-border);
   --canvas-01-shadow: var(--canvas-page-shadow);
   --accent-01-01: var(--accent-page-01);
@@ -1989,8 +1989,8 @@
   color: var(--ink-page);
 }
 :root:not([data-theme="dark"]) .sg-codersmill-hero {
-  --canvas-hero: var(--color-smartblue-50);
-  --canvas-01: var(--color-smartblue-50);
+  --canvas-hero: var(--color-softlinen-50);
+  --canvas-01: var(--color-softlinen-50);
   --canvas-hero-border: transparent;
   --canvas-01-border: transparent;
   --canvas-hero-shadow: transparent;
@@ -2039,25 +2039,49 @@
   --ink-01: var(--color-smartblue-700);
   --ink-hero-h1: var(--color-smartblue-700);
   --ink-01-h1: var(--color-smartblue-700);
-  --ink-hero-h2: var(--color-coolsteel-600);
-  --ink-01-h2: var(--color-coolsteel-600);
+  --ink-hero-h2: var(--color-coolsteel-700);
+  --ink-01-h2: var(--color-coolsteel-700);
   --ink-hero-h3: var(--color-smartblue-700);
   --ink-01-h3: var(--color-smartblue-700);
-  --ink-hero-h4: var(--color-coolsteel-600);
-  --ink-01-h4: var(--color-coolsteel-600);
+  --ink-hero-h4: var(--color-coolsteel-700);
+  --ink-01-h4: var(--color-coolsteel-700);
   --ink-hero-muted: var(--color-prusssianblue-500);
   --ink-01-muted: var(--color-prusssianblue-500);
   --ink-hero-highlight: var(--color-blaze-500);
   --ink-01-highlight: var(--color-blaze-500);
   --canvas-01-card-01: var(--color-mutedteal-50);
   --canvas-01-card-01-border: var(--color-radioactive-500);
-  --canvas-01-subsection: var(--canvas-hero-subsection);
-  --canvas-01-subsection-border: var(--canvas-hero-subsection-border);
+  --canvas-01-card-02: var(--color-coolsteel-50);
+  --canvas-01-card-02-border: var(--color-coolsteel-500);
+  --canvas-01-card-03: var(--color-blaze-50);
+  --canvas-01-card-03-border: var(--color-blaze-500);
+  --canvas-hero-subsection: var(--color-softlinen-50);
+  --canvas-01-subsection: var(--color-softlinen-50);
+  --canvas-hero-subsection-border: var(--color-mutedteal-500);
+  --canvas-01-subsection-border: var(--color-mutedteal-500);
   --canvas-01-subsection-shadow: var(--canvas-hero-subsection-shadow);
+  --ink-hero-card-01: var(--color-smartblue-800);
+  --ink-card-01: var(--color-smartblue-800);
   --ink-hero-card-01-h2: var(--color-smartblue-700);
   --ink-card-01-h2: var(--color-smartblue-700);
   --ink-hero-card-01-h3: var(--color-radioactive-600);
   --ink-card-01-h3: var(--color-radioactive-600);
+  --ink-hero-card-02: var(--color-smartblue-800);
+  --ink-card-02: var(--color-smartblue-800);
+  --ink-hero-card-02-h2: var(--color-smartblue-700);
+  --ink-card-02-h2: var(--color-smartblue-700);
+  --ink-hero-card-02-h3: var(--color-coolsteel-700);
+  --ink-card-02-h3: var(--color-coolsteel-700);
+  --ink-hero-card-02-strong: var(--color-coolsteel-900);
+  --ink-card-02-strong: var(--color-coolsteel-900);
+  --ink-hero-card-03-h2: var(--color-smartblue-700);
+  --ink-card-03-h2: var(--color-smartblue-700);
+  --ink-hero-card-03-h3: var(--color-blaze-700);
+  --ink-card-03-h3: var(--color-blaze-700);
+  --ink-hero-subsection-h2: var(--color-smartblue-700);
+  --ink-subsection-h2: var(--color-smartblue-700);
+  --ink-hero-subsection-h3: var(--color-softlinen-700);
+  --ink-subsection-h3: var(--color-softlinen-700);
   --ink-hero-strong: var(--color-smartblue-950);
   --ink-01-strong: var(--color-smartblue-950);
   --ink-hero-em: var(--color-smartblue-950);
@@ -2065,10 +2089,10 @@
   --ink-hero-code: var(--color-smartblue-950);
   --ink-01-code: var(--color-smartblue-950);
   --canvas-01-code: var(--canvas-hero-code);
-  --ink-hero-pre: var(--color-smartblue-950);
-  --ink-01-pre: var(--color-smartblue-950);
-  --canvas-hero-pre: var(--color-smartblue-100);
-  --canvas-01-pre: var(--color-smartblue-100);
+  --ink-hero-pre: var(--color-radioactive-50);
+  --ink-01-pre: var(--color-radioactive-50);
+  --canvas-hero-pre: var(--color-coolsteel-900);
+  --canvas-01-pre: var(--color-coolsteel-900);
   --ink-hero-label: var(--color-smartblue-800);
   --ink-01-label: var(--color-smartblue-800);
   --ink-01-input: var(--ink-hero-input);
@@ -3662,6 +3686,65 @@
 .sg-codersmill-hero blockquote {
   font-family: var(--font-open-sans);
   font-size: 1.125rem;
+  font-weight: 400;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-card-01) h2 {
+  font-family: var(--font-roboto-condensed);
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-card-01) h3 {
+  font-family: var(--font-roboto-condensed);
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-card-01) p {
+  font-family: var(--font-inter);
+  font-size: 1rem;
+  font-weight: 400;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-card-02) h2 {
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-card-02) h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  font-family: var(--font-roboto-condensed);
+}
+.sg-codersmill-hero :where(.bg-canvas-01-card-02) p {
+  font-family: var(--font-inter);
+  font-size: 1rem;
+  font-weight: 400;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-card-03) h2 {
+  font-family: var(--font-roboto-condensed);
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-card-03) h3 {
+  font-family: var(--font-roboto-condensed);
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-card-03) p {
+  font-family: var(--font-inter);
+  font-size: 1rem;
+  font-weight: 400;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-subsection) h2 {
+  font-family: var(--font-roboto);
+  font-weight: 600;
+  font-size: 2.25rem;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-subsection) h3 {
+  font-family: var(--font-roboto-condensed);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.sg-codersmill-hero :where(.bg-canvas-01-subsection) p {
+  font-family: var(--font-inter);
+  font-size: 1rem;
   font-weight: 400;
 }
 /* end theme-group: codersmill */

@@ -3017,7 +3017,7 @@
             "contrastText": "theme"
           },
           "page": {
-            "background": "var(--color-platinum-50)",
+            "background": "var(--color-gray-50)",
             "border": "theme",
             "shadow": "theme",
             "accent1": "theme",
@@ -3313,7 +3313,7 @@
             "anchorSvgStrokeActive": "theme"
           },
           "hero": {
-            "background": "var(--color-smartblue-50)",
+            "background": "var(--color-softlinen-50)",
             "border": "transparent",
             "shadow": "transparent",
             "accent1": "var(--color-mutedteal-100)",
@@ -3340,24 +3340,24 @@
             "accentFocus": "theme",
             "text": "var(--color-smartblue-700)",
             "h1": "var(--color-smartblue-700)",
-            "h2": "var(--color-coolsteel-600)",
+            "h2": "var(--color-coolsteel-700)",
             "h3": "var(--color-smartblue-700)",
-            "h4": "var(--color-coolsteel-600)",
+            "h4": "var(--color-coolsteel-700)",
             "muted": "var(--color-prusssianblue-500)",
             "highlight": "var(--color-blaze-500)",
             "card": "var(--color-mutedteal-50)",
             "cardBorder": "var(--color-radioactive-500)",
             "cardShadow": "theme",
-            "card02": "theme",
-            "card02Border": "theme",
+            "card02": "var(--color-coolsteel-50)",
+            "card02Border": "var(--color-coolsteel-500)",
             "card02Shadow": "theme",
-            "card03": "theme",
-            "card03Border": "theme",
+            "card03": "var(--color-blaze-50)",
+            "card03Border": "var(--color-blaze-500)",
             "card03Shadow": "theme",
-            "subsection": "theme",
-            "subsectionBorder": "theme",
+            "subsection": "var(--color-softlinen-50)",
+            "subsectionBorder": "var(--color-mutedteal-500)",
             "subsectionShadow": "theme",
-            "card1Text": "theme",
+            "card1Text": "var(--color-smartblue-800)",
             "card1H2": "var(--color-smartblue-700)",
             "card1H3": "var(--color-radioactive-600)",
             "card1Strong": "theme",
@@ -3367,10 +3367,10 @@
             "card1Highlight": "theme",
             "card1Blockquote": "theme",
             "card1PreBackground": "theme",
-            "card2Text": "theme",
-            "card2H2": "theme",
-            "card2H3": "theme",
-            "card2Strong": "theme",
+            "card2Text": "var(--color-smartblue-800)",
+            "card2H2": "var(--color-smartblue-700)",
+            "card2H3": "var(--color-coolsteel-700)",
+            "card2Strong": "var(--color-coolsteel-900)",
             "card2Em": "theme",
             "card2Pre": "theme",
             "card2Muted": "theme",
@@ -3378,8 +3378,8 @@
             "card2Blockquote": "theme",
             "card2PreBackground": "theme",
             "card3Text": "theme",
-            "card3H2": "theme",
-            "card3H3": "theme",
+            "card3H2": "var(--color-smartblue-700)",
+            "card3H3": "var(--color-blaze-700)",
             "card3Strong": "theme",
             "card3Em": "theme",
             "card3Pre": "theme",
@@ -3388,8 +3388,8 @@
             "card3Blockquote": "theme",
             "card3PreBackground": "theme",
             "subsectionText": "theme",
-            "subsectionH2": "theme",
-            "subsectionH3": "theme",
+            "subsectionH2": "var(--color-smartblue-700)",
+            "subsectionH3": "var(--color-softlinen-700)",
             "subsectionStrong": "theme",
             "subsectionEm": "theme",
             "subsectionPre": "theme",
@@ -3401,8 +3401,8 @@
             "em": "var(--color-smartblue-950)",
             "code": "var(--color-smartblue-950)",
             "codeBackground": "theme",
-            "pre": "var(--color-smartblue-950)",
-            "preBackground": "var(--color-smartblue-100)",
+            "pre": "var(--color-radioactive-50)",
+            "preBackground": "var(--color-coolsteel-900)",
             "label": "var(--color-smartblue-800)",
             "inputText": "theme",
             "inputBackground": "var(--color-softlinen-50)",
@@ -6033,6 +6033,73 @@
           "blockquote": {
             "font-family": "var(--font-open-sans)",
             "font-size": "1.125rem",
+            "font-weight": "400"
+          }
+        },
+        "hero/card1": {
+          "h2": {
+            "font-family": "var(--font-roboto-condensed)",
+            "font-size": "1.875rem",
+            "font-weight": "600"
+          },
+          "h3": {
+            "font-family": "var(--font-roboto-condensed)",
+            "font-size": "1.25rem",
+            "font-weight": "500"
+          },
+          "p": {
+            "font-family": "var(--font-inter)",
+            "font-size": "1rem",
+            "font-weight": "400"
+          }
+        },
+        "hero/card2": {
+          "p": {
+            "font-family": "var(--font-inter)",
+            "font-size": "1rem",
+            "font-weight": "400"
+          },
+          "h3": {
+            "font-size": "1.25rem",
+            "font-weight": "500",
+            "font-family": "var(--font-roboto-condensed)"
+          },
+          "h2": {
+            "font-size": "1.875rem",
+            "font-weight": "600"
+          }
+        },
+        "hero/card3": {
+          "h2": {
+            "font-family": "var(--font-roboto-condensed)",
+            "font-size": "1.875rem",
+            "font-weight": "600"
+          },
+          "h3": {
+            "font-family": "var(--font-roboto-condensed)",
+            "font-size": "1.25rem",
+            "font-weight": "500"
+          },
+          "p": {
+            "font-family": "var(--font-inter)",
+            "font-size": "1rem",
+            "font-weight": "400"
+          }
+        },
+        "hero/subsection": {
+          "h2": {
+            "font-family": "var(--font-roboto)",
+            "font-weight": "600",
+            "font-size": "2.25rem"
+          },
+          "h3": {
+            "font-family": "var(--font-roboto-condensed)",
+            "font-size": "1.5rem",
+            "font-weight": "500"
+          },
+          "p": {
+            "font-family": "var(--font-inter)",
+            "font-size": "1rem",
             "font-weight": "400"
           }
         }
