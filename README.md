@@ -59,6 +59,7 @@ colors** / **Show custom colors**).
 | 2    | Add custom fonts        | `src/styles/themes/fonts.css` (through `npm run fonts:add`)                   |
 | 3    | Theme Builder           | `theme-groups.json`, `groups.css`, and `sitewide.css` in `src/styles/themes/` |
 | 4    | Typography Builder      | `sitewide.css`, and theme groups                                              |
+| –    | Display Blocks          | Nothing (a preview)                                                           |
 | 5    | Page Builder            | `src/pages/<page>.astro`, and component copies in `src/components/`           |
 | 6    | Component Styling       | The component files in `src/components/`                                      |
 | 7    | Site Nav Builder        | Nothing (a live draft)                                                        |
@@ -159,6 +160,17 @@ an accent link keeps the accent's font rather than the link's.
 The **Input label** and **Input text** elements set the typography of form
 fields in the same places: `label`, and the text typed into `input`,
 `textarea`, and `select`.
+
+### Display Blocks
+
+Browse every block in `src/components/blocks/` from the directory on the left,
+filter it by name, and see the selected block with a theme group. The floating
+**Theme Group Picker** chooses the group, the area the block is shown as (Hero
+or Section 01–06), and light or dark mode. The block is wrapped as the Page
+Builder wraps it: `sg-<group>-page` around a `<section>` with
+`sg-<group>-<area>`. Headers and footers use their sitewide styles
+(`sw-header`, `sw-footer`) instead. Groups are read from `groups.css`, so
+reload the page after saving a new group.
 
 ### 5. Page Builder
 

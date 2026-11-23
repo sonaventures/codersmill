@@ -1,0 +1,507 @@
+---
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+import Layout from "../../../layouts/layout.astro";
+import "../../../styles/website-builder/websitebuilder.css";
+import {
+  blockDirectory,
+  blockViewPath,
+  blocks,
+} from "../../../data/website-builder/display-blocks";
+import {
+  classGroupAreas,
+  parseGroupClasses,
+} from "../../../data/website-builder/group-classes";
+
+// The theme groups saved to groups.css. It is read on each request in
+// development, so a group saved in the Theme Builder shows up on reload.
+let groupsCss = "";
+try {
+  groupsCss = await readFile(
+    join(process.cwd(), "src/styles/themes/groups.css"),
+    "utf8",
+  );
+} catch {
+  // No groups saved to the project yet.
+}
+const groups = [
+  ...new Map(
+    parseGroupClasses(groupsCss).map(({ group, groupName }) => [
+      group,
+      groupName,
+    ]),
+  ),
+];
+const areas = classGroupAreas.filter(({ suffix }) => suffix !== "page");
+const directory = blockDirectory();
+---
+
+<Layout
+  siteName="Website Builder"
+  title="Display Blocks"
+  description="Preview the blocks with your theme groups."
+  showHeader={false}
+  showFooter={false}
+>
+  <div class="display-blocks" data-website-builder-content data-builder-ui>
+    <aside
+      class="display-blocks-directory"
+      aria-labelledby="display-blocks-title"
+    >
+      <div class="display-blocks-heading">
+        <h1 id="display-blocks-title">Display Blocks</h1>
+        <a href="/website-builder/">Builder</a>
+      </div>
+      <p class="display-blocks-hint">
+        Pick a block, then choose a theme group in the palette.
+      </p>
+      <label class="display-blocks-filter">
+        <span>Filter blocks</span>
+        <input
+          type="search"
+          id="display-blocks-filter"
+          placeholder="e.g. hero or testimonials"
+          autocomplete="off"
+        />
+      </label>
+      <nav aria-label="Blocks">
+        {directory.map(({ library, categories }) => (
+          <details class="display-blocks-library" open data-library={library}>
+            <summary>
+              {library}{" "}
+              <span class="display-blocks-count">
+                {categories.reduce((sum, { blocks }) => sum + blocks.length, 0)}
+              </span>
+            </summary>
+            {categories.map(({ category, blocks }) => (
+              <details
+                class="display-blocks-category"
+                data-category={`${library}/${category}`}
+              >
+                <summary>
+                  {category}{" "}
+                  <span class="display-blocks-count">{blocks.length}</span>
+                </summary>
+                <ul>
+                  {blocks.map(({ id, name }) => (
+                    <li>
+                      <a
+                        href={blockViewPath(id)}
+                        data-block={id}
+                        data-search={id.toLowerCase()}
+                      >
+                        {name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </details>
+        ))}
+        {!blocks.length && <p>No blocks found in src/components/blocks.</p>}
+        <p id="display-blocks-empty" class="display-blocks-hint" hidden>
+          No blocks match the filter.
+        </p>
+      </nav>
+    </aside>
+
+    <div class="display-blocks-preview">
+      <div class="display-blocks-toolbar">
+        <strong id="display-blocks-current">No block selected</strong>
+        <a id="display-blocks-open" target="_blank" rel="noopener" hidden>
+          Open in a new tab
+        </a>
+      </div>
+      <iframe
+        id="display-blocks-frame"
+        title="Block preview"
+        src="about:blank"
+      ></iframe>
+      <p id="display-blocks-placeholder" class="display-blocks-placeholder">
+        Choose a block from the directory to display it here.
+      </p>
+    </div>
+
+    <details class="display-blocks-palette" open>
+      <summary>Theme Group Picker</summary>
+      <div class="display-blocks-palette-body">
+        <label>
+          <span>Theme group</span>
+          <select id="display-blocks-group">
+            <option value="">None (site defaults)</option>
+            {groups.map(([group, name]) => (
+              <option value={group}>{name}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Area</span>
+          <select id="display-blocks-area">
+            {areas.map(({ suffix, label }) => (
+              <option value={suffix} selected={suffix === "section-1"}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Mode</span>
+          <select id="display-blocks-theme">
+            <option value="">Builder setting</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+        <p
+          id="display-blocks-classes"
+          class="display-blocks-classes"
+          role="status"
+        ></p>
+      </div>
+      {!groups.length && (
+        <p class="display-blocks-hint">
+          No theme groups yet. Save one in the{" "}
+          <a href="/website-builder/theme-builder/">Theme Builder</a>.
+        </p>
+      )}
+    </details>
+  </div>
+</Layout>
+
+<style>
+  .display-blocks {
+    display: grid;
+    grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+    gap: 1rem;
+    height: 100dvh;
+    padding: 1rem;
+    box-sizing: border-box;
+    background: var(--builder-canvas);
+    color: var(--builder-ink);
+    font-family: var(--font-inter);
+  }
+  .display-blocks-directory,
+  .display-blocks-preview,
+  .display-blocks-palette {
+    border: 1px solid var(--builder-border);
+    border-radius: 0.75rem;
+    background: var(--builder-surface);
+  }
+  .display-blocks-directory {
+    min-height: 0;
+    overflow-y: auto;
+    padding: 1rem;
+  }
+  .display-blocks-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .display-blocks-heading h1 {
+    font-family: var(--font-montserrat);
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+  .display-blocks a {
+    color: inherit;
+  }
+  .display-blocks-heading a,
+  .display-blocks-toolbar a {
+    font-size: 0.875rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .display-blocks-hint {
+    margin: 0.5rem 0;
+    color: var(--builder-muted);
+    font-size: 0.875rem;
+  }
+  .display-blocks-filter,
+  .display-blocks-palette label {
+    display: grid;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .display-blocks-filter {
+    margin-bottom: 0.75rem;
+  }
+  .display-blocks input,
+  .display-blocks select {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--builder-border);
+    border-radius: 0.375rem;
+    background: var(--builder-surface);
+    color: var(--builder-ink);
+    padding: 0.4rem 0.6rem;
+    font: inherit;
+    font-weight: 400;
+  }
+  .display-blocks summary {
+    cursor: pointer;
+    border-radius: 0.375rem;
+    padding: 0.3rem 0.5rem;
+    font-weight: 600;
+  }
+  .display-blocks summary:hover,
+  .display-blocks-category a:hover {
+    background: var(--builder-subtle);
+  }
+  .display-blocks-library > summary {
+    text-transform: capitalize;
+  }
+  .display-blocks-category {
+    margin-inline-start: 0.75rem;
+  }
+  .display-blocks-category ul {
+    margin: 0 0 0.25rem 0.75rem;
+    padding: 0;
+    list-style: none;
+  }
+  .display-blocks-category a {
+    display: block;
+    border-radius: 0.375rem;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+  .display-blocks-category a[aria-current="true"] {
+    background: var(--builder-subtle);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .display-blocks-count {
+    color: var(--builder-muted);
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+  .display-blocks :focus-visible {
+    outline: 2px solid var(--builder-focus);
+    outline-offset: 2px;
+  }
+  .display-blocks-preview {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .display-blocks-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--builder-border);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  .display-blocks-preview iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: var(--builder-surface);
+  }
+  .display-blocks-placeholder {
+    position: absolute;
+    inset: 3rem 1rem auto;
+    text-align: center;
+    color: var(--builder-muted);
+  }
+  .display-blocks-palette {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 1rem;
+    z-index: 40;
+    width: min(46rem, calc(100% - 2rem));
+    margin-inline: auto;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.25);
+    padding: 0.5rem 0.75rem;
+  }
+  .display-blocks-palette-body {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding: 0.25rem 0.5rem 0.5rem;
+  }
+  .display-blocks-classes {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: var(--builder-muted);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 48rem) {
+    .display-blocks {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 16rem) minmax(0, 1fr);
+      height: auto;
+      min-height: 100dvh;
+      padding-bottom: 14rem;
+    }
+    .display-blocks-preview {
+      min-height: 70dvh;
+    }
+    .display-blocks-palette-body {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
+
+<script>
+  // As blockViewPath in display-blocks.ts, which is not imported here: it
+  // loads every block.
+  const blockViewPath = (id: string) =>
+    `/website-builder/display-blocks/view/${id}/`;
+
+  const get = <T extends HTMLElement>(selector: string) =>
+    document.querySelector<T>(selector)!;
+  const frame = get<HTMLIFrameElement>("#display-blocks-frame");
+  const placeholder = get("#display-blocks-placeholder");
+  const current = get("#display-blocks-current");
+  const openLink = get<HTMLAnchorElement>("#display-blocks-open");
+  const filter = get<HTMLInputElement>("#display-blocks-filter");
+  const empty = get("#display-blocks-empty");
+  const groupSelect = get<HTMLSelectElement>("#display-blocks-group");
+  const areaSelect = get<HTMLSelectElement>("#display-blocks-area");
+  const themeSelect = get<HTMLSelectElement>("#display-blocks-theme");
+  const classes = get("#display-blocks-classes");
+  const links = [
+    ...document.querySelectorAll<HTMLAnchorElement>("a[data-block]"),
+  ];
+  const storageKey = "display-blocks-state";
+
+  let block = "";
+  const isSitewide = (id: string) => /^[^/]+\/(?:header|footer)\//.test(id);
+
+  // Remembered in this browser: the last block and palette choices.
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) ?? "{}");
+    const pick = (select: HTMLSelectElement, value: unknown) => {
+      if (
+        typeof value === "string" &&
+        [...select.options].some((option) => option.value === value)
+      )
+        select.value = value;
+    };
+    pick(groupSelect, saved.group);
+    pick(areaSelect, saved.area);
+    pick(themeSelect, saved.theme);
+    if (typeof saved.block === "string") block = saved.block;
+  } catch {
+    // Nothing saved, or storage is unavailable.
+  }
+  const fromHash = decodeURIComponent(location.hash.replace(/^#block=/, ""));
+  if (links.some((link) => link.dataset.block === fromHash)) block = fromHash;
+
+  const state = () => ({
+    source: "display-blocks",
+    group: groupSelect.value,
+    area: areaSelect.value,
+    theme: themeSelect.value,
+  });
+  function save() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({ ...state(), block }));
+    } catch {
+      // Storage is unavailable.
+    }
+  }
+  function viewUrl(id: string) {
+    const { group, area, theme } = state();
+    const params = new URLSearchParams();
+    if (group) params.set("group", group);
+    params.set("area", area);
+    if (theme) params.set("theme", theme);
+    return `${blockViewPath(id)}?${params}`;
+  }
+  function describe() {
+    const sitewide = block && isSitewide(block);
+    groupSelect.disabled = Boolean(sitewide);
+    areaSelect.disabled = Boolean(sitewide);
+    const { group, area } = state();
+    classes.textContent = !block
+      ? ""
+      : sitewide
+        ? `Headers and footers use the sitewide styles (sw-${block.split("/")[1]}) from the Theme Builder.`
+        : group
+          ? `Applied: sg-${group}-page on the page, sg-${group}-${area} on the block's section.`
+          : "No theme group applied: the block uses the site defaults.";
+  }
+  function show(id: string) {
+    block = id;
+    for (const link of links) {
+      if (link.dataset.block !== id) {
+        link.removeAttribute("aria-current");
+        continue;
+      }
+      link.setAttribute("aria-current", "true");
+      const category = link.closest("details");
+      if (category) category.open = true;
+    }
+    frame.src = viewUrl(id);
+    placeholder.hidden = true;
+    current.textContent = id;
+    openLink.href = viewUrl(id);
+    openLink.hidden = false;
+    history.replaceState(null, "", `#block=${encodeURIComponent(id)}`);
+    describe();
+    save();
+  }
+  function update() {
+    frame.contentWindow?.postMessage(state(), location.origin);
+    if (block) openLink.href = viewUrl(block);
+    describe();
+    save();
+  }
+
+  for (const link of links)
+    link.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey) return;
+      event.preventDefault();
+      show(link.dataset.block!);
+    });
+  for (const select of [groupSelect, areaSelect, themeSelect])
+    select.addEventListener("change", update);
+  // The block may load before or after a palette change; send it again.
+  frame.addEventListener("load", () =>
+    frame.contentWindow?.postMessage(state(), location.origin),
+  );
+
+  filter.addEventListener("input", () => {
+    const query = filter.value.trim().toLowerCase();
+    let matches = 0;
+    for (const category of document.querySelectorAll<HTMLDetailsElement>(
+      ".display-blocks-category",
+    )) {
+      let shown = 0;
+      for (const link of category.querySelectorAll<HTMLAnchorElement>(
+        "a[data-block]",
+      )) {
+        const match = !query || link.dataset.search!.includes(query);
+        link.parentElement!.hidden = !match;
+        if (match) shown++;
+      }
+      category.hidden = !shown;
+      if (query) category.open = shown > 0;
+      matches += shown;
+    }
+    for (const library of document.querySelectorAll<HTMLDetailsElement>(
+      ".display-blocks-library",
+    ))
+      library.hidden = !library.querySelector(
+        ".display-blocks-category:not([hidden])",
+      );
+    empty.hidden = matches > 0;
+  });
+
+  if (links.some((link) => link.dataset.block === block)) show(block);
+  else describe();
+</script>

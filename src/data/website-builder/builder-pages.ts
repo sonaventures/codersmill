@@ -35,6 +35,11 @@ export const builderPages = [
       "Give a page's buttons, links, headings, and cards their theme colors.",
   },
   {
+    label: "Display Blocks",
+    href: "/website-builder/display-blocks/",
+    description: "Preview the blocks with your theme groups.",
+  },
+  {
     label: "Site Nav Builder",
     href: "/website-builder/sitenav-builder/",
     description: "Build a website menu with a live header preview.",

@@ -33,6 +33,10 @@ const steps: {
     guide: { label: "Typography guide", component: TypographyGuide },
   },
   {
+    label: "Display blocks with a theme group",
+    slug: "display-blocks",
+  },
+  {
     label: "Create a page and assign theme groups",
     slug: "page-builder",
   },
@@ -132,8 +136,7 @@ const initialPath = toolPath(steps[0].slug);
       aria-controls="builder-workspace-guide"
       title="Drag to resize the builder guide. Double-click to reset."
       tabindex="0"
-    >
-    </div>
+    ></div>
 
     <section class="builder-workspace-tool" aria-label="Selected builder">
       <a
@@ -253,7 +256,9 @@ const initialPath = toolPath(steps[0].slug);
   // and End. Double-click resets it. The width is remembered in this browser.
   const workspace = document.querySelector<HTMLElement>(".builder-workspace");
   const guide = document.querySelector<HTMLElement>("#builder-workspace-guide");
-  const handle = document.querySelector<HTMLElement>("#builder-workspace-resize");
+  const handle = document.querySelector<HTMLElement>(
+    "#builder-workspace-resize",
+  );
   const widthKey = "website-builder-guide-width";
   const minWidth = 192;
   // Keep at least this much room for the tool.
