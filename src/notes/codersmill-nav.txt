@@ -1,0 +1,26 @@
+Services
+    consultation
+    design
+    implementation
+    training
+    support
+Projects
+    websites
+    networking
+    backoffice
+    iot
+    automation
+Tools
+    website builder
+Resources
+    blog
+    docs
+    public github
+    login
+Us
+    who we are
+    mission/philosophy
+    our approach
+    the squad
+    join us
+    contact us    
