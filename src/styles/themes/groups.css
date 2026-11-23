@@ -2033,8 +2033,8 @@
   --accent-01-02-hover-border: var(--color-energeticorange-500);
   --accent-hero-02-text: var(--color-energeticorange-900);
   --accent-01-02-text: var(--color-energeticorange-900);
-  --accent-hero-02-hover-text: var(--color-energeticorange-950);
-  --accent-01-02-hover-text: var(--color-energeticorange-950);
+  --accent-hero-02-hover-text: var(--color-black);
+  --accent-01-02-hover-text: var(--color-black);
   --accent-01-02-shadow: var(--accent-hero-02-shadow);
   --accent-hero-03: var(--color-coolsteel-200);
   --accent-01-03: var(--color-coolsteel-200);
@@ -2118,8 +2118,8 @@
   --ink-hero-code: var(--color-smartblue-950);
   --ink-01-code: var(--color-smartblue-950);
   --canvas-01-code: var(--canvas-hero-code);
-  --ink-hero-pre: var(--color-radioactive-50);
-  --ink-01-pre: var(--color-radioactive-50);
+  --ink-hero-pre: var(--color-radioactive-200);
+  --ink-01-pre: var(--color-radioactive-200);
   --canvas-hero-pre: var(--color-coolsteel-950);
   --canvas-01-pre: var(--color-coolsteel-950);
   --ink-hero-label: var(--color-smartblue-800);
