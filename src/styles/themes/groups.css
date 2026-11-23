@@ -1832,12 +1832,19 @@
   --accent-01-03-hover-text: var(--accent-page-03-hover-text);
   --accent-01-03-shadow: var(--accent-page-03-shadow);
   --accent-01-focus: var(--accent-page-focus);
-  --ink-01: var(--ink-page);
-  --ink-01-h1: var(--ink-page-first-header);
-  --ink-01-h2: var(--ink-page-second-header);
-  --ink-01-h3: var(--ink-page-third-header);
-  --ink-01-muted: var(--ink-page-muted);
-  --ink-01-highlight: var(--ink-page-highlight);
+  --ink-page: var(--color-smartblue-700);
+  --ink-01: var(--color-smartblue-700);
+  --ink-page-first-header: var(--color-smartblue-700);
+  --ink-01-h1: var(--color-smartblue-700);
+  --ink-page-second-header: var(--color-coolsteel-700);
+  --ink-01-h2: var(--color-coolsteel-700);
+  --ink-page-third-header: var(--color-smartblue-700);
+  --ink-01-h3: var(--color-smartblue-700);
+  --ink-01-h4: var(--color-coolsteel-700);
+  --ink-page-muted: var(--color-prusssianblue-600);
+  --ink-01-muted: var(--color-prusssianblue-600);
+  --ink-page-highlight: var(--color-smartblue-300);
+  --ink-01-highlight: var(--color-smartblue-300);
   --canvas-01-card-01: var(--canvas-page-card-01);
   --canvas-01-card-01-border: var(--canvas-page-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-page-card-01-shadow);
@@ -1850,17 +1857,24 @@
   --canvas-01-subsection: var(--canvas-page-subsection);
   --canvas-01-subsection-border: var(--canvas-page-subsection-border);
   --canvas-01-subsection-shadow: var(--canvas-page-subsection-shadow);
-  --ink-01-strong: var(--ink-page-strong);
-  --ink-01-em: var(--ink-page-em);
+  --ink-page-strong: var(--color-smartblue-900);
+  --ink-01-strong: var(--color-smartblue-900);
+  --ink-page-em: var(--color-smartblue-800);
+  --ink-01-em: var(--color-smartblue-800);
   --ink-01-code: var(--ink-page-code);
   --canvas-01-code: var(--canvas-page-code);
   --ink-01-pre: var(--ink-page-pre);
   --canvas-01-pre: var(--canvas-page-pre);
-  --ink-01-label: var(--ink-page-label);
-  --ink-01-input: var(--ink-page-input);
-  --canvas-01-input: var(--canvas-page-input);
-  --canvas-01-input-border: var(--canvas-page-input-border);
-  --ink-01-placeholder: var(--ink-page-placeholder);
+  --ink-page-label: var(--color-smartblue-700);
+  --ink-01-label: var(--color-smartblue-700);
+  --ink-page-input: var(--color-mutedteal-600);
+  --ink-01-input: var(--color-mutedteal-600);
+  --canvas-page-input: var(--color-mutedteal-50);
+  --canvas-01-input: var(--color-mutedteal-50);
+  --canvas-page-input-border: var(--color-mutedteal-500);
+  --canvas-01-input-border: var(--color-mutedteal-500);
+  --ink-page-placeholder: var(--color-mutedteal-700);
+  --ink-01-placeholder: var(--color-mutedteal-700);
   --accent-01-input-focus: var(--accent-page-input-focus);
   --ink-01-blockquote: var(--ink-page-blockquote);
   --canvas-01-blockquote-border: var(--canvas-page-blockquote-border);
@@ -2113,8 +2127,8 @@
   --ink-01-input: var(--ink-hero-input);
   --canvas-hero-input: var(--color-mutedteal-50);
   --canvas-01-input: var(--color-mutedteal-50);
-  --canvas-hero-input-border: var(--color-smartblue-800);
-  --canvas-01-input-border: var(--color-smartblue-800);
+  --canvas-hero-input-border: var(--color-coolsteel-400);
+  --canvas-01-input-border: var(--color-coolsteel-400);
   --ink-hero-placeholder: var(--color-mutedteal-500);
   --ink-01-placeholder: var(--color-mutedteal-500);
   --accent-01-input-focus: var(--accent-hero-input-focus);
@@ -3685,6 +3699,29 @@
   :where(.sg-codersmill-section-6) hr {
     border-color: var(--canvas-01-divider, var(--canvas-01-border));
   }
+}
+.sg-codersmill-page h1 {
+  font-family: var(--font-jetbrains-mono);
+  font-size: 3.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.sg-codersmill-page h2 {
+  font-family: var(--font-roboto-condensed);
+  font-size: 2.25rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+.sg-codersmill-page h3 {
+  font-family: var(--font-roboto-condensed);
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+.sg-codersmill-page h4 {
+  font-family: var(--font-roboto-flex);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
 }
 .sg-codersmill-hero h1 {
   font-family: var(--font-jetbrains-mono);
