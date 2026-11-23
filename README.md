@@ -100,11 +100,13 @@ the outer element's background, border, and shadow color, then `p`, `h1`–`h4`,
 utility on a component's element still wins.
 
 Each area also has three **accents**, Accent 1–3, for its buttons and
-action links. Each accent has seven colors: background, border, text, and
-shadow, and a hover / focus background, border, and text. Their variables
+action links. Each accent has eight colors: background, border, text, and
+shadow, a hover / focus background, border, and text, and an active
+(pressed) border. Their variables
 name the area and the accent, e.g. `--accent-01-02-hover-border` is Accent
 2's hover / focus border in Section 01. Left on **Theme default**, hover /
-focus colors use the accent's own colors, Accent 2 and 3 use Accent 1's
+focus colors use the accent's own colors, the active border uses the hover /
+focus border, Accent 2 and 3 use Accent 1's
 border and shadow, Accent 2 takes the area's background and text, and Accent
 3 is a text link in the area's focus color.
 
@@ -118,7 +120,7 @@ presets (`bg-canvas-01-card-02`, `bg-canvas-01-subsection`), and
 for the card's inside it.
 
 Each card and the subsection also has its own **Accent 1 and Accent 2**, with
-the same seven colors (`--accent-hero-card-01-02-hover` is Card 01's Accent 2
+the same eight colors (`--accent-hero-card-01-02-hover` is Card 01's Accent 2
 hover / focus background in the hero). Left on **Theme default**, they are
 the area's accents. Inside a card, `cards.css` swaps the area's Accent 1 and 2
 for the card's, so the Accent 1 and Accent 2 presets (`bg-accent-01-01`,
@@ -147,7 +149,7 @@ preview, its menu headers show Accent 1 with Nav SVG arrows, Contact is Accent
 sit beside them; click any of them to edit its colors.
 
 Groups are kept in the browser and in the project's `theme-groups.json`, and
-can be exported and imported as JSON (format version 33; older files still
+can be exported and imported as JSON (format version 34; older files still
 load, with their accent colors moved to the new names and their card text
 color given to every card).
 

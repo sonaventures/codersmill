@@ -180,6 +180,9 @@
   border-color: var(--sample-accent1HoverBorder);
   color: var(--sample-accent1HoverText);
 }
+.selector-shell .sample-navigation summary:active {
+  border-color: var(--sample-accent1ActiveBorder);
+}
 .selector-shell .sample-submenu {
   @apply absolute top-[calc(100%+0.25rem)] left-0 z-2 m-0 w-[min(12rem,70vw)] list-none p-[0.35rem];
   border: 1px solid var(--sample-accent1Border);
@@ -406,7 +409,7 @@
   @apply outline-offset-3;
 }
 /* Accent 1-3 (the primary, secondary, and action link samples) each take
-   their own seven colors. */
+   their own eight colors. */
 .selector-shell .sample-primary {
   --accent-button: var(--sample-accent1);
   --accent-button-hover: var(--sample-accent1Hover);
@@ -415,6 +418,7 @@
   --accent-button-text: var(--sample-accent1Text);
   --accent-button-hover-text: var(--sample-accent1HoverText);
   --accent-button-shadow: var(--sample-accent1Shadow);
+  --accent-button-active-border: var(--sample-accent1ActiveBorder);
 }
 .selector-shell .sample-secondary {
   --accent-button: var(--sample-accent2);
@@ -424,6 +428,7 @@
   --accent-button-text: var(--sample-accent2Text);
   --accent-button-hover-text: var(--sample-accent2HoverText);
   --accent-button-shadow: var(--sample-accent2Shadow);
+  --accent-button-active-border: var(--sample-accent2ActiveBorder);
 }
 .selector-shell .sample-action-link {
   --accent-button: var(--sample-accent3);
@@ -433,6 +438,7 @@
   --accent-button-text: var(--sample-accent3Text);
   --accent-button-hover-text: var(--sample-accent3HoverText);
   --accent-button-shadow: var(--sample-accent3Shadow);
+  --accent-button-active-border: var(--sample-accent3ActiveBorder);
 }
 .selector-shell :is(.sample-primary, .sample-secondary) {
   background: var(--accent-button);
@@ -604,6 +610,12 @@
   background: var(--accent-button-hover);
   border-color: var(--accent-button-hover-border);
   color: var(--accent-button-hover-text);
+}
+.selector-shell
+  [data-region]
+  .sample-buttons
+  :is(.sample-primary, .sample-secondary, .sample-action-link):active {
+  border-color: var(--accent-button-active-border);
 }
 .selector-shell [data-region] .sample-buttons button:hover {
   background: var(--sample-buttonHoverBackground);

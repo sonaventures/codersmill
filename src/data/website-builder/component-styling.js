@@ -118,21 +118,21 @@ export const stylePresets = [
     label: "Accent 1 button",
     group: "actions",
     classes:
-      "rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border focus-visible:outline-accent-01-focus",
+      "rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus",
   },
   {
     key: "accent-02",
     label: "Accent 2 button",
     group: "actions",
     classes:
-      "rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border focus-visible:outline-accent-01-focus",
+      "rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border active:inset-ring-accent-01-02-active-border focus-visible:outline-accent-01-focus",
   },
   {
     key: "accent-03",
     label: "Accent 3 button",
     group: "actions",
     classes:
-      "rounded-accent! bg-accent-01-03 text-accent-01-03-text inset-ring inset-ring-accent-01-03-border shadow-accent-01-03-shadow/20 hover:bg-accent-01-03-hover hover:text-accent-01-03-hover-text hover:inset-ring-accent-01-03-hover-border focus-visible:bg-accent-01-03-hover focus-visible:text-accent-01-03-hover-text focus-visible:inset-ring-accent-01-03-hover-border focus-visible:outline-accent-01-focus",
+      "rounded-accent! bg-accent-01-03 text-accent-01-03-text inset-ring inset-ring-accent-01-03-border shadow-accent-01-03-shadow/20 hover:bg-accent-01-03-hover hover:text-accent-01-03-hover-text hover:inset-ring-accent-01-03-hover-border focus-visible:bg-accent-01-03-hover focus-visible:text-accent-01-03-hover-text focus-visible:inset-ring-accent-01-03-hover-border active:inset-ring-accent-01-03-active-border focus-visible:outline-accent-01-focus",
   },
   {
     key: "link",

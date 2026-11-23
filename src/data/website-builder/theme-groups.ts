@@ -690,7 +690,7 @@ export const selectionColorRoles = [
 ] as const;
 
 /**
- * The seven colors of each accent button. Every area has three accents,
+ * The eight colors of each accent button. Every area has three accents,
  * e.g. --accent-01-02-hover-border is Accent 2's hover / focus border in
  * Section 01.
  */
@@ -706,6 +706,11 @@ export const accentParts = [
   { key: "Text", suffix: "-text", label: "text" },
   { key: "HoverText", suffix: "-hover-text", label: "hover / focus text" },
   { key: "Shadow", suffix: "-shadow", label: "shadow" },
+  {
+    key: "ActiveBorder",
+    suffix: "-active-border",
+    label: "active border",
+  },
 ] as const;
 type AccentPart = (typeof accentParts)[number];
 
@@ -726,7 +731,7 @@ export const accentColorRoles = [
 
 /**
  * Each card and the subsection have their own Accent 1 and Accent 2, with the
- * same seven colors as the area's, e.g. --accent-hero-card-01-02-hover is
+ * same eight colors as the area's, e.g. --accent-hero-card-01-02-hover is
  * Card 01's Accent 2 hover / focus background in the hero. Until chosen they
  * are the area's accents.
  */
@@ -800,6 +805,8 @@ function accentFallback(
       return own("");
     case "HoverBorder":
       return own("Border");
+    case "ActiveBorder":
+      return own("HoverBorder");
     case "HoverText":
       return own("Text");
     case "Shadow":
@@ -1554,12 +1561,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 30 &&
       data.version !== 31 &&
       data.version !== 32 &&
-      data.version !== 33) ||
+      data.version !== 33 &&
+      data.version !== 34) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 33 theme group file with up to 100 groups.",
+      "Expected a version 1 through 34 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1633,6 +1641,15 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
               : old.startsWith("#")
                 ? old.toLowerCase()
                 : old;
+            continue;
+          }
+          // Version 34 added each accent's active border.
+          if (
+            data.version < 34 &&
+            (accentRole(role)?.part.key === "ActiveBorder" ||
+              cardAccentRole(role)?.part.key === "ActiveBorder")
+          ) {
+            regionColors[role] = "theme";
             continue;
           }
           // Version 33 added SVG icon 2 (.svg-2).
@@ -1826,7 +1843,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 33, groups }, null, 2);
+  return JSON.stringify({ version: 34, groups }, null, 2);
 }
 
 /**
