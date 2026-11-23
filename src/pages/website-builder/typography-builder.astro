@@ -186,6 +186,10 @@ const accentClass = (element: string) =>
                       <span class={accentClass(Element)} data-sample-accent>
                         {typographyLabel(Element)} button
                       </span>
+                    ) : Element === "menuHeader" ? (
+                      <a class="menu-header" data-sample-menu-header>
+                        Services
+                      </a>
                     ) : Element === "label" ? (
                       <label>Email address</label>
                     ) : Element === "input" ? (

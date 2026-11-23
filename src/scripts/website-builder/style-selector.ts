@@ -899,8 +899,10 @@ if (root) {
   // the page class wraps only what is between the header and footer. The
   // other areas' rules come later and are more specific, so they win, as in
   // groups.css.
-  // The preview's accent buttons, for the Accent 1-3 typography elements.
+  // The preview's menu headers and accent buttons, for the Menu header and
+  // Accent 1-3 typography elements.
   const sampleAccents: Record<string, string> = {
+    menuHeader: ".sample-navigation summary",
     accent1: ".sample-primary",
     accent2: ".sample-secondary",
     accent3: ".sample-action-link",
@@ -1068,8 +1070,8 @@ if (root) {
       target.nextElementSibling instanceof HTMLElement
         ? target.nextElementSibling
         : target;
-    // An accent button picks its accent, before its tag (Accent 3 is a link);
-    // a form field picks Input label or Input text.
+    // A menu header or accent button picks its element, before its tag
+    // (Accent 3 is a link); a form field picks Input label or Input text.
     const accent = Object.entries(sampleAccents).find(([, selector]) =>
       element.matches(selector),
     )?.[0];

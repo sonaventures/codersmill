@@ -58,6 +58,7 @@ const inSection = (section: (typeof navigation)[number]) =>
               return (
                 <li class="nav-item" data-nav-item>
                   <a
+                    class="menu-header"
                     href={section.href}
                     aria-current={
                       currentPath === section.href ? "page" : undefined

@@ -17,7 +17,21 @@ export const typographyFields = [
     selector: ":is(input, textarea, select)",
   },
 ];
-const namedElements = [...typographyAccents, ...typographyFields];
+/**
+ * The menu headers: the top-level items of a site menu, marked with the
+ * menu-header class (the CodersMill header's section links have it). Its
+ * rules outrank the link rules (a) in the same area.
+ */
+export const typographyMenuHeader = {
+  key: "menuHeader",
+  label: "Menu header",
+  selector: ".menu-header",
+};
+const namedElements = [
+  typographyMenuHeader,
+  ...typographyAccents,
+  ...typographyFields,
+];
 export const typographyElements = [
   "h1",
   "h2",
@@ -34,19 +48,23 @@ export const typographyElements = [
   "blockquote",
   // Links, e.g. the menu and logo in a header or the links in a footer.
   "a",
+  typographyMenuHeader.key,
   ...typographyFields.map(({ key }) => key),
   ...typographyAccents.map(({ key }) => key),
 ];
 
 /**
  * The CSS selector for a typography element: its tag, a form field's
- * selector, or an accent's class.
+ * selector, or the menu header's or an accent's class.
  */
 export function typographySelector(element) {
   return namedElements.find(({ key }) => key === element)?.selector ?? element;
 }
 
-/** The label for a typography element: its tag, "Input text", or "Accent 1". */
+/**
+ * The label for a typography element: its tag, or a name such as
+ * "Menu header", "Input text", or "Accent 1".
+ */
 export function typographyLabel(element) {
   return namedElements.find(({ key }) => key === element)?.label ?? element;
 }

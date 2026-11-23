@@ -301,3 +301,24 @@ test("input labels and input text take their own typography", async () => {
     /^\.sg-brand-hero :is\(input, textarea, select\) \{/m,
   );
 });
+
+test("menu headers take their own typography", async () => {
+  const {
+    typographyElements,
+    typographyLabel,
+    typographyRulesCss,
+    validateTypography,
+  } = await import("./typography-builder.js");
+  assert.ok(typographyElements.includes("menuHeader"));
+  assert.equal(typographyLabel("menuHeader"), "Menu header");
+  const rules = { menuHeader: { "font-family": "var(--font-syne)" } };
+  validateTypography({ ...createTypography(), defaults: rules });
+  assert.match(
+    typographyRulesCss(rules, ".sw-header ").join("\n"),
+    /^\.sw-header \.menu-header \{\n  font-family: var\(--font-syne\);/m,
+  );
+  // It comes after the link rule, so a menu header keeps its own font.
+  assert.ok(
+    typographyElements.indexOf("menuHeader") > typographyElements.indexOf("a"),
+  );
+});

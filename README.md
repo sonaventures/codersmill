@@ -164,6 +164,11 @@ any card or subsection from the Theme Builder's Typography tab. They target
 the background class of the Accent presets (`bg-accent-01-01` and so on), so
 an accent link keeps the accent's font rather than the link's.
 
+The **Menu header** element sets the font of a site menu's top-level items
+(the links with the `menu-header` class, which the CodersMill header's section
+links have) in the same places; in the Theme Builder, click a menu header in
+the header preview to select it.
+
 The **Input label** and **Input text** elements set the typography of form
 fields in the same places: `label`, and the text typed into `input`,
 `textarea`, and `select`.
