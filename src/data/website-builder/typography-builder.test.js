@@ -255,3 +255,25 @@ test("reads and writes theme id.css using project directory handles", async () =
 
   assert.deepEqual(await readThemeIdFile(null), { handle: null, css: "" });
 });
+
+test("accent typography is written for the accent presets' classes", async () => {
+  const { typographyElements, typographyLabel, typographySelector } =
+    await import("./typography-builder.js");
+  const { stylePresets: presets } = await import("./component-styling.js");
+  for (const [number, element] of ["accent1", "accent2", "accent3"].entries()) {
+    assert.ok(typographyElements.includes(element));
+    assert.equal(typographyLabel(element), `Accent ${number + 1}`);
+    // Each Accent preset carries the class the typography targets.
+    const preset = presets.find(({ key }) => key === `accent-0${number + 1}`);
+    assert.ok(
+      preset.classes.split(" ").includes(typographySelector(element).slice(1)),
+    );
+  }
+  const config = createTypography();
+  config.defaults.accent1 = { "font-family": "var(--font-mono)" };
+  config.defaults.a = { "font-weight": "400" };
+  const css = typographyCss(config);
+  assert.match(css, /^a \{/);
+  assert.match(css, /\.bg-accent-01-01 \{\n  font-family: var\(--font-mono\);/);
+  assert.deepEqual(parseTypography(serializeTypography(config)), config);
+});

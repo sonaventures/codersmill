@@ -515,3 +515,85 @@ test("cards and the subsection get their own typography after the area's", async
     /\.sg-type-section-3 :where\(\.bg-canvas-01-subsection\) p \{\n {2}font-size: 0\.875rem;/,
   );
 });
+
+test("area classes set the card accent colors the cards read", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { areaDeclarations } =
+    await import("../../src/data/website-builder/group-classes.ts");
+  const {
+    accentParts,
+    cardAccents,
+    cardTargets,
+    createDefaultColors: defaults,
+  } = await import("../../src/data/website-builder/theme-groups.ts");
+  const colors = defaults();
+  colors.hero.card1Accent2Hover = "var(--color-sky-600)";
+  const declarations = areaDeclarations(colors, "hero");
+  assert.equal(
+    declarations.get("accent-hero-card-01-02-hover"),
+    "var(--color-sky-600)",
+  );
+  assert.equal(
+    declarations.get("accent-card-01-02-hover"),
+    "var(--color-sky-600)",
+  );
+  // A card accent is not mapped onto the area's shared accent.
+  assert.notEqual(
+    declarations.get("accent-01-02-hover"),
+    "var(--color-sky-600)",
+  );
+  // cards.css points every card accent at the area's, and inside each card
+  // the area's Accent 1 and 2 become the card's.
+  const css = await readFile(
+    new URL("../../src/styles/utilities/cards.css", import.meta.url),
+    "utf8",
+  );
+  for (const target of cardTargets)
+    for (const number of cardAccents)
+      for (const part of accentParts) {
+        const accent = `0${number}${part.suffix}`;
+        assert.ok(
+          css.includes(
+            `--accent-${target.token}-${accent}: var(--accent-01-${accent});`,
+          ),
+          `default for ${target.key} Accent ${number}${part.key}`,
+        );
+        assert.ok(
+          css.includes(
+            `--accent-01-${accent}: var(--accent-${target.token}-${accent});`,
+          ),
+          `remap for ${target.key} Accent ${number}${part.key}`,
+        );
+      }
+  // Accent 3 stays the area's.
+  assert.ok(!css.includes("--accent-card-01-03"));
+});
+
+test("accent typography targets the accent presets in every area", async () => {
+  const { generateGroupCss } =
+    await import("../../src/data/website-builder/group-classes.ts");
+  const { createDefaultColors: defaults, defaultRadii: radii } =
+    await import("../../src/data/website-builder/theme-groups.ts");
+  const css = generateGroupCss({
+    id: "accent-type",
+    name: "Accent type",
+    themes: { light: defaults(), dark: defaults() },
+    radii: { ...radii },
+    sectionIds: {},
+    widths: {},
+    typography: {
+      hero: { accent1: { "font-family": "var(--font-serif)" } },
+      "section2/card3": { accent2: { "font-weight": "700" } },
+      page: { accent3: { "text-transform": "uppercase" } },
+    },
+  });
+  assert.match(
+    css,
+    /\.sg-accent-type-hero \.bg-accent-01-01 \{\n  font-family: var\(--font-serif\);\n\}/,
+  );
+  assert.match(
+    css,
+    /\.sg-accent-type-section-2 :where\(\.bg-canvas-01-card-03\) \.bg-accent-01-02 \{\n  font-weight: 700;\n\}/,
+  );
+  assert.match(css, /\.sg-accent-type-page \.bg-accent-01-03 \{/);
+});

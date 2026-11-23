@@ -1,13 +1,14 @@
 /*
  * Card and subsection content. Each card (Card 01-03) and the subsection
  * styles its own text, headings, strong, em, pre, muted, highlight, and quote
- * colors, and its code block background. A theme group's area class sets
- * --ink-card-01 and the rest for the colors chosen in the Theme Builder;
- * until then they are the area's own.
+ * colors, its code block background, and its Accent 1 and Accent 2 (seven
+ * colors each). A theme group's area class sets --ink-card-01,
+ * --accent-card-01-01, and the rest for the colors chosen in the Theme
+ * Builder; until then they are the area's own.
  * Inside a card, found by the background class from Component Styling's card
- * and subsection presets, the area's text variables become the card's, so
- * the theme group's element colors and the text-ink-01-* utilities follow
- * the card.
+ * and subsection presets, the area's text and accent variables become the
+ * card's, so the theme group's element colors, the text-ink-01-* utilities,
+ * and the Accent 1 / Accent 2 presets (bg-accent-01-01, ...) follow the card.
  */
 @layer base {
   :root,
@@ -22,6 +23,20 @@
     --ink-card-01-highlight: var(--ink-01-highlight);
     --ink-card-01-blockquote: var(--ink-01-blockquote);
     --canvas-card-01-pre: var(--canvas-01-pre);
+    --accent-card-01-01: var(--accent-01-01);
+    --accent-card-01-01-hover: var(--accent-01-01-hover);
+    --accent-card-01-01-border: var(--accent-01-01-border);
+    --accent-card-01-01-hover-border: var(--accent-01-01-hover-border);
+    --accent-card-01-01-text: var(--accent-01-01-text);
+    --accent-card-01-01-hover-text: var(--accent-01-01-hover-text);
+    --accent-card-01-01-shadow: var(--accent-01-01-shadow);
+    --accent-card-01-02: var(--accent-01-02);
+    --accent-card-01-02-hover: var(--accent-01-02-hover);
+    --accent-card-01-02-border: var(--accent-01-02-border);
+    --accent-card-01-02-hover-border: var(--accent-01-02-hover-border);
+    --accent-card-01-02-text: var(--accent-01-02-text);
+    --accent-card-01-02-hover-text: var(--accent-01-02-hover-text);
+    --accent-card-01-02-shadow: var(--accent-01-02-shadow);
     --ink-card-02: var(--ink-01);
     --ink-card-02-h2: var(--ink-01-h2);
     --ink-card-02-h3: var(--ink-01-h3);
@@ -32,6 +47,20 @@
     --ink-card-02-highlight: var(--ink-01-highlight);
     --ink-card-02-blockquote: var(--ink-01-blockquote);
     --canvas-card-02-pre: var(--canvas-01-pre);
+    --accent-card-02-01: var(--accent-01-01);
+    --accent-card-02-01-hover: var(--accent-01-01-hover);
+    --accent-card-02-01-border: var(--accent-01-01-border);
+    --accent-card-02-01-hover-border: var(--accent-01-01-hover-border);
+    --accent-card-02-01-text: var(--accent-01-01-text);
+    --accent-card-02-01-hover-text: var(--accent-01-01-hover-text);
+    --accent-card-02-01-shadow: var(--accent-01-01-shadow);
+    --accent-card-02-02: var(--accent-01-02);
+    --accent-card-02-02-hover: var(--accent-01-02-hover);
+    --accent-card-02-02-border: var(--accent-01-02-border);
+    --accent-card-02-02-hover-border: var(--accent-01-02-hover-border);
+    --accent-card-02-02-text: var(--accent-01-02-text);
+    --accent-card-02-02-hover-text: var(--accent-01-02-hover-text);
+    --accent-card-02-02-shadow: var(--accent-01-02-shadow);
     --ink-card-03: var(--ink-01);
     --ink-card-03-h2: var(--ink-01-h2);
     --ink-card-03-h3: var(--ink-01-h3);
@@ -42,6 +71,20 @@
     --ink-card-03-highlight: var(--ink-01-highlight);
     --ink-card-03-blockquote: var(--ink-01-blockquote);
     --canvas-card-03-pre: var(--canvas-01-pre);
+    --accent-card-03-01: var(--accent-01-01);
+    --accent-card-03-01-hover: var(--accent-01-01-hover);
+    --accent-card-03-01-border: var(--accent-01-01-border);
+    --accent-card-03-01-hover-border: var(--accent-01-01-hover-border);
+    --accent-card-03-01-text: var(--accent-01-01-text);
+    --accent-card-03-01-hover-text: var(--accent-01-01-hover-text);
+    --accent-card-03-01-shadow: var(--accent-01-01-shadow);
+    --accent-card-03-02: var(--accent-01-02);
+    --accent-card-03-02-hover: var(--accent-01-02-hover);
+    --accent-card-03-02-border: var(--accent-01-02-border);
+    --accent-card-03-02-hover-border: var(--accent-01-02-hover-border);
+    --accent-card-03-02-text: var(--accent-01-02-text);
+    --accent-card-03-02-hover-text: var(--accent-01-02-hover-text);
+    --accent-card-03-02-shadow: var(--accent-01-02-shadow);
     --ink-subsection: var(--ink-01);
     --ink-subsection-h2: var(--ink-01-h2);
     --ink-subsection-h3: var(--ink-01-h3);
@@ -52,6 +95,20 @@
     --ink-subsection-highlight: var(--ink-01-highlight);
     --ink-subsection-blockquote: var(--ink-01-blockquote);
     --canvas-subsection-pre: var(--canvas-01-pre);
+    --accent-subsection-01: var(--accent-01-01);
+    --accent-subsection-01-hover: var(--accent-01-01-hover);
+    --accent-subsection-01-border: var(--accent-01-01-border);
+    --accent-subsection-01-hover-border: var(--accent-01-01-hover-border);
+    --accent-subsection-01-text: var(--accent-01-01-text);
+    --accent-subsection-01-hover-text: var(--accent-01-01-hover-text);
+    --accent-subsection-01-shadow: var(--accent-01-01-shadow);
+    --accent-subsection-02: var(--accent-01-02);
+    --accent-subsection-02-hover: var(--accent-01-02-hover);
+    --accent-subsection-02-border: var(--accent-01-02-border);
+    --accent-subsection-02-hover-border: var(--accent-01-02-hover-border);
+    --accent-subsection-02-text: var(--accent-01-02-text);
+    --accent-subsection-02-hover-text: var(--accent-01-02-hover-text);
+    --accent-subsection-02-shadow: var(--accent-01-02-shadow);
   }
   :where(.bg-canvas-01-card-01) {
     --ink-01: var(--ink-card-01);
@@ -64,6 +121,20 @@
     --ink-01-highlight: var(--ink-card-01-highlight);
     --ink-01-blockquote: var(--ink-card-01-blockquote);
     --canvas-01-pre: var(--canvas-card-01-pre);
+    --accent-01-01: var(--accent-card-01-01);
+    --accent-01-01-hover: var(--accent-card-01-01-hover);
+    --accent-01-01-border: var(--accent-card-01-01-border);
+    --accent-01-01-hover-border: var(--accent-card-01-01-hover-border);
+    --accent-01-01-text: var(--accent-card-01-01-text);
+    --accent-01-01-hover-text: var(--accent-card-01-01-hover-text);
+    --accent-01-01-shadow: var(--accent-card-01-01-shadow);
+    --accent-01-02: var(--accent-card-01-02);
+    --accent-01-02-hover: var(--accent-card-01-02-hover);
+    --accent-01-02-border: var(--accent-card-01-02-border);
+    --accent-01-02-hover-border: var(--accent-card-01-02-hover-border);
+    --accent-01-02-text: var(--accent-card-01-02-text);
+    --accent-01-02-hover-text: var(--accent-card-01-02-hover-text);
+    --accent-01-02-shadow: var(--accent-card-01-02-shadow);
     color: var(--ink-01);
   }
   :where(.bg-canvas-01-card-02) {
@@ -77,6 +148,20 @@
     --ink-01-highlight: var(--ink-card-02-highlight);
     --ink-01-blockquote: var(--ink-card-02-blockquote);
     --canvas-01-pre: var(--canvas-card-02-pre);
+    --accent-01-01: var(--accent-card-02-01);
+    --accent-01-01-hover: var(--accent-card-02-01-hover);
+    --accent-01-01-border: var(--accent-card-02-01-border);
+    --accent-01-01-hover-border: var(--accent-card-02-01-hover-border);
+    --accent-01-01-text: var(--accent-card-02-01-text);
+    --accent-01-01-hover-text: var(--accent-card-02-01-hover-text);
+    --accent-01-01-shadow: var(--accent-card-02-01-shadow);
+    --accent-01-02: var(--accent-card-02-02);
+    --accent-01-02-hover: var(--accent-card-02-02-hover);
+    --accent-01-02-border: var(--accent-card-02-02-border);
+    --accent-01-02-hover-border: var(--accent-card-02-02-hover-border);
+    --accent-01-02-text: var(--accent-card-02-02-text);
+    --accent-01-02-hover-text: var(--accent-card-02-02-hover-text);
+    --accent-01-02-shadow: var(--accent-card-02-02-shadow);
     color: var(--ink-01);
   }
   :where(.bg-canvas-01-card-03) {
@@ -90,6 +175,20 @@
     --ink-01-highlight: var(--ink-card-03-highlight);
     --ink-01-blockquote: var(--ink-card-03-blockquote);
     --canvas-01-pre: var(--canvas-card-03-pre);
+    --accent-01-01: var(--accent-card-03-01);
+    --accent-01-01-hover: var(--accent-card-03-01-hover);
+    --accent-01-01-border: var(--accent-card-03-01-border);
+    --accent-01-01-hover-border: var(--accent-card-03-01-hover-border);
+    --accent-01-01-text: var(--accent-card-03-01-text);
+    --accent-01-01-hover-text: var(--accent-card-03-01-hover-text);
+    --accent-01-01-shadow: var(--accent-card-03-01-shadow);
+    --accent-01-02: var(--accent-card-03-02);
+    --accent-01-02-hover: var(--accent-card-03-02-hover);
+    --accent-01-02-border: var(--accent-card-03-02-border);
+    --accent-01-02-hover-border: var(--accent-card-03-02-hover-border);
+    --accent-01-02-text: var(--accent-card-03-02-text);
+    --accent-01-02-hover-text: var(--accent-card-03-02-hover-text);
+    --accent-01-02-shadow: var(--accent-card-03-02-shadow);
     color: var(--ink-01);
   }
   :where(.bg-canvas-01-subsection) {
@@ -103,6 +202,20 @@
     --ink-01-highlight: var(--ink-subsection-highlight);
     --ink-01-blockquote: var(--ink-subsection-blockquote);
     --canvas-01-pre: var(--canvas-subsection-pre);
+    --accent-01-01: var(--accent-subsection-01);
+    --accent-01-01-hover: var(--accent-subsection-01-hover);
+    --accent-01-01-border: var(--accent-subsection-01-border);
+    --accent-01-01-hover-border: var(--accent-subsection-01-hover-border);
+    --accent-01-01-text: var(--accent-subsection-01-text);
+    --accent-01-01-hover-text: var(--accent-subsection-01-hover-text);
+    --accent-01-01-shadow: var(--accent-subsection-01-shadow);
+    --accent-01-02: var(--accent-subsection-02);
+    --accent-01-02-hover: var(--accent-subsection-02-hover);
+    --accent-01-02-border: var(--accent-subsection-02-border);
+    --accent-01-02-hover-border: var(--accent-subsection-02-hover-border);
+    --accent-01-02-text: var(--accent-subsection-02-text);
+    --accent-01-02-hover-text: var(--accent-subsection-02-hover-text);
+    --accent-01-02-shadow: var(--accent-subsection-02-shadow);
     color: var(--ink-01);
   }
 }

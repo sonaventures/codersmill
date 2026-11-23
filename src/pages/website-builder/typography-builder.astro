@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/website-builder.astro";
 import {
+  typographyAccents,
   typographyElements,
+  typographyLabel,
   typographyProperties,
 } from "../../data/website-builder/typography-builder.js";
 
@@ -15,6 +17,9 @@ const sampleText: Record<string, string> = {
   blockquote: "Good typography gives every idea a clear voice.",
   a: "A link to the next page",
 };
+// Accent buttons are previewed with the class their typography targets.
+const accentClass = (element: string) =>
+  typographyAccents.find(({ key }) => key === element)?.selector.slice(1);
 ---
 
 <Layout
@@ -63,7 +68,7 @@ const sampleText: Record<string, string> = {
             </label>
             <select id="typography-element" class="typography-control">
               {typographyElements.map((element) => (
-                <option>{element}</option>
+                <option value={element}>{typographyLabel(element)}</option>
               ))}
             </select>
           </div>
@@ -175,12 +180,18 @@ const sampleText: Record<string, string> = {
                 {typographyElements.map((Element) => (
                   <div class="min-w-0">
                     <span class="text-xs opacity-70" data-sample-element-label>
-                      {Element}
+                      {typographyLabel(Element)}
                     </span>
-                    <Element>
-                      {sampleText[Element] ??
-                        `${Element.toUpperCase()} - A place for your next idea`}
-                    </Element>
+                    {accentClass(Element) ? (
+                      <span class={accentClass(Element)} data-sample-accent>
+                        {typographyLabel(Element)} button
+                      </span>
+                    ) : (
+                      <Element>
+                        {sampleText[Element] ??
+                          `${Element.toUpperCase()} - A place for your next idea`}
+                      </Element>
+                    )}
                   </div>
                 ))}
               </section>

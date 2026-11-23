@@ -39,6 +39,7 @@ import {
 } from "../../data/website-builder/theme-groups";
 import {
   typographyElements,
+  typographyLabel,
   validateTypographyValue,
 } from "../../data/website-builder/typography-builder.js";
 import css from "../../styles/themes/colors.css?raw";
@@ -895,6 +896,14 @@ if (root) {
   // the page class wraps only what is between the header and footer. The
   // other areas' rules come later and are more specific, so they win, as in
   // groups.css.
+  // The preview's accent buttons, for the Accent 1-3 typography elements.
+  const sampleAccents: Record<string, string> = {
+    accent1: ".sample-primary",
+    accent2: ".sample-secondary",
+    accent3: ".sample-action-link",
+  };
+  const previewSelector = (element: string) =>
+    sampleAccents[element] ?? element;
   function renderTypographyPreview() {
     const rules: string[] = [];
     for (const region of typographyAreas) {
@@ -913,7 +922,7 @@ if (root) {
           .join("\n");
         if (declarations)
           rules.push(
-            `${scope} ${element}:not(${excluded}) {\n${declarations}\n}`,
+            `${scope} ${previewSelector(element)}:not(${excluded}) {\n${declarations}\n}`,
           );
       }
       // Card and subsection rules: more specific, so they win over the
@@ -930,7 +939,7 @@ if (root) {
             .join("\n");
           if (declarations)
             rules.push(
-              `${cardScope} ${sampleCardSelector(card.key)} ${element}:not([data-studio-chrome] *) {\n${declarations}\n}`,
+              `${cardScope} ${sampleCardSelector(card.key)} ${previewSelector(element)}:not([data-studio-chrome] *) {\n${declarations}\n}`,
             );
         }
       }
@@ -961,7 +970,7 @@ if (root) {
       }
     }
     get<HTMLElement>("#theme-typography-context").textContent =
-      `Typography for ${regions.find(({ key }) => key === typographyRegion())?.label ?? "this area"}${typographyCard.value ? ` / ${typographyCard.selectedOptions[0]?.text}` : ""} / ${typographyElement.value}, saved with the theme group. Blank fields follow ${typographyCard.value ? "the area's typography" : "the site-wide defaults from the Typography Builder"}.`;
+      `Typography for ${regions.find(({ key }) => key === typographyRegion())?.label ?? "this area"}${typographyCard.value ? ` / ${typographyCard.selectedOptions[0]?.text}` : ""} / ${typographyLabel(typographyElement.value)}, saved with the theme group. Blank fields follow ${typographyCard.value ? "the area's typography" : "the site-wide defaults from the Typography Builder"}.`;
     renderTypographyPreview();
   }
 
@@ -1056,7 +1065,11 @@ if (root) {
       target.nextElementSibling instanceof HTMLElement
         ? target.nextElementSibling
         : target;
-    const tag = element.tagName.toLowerCase();
+    // An accent button picks its accent, before its tag (Accent 3 is a link).
+    const accent = Object.entries(sampleAccents).find(([, selector]) =>
+      element.matches(selector),
+    )?.[0];
+    const tag = accent ?? element.tagName.toLowerCase();
     if (typographyElements.some((name) => name === tag))
       typographyElement.value = tag;
     // Inside a sample card or the subsection, its own typography.

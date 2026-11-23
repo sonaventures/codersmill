@@ -15,6 +15,7 @@ import {
 } from "../../data/website-builder/palette.js";
 import {
   typographyElements,
+  typographyLabel,
   typographyProperties,
 } from "../../data/website-builder/typography-builder.js";
 import { classGroupAreas } from "../../data/website-builder/group-classes";
@@ -769,7 +770,7 @@ const sampleMenu = [
             <label for="theme-typography-element">Element</label>
             <select id="theme-typography-element">
               {typographyElements.map((element) => (
-                <option value={element}>{element}</option>
+                <option value={element}>{typographyLabel(element)}</option>
               ))}
             </select>
           </div>

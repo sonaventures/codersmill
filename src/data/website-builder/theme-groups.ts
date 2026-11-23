@@ -673,6 +673,51 @@ export const accentColorRoles = [
   ...accentRoles(3),
 ];
 
+/**
+ * Each card and the subsection have their own Accent 1 and Accent 2, with the
+ * same seven colors as the area's, e.g. --accent-hero-card-01-02-hover is
+ * Card 01's Accent 2 hover / focus background in the hero. Until chosen they
+ * are the area's accents.
+ */
+export const cardAccents = [1, 2] as const;
+const cardAccentRoles = <T extends CardTarget, N extends 1 | 2>(
+  target: T,
+  number: N,
+) =>
+  accentParts.map(({ key, label }) => ({
+    key: `${target.key}Accent${number}${key}` as `${T["key"]}Accent${N}${AccentPart["key"]}`,
+    label: `${target.label} Accent ${number} ${label}`,
+    group: `${target.key}Accent` as `${T["key"]}Accent`,
+  }));
+
+export const cardAccentColorRoles = cardTargets.flatMap((target) =>
+  cardAccents.flatMap((number) => cardAccentRoles(target, number)),
+);
+
+/** The card, accent number, and part of a card accent color role, or null. */
+export function cardAccentRole(
+  role: string,
+): { target: CardTarget; accent: 1 | 2; part: AccentPart } | null {
+  for (const target of cardTargets)
+    for (const accent of cardAccents)
+      for (const part of accentParts)
+        if (role === `${target.key}Accent${accent}${part.key}`)
+          return { target, accent, part };
+  return null;
+}
+
+/**
+ * The variable a theme group area class sets for a card's accent color, and
+ * the card reads, e.g. "accent-card-01-02-hover". Like the card text
+ * variables, it is not tied to an area.
+ */
+export function cardAccentVariable(role: string): string | null {
+  const card = cardAccentRole(role);
+  return card
+    ? `accent-${card.target.token}-0${card.accent}${card.part.suffix}`
+    : null;
+}
+
 /** The accent number and part of an accent color role, or null. */
 export function accentRole(
   role: string,
@@ -689,16 +734,16 @@ export function accentRole(
  * 3 use Accent 1's border and shadow; Accent 2's background and text are the
  * area's, and Accent 3 is a text link (no background, the focus color).
  * Accent 1's background, border, and text have theme values in colors.css.
+ * `reference` gives the preview reference for another color role, so a
+ * card's accents can fall back to the card's own colors.
  */
 function accentFallback(
-  region: Region,
   accent: 1 | 2 | 3,
   part: AccentPart["key"],
+  reference: (role: string) => string,
 ): string | null {
-  const own = (key: AccentPart["key"]) =>
-    defaultColorReference(region, `accent${accent}${key}` as ColorRole);
-  const first = (key: AccentPart["key"]) =>
-    defaultColorReference(region, `accent1${key}` as ColorRole);
+  const own = (key: AccentPart["key"]) => reference(`accent${accent}${key}`);
+  const first = (key: AccentPart["key"]) => reference(`accent1${key}`);
   switch (part) {
     case "Hover":
       return own("");
@@ -707,21 +752,19 @@ function accentFallback(
     case "HoverText":
       return own("Text");
     case "Shadow":
-      return accent === 1
-        ? defaultColorReference(region, "shadow")
-        : first("Shadow");
+      return accent === 1 ? reference("shadow") : first("Shadow");
     case "Border":
       return accent === 1 ? null : first("Border");
     case "":
       return accent === 1
         ? null
         : accent === 2
-          ? defaultColorReference(region, "background")
+          ? reference("background")
           : "transparent";
     case "Text":
       return accent === 1
         ? null
-        : defaultColorReference(region, accent === 2 ? "text" : "accentFocus");
+        : reference(accent === 2 ? "text" : "accentFocus");
   }
 }
 
@@ -811,6 +854,7 @@ export const regionColorRoles = [
   ...cardCanvasRoles,
   ...subsectionColorRoles,
   ...cardInkColorRoles,
+  ...cardAccentColorRoles,
   ...formattingColorRoles,
   ...formColorRoles,
   ...contentColorRoles,
@@ -892,6 +936,10 @@ export const roleGroups = [
   ...cardTargets.map(({ key, label }) => ({
     key: `${key}Ink` as `${typeof key}Ink`,
     label: `${label} text & code block`,
+  })),
+  ...cardTargets.map(({ key, label }) => ({
+    key: `${key}Accent` as `${typeof key}Accent`,
+    label: `${label} accents (Accent 1 / 2)`,
   })),
   { key: "accent", label: "Accent" },
   { key: "ink", label: "Ink" },
@@ -1175,6 +1223,14 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
       region.startsWith("section")
       ? `ink-${suffix}-${svgTypeToken(svgType.type, svgType.state)}`
       : null;
+  // Each card and the subsection have two accents, for the areas with cards.
+  const cardAccent = cardAccentRole(role);
+  if (cardAccent)
+    return region === "page" ||
+      region === "hero" ||
+      region.startsWith("section")
+      ? `accent-${suffix}-${cardAccent.target.token}-0${cardAccent.accent}${cardAccent.part.suffix}`
+      : null;
   // Every area, including the header and footer, has three accents.
   const accent = accentRole(role);
   if (accent) return `accent-${suffix}-0${accent.accent}${accent.part.suffix}`;
@@ -1254,8 +1310,33 @@ export function defaultColorReference(region: Region, role: ColorRole): string {
   const token = semanticToken(region, role);
   const accent = accentRole(role);
   if (accent) {
-    const fallback = accentFallback(region, accent.accent, accent.part.key);
+    const fallback = accentFallback(accent.accent, accent.part.key, (other) =>
+      defaultColorReference(region, other as ColorRole),
+    );
     return fallback ? `var(--${token},${fallback})` : `var(--${token})`;
+  }
+  // A card's accent uses the area's same accent color until chosen. Left on
+  // the theme default there too, it falls back as the area's accent does,
+  // but to the card's own colors: inside a card, the shared accent and text
+  // variables are the card's (cards.css).
+  const cardAccent = cardAccentRole(role);
+  if (cardAccent) {
+    const { target, accent: number, part } = cardAccent;
+    const areaToken = semanticToken(region, `accent${number}${part.key}`);
+    const fallback = accentFallback(number, part.key, (other) =>
+      defaultColorReference(
+        region,
+        (other === "text"
+          ? `${target.key}Text`
+          : other.startsWith("accent") && other !== "accentFocus"
+            ? `${target.key}A${other.slice(1)}`
+            : other) as ColorRole,
+      ),
+    );
+    const areaReference = fallback
+      ? `var(--${areaToken},${fallback})`
+      : `var(--${areaToken})`;
+    return token ? `var(--${token},${areaReference})` : areaReference;
   }
   // Card text uses the area's until chosen. A card's quotes use the area's
   // quote color, then the card's muted text, as the quote rule does.
@@ -1403,12 +1484,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 27 &&
       data.version !== 28 &&
       data.version !== 29 &&
-      data.version !== 30) ||
+      data.version !== 30 &&
+      data.version !== 31) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 30 theme group file with up to 100 groups.",
+      "Expected a version 1 through 31 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1482,6 +1564,11 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
               : old.startsWith("#")
                 ? old.toLowerCase()
                 : old;
+            continue;
+          }
+          // Version 31 gave each card and the subsection their own accents.
+          if (data.version < 31 && cardAccentRole(role)) {
+            regionColors[role] = "theme";
             continue;
           }
           // Version 30 added each card's code block background.
@@ -1661,7 +1748,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 30, groups }, null, 2);
+  return JSON.stringify({ version: 31, groups }, null, 2);
 }
 
 /**

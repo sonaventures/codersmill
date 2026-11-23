@@ -2,6 +2,7 @@ import {
   parseTypography,
   serializeTypography,
   typographyCss,
+  typographyLabel,
   typographyRulesCss,
   validateTypographyValue,
 } from "../../data/website-builder/typography-builder.js";
@@ -74,6 +75,7 @@ previewBase.textContent = `
   code, pre { font-family: var(--font-mono, monospace); }
   pre { margin: 0; max-width: 100%; overflow-x: auto; }
   blockquote { margin: 0; }
+  [data-sample-accent] { display: inline-block; padding: .5rem .9rem; border: 1px solid currentColor; border-radius: .25rem; }
   [data-sample-element-label] { display: block; font-family: var(--font-mono, monospace); font-size: .75rem; opacity: .7; }
 `;
 const previewStyle = document.createElement("style");
@@ -243,7 +245,7 @@ function renderControls() {
     ? "Clear this area's typography"
     : "Remove older section override";
   get("#typography-editing").textContent =
-    `${scopeLabel(currentScope)} / ${currentElement}`;
+    `${scopeLabel(currentScope)} / ${typographyLabel(currentElement)}`;
   renderPreview();
 }
 

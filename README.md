@@ -116,6 +116,13 @@ presets (`bg-canvas-01-card-02`, `bg-canvas-01-subsection`), and
 [`cards.css`](./src/styles/utilities/cards.css) swaps the area's text colors
 for the card's inside it.
 
+Each card and the subsection also has its own **Accent 1 and Accent 2**, with
+the same seven colors (`--accent-hero-card-01-02-hover` is Card 01's Accent 2
+hover / focus background in the hero). Left on **Theme default**, they are
+the area's accents. Inside a card, `cards.css` swaps the area's Accent 1 and 2
+for the card's, so the Accent 1 and Accent 2 presets (`bg-accent-01-01`,
+`bg-accent-01-02`, ...) follow the card. Accent 3 stays the area's.
+
 A group also holds:
 
 - **Corner radii** for sections, cards, subsections, accent buttons, and CTA
@@ -132,7 +139,7 @@ sitewide.css** and applied whatever group a page uses: the Global area's CTA
 `sw-footer`), and the site's content width.
 
 Groups are kept in the browser and in the project's `theme-groups.json`, and
-can be exported and imported as JSON (format version 30; older files still
+can be exported and imported as JSON (format version 31; older files still
 load, with their accent colors moved to the new names and their card text
 color given to every card).
 
@@ -142,6 +149,12 @@ Set fonts, sizes, weights, line height, letter spacing, case, and color for
 headings, paragraphs, and other text. Site-wide defaults are saved to the
 typography section of `sitewide.css`; typography for a theme group's areas is
 saved with the group and written to `groups.css`.
+
+The **Accent 1–3** elements set the font of the accent buttons everywhere: in
+the site-wide defaults, in any area (the header and footer included), and in
+any card or subsection from the Theme Builder's Typography tab. They target
+the background class of the Accent presets (`bg-accent-01-01` and so on), so
+an accent link keeps the accent's font rather than the link's.
 
 ### 5. Page Builder
 

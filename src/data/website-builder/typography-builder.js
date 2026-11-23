@@ -1,3 +1,13 @@
+/**
+ * The accent buttons, found by the background class of Component Styling's
+ * Accent 1-3 presets. Their rules outrank the tag rules (a, p, ...) in the
+ * same area, so an accent link keeps the accent's font.
+ */
+export const typographyAccents = [
+  { key: "accent1", label: "Accent 1", selector: ".bg-accent-01-01" },
+  { key: "accent2", label: "Accent 2", selector: ".bg-accent-01-02" },
+  { key: "accent3", label: "Accent 3", selector: ".bg-accent-01-03" },
+];
 export const typographyElements = [
   "h1",
   "h2",
@@ -14,7 +24,20 @@ export const typographyElements = [
   "blockquote",
   // Links, e.g. the menu and logo in a header or the links in a footer.
   "a",
+  ...typographyAccents.map(({ key }) => key),
 ];
+
+/** The CSS selector for a typography element: its tag, or an accent's class. */
+export function typographySelector(element) {
+  return (
+    typographyAccents.find(({ key }) => key === element)?.selector ?? element
+  );
+}
+
+/** The label for a typography element: its tag, or "Accent 1". */
+export function typographyLabel(element) {
+  return typographyAccents.find(({ key }) => key === element)?.label ?? element;
+}
 
 export const typographyFonts = {
   "var(--font-sans)": "font-sans (site sans)",
@@ -322,7 +345,9 @@ export function typographyRulesCss(rules, prefix = "") {
       .filter(([, value]) => value !== "")
       .map(([key, value]) => `  ${key}: ${value};`);
     if (declarations.length)
-      css.push(`${prefix}${element} {\n${declarations.join("\n")}\n}`);
+      css.push(
+        `${prefix}${typographySelector(element)} {\n${declarations.join("\n")}\n}`,
+      );
   }
   return css;
 }

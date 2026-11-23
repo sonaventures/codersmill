@@ -1,16 +1,26 @@
 ---
 import {
+  accentParts,
+  cardAccents,
   cardInkParts,
   cardTargets,
 } from "../../data/website-builder/theme-groups";
 
-// Each card and the subsection style their own text: inside one, the area's
-// sample text colors become the card's (--sample-h2 is --sample-card2H2 in
-// Card 02), as the cards' text variables do on the site.
+// Each card and the subsection style their own text and Accent 1 / 2: inside
+// one, the area's sample colors become the card's (--sample-h2 is
+// --sample-card2H2 in Card 02), as the cards' variables do on the site.
 const inkStyle = (target: string) =>
-  cardInkParts
-    .map(({ key, area }) => `--sample-${area}:var(--sample-${target}${key})`)
-    .join(";");
+  [
+    ...cardInkParts.map(
+      ({ key, area }) => `--sample-${area}:var(--sample-${target}${key})`,
+    ),
+    ...cardAccents.flatMap((number) =>
+      accentParts.map(
+        ({ key }) =>
+          `--sample-accent${number}${key}:var(--sample-${target}Accent${number}${key})`,
+      ),
+    ),
+  ].join(";");
 const role = (target: string, part: string) => `${target}${part}`;
 const cards = cardTargets.filter(({ key }) => key !== "subsection");
 ---
@@ -56,6 +66,26 @@ const cards = cardTargets.filter(({ key }) => key !== "subsection");
           class="sample-code"
           data-sample-role={role(target, "Pre")}
         ><code>card({card});</code></pre>
+        <div
+          class="sample-buttons"
+          role="group"
+          aria-label={`Card ${card} accents`}
+        >
+          <button
+            type="button"
+            class="sample-primary"
+            data-sample-role={role(target, "Accent1")}
+          >
+            Accent 1
+          </button>
+          <button
+            type="button"
+            class="sample-secondary"
+            data-sample-role={role(target, "Accent2")}
+          >
+            Accent 2
+          </button>
+        </div>
       </article>
     );
   })}
@@ -90,4 +120,20 @@ const cards = cardTargets.filter(({ key }) => key !== "subsection");
     class="sample-code"
     data-sample-role="subsectionPre"
   ><code>subsection();</code></pre>
+  <div class="sample-buttons" role="group" aria-label="Subsection accents">
+    <button
+      type="button"
+      class="sample-primary"
+      data-sample-role={role("subsection", "Accent1")}
+    >
+      Accent 1
+    </button>
+    <button
+      type="button"
+      class="sample-secondary"
+      data-sample-role={role("subsection", "Accent2")}
+    >
+      Accent 2
+    </button>
+  </div>
 </article>

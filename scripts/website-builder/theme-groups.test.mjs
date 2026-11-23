@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   accentColorRoles,
+  cardAccentColorRoles,
   cardCanvasRoles,
   cardInkColorRoles,
   createDefaultColors,
@@ -54,6 +55,8 @@ function legacyJson(version, groups) {
             if (now in colors) colors[before] = colors[now];
           for (const { key } of accentColorRoles) delete colors[key];
         }
+        if (version < 31)
+          for (const { key } of cardAccentColorRoles) delete colors[key];
         if (version < 30)
           for (const { key } of cardInkColorRoles)
             if (key.endsWith("PreBackground")) delete colors[key];
@@ -137,7 +140,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 30);
+  assert.equal(JSON.parse(json).version, 31);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -162,7 +165,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":31,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":32,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -220,7 +223,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 30);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 31);
 });
 
 test("brand assignments are page-wide and round-trip independently by theme", () => {
@@ -815,7 +818,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 30);
+  assert.equal(JSON.parse(first).version, 31);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -1140,4 +1143,49 @@ test("card and subsection typography round-trips with the group", () => {
       /Unknown typography area/,
     );
   }
+});
+
+test("each card and the subsection have their own Accent 1 and Accent 2", async () => {
+  const { cardAccentVariable } =
+    await import("../../src/data/website-builder/theme-groups.ts");
+  // Four targets, two accents, seven colors.
+  assert.equal(cardAccentColorRoles.length, 56);
+  assert.equal(
+    semanticToken("hero", "card1Accent2HoverBorder"),
+    "accent-hero-card-01-02-hover-border",
+  );
+  assert.equal(
+    semanticToken("section3", "subsectionAccent1"),
+    "accent-03-subsection-01",
+  );
+  assert.equal(semanticToken("footer", "card1Accent1"), null);
+  assert.equal(isColorRoleVisible("header", "card2Accent1"), false);
+  assert.equal(isColorRoleVisible("section2", "card2Accent1"), true);
+  assert.equal(
+    cardAccentVariable("card3Accent2Shadow"),
+    "accent-card-03-02-shadow",
+  );
+  // Until chosen, a card's accent is the area's; then it falls back as the
+  // area's does, to the card's own colors (Accent 2 text is the card text).
+  assert.equal(
+    defaultColorReference("section1", "card1Accent1"),
+    "var(--accent-01-card-01-01,var(--accent-01-01))",
+  );
+  assert.equal(
+    defaultColorReference("section1", "card2Accent2Text"),
+    "var(--accent-01-card-02-02-text,var(--accent-01-02-text,var(--ink-01-card-02,var(--ink-01))))",
+  );
+  assert.equal(
+    defaultColorReference("page", "subsectionAccent1Hover"),
+    "var(--accent-page-subsection-01-hover,var(--accent-page-01-hover,var(--accent-page-subsection-01,var(--accent-page-01))))",
+  );
+  const edited = group();
+  edited.themes.light.hero.card2Accent1 = "var(--color-sky-600)";
+  edited.themes.dark.section5.subsectionAccent2HoverText = "#abcdef";
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
+  // Groups saved before version 31 start on the theme default.
+  const older = group();
+  older.themes.light.page.card1Accent1 = "#123456";
+  const [restored] = parseThemeGroups(legacyJson(30, [older]));
+  assert.equal(restored.themes.light.page.card1Accent1, "theme");
 });

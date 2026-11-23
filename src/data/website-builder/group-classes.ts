@@ -1,4 +1,5 @@
 import {
+  cardAccentVariable,
   cardInkVariable,
   cardTargets,
   cardTypographyKey,
@@ -97,9 +98,9 @@ export function areaDeclarations(colors: StyleColors, region: Region) {
     const color = area[role];
     const own = semanticToken(region, role);
     if (own && color !== "theme") declarations.set(own, color);
-    // Card text is read by the cards through their own variable, which
-    // base.css points at the area's text until a color is chosen.
-    const card = cardInkVariable(role);
+    // Card text and accents are read by the cards through their own
+    // variables, which cards.css points at the area's until a color is chosen.
+    const card = cardInkVariable(role) ?? cardAccentVariable(role);
     if (card) {
       if (own && color !== "theme") declarations.set(card, color);
       continue;
