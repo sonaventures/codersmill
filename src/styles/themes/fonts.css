@@ -74,6 +74,16 @@
 @import "@fontsource-variable/source-code-pro/wght.css";
 @import "@fontsource-variable/source-code-pro/wght-italic.css";
 
+@import "@fontsource-variable/jetbrains-mono/wght.css";
+@import "@fontsource-variable/jetbrains-mono/wght-italic.css";
+
+@import "@fontsource-variable/fira-code/wght.css";
+
+@import "@fontsource/space-mono/400-italic.css";
+@import "@fontsource/space-mono/400.css";
+@import "@fontsource/space-mono/700-italic.css";
+@import "@fontsource/space-mono/700.css";
+
 @theme static {
   --font-inter: "Inter Variable", sans-serif;
   --font-plus-jakarta-sans: "Plus Jakarta Sans Variable", sans-serif;
@@ -94,4 +104,7 @@
   --font-roboto-condensed: "Roboto Condensed Variable", sans-serif;
   --font-roboto-slab: "Roboto Slab Variable", serif;
   --font-source-code-pro: "Source Code Pro Variable", monospace;
+  --font-jetbrains-mono: "JetBrains Mono Variable", monospace;
+  --font-fira-code: "Fira Code Variable", monospace;
+  --font-space-mono: "Space Mono", monospace;
 }
