@@ -40,6 +40,7 @@ import {
 import {
   typographyElements,
   typographyLabel,
+  typographySelector,
   validateTypographyValue,
 } from "../../data/website-builder/typography-builder.js";
 import css from "../../styles/themes/colors.css?raw";
@@ -903,7 +904,7 @@ if (root) {
     accent3: ".sample-action-link",
   };
   const previewSelector = (element: string) =>
-    sampleAccents[element] ?? element;
+    sampleAccents[element] ?? typographySelector(element);
   function renderTypographyPreview() {
     const rules: string[] = [];
     for (const region of typographyAreas) {
@@ -1065,13 +1066,18 @@ if (root) {
       target.nextElementSibling instanceof HTMLElement
         ? target.nextElementSibling
         : target;
-    // An accent button picks its accent, before its tag (Accent 3 is a link).
+    // An accent button picks its accent, before its tag (Accent 3 is a link);
+    // a form field picks Input label or Input text.
     const accent = Object.entries(sampleAccents).find(([, selector]) =>
       element.matches(selector),
     )?.[0];
-    const tag = accent ?? element.tagName.toLowerCase();
-    if (typographyElements.some((name) => name === tag))
-      typographyElement.value = tag;
+    const tag =
+      accent ??
+      typographyElements.find(
+        (name) =>
+          !(name in sampleAccents) && element.matches(typographySelector(name)),
+      );
+    if (tag) typographyElement.value = tag;
     // Inside a sample card or the subsection, its own typography.
     const card = element.closest<HTMLElement>(".sample-card, .sample-subsection");
     typographyCard.value = !card

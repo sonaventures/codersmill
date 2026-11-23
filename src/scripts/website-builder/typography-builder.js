@@ -20,7 +20,10 @@ import { readPalette } from "../../data/website-builder/palette.js";
 // before reading groups, as the Theme Builder does, or those colors are
 // rejected as unknown and the whole group is skipped.
 setPaletteFamilies(readPalette(colorsCss));
-import { classGroupAreas, groupClassSlug } from "../../data/website-builder/group-classes";
+import {
+  classGroupAreas,
+  groupClassSlug,
+} from "../../data/website-builder/group-classes";
 import {
   fetchProjectThemeGroups,
   getThemesFolder,
@@ -75,6 +78,8 @@ previewBase.textContent = `
   code, pre { font-family: var(--font-mono, monospace); }
   pre { margin: 0; max-width: 100%; overflow-x: auto; }
   blockquote { margin: 0; }
+  label { display: block; }
+  input { width: 100%; max-width: 20rem; box-sizing: border-box; padding: .5rem .75rem; border: 1px solid var(--canvas-page-border, currentColor); border-radius: .25rem; background: transparent; color: inherit; }
   [data-sample-accent] { display: inline-block; padding: .5rem .9rem; border: 1px solid currentColor; border-radius: .25rem; }
   [data-sample-element-label] { display: block; font-family: var(--font-mono, monospace); font-size: .75rem; opacity: .7; }
 `;

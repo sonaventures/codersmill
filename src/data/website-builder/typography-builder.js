@@ -8,6 +8,16 @@ export const typographyAccents = [
   { key: "accent2", label: "Accent 2", selector: ".bg-accent-01-02" },
   { key: "accent3", label: "Accent 3", selector: ".bg-accent-01-03" },
 ];
+/** Form fields: their labels, and the text typed into inputs, textareas, and selects. */
+export const typographyFields = [
+  { key: "label", label: "Input label", selector: "label" },
+  {
+    key: "input",
+    label: "Input text",
+    selector: ":is(input, textarea, select)",
+  },
+];
+const namedElements = [...typographyAccents, ...typographyFields];
 export const typographyElements = [
   "h1",
   "h2",
@@ -24,19 +34,21 @@ export const typographyElements = [
   "blockquote",
   // Links, e.g. the menu and logo in a header or the links in a footer.
   "a",
+  ...typographyFields.map(({ key }) => key),
   ...typographyAccents.map(({ key }) => key),
 ];
 
-/** The CSS selector for a typography element: its tag, or an accent's class. */
+/**
+ * The CSS selector for a typography element: its tag, a form field's
+ * selector, or an accent's class.
+ */
 export function typographySelector(element) {
-  return (
-    typographyAccents.find(({ key }) => key === element)?.selector ?? element
-  );
+  return namedElements.find(({ key }) => key === element)?.selector ?? element;
 }
 
-/** The label for a typography element: its tag, or "Accent 1". */
+/** The label for a typography element: its tag, "Input text", or "Accent 1". */
 export function typographyLabel(element) {
-  return typographyAccents.find(({ key }) => key === element)?.label ?? element;
+  return namedElements.find(({ key }) => key === element)?.label ?? element;
 }
 
 export const typographyFonts = {

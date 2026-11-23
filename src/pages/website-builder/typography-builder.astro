@@ -186,6 +186,15 @@ const accentClass = (element: string) =>
                       <span class={accentClass(Element)} data-sample-accent>
                         {typographyLabel(Element)} button
                       </span>
+                    ) : Element === "label" ? (
+                      <label>Email address</label>
+                    ) : Element === "input" ? (
+                      <input
+                        type="text"
+                        value="you@example.com"
+                        aria-label="Input text sample"
+                        readonly
+                      />
                     ) : (
                       <Element>
                         {sampleText[Element] ??

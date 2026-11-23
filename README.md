@@ -156,6 +156,10 @@ any card or subsection from the Theme Builder's Typography tab. They target
 the background class of the Accent presets (`bg-accent-01-01` and so on), so
 an accent link keeps the accent's font rather than the link's.
 
+The **Input label** and **Input text** elements set the typography of form
+fields in the same places: `label`, and the text typed into `input`,
+`textarea`, and `select`.
+
 ### 5. Page Builder
 
 Create a page from components: name it, add and order components, and assign

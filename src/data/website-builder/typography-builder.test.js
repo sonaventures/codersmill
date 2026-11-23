@@ -277,3 +277,27 @@ test("accent typography is written for the accent presets' classes", async () =>
   assert.match(css, /\.bg-accent-01-01 \{\n  font-family: var\(--font-mono\);/);
   assert.deepEqual(parseTypography(serializeTypography(config)), config);
 });
+
+test("input labels and input text take their own typography", async () => {
+  const { typographyElements, typographyLabel, typographyRulesCss } =
+    await import("./typography-builder.js");
+  assert.ok(typographyElements.includes("label"));
+  assert.ok(typographyElements.includes("input"));
+  assert.equal(typographyLabel("label"), "Input label");
+  assert.equal(typographyLabel("input"), "Input text");
+  const config = createTypography();
+  config.defaults.label = { "font-family": "var(--font-serif)" };
+  config.defaults.input = { "font-family": "var(--font-mono)" };
+  const css = typographyCss(config);
+  assert.match(css, /^label \{\n  font-family: var\(--font-serif\);/m);
+  assert.match(
+    css,
+    /^:is\(input, textarea, select\) \{\n  font-family: var\(--font-mono\);/m,
+  );
+  assert.deepEqual(parseTypography(serializeTypography(config)), config);
+  // In an area, the field selector stays inside the area's class.
+  assert.match(
+    typographyRulesCss(config.defaults, ".sg-brand-hero ").join("\n"),
+    /^\.sg-brand-hero :is\(input, textarea, select\) \{/m,
+  );
+});
