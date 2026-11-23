@@ -2055,8 +2055,8 @@
   --canvas-01-card-02-border: var(--color-coolsteel-500);
   --canvas-01-card-03: var(--color-blaze-50);
   --canvas-01-card-03-border: var(--color-blaze-500);
-  --canvas-hero-subsection: var(--color-softlinen-50);
-  --canvas-01-subsection: var(--color-softlinen-50);
+  --canvas-hero-subsection: var(--color-white);
+  --canvas-01-subsection: var(--color-white);
   --canvas-hero-subsection-border: var(--color-mutedteal-500);
   --canvas-01-subsection-border: var(--color-mutedteal-500);
   --canvas-01-subsection-shadow: var(--canvas-hero-subsection-shadow);
@@ -2082,6 +2082,18 @@
   --ink-subsection-h2: var(--color-smartblue-700);
   --ink-hero-subsection-h3: var(--color-softlinen-700);
   --ink-subsection-h3: var(--color-softlinen-700);
+  --accent-hero-card-01-01: var(--color-radioactive-100);
+  --accent-card-01-01: var(--color-radioactive-100);
+  --accent-hero-card-01-01-hover: var(--color-radioactive-200);
+  --accent-card-01-01-hover: var(--color-radioactive-200);
+  --accent-hero-card-01-01-border: var(--color-radioactive-500);
+  --accent-card-01-01-border: var(--color-radioactive-500);
+  --accent-hero-card-01-01-hover-border: var(--color-radioactive-500);
+  --accent-card-01-01-hover-border: var(--color-radioactive-500);
+  --accent-hero-card-01-01-text: var(--color-radioactive-900);
+  --accent-card-01-01-text: var(--color-radioactive-900);
+  --accent-hero-card-01-01-hover-text: var(--color-radioactive-950);
+  --accent-card-01-01-hover-text: var(--color-radioactive-950);
   --ink-hero-strong: var(--color-smartblue-950);
   --ink-01-strong: var(--color-smartblue-950);
   --ink-hero-em: var(--color-smartblue-950);
@@ -3654,10 +3666,10 @@
   }
 }
 .sg-codersmill-hero h1 {
-  font-family: var(--font-roboto-flex);
+  font-family: var(--font-sora);
   font-size: 3.75rem;
   font-weight: 700;
-  letter-spacing: 0.025em;
+  letter-spacing: -0.025em;
 }
 .sg-codersmill-hero h2 {
   font-family: var(--font-roboto-condensed);
