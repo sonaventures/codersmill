@@ -26,13 +26,13 @@
       <div class="flex items-center lg:order-2">
         <a
           href="#"
-          class="focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 focus:outline-none"
+          class="focus:ring-4 font-medium text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 focus:outline-none rounded-accent! bg-accent-01-03 text-accent-01-03-text inset-ring inset-ring-accent-01-03-border shadow-accent-01-03-shadow/20 hover:bg-accent-01-03-hover hover:text-accent-01-03-hover-text hover:inset-ring-accent-01-03-hover-border focus-visible:bg-accent-01-03-hover focus-visible:text-accent-01-03-hover-text focus-visible:inset-ring-accent-01-03-hover-border active:inset-ring-accent-01-03-active-border focus-visible:outline-accent-01-focus"
         >
           Login
         </a>
         <a
           href="#"
-          class="focus:ring-4 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 focus:outline-none"
+          class="focus:ring-4 font-medium text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 focus:outline-none rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border active:inset-ring-accent-01-02-active-border focus-visible:outline-accent-01-focus"
         >
           Sign up
         </a>
@@ -45,7 +45,7 @@
         >
           <span class="sr-only">Open main menu</span>
           <svg
-            class="button-icon w-6 h-6 fill-ink-01-svg-01"
+            class="w-6 h-6 fill-ink-01-svg-01 nav-svg"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@
             ></path>
           </svg>
           <svg
-            class="button-icon hidden w-6 h-6 fill-ink-01-svg-01"
+            class="hidden w-6 h-6 fill-ink-01-svg-01 nav-svg"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
+              class="block py-2 pr-4 pl-3 border-b lg:border-0 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header lg:px-3 lg:py-2"
               aria-current="page"
             >
               Home
@@ -87,7 +87,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
+              class="block py-2 pr-4 pl-3 border-b lg:border-0 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header lg:px-3 lg:py-2"
             >
               Features
             </a>
@@ -95,7 +95,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
+              class="block py-2 pr-4 pl-3 border-b lg:border-0 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header lg:px-3 lg:py-2"
             >
               Marketplace
             </a>
@@ -106,11 +106,11 @@
               x-on:click="menu = menu === 4 ? null : 4; $nextTick(() => menu === 4 && place($el, 'nav-menu-4'))"
               x-bind:aria-expanded="(menu === 4).toString()"
               aria-controls="nav-menu-4"
-              class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium border-b lg:w-auto lg:hover:bg-transparent lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
+              class="flex justify-between items-center py-2 pr-4 pl-3 w-full font-medium border-b lg:w-auto lg:border-0 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header lg:px-3 lg:py-2"
             >
               Company{" "}
               <svg
-                class="button-icon ml-1 w-5 h-5 lg:w-4 lg:h-4 fill-ink-01-svg-01"
+                class="ml-1 w-5 h-5 lg:w-4 lg:h-4 fill-ink-01-svg-01 nav-svg"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +126,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
+              class="block py-2 pr-4 pl-3 border-b lg:border-0 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header lg:px-3 lg:py-2"
             >
               Team
             </a>
@@ -134,7 +134,7 @@
           <li>
             <a
               href="#"
-              class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 lg:dark:hover:bg-transparent"
+              class="block py-2 pr-4 pl-3 border-b lg:border-0 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header lg:px-3 lg:py-2"
             >
               Contact
             </a>
@@ -155,7 +155,7 @@
                 >
                   <div class="p-2 mr-4 rounded-lg shadow">
                     <svg
-                      class="nav-icon w-5 h-5 fill-ink-01-svg-01"
+                      class="w-5 h-5 fill-ink-01-svg-01 nav-svg"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +178,7 @@
                 >
                   <div class="p-2 mr-4 rounded-lg shadow">
                     <svg
-                      class="nav-icon w-5 h-5 fill-ink-01-svg-01"
+                      class="w-5 h-5 fill-ink-01-svg-01 nav-svg"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -205,7 +205,7 @@
                 >
                   <div class="p-2 mr-4 rounded-lg shadow">
                     <svg
-                      class="nav-icon w-5 h-5 fill-ink-01-svg-01"
+                      class="w-5 h-5 fill-ink-01-svg-01 nav-svg"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -229,7 +229,7 @@
                 >
                   <div class="p-2 mr-4 rounded-lg shadow">
                     <svg
-                      class="nav-icon w-5 h-5 fill-ink-01-svg-01"
+                      class="w-5 h-5 fill-ink-01-svg-01 nav-svg"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +253,7 @@
                 >
                   <div class="p-2 mr-4 rounded-lg shadow">
                     <svg
-                      class="nav-icon w-5 h-5 fill-ink-01-svg-01"
+                      class="w-5 h-5 fill-ink-01-svg-01 nav-svg"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
