@@ -106,11 +106,6 @@ export const navigation: NavSection[] = [
         href: "/website-builder/",
         description: "Build and style Astro websites from ready-made blocks.",
       },
-      {
-        label: "Blocks",
-        href: "/blocks/",
-        description: "The ready-made blocks the website builder uses.",
-      },
     ],
   },
   {
@@ -197,6 +192,5 @@ export function findNavItem(path: string) {
 export const pageDescriptions = {
   home: `Build and style Astro websites with ${builderName}, on ${siteName}.`,
   tools: `The ${siteName} tools, in the order you use them.`,
-  blocks: `The ready-made HTML blocks ${siteName} builds pages from.`,
   about: `About ${siteName}, the home of ${builderName}, and how its tools work.`,
 } as const;

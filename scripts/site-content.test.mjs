@@ -9,9 +9,7 @@ test("all approved page routes exist", async () => {
   const routes = [
     "src/pages/index.astro",
     "src/pages/tools.astro",
-    "src/pages/blocks.astro",
     "src/pages/us/who-we-are.astro",
-    "src/pages/template.astro",
     "src/pages/website-builder/custom-colors.astro",
     "src/pages/website-builder/theme-builder.astro",
     "src/pages/website-builder/page-builder.astro",
@@ -67,17 +65,9 @@ test("the layout, header, and footer use the shared site details", async () => {
     assert.doesNotMatch(file, /Exclusive Group|LocalBusiness|telephone/);
 });
 
-test("the tools and blocks pages read from their sources", async () => {
-  const [tools, blocks] = await Promise.all([
-    readProjectFile("src/pages/tools.astro"),
-    readProjectFile("src/pages/blocks.astro"),
-  ]);
-
+test("the tools page reads from the builder pages", async () => {
+  const tools = await readProjectFile("src/pages/tools.astro");
   assert.match(tools, /from "\.\.\/data\/website-builder\/builder-pages"/);
-  assert.match(
-    blocks,
-    /import\.meta\.glob\(\s*"\.\.\/components\/blocks\/\*\*\/\*\.astro"/,
-  );
 });
 
 test("every page in the menu exists", async () => {

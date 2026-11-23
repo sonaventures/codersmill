@@ -12,6 +12,7 @@ export default defineConfig({
   devToolbar: { enabled: false },
   redirects: {
     "/about/": "/us/who-we-are/",
+    "/blocks/": "/website-builder/display-blocks/",
     "/pagebuilder/pagebuilder/": "/website-builder/page-builder/",
     "/themebuilder/colors/": "/website-builder/custom-colors/",
     "/website-builder/colors/": "/website-builder/custom-colors/",
