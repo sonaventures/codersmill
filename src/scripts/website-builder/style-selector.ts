@@ -76,9 +76,6 @@ import { classGroupAreas, groupClassSlug } from "../../data/website-builder/grou
 setPaletteFamilies(readPalette(css));
 const root = document.querySelector<HTMLElement>("[data-selector]");
 if (root) {
-  const studioChrome = document.querySelectorAll<HTMLElement>(
-    "[data-studio-chrome]",
-  );
   const studioHeader = document.querySelector<HTMLElement>(
     "[data-studio-header]",
   );
@@ -404,8 +401,6 @@ if (root) {
   function renderColors() {
     const editing = area.value as EditingArea;
     const selectedLabel = areaLabel(editing);
-    get<HTMLElement>("#color-controls-title").textContent =
-      `Color controls / ${selectedLabel}`;
     if (!roleVisible(paletteTarget.value as ColorRole)) {
       paletteTarget.value = isGlobalArea() ? "ctaPrimary" : "background";
     }
@@ -435,15 +430,13 @@ if (root) {
       targetGroup.hidden = !visible;
       targetGroup.disabled = !visible;
     }
+    // Only the page preview takes the page's colors: the builder's own panels
+    // keep their --builder-* colors whatever the theme picks.
     const page = get<HTMLElement>('[data-region="page"]');
-    const pageCanvases = [page, ...studioChrome];
-    for (const element of pageCanvases) {
-      for (const { key, token } of globalColorRoles) {
-        const color = colors.global[key];
-        if (color === "theme" || (element !== page && color === "transparent"))
-          element.style.removeProperty(`--${token}`);
-        else element.style.setProperty(`--${token}`, color);
-      }
+    for (const { key, token } of globalColorRoles) {
+      const color = colors.global[key];
+      if (color === "theme") page.style.removeProperty(`--${token}`);
+      else page.style.setProperty(`--${token}`, color);
     }
     const globalArea = get<HTMLElement>('[data-region="global"]');
     for (const { key, token } of sitewideColorRoles) {
@@ -452,29 +445,20 @@ if (root) {
       else globalArea.style.setProperty(`--${token}`, color);
     }
     for (const { key: region } of regions) {
-      const elements =
-        region === "page"
-          ? pageCanvases
-          : [get<HTMLElement>(`[data-region="${region}"]`)];
-      for (const element of elements) {
-        for (const { key: role } of regionColorRoles) {
-          const selected = areaColors(region)[role];
-          const color =
-            region === "page" && element !== page && selected === "transparent"
-              ? "theme"
-              : selected;
-          const token = semanticToken(region, role);
-          if (token) {
-            if (color === "theme") element.style.removeProperty(`--${token}`);
-            else element.style.setProperty(`--${token}`, color);
-          }
-          element.style.setProperty(
-            `--sample-${role}`,
-            color === "theme" || token
-              ? defaultColorReference(region, role)
-              : color,
-          );
+      const element = get<HTMLElement>(`[data-region="${region}"]`);
+      for (const { key: role } of regionColorRoles) {
+        const color = areaColors(region)[role];
+        const token = semanticToken(region, role);
+        if (token) {
+          if (color === "theme") element.style.removeProperty(`--${token}`);
+          else element.style.setProperty(`--${token}`, color);
         }
+        element.style.setProperty(
+          `--sample-${role}`,
+          color === "theme" || token
+            ? defaultColorReference(region, role)
+            : color,
+        );
       }
     }
     const element = get<HTMLElement>(`[data-region="${editingArea()}"]`);
