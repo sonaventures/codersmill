@@ -13,6 +13,7 @@ export default defineConfig({
   redirects: {
     "/about/": "/us/who-we-are/",
     "/blocks/": "/website-builder/display-blocks/",
+    "/tools/": "/website-builder/",
     "/pagebuilder/pagebuilder/": "/website-builder/page-builder/",
     "/themebuilder/colors/": "/website-builder/custom-colors/",
     "/website-builder/colors/": "/website-builder/custom-colors/",

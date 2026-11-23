@@ -98,7 +98,8 @@ export const navigation: NavSection[] = [
   },
   {
     label: "Tools",
-    href: "/tools/",
+    // The website builder's own home lists its tools.
+    href: "/website-builder/",
     description: "The tools Coders Mill builds.",
     items: [
       {
@@ -128,11 +129,6 @@ export const navigation: NavSection[] = [
         href: "https://github.com/sonaventures",
         description: "Coders Mill's public code on GitHub.",
         external: true,
-      },
-      {
-        label: "Login",
-        href: "/login/",
-        description: "Sign in to your account.",
       },
     ],
   },
@@ -191,6 +187,5 @@ export function findNavItem(path: string) {
 
 export const pageDescriptions = {
   home: `Build and style Astro websites with ${builderName}, on ${siteName}.`,
-  tools: `The ${siteName} tools, in the order you use them.`,
   about: `About ${siteName}, the home of ${builderName}, and how its tools work.`,
 } as const;

@@ -8,7 +8,6 @@ const readProjectFile = (path) => readFile(new URL(path, root), "utf8");
 test("all approved page routes exist", async () => {
   const routes = [
     "src/pages/index.astro",
-    "src/pages/tools.astro",
     "src/pages/us/who-we-are.astro",
     "src/pages/website-builder/custom-colors.astro",
     "src/pages/website-builder/theme-builder.astro",
@@ -65,19 +64,12 @@ test("the layout, header, and footer use the shared site details", async () => {
     assert.doesNotMatch(file, /Exclusive Group|LocalBusiness|telephone/);
 });
 
-test("the tools page reads from the builder pages", async () => {
-  const tools = await readProjectFile("src/pages/tools.astro");
-  assert.match(tools, /from "\.\.\/data\/website-builder\/builder-pages"/);
-});
-
 test("every page in the menu exists", async () => {
   const { navigation } = await import("../src/data/site.ts");
   const page = (href) =>
-    href === "/login/"
-      ? "src/pages/login.astro"
-      : `src/pages${href.replace(/\/$/, "")}${
-          navigation.some((section) => section.href === href) ? "/index" : ""
-        }.astro`;
+    `src/pages${href.replace(/\/$/, "")}${
+      navigation.some((section) => section.href === href) ? "/index" : ""
+    }.astro`;
   for (const section of navigation) {
     assert.ok(section.items.length, `${section.label} has pages`);
     for (const { href, external } of [section, ...section.items]) {
@@ -85,7 +77,6 @@ test("every page in the menu exists", async () => {
         assert.match(href, /^https:\/\//);
         continue;
       }
-      if (href === "/website-builder/" || href === "/tools/") continue;
       await assert.doesNotReject(readProjectFile(page(href)), `${href}`);
     }
   }

@@ -234,12 +234,15 @@ collection, including Tabler and Lucide, is installed.
 ## The public site
 
 The main menu is in [`src/data/site.ts`](./src/data/site.ts): five sections
-(Services, Projects, Tools, Resources, and Us), each with its own page that
-lists its pages, and a submenu. The header and footer read it. A page in the
+(Services, Projects, Tools, Resources, and Us), each with a submenu and a page
+that lists its pages. Tools goes to the website builder's home, which lists
+its tools. Signing in is handled by Cloudflare and Google Workspace, so the
+site has no login page. The header and footer read it. A page in the
 menu that is not written yet shows a "coming soon" placeholder
 ([`placeholder-page.astro`](./src/components/placeholder-page.astro)) with the
 title and description from the menu; replace it with the page's content when
-it is ready. `/about/` redirects to `/us/who-we-are/`.
+it is ready. `/about/` redirects to `/us/who-we-are/`, `/tools/` to `/website-builder/`, and
+`/blocks/` to Display Blocks.
 
 The pages use [`layout.astro`](./src/layouts/layout.astro), with the shared
 header and footer. The site's name, host, menu, and page descriptions are in
