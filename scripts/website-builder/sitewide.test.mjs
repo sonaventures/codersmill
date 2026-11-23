@@ -172,6 +172,11 @@ test("the sitewide header styles its form fields and SVG types", async () => {
   );
   assert.match(css, /:where\(\.sw-header\) \.svg-2 \{\n {4}stroke: var\(--ink-header-svg-2-stroke\);/);
   assert.doesNotMatch(css, /\.sw-header\) \.button-svg/);
+  // Iconify icons with the class take the fill colors as their color.
+  assert.match(
+    css,
+    /:is\(a, button, summary\):is\(:hover, :focus-visible\) \[class\*="icon-\["\]\.nav-svg \{\n {4}color: var\(--ink-header-nav-svg-fill-hover\);/,
+  );
   // The footer does neither.
   assert.doesNotMatch(css, /:where\(\.sw-footer\) label/);
 });

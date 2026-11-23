@@ -319,8 +319,8 @@ const svgStateSelectors = {
 } as const;
 
 /**
- * Rules for the SVG type classes (svg, nav-svg, button-svg, anchor-svg) in
- * one area and theme. Only chosen colors get a rule, so an SVG left on
+ * Rules for the SVG type classes (svg, svg-2, nav-svg, button-svg,
+ * anchor-svg) in one area and theme. Only chosen colors get a rule, so an SVG left on
  * "Theme default" keeps its own fill and stroke attributes.
  */
 export function svgTypeCss(
@@ -344,6 +344,19 @@ export function svgTypeCss(
       rules.push(
         `${selectors} {\n    ${state.property}: var(--${token});\n  }`,
       );
+      // Iconify icons (class="icon-[tabler--search] nav-svg") are a mask
+      // filled with the text color, so the fill colors set their color.
+      if (state.property === "fill") {
+        const icons = svgStateSelectors[state.state](
+          `[class*="icon-["].${type.className}`,
+        )
+          .map(
+            (selector) =>
+              `  ${themeSelector} :where(.${className}) ${selector}`,
+          )
+          .join(",\n");
+        rules.push(`${icons} {\n    color: var(--${token});\n  }`);
+      }
     }
   return rules;
 }
