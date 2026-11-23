@@ -28,6 +28,7 @@ import {
   radiusPresets,
   radiusTargets,
   regions,
+  cardTargets,
   regionColorRoles,
   roleGroups,
   semanticToken,
@@ -752,6 +753,15 @@ const sampleMenu = [
               ))}
               {sitewideAreas.map(({ region, label }) => (
                 <option value={region}>{label} (sitewide)</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label for="theme-typography-card">Within</label>
+            <select id="theme-typography-card">
+              <option value="">The whole area</option>
+              {cardTargets.map(({ key, label }) => (
+                <option value={key}>{label}</option>
               ))}
             </select>
           </div>

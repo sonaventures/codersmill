@@ -1123,3 +1123,21 @@ test("each card and the subsection have their own code block background", () => 
   edited.themes.dark.section4.card3PreBackground = "var(--color-slate-900)";
   assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });
+
+test("card and subsection typography round-trips with the group", () => {
+  const saved = group();
+  saved.typography = {
+    hero: { h1: { "font-size": "3rem" } },
+    "hero/card1": { h2: { "font-family": "var(--font-serif)" } },
+    "page/subsection": { p: { "font-size": "1rem" } },
+  };
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([saved])), [saved]);
+  for (const key of ["header/card1", "hero/card4", "hero/card1/x"]) {
+    const bad = group();
+    bad.typography = { [key]: { h2: { "font-size": "1rem" } } };
+    assert.throws(
+      () => parseThemeGroups(serializeThemeGroups([bad])),
+      /Unknown typography area/,
+    );
+  }
+});

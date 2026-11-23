@@ -28,6 +28,9 @@ import {
   mergeThemeGroups,
   themeGroupsStorageKey,
   type GroupTypography,
+  type SectionIdRegion,
+  cardTargets,
+  cardTypographyKey,
   type Region,
   type GroupWidths,
   type ThemeGroup,
@@ -855,6 +858,20 @@ if (root) {
   const typographyPreview = document.createElement("style");
   document.head.append(typographyPreview);
   const typographyRegion = () => typographyArea.value as keyof GroupTypography;
+  // "Within": the whole area, or one of its cards or the subsection.
+  const typographyCard = get<HTMLSelectElement>("#theme-typography-card");
+  const typographyKey = (): keyof GroupTypography => {
+    const region = typographyRegion();
+    const card = cardTargets.find(({ key }) => key === typographyCard.value);
+    return card && !isSitewideArea(region)
+      ? cardTypographyKey(region as SectionIdRegion, card.key)
+      : region;
+  };
+  // The sample card or subsection a card's preview rules apply to.
+  const sampleCardSelector = (card: string) =>
+    card === "subsection"
+      ? ".sample-subsection"
+      : `.sample-card[data-sample-card="${card.replace("card", "0")}"]`;
   const customInput = (key: string) =>
     root.querySelector<HTMLInputElement>(
       `[data-theme-typography-custom="${key}"]`,
@@ -915,13 +932,34 @@ if (root) {
             `${scope} ${element}:not(${excluded}) {\n${declarations}\n}`,
           );
       }
+      // Card and subsection rules: more specific, so they win over the
+      // area's. The page's sample cards are in its intro.
+      if (isSitewideArea(region)) continue;
+      const cardScope =
+        region === "page" ? "#selector-sample-page .sample-page-intro" : scope;
+      for (const card of cardTargets) {
+        const cardRules =
+          typography[cardTypographyKey(region as SectionIdRegion, card.key)];
+        for (const element of typographyElements) {
+          const declarations = Object.entries(cardRules?.[element] ?? {})
+            .map(([key, value]) => `  ${key}: ${value};`)
+            .join("\n");
+          if (declarations)
+            rules.push(
+              `${cardScope} ${sampleCardSelector(card.key)} ${element}:not([data-studio-chrome] *) {\n${declarations}\n}`,
+            );
+        }
+      }
     }
     typographyPreview.textContent = rules.join("\n");
   }
 
   function renderTypography() {
+    // The header and footer have no cards.
+    typographyCard.disabled = isSitewideArea(typographyRegion());
+    if (typographyCard.disabled) typographyCard.value = "";
     const styles =
-      areaTypography(typographyRegion())[typographyRegion()]?.[
+      areaTypography(typographyRegion())[typographyKey()]?.[
         typographyElement.value
       ] ?? {};
     for (const control of typographyControls) {
@@ -939,14 +977,14 @@ if (root) {
       }
     }
     get<HTMLElement>("#theme-typography-context").textContent =
-      `Typography for ${regions.find(({ key }) => key === typographyRegion())?.label ?? "this area"} / ${typographyElement.value}, saved with the theme group. Blank fields follow the site-wide defaults from the Typography Builder.`;
+      `Typography for ${regions.find(({ key }) => key === typographyRegion())?.label ?? "this area"}${typographyCard.value ? ` / ${typographyCard.selectedOptions[0]?.text}` : ""} / ${typographyElement.value}, saved with the theme group. Blank fields follow ${typographyCard.value ? "the area's typography" : "the site-wide defaults from the Typography Builder"}.`;
     renderTypographyPreview();
   }
 
   function setTypographyValue(key: string, value: string) {
     const region = typographyRegion();
     const element = typographyElement.value;
-    const areaRules = (areaTypography(region)[region] ??= {});
+    const areaRules = (areaTypography(region)[typographyKey()] ??= {});
     const styles = (areaRules[element] ??= {});
     if (value) styles[key] = value;
     else delete styles[key];
@@ -981,6 +1019,7 @@ if (root) {
     });
   }
   typographyElement.addEventListener("change", renderTypography);
+  typographyCard.addEventListener("change", renderTypography);
   // The Typography tab's area and the color controls' editing area match.
   typographyArea.addEventListener("change", () => {
     renderTypography();
@@ -1036,6 +1075,13 @@ if (root) {
     const tag = element.tagName.toLowerCase();
     if (typographyElements.some((name) => name === tag))
       typographyElement.value = tag;
+    // Inside a sample card or the subsection, its own typography.
+    const card = element.closest<HTMLElement>(".sample-card, .sample-subsection");
+    typographyCard.value = !card
+      ? ""
+      : card.dataset.sampleCard === "subsection"
+        ? "subsection"
+        : `card${Number(card.dataset.sampleCard)}`;
     renderTypography();
     renderTypographySave();
   }
@@ -1064,7 +1110,7 @@ if (root) {
     "click",
     () => {
       const region = typographyRegion();
-      delete areaTypography(region)[region]?.[typographyElement.value];
+      delete areaTypography(region)[typographyKey()]?.[typographyElement.value];
       renderTypography();
       markTypographyChange(region);
     },

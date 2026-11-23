@@ -1,5 +1,7 @@
 import {
   cardInkVariable,
+  cardTargets,
+  cardTypographyKey,
   globalColorRoles,
   radiusPresets,
   radiusTargets,
@@ -368,12 +370,25 @@ export function generateGroupCss(group: ThemeGroup): string {
   }
   // Typography from the Typography Builder: the same in both themes. Page
   // rules come first so section and hero rules win where they overlap.
+  // Each area's card and subsection rules follow its own, so they win over
+  // the area's inside a card (found by its background class).
   for (const { region, suffix } of classGroupAreas) {
     const rules = group.typography?.[region];
     if (rules)
       typographyRules.push(
         ...typographyRulesCss(rules, `.sg-${slug}-${suffix} `),
       );
+    for (const target of cardTargets) {
+      const cardRules =
+        group.typography?.[cardTypographyKey(region, target.key)];
+      if (cardRules)
+        typographyRules.push(
+          ...typographyRulesCss(
+            cardRules,
+            `.sg-${slug}-${suffix} :where(.bg-canvas-01-${target.token}) `,
+          ),
+        );
+    }
   }
   return [
     `/* theme-group: ${slug} (${label}) */`,

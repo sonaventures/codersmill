@@ -486,3 +486,32 @@ test("area classes set the card text colors the cards read", async () => {
   for (const target of cardTargets)
     assert.ok(css.includes(`:where(.bg-canvas-01-${target.token})`));
 });
+
+test("cards and the subsection get their own typography after the area's", async () => {
+  const { generateGroupCss } =
+    await import("../../src/data/website-builder/group-classes.ts");
+  const { createDefaultColors: defaults, defaultRadii: radii } =
+    await import("../../src/data/website-builder/theme-groups.ts");
+  const css = generateGroupCss({
+    id: "type",
+    name: "Type",
+    themes: { light: defaults(), dark: defaults() },
+    radii: { ...radii },
+    sectionIds: {},
+    widths: {},
+    typography: {
+      hero: { h2: { "font-size": "2rem" } },
+      "hero/card2": { h2: { "font-family": "var(--font-serif)" } },
+      "section3/subsection": { p: { "font-size": "0.875rem" } },
+    },
+  });
+  const area = css.indexOf(".sg-type-hero h2 {");
+  const card = css.indexOf(
+    ".sg-type-hero :where(.bg-canvas-01-card-02) h2 {\n  font-family: var(--font-serif);",
+  );
+  assert.ok(area !== -1 && card > area, "card rule after the area's");
+  assert.match(
+    css,
+    /\.sg-type-section-3 :where\(\.bg-canvas-01-subsection\) p \{\n {2}font-size: 0\.875rem;/,
+  );
+});

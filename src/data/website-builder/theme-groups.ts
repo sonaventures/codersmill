@@ -1065,8 +1065,29 @@ export type TypographyRules = Record<string, Record<string, string>>;
  * follow the site-wide defaults in sitewide.css. The same in both themes.
  */
 export type GroupTypography = Partial<
-  Record<TypographyRegion, TypographyRules>
+  Record<TypographyRegion | CardTypographyKey, TypographyRules>
 >;
+
+/**
+ * Typography for the cards and subsection of the page, hero, and sections,
+ * saved with the area's: "hero/card1" holds the hero's Card 01 typography.
+ * A card's rules win over its area's.
+ */
+export type CardTypographyKey = `${SectionIdRegion}/${CardTarget["key"]}`;
+export const cardTypographyKey = (
+  region: SectionIdRegion,
+  card: CardTarget["key"],
+): CardTypographyKey => `${region}/${card}`;
+
+/** The area and card of a card typography key, or null. */
+export function parseCardTypographyKey(
+  key: string,
+): { region: SectionIdRegion; target: CardTarget } | null {
+  const [region, card, ...rest] = key.split("/");
+  const area = sectionIdRegions.find((item) => item === region);
+  const target = cardTargets.find(({ key }) => key === card);
+  return area && target && !rest.length ? { region: area, target } : null;
+}
 
 export interface ThemeGroup {
   id: string;
@@ -1598,7 +1619,10 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       if (!isRecord(source))
         throw new Error(`Missing typography in "${name}".`);
       for (const [region, rules] of Object.entries(source)) {
-        if (!typographyRegions.some((key) => key === region))
+        if (
+          !typographyRegions.some((key) => key === region) &&
+          !parseCardTypographyKey(region)
+        )
           throw new Error(`Unknown typography area "${region}" in "${name}".`);
         try {
           validateTypographyRules(rules);
@@ -1607,7 +1631,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
             `Invalid ${region} typography in "${name}": ${(error as Error).message}`,
           );
         }
-        typography[region as TypographyRegion] = structuredClone(
+        typography[region as keyof GroupTypography] = structuredClone(
           rules as TypographyRules,
         );
       }
