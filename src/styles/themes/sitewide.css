@@ -30,23 +30,24 @@
 /* end sitewide: colors */
 
 /* sitewide: areas */
-/* theme-builder: %7B%22version%22%3A2%2C%22colors%22%3A%7B%22light%22%3A%7B%22header%22%3A%7B%22background%22%3A%22var(--color-white)%22%2C%22border%22%3A%22transparent%22%2C%22accent1%22%3A%22var(--color-platinum-200)%22%2C%22accent1Border%22%3A%22transparent%22%2C%22accent1Text%22%3A%22var(--color-platinum-950)%22%2C%22accentFocus%22%3A%22var(--color-platinum-100)%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-500)%22%2C%22svgFill2%22%3A%22var(--color-midnightblue-800)%22%2C%22svgFill3%22%3A%22var(--color-energeticorange-500)%22%7D%2C%22footer%22%3A%7B%22background%22%3A%22var(--color-midnightblue-800)%22%2C%22text%22%3A%22var(--color-platinum-50)%22%2C%22h1%22%3A%22var(--color-platinum-50)%22%2C%22h2%22%3A%22var(--color-platinum-50)%22%2C%22h3%22%3A%22var(--color-platinum-50)%22%2C%22h4%22%3A%22var(--color-offwhite-50)%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-50)%22%2C%22svgFill2%22%3A%22var(--color-platinum-400)%22%2C%22svgFill3%22%3A%22var(--color-prusssianblue-200)%22%7D%7D%2C%22dark%22%3A%7B%22header%22%3A%7B%7D%2C%22footer%22%3A%7B%7D%7D%7D%2C%22typography%22%3A%7B%7D%2C%22widths%22%3A%7B%7D%7D */
+/* theme-builder: %7B%22version%22%3A2%2C%22colors%22%3A%7B%22light%22%3A%7B%22header%22%3A%7B%22background%22%3A%22var(--color-white)%22%2C%22border%22%3A%22transparent%22%2C%22accent1%22%3A%22transparent%22%2C%22accent1Border%22%3A%22transparent%22%2C%22accent1Text%22%3A%22var(--color-smartblue-700)%22%2C%22accent1Shadow%22%3A%22transparent%22%2C%22accentFocus%22%3A%22var(--color-platinum-100)%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-500)%22%2C%22svgFill2%22%3A%22var(--color-midnightblue-800)%22%2C%22svgFill3%22%3A%22var(--color-energeticorange-500)%22%2C%22navSvgFill%22%3A%22var(--color-energeticorange-500)%22%2C%22navSvgStroke%22%3A%22transparent%22%2C%22navSvgFillHover%22%3A%22var(--color-radioactive-400)%22%2C%22navSvgStrokeHover%22%3A%22transparent%22%7D%2C%22footer%22%3A%7B%22background%22%3A%22var(--color-midnightblue-800)%22%2C%22text%22%3A%22var(--color-platinum-50)%22%2C%22h1%22%3A%22var(--color-platinum-50)%22%2C%22h2%22%3A%22var(--color-platinum-50)%22%2C%22h3%22%3A%22var(--color-platinum-50)%22%2C%22h4%22%3A%22var(--color-offwhite-50)%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-50)%22%2C%22svgFill2%22%3A%22var(--color-platinum-400)%22%2C%22svgFill3%22%3A%22var(--color-prusssianblue-200)%22%7D%7D%2C%22dark%22%3A%7B%22header%22%3A%7B%7D%2C%22footer%22%3A%7B%7D%7D%7D%2C%22typography%22%3A%7B%7D%2C%22widths%22%3A%7B%7D%7D */
 :root:not([data-sitewide-preview]):not([data-theme="dark"]) .sw-header {
   --canvas-header: var(--color-white);
   --canvas-01: var(--color-white);
   --canvas-header-border: transparent;
   --canvas-01-border: transparent;
   --canvas-01-shadow: var(--canvas-header-shadow);
-  --accent-header-01: var(--color-platinum-200);
-  --accent-01-01: var(--color-platinum-200);
+  --accent-header-01: transparent;
+  --accent-01-01: transparent;
   --accent-01-01-hover: var(--accent-header-01-hover);
   --accent-header-01-border: transparent;
   --accent-01-01-border: transparent;
   --accent-01-01-hover-border: var(--accent-header-01-hover-border);
-  --accent-header-01-text: var(--color-platinum-950);
-  --accent-01-01-text: var(--color-platinum-950);
+  --accent-header-01-text: var(--color-smartblue-700);
+  --accent-01-01-text: var(--color-smartblue-700);
   --accent-01-01-hover-text: var(--accent-header-01-hover-text);
-  --accent-01-01-shadow: var(--accent-header-01-shadow);
+  --accent-header-01-shadow: transparent;
+  --accent-01-01-shadow: transparent;
   --accent-01-02: var(--accent-header-02);
   --accent-01-02-hover: var(--accent-header-02-hover);
   --accent-01-02-border: var(--accent-header-02-border);
@@ -67,12 +68,52 @@
   --ink-01-h1: var(--ink-header-h1);
   --ink-01-h2: var(--ink-header-h2);
   --ink-01-h3: var(--ink-header-h3);
+  --ink-01-label: var(--ink-header-label);
+  --ink-01-input: var(--ink-header-input);
+  --canvas-01-input: var(--canvas-header-input);
+  --canvas-01-input-border: var(--canvas-header-input-border);
+  --ink-01-placeholder: var(--ink-header-placeholder);
+  --accent-01-input-focus: var(--accent-header-input-focus);
   --ink-header-svg-01: var(--color-prusssianblue-500);
   --ink-01-svg-01: var(--color-prusssianblue-500);
   --ink-header-svg-02: var(--color-midnightblue-800);
   --ink-01-svg-02: var(--color-midnightblue-800);
   --ink-header-svg-03: var(--color-energeticorange-500);
   --ink-01-svg-03: var(--color-energeticorange-500);
+  --ink-01-svg-fill: var(--ink-header-svg-fill);
+  --ink-01-svg-stroke: var(--ink-header-svg-stroke);
+  --ink-01-svg-fill-hover: var(--ink-header-svg-fill-hover);
+  --ink-01-svg-fill-active: var(--ink-header-svg-fill-active);
+  --ink-01-svg-stroke-hover: var(--ink-header-svg-stroke-hover);
+  --ink-01-svg-stroke-active: var(--ink-header-svg-stroke-active);
+  --ink-01-svg-2-fill: var(--ink-header-svg-2-fill);
+  --ink-01-svg-2-stroke: var(--ink-header-svg-2-stroke);
+  --ink-01-svg-2-fill-hover: var(--ink-header-svg-2-fill-hover);
+  --ink-01-svg-2-fill-active: var(--ink-header-svg-2-fill-active);
+  --ink-01-svg-2-stroke-hover: var(--ink-header-svg-2-stroke-hover);
+  --ink-01-svg-2-stroke-active: var(--ink-header-svg-2-stroke-active);
+  --ink-header-nav-svg-fill: var(--color-energeticorange-500);
+  --ink-01-nav-svg-fill: var(--color-energeticorange-500);
+  --ink-header-nav-svg-stroke: transparent;
+  --ink-01-nav-svg-stroke: transparent;
+  --ink-header-nav-svg-fill-hover: var(--color-radioactive-400);
+  --ink-01-nav-svg-fill-hover: var(--color-radioactive-400);
+  --ink-01-nav-svg-fill-active: var(--ink-header-nav-svg-fill-active);
+  --ink-header-nav-svg-stroke-hover: transparent;
+  --ink-01-nav-svg-stroke-hover: transparent;
+  --ink-01-nav-svg-stroke-active: var(--ink-header-nav-svg-stroke-active);
+  --ink-01-button-svg-fill: var(--ink-header-button-svg-fill);
+  --ink-01-button-svg-stroke: var(--ink-header-button-svg-stroke);
+  --ink-01-button-svg-fill-hover: var(--ink-header-button-svg-fill-hover);
+  --ink-01-button-svg-fill-active: var(--ink-header-button-svg-fill-active);
+  --ink-01-button-svg-stroke-hover: var(--ink-header-button-svg-stroke-hover);
+  --ink-01-button-svg-stroke-active: var(--ink-header-button-svg-stroke-active);
+  --ink-01-anchor-svg-fill: var(--ink-header-anchor-svg-fill);
+  --ink-01-anchor-svg-stroke: var(--ink-header-anchor-svg-stroke);
+  --ink-01-anchor-svg-fill-hover: var(--ink-header-anchor-svg-fill-hover);
+  --ink-01-anchor-svg-fill-active: var(--ink-header-anchor-svg-fill-active);
+  --ink-01-anchor-svg-stroke-hover: var(--ink-header-anchor-svg-stroke-hover);
+  --ink-01-anchor-svg-stroke-active: var(--ink-header-anchor-svg-stroke-active);
   background-color: var(--canvas-header);
   color: var(--ink-header);
 }
@@ -106,9 +147,45 @@
   --ink-01-h1: var(--ink-header-h1);
   --ink-01-h2: var(--ink-header-h2);
   --ink-01-h3: var(--ink-header-h3);
+  --ink-01-label: var(--ink-header-label);
+  --ink-01-input: var(--ink-header-input);
+  --canvas-01-input: var(--canvas-header-input);
+  --canvas-01-input-border: var(--canvas-header-input-border);
+  --ink-01-placeholder: var(--ink-header-placeholder);
+  --accent-01-input-focus: var(--accent-header-input-focus);
   --ink-01-svg-01: var(--ink-header-svg-01, currentColor);
   --ink-01-svg-02: var(--ink-header-svg-02, var(--canvas-01));
   --ink-01-svg-03: var(--ink-header-svg-03, currentColor);
+  --ink-01-svg-fill: var(--ink-header-svg-fill);
+  --ink-01-svg-stroke: var(--ink-header-svg-stroke);
+  --ink-01-svg-fill-hover: var(--ink-header-svg-fill-hover);
+  --ink-01-svg-fill-active: var(--ink-header-svg-fill-active);
+  --ink-01-svg-stroke-hover: var(--ink-header-svg-stroke-hover);
+  --ink-01-svg-stroke-active: var(--ink-header-svg-stroke-active);
+  --ink-01-svg-2-fill: var(--ink-header-svg-2-fill);
+  --ink-01-svg-2-stroke: var(--ink-header-svg-2-stroke);
+  --ink-01-svg-2-fill-hover: var(--ink-header-svg-2-fill-hover);
+  --ink-01-svg-2-fill-active: var(--ink-header-svg-2-fill-active);
+  --ink-01-svg-2-stroke-hover: var(--ink-header-svg-2-stroke-hover);
+  --ink-01-svg-2-stroke-active: var(--ink-header-svg-2-stroke-active);
+  --ink-01-nav-svg-fill: var(--ink-header-nav-svg-fill);
+  --ink-01-nav-svg-stroke: var(--ink-header-nav-svg-stroke);
+  --ink-01-nav-svg-fill-hover: var(--ink-header-nav-svg-fill-hover);
+  --ink-01-nav-svg-fill-active: var(--ink-header-nav-svg-fill-active);
+  --ink-01-nav-svg-stroke-hover: var(--ink-header-nav-svg-stroke-hover);
+  --ink-01-nav-svg-stroke-active: var(--ink-header-nav-svg-stroke-active);
+  --ink-01-button-svg-fill: var(--ink-header-button-svg-fill);
+  --ink-01-button-svg-stroke: var(--ink-header-button-svg-stroke);
+  --ink-01-button-svg-fill-hover: var(--ink-header-button-svg-fill-hover);
+  --ink-01-button-svg-fill-active: var(--ink-header-button-svg-fill-active);
+  --ink-01-button-svg-stroke-hover: var(--ink-header-button-svg-stroke-hover);
+  --ink-01-button-svg-stroke-active: var(--ink-header-button-svg-stroke-active);
+  --ink-01-anchor-svg-fill: var(--ink-header-anchor-svg-fill);
+  --ink-01-anchor-svg-stroke: var(--ink-header-anchor-svg-stroke);
+  --ink-01-anchor-svg-fill-hover: var(--ink-header-anchor-svg-fill-hover);
+  --ink-01-anchor-svg-fill-active: var(--ink-header-anchor-svg-fill-active);
+  --ink-01-anchor-svg-stroke-hover: var(--ink-header-anchor-svg-stroke-hover);
+  --ink-01-anchor-svg-stroke-active: var(--ink-header-anchor-svg-stroke-active);
   background-color: var(--canvas-header);
   color: var(--ink-header);
 }
@@ -192,6 +269,40 @@
   --ink-01-svg-03: var(--ink-footer-svg-03, currentColor);
   background-color: var(--canvas-footer);
   color: var(--ink-footer);
+}
+@layer base {
+  :where(.sw-header) label {
+    color: var(--ink-01-label, var(--ink-01));
+  }
+  :where(.sw-header) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]),
+  :where(.sw-header) textarea,
+  :where(.sw-header) select {
+    color: var(--ink-01-input, var(--ink-01));
+    background-color: var(--canvas-01-input, var(--canvas-01));
+    border-color: var(--canvas-01-input-border, var(--canvas-01-border));
+  }
+  :where(.sw-header) ::placeholder {
+    color: var(--ink-01-placeholder, var(--ink-01-muted));
+  }
+  :where(.sw-header) :is(input, textarea, select):focus-visible {
+    outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
+  }
+}
+@layer base {
+  :root:not([data-sitewide-preview]):not([data-theme="dark"]) :where(.sw-header) .nav-svg {
+    fill: var(--ink-header-nav-svg-fill);
+  }
+  :root:not([data-sitewide-preview]):not([data-theme="dark"]) :where(.sw-header) .nav-svg {
+    stroke: var(--ink-header-nav-svg-stroke);
+  }
+  :root:not([data-sitewide-preview]):not([data-theme="dark"]) :where(.sw-header) :is(a, button, summary):is(:hover, :focus-visible) .nav-svg {
+    fill: var(--ink-header-nav-svg-fill-hover);
+  }
+  :root:not([data-sitewide-preview]):not([data-theme="dark"]) :where(.sw-header) :is(a, button, summary):is(:hover, :focus-visible) .nav-svg {
+    stroke: var(--ink-header-nav-svg-stroke-hover);
+  }
 }
 /* end sitewide: areas */
 
