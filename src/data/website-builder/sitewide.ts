@@ -1,5 +1,6 @@
 import {
   createDefaultColors,
+  isColorRoleVisible,
   isColorValue,
   isContentWidth,
   regionColorRoles,
@@ -10,7 +11,12 @@ import {
   type Theme,
   type TypographyRules,
 } from "./theme-groups.ts";
-import { areaDeclarations, rule } from "./group-classes.ts";
+import {
+  areaDeclarations,
+  formElementCss,
+  rule,
+  svgTypeCss,
+} from "./group-classes.ts";
 import {
   typographyRulesCss,
   validateTypographyRules,
@@ -281,6 +287,19 @@ export function sitewideAreasCss(styles: SitewideAreaStyles): string {
           `${selector} ::selection,\n${selector}::selection {\n${selection.join("\n")}\n}`,
         );
     }
+  }
+  // The header's form fields and SVG types (menu arrows, icons). The SVG
+  // rules are only written for the colors chosen, so an SVG left on the
+  // theme default keeps its own colors.
+  for (const { region, className } of sitewideAreas) {
+    if (!isColorRoleVisible(region, "label")) continue;
+    css.push(formElementCss(className));
+    const svgRules = (["light", "dark"] as const).flatMap((theme) => {
+      const colors = createDefaultColors();
+      colors[region] = styles.colors[theme][region];
+      return svgTypeCss(themeSelectors[theme], className, colors, region);
+    });
+    if (svgRules.length) css.push(`@layer base {\n${svgRules.join("\n")}\n}`);
   }
   for (const { region, className } of sitewideAreas) {
     const width = styles.widths[region];

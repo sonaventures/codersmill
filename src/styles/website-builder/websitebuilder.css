@@ -155,22 +155,30 @@
 .selector-shell .sample-navigation details {
   @apply relative;
 }
+/* The menu headers take the header's Accent 1, and their arrows the Nav SVG
+   colors. */
 .selector-shell .sample-navigation summary {
-  @apply flex cursor-pointer list-none items-center justify-between gap-[0.35rem] rounded-sm p-[0.65rem_0.4rem] text-[0.75rem] font-[650] text-(--sample-text);
+  @apply flex cursor-pointer list-none items-center justify-between gap-[0.35rem] rounded-sm p-[0.65rem_0.4rem] text-[0.75rem] font-[650];
+  background: var(--sample-accent1);
+  border: 1px solid var(--sample-accent1Border);
+  color: var(--sample-accent1Text);
+  box-shadow: 0 3px 10px
+    color-mix(in srgb, var(--sample-accent1Shadow) 20%, transparent);
 }
 .selector-shell .sample-navigation summary::-webkit-details-marker {
   @apply hidden;
 }
-.selector-shell .sample-navigation summary::after {
-  content: "+";
+.selector-shell .sample-nav-arrow {
+  @apply size-3.5 shrink-0 transition-transform;
 }
-.selector-shell .sample-navigation details[open] summary::after {
-  content: "-";
+.selector-shell .sample-navigation details[open] .sample-nav-arrow {
+  @apply rotate-180;
 }
-.selector-shell .sample-navigation summary:hover,
+.selector-shell .sample-navigation summary:is(:hover, :focus-visible),
 .selector-shell .sample-navigation details[open] summary {
-  background: var(--sample-accent1);
-  @apply text-(--sample-accent1Text);
+  background: var(--sample-accent1Hover);
+  border-color: var(--sample-accent1HoverBorder);
+  color: var(--sample-accent1HoverText);
 }
 .selector-shell .sample-submenu {
   @apply absolute top-[calc(100%+0.25rem)] left-0 z-2 m-0 w-[min(12rem,70vw)] list-none p-[0.35rem];
@@ -228,6 +236,19 @@
 }
 .selector-shell .sample-header .sample-buttons {
   @apply m-0;
+}
+/* The header's search field and its two icons. */
+.selector-shell .sample-header-field {
+  @apply w-full max-w-56 grid-cols-[auto_minmax(0,1fr)] items-center gap-2;
+}
+.selector-shell .sample-header-icons {
+  @apply flex items-center gap-1;
+}
+.selector-shell .sample-header-icons a {
+  @apply inline-grid size-9 place-items-center rounded-full;
+}
+.selector-shell .sample-header-icons svg {
+  @apply size-5;
 }
 .selector-shell .sample-section {
   border: 1px solid var(--sample-border);
@@ -1637,63 +1658,95 @@
   @apply inline-block size-3 rounded-full border;
   border-color: color-mix(in srgb, currentColor 40%, transparent);
 }
-.selector-shell .sample-svg-types .svg {
+/* SVG types, in the SVG types samples and the header (menu arrows and
+   icons). Hover covers focus, as on the site. */
+.selector-shell :is(.sample-svg-types, .sample-header) .svg {
   fill: var(--sample-svgIconFill);
   stroke: var(--sample-svgIconStroke);
 }
 .selector-shell
-  .sample-svg-types
-  :is(a, button):is(:hover, :focus-visible)
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):is(:hover, :focus-visible)
   .svg {
   fill: var(--sample-svgIconFillHover);
   stroke: var(--sample-svgIconStrokeHover);
 }
-.selector-shell .sample-svg-types :is(a, button):active .svg {
+.selector-shell
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):active
+  .svg {
   fill: var(--sample-svgIconFillActive);
   stroke: var(--sample-svgIconStrokeActive);
 }
-.selector-shell .sample-svg-types .nav-svg {
+.selector-shell :is(.sample-svg-types, .sample-header) .svg-2 {
+  fill: var(--sample-svgIcon2Fill);
+  stroke: var(--sample-svgIcon2Stroke);
+}
+.selector-shell
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):is(:hover, :focus-visible)
+  .svg-2 {
+  fill: var(--sample-svgIcon2FillHover);
+  stroke: var(--sample-svgIcon2StrokeHover);
+}
+.selector-shell
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):active
+  .svg-2 {
+  fill: var(--sample-svgIcon2FillActive);
+  stroke: var(--sample-svgIcon2StrokeActive);
+}
+.selector-shell :is(.sample-svg-types, .sample-header) .nav-svg {
   fill: var(--sample-navSvgFill);
   stroke: var(--sample-navSvgStroke);
 }
 .selector-shell
-  .sample-svg-types
-  :is(a, button):is(:hover, :focus-visible)
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):is(:hover, :focus-visible)
   .nav-svg {
   fill: var(--sample-navSvgFillHover);
   stroke: var(--sample-navSvgStrokeHover);
 }
-.selector-shell .sample-svg-types :is(a, button):active .nav-svg {
+.selector-shell
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):active
+  .nav-svg {
   fill: var(--sample-navSvgFillActive);
   stroke: var(--sample-navSvgStrokeActive);
 }
-.selector-shell .sample-svg-types .button-svg {
+.selector-shell :is(.sample-svg-types, .sample-header) .button-svg {
   fill: var(--sample-buttonSvgFill);
   stroke: var(--sample-buttonSvgStroke);
 }
 .selector-shell
-  .sample-svg-types
-  :is(a, button):is(:hover, :focus-visible)
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):is(:hover, :focus-visible)
   .button-svg {
   fill: var(--sample-buttonSvgFillHover);
   stroke: var(--sample-buttonSvgStrokeHover);
 }
-.selector-shell .sample-svg-types :is(a, button):active .button-svg {
+.selector-shell
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):active
+  .button-svg {
   fill: var(--sample-buttonSvgFillActive);
   stroke: var(--sample-buttonSvgStrokeActive);
 }
-.selector-shell .sample-svg-types .anchor-svg {
+.selector-shell :is(.sample-svg-types, .sample-header) .anchor-svg {
   fill: var(--sample-anchorSvgFill);
   stroke: var(--sample-anchorSvgStroke);
 }
 .selector-shell
-  .sample-svg-types
-  :is(a, button):is(:hover, :focus-visible)
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):is(:hover, :focus-visible)
   .anchor-svg {
   fill: var(--sample-anchorSvgFillHover);
   stroke: var(--sample-anchorSvgStrokeHover);
 }
-.selector-shell .sample-svg-types :is(a, button):active .anchor-svg {
+.selector-shell
+  :is(.sample-svg-types, .sample-header)
+  :is(a, button, summary):active
+  .anchor-svg {
   fill: var(--sample-anchorSvgFillActive);
   stroke: var(--sample-anchorSvgStrokeActive);
 }

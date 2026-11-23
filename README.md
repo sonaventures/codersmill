@@ -131,16 +131,23 @@ A group also holds:
   `rounded-card`, `rounded-subsection`, `rounded-accent`, and `rounded-cta`).
 - **Content widths** for any area (`--container-site`, used by `max-w-site`).
 - **SVG types**: a fill, stroke, hover/focus, and active color for SVGs with
-  the `svg`, `nav-svg`, `button-svg`, or `anchor-svg` class. An SVG type left
-  on **Theme default** keeps the SVG's own colors.
+  the `svg` (SVG icon 1), `svg-2` (SVG icon 2), `nav-svg`, `button-svg`, or
+  `anchor-svg` class. An SVG type left on **Theme default** keeps the SVG's
+  own colors.
 
 Some styles are **sitewide** instead, saved to `sitewide.css` with **Save to
 sitewide.css** and applied whatever group a page uses: the Global area's CTA
 01–03 colors, the header and footer (`sw-header`,
 `sw-footer`), and the site's content width.
 
+The header also has form field colors (label, input text, background, border,
+placeholder, and focus) and the SVG types, like a theme group's areas. In the
+preview, its menu headers show Accent 1 with Nav SVG arrows, Contact is Accent
+2 beside an Accent 3 link, and a search field and two icons (SVG icon 1 and 2)
+sit beside them; click any of them to edit its colors.
+
 Groups are kept in the browser and in the project's `theme-groups.json`, and
-can be exported and imported as JSON (format version 32; older files still
+can be exported and imported as JSON (format version 33; older files still
 load, with their accent colors moved to the new names and their card text
 color given to every card).
 

@@ -1409,13 +1409,13 @@
   --color-ink-footer-svg-02: var(--ink-footer-svg-02, var(--canvas-footer));
   --color-ink-footer-svg-03: var(--ink-footer-svg-03, currentColor);
 
-  /* SVG types: the colors for SVGs with the svg, nav-svg, button-svg or
-   * anchor-svg class, e.g. fill-ink-01-nav-svg-fill or
+  /* SVG types: the colors for SVGs with the svg, svg-2, nav-svg, button-svg
+   * or anchor-svg class, e.g. fill-ink-01-nav-svg-fill or
    * group-hover:stroke-ink-01-button-svg-stroke-hover. Theme group classes
-   * remap these 01 variables for each area. Hover covers focus too; active
+   * and the sitewide header remap these 01 variables for each area. Hover covers focus too; active
    * falls back to hover, hover to the base color, and the base colors to
    * the text color. */
-  /* SVG: icons such as social links */
+  /* SVG icon 1: icons such as social links */
   --color-ink-01-svg-fill: var(--ink-01-svg-fill, currentColor);
   --color-ink-01-svg-fill-hover: var(
     --ink-01-svg-fill-hover,
@@ -1433,6 +1433,25 @@
   --color-ink-01-svg-stroke-active: var(
     --ink-01-svg-stroke-active,
     var(--ink-01-svg-stroke-hover, var(--ink-01-svg-stroke, currentColor))
+  );
+  /* SVG icon 2: a second set of icons */
+  --color-ink-01-svg-2-fill: var(--ink-01-svg-2-fill, currentColor);
+  --color-ink-01-svg-2-fill-hover: var(
+    --ink-01-svg-2-fill-hover,
+    var(--ink-01-svg-2-fill, currentColor)
+  );
+  --color-ink-01-svg-2-fill-active: var(
+    --ink-01-svg-2-fill-active,
+    var(--ink-01-svg-2-fill-hover, var(--ink-01-svg-2-fill, currentColor))
+  );
+  --color-ink-01-svg-2-stroke: var(--ink-01-svg-2-stroke, currentColor);
+  --color-ink-01-svg-2-stroke-hover: var(
+    --ink-01-svg-2-stroke-hover,
+    var(--ink-01-svg-2-stroke, currentColor)
+  );
+  --color-ink-01-svg-2-stroke-active: var(
+    --ink-01-svg-2-stroke-active,
+    var(--ink-01-svg-2-stroke-hover, var(--ink-01-svg-2-stroke, currentColor))
   );
   /* Nav SVG: icons in menus */
   --color-ink-01-nav-svg-fill: var(--ink-01-nav-svg-fill, currentColor);

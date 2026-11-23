@@ -484,8 +484,14 @@ export const svgTypes = [
   {
     key: "svgIcon",
     className: "svg",
-    label: "SVG",
+    label: "SVG icon 1",
     detail: "Icons such as social links",
+  },
+  {
+    key: "svgIcon2",
+    className: "svg-2",
+    label: "SVG icon 2",
+    detail: "A second set of icons",
   },
   {
     key: "navSvg",
@@ -554,20 +560,50 @@ export type SvgType = (typeof svgTypes)[number];
 export type SvgState = (typeof svgStates)[number];
 
 export const svgTypeColorRoles = [
-  { key: "svgIconFill", label: "SVG fill", group: "svgIcon" },
-  { key: "svgIconStroke", label: "SVG stroke", group: "svgIcon" },
+  { key: "svgIconFill", label: "SVG icon 1 fill", group: "svgIcon" },
+  { key: "svgIconStroke", label: "SVG icon 1 stroke", group: "svgIcon" },
   {
     key: "svgIconFillHover",
-    label: "SVG fill hover / focus",
+    label: "SVG icon 1 fill hover / focus",
     group: "svgIcon",
   },
-  { key: "svgIconFillActive", label: "SVG fill active", group: "svgIcon" },
+  {
+    key: "svgIconFillActive",
+    label: "SVG icon 1 fill active",
+    group: "svgIcon",
+  },
   {
     key: "svgIconStrokeHover",
-    label: "SVG stroke hover / focus",
+    label: "SVG icon 1 stroke hover / focus",
     group: "svgIcon",
   },
-  { key: "svgIconStrokeActive", label: "SVG stroke active", group: "svgIcon" },
+  {
+    key: "svgIconStrokeActive",
+    label: "SVG icon 1 stroke active",
+    group: "svgIcon",
+  },
+  { key: "svgIcon2Fill", label: "SVG icon 2 fill", group: "svgIcon2" },
+  { key: "svgIcon2Stroke", label: "SVG icon 2 stroke", group: "svgIcon2" },
+  {
+    key: "svgIcon2FillHover",
+    label: "SVG icon 2 fill hover / focus",
+    group: "svgIcon2",
+  },
+  {
+    key: "svgIcon2FillActive",
+    label: "SVG icon 2 fill active",
+    group: "svgIcon2",
+  },
+  {
+    key: "svgIcon2StrokeHover",
+    label: "SVG icon 2 stroke hover / focus",
+    group: "svgIcon2",
+  },
+  {
+    key: "svgIcon2StrokeActive",
+    label: "SVG icon 2 stroke active",
+    group: "svgIcon2",
+  },
   { key: "navSvgFill", label: "Nav SVG fill", group: "navSvg" },
   { key: "navSvgStroke", label: "Nav SVG stroke", group: "navSvg" },
   {
@@ -963,7 +999,8 @@ export const roleGroups = [
   { key: "content", label: "Quotes, dividers, lists & selection" },
   { key: "interactive", label: "Buttons, links & icons" },
   { key: "svg", label: "SVG fills" },
-  { key: "svgIcon", label: "SVG / .svg" },
+  { key: "svgIcon", label: "SVG icon 1 / .svg" },
+  { key: "svgIcon2", label: "SVG icon 2 / .svg-2" },
   { key: "navSvg", label: "Nav SVG / .nav-svg" },
   { key: "buttonSvg", label: "Button SVG / .button-svg" },
   { key: "anchorSvg", label: "Anchor SVG / .anchor-svg" },
@@ -1182,9 +1219,21 @@ export function isSitewideColorRole(
 
 /** Whether an area's color controls include this role. Sitewide colors are
  * only edited in the Global area, which is not a theme group area. */
+/**
+ * The header also styles its form fields (a search box, say) and its SVG
+ * types (menu arrows and icons), which other areas outside a theme group's
+ * page do not.
+ */
+export function isHeaderColorRole(role: string): boolean {
+  return (
+    formColorRoles.some(({ key }) => key === role) || Boolean(svgTypeRole(role))
+  );
+}
+
 export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
   if (isSitewideColorRole(role)) return false;
   if (isGlobalColorRole(role)) return region === "page";
+  if (region === "header" && isHeaderColorRole(role)) return true;
   if (
     role.startsWith("card") ||
     role.startsWith("subsection") ||
@@ -1230,11 +1279,13 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
   // Every area, including the header and footer, has its own SVG fills.
   const svg = svgFillRoles.find(({ key }) => key === role);
   if (svg) return `ink-${suffix}-svg-${svg.number}`;
-  // SVG types are for the page, hero and sections, like the form colors.
+  // SVG types are for the page, hero, sections, and header, like the form
+  // colors.
   const svgType = svgTypeRole(role);
   if (svgType)
     return region === "page" ||
       region === "hero" ||
+      region === "header" ||
       region.startsWith("section")
       ? `ink-${suffix}-${svgTypeToken(svgType.type, svgType.state)}`
       : null;
@@ -1264,7 +1315,8 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
   if (role in detailTokens)
     return region === "page" ||
       region === "hero" ||
-      region.startsWith("section")
+      region.startsWith("section") ||
+      (region === "header" && isHeaderColorRole(role))
       ? detailTokens[role as keyof typeof detailTokens].replace("%", suffix)
       : null;
   switch (role) {
@@ -1501,12 +1553,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 29 &&
       data.version !== 30 &&
       data.version !== 31 &&
-      data.version !== 32) ||
+      data.version !== 32 &&
+      data.version !== 33) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 32 theme group file with up to 100 groups.",
+      "Expected a version 1 through 33 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1580,6 +1633,11 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
               : old.startsWith("#")
                 ? old.toLowerCase()
                 : old;
+            continue;
+          }
+          // Version 33 added SVG icon 2 (.svg-2).
+          if (data.version < 33 && svgTypeRole(role)?.type.key === "svgIcon2") {
+            regionColors[role] = "theme";
             continue;
           }
           // Version 31 gave each card and the subsection their own accents.
@@ -1768,7 +1826,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 32, groups }, null, 2);
+  return JSON.stringify({ version: 33, groups }, null, 2);
 }
 
 /**

@@ -260,6 +260,35 @@ export function areaElementCss(className: string, region: Region): string {
   return `@layer base {\n${rules.join("\n")}\n}`;
 }
 
+// The form field rules from areaElementMappings: labels, fields,
+// placeholders, and focus.
+const formSelectors = new Set<string>([
+  "label",
+  inputSelector,
+  "::placeholder",
+  ":is(input, textarea, select):focus-visible",
+]);
+
+/**
+ * The form field rules alone, for an area outside the theme groups that
+ * styles its fields (the sitewide header).
+ */
+export function formElementCss(className: string): string {
+  const rules = areaElementMappings
+    .filter(({ selector }) => formSelectors.has(selector))
+    .map(({ selector, declarations }) => {
+      const target = selector
+        .split(/,\s*(?![^()]*\))/)
+        .map((part) => `  :where(.${className}) ${part}`)
+        .join(",\n");
+      const lines = Object.entries(declarations).map(
+        ([property, value]) => `    ${property}: ${value};`,
+      );
+      return `${target} {\n${lines.join("\n")}\n  }`;
+    });
+  return `@layer base {\n${rules.join("\n")}\n}`;
+}
+
 /**
  * The group's corner radii as variables on every one of its classes, so
  * rounded-section, rounded-card, rounded-subsection, rounded-accent and

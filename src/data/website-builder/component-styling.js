@@ -287,7 +287,13 @@ export const stylePresets = [
       "bg-canvas-01-input text-ink-01-input border-canvas-01-input-border placeholder:text-ink-01-placeholder focus:border-accent-01-input-focus focus:outline-accent-01-input-focus",
   },
   // The SVG types the Theme Builder colors (fill, stroke, hover, active).
-  { key: "svg", label: "SVG icon (.svg)", group: "icons", classes: "svg" },
+  { key: "svg", label: "SVG icon 1 (.svg)", group: "icons", classes: "svg" },
+  {
+    key: "svg-2",
+    label: "SVG icon 2 (.svg-2)",
+    group: "icons",
+    classes: "svg-2",
+  },
   {
     key: "nav-svg",
     label: "Nav SVG (.nav-svg)",
@@ -307,7 +313,13 @@ export const stylePresets = [
     classes: "anchor-svg",
   },
 ];
-const svgTypeNames = new Set(["svg", "nav-svg", "button-svg", "anchor-svg"]);
+const svgTypeNames = new Set([
+  "svg",
+  "svg-2",
+  "nav-svg",
+  "button-svg",
+  "anchor-svg",
+]);
 
 const colorPrefix =
   "(?:bg|text|border(?:-[xytblrse])?|divide|ring-offset|inset-ring|ring|shadow|outline|fill|stroke|from|via|to|placeholder|decoration|accent|caret)";

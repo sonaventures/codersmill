@@ -55,6 +55,9 @@ function legacyJson(version, groups) {
             if (now in colors) colors[before] = colors[now];
           for (const { key } of accentColorRoles) delete colors[key];
         }
+        if (version < 33)
+          for (const key of Object.keys(colors))
+            if (key.startsWith("svgIcon2")) delete colors[key];
         if (version < 32)
           for (const { key } of cardInkColorRoles)
             if (/Code(Background)?$/.test(key)) delete colors[key];
@@ -143,7 +146,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 32);
+  assert.equal(JSON.parse(json).version, 33);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -168,7 +171,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":33,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":34,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -226,7 +229,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 32);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 33);
 });
 
 test("brand assignments are page-wide and round-trip independently by theme", () => {
@@ -743,7 +746,14 @@ test("form and content colors fall back to the colors components used before", (
     "var(--ink-hero-marker,currentColor)",
   );
   assert.ok(isColorRoleVisible("page", "selectionText"));
-  assert.ok(!isColorRoleVisible("header", "inputFocus"));
+  // The header styles its form fields too; the footer does not.
+  assert.ok(isColorRoleVisible("header", "inputFocus"));
+  assert.equal(semanticToken("header", "label"), "ink-header-label");
+  assert.equal(
+    defaultColorReference("header", "inputPlaceholder"),
+    "var(--ink-header-placeholder,var(--ink-header))",
+  );
+  assert.ok(!isColorRoleVisible("footer", "inputFocus"));
 });
 
 test("groups saved before version 24 drop their CTA colors, which are sitewide now", () => {
@@ -821,7 +831,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 32);
+  assert.equal(JSON.parse(first).version, 33);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -1040,14 +1050,14 @@ test("accent and CTA corner radii round-trip, and older groups get the defaults"
   );
 });
 
-test("SVG types have six colors each for the page, hero and sections only", async () => {
+test("SVG types have six colors each for the page, hero, sections, and header", async () => {
   const {
     svgTypeColorRoles,
     semanticToken,
     defaultColorReference,
     isColorRoleVisible,
   } = await import("../../src/data/website-builder/theme-groups.ts");
-  assert.equal(svgTypeColorRoles.length, 24);
+  assert.equal(svgTypeColorRoles.length, 30);
   assert.equal(
     semanticToken("hero", "navSvgFillHover"),
     "ink-hero-nav-svg-fill-hover",
@@ -1057,7 +1067,15 @@ test("SVG types have six colors each for the page, hero and sections only", asyn
     semanticToken("page", "anchorSvgStrokeActive"),
     "ink-page-anchor-svg-stroke-active",
   );
-  assert.equal(semanticToken("header", "navSvgFill"), null);
+  assert.equal(
+    semanticToken("header", "navSvgFill"),
+    "ink-header-nav-svg-fill",
+  );
+  assert.ok(isColorRoleVisible("header", "svgIcon2StrokeHover"));
+  assert.equal(
+    semanticToken("section2", "svgIcon2FillActive"),
+    "ink-02-svg-2-fill-active",
+  );
   assert.ok(!isColorRoleVisible("footer", "buttonSvgFill"));
   assert.ok(isColorRoleVisible("section4", "buttonSvgFill"));
   // Active falls back to hover, hover to the base color, the base to the text.
@@ -1218,4 +1236,15 @@ test("each card and the subsection have their own Accent 1 and Accent 2", async 
   older.themes.light.page.card1Accent1 = "#123456";
   const [restored] = parseThemeGroups(legacyJson(30, [older]));
   assert.equal(restored.themes.light.page.card1Accent1, "theme");
+});
+
+test("SVG icon 2 starts on the theme default in groups saved before version 33", () => {
+  const older = group();
+  older.themes.light.section1.svgIcon2Fill = "#123456";
+  const [restored] = parseThemeGroups(legacyJson(32, [older]));
+  assert.equal(restored.themes.light.section1.svgIcon2Fill, "theme");
+  const edited = group();
+  edited.themes.dark.header.svgIcon2Stroke = "var(--color-amber-300)";
+  edited.themes.light.header.inputBorder = "var(--color-slate-400)";
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });

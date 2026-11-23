@@ -1,5 +1,5 @@
 ---
-// One clickable example of each SVG type (svg, nav-svg, button-svg,
+// One clickable example of each SVG type (svg, svg-2, nav-svg, button-svg,
 // anchor-svg) in the area it sits in. Click the example to edit its fill, or
 // a labelled chip to edit that color; hover and press the example to see the
 // hover / focus and active colors.
@@ -9,6 +9,7 @@ import { svgStates, svgTypes } from "../../data/website-builder/theme-groups";
 const shapes: Record<(typeof svgTypes)[number]["key"], string> = {
   svgIcon:
     "M12 20.5s-7.2-4.4-9.4-9A5.2 5.2 0 0 1 12 5.9a5.2 5.2 0 0 1 9.4 5.6c-2.2 4.6-9.4 9-9.4 9Z",
+  svgIcon2: "M13.5 2.5 4.5 13.5h6.5l-1.5 8 9-11.5h-6.5Z",
   navSvg: "M5.5 9h13L12 16.5Z",
   buttonSvg: "M3.5 9.5h9V5.5l8 6.5-8 6.5v-4h-9Z",
   anchorSvg:
@@ -39,7 +40,7 @@ const shapes: Record<(typeof svgTypes)[number]["key"], string> = {
             <span>{type.detail}</span>
           </p>
           <div class="sample-svg-type-example">
-            {type.key === "svgIcon" && (
+            {(type.key === "svgIcon" || type.key === "svgIcon2") && (
               <a
                 href="#selector-sample-page"
                 class="sample-svg-type-social"

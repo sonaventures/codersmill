@@ -145,3 +145,33 @@ test("sitewide.css keeps the content width and the header and footer widths", as
     parseSitewideLayout("/* sitewide: layout */\n:root { --container-site: calc(1px); }\n/* end sitewide: layout */"),
   );
 });
+
+test("the sitewide header styles its form fields and SVG types", async () => {
+  const { createDefaultSitewideAreas, sitewideAreasCss } = await import(
+    "../../src/data/website-builder/sitewide.ts"
+  );
+  const styles = createDefaultSitewideAreas();
+  styles.colors.light.header.label = "var(--color-sky-700)";
+  styles.colors.light.header.inputPlaceholder = "#abcdef";
+  styles.colors.dark.header.navSvgFillHover = "var(--color-amber-300)";
+  styles.colors.light.header.svgIcon2Stroke = "var(--color-rose-500)";
+  const css = sitewideAreasCss(styles);
+  const light =
+    ':root:not([data-sitewide-preview]):not([data-theme="dark"]) .sw-header {';
+  const header = css.slice(css.indexOf(light), css.indexOf("}", css.indexOf(light)));
+  assert.match(header, /--ink-header-label: var\(--color-sky-700\);/);
+  assert.match(header, /--ink-01-label: var\(--color-sky-700\);/);
+  assert.match(header, /--ink-01-placeholder: #abcdef;/);
+  // The header's fields read those variables, like a theme group area's.
+  assert.match(css, /:where\(\.sw-header\) label \{\n {4}color: var\(--ink-01-label, var\(--ink-01\)\);/);
+  assert.match(css, /:where\(\.sw-header\) ::placeholder \{/);
+  // SVG rules only for the colors chosen, in their theme.
+  assert.match(
+    css,
+    /\[data-theme="dark"\] :where\(\.sw-header\) :is\(a, button, summary\):is\(:hover, :focus-visible\) \.nav-svg \{\n {4}fill: var\(--ink-header-nav-svg-fill-hover\);/,
+  );
+  assert.match(css, /:where\(\.sw-header\) \.svg-2 \{\n {4}stroke: var\(--ink-header-svg-2-stroke\);/);
+  assert.doesNotMatch(css, /\.sw-header\) \.button-svg/);
+  // The footer does neither.
+  assert.doesNotMatch(css, /:where\(\.sw-footer\) label/);
+});

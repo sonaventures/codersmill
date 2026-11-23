@@ -601,8 +601,10 @@ if (root) {
     if (target.matches(".sample-secondary")) return "accent2";
     if (target.matches(".sample-action-link")) return "accent3";
     if (target.matches(".sample-social-icons a")) return "iconBorder";
-    if (target.matches(".sample-navigation summary, .sample-submenu a"))
-      return "text";
+    // The menu headers are Accent 1; their arrows (Nav SVG) have their own
+    // sample role.
+    if (target.matches(".sample-navigation summary")) return "accent1";
+    if (target.matches(".sample-submenu a")) return "text";
     if (target.matches("a")) return "linkColor";
     if (target.matches("h1")) return "h1";
     if (target.matches("h2")) return "h2";
