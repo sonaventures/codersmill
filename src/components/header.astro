@@ -1,5 +1,5 @@
 ---
-import { navigation, siteName } from "../data/site";
+import { builderLink, navigation, siteName } from "../data/site";
 
 interface Props {
   title?: string;
@@ -8,7 +8,11 @@ interface Props {
 }
 
 const { title, class: className } = Astro.props;
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
+// A section is current on its own page and on its pages.
+const inSection = (section: (typeof navigation)[number]) =>
+  currentPath === section.href ||
+  section.items.some(({ href }) => href === currentPath);
 ---
 
 <header class:list={["site-header", className]}>
@@ -48,17 +52,75 @@ const currentPath = Astro.url.pathname;
           class="primary-navigation"
           aria-label="Main"
         >
-          <ul>
-            {navigation.map(({ label, href }) => (
-              <li>
-                <a
-                  href={href}
-                  aria-current={currentPath === href ? "page" : undefined}
-                >
-                  {label}
-                </a>
-              </li>
-            ))}
+          <ul class="nav-list">
+            {navigation.map((section) => {
+              const id = `submenu-${section.href.replaceAll("/", "")}`;
+              return (
+                <li class="nav-item" data-nav-item>
+                  <a
+                    href={section.href}
+                    aria-current={
+                      currentPath === section.href ? "page" : undefined
+                    }
+                    data-current-section={inSection(section) ? "" : undefined}
+                  >
+                    {section.label}
+                  </a>
+                  <button
+                    type="button"
+                    class="submenu-toggle"
+                    aria-expanded="false"
+                    aria-controls={id}
+                    aria-label={`${section.label} menu`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+                  <ul class="submenu" id={id}>
+                    {section.items.map(({ label, href, external }) => (
+                      <li>
+                        <a
+                          href={href}
+                          aria-current={
+                            currentPath === href ? "page" : undefined
+                          }
+                          {...(external
+                            ? { target: "_blank", rel: "noopener" }
+                            : {})}
+                        >
+                          {label}
+                          {external && (
+                            <span aria-hidden="true" class="submenu-external">
+                              ↗
+                            </span>
+                          )}
+                          {external && (
+                            <span class="sr-only"> (opens in a new tab)</span>
+                          )}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              );
+            })}
+            <li class="nav-cta-item">
+              <a class="nav-cta" href={builderLink.href}>
+                {builderLink.label}
+              </a>
+            </li>
           </ul>
         </nav>
       )}
@@ -141,14 +203,47 @@ const currentPath = Astro.url.pathname;
   const navigationPanel = document.querySelector<HTMLElement>(
     "#primary-navigation",
   );
+  const navItems = [
+    ...document.querySelectorAll<HTMLElement>("[data-nav-item]"),
+  ];
+
+  // Each section's submenu opens with its button (and with hover on wide
+  // screens), one at a time.
+  const setSubmenu = (item: HTMLElement, open: boolean) => {
+    item.classList.toggle("is-open", open);
+    item
+      .querySelector(".submenu-toggle")
+      ?.setAttribute("aria-expanded", String(open));
+  };
+  const closeSubmenus = (except?: HTMLElement) => {
+    for (const item of navItems) if (item !== except) setSubmenu(item, false);
+  };
+  for (const item of navItems) {
+    item
+      .querySelector<HTMLButtonElement>(".submenu-toggle")
+      ?.addEventListener("click", () => {
+        closeSubmenus(item);
+        setSubmenu(item, !item.classList.contains("is-open"));
+      });
+    // Close when focus moves out of the section, e.g. tabbing past it.
+    item.addEventListener("focusout", (event) => {
+      if (!item.contains(event.relatedTarget as Node | null))
+        setSubmenu(item, false);
+    });
+  }
+  document.addEventListener("click", (event) => {
+    if (!(event.target as HTMLElement).closest("[data-nav-item]"))
+      closeSubmenus();
+  });
+
+  const closeMenu = () => {
+    if (!menuButton || !navigationPanel) return;
+    menuButton.setAttribute("aria-expanded", "false");
+    menuButton.setAttribute("aria-label", "Open navigation menu");
+    navigationPanel.classList.remove("is-open");
+  };
 
   if (menuButton && navigationPanel) {
-    const closeMenu = () => {
-      menuButton.setAttribute("aria-expanded", "false");
-      menuButton.setAttribute("aria-label", "Open navigation menu");
-      navigationPanel.classList.remove("is-open");
-    };
-
     menuButton.addEventListener("click", () => {
       const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
       menuButton.setAttribute("aria-expanded", String(!isExpanded));
@@ -162,9 +257,17 @@ const currentPath = Astro.url.pathname;
     navigationPanel.addEventListener("click", (event) => {
       if ((event.target as HTMLElement).closest("a")) closeMenu();
     });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu();
-    });
   }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    // Escape closes an open submenu first, returning focus to its button.
+    const open = navItems.find((item) => item.classList.contains("is-open"));
+    if (open) {
+      setSubmenu(open, false);
+      open.querySelector<HTMLButtonElement>(".submenu-toggle")?.focus();
+      return;
+    }
+    closeMenu();
+  });
 </script>

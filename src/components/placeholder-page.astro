@@ -1,0 +1,37 @@
+---
+import FpHero from "./fp_hero.astro";
+import Layout from "../layouts/layout.astro";
+import { findNavItem } from "../data/site";
+
+// A page from the menu that is not written yet. Its title and description
+// come from the menu in src/data/site.ts; replace this component with the
+// page's content when it is ready.
+const found = findNavItem(Astro.url.pathname.replace(/\/?$/, "/"));
+if (!found) throw new Error(`No menu item for ${Astro.url.pathname}.`);
+const { section, item } = found;
+---
+
+<Layout title={item.label} description={item.description}>
+  <FpHero
+    eyebrow={section.label}
+    title={item.label}
+    description={item.description}
+  />
+
+  <section class="container content-section">
+    <div class="empty-state">
+      <div class="empty-state-mark" aria-hidden="true">
+        ✦
+      </div>
+      <p class="eyebrow">Coming soon</p>
+      <h2>This page is on its way.</h2>
+      <p>
+        In the meantime, see the rest of{" "}
+        <a class="text-link" href={section.href}>
+          {section.label}
+        </a>
+        .
+      </p>
+    </div>
+  </section>
+</Layout>

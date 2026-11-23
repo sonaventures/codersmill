@@ -10,7 +10,7 @@ test("all approved page routes exist", async () => {
     "src/pages/index.astro",
     "src/pages/tools.astro",
     "src/pages/blocks.astro",
-    "src/pages/about.astro",
+    "src/pages/us/who-we-are.astro",
     "src/pages/template.astro",
     "src/pages/website-builder/custom-colors.astro",
     "src/pages/website-builder/theme-builder.astro",
@@ -78,4 +78,25 @@ test("the tools and blocks pages read from their sources", async () => {
     blocks,
     /import\.meta\.glob\(\s*"\.\.\/components\/blocks\/\*\*\/\*\.astro"/,
   );
+});
+
+test("every page in the menu exists", async () => {
+  const { navigation } = await import("../src/data/site.ts");
+  const page = (href) =>
+    href === "/login/"
+      ? "src/pages/login.astro"
+      : `src/pages${href.replace(/\/$/, "")}${
+          navigation.some((section) => section.href === href) ? "/index" : ""
+        }.astro`;
+  for (const section of navigation) {
+    assert.ok(section.items.length, `${section.label} has pages`);
+    for (const { href, external } of [section, ...section.items]) {
+      if (external) {
+        assert.match(href, /^https:\/\//);
+        continue;
+      }
+      if (href === "/website-builder/" || href === "/tools/") continue;
+      await assert.doesNotReject(readProjectFile(page(href)), `${href}`);
+    }
+  }
 });

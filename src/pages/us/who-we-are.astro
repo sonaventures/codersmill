@@ -1,12 +1,12 @@
 ---
-import FpHero from "../components/fp_hero.astro";
-import Layout from "../layouts/layout.astro";
-import { builderName, host, pageDescriptions, siteName } from "../data/site";
+import FpHero from "../../components/fp_hero.astro";
+import Layout from "../../layouts/layout.astro";
+import { builderName, host, pageDescriptions, siteName } from "../../data/site";
 ---
 
-<Layout title="About" description={pageDescriptions.about}>
+<Layout title="Who we are" description={pageDescriptions.about}>
   <FpHero
-    eyebrow="About"
+    eyebrow="Us"
     title={siteName}
     description={`${siteName} is the home of ${builderName}, a set of browser tools for building and styling Astro websites.`}
   />

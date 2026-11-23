@@ -233,12 +233,19 @@ collection, including Tabler and Lucide, is installed.
 
 ## The public site
 
-The pages in `src/pages/` (Home, Tools, Blocks, About, and the theme
-`template`) use [`layout.astro`](./src/layouts/layout.astro), with the shared
-header and footer. The site's name, host, navigation, and page descriptions
-are in [`src/data/site.ts`](./src/data/site.ts), and the site URL,
-`https://codersmill.com`, is set in `astro.config.mjs`. The layout uses it for
-canonical links and structured data naming Coders Mill as the publisher.
+The main menu is in [`src/data/site.ts`](./src/data/site.ts): five sections
+(Services, Projects, Tools, Resources, and Us), each with its own page that
+lists its pages, and a submenu. The header and footer read it. A page in the
+menu that is not written yet shows a "coming soon" placeholder
+([`placeholder-page.astro`](./src/components/placeholder-page.astro)) with the
+title and description from the menu; replace it with the page's content when
+it is ready. `/about/` redirects to `/us/who-we-are/`.
+
+The pages use [`layout.astro`](./src/layouts/layout.astro), with the shared
+header and footer. The site's name, host, menu, and page descriptions are in
+`site.ts`, and the site URL, `https://codersmill.com`, is set in
+`astro.config.mjs`. The layout uses it for canonical links and structured data
+naming Coders Mill as the publisher.
 
 ## Project layout
 

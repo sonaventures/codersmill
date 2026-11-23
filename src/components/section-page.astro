@@ -1,0 +1,47 @@
+---
+import FpHero from "./fp_hero.astro";
+import Layout from "../layouts/layout.astro";
+import { navigation } from "../data/site";
+
+interface Props {
+  /** The section's page, e.g. "/services/". */
+  href: string;
+}
+
+// A menu section's page: its intro, then a card for each of its pages.
+const section = navigation.find(({ href }) => href === Astro.props.href);
+if (!section) throw new Error(`No menu section for ${Astro.props.href}.`);
+---
+
+<Layout title={section.label} description={section.description}>
+  <FpHero
+    eyebrow={section.label}
+    title={section.label}
+    description={section.description}
+  />
+
+  <section
+    class="container content-section"
+    aria-labelledby="section-pages-title"
+  >
+    <div class="section-heading">
+      <p class="eyebrow">In this section</p>
+      <h2 id="section-pages-title">{section.label}</h2>
+    </div>
+    <ul class="company-grid">
+      {section.items.map(({ label, href, description, external }) => (
+        <li class="company-card">
+          <h3>{label}</h3>
+          <p>{description}</p>
+          <a
+            class="text-link"
+            href={href}
+            {...(external ? { target: "_blank", rel: "noopener" } : {})}
+          >
+            {label} <span aria-hidden="true">{external ? "↗" : "→"}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>

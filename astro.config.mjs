@@ -11,6 +11,7 @@ export default defineConfig({
   // No Astro dev toolbar on any page.
   devToolbar: { enabled: false },
   redirects: {
+    "/about/": "/us/who-we-are/",
     "/pagebuilder/pagebuilder/": "/website-builder/page-builder/",
     "/themebuilder/colors/": "/website-builder/custom-colors/",
     "/website-builder/colors/": "/website-builder/custom-colors/",
@@ -23,7 +24,8 @@ export default defineConfig({
     "/website-builder/pagebuilder/": "/website-builder/page-builder/",
     "/website-builder/sitenavbuilder/": "/website-builder/sitenav-builder/",
     "/website-builder/themebuilder/": "/website-builder/theme-builder/",
-    "/website-builder/typographybuilder/": "/website-builder/typography-builder/",
+    "/website-builder/typographybuilder/":
+      "/website-builder/typography-builder/",
   },
   integrations: [alpine({ entrypoint: "/src/entrypoint" }), partytown()],
   vite: {

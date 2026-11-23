@@ -1,5 +1,11 @@
 ---
-import { builderName, host, navigation, siteName } from "../data/site";
+import {
+  builderLink,
+  builderName,
+  host,
+  navigation,
+  siteName,
+} from "../data/site";
 
 interface Props {
   /** A theme group footer class, e.g. sg-sample-footer. */
@@ -27,6 +33,9 @@ const { class: className } = Astro.props;
             <a href={href}>{label}</a>
           </li>
         ))}
+        <li>
+          <a href={builderLink.href}>{builderLink.label}</a>
+        </li>
       </ul>
     </nav>
   </div>
