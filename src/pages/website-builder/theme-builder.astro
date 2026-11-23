@@ -500,9 +500,14 @@ const sampleMenu = [
                 <div class="class-groups">
                   <h3>Classes for the page builder</h3>
                   <p class="control-hint">
-                    Save group also updates this group's classes in{" "}
-                    <code>src/styles/themes/groups.css</code>. Use this to
-                    rewrite them without other changes.
+                    Save group (or Update group) saves your changes and writes
+                    this group to the project: its classes to{" "}
+                    <code>groups.css</code> and the group to{" "}
+                    <code>theme-groups.json</code> (both in{" "}
+                    <code>src/styles/themes</code>). This button rewrites both
+                    files from the saved group without saving any new changes,
+                    for example after <code>groups.css</code> was edited by
+                    hand.
                   </p>
                   <div class="control-actions">
                     <button
@@ -511,7 +516,7 @@ const sampleMenu = [
                       id="publish-group-classes"
                       disabled
                     >
-                      Save classes to groups.css
+                      Rewrite groups.css &amp; theme-groups.json
                     </button>
                   </div>
                 </div>

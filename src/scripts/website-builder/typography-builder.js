@@ -414,7 +414,7 @@ download.addEventListener("click", () => {
   if (changedGroups.size) {
     try {
       const saved = saveGroupTypographyToBrowser();
-      groupMsg = ` Typography for ${saved.map(({ name }) => `"${name}"`).join(", ")} was saved with its theme group; use Save classes to groups.css in the Theme Builder to update groups.css.`;
+      groupMsg = ` Typography for ${saved.map(({ name }) => `"${name}"`).join(", ")} was saved with its theme group; use Rewrite groups.css & theme-groups.json in the Theme Builder to update groups.css.`;
     } catch (error) {
       report(error);
       return;
@@ -562,7 +562,7 @@ async function saveTypography(direct = false) {
         for (const group of saved) await saveGroupToProject(themes, group);
         groupMsg = ` and ${names} in src/styles/themes/groups.css and theme-groups.json`;
       } else if (saved.length) {
-        groupMsg = `. Typography for ${names} was saved with its theme group; use Save classes to groups.css in the Theme Builder to update groups.css`;
+        groupMsg = `. Typography for ${names} was saved with its theme group; use Rewrite groups.css & theme-groups.json in the Theme Builder to update groups.css`;
       }
     }
     dirty = false;

@@ -1403,7 +1403,7 @@ if (root) {
   publishButton.addEventListener("click", async () => {
     const group = groups.find(({ id }) => id === selectedId);
     if (!group) {
-      message("Save or load a theme group first, then save its classes.");
+      message("Save or load a theme group first, then rewrite its project files.");
       return;
     }
     if (dirty) {
@@ -1416,11 +1416,11 @@ if (root) {
     try {
       const names = await writeGroupClasses(group);
       message(
-        `Saved classes for "${group.name}" to src/styles/themes/groups.css: ${names[0]}, ${names[1]}, and ${names[2]} through ${names.at(-1)}.`,
+        `Rewrote "${group.name}" in src/styles/themes/groups.css and theme-groups.json. Its classes: ${names[0]}, ${names[1]}, and ${names[2]} through ${names.at(-1)}.`,
       );
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError")
-        message("Folder selection cancelled. No classes were saved.");
+        message("Folder selection cancelled. No files were rewritten.");
       else reportError("Unable to save the classes.", error);
     } finally {
       publishButton.disabled = !selectedId;
