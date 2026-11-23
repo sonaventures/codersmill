@@ -30,7 +30,7 @@
 /* end sitewide: colors */
 
 /* sitewide: areas */
-/* theme-builder: %7B%22version%22%3A2%2C%22colors%22%3A%7B%22light%22%3A%7B%22header%22%3A%7B%22background%22%3A%22var(--color-white)%22%2C%22border%22%3A%22transparent%22%2C%22accent1%22%3A%22transparent%22%2C%22accent1Border%22%3A%22transparent%22%2C%22accent1Text%22%3A%22var(--color-smartblue-700)%22%2C%22accent1HoverText%22%3A%22var(--color-smartblue-500)%22%2C%22accent1Shadow%22%3A%22transparent%22%2C%22accent2%22%3A%22var(--color-energeticorange-300)%22%2C%22accent2Hover%22%3A%22var(--color-energeticorange-400)%22%2C%22accent2Border%22%3A%22var(--color-midnightblue-400)%22%2C%22accentFocus%22%3A%22var(--color-platinum-100)%22%2C%22label%22%3A%22var(--color-smartblue-700)%22%2C%22inputText%22%3A%22var(--color-mutedteal-800)%22%2C%22inputBackground%22%3A%22var(--color-mutedteal-50)%22%2C%22inputBorder%22%3A%22var(--color-mutedteal-400)%22%2C%22inputPlaceholder%22%3A%22var(--color-mutedteal-800)%22%2C%22inputFocus%22%3A%22var(--color-smartblue-800)%22%2C%22iconBorder%22%3A%22transparent%22%2C%22iconShadow%22%3A%22transparent%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-500)%22%2C%22svgFill2%22%3A%22var(--color-midnightblue-800)%22%2C%22svgFill3%22%3A%22var(--color-energeticorange-500)%22%2C%22svgIconFill%22%3A%22var(--color-radioactive-500)%22%2C%22svgIconStroke%22%3A%22transparent%22%2C%22svgIcon2Fill%22%3A%22var(--color-radioactive-500)%22%2C%22svgIcon2Stroke%22%3A%22transparent%22%2C%22navSvgFill%22%3A%22var(--color-energeticorange-500)%22%2C%22navSvgStroke%22%3A%22transparent%22%2C%22navSvgFillHover%22%3A%22var(--color-radioactive-400)%22%2C%22navSvgStrokeHover%22%3A%22transparent%22%7D%2C%22footer%22%3A%7B%22background%22%3A%22var(--color-midnightblue-800)%22%2C%22text%22%3A%22var(--color-platinum-50)%22%2C%22h1%22%3A%22var(--color-platinum-50)%22%2C%22h2%22%3A%22var(--color-platinum-50)%22%2C%22h3%22%3A%22var(--color-platinum-50)%22%2C%22h4%22%3A%22var(--color-offwhite-50)%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-50)%22%2C%22svgFill2%22%3A%22var(--color-platinum-400)%22%2C%22svgFill3%22%3A%22var(--color-prusssianblue-200)%22%7D%7D%2C%22dark%22%3A%7B%22header%22%3A%7B%7D%2C%22footer%22%3A%7B%7D%7D%7D%2C%22typography%22%3A%7B%22header%22%3A%7B%22menuHeader%22%3A%7B%22font-family%22%3A%22var(--font-jetbrains-mono)%22%2C%22text-transform%22%3A%22uppercase%22%2C%22font-size%22%3A%221rem%22%2C%22font-weight%22%3A%22600%22%2C%22letter-spacing%22%3A%220.025em%22%7D%2C%22input%22%3A%7B%22font-family%22%3A%22var(--font-inter)%22%2C%22font-size%22%3A%221rem%22%2C%22font-weight%22%3A%22400%22%7D%7D%7D%2C%22widths%22%3A%7B%7D%7D */
+/* theme-builder: %7B%22version%22%3A2%2C%22colors%22%3A%7B%22light%22%3A%7B%22header%22%3A%7B%22background%22%3A%22var(--color-white)%22%2C%22border%22%3A%22transparent%22%2C%22accent1%22%3A%22transparent%22%2C%22accent1Border%22%3A%22transparent%22%2C%22accent1Text%22%3A%22var(--color-smartblue-700)%22%2C%22accent1HoverText%22%3A%22var(--color-smartblue-500)%22%2C%22accent1Shadow%22%3A%22transparent%22%2C%22accent2%22%3A%22var(--color-energeticorange-300)%22%2C%22accent2Hover%22%3A%22var(--color-energeticorange-400)%22%2C%22accent2Border%22%3A%22var(--color-energeticorange-500)%22%2C%22accent2HoverBorder%22%3A%22var(--color-energeticorange-500)%22%2C%22accent2Text%22%3A%22var(--color-energeticorange-900)%22%2C%22accent2HoverText%22%3A%22var(--color-black)%22%2C%22accent2Shadow%22%3A%22transparent%22%2C%22accent3%22%3A%22var(--color-coolsteel-300)%22%2C%22accent3Hover%22%3A%22var(--color-coolsteel-400)%22%2C%22accent3Border%22%3A%22var(--color-coolsteel-500)%22%2C%22accent3HoverBorder%22%3A%22var(--color-coolsteel-500)%22%2C%22accent3Text%22%3A%22var(--color-coolsteel-900)%22%2C%22accent3HoverText%22%3A%22var(--color-smartblue-950)%22%2C%22accent3Shadow%22%3A%22transparent%22%2C%22accentFocus%22%3A%22var(--color-platinum-100)%22%2C%22label%22%3A%22var(--color-smartblue-700)%22%2C%22inputText%22%3A%22var(--color-mutedteal-800)%22%2C%22inputBackground%22%3A%22var(--color-mutedteal-50)%22%2C%22inputBorder%22%3A%22var(--color-mutedteal-400)%22%2C%22inputPlaceholder%22%3A%22var(--color-mutedteal-600)%22%2C%22inputFocus%22%3A%22var(--color-smartblue-800)%22%2C%22iconBorder%22%3A%22transparent%22%2C%22iconShadow%22%3A%22transparent%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-500)%22%2C%22svgFill2%22%3A%22var(--color-midnightblue-800)%22%2C%22svgFill3%22%3A%22var(--color-energeticorange-500)%22%2C%22svgIconFill%22%3A%22var(--color-radioactive-500)%22%2C%22svgIconStroke%22%3A%22transparent%22%2C%22svgIcon2Fill%22%3A%22var(--color-radioactive-500)%22%2C%22svgIcon2Stroke%22%3A%22transparent%22%2C%22navSvgFill%22%3A%22var(--color-energeticorange-500)%22%2C%22navSvgStroke%22%3A%22transparent%22%2C%22navSvgFillHover%22%3A%22var(--color-radioactive-400)%22%2C%22navSvgStrokeHover%22%3A%22transparent%22%7D%2C%22footer%22%3A%7B%22background%22%3A%22var(--color-midnightblue-800)%22%2C%22text%22%3A%22var(--color-platinum-50)%22%2C%22h1%22%3A%22var(--color-platinum-50)%22%2C%22h2%22%3A%22var(--color-platinum-50)%22%2C%22h3%22%3A%22var(--color-platinum-50)%22%2C%22h4%22%3A%22var(--color-offwhite-50)%22%2C%22svgFill1%22%3A%22var(--color-prusssianblue-50)%22%2C%22svgFill2%22%3A%22var(--color-platinum-400)%22%2C%22svgFill3%22%3A%22var(--color-prusssianblue-200)%22%7D%7D%2C%22dark%22%3A%7B%22header%22%3A%7B%7D%2C%22footer%22%3A%7B%7D%7D%7D%2C%22typography%22%3A%7B%22header%22%3A%7B%22menuHeader%22%3A%7B%22font-family%22%3A%22var(--font-jetbrains-mono)%22%2C%22text-transform%22%3A%22uppercase%22%2C%22font-size%22%3A%221rem%22%2C%22font-weight%22%3A%22600%22%2C%22letter-spacing%22%3A%220.025em%22%7D%2C%22input%22%3A%7B%22font-family%22%3A%22var(--font-inter)%22%2C%22font-size%22%3A%220.875rem%22%2C%22font-weight%22%3A%22400%22%7D%7D%7D%2C%22widths%22%3A%7B%7D%7D */
 :root:not([data-sitewide-preview]):not([data-theme="dark"]) .sw-header {
   --canvas-header: var(--color-white);
   --canvas-01: var(--color-white);
@@ -49,23 +49,37 @@
   --accent-01-01-hover-text: var(--color-smartblue-500);
   --accent-header-01-shadow: transparent;
   --accent-01-01-shadow: transparent;
+  --accent-01-01-active-border: var(--accent-header-01-active-border);
   --accent-header-02: var(--color-energeticorange-300);
   --accent-01-02: var(--color-energeticorange-300);
   --accent-header-02-hover: var(--color-energeticorange-400);
   --accent-01-02-hover: var(--color-energeticorange-400);
-  --accent-header-02-border: var(--color-midnightblue-400);
-  --accent-01-02-border: var(--color-midnightblue-400);
-  --accent-01-02-hover-border: var(--accent-header-02-hover-border);
-  --accent-01-02-text: var(--accent-header-02-text);
-  --accent-01-02-hover-text: var(--accent-header-02-hover-text);
-  --accent-01-02-shadow: var(--accent-header-02-shadow);
-  --accent-01-03: var(--accent-header-03);
-  --accent-01-03-hover: var(--accent-header-03-hover);
-  --accent-01-03-border: var(--accent-header-03-border);
-  --accent-01-03-hover-border: var(--accent-header-03-hover-border);
-  --accent-01-03-text: var(--accent-header-03-text);
-  --accent-01-03-hover-text: var(--accent-header-03-hover-text);
-  --accent-01-03-shadow: var(--accent-header-03-shadow);
+  --accent-header-02-border: var(--color-energeticorange-500);
+  --accent-01-02-border: var(--color-energeticorange-500);
+  --accent-header-02-hover-border: var(--color-energeticorange-500);
+  --accent-01-02-hover-border: var(--color-energeticorange-500);
+  --accent-header-02-text: var(--color-energeticorange-900);
+  --accent-01-02-text: var(--color-energeticorange-900);
+  --accent-header-02-hover-text: var(--color-black);
+  --accent-01-02-hover-text: var(--color-black);
+  --accent-header-02-shadow: transparent;
+  --accent-01-02-shadow: transparent;
+  --accent-01-02-active-border: var(--accent-header-02-active-border);
+  --accent-header-03: var(--color-coolsteel-300);
+  --accent-01-03: var(--color-coolsteel-300);
+  --accent-header-03-hover: var(--color-coolsteel-400);
+  --accent-01-03-hover: var(--color-coolsteel-400);
+  --accent-header-03-border: var(--color-coolsteel-500);
+  --accent-01-03-border: var(--color-coolsteel-500);
+  --accent-header-03-hover-border: var(--color-coolsteel-500);
+  --accent-01-03-hover-border: var(--color-coolsteel-500);
+  --accent-header-03-text: var(--color-coolsteel-900);
+  --accent-01-03-text: var(--color-coolsteel-900);
+  --accent-header-03-hover-text: var(--color-smartblue-950);
+  --accent-01-03-hover-text: var(--color-smartblue-950);
+  --accent-header-03-shadow: transparent;
+  --accent-01-03-shadow: transparent;
+  --accent-01-03-active-border: var(--accent-header-03-active-border);
   --accent-header-focus: var(--color-platinum-100);
   --accent-01-focus: var(--color-platinum-100);
   --ink-01: var(--ink-header);
@@ -80,8 +94,8 @@
   --canvas-01-input: var(--color-mutedteal-50);
   --canvas-header-input-border: var(--color-mutedteal-400);
   --canvas-01-input-border: var(--color-mutedteal-400);
-  --ink-header-placeholder: var(--color-mutedteal-800);
-  --ink-01-placeholder: var(--color-mutedteal-800);
+  --ink-header-placeholder: var(--color-mutedteal-600);
+  --ink-01-placeholder: var(--color-mutedteal-600);
   --accent-header-input-focus: var(--color-smartblue-800);
   --accent-01-input-focus: var(--color-smartblue-800);
   --ink-header-svg-01: var(--color-prusssianblue-500);
@@ -142,6 +156,7 @@
   --accent-01-01-text: var(--accent-header-01-text);
   --accent-01-01-hover-text: var(--accent-header-01-hover-text);
   --accent-01-01-shadow: var(--accent-header-01-shadow);
+  --accent-01-01-active-border: var(--accent-header-01-active-border);
   --accent-01-02: var(--accent-header-02);
   --accent-01-02-hover: var(--accent-header-02-hover);
   --accent-01-02-border: var(--accent-header-02-border);
@@ -149,6 +164,7 @@
   --accent-01-02-text: var(--accent-header-02-text);
   --accent-01-02-hover-text: var(--accent-header-02-hover-text);
   --accent-01-02-shadow: var(--accent-header-02-shadow);
+  --accent-01-02-active-border: var(--accent-header-02-active-border);
   --accent-01-03: var(--accent-header-03);
   --accent-01-03-hover: var(--accent-header-03-hover);
   --accent-01-03-border: var(--accent-header-03-border);
@@ -156,6 +172,7 @@
   --accent-01-03-text: var(--accent-header-03-text);
   --accent-01-03-hover-text: var(--accent-header-03-hover-text);
   --accent-01-03-shadow: var(--accent-header-03-shadow);
+  --accent-01-03-active-border: var(--accent-header-03-active-border);
   --accent-01-focus: var(--accent-header-focus);
   --ink-01: var(--ink-header);
   --ink-01-h1: var(--ink-header-h1);
@@ -215,6 +232,7 @@
   --accent-01-01-text: var(--accent-footer-01-text);
   --accent-01-01-hover-text: var(--accent-footer-01-hover-text);
   --accent-01-01-shadow: var(--accent-footer-01-shadow);
+  --accent-01-01-active-border: var(--accent-footer-01-active-border);
   --accent-01-02: var(--accent-footer-02);
   --accent-01-02-hover: var(--accent-footer-02-hover);
   --accent-01-02-border: var(--accent-footer-02-border);
@@ -222,6 +240,7 @@
   --accent-01-02-text: var(--accent-footer-02-text);
   --accent-01-02-hover-text: var(--accent-footer-02-hover-text);
   --accent-01-02-shadow: var(--accent-footer-02-shadow);
+  --accent-01-02-active-border: var(--accent-footer-02-active-border);
   --accent-01-03: var(--accent-footer-03);
   --accent-01-03-hover: var(--accent-footer-03-hover);
   --accent-01-03-border: var(--accent-footer-03-border);
@@ -229,6 +248,7 @@
   --accent-01-03-text: var(--accent-footer-03-text);
   --accent-01-03-hover-text: var(--accent-footer-03-hover-text);
   --accent-01-03-shadow: var(--accent-footer-03-shadow);
+  --accent-01-03-active-border: var(--accent-footer-03-active-border);
   --accent-01-focus: var(--accent-footer-focus);
   --ink-footer: var(--color-platinum-50);
   --ink-01: var(--color-platinum-50);
@@ -259,6 +279,7 @@
   --accent-01-01-text: var(--accent-footer-01-text);
   --accent-01-01-hover-text: var(--accent-footer-01-hover-text);
   --accent-01-01-shadow: var(--accent-footer-01-shadow);
+  --accent-01-01-active-border: var(--accent-footer-01-active-border);
   --accent-01-02: var(--accent-footer-02);
   --accent-01-02-hover: var(--accent-footer-02-hover);
   --accent-01-02-border: var(--accent-footer-02-border);
@@ -266,6 +287,7 @@
   --accent-01-02-text: var(--accent-footer-02-text);
   --accent-01-02-hover-text: var(--accent-footer-02-hover-text);
   --accent-01-02-shadow: var(--accent-footer-02-shadow);
+  --accent-01-02-active-border: var(--accent-footer-02-active-border);
   --accent-01-03: var(--accent-footer-03);
   --accent-01-03-hover: var(--accent-footer-03-hover);
   --accent-01-03-border: var(--accent-footer-03-border);
@@ -273,6 +295,7 @@
   --accent-01-03-text: var(--accent-footer-03-text);
   --accent-01-03-hover-text: var(--accent-footer-03-hover-text);
   --accent-01-03-shadow: var(--accent-footer-03-shadow);
+  --accent-01-03-active-border: var(--accent-footer-03-active-border);
   --accent-01-focus: var(--accent-footer-focus);
   --ink-01: var(--ink-footer);
   --ink-01-h1: var(--ink-footer-h1);
@@ -339,7 +362,7 @@
 }
 .sw-header :is(input, textarea, select) {
   font-family: var(--font-inter);
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
 }
 /* end sitewide: areas */
