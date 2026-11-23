@@ -6,9 +6,10 @@ import {
 } from "../../../../data/website-builder/display-blocks";
 
 // One block on its own page, wrapped as the Page Builder wraps it: a page
-// class around a <section> with an area class (or, for a header or footer,
-// sw-header / sw-footer). Display Blocks shows it in an iframe and tells it
-// which theme group, area, and light / dark mode to use.
+// class around a <section> with an area class. A header or footer can also
+// take its sitewide styles (sw-header / sw-footer), as on the site. Display
+// Blocks shows it in an iframe and tells it which theme group, area, and
+// light / dark mode to use.
 export function getStaticPaths() {
   return blocks.map((block) => ({ params: { block: block.id }, props: block }));
 }
@@ -23,17 +24,21 @@ const { default: Block } = await load();
   showHeader={false}
   showFooter={false}
 >
-  {slot ? (
-    <div class={`sw-${slot}`} data-display-block={id}>
-      <Block />
-    </div>
-  ) : (
-    <div data-display-page>
+  <div data-display-page>
+    {slot ? (
+      <div
+        data-display-section
+        data-display-slot={slot}
+        data-display-block={id}
+      >
+        <Block />
+      </div>
+    ) : (
       <section data-display-section data-display-block={id}>
         <Block />
       </section>
-    </div>
-  )}
+    )}
+  </div>
 </Layout>
 
 <script is:inline>
@@ -44,10 +49,19 @@ const { default: Block } = await load();
     const section = document.querySelector("[data-display-section]");
     const groupPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
     const areaPattern = /^(?:hero|section-[1-6])$/;
+    // A header or footer block, which can take its sitewide styles.
+    const slot = section?.dataset.displaySlot;
     function apply({ group = "", area = "section-1", theme = "" }) {
-      const valid = groupPattern.test(group) && areaPattern.test(area);
+      const sitewide = Boolean(slot) && area === "sitewide";
+      const valid =
+        !sitewide && groupPattern.test(group) && areaPattern.test(area);
       if (page) page.className = valid ? `sg-${group}-page` : "";
-      if (section) section.className = valid ? `sg-${group}-${area}` : "";
+      if (section)
+        section.className = sitewide
+          ? `sw-${slot}`
+          : valid
+            ? `sg-${group}-${area}`
+            : "";
       const mode = theme === "light" || theme === "dark" ? theme : savedTheme;
       if (mode) {
         root.dataset.theme = mode;

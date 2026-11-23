@@ -138,6 +138,10 @@ const directory = blockDirectory();
         <label>
           <span>Area</span>
           <select id="display-blocks-area">
+            {/* Only for header and footer blocks (shown by the script). */}
+            <option value="sitewide" hidden disabled>
+              Sitewide header / footer
+            </option>
             {areas.map(({ suffix, label }) => (
               <option value={suffix} selected={suffix === "section-1"}>
                 {label}
@@ -379,7 +383,14 @@ const directory = blockDirectory();
   const storageKey = "display-blocks-state";
 
   let block = "";
+  // Header and footer blocks can show their sitewide styles (sw-header /
+  // sw-footer) or a theme group's area, like any other block.
   const isSitewide = (id: string) => /^[^/]+\/(?:header|footer)\//.test(id);
+  const sitewideOption = areaSelect.querySelector<HTMLOptionElement>(
+    'option[value="sitewide"]',
+  )!;
+  // The area to go back to when leaving a header or footer.
+  let sectionArea = "section-1";
 
   // Remembered in this browser: the last block and palette choices.
   try {
@@ -392,7 +403,8 @@ const directory = blockDirectory();
         select.value = value;
     };
     pick(groupSelect, saved.group);
-    pick(areaSelect, saved.area);
+    if (typeof saved.area === "string" && saved.area !== "sitewide")
+      pick(areaSelect, saved.area);
     pick(themeSelect, saved.theme);
     if (typeof saved.block === "string") block = saved.block;
   } catch {
@@ -422,21 +434,31 @@ const directory = blockDirectory();
     if (theme) params.set("theme", theme);
     return `${blockViewPath(id)}?${params}`;
   }
+  // Offer the sitewide styles for a header or footer, and start it on them.
+  function setAreaOptions(id: string) {
+    const sitewide = isSitewide(id);
+    sitewideOption.hidden = !sitewide;
+    sitewideOption.disabled = !sitewide;
+    if (sitewide && areaSelect.value !== "sitewide") {
+      sectionArea = areaSelect.value;
+      areaSelect.value = "sitewide";
+    } else if (!sitewide && areaSelect.value === "sitewide") {
+      areaSelect.value = sectionArea;
+    }
+  }
   function describe() {
-    const sitewide = block && isSitewide(block);
-    groupSelect.disabled = Boolean(sitewide);
-    areaSelect.disabled = Boolean(sitewide);
     const { group, area } = state();
     classes.textContent = !block
       ? ""
-      : sitewide
-        ? `Headers and footers use the sitewide styles (sw-${block.split("/")[1]}) from the Theme Builder.`
+      : area === "sitewide"
+        ? `The sitewide styles (sw-${block.split("/")[1]}) from the Theme Builder. Choose Hero or a section in Area to try a theme group.`
         : group
           ? `Applied: sg-${group}-page on the page, sg-${group}-${area} on the block's section.`
           : "No theme group applied: the block uses the site defaults.";
   }
   function show(id: string) {
     block = id;
+    setAreaOptions(id);
     for (const link of links) {
       if (link.dataset.block !== id) {
         link.removeAttribute("aria-current");
@@ -468,6 +490,15 @@ const directory = blockDirectory();
       event.preventDefault();
       show(link.dataset.block!);
     });
+  // Choosing a group for a header or footer on its sitewide styles shows it
+  // in Section 01, so the group's colors appear.
+  groupSelect.addEventListener("change", () => {
+    if (groupSelect.value && areaSelect.value === "sitewide")
+      areaSelect.value = sectionArea;
+  });
+  areaSelect.addEventListener("change", () => {
+    if (areaSelect.value !== "sitewide") sectionArea = areaSelect.value;
+  });
   for (const select of [groupSelect, areaSelect, themeSelect])
     select.addEventListener("change", update);
   // The block may load before or after a palette change; send it again.
