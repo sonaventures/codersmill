@@ -1995,53 +1995,69 @@
   --canvas-01-border: transparent;
   --canvas-hero-shadow: transparent;
   --canvas-01-shadow: transparent;
-  --accent-hero-01: var(--color-limecream-50);
-  --accent-01-01: var(--color-limecream-50);
-  --accent-01-01-hover: var(--accent-hero-01-hover);
-  --accent-hero-01-border: var(--color-limecream-500);
-  --accent-01-01-border: var(--color-limecream-500);
-  --accent-01-01-hover-border: var(--accent-hero-01-hover-border);
-  --accent-hero-01-text: var(--color-limecream-900);
-  --accent-01-01-text: var(--color-limecream-900);
-  --accent-01-01-hover-text: var(--accent-hero-01-hover-text);
+  --accent-hero-01: var(--color-mutedteal-100);
+  --accent-01-01: var(--color-mutedteal-100);
+  --accent-hero-01-hover: var(--color-mutedteal-50);
+  --accent-01-01-hover: var(--color-mutedteal-50);
+  --accent-hero-01-border: var(--color-mutedteal-500);
+  --accent-01-01-border: var(--color-mutedteal-500);
+  --accent-hero-01-hover-border: var(--color-mutedteal-500);
+  --accent-01-01-hover-border: var(--color-mutedteal-500);
+  --accent-hero-01-text: var(--color-mutedteal-800);
+  --accent-01-01-text: var(--color-mutedteal-800);
+  --accent-hero-01-hover-text: var(--color-mutedteal-900);
+  --accent-01-01-hover-text: var(--color-mutedteal-900);
   --accent-01-01-shadow: var(--accent-hero-01-shadow);
-  --accent-hero-02: var(--color-smartblue-200);
-  --accent-01-02: var(--color-smartblue-200);
-  --accent-hero-02-hover: var(--color-smartblue-300);
-  --accent-01-02-hover: var(--color-smartblue-300);
-  --accent-hero-02-border: var(--color-smartblue-500);
-  --accent-01-02-border: var(--color-smartblue-500);
-  --accent-01-02-hover-border: var(--accent-hero-02-hover-border);
-  --accent-hero-02-text: var(--color-smartblue-700);
-  --accent-01-02-text: var(--color-smartblue-700);
-  --accent-hero-02-hover-text: var(--color-smartblue-950);
-  --accent-01-02-hover-text: var(--color-smartblue-950);
+  --accent-hero-02: var(--color-blaze-100);
+  --accent-01-02: var(--color-blaze-100);
+  --accent-hero-02-hover: var(--color-blaze-50);
+  --accent-01-02-hover: var(--color-blaze-50);
+  --accent-hero-02-border: var(--color-blaze-500);
+  --accent-01-02-border: var(--color-blaze-500);
+  --accent-hero-02-hover-border: var(--color-blaze-500);
+  --accent-01-02-hover-border: var(--color-blaze-500);
+  --accent-hero-02-text: var(--color-blaze-900);
+  --accent-01-02-text: var(--color-blaze-900);
+  --accent-hero-02-hover-text: var(--color-blaze-950);
+  --accent-01-02-hover-text: var(--color-blaze-950);
   --accent-01-02-shadow: var(--accent-hero-02-shadow);
-  --accent-01-03: var(--accent-hero-03);
-  --accent-01-03-hover: var(--accent-hero-03-hover);
-  --accent-01-03-border: var(--accent-hero-03-border);
-  --accent-01-03-hover-border: var(--accent-hero-03-hover-border);
-  --accent-01-03-text: var(--accent-hero-03-text);
-  --accent-01-03-hover-text: var(--accent-hero-03-hover-text);
+  --accent-hero-03: var(--color-platinum-100);
+  --accent-01-03: var(--color-platinum-100);
+  --accent-hero-03-hover: var(--color-platinum-50);
+  --accent-01-03-hover: var(--color-platinum-50);
+  --accent-hero-03-border: var(--color-platinum-500);
+  --accent-01-03-border: var(--color-platinum-500);
+  --accent-hero-03-hover-border: var(--color-platinum-500);
+  --accent-01-03-hover-border: var(--color-platinum-500);
+  --accent-hero-03-text: var(--color-platinum-900);
+  --accent-01-03-text: var(--color-platinum-900);
+  --accent-hero-03-hover-text: var(--color-platinum-950);
+  --accent-01-03-hover-text: var(--color-platinum-950);
   --accent-01-03-shadow: var(--accent-hero-03-shadow);
   --accent-01-focus: var(--accent-hero-focus);
-  --ink-hero: var(--color-smartblue-800);
-  --ink-01: var(--color-smartblue-800);
+  --ink-hero: var(--color-smartblue-700);
+  --ink-01: var(--color-smartblue-700);
   --ink-hero-h1: var(--color-smartblue-700);
   --ink-01-h1: var(--color-smartblue-700);
-  --ink-hero-h2: var(--color-smartblue-600);
-  --ink-01-h2: var(--color-smartblue-600);
-  --ink-hero-h3: var(--color-prusssianblue-700);
-  --ink-01-h3: var(--color-prusssianblue-700);
-  --ink-hero-h4: var(--color-prusssianblue-700);
-  --ink-01-h4: var(--color-prusssianblue-700);
+  --ink-hero-h2: var(--color-coolsteel-600);
+  --ink-01-h2: var(--color-coolsteel-600);
+  --ink-hero-h3: var(--color-smartblue-700);
+  --ink-01-h3: var(--color-smartblue-700);
+  --ink-hero-h4: var(--color-coolsteel-600);
+  --ink-01-h4: var(--color-coolsteel-600);
   --ink-hero-muted: var(--color-prusssianblue-500);
   --ink-01-muted: var(--color-prusssianblue-500);
   --ink-hero-highlight: var(--color-blaze-500);
   --ink-01-highlight: var(--color-blaze-500);
+  --canvas-01-card-01: var(--color-mutedteal-50);
+  --canvas-01-card-01-border: var(--color-radioactive-500);
   --canvas-01-subsection: var(--canvas-hero-subsection);
   --canvas-01-subsection-border: var(--canvas-hero-subsection-border);
   --canvas-01-subsection-shadow: var(--canvas-hero-subsection-shadow);
+  --ink-hero-card-01-h2: var(--color-smartblue-700);
+  --ink-card-01-h2: var(--color-smartblue-700);
+  --ink-hero-card-01-h3: var(--color-radioactive-600);
+  --ink-card-01-h3: var(--color-radioactive-600);
   --ink-hero-strong: var(--color-smartblue-950);
   --ink-01-strong: var(--color-smartblue-950);
   --ink-hero-em: var(--color-smartblue-950);
@@ -2053,14 +2069,18 @@
   --ink-01-pre: var(--color-smartblue-950);
   --canvas-hero-pre: var(--color-smartblue-100);
   --canvas-01-pre: var(--color-smartblue-100);
-  --ink-01-label: var(--ink-hero-label);
+  --ink-hero-label: var(--color-smartblue-800);
+  --ink-01-label: var(--color-smartblue-800);
   --ink-01-input: var(--ink-hero-input);
-  --canvas-01-input: var(--canvas-hero-input);
-  --canvas-01-input-border: var(--canvas-hero-input-border);
-  --ink-01-placeholder: var(--ink-hero-placeholder);
+  --canvas-hero-input: var(--color-softlinen-50);
+  --canvas-01-input: var(--color-softlinen-50);
+  --canvas-hero-input-border: var(--color-smartblue-700);
+  --canvas-01-input-border: var(--color-smartblue-700);
+  --ink-hero-placeholder: var(--color-softlinen-600);
+  --ink-01-placeholder: var(--color-softlinen-600);
   --accent-01-input-focus: var(--accent-hero-input-focus);
-  --ink-hero-blockquote: var(--color-platinum-800);
-  --ink-01-blockquote: var(--color-platinum-800);
+  --ink-hero-blockquote: var(--color-prusssianblue-600);
+  --ink-01-blockquote: var(--color-prusssianblue-600);
   --canvas-01-blockquote-border: var(--canvas-hero-blockquote-border);
   --canvas-01-divider: var(--canvas-hero-divider);
   --ink-01-marker: var(--ink-hero-marker);
@@ -3610,21 +3630,38 @@
   }
 }
 .sg-codersmill-hero h1 {
-  font-family: var(--font-roboto-mono);
-  font-size: 3rem;
+  font-family: var(--font-roboto-flex);
+  font-size: 3.75rem;
   font-weight: 700;
+  letter-spacing: 0.025em;
 }
 .sg-codersmill-hero h2 {
   font-family: var(--font-roboto-condensed);
-  font-size: 1.875rem;
+  font-size: 2.25rem;
   font-weight: 500;
+  letter-spacing: 0.025em;
 }
 .sg-codersmill-hero h3 {
-  font-family: var(--font-roboto);
-  font-size: 1.5rem;
+  font-family: var(--font-roboto-condensed);
+  font-size: 1.875rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
 }
 .sg-codersmill-hero h4 {
-  font-family: var(--font-roboto);
+  font-family: var(--font-roboto-flex);
   font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+.sg-codersmill-hero p {
+  font-family: var(--font-inter);
+}
+.sg-codersmill-hero pre {
+  font-family: var(--font-roboto-mono);
+}
+.sg-codersmill-hero blockquote {
+  font-family: var(--font-open-sans);
+  font-size: 1.125rem;
+  font-weight: 400;
 }
 /* end theme-group: codersmill */
