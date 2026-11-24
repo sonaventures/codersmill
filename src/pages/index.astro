@@ -1,19 +1,14 @@
 ---
 import Layout from "../layouts/layout.astro";
 import { pageDescriptions } from "../data/site";
-import PageHeader from "../components/codersmill/header_5.astro";
 import Component1 from "../components/codersmill/hero_5.astro";
 import Component2 from "../components/codersmill/portfolio_1.astro";
 import Component3 from "../components/codersmill/cta_5.astro";
 import Component4 from "../components/codersmill/features_3.astro";
 import Component5 from "../components/codersmill/cta_7.astro";
-import PageFooter from "../components/codersmill/footer_1.astro";
 ---
 
 <Layout description={pageDescriptions.home}>
-  <div slot="header" class="sw-header">
-    <PageHeader />
-  </div>
   <div class="sg-codersmill-page">
     <section id="fp_hero-5" class="sg-codersmill-hero">
       <Component1 />
@@ -30,8 +25,5 @@ import PageFooter from "../components/codersmill/footer_1.astro";
     <section id="fp_cta-7" class="sg-codersmill-section-4">
       <Component5 />
     </section>
-  </div>
-  <div slot="footer" class="sw-footer">
-    <PageFooter />
   </div>
 </Layout>

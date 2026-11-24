@@ -44,9 +44,13 @@ test("codersmill.com is the site URL and the package's home", async () => {
 test("the layout, header, and footer use the shared site details", async () => {
   const [layout, header, footer] = await Promise.all([
     readProjectFile("src/layouts/layout.astro"),
-    readProjectFile("src/components/codersmill/header.astro"),
-    readProjectFile("src/components/codersmill/footer.astro"),
+    readProjectFile("src/components/codersmill/header_5.astro"),
+    readProjectFile("src/components/codersmill/footer_1.astro"),
   ]);
+  // The layout's header and footer are the CodersMill ones, with the menu.
+  assert.match(layout, /codersmill\/header_5\.astro/);
+  assert.match(layout, /codersmill\/footer_1\.astro/);
+  for (const file of [header, footer]) assert.match(file, /navigation\.map/);
 
   for (const file of [layout, header, footer])
     assert.match(file, /from "(?:\.\.\/)+data\/site"/);
@@ -56,10 +60,8 @@ test("the layout, header, and footer use the shared site details", async () => {
     layout,
     /"@type": "Organization", name: host\.name, url: host\.url/,
   );
-  assert.match(
-    footer,
-    /© \{new Date\(\)\.getFullYear\(\)\} <a href=\{host\.url\}>\{host\.name\}<\/a>/,
-  );
+  assert.match(footer, /© \{new Date\(\)\.getFullYear\(\)\}/);
+  assert.match(footer, /<a href=\{host\.url\}[^>]*>\s*\{host\.name\}/);
   for (const file of [layout, header, footer])
     assert.doesNotMatch(file, /Exclusive Group|LocalBusiness|telephone/);
 });
