@@ -500,98 +500,6 @@ const sampleMenu = [
           </div>
 
           <div class="saved-groups">
-            <details class="saved-groups-details">
-              <summary>
-                <span class="saved-groups-title">Theme groups</span>
-                <span class="saved-groups-current" data-current-group>
-                  Unsaved palette
-                </span>
-              </summary>
-              <div class="saved-groups-body">
-                <p class="control-hint">
-                  Light and dark colors, corner radii, and typography. Save
-                  group also saves it to the project, so every browser sees it.
-                </p>
-                <label for="saved-group">Saved groups</label>
-                <select id="saved-group">
-                  <option value="">Unsaved palette</option>
-                </select>
-                <label for="group-name">Group name</label>
-                <input
-                  id="group-name"
-                  type="text"
-                  placeholder="e.g. Coastal calm"
-                  maxlength={80}
-                  required
-                />
-                <div class="control-actions">
-                  <button
-                    type="submit"
-                    class="control-button control-primary"
-                    id="save-group"
-                  >
-                    Save group
-                  </button>
-                  <button type="button" class="control-button" id="new-group">
-                    Save as new
-                  </button>
-                  <button
-                    type="button"
-                    class="control-button"
-                    id="delete-group"
-                    disabled
-                  >
-                    Delete group
-                  </button>
-                </div>
-                <div class="control-actions">
-                  <button
-                    type="button"
-                    class="control-button"
-                    id="export-groups"
-                    disabled
-                  >
-                    Export JSON
-                  </button>
-                  <button
-                    type="button"
-                    class="control-button"
-                    id="import-groups"
-                  >
-                    Import JSON
-                  </button>
-                  <input
-                    id="import-file"
-                    type="file"
-                    accept=".json,application/json"
-                    hidden
-                  />
-                </div>
-                <div class="class-groups">
-                  <h3>Classes for the page builder</h3>
-                  <p class="control-hint">
-                    Save group (or Update group) saves your changes and writes
-                    this group to the project: its classes to{" "}
-                    <code>groups.css</code> and the group to{" "}
-                    <code>theme-groups.json</code> (both in{" "}
-                    <code>src/styles/themes</code>). This button rewrites both
-                    files from the saved group without saving any new changes,
-                    for example after <code>groups.css</code> was edited by
-                    hand.
-                  </p>
-                  <div class="control-actions">
-                    <button
-                      type="button"
-                      class="control-button"
-                      id="publish-group-classes"
-                      disabled
-                    >
-                      Rewrite groups.css &amp; theme-groups.json
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </details>
             <p id="selector-status" role="status" aria-live="polite"></p>
           </div>
         </form>
@@ -607,10 +515,20 @@ const sampleMenu = [
       <div class="palette-tabs" role="tablist" aria-label="Style Picker">
         <button
           type="button"
-          id="palette-color-tab"
+          id="palette-groups-tab"
           role="tab"
           aria-selected="true"
+          aria-controls="palette-groups-panel"
+        >
+          Theme Groups
+        </button>
+        <button
+          type="button"
+          id="palette-color-tab"
+          role="tab"
+          aria-selected="false"
           aria-controls="palette-color-panel"
+          tabindex="-1"
         >
           Color Swatches
         </button>
@@ -637,9 +555,102 @@ const sampleMenu = [
       </div>
       <div
         class="palette-content"
+        id="palette-groups-panel"
+        role="tabpanel"
+        aria-labelledby="palette-groups-tab"
+      >
+        <p class="control-hint">
+          Current: <strong data-current-group>Unsaved palette</strong>
+        </p>
+        <div class="saved-groups-body palette-groups">
+          <div class="palette-groups-column">
+            <p class="control-hint">
+              Light and dark colors, corner radii, and typography. Save group
+              also saves it to the project, so every browser sees it.
+            </p>
+            <label for="saved-group">Saved groups</label>
+            <select id="saved-group" form="theme-group-form">
+              <option value="">Unsaved palette</option>
+            </select>
+            <label for="group-name">Group name</label>
+            <input
+              id="group-name"
+              form="theme-group-form"
+              type="text"
+              placeholder="e.g. Coastal calm"
+              maxlength={80}
+              required
+            />
+            <div class="control-actions">
+              <button
+                type="submit"
+                form="theme-group-form"
+                class="control-button control-primary"
+                id="save-group"
+              >
+                Save group
+              </button>
+              <button type="button" class="control-button" id="new-group">
+                Save as new
+              </button>
+              <button
+                type="button"
+                class="control-button"
+                id="delete-group"
+                disabled
+              >
+                Delete group
+              </button>
+            </div>
+            <div class="control-actions">
+              <button
+                type="button"
+                class="control-button"
+                id="export-groups"
+                disabled
+              >
+                Export JSON
+              </button>
+              <button type="button" class="control-button" id="import-groups">
+                Import JSON
+              </button>
+              <input
+                id="import-file"
+                type="file"
+                accept=".json,application/json"
+                hidden
+              />
+            </div>
+          </div>
+          <div class="class-groups">
+            <h3>Classes for the page builder</h3>
+            <p class="control-hint">
+              Save group (or Update group) saves your changes and writes this
+              group to the project: its classes to <code>groups.css</code> and
+              the group to <code>theme-groups.json</code> (both in{" "}
+              <code>src/styles/themes</code>). This button rewrites both files
+              from the saved group without saving any new changes, for example
+              after <code>groups.css</code> was edited by hand.
+            </p>
+            <div class="control-actions">
+              <button
+                type="button"
+                class="control-button"
+                id="publish-group-classes"
+                disabled
+              >
+                Rewrite groups.css &amp; theme-groups.json
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="palette-content"
         id="palette-color-panel"
         role="tabpanel"
         aria-labelledby="palette-color-tab"
+        hidden
       >
         <p class="control-hint" id="theme-context"></p>
         <div class="palette-toolbar-scroll">

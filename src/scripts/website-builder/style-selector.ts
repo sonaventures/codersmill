@@ -73,7 +73,10 @@ import {
   type SitewideAreaStyles,
   type SitewideThemes,
 } from "../../data/website-builder/sitewide";
-import { classGroupAreas, groupClassSlug } from "../../data/website-builder/group-classes";
+import {
+  classGroupAreas,
+  groupClassSlug,
+} from "../../data/website-builder/group-classes";
 
 setPaletteFamilies(readPalette(css));
 const root = document.querySelector<HTMLElement>("[data-selector]");
@@ -244,11 +247,13 @@ if (root) {
     !dirty || window.confirm("Discard unsaved style changes?");
 
   const paletteTabs = [
+    get<HTMLButtonElement>("#palette-groups-tab"),
     get<HTMLButtonElement>("#palette-color-tab"),
     get<HTMLButtonElement>("#palette-global-tab"),
     get<HTMLButtonElement>("#palette-typography-tab"),
   ];
   const palettePanels = [
+    get<HTMLElement>("#palette-groups-panel"),
     get<HTMLElement>("#palette-color-panel"),
     get<HTMLElement>("#palette-global-panel"),
     get<HTMLElement>("#palette-typography-panel"),
@@ -871,7 +876,9 @@ if (root) {
   const areaTypography = (region: TypographyArea) =>
     isSitewideArea(region)
       ? sitewideStyles.typography
-      : (typography as Partial<Record<TypographyArea, Record<string, Record<string, string>>>>);
+      : (typography as Partial<
+          Record<TypographyArea, Record<string, Record<string, string>>>
+        >);
   const typographyAreas = [
     ...classGroupAreas.map(({ region }) => region),
     ...sitewideAreas.map(({ region }) => region),
@@ -1061,9 +1068,7 @@ if (root) {
   // area clicked in, and the element when the tab lists it (a heading's
   // level label picks the heading under it).
   function selectTypographyTarget(target: HTMLElement, region: EditingArea) {
-    if (
-      ![...typographyArea.options].some((option) => option.value === region)
-    )
+    if (![...typographyArea.options].some((option) => option.value === region))
       return;
     typographyArea.value = region;
     const element =
@@ -1084,7 +1089,9 @@ if (root) {
       );
     if (tag) typographyElement.value = tag;
     // Inside a sample card or the subsection, its own typography.
-    const card = element.closest<HTMLElement>(".sample-card, .sample-subsection");
+    const card = element.closest<HTMLElement>(
+      ".sample-card, .sample-subsection",
+    );
     typographyCard.value = !card
       ? ""
       : card.dataset.sampleCard === "subsection"
@@ -1100,13 +1107,10 @@ if (root) {
       return;
     }
     if (!name.value.trim()) {
-      const details = root.querySelector<HTMLDetailsElement>(
-        ".saved-groups-details",
-      );
-      if (details) details.open = true;
+      activatePaletteTab(0);
       name.focus();
       message(
-        "Name the theme group in Theme groups, then select Save as a theme group again.",
+        "Name the theme group in the Theme Groups tab, then select Save as a theme group again.",
       );
       return;
     }
@@ -1414,7 +1418,9 @@ if (root) {
   publishButton.addEventListener("click", async () => {
     const group = groups.find(({ id }) => id === selectedId);
     if (!group) {
-      message("Save or load a theme group first, then rewrite its project files.");
+      message(
+        "Save or load a theme group first, then rewrite its project files.",
+      );
       return;
     }
     if (dirty) {
