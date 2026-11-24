@@ -6,7 +6,7 @@ import partytown from "@astrojs/partytown";
 import starlight from "@astrojs/starlight";
 import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
-import { d1, r2 } from "@emdash-cms/cloudflare";
+import { access, d1, r2 } from "@emdash-cms/cloudflare";
 import emdash from "emdash/astro";
 
 // Static pages are prerendered in Node, where Cloudflare's runtime module
@@ -82,6 +82,18 @@ export default defineConfig({
     emdash({
       database: d1({ binding: "DB", session: "auto", coalesce: true }),
       storage: r2({ binding: "MEDIA" }),
+      // Sign-in to the admin through Cloudflare Access (Google Workspace),
+      // the "codersmill.com/_emdash/admin" Access application. EmDash checks
+      // its token on every admin request in production; the first user to
+      // sign in is the admin, matched to existing users by email. In dev,
+      // EmDash's own session login (and dev bypass) still works.
+      auth: access({
+        teamDomain: "sonaventures.cloudflareaccess.com",
+        // The application's Audience (AUD) tag: it identifies the app, and
+        // is not a secret.
+        audience:
+          "e2311597b7e471a419866fa7137d84c222f31525d78170c1078d0f406e011137",
+      }),
     }),
     partytown(),
     // Documentation at /docs/, from src/content/docs/docs/.

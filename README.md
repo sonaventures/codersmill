@@ -287,6 +287,13 @@ uploaded media in an R2 bucket (`MEDIA`), set in `wrangler.jsonc`.
   Open `/_emdash/admin` to run the setup wizard, or
   `/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin` to skip it with a
   dev admin.
+- Signing in to the admin on the live site goes through **Cloudflare Access**
+  (Google Workspace): the Access application for
+  `codersmill.com/_emdash/admin` on the `sonaventures.cloudflareaccess.com`
+  team. EmDash checks the Access token on every admin request, matches users
+  by email, and makes the first one the admin; EmDash's own passkey login is
+  off. The team domain and the application's AUD tag are in the `access()`
+  settings in `astro.config.mjs`. Locally, Access is not used.
 - To deploy, create the database and bucket once
   (`npx wrangler d1 create codersmill`, adding its `database_id` to
   `wrangler.jsonc`, and `npx wrangler r2 bucket create codersmill-media`), then
