@@ -296,7 +296,8 @@ uploaded media in an R2 bucket (`MEDIA`), set in `wrangler.jsonc`.
   settings in `astro.config.mjs`. Locally, Access is not used.
 - Deploying runs `npm run build`, then `npm run migrate` (EmDash's database
   migrations, from the manifest the build writes to `.emdash/migrations.json`,
-  applied to the D1 database with `CLOUDFLARE_API_TOKEN`), then
+  applied to the D1 database with `CLOUDFLARE_API_TOKEN`; the script names the
+  database's fingerprint, which EmDash checks before migrating it unattended), then
   `npx wrangler deploy`. In Cloudflare's build settings the deploy command is
   `npm run migrate && npx wrangler deploy`; `npm run deploy` does all three
   locally. The D1 database, R2 bucket (`codersmill-media`), and the SESSION KV
