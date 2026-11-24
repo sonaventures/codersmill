@@ -223,6 +223,8 @@ const initialPath = toolPath(steps[0].slug);
     syncTheme();
     try {
       localStorage.setItem(themeKey, theme);
+      // The docs (Starlight) follow the same choice.
+      localStorage.setItem("starlight-theme", theme);
     } catch (error) {
       console.warn("Unable to save the theme preference.", error);
     }

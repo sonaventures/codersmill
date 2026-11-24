@@ -1,0 +1,76 @@
+---
+// The light / dark switch: it sets the page's theme and saves it for the site
+// ("website-builder-theme") and the docs ("starlight-theme"), so both follow
+// the same choice. Used by the site header and the builder's Studio header.
+---
+
+<div
+  class="theme-switcher"
+  x-data={`{
+    dark: document.documentElement.dataset.theme === "dark",
+    toggle() {
+      this.dark = !this.dark;
+      const theme = this.dark ? "dark" : "light";
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+      const themeColor = getComputedStyle(document.documentElement)
+        .getPropertyValue("--canvas-page")
+        .trim() ||
+        (theme === "dark"
+          ? "oklch(12.67% 0.073 267.26)"
+          : "oklch(96.93% 0.014 78.26)");
+      document.querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", themeColor);
+      try {
+        localStorage.setItem("website-builder-theme", theme);
+        // The docs (Starlight) follow the same choice.
+        localStorage.setItem("starlight-theme", theme);
+      } catch (error) {
+        console.warn("Unable to save the theme preference.", error);
+      }
+    }
+  }`}
+>
+  <button
+    class="theme-toggle"
+    type="button"
+    x-on:click="toggle()"
+    x-bind:aria-label="dark ? 'Switch to light theme' : 'Switch to dark theme'"
+    x-bind:title="dark ? 'Switch to light theme' : 'Switch to dark theme'"
+    x-bind:aria-pressed="dark.toString()"
+  >
+    <svg
+      x-cloak
+      x-show="dark"
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+    </svg>
+    <svg
+      x-cloak
+      x-show="!dark"
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />
+    </svg>
+  </button>
+</div>

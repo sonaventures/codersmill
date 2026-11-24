@@ -101,6 +101,10 @@ export default defineConfig({
       title: "CodersMill Docs",
       // The CodersMill fonts and colors (src/styles/docs.css).
       customCss: ["./src/styles/docs.css"],
+      // Links the docs' light / dark choice to the site's.
+      components: {
+        ThemeProvider: "./src/components/docs/ThemeProvider.astro",
+      },
       logo: {
         light: "./src/assets/logos/codersmill-logo.svg",
         dark: "./src/assets/logos/codersmill-logo-dark.svg",

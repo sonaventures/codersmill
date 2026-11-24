@@ -1,0 +1,39 @@
+---
+// Starlight's ThemeProvider, with the docs' light / dark choice linked to the
+// site's: the site saves "website-builder-theme" ("light" or "dark") and
+// Starlight saves "starlight-theme" ("light", "dark", or "" for Auto).
+import Default from "@astrojs/starlight/components/ThemeProvider.astro";
+---
+
+{/* Before Starlight reads its own key: take the site's choice. Inline, so the
+    page draws in the right theme. */}
+<script is:inline>
+  (() => {
+    try {
+      const site = localStorage.getItem("website-builder-theme");
+      if (site === "light" || site === "dark")
+        localStorage.setItem("starlight-theme", site);
+    } catch {
+      // Storage unavailable: each keeps its own default.
+    }
+  })();
+</script>
+<Default />
+
+<script>
+  // The docs' theme selector also sets the site's choice; Auto clears it, so
+  // the site follows the system setting too.
+  document.addEventListener("change", (event) => {
+    const select = (event.target as HTMLElement).closest(
+      "starlight-theme-select select",
+    ) as HTMLSelectElement | null;
+    if (!select) return;
+    try {
+      if (select.value === "light" || select.value === "dark")
+        localStorage.setItem("website-builder-theme", select.value);
+      else localStorage.removeItem("website-builder-theme");
+    } catch {
+      // Storage unavailable.
+    }
+  });
+</script>

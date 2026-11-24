@@ -63,9 +63,11 @@ const structuredData = {
       let theme;
 
       try {
-        // Fall back to the key saved before the rename.
+        // Then the docs' (Starlight's) choice, so the two stay linked, and
+        // the key saved before the rename.
         theme =
-          localStorage.getItem(themeStorageKey) ??
+          localStorage.getItem(themeStorageKey) ||
+          localStorage.getItem("starlight-theme") ||
           localStorage.getItem("exclusive-group-theme");
       } catch (error) {
         console.warn("Unable to read the saved theme preference.", error);
