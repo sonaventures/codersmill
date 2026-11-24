@@ -1,0 +1,36 @@
+---
+import Layout from "../layouts/layout.astro";
+import PageHeader from "../components/codersmill/header_5.astro";
+import Component1 from "../components/codersmill/hero_5.astro";
+import Component2 from "../components/codersmill/portfolio_1.astro";
+import Component3 from "../components/codersmill/cta_5.astro";
+import Component4 from "../components/codersmill/features_3.astro";
+import Component5 from "../components/codersmill/cta_7.astro";
+import PageFooter from "../components/codersmill/footer_1.astro";
+---
+
+<Layout title={"index-replacement.astro"} description={"index-replacement"}>
+  <div slot="header" class="sw-header">
+    <PageHeader />
+  </div>
+  <div class="sg-codersmill-page">
+    <section id="fp_hero-5" class="sg-codersmill-hero">
+      <Component1 />
+    </section>
+    <section id="fp_portfolio-1" class="sg-codersmill-section-1">
+      <Component2 />
+    </section>
+    <section id="fp_cta-5" class="sg-codersmill-section-2">
+      <Component3 />
+    </section>
+    <section id="fp_features-3" class="sg-codersmill-section-3">
+      <Component4 />
+    </section>
+    <section id="fp_cta-7" class="sg-fp-section-4">
+      <Component5 />
+    </section>
+  </div>
+  <div slot="footer" class="sw-footer">
+    <PageFooter />
+  </div>
+</Layout>
