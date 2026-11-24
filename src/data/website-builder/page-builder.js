@@ -2,12 +2,14 @@ const componentPathPattern = /^[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.astro$/;
 const componentSizeLimit = 5_000_000;
 const propertyPattern =
   /^([a-zA-Z_$][\w$]*)(\?)?\s*:\s*(string|number|boolean)$/;
-// The site's own header and footer (src/components/codersmill/header.astro
-// and footer.astro) and the builder's header are not page components.
-// Headers and footers elsewhere, such as the blocks, are.
+// The site's own header and footer (src/components/codersmill/header_5.astro
+// and footer_1.astro, the layout's), and the header the builder's Studio
+// header uses (codersmill/header.astro), are not page components. Headers and
+// footers elsewhere, such as the blocks, are.
 const reservedPaths = new Set([
   "codersmill/header.astro",
-  "codersmill/footer.astro",
+  "codersmill/header_5.astro",
+  "codersmill/footer_1.astro",
 ]);
 const reservedNames = new Set(["StudioHeader.astro"]);
 const isReserved = (path) =>

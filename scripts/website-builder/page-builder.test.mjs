@@ -44,7 +44,8 @@ const { title } = Astro.props;
     /supported/,
   );
   assert.equal(inspectComponent("codersmill/header.astro", ""), null);
-  assert.equal(inspectComponent("codersmill/footer.astro", ""), null);
+  assert.equal(inspectComponent("codersmill/header_5.astro", ""), null);
+  assert.equal(inspectComponent("codersmill/footer_1.astro", ""), null);
   // Headers and footers in folders, such as the blocks, are components.
   assert.deepEqual(
     inspectComponent("blocks/flowbite/header/header.astro", ""),
@@ -170,7 +171,7 @@ test("normalizes and validates component save paths", () => {
   assert.throws(() => componentSavePath("../hack"), /letters, numbers/);
   assert.throws(() => componentSavePath("my hero"), /letters, numbers/);
   assert.throws(() => componentSavePath("codersmill/header"), /reserved/);
-  assert.throws(() => componentSavePath("codersmill/footer"), /reserved/);
+  assert.throws(() => componentSavePath("codersmill/footer_1"), /reserved/);
   assert.equal(componentSavePath("custom/header"), "custom/header.astro");
 });
 
