@@ -1,6 +1,6 @@
 ---
 import Logo from "./logo.astro";
-import { navigation } from "../../data/site";
+import { host, navigation } from "../../data/site";
 
 // The CodersMill menu from src/data/site.ts, as a column per section: the
 // section's link (Accent 1, menu-header) over its pages.
@@ -15,8 +15,8 @@ const accent1 =
       <Logo class="h-16" fills />
     </a>
     <p class="my-6">
-      Open-source library of over 400+ web components and interactive elements
-      built for better web.
+      Websites, networking, back office, IoT, and automation, from the first
+      conversation to support after launch.
     </p>
     <nav aria-label="Footer">
       <ul class="mx-auto mb-8 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-8 text-start sm:grid-cols-3 lg:grid-cols-5">
@@ -49,11 +49,11 @@ const accent1 =
       </ul>
     </nav>
     <span class="text-sm sm:text-center">
-      © 2021-2022{" "}
-      <a href="#" class="hover:underline">
-        Flowbite™
+      © {new Date().getFullYear()}{" "}
+      <a href={host.url} class="hover:underline">
+        {host.name}
       </a>
-      . All Rights Reserved.
+      . All rights reserved.
     </span>
   </div>
 </footer>
