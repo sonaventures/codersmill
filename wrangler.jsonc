@@ -6,12 +6,19 @@
   "main": "./src/worker.ts",
   "compatibility_date": "2026-02-24",
   "compatibility_flags": ["nodejs_compat"],
-  // EmDash's content database. Create it with `wrangler d1 create codersmill`
-  // and add its database_id here before deploying.
+  // EmDash's content database.
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "codersmill",
+      "database_id": "7c29c2aa-5bbb-4664-a3b0-ac6b887758bc",
+    },
+  ],
+  // Astro's sessions (the Cloudflare adapter's SESSION binding).
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "0c26c4309d8142b59e97c1f095faaa25",
     },
   ],
   // Uploaded media. Create it with `wrangler r2 bucket create codersmill-media`.
