@@ -50,7 +50,13 @@ test("the layout, header, and footer use the shared site details", async () => {
   // The layout's header and footer are the CodersMill ones, with the menu.
   assert.match(layout, /codersmill\/header_5\.astro/);
   assert.match(layout, /codersmill\/footer_1\.astro/);
-  for (const file of [header, footer]) assert.match(file, /navigation\.map/);
+  // The header's menu is the site nav component, from site.ts too.
+  const sitenav = await readProjectFile(
+    "src/components/codersmill/sitenav.astro",
+  );
+  assert.match(header, /<SiteNav \/>/);
+  for (const file of [sitenav, footer]) assert.match(file, /navigation\.map/);
+  assert.match(sitenav, /from "(?:\.\.\/)+data\/site"/);
 
   for (const file of [layout, header, footer])
     assert.match(file, /from "(?:\.\.\/)+data\/site"/);

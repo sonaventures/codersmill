@@ -1,13 +1,8 @@
 ---
 import Logo from "./logo.astro";
-import { builderLink, navigation } from "../../data/site";
-
-// The CodersMill menu from src/data/site.ts: each section links to its page,
-// and its arrow opens a submenu (on hover too, with a mouse on wide screens).
-const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
-const wide = "window.matchMedia('(hover: hover) and (min-width: 768px)').matches";
-const accent1 =
-  "rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus";
+import ThemeSwitch from "./theme-switch.astro";
+import SiteNav from "./sitenav.astro";
+import { builderLink } from "../../data/site";
 ---
 
 <header
@@ -21,8 +16,12 @@ const accent1 =
       <a class="flex items-center" href="/" aria-label="CodersMill home">
         <Logo class="h-12" />
       </a>
-      <div class="flex items-center gap-5 md:hidden">
-        <a href={builderLink.href} class="rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border active:inset-ring-accent-01-02-active-border focus-visible:outline-accent-01-focus inline-flex items-center justify-center px-4 py-2 font-medium">
+      <div class="flex items-center gap-3 md:hidden">
+        <ThemeSwitch />
+        <a
+          href={builderLink.href}
+          class="rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border active:inset-ring-accent-01-02-active-border focus-visible:outline-accent-01-focus inline-flex items-center justify-center px-4 py-2 font-medium"
+        >
           {builderLink.label}
         </a>
         <button
@@ -33,75 +32,25 @@ const accent1 =
           aria-controls="navbar-block-5"
           aria-label="Toggle navigation"
         >
-          <span class="icon-[tabler--menu-2] size-5.5 nav-svg" x-show="!open"></span>
-          <span class="icon-[tabler--x] size-5.5 nav-svg" x-cloak x-show="open"></span>
+          <span
+            class="icon-[tabler--menu-2] size-5.5 nav-svg"
+            x-show="!open"
+          ></span>
+          <span
+            class="icon-[tabler--x] size-5.5 nav-svg"
+            x-cloak
+            x-show="open"
+          ></span>
         </button>
       </div>
     </div>
-    <nav aria-label="Main"
-      id="navbar-block-5"
-      class="grow font-medium max-md:hidden md:flex md:shrink-0 md:items-center md:justify-center"
-      x-bind:class="{ 'max-md:hidden': !open }"
-    >
-      <ul id="nav-header" class="flex gap-4 text-base max-md:mt-4 max-md:flex-col md:items-center">
-        {navigation.map((section, index) => (
-          <li
-            class="relative flex flex-wrap items-center gap-1"
-            x-on:mouseenter={`if (${wide}) menu = ${index}`}
-            x-on:mouseleave={`if (${wide}) menu = null`}
-          >
-            <a
-              class={`${accent1} menu-header px-3 py-2`}
-              href={section.href}
-              aria-current={currentPath === section.href ? "page" : undefined}
-            >
-              {section.label}
-            </a>
-            <button
-              type="button"
-              class="grid size-8 cursor-pointer place-items-center rounded-md"
-              x-on:click={`menu = menu === ${index} ? null : ${index}`}
-              x-bind:aria-expanded={`(menu === ${index}).toString()`}
-              aria-controls={`nav-menu-${index}`}
-              aria-label={`${section.label} menu`}
-            >
-              <svg
-                class="nav-svg size-4 transition-transform"
-                x-bind:class={`{ 'rotate-180': menu === ${index} }`}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M5.5 9h13L12 16.5Z" />
-              </svg>
-            </button>
-            <ul
-              id={`nav-menu-${index}`}
-              class="z-20 w-full py-2 max-md:ps-4 md:absolute md:top-full md:left-0 md:w-56 md:rounded-md md:border md:border-canvas-01-border md:bg-canvas-01 md:shadow-lg"
-              x-show={`menu === ${index}`}
-              x-cloak
-            >
-              {section.items.map(({ label, href, external }) => (
-                <li>
-                  <a
-                    class="block rounded-sm px-4 py-2 text-sm hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text"
-                    href={href}
-                    aria-current={currentPath === href ? "page" : undefined}
-                    {...(external ? { target: "_blank", rel: "noopener" } : {})}
-                  >
-                    {label}
-                    {external && <span aria-hidden="true"> ↗</span>}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-    </nav>
-    <div class="flex w-1/2 items-center justify-end max-md:hidden">
-      <a href={builderLink.href} class="rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border active:inset-ring-accent-01-02-active-border focus-visible:outline-accent-01-focus inline-flex items-center justify-center px-4 py-2 font-medium">
+    <SiteNav />
+    <div class="flex w-1/2 items-center justify-end gap-3 max-md:hidden">
+      <ThemeSwitch />
+      <a
+        href={builderLink.href}
+        class="rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border active:inset-ring-accent-01-02-active-border focus-visible:outline-accent-01-focus inline-flex items-center justify-center px-4 py-2 font-medium"
+      >
         {builderLink.label}
       </a>
     </div>
