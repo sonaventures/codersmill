@@ -1,52 +1,37 @@
 ---
-import FpHero from "../components/codersmill/fp_hero.astro";
 import Layout from "../layouts/layout.astro";
-import { builderPages } from "../data/website-builder/builder-pages";
-import { builderName, host, pageDescriptions, siteName } from "../data/site";
-
-// The builder's tools, in workflow order (its home page is the builder).
-const tools = builderPages.filter(({ label }) => label !== "Home");
+import { pageDescriptions } from "../data/site";
+import PageHeader from "../components/codersmill/header_5.astro";
+import Component1 from "../components/codersmill/hero_5.astro";
+import Component2 from "../components/codersmill/portfolio_1.astro";
+import Component3 from "../components/codersmill/cta_5.astro";
+import Component4 from "../components/codersmill/features_3.astro";
+import Component5 from "../components/codersmill/cta_7.astro";
+import PageFooter from "../components/codersmill/footer_1.astro";
 ---
 
 <Layout description={pageDescriptions.home}>
-  <FpHero
-    eyebrow={siteName}
-    title="Build and style a website from blocks."
-    description="Pick colors, group them into themes, set the typography, then assemble pages from ready-made blocks and give them your theme. Everything is saved to your Astro project."
-  />
-
-  <section class="container home-overview" aria-labelledby="overview-title">
-    <div class="section-heading">
-      <p class="eyebrow">The workflow</p>
-      <h2 id="overview-title">One tool for each step</h2>
-      <p>
-        Work through the tools in order, or open any of them on its own. Each
-        one saves its part of the site to your project.
-      </p>
-    </div>
-    <div class="section-link-grid">
-      {tools.map(({ label, href }, index) => (
-        <a class="section-link-card" href={href}>
-          <span class="card-index">{String(index + 1).padStart(2, "0")}</span>
-          <span class="card-title">{label}</span>
-          <span class="card-arrow" aria-hidden="true">
-            ↗
-          </span>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section class="home-note">
-    <div class="container home-note-inner">
-      <p class="eyebrow">{builderName}</p>
-      <p>
-        {builderName} runs in your browser, hosted by {host.name}. Open the
-        builder to start a site, or read more about how it works.
-      </p>
-      <a class="text-link" href="/us/who-we-are/">
-        About {siteName} <span aria-hidden="true">→</span>
-      </a>
-    </div>
-  </section>
+  <div slot="header" class="sw-header">
+    <PageHeader />
+  </div>
+  <div class="sg-codersmill-page">
+    <section id="fp_hero-5" class="sg-codersmill-hero">
+      <Component1 />
+    </section>
+    <section id="fp_portfolio-1" class="sg-codersmill-section-1">
+      <Component2 />
+    </section>
+    <section id="fp_cta-5" class="sg-codersmill-section-2">
+      <Component3 />
+    </section>
+    <section id="fp_features-3" class="sg-codersmill-section-3">
+      <Component4 />
+    </section>
+    <section id="fp_cta-7" class="sg-codersmill-section-4">
+      <Component5 />
+    </section>
+  </div>
+  <div slot="footer" class="sw-footer">
+    <PageFooter />
+  </div>
 </Layout>

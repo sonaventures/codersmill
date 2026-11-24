@@ -186,6 +186,6 @@ export function findNavItem(path: string) {
 }
 
 export const pageDescriptions = {
-  home: `Build and style Astro websites with ${builderName}, on ${siteName}.`,
+  home: `${host.name}: websites, networking, back office, IoT, and automation, from the first conversation to support after launch.`,
   about: `About ${siteName}, the home of ${builderName}, and how its tools work.`,
 } as const;
