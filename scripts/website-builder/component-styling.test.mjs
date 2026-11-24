@@ -223,3 +223,14 @@ test("block markers say what an element is until a style replaces them", () => {
   assert.match(styled, /<svg class="size-6 nav-svg"/);
   assert.equal(applyThemeClasses(block, { 0: "", 1: "" }), block);
 });
+
+test("a submit input marked cta-button suggests the CTA 01 style", () => {
+  const block = `<input type="submit" value="Try for free" class="cta-button px-5 py-3" />`;
+  const [input] = findStyleableElements(block);
+  assert.equal(input.kind, "fields");
+  assert.equal(markerOf(input.classValue)?.preset, "cta-01");
+  const cta = stylePresets.find(({ key }) => key === "cta-01").classes;
+  const styled = applyThemeClasses(block, { 0: cta });
+  assert.doesNotMatch(styled, /cta-button/);
+  assert.match(styled, /class="px-5 py-3 [^"]*bg-cta-01/);
+});

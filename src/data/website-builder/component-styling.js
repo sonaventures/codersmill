@@ -62,6 +62,7 @@ export const elementKinds = [
  */
 export const blockMarkers = [
   { className: "cta-anchor", label: "CTA anchor", preset: "cta-01" },
+  { className: "cta-button", label: "CTA button", preset: "cta-01" },
   { className: "accent-anchor", label: "Accent anchor", preset: "accent-01" },
   { className: "button", label: "Button", preset: "accent-01" },
   { className: "button-icon", label: "Button icon", preset: "button-svg" },
