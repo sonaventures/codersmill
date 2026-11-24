@@ -23,7 +23,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "fonts:add": "node scripts/website-builder/install-fonts.mjs",
-    "test": "node --test"
+    "test": "node --test",
+    "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.17.5",
@@ -33,9 +34,11 @@
     "@astrojs/markdown-satteri": "^0.4.10",
     "@astrojs/mdx": "^8.1.6",
     "@astrojs/partytown": "^2.1.9",
+    "@astrojs/react": "^7.1.9",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.6",
     "@astrojs/starlight": "^0.43.1",
+    "@emdash-cms/cloudflare": "^1.6.0",
     "@fontsource-variable/dm-sans": "^5.3.0",
     "@fontsource-variable/fira-code": "^5.3.0",
     "@fontsource-variable/inter": "^5.3.0",
@@ -63,14 +66,18 @@
     "astro": "^7.4.13",
     "astro-aeo": "^1.6.1",
     "astro-seo": "^1.2.0",
+    "emdash": "^1.6.0",
     "gsap": "^3.15.1",
     "negotiator": "^1.1.0",
     "qrcode": "^1.5.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "resend": "^6.39.0",
     "tailwindcss": "^4.3.5",
     "tailwindcss-intersect": "^3.0.0"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261124.1",
     "@iconify/json": "^2.2.560",
     "@iconify/tailwind4": "^1.2.3",
     "@types/alpinejs": "^3.17.0",
@@ -79,5 +86,8 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss-motion": "^1.1.1",
     "wrangler": "^4.166.0"
+  },
+  "emdash": {
+    "seed": "seed/seed.json"
   }
 }

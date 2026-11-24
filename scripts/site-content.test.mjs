@@ -72,7 +72,7 @@ test("every page in the menu exists", async () => {
   // which Starlight serves from src/content/docs/docs/.
   const page = (href) =>
     href === "/docs/"
-      ? readProjectFile("src/content/docs/docs/index.mdx")
+      ? readProjectFile("src/content/docs/docs/index.md")
       : readProjectFile(`src/pages${href.replace(/\/$/, "")}.astro`).catch(() =>
           readProjectFile(`src/pages${href}index.astro`),
         );

@@ -4,11 +4,54 @@ import tailwindcss from "@tailwindcss/vite";
 
 import partytown from "@astrojs/partytown";
 import starlight from "@astrojs/starlight";
+import cloudflare from "@astrojs/cloudflare";
+import react from "@astrojs/react";
+import { d1, r2 } from "@emdash-cms/cloudflare";
+import emdash from "emdash/astro";
+
+// Static pages are prerendered in Node, where Cloudflare's runtime module
+// (cloudflare:workers, imported by EmDash) does not exist. They never use
+// EmDash's database, so while prerendering it is replaced with a stand-in;
+// the Worker build uses the real module.
+const stubId = "\0codersmill:cloudflare-workers-prerender";
+function cloudflareWorkersPrerenderStub() {
+  return {
+    name: "codersmill:cloudflare-workers-prerender",
+    enforce: "pre",
+    resolveId(source) {
+      if (
+        source === "cloudflare:workers" &&
+        this.environment?.name === "prerender"
+      )
+        return stubId;
+    },
+    load(id) {
+      if (id === stubId)
+        return [
+          "export const env = {};",
+          "export const exports = {};",
+          "export const cache = undefined;",
+          "export function waitUntil() {}",
+          "export class DurableObject {}",
+          "export class WorkerEntrypoint {}",
+          "export class RpcTarget {}",
+        ].join("\n");
+    },
+  };
+}
 
 export default defineConfig({
   // CodersMill is hosted by Coders Mill at codersmill.com.
   site: "https://codersmill.com",
+  // Pages are prerendered (static) unless they opt out with
+  // `export const prerender = false`: EmDash's admin (/_emdash) and the blog,
+  // which read the CMS on request, run in the Cloudflare Worker.
   output: "static",
+  adapter: cloudflare({
+    // Prerender (and, in dev, serve) the static pages in Node, so the builder
+    // pages keep reading the project's files.
+    prerenderEnvironment: "node",
+  }),
   // No Astro dev toolbar on any page.
   devToolbar: { enabled: false },
   redirects: {
@@ -33,10 +76,19 @@ export default defineConfig({
   },
   integrations: [
     alpine({ entrypoint: "/src/entrypoint" }),
+    react(),
+    // EmDash, the CMS for the blog: content in D1 (DB), media in R2 (MEDIA),
+    // both in wrangler.jsonc. Its schema and first post are in seed/seed.json.
+    emdash({
+      database: d1({ binding: "DB", session: "auto", coalesce: true }),
+      storage: r2({ binding: "MEDIA" }),
+    }),
     partytown(),
     // Documentation at /docs/, from src/content/docs/docs/.
     starlight({
       title: "CodersMill Docs",
+      // The CodersMill fonts and colors (src/styles/docs.css).
+      customCss: ["./src/styles/docs.css"],
       logo: {
         light: "./src/assets/logos/codersmill-logo.svg",
         dark: "./src/assets/logos/codersmill-logo-dark.svg",
@@ -61,6 +113,6 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), cloudflareWorkersPrerenderStub()],
   },
 });

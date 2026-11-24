@@ -4,7 +4,9 @@ import Layout from "../../../layouts/layout.astro";
 import { blogPath, formatDate, getPosts, postPath } from "../../../data/blog";
 import { findNavItem } from "../../../data/site";
 
-// The blog's own page: every post, newest first.
+// Every published post, newest first, read from EmDash on each request.
+export const prerender = false;
+
 const { item } = findNavItem(blogPath)!;
 const posts = await getPosts();
 ---
@@ -32,14 +34,15 @@ const posts = await getPosts();
       <ul class="company-grid">
         {posts.map((post) => (
           <li class="company-card">
-            <p class="pending-label">
-              <time datetime={post.data.pubDate.toISOString()}>
-                {formatDate(post.data.pubDate)}
-              </time>
-              {post.data.draft && <span>Draft</span>}
-            </p>
+            {post.data.publishedAt && (
+              <p class="pending-label">
+                <time datetime={post.data.publishedAt.toISOString()}>
+                  {formatDate(post.data.publishedAt)}
+                </time>
+              </p>
+            )}
             <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
+            {post.data.excerpt && <p>{post.data.excerpt}</p>}
             <a class="text-link" href={postPath(post)}>
               Read the post <span aria-hidden="true">→</span>
             </a>

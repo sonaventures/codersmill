@@ -1,23 +1,22 @@
-import { getCollection, type CollectionEntry } from "astro:content";
-
-export type Post = CollectionEntry<"blog">;
-
-/**
- * The blog's posts, newest first. Drafts (draft: true) show while running the
- * dev server, so they can be previewed, and are left out of the built site.
- */
-export async function getPosts(): Promise<Post[]> {
-  const posts = await getCollection(
-    "blog",
-    ({ data }) => import.meta.env.DEV || !data.draft,
-  );
-  return posts.sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-  );
-}
+// The CodersMill blog, from EmDash: posts are written in the EmDash admin
+// (/_emdash) and read here on request. Drafts and scheduled posts only show
+// once they are published.
+import { getEmDashCollection } from "emdash";
 
 export const blogPath = "/resources/blog/";
-export const postPath = (post: Post) => `${blogPath}${post.id}/`;
+
+/** The published posts, newest first. */
+export async function getPosts(limit = 50) {
+  const { entries } = await getEmDashCollection("posts", {
+    orderBy: { published_at: "desc" },
+    limit,
+  });
+  return entries;
+}
+
+export type Post = Awaited<ReturnType<typeof getPosts>>[number];
+
+export const postPath = (post: { id: string }) => `${blogPath}${post.id}/`;
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
   year: "numeric",

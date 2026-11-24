@@ -10,3 +10,8 @@ dist/
 
 # Claude Code local settings
 .claude/
+
+# Local Cloudflare (Wrangler) state: the dev D1 database and R2 media
+.wrangler/
+# EmDash's local migration state
+.emdash/migrations.json

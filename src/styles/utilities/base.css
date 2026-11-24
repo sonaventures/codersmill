@@ -421,6 +421,10 @@
     @apply rounded-full border border-canvas-page-border px-3 py-0.5 text-[0.8rem];
   }
 
+  .blog-post-image {
+    @apply mb-10 overflow-hidden rounded-lg;
+  }
+
   .blog-post-body {
     @apply text-[1.05rem] leading-[1.75];
   }

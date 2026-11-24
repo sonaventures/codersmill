@@ -1,0 +1,35 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // CodersMill on Cloudflare Workers: the static site, plus EmDash (the blog
+  // CMS) and its admin at /_emdash, rendered on demand.
+  "name": "codersmill",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-02-24",
+  "compatibility_flags": ["nodejs_compat"],
+  // EmDash's content database. Create it with `wrangler d1 create codersmill`
+  // and add its database_id here before deploying.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "codersmill",
+    },
+  ],
+  // Uploaded media. Create it with `wrangler r2 bucket create codersmill-media`.
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "codersmill-media",
+    },
+  ],
+  // Co-editing rooms, one Durable Object per entry being edited.
+  "durable_objects": {
+    "bindings": [{ "name": "EMDASH_ROOMS", "class_name": "EmDashRoom" }],
+  },
+  "exports": {
+    "EmDashRoom": { "type": "durable-object", "storage": "sqlite" },
+  },
+  // EmDash's maintenance and scheduled publishing.
+  "triggers": {
+    "crons": ["* * * * *"],
+  },
+}

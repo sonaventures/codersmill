@@ -1,0 +1,276 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "meta": {
+    "name": "CodersMill",
+    "description": "The CodersMill blog: news, project notes, and how-tos from Coders Mill.",
+    "author": "Coders Mill"
+  },
+  "settings": {
+    "title": "CodersMill Blog",
+    "tagline": "News and articles from Coders Mill."
+  },
+  "collections": [
+    {
+      "slug": "posts",
+      "label": "Posts",
+      "labelSingular": "Post",
+      "urlPattern": "/resources/blog/{slug}",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "search",
+        "seo"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "excerpt",
+          "label": "Excerpt",
+          "type": "text"
+        },
+        {
+          "slug": "featured_image",
+          "label": "Featured Image",
+          "type": "image"
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText",
+          "searchable": true
+        }
+      ]
+    }
+  ],
+  "taxonomies": [
+    {
+      "name": "tag",
+      "label": "Tags",
+      "labelSingular": "Tag",
+      "hierarchical": false,
+      "collections": [
+        "posts"
+      ],
+      "terms": [
+        {
+          "slug": "news",
+          "label": "News"
+        }
+      ]
+    }
+  ],
+  "bylines": [
+    {
+      "id": "byline-coders-mill",
+      "slug": "coders-mill",
+      "displayName": "Coders Mill"
+    }
+  ],
+  "content": {
+    "posts": [
+      {
+        "id": "post-welcome",
+        "slug": "welcome",
+        "status": "published",
+        "data": {
+          "title": "Welcome to the CodersMill blog",
+          "excerpt": "Where Coders Mill shares news, project notes, and how-tos.",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "k5",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k4",
+                  "text": "Welcome to the CodersMill blog. This is where Coders Mill will share news, notes from projects, and how-tos on the things we work on: websites, networking, back office systems, IoT, and automation.",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k7",
+              "style": "h2",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k6",
+                  "text": "What to expect",
+                  "marks": []
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "k12",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k1",
+                  "href": "/website-builder/"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k8",
+                  "text": "News",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k9",
+                  "text": " about Coders Mill and the tools we build, such as the ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "k10",
+                  "text": "Website Builder",
+                  "marks": [
+                    "k1"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k11",
+                  "text": ".",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "k15",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k13",
+                  "text": "Project notes",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k14",
+                  "text": " on how a piece of work came together.",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "k18",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k16",
+                  "text": "How-tos",
+                  "marks": [
+                    "strong"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k17",
+                  "text": " you can follow on your own projects.",
+                  "marks": []
+                }
+              ],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "k24",
+              "style": "normal",
+              "markDefs": [
+                {
+                  "_type": "link",
+                  "_key": "k2",
+                  "href": "/resources/blog/rss.xml"
+                },
+                {
+                  "_type": "link",
+                  "_key": "k3",
+                  "href": "/docs/"
+                }
+              ],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "k19",
+                  "text": "You can follow along with the ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "k20",
+                  "text": "RSS feed",
+                  "marks": [
+                    "k2"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k21",
+                  "text": ", and the ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "k22",
+                  "text": "documentation",
+                  "marks": [
+                    "k3"
+                  ]
+                },
+                {
+                  "_type": "span",
+                  "_key": "k23",
+                  "text": " covers the tools in detail.",
+                  "marks": []
+                }
+              ]
+            }
+          ]
+        },
+        "bylines": [
+          {
+            "byline": "byline-coders-mill"
+          }
+        ],
+        "taxonomies": {
+          "tag": [
+            "news"
+          ]
+        }
+      }
+    ]
+  }
+}

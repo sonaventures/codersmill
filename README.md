@@ -266,27 +266,31 @@ header and footer. The site's name, host, menu, and page descriptions are in
 `astro.config.mjs`. The layout uses it for canonical links and structured data
 naming Coders Mill as the publisher.
 
-## Blog
+## Blog (EmDash)
 
-The blog at `/resources/blog/` is built from a content collection: a Markdown
-or MDX file per post in [`src/content/blog/`](./src/content/blog/), served at
-`/resources/blog/<file name>/`. Each post starts with:
+The blog at `/resources/blog/` is run by [EmDash](https://docs.emdashcms.com),
+an Astro-native CMS. Posts are written and published in the EmDash admin at
+`/_emdash/admin`; the blog page, each post (`/resources/blog/<slug>/`), and
+the RSS feed (`/resources/blog/rss.xml`) read them on each request. Drafts and
+scheduled posts appear once published.
 
-```md
----
-title: "Post title"
-description: "One sentence for the list, search results, and the feed."
-pubDate: 2026-11-24
-updatedDate: 2026-12-01 # optional
-author: "Coders Mill" # optional, the default
-tags: ["news"] # optional
-draft: true # optional: shown by the dev server, left out of the site
----
-```
+The site runs on Cloudflare Workers (`@astrojs/cloudflare`): every other page
+is still prerendered to static files, while EmDash's admin and the blog are
+rendered by the Worker. EmDash keeps its content in a D1 database (`DB`) and
+uploaded media in an R2 bucket (`MEDIA`), set in `wrangler.jsonc`.
 
-The blog page lists the posts newest first, and `/resources/blog/rss.xml` is
-their RSS feed. The schema is in `src/content.config.ts`, and the post pages
-in `src/pages/resources/blog/`.
+- `seed/seed.json` defines the Posts collection (title, excerpt, featured
+  image, rich-text content), the Tags taxonomy, and the first post. EmDash
+  applies the schema to an empty database on the first request, and the post
+  when setup is completed.
+- Locally, `npm run dev` uses Wrangler's local D1 and R2 (in `.wrangler/`).
+  Open `/_emdash/admin` to run the setup wizard, or
+  `/_emdash/api/setup/dev-bypass?redirect=/_emdash/admin` to skip it with a
+  dev admin.
+- To deploy, create the database and bucket once
+  (`npx wrangler d1 create codersmill`, adding its `database_id` to
+  `wrangler.jsonc`, and `npx wrangler r2 bucket create codersmill-media`), then
+  run `npm run deploy`.
 
 ## Documentation
 
@@ -310,7 +314,7 @@ in `astro.config.mjs`. Resources › Docs in the menu links to it, and
 | `src/styles/website-builder/`     | Builder styles                                                                           |
 | `src/data/website-builder/`       | Builder logic: theme groups, group CSS, sitewide CSS, page generation, component styling |
 | `src/content/docs/docs/`          | The documentation (Starlight)                                                            |
-| `src/content/blog/`               | The blog posts                                                                           |
+| `seed/seed.json`                  | The blog's EmDash schema and first post                                                  |
 | `src/data/site.ts`                | The site's name, host, navigation, and page descriptions                                 |
 | `src/styles/themes/`              | `colors.css`, `fonts.css`, `sitewide.css`, `groups.css`, `theme-groups.json`, `id.css`   |
 | `src/styles/utilities/base.css`   | Base styles and the `max-w-site` and corner radius defaults                              |

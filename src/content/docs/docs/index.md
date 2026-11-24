@@ -3,8 +3,6 @@ title: "CodersMill documentation"
 description: "Documentation for the Coders Mill tools, starting with Website Builder."
 ---
 
-import { LinkCard, CardGrid } from "@astrojs/starlight/components";
-
 CodersMill is the home of Website Builder, a set of browser tools for
 building and styling [Astro](https://astro.build) websites from ready-made
 blocks. You pick colors, group them into themes, set the typography, assemble
@@ -18,9 +16,7 @@ codersmill.com. The repository is
 
 ## Website Builder
 
-<CardGrid>
-  <LinkCard title="Getting started" href="/docs/website-builder/getting-started/" description="Install it, open the workspace, and choose your project folder." />
-  <LinkCard title="The tools, in order" href="/docs/website-builder/tools/" description="Which tool does what, and which files each one saves." />
-  <LinkCard title="Theme Builder" href="/docs/website-builder/theme-builder/" description="Colors, accents, cards, and SVG types for each area." />
-  <LinkCard title="Blocks" href="/docs/website-builder/blocks/" description="The ready-made blocks and their marker classes." />
-</CardGrid>
+- [Getting started](/docs/website-builder/getting-started/): Install it, open the workspace, and choose your project folder.
+- [The tools, in order](/docs/website-builder/tools/): Which tool does what, and which files each one saves.
+- [Theme Builder](/docs/website-builder/theme-builder/): Colors, accents, cards, and SVG types for each area.
+- [Blocks](/docs/website-builder/blocks/): The ready-made blocks and their marker classes.

@@ -1,0 +1,106 @@
+/*
+ * The documentation (Starlight) in the CodersMill style: the site's fonts
+ * and the Tailwind colors its theme uses, in light and dark mode. Starlight
+ * reads its --sl-* variables; the values match the site's page, header, text,
+ * heading, and link colors and the sitewide typography (sitewide.css).
+ */
+@import "@fontsource-variable/roboto-slab/wght.css";
+@import "@fontsource-variable/roboto-condensed/wght.css";
+@import "@fontsource-variable/work-sans/wght.css";
+@import "@fontsource-variable/noto-sans/wght.css";
+@import "@fontsource-variable/noto-sans/wght-italic.css";
+
+/* Dark mode (Starlight's default): the site's gray-800 page, blue-50 text,
+   and blue-200 / blue-300 headings and links. */
+:root {
+  --sl-font: "Noto Sans Variable", system-ui, sans-serif;
+  --cm-font-h1: "Roboto Slab Variable", serif;
+  --cm-font-h2: "Roboto Condensed Variable", sans-serif;
+  --cm-font-h4: "Work Sans Variable", sans-serif;
+
+  --sl-color-white: oklch(97% 0.014 254.604); /* blue-50 */
+  --sl-color-gray-1: oklch(96.7% 0.003 264.542); /* gray-100 */
+  --sl-color-gray-2: oklch(92.8% 0.006 264.531); /* gray-200 */
+  --sl-color-gray-3: oklch(87.2% 0.01 258.338); /* gray-300 */
+  --sl-color-gray-4: oklch(70.7% 0.022 261.325); /* gray-400 */
+  --sl-color-gray-5: oklch(44.6% 0.03 256.802); /* gray-600 */
+  --sl-color-gray-6: oklch(37.3% 0.034 259.733); /* gray-700 */
+  --sl-color-black: oklch(27.8% 0.033 256.848); /* gray-800 */
+
+  --sl-color-accent-low: oklch(28.2% 0.091 267.935); /* blue-950 */
+  --sl-color-accent: oklch(80.9% 0.105 251.813); /* blue-300 */
+  --sl-color-accent-high: oklch(88.2% 0.059 254.128); /* blue-200 */
+
+  --sl-color-text: oklch(97% 0.014 254.604); /* blue-50, as the site */
+  --sl-color-bg-nav: oklch(27.8% 0.033 256.848); /* the site header */
+  --sl-color-bg-sidebar: oklch(27.8% 0.033 256.848);
+
+  --cm-heading: oklch(88.2% 0.059 254.128); /* blue-200 */
+}
+
+/* Light mode: the site's sky-50 page, white header, gray-800 text, and
+   sky-900 headings with sky-600 links. */
+:root[data-theme="light"],
+[data-theme="light"] ::backdrop {
+  --sl-color-white: oklch(21% 0.034 264.665); /* gray-900 */
+  --sl-color-gray-1: oklch(27.8% 0.033 256.848); /* gray-800 */
+  --sl-color-gray-2: oklch(37.3% 0.034 259.733); /* gray-700 */
+  --sl-color-gray-3: oklch(44.6% 0.03 256.802); /* gray-600 */
+  --sl-color-gray-4: oklch(55.1% 0.027 264.364); /* gray-500 */
+  --sl-color-gray-5: oklch(87.2% 0.01 258.338); /* gray-300 */
+  --sl-color-gray-6: oklch(95.1% 0.026 236.824); /* sky-100 */
+  --sl-color-gray-7: oklch(97.7% 0.013 236.62); /* sky-50 */
+  --sl-color-black: oklch(97.7% 0.013 236.62); /* sky-50, the site's page */
+
+  --sl-color-accent-low: oklch(95.1% 0.026 236.824); /* sky-100 */
+  --sl-color-accent: oklch(58.8% 0.158 241.966); /* sky-600 */
+  --sl-color-accent-high: oklch(39.1% 0.09 240.876); /* sky-900 */
+
+  --sl-color-text: oklch(27.8% 0.033 256.848); /* gray-800, as the site */
+  --sl-color-bg-nav: oklch(100% 0 0); /* white, as the site header */
+  --sl-color-bg-sidebar: oklch(97.7% 0.013 236.62);
+
+  --cm-heading: oklch(39.1% 0.09 240.876); /* sky-900 */
+}
+
+/* The site title, in the site's heading font beside the logo. */
+.site-title {
+  font-family: var(--cm-font-h1);
+  color: var(--cm-heading);
+}
+
+/* Headings: the page title and the content's, with the sitewide
+   typography's fonts, weights, and letter spacing. */
+h1#_top,
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--cm-heading);
+}
+
+h1#_top,
+.sl-markdown-content h1 {
+  font-family: var(--cm-font-h1);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.sl-markdown-content :is(h2, h3) {
+  font-family: var(--cm-font-h2);
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+
+.sl-markdown-content :is(h4, h5, h6) {
+  font-family: var(--cm-font-h4);
+  font-weight: 600;
+}
+
+/* Body text, as the site's paragraphs. */
+.sl-markdown-content p {
+  letter-spacing: 0.025em;
+}
+
+/* The sidebar's group labels in the site's heading font. */
+.sidebar-content .group-label .large {
+  font-family: var(--cm-font-h2);
+  letter-spacing: 0.025em;
+}
