@@ -3,16 +3,23 @@
 // traced in src/assets/codersmill-inkscape.svg (also saved on its own as
 // src/assets/logos/codersmill-logo.svg). Inline, so "coders" takes the text
 // color around it and stays readable in dark mode; the blue is
-// smartblue-700, lightened in dark mode.
+// smartblue-700, lightened in dark mode. With `fills`, the blue is the area's
+// SVG fill 01 instead (set in the Theme Builder), e.g. a light color on a
+// dark footer.
 interface Props {
   class?: string;
+  fills?: boolean;
 }
 
-const { class: className } = Astro.props;
+const { class: className, fills = false } = Astro.props;
 ---
 
 <svg
-  class:list={["codersmill-logo", className]}
+  class:list={[
+    "codersmill-logo",
+    { "codersmill-logo-fills": fills },
+    className,
+  ]}
   xmlns="http://www.w3.org/2000/svg"
   viewBox="-176 -347 222 134"
   aria-hidden="true"

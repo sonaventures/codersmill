@@ -130,8 +130,8 @@
     @apply flex items-baseline gap-2 whitespace-nowrap text-brand-01 no-underline;
   }
 
-  /* The Coders Mill logo in the header: "coders" takes the header's text
-     color, and the blue lightens in dark mode to stay readable. */
+  /* The Coders Mill logo: the blue lightens in dark mode to stay
+     readable. */
   .codersmill-logo {
     @apply block h-14 w-auto tablet:h-12;
   }
@@ -140,12 +140,19 @@
     fill: var(--color-smartblue-700);
   }
 
+  /* "coders" takes the text color of the area around it (the header's,
+     the footer's, ...). */
   .codersmill-logo-ink {
-    fill: var(--color-ink-header);
+    fill: var(--ink-01, currentColor);
   }
 
   :root[data-theme="dark"] .codersmill-logo-blue {
     fill: var(--color-smartblue-300);
+  }
+
+  /* With the fills option, the blue is the area's SVG fill 01. */
+  .codersmill-logo.codersmill-logo-fills .codersmill-logo-blue {
+    fill: var(--ink-01-svg-01, currentColor);
   }
 
   .primary-navigation .nav-list,
