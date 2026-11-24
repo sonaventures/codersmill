@@ -5324,10 +5324,10 @@
             "anchorSvgStrokeActive": "theme"
           },
           "section1": {
-            "background": "theme",
+            "background": "transparent",
             "border": "theme",
             "shadow": "theme",
-            "accent1": "theme",
+            "accent1": "var(--color-limecream-100)",
             "accent1Hover": "theme",
             "accent1Border": "theme",
             "accent1HoverBorder": "theme",
@@ -5354,9 +5354,9 @@
             "accentFocus": "theme",
             "text": "theme",
             "h1": "theme",
-            "h2": "theme",
-            "h3": "theme",
-            "h4": "theme",
+            "h2": "var(--color-smartblue-700)",
+            "h3": "var(--color-smartblue-700)",
+            "h4": "var(--color-smartblue-700)",
             "muted": "theme",
             "highlight": "theme",
             "card": "theme",
@@ -5553,7 +5553,7 @@
             "anchorSvgStrokeActive": "theme"
           },
           "section2": {
-            "background": "theme",
+            "background": "var(--color-blaze-50)",
             "border": "theme",
             "shadow": "theme",
             "accent1": "theme",

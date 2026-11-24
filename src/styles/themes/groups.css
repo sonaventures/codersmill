@@ -2413,13 +2413,18 @@
   --ink-01-anchor-svg-stroke-active: var(--ink-hero-anchor-svg-stroke-active);
 }
 :root:not([data-theme="dark"]) .sg-codersmill-section-1 {
-
+  --canvas-01: transparent;
+  --accent-01-01: var(--color-limecream-100);
+  --ink-01-h2: var(--color-smartblue-700);
+  --ink-01-h3: var(--color-smartblue-700);
+  --ink-01-h4: var(--color-smartblue-700);
 }
 :root[data-theme="dark"] .sg-codersmill-section-1 {
 
 }
 :root:not([data-theme="dark"]) .sg-codersmill-section-2 {
-  --canvas-01: var(--canvas-02);
+  --canvas-02: var(--color-blaze-50);
+  --canvas-01: var(--color-blaze-50);
   --canvas-01-border: var(--canvas-02-border);
   --canvas-01-shadow: var(--canvas-02-shadow);
   --accent-01-01: var(--accent-02-01);
