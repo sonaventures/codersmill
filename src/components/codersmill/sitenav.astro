@@ -1,11 +1,17 @@
 ---
 import { navigation } from "../../data/site";
 
-// The CodersMill site menu, from src/data/site.ts: each section links to its
-// page, and its arrow opens a submenu (on hover too, with a mouse on wide
-// screens). It goes inside a header whose Alpine data has `open` (the phone
-// menu, toggled by a button with aria-controls="navbar-block-5") and `menu`
-// (the open submenu), as in header_5.astro.
+// The CodersMill site menu, from src/data/site.ts. The menu headers are one
+// flat row; each section's menu is its own <div> panel, the full width of the
+// screen, that drops down from behind the header while the rest of the page
+// blurs. A menu opens with its arrow (or on hover, with a mouse on wide
+// screens), and the arrow turns while its menu header is hovered or open.
+//
+// It goes inside a full-width header (`relative z-40`) whose Alpine data has
+// `open` (the phone menu, toggled by a button with
+// aria-controls="navbar-block-5") and `menu` (the open panel's number), and
+// whose bar background is a layer at z-20, as in header_5.astro: the panels
+// (z-10) slide out from under it.
 const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
 const wide =
   "window.matchMedia('(hover: hover) and (min-width: 768px)').matches";
@@ -13,21 +19,33 @@ const accent1 =
   "rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus";
 ---
 
+{/* The rest of the page, out of focus while a menu is open. */}
+<div
+  class="fixed inset-0 z-0 bg-black/20 backdrop-blur-sm"
+  x-show="menu !== null"
+  x-cloak
+  x-transition.opacity.duration.200ms
+  x-on:click="menu = null"
+  aria-hidden="true"
+></div>
+
 <nav
   aria-label="Main"
   id="navbar-block-5"
   class="grow font-medium max-md:hidden md:flex md:shrink-0 md:items-center md:justify-center"
   x-bind:class="{ 'max-md:hidden': !open }"
+  x-data="{ timer: null }"
+  x-on:mouseenter={`if (${wide}) clearTimeout(timer)`}
+  x-on:mouseleave={`if (${wide}) timer = setTimeout(() => (menu = null), 150)`}
 >
   <ul
     id="nav-header"
-    class="flex gap-4 text-base max-md:mt-4 max-md:flex-col md:items-center"
+    class="relative z-30 flex gap-4 text-base max-md:mt-4 max-md:flex-col md:items-center"
   >
     {navigation.map((section, index) => (
       <li
-        class="relative flex flex-wrap items-center gap-1"
-        x-on:mouseenter={`if (${wide}) menu = ${index}`}
-        x-on:mouseleave={`if (${wide}) menu = null`}
+        class="group flex items-center"
+        x-on:mouseenter={`if (${wide}) { clearTimeout(timer); menu = ${index} }`}
       >
         <a
           class={`${accent1} menu-header px-3 py-2`}
@@ -38,14 +56,14 @@ const accent1 =
         </a>
         <button
           type="button"
-          class="grid size-8 cursor-pointer place-items-center rounded-md"
+          class="grid h-8 w-5 cursor-pointer place-items-center"
           x-on:click={`menu = menu === ${index} ? null : ${index}`}
           x-bind:aria-expanded={`(menu === ${index}).toString()`}
           aria-controls={`nav-menu-${index}`}
           aria-label={`${section.label} menu`}
         >
           <svg
-            class="nav-svg size-4 transition-transform"
+            class="nav-svg size-3.5 transition-transform duration-200 group-hover:rotate-180"
             x-bind:class={`{ 'rotate-180': menu === ${index} }`}
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -55,27 +73,41 @@ const accent1 =
             <path d="M5.5 9h13L12 16.5Z" />
           </svg>
         </button>
-        <ul
-          id={`nav-menu-${index}`}
-          class="z-20 w-full py-2 max-md:ps-4 md:absolute md:top-full md:left-0 md:w-56 md:rounded-md md:border md:border-canvas-01-border md:bg-canvas-01 md:shadow-lg"
-          x-show={`menu === ${index}`}
-          x-cloak
-        >
-          {section.items.map(({ label, href, external }) => (
-            <li>
-              <a
-                class="block rounded-sm px-4 py-2 text-sm hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text"
-                href={href}
-                aria-current={currentPath === href ? "page" : undefined}
-                {...(external ? { target: "_blank", rel: "noopener" } : {})}
-              >
-                {label}
-                {external && <span aria-hidden="true"> ↗</span>}
-              </a>
-            </li>
-          ))}
-        </ul>
       </li>
     ))}
   </ul>
+
+  {navigation.map((section, index) => (
+    <div
+      id={`nav-menu-${index}`}
+      class="absolute inset-x-0 top-full z-10 border-b border-canvas-header-border bg-canvas-header shadow-lg"
+      x-show={`menu === ${index}`}
+      x-cloak
+      x-transition:enter="transition duration-300 ease-out"
+      x-transition:enter-start="-translate-y-full"
+      x-transition:enter-end="translate-y-0"
+      x-transition:leave="transition duration-200 ease-in"
+      x-transition:leave-start="translate-y-0"
+      x-transition:leave-end="-translate-y-full"
+      role="group"
+      aria-label={`${section.label} menu`}
+    >
+      <div class="mx-auto grid max-w-site gap-2 px-4 py-6 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:px-8">
+        {section.items.map(({ label, href, description, external }) => (
+          <a
+            class="block rounded-md p-3 [&[aria-current=page]>span:first-child]:underline [&[aria-current=page]>span:first-child]:underline-offset-4 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text"
+            href={href}
+            aria-current={currentPath === href ? "page" : undefined}
+            {...(external ? { target: "_blank", rel: "noopener" } : {})}
+          >
+            <span class="block font-semibold">
+              {label}
+              {external && <span aria-hidden="true"> ↗</span>}
+            </span>
+            <span class="mt-1 block text-sm opacity-75">{description}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  ))}
 </nav>

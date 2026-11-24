@@ -5,18 +5,56 @@ import SiteNav from "./sitenav.astro";
 import { builderLink } from "../../data/site";
 ---
 
+{/* The header is full width, so the menus (SiteNav) drop down the full width
+    of the screen. Its bar background is a layer (z-20) above the menus
+    (z-10), which slide out from under it; the bar's contents sit above both
+    (z-30). */}
 <header
   x-data="{ open: false, menu: null }"
   x-on:click.outside="menu = null"
   x-on:keydown.escape="menu = null"
-  class="mx-auto flex w-full max-w-site flex-wrap items-center justify-between gap-2 px-4 py-2 shadow-sm sm:px-6 lg:px-8"
+  class="relative z-40 w-full"
 >
-  <div class="w-full max-md:my-4 md:flex md:h-16 md:items-center md:gap-2">
-    <div class="flex w-1/2 items-center justify-between max-md:w-full">
-      <a class="flex items-center" href="/" aria-label="CodersMill home">
-        <Logo class="h-12" />
-      </a>
-      <div class="flex items-center gap-3 md:hidden">
+  <div
+    class="pointer-events-none absolute inset-0 z-20 bg-canvas-header shadow-sm"
+    aria-hidden="true"
+  ></div>
+  <div class="mx-auto flex w-full max-w-site flex-wrap items-center justify-between gap-2 px-4 py-2 sm:px-6 lg:px-8">
+    <div class="w-full max-md:my-4 md:flex md:h-16 md:items-center md:gap-2">
+      <div class="relative z-30 flex w-1/2 items-center justify-between max-md:w-full">
+        <a class="flex items-center" href="/" aria-label="CodersMill home">
+          <Logo class="h-12" />
+        </a>
+        <div class="flex items-center gap-3 md:hidden">
+          <ThemeSwitch />
+          <a
+            href={builderLink.href}
+            class="rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border active:inset-ring-accent-01-02-active-border focus-visible:outline-accent-01-focus inline-flex items-center justify-center px-4 py-2 font-medium"
+          >
+            {builderLink.label}
+          </a>
+          <button
+            type="button"
+            class="button grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border transition-colors"
+            x-on:click="open = !open"
+            x-bind:aria-expanded="open.toString()"
+            aria-controls="navbar-block-5"
+            aria-label="Toggle navigation"
+          >
+            <span
+              class="icon-[tabler--menu-2] size-5.5 nav-svg"
+              x-show="!open"
+            ></span>
+            <span
+              class="icon-[tabler--x] size-5.5 nav-svg"
+              x-cloak
+              x-show="open"
+            ></span>
+          </button>
+        </div>
+      </div>
+      <SiteNav />
+      <div class="relative z-30 flex w-1/2 items-center justify-end gap-3 max-md:hidden">
         <ThemeSwitch />
         <a
           href={builderLink.href}
@@ -24,35 +62,7 @@ import { builderLink } from "../../data/site";
         >
           {builderLink.label}
         </a>
-        <button
-          type="button"
-          class="button grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border transition-colors"
-          x-on:click="open = !open"
-          x-bind:aria-expanded="open.toString()"
-          aria-controls="navbar-block-5"
-          aria-label="Toggle navigation"
-        >
-          <span
-            class="icon-[tabler--menu-2] size-5.5 nav-svg"
-            x-show="!open"
-          ></span>
-          <span
-            class="icon-[tabler--x] size-5.5 nav-svg"
-            x-cloak
-            x-show="open"
-          ></span>
-        </button>
       </div>
-    </div>
-    <SiteNav />
-    <div class="flex w-1/2 items-center justify-end gap-3 max-md:hidden">
-      <ThemeSwitch />
-      <a
-        href={builderLink.href}
-        class="rounded-accent! bg-accent-01-02 text-accent-01-02-text inset-ring inset-ring-accent-01-02-border shadow-accent-01-02-shadow/20 hover:bg-accent-01-02-hover hover:text-accent-01-02-hover-text hover:inset-ring-accent-01-02-hover-border focus-visible:bg-accent-01-02-hover focus-visible:text-accent-01-02-hover-text focus-visible:inset-ring-accent-01-02-hover-border active:inset-ring-accent-01-02-active-border focus-visible:outline-accent-01-focus inline-flex items-center justify-center px-4 py-2 font-medium"
-      >
-        {builderLink.label}
-      </a>
     </div>
   </div>
 </header>
