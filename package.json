@@ -24,7 +24,8 @@
     "format:check": "prettier --check .",
     "fonts:add": "node scripts/website-builder/install-fonts.mjs",
     "test": "node --test",
-    "deploy": "astro build && wrangler deploy"
+    "deploy": "astro build && npm run migrate && wrangler deploy",
+    "migrate": "emdash migrate --wrangler-config wrangler.jsonc"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.17.5",

@@ -294,10 +294,13 @@ uploaded media in an R2 bucket (`MEDIA`), set in `wrangler.jsonc`.
   by email, and makes the first one the admin; EmDash's own passkey login is
   off. The team domain and the application's AUD tag are in the `access()`
   settings in `astro.config.mjs`. Locally, Access is not used.
-- To deploy, create the database and bucket once
-  (`npx wrangler d1 create codersmill`, adding its `database_id` to
-  `wrangler.jsonc`, and `npx wrangler r2 bucket create codersmill-media`), then
-  run `npm run deploy`.
+- Deploying runs `npm run build`, then `npm run migrate` (EmDash's database
+  migrations, from the manifest the build writes to `.emdash/migrations.json`,
+  applied to the D1 database with `CLOUDFLARE_API_TOKEN`), then
+  `npx wrangler deploy`. In Cloudflare's build settings the deploy command is
+  `npm run migrate && npx wrangler deploy`; `npm run deploy` does all three
+  locally. The D1 database, R2 bucket (`codersmill-media`), and the SESSION KV
+  namespace are named in `wrangler.jsonc`.
 
 ## Documentation
 

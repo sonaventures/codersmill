@@ -3,6 +3,8 @@
   // CodersMill on Cloudflare Workers: the static site, plus EmDash (the blog
   // CMS) and its admin at /_emdash, rendered on demand.
   "name": "codersmill",
+  // The Cloudflare account (used by `npm run migrate` and deploys).
+  "account_id": "283c0685e5101ed4a083f24b2c79254d",
   "main": "./src/worker.ts",
   "compatibility_date": "2026-02-24",
   "compatibility_flags": ["nodejs_compat"],
