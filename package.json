@@ -25,7 +25,7 @@
     "fonts:add": "node scripts/website-builder/install-fonts.mjs",
     "test": "node --test",
     "deploy": "astro build && npm run migrate && wrangler deploy",
-    "migrate": "emdash migrate --wrangler-config wrangler.jsonc --expected-target-fingerprint b480ec2770918ce79e5dfe5d91d965cb46fe7b9413d9ad6f7f7e7aac2b0d19ae --take-over-lock 1795536224754"
+    "migrate": "emdash migrate --wrangler-config wrangler.jsonc --expected-target-fingerprint b480ec2770918ce79e5dfe5d91d965cb46fe7b9413d9ad6f7f7e7aac2b0d19ae"
   },
   "dependencies": {
     "@alpinejs/collapse": "^3.17.5",
