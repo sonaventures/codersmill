@@ -43,7 +43,6 @@ const { title } = Astro.props;
     ).error,
     /supported/,
   );
-  assert.equal(inspectComponent("codersmill/header.astro", ""), null);
   assert.equal(inspectComponent("codersmill/header_5.astro", ""), null);
   assert.equal(inspectComponent("codersmill/footer_1.astro", ""), null);
   // Headers and footers in folders, such as the blocks, are components.
@@ -170,7 +169,7 @@ test("normalizes and validates component save paths", () => {
   assert.throws(() => componentSavePath(""), /Enter a component file path/);
   assert.throws(() => componentSavePath("../hack"), /letters, numbers/);
   assert.throws(() => componentSavePath("my hero"), /letters, numbers/);
-  assert.throws(() => componentSavePath("codersmill/header"), /reserved/);
+  assert.throws(() => componentSavePath("codersmill/header_5"), /reserved/);
   assert.throws(() => componentSavePath("codersmill/footer_1"), /reserved/);
   assert.equal(componentSavePath("custom/header"), "custom/header.astro");
 });
@@ -237,7 +236,7 @@ test("saves component copies without overwriting existing entries", async () => 
     /already exists as a folder/,
   );
   await assert.rejects(
-    saveComponentCopy(root, "codersmill/header.astro", "<section />"),
+    saveComponentCopy(root, "codersmill/header_5.astro", "<section />"),
     /Invalid component file path/,
   );
   await assert.rejects(

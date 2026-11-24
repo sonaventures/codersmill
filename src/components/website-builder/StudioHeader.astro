@@ -1,7 +1,9 @@
 ---
-import Header from "../codersmill/header.astro";
+import ThemeSwitch from "../codersmill/theme-switch.astro";
 import { builderPages } from "../../data/website-builder/builder-pages";
 
+// The builder's header: the "Website Builder" label with the page's title
+// and description, the light / dark switch, and links to every tool.
 interface Props {
   title: string;
   description: string;
@@ -12,26 +14,33 @@ const currentPath = `${Astro.url.pathname.replace(/\/$/, "")}/`;
 ---
 
 <div class="studio-header" data-studio-header data-studio-chrome>
-  <Header title="Website Builder">
-    <div class="studio-intro">
-      <h1>{title}</h1>
-      <p>{description}</p>
+  <header class="site-header">
+    <div class="header-inner">
+      <div>
+        <span class="text-sm font-semibold tracking-wide text-ink-header">
+          Website Builder
+        </span>
+        <div class="studio-intro">
+          <h1>{title}</h1>
+          <p>{description}</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <ThemeSwitch />
+        <div class="studio-links">
+          <nav aria-label="Website Builder">
+            {builderPages.map(({ label, href }) => (
+              <a
+                class="studio-link"
+                href={href}
+                aria-current={currentPath === href ? "page" : undefined}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </div>
     </div>
-    <div slot="actions" class="studio-links">
-      <nav aria-label="Website Builder">
-        {builderPages.map(({ label, href }) => (
-          <a
-            class="studio-link"
-            href={href}
-            aria-current={currentPath === href ? "page" : undefined}
-          >
-            {label}
-          </a>
-        ))}
-      </nav>
-      <a class="studio-link" href="/template/">
-        Theme template &rarr;
-      </a>
-    </div>
-  </Header>
+  </header>
 </div>

@@ -121,13 +121,8 @@
     @apply grid size-11 cursor-pointer place-items-center rounded-full border border-accent-header-01-border bg-canvas-header text-accent-header-01-text transition-[background-color,border-color,color] duration-180 ease-[ease] hover:border-accent-header-focus hover:bg-accent-header-01 hover:text-accent-header-focus;
   }
 
-  .theme-toggle:focus-visible,
-  .menu-toggle:focus-visible {
+  .theme-toggle:focus-visible {
     @apply outline-accent-header-focus;
-  }
-
-  .wordmark {
-    @apply flex items-baseline gap-2 whitespace-nowrap text-brand-01 no-underline;
   }
 
   /* The Coders Mill logo: the blue lightens in dark mode to stay
@@ -155,90 +150,8 @@
     fill: var(--ink-01-svg-01, currentColor);
   }
 
-  .primary-navigation .nav-list,
   .footer-links {
     @apply m-0 flex list-none items-center gap-[clamp(1.1rem,2.4vw,2.5rem)] p-0;
-  }
-
-  .primary-navigation {
-    @apply tablet:absolute tablet:top-[calc(100%+1px)] tablet:right-0 tablet:left-0 tablet:hidden tablet:max-h-[calc(100dvh-4.7rem)] tablet:overflow-y-auto tablet:border-b tablet:border-canvas-header-border tablet:bg-canvas-header tablet:shadow-[0_18px_24px_color-mix(in_srgb,var(--canvas-header-shadow)_9%,transparent)];
-  }
-
-  .primary-navigation.is-open {
-    @apply tablet:block;
-  }
-
-  .primary-navigation .nav-list {
-    @apply gap-[clamp(0.9rem,2vw,2rem)] tablet:mx-auto tablet:w-[min(100%-2rem,1160px)] tablet:flex-col tablet:items-stretch tablet:gap-0 tablet:pt-2 tablet:pb-4;
-  }
-
-  /* A section: its link, the button that opens its submenu, and the submenu. */
-  .nav-item {
-    @apply relative flex items-center gap-0.5 tablet:flex-wrap tablet:border-b tablet:border-canvas-header-border;
-  }
-
-  .nav-item > a {
-    @apply relative inline-flex min-h-11 items-center text-[0.91rem] font-semibold text-nav-header-sitenav-top no-underline transition-colors duration-160 ease-[ease] hover:text-nav-header-sitenav-item aria-[current=page]:text-nav-header-sitenav-item data-current-section:text-nav-header-sitenav-item;
-    @apply after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.75 after:origin-left after:scale-x-0 after:bg-accent-header-focus after:transition-transform after:duration-160 after:ease-[ease] after:content-[''] hover:after:scale-x-100 aria-[current=page]:after:scale-x-100 data-current-section:after:scale-x-100;
-    @apply tablet:min-h-12 tablet:flex-1 tablet:after:right-auto tablet:after:h-6 tablet:after:w-0.75;
-  }
-
-  .submenu-toggle {
-    @apply grid size-7 cursor-pointer place-items-center rounded text-nav-header-sitenav-top hover:text-nav-header-sitenav-item focus-visible:outline-accent-header-focus tablet:size-11;
-  }
-
-  .submenu-toggle svg {
-    @apply transition-transform duration-160 ease-[ease];
-  }
-
-  .nav-item.is-open .submenu-toggle svg {
-    @apply rotate-180;
-  }
-
-  .submenu {
-    @apply m-0 hidden list-none p-0;
-    @apply absolute top-full left-[-0.75rem] z-20 min-w-56 rounded-md border border-canvas-header-border bg-canvas-header py-2 shadow-[0_18px_24px_color-mix(in_srgb,var(--canvas-header-shadow)_12%,transparent)];
-    @apply tablet:static tablet:w-full tablet:min-w-0 tablet:rounded-none tablet:border-0 tablet:pt-0 tablet:pb-2 tablet:shadow-none;
-  }
-
-  .nav-item.is-open .submenu {
-    @apply block;
-  }
-
-  /* On wide screens with a mouse, a section's submenu also opens on hover. */
-  @media (hover: hover) and (min-width: 761px) {
-    .nav-item:hover .submenu {
-      @apply block;
-    }
-  }
-
-  .submenu a {
-    @apply flex min-h-10 items-center gap-1.5 px-4 text-[0.88rem] font-medium text-nav-header-sitenav-submenu-title no-underline hover:bg-accent-header-01 hover:text-accent-header-focus aria-[current=page]:font-bold aria-[current=page]:text-nav-header-sitenav-item;
-    @apply focus-visible:-outline-offset-2 focus-visible:outline-accent-header-focus tablet:ps-6;
-  }
-
-  .submenu-external {
-    @apply text-[0.8em];
-  }
-
-  .nav-cta {
-    @apply inline-flex min-h-10 items-center rounded-full border border-accent-header-01-border bg-accent-header-01 px-4 text-[0.88rem] font-semibold whitespace-nowrap text-accent-header-01-text no-underline hover:border-accent-header-focus hover:text-accent-header-focus focus-visible:outline-accent-header-focus tablet:mt-3;
-  }
-
-  /* Between phone and wide screens there is no room for the call to action
-     beside the menu; the website builder is under Tools. */
-  @media (min-width: 761px) and (max-width: 1080px) {
-    .nav-cta-item {
-      @apply hidden;
-    }
-  }
-
-  .menu-toggle {
-    @apply hidden size-11 cursor-pointer content-center justify-items-center gap-1.25 rounded border border-accent-header-01-border bg-canvas-header hover:border-accent-header-focus hover:bg-accent-header-01 tablet:grid;
-  }
-
-  .menu-toggle span {
-    @apply h-0.5 w-4.75 bg-accent-header-01-text;
   }
 
   /* Page intro / hero */
