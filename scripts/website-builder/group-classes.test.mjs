@@ -312,7 +312,7 @@ test("each area class maps its colors onto the elements inside it", () => {
       /:where\(\.sg-coastal-calm-hero\) ::placeholder \{\n    color: var\(--ink-01-placeholder, var\(--ink-01-muted\)\);/,
     ],
     [
-      /:where\(\.sg-coastal-calm-hero\) :is\(input, textarea, select\):focus-visible \{\n    outline-color: var\(--accent-01-input-focus, var\(--accent-01-focus\)\);/,
+      /:where\(\.sg-coastal-calm-hero\) :is\(input, textarea, select\):focus-visible \{\n    color: var\(--ink-01-input-active, var\(--ink-01-input, var\(--ink-01\)\)\);\n    background-color: var\(--canvas-01-input-active, var\(--canvas-01-input, var\(--canvas-01\)\)\);\n    outline-color: var\(--accent-01-input-focus, var\(--accent-01-focus\)\);\n    border-color: var\(--canvas-01-input-active-border, var\(--accent-01-input-focus, var\(--accent-01-focus\)\)\);/,
     ],
     [
       /:where\(\.sg-coastal-calm-hero\) blockquote \{\n    color: var\(--ink-01-blockquote, var\(--ink-01-muted\)\);\n    border-color: var\(--canvas-01-blockquote-border, currentColor\);/,

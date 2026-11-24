@@ -448,6 +448,31 @@ export const formColorRoles = [
   { key: "inputBorder", label: "Input border", group: "forms" },
   { key: "inputPlaceholder", label: "Placeholder text", group: "forms" },
   { key: "inputFocus", label: "Input focus", group: "forms" },
+  { key: "inputHoverText", label: "Input hover text", group: "forms" },
+  {
+    key: "inputHoverBackground",
+    label: "Input hover background",
+    group: "forms",
+  },
+  { key: "inputHoverBorder", label: "Input hover border", group: "forms" },
+  { key: "inputActiveText", label: "Input active text", group: "forms" },
+  {
+    key: "inputActiveBackground",
+    label: "Input active background",
+    group: "forms",
+  },
+  { key: "inputActiveBorder", label: "Input active border", group: "forms" },
+] as const;
+
+// Added in version 35: a field's hover colors, and its active colors while
+// it has focus (being typed in).
+const version35ColorRoles = [
+  "inputHoverText",
+  "inputHoverBackground",
+  "inputHoverBorder",
+  "inputActiveText",
+  "inputActiveBackground",
+  "inputActiveBorder",
 ] as const;
 
 // Blockquotes, dividers, list bullets, and text selection.
@@ -866,6 +891,14 @@ const detailFallbacks = {
   inputBorder: "border",
   inputPlaceholder: "muted",
   inputFocus: "accentFocus",
+  // Hover uses the field's own colors until chosen; active (focused) uses
+  // them too, except its border, which is the focus color.
+  inputHoverText: "inputText",
+  inputHoverBackground: "inputBackground",
+  inputHoverBorder: "inputBorder",
+  inputActiveText: "inputText",
+  inputActiveBackground: "inputBackground",
+  inputActiveBorder: "inputFocus",
   blockquote: "muted",
   divider: "border",
   svgFill2: "background",
@@ -888,6 +921,12 @@ const detailTokens = {
   inputBorder: "canvas-%-input-border",
   inputPlaceholder: "ink-%-placeholder",
   inputFocus: "accent-%-input-focus",
+  inputHoverText: "ink-%-input-hover",
+  inputHoverBackground: "canvas-%-input-hover",
+  inputHoverBorder: "canvas-%-input-hover-border",
+  inputActiveText: "ink-%-input-active",
+  inputActiveBackground: "canvas-%-input-active",
+  inputActiveBorder: "canvas-%-input-active-border",
   blockquote: "ink-%-blockquote",
   blockquoteBorder: "canvas-%-blockquote-border",
   divider: "canvas-%-divider",
@@ -1567,12 +1606,13 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
       data.version !== 31 &&
       data.version !== 32 &&
       data.version !== 33 &&
-      data.version !== 34) ||
+      data.version !== 34 &&
+      data.version !== 35) ||
     !Array.isArray(data.groups) ||
     data.groups.length > 100
   ) {
     throw new Error(
-      "Expected a version 1 through 34 theme group file with up to 100 groups.",
+      "Expected a version 1 through 35 theme group file with up to 100 groups.",
     );
   }
   const ids = new Set<string>();
@@ -1646,6 +1686,14 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
               : old.startsWith("#")
                 ? old.toLowerCase()
                 : old;
+            continue;
+          }
+          // Version 35 added each field's hover and active colors.
+          if (
+            data.version < 35 &&
+            version35ColorRoles.some((key) => key === role)
+          ) {
+            regionColors[role] = "theme";
             continue;
           }
           // Version 34 added each accent's active border.
@@ -1848,7 +1896,7 @@ export function parseThemeGroups(json: string): ThemeGroup[] {
 }
 
 export function serializeThemeGroups(groups: ThemeGroup[]): string {
-  return JSON.stringify({ version: 34, groups }, null, 2);
+  return JSON.stringify({ version: 35, groups }, null, 2);
 }
 
 /**

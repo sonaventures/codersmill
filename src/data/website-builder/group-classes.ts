@@ -147,6 +147,16 @@ export function rule(
 // match the Theme Builder preview for colors left on the theme default.
 const inputSelector =
   'input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]), textarea, select';
+// The same fields while hovered, and while active (focused, being typed in).
+const inputHoverSelector =
+  'input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]):hover, textarea:hover, select:hover';
+const inputActiveSelector = ":is(input, textarea, select):focus-visible";
+
+// Each field color, and its hover and active colors, which fall back to it.
+const inputText = "var(--ink-01-input, var(--ink-01))";
+const inputBackground = "var(--canvas-01-input, var(--canvas-01))";
+const inputBorder = "var(--canvas-01-input-border, var(--canvas-01-border))";
+const inputFocus = "var(--accent-01-input-focus, var(--accent-01-focus))";
 
 export const areaElementMappings = [
   // The outer element: the one that carries the class.
@@ -199,9 +209,17 @@ export const areaElementMappings = [
   {
     selector: inputSelector,
     declarations: {
-      color: "var(--ink-01-input, var(--ink-01))",
-      "background-color": "var(--canvas-01-input, var(--canvas-01))",
-      "border-color": "var(--canvas-01-input-border, var(--canvas-01-border))",
+      color: inputText,
+      "background-color": inputBackground,
+      "border-color": inputBorder,
+    },
+  },
+  {
+    selector: inputHoverSelector,
+    declarations: {
+      color: `var(--ink-01-input-hover, ${inputText})`,
+      "background-color": `var(--canvas-01-input-hover, ${inputBackground})`,
+      "border-color": `var(--canvas-01-input-hover-border, ${inputBorder})`,
     },
   },
   {
@@ -209,12 +227,14 @@ export const areaElementMappings = [
     declarations: { color: "var(--ink-01-placeholder, var(--ink-01-muted))" },
   },
   {
-    selector: ":is(input, textarea, select):focus-visible",
+    selector: inputActiveSelector,
     declarations: {
-      "outline-color": "var(--accent-01-input-focus, var(--accent-01-focus))",
-      "border-color": "var(--accent-01-input-focus, var(--accent-01-focus))",
+      color: `var(--ink-01-input-active, ${inputText})`,
+      "background-color": `var(--canvas-01-input-active, ${inputBackground})`,
+      "outline-color": inputFocus,
+      "border-color": `var(--canvas-01-input-active-border, ${inputFocus})`,
       // Colors focus:ring utilities on the field.
-      "--tw-ring-color": "var(--accent-01-input-focus, var(--accent-01-focus))",
+      "--tw-ring-color": inputFocus,
     },
   },
   {
@@ -265,8 +285,9 @@ export function areaElementCss(className: string, region: Region): string {
 const formSelectors = new Set<string>([
   "label",
   inputSelector,
+  inputHoverSelector,
   "::placeholder",
-  ":is(input, textarea, select):focus-visible",
+  inputActiveSelector,
 ]);
 
 /**

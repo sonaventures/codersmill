@@ -380,9 +380,16 @@
 .selector-shell .sample-field input::placeholder {
   color: var(--sample-inputPlaceholder);
 }
+.selector-shell .sample-field input:hover {
+  color: var(--sample-inputHoverText);
+  background: var(--sample-inputHoverBackground);
+  border-color: var(--sample-inputHoverBorder);
+}
 .selector-shell .sample-field input:focus {
+  color: var(--sample-inputActiveText);
+  background: var(--sample-inputActiveBackground);
   outline: 2px solid var(--sample-inputFocus);
-  border-color: var(--sample-inputFocus);
+  border-color: var(--sample-inputActiveBorder);
 }
 .selector-shell [data-region] ::selection {
   background: var(--sample-selectionBackground);
@@ -979,6 +986,21 @@
 }
 .selector-shell .saved-groups-body .control-button {
   @apply px-2 py-[0.45rem] text-[0.72rem];
+}
+/* The Theme Groups tab of the floating palette: saving and loading groups
+   beside the groups.css rewrite. */
+.selector-shell .palette-groups {
+  @apply max-h-none grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] gap-x-6 overflow-visible pb-2;
+}
+.selector-shell .palette-groups-column {
+  @apply grid content-start gap-1;
+}
+.selector-shell .palette-groups .class-groups {
+  @apply mt-0 content-start border-t-0 pt-0;
+}
+/* The status bar left in the color controls panel shows only with a message. */
+.selector-shell .saved-groups:has(#selector-status:empty) {
+  display: none;
 }
 .selector-shell .class-groups {
   border-top: 1px solid var(--canvas-page-border);

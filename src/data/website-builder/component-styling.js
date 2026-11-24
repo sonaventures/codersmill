@@ -285,7 +285,7 @@ export const stylePresets = [
     label: "Form field",
     group: "fields",
     classes:
-      "bg-canvas-01-input text-ink-01-input border-canvas-01-input-border placeholder:text-ink-01-placeholder focus:border-accent-01-input-focus focus:outline-accent-01-input-focus",
+      "bg-canvas-01-input text-ink-01-input border-canvas-01-input-border placeholder:text-ink-01-placeholder hover:bg-canvas-01-input-hover hover:text-ink-01-input-hover hover:border-canvas-01-input-hover-border focus:bg-canvas-01-input-active focus:text-ink-01-input-active focus:border-canvas-01-input-active-border focus:outline-accent-01-input-focus",
   },
   // The SVG types the Theme Builder colors (fill, stroke, hover, active).
   { key: "svg", label: "SVG icon 1 (.svg)", group: "icons", classes: "svg" },

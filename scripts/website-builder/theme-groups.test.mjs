@@ -55,9 +55,13 @@ function legacyJson(version, groups) {
             if (now in colors) colors[before] = colors[now];
           for (const { key } of accentColorRoles) delete colors[key];
         }
+        if (version < 35)
+          for (const key of Object.keys(colors))
+            if (/^input(Hover|Active)/.test(key)) delete colors[key];
         if (version < 34)
           for (const key of Object.keys(colors))
-            if (key.endsWith("ActiveBorder")) delete colors[key];
+            if (key.endsWith("ActiveBorder") && !key.startsWith("input"))
+              delete colors[key];
         if (version < 33)
           for (const key of Object.keys(colors))
             if (key.startsWith("svgIcon2")) delete colors[key];
@@ -149,7 +153,7 @@ test("transparent selections and Tailwind colors round-trip in both themes", () 
   saved.themes.dark.section3.card03Border = "transparent";
   saved.themes.dark.page.background = "var(--color-sky-500)";
   const json = serializeThemeGroups([saved]);
-  assert.equal(JSON.parse(json).version, 34);
+  assert.equal(JSON.parse(json).version, 35);
   assert.deepEqual(parseThemeGroups(json), [saved]);
 
   const old = group();
@@ -174,7 +178,7 @@ test("imports reject incomplete palettes and unsafe CSS values", () => {
 });
 
 test("imports reject invalid envelopes, duplicate groups, and oversized lists", () => {
-  for (const json of ["null", "[]", "{", '{"version":35,"groups":[]}']) {
+  for (const json of ["null", "[]", "{", '{"version":36,"groups":[]}']) {
     assert.throws(() => parseThemeGroups(json));
   }
   assert.throws(
@@ -232,7 +236,7 @@ test("legacy hex groups migrate without losing colors in either theme", () => {
   assert.equal(restored.themes.light.hero.background, "theme");
   assert.equal(restored.themes.light.section1.card02, "#abcdef");
   assert.equal(restored.themes.light.section1.card03Border, "theme");
-  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 34);
+  assert.equal(JSON.parse(serializeThemeGroups([restored])).version, 35);
 });
 
 test("brand assignments are page-wide and round-trip independently by theme", () => {
@@ -838,7 +842,7 @@ test("project theme groups merge into a browser's groups without duplicates", ()
 
 test("theme-groups.json gains, replaces, and loses groups", () => {
   const first = upsertThemeGroupJson("", group());
-  assert.equal(JSON.parse(first).version, 34);
+  assert.equal(JSON.parse(first).version, 35);
   const changed = group();
   changed.themes.light.hero.background = "#123456";
   const second = upsertThemeGroupJson(
@@ -1279,5 +1283,37 @@ test("each accent has an active border, which starts as its hover / focus border
   assert.equal(restored.themes.dark.page.card1Accent2ActiveBorder, "theme");
   const edited = group();
   edited.themes.light.header.accent3ActiveBorder = "var(--color-amber-500)";
+  assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
+});
+
+test("each field has hover and active colors that fall back to its own", () => {
+  assert.equal(
+    semanticToken("hero", "inputHoverBackground"),
+    "canvas-hero-input-hover",
+  );
+  assert.equal(
+    semanticToken("header", "inputActiveBorder"),
+    "canvas-header-input-active-border",
+  );
+  assert.equal(
+    defaultColorReference("section1", "inputHoverBorder"),
+    defaultColorReference("section1", "inputBorder").replace(
+      /^/,
+      "var(--canvas-01-input-hover-border,",
+    ) + ")",
+  );
+  assert.match(
+    defaultColorReference("section1", "inputActiveBorder"),
+    /^var\(--canvas-01-input-active-border,var\(--accent-01-input-focus,/,
+  );
+  // Groups saved before version 35 start on the theme default.
+  const older = group();
+  older.themes.light.hero.inputHoverText = "#123456";
+  older.themes.dark.header.inputActiveBackground = "#654321";
+  const [restored] = parseThemeGroups(legacyJson(34, [older]));
+  assert.equal(restored.themes.light.hero.inputHoverText, "theme");
+  assert.equal(restored.themes.dark.header.inputActiveBackground, "theme");
+  const edited = group();
+  edited.themes.light.hero.inputActiveText = "var(--color-amber-500)";
   assert.deepEqual(parseThemeGroups(serializeThemeGroups([edited])), [edited]);
 });

@@ -150,7 +150,7 @@ are Accent 2 beside an Accent 3 link; and each has a field and two icons (SVG
 icon 1 and 2). Click any of them to edit its colors.
 
 Groups are kept in the browser and in the project's `theme-groups.json`, and
-can be exported and imported as JSON (format version 34; older files still
+can be exported and imported as JSON (format version 35; older files still
 load, with their accent colors moved to the new names and their card text
 color given to every card).
 

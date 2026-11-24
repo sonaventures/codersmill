@@ -711,6 +711,32 @@
     --accent-01-input-focus,
     var(--accent-01-focus)
   );
+  /* A field while hovered, and while active (focused): the field's own
+     colors until chosen, except the active border, which is the focus. */
+  --color-ink-01-input-hover: var(
+    --ink-01-input-hover,
+    var(--ink-01-input, var(--ink-01))
+  );
+  --color-canvas-01-input-hover: var(
+    --canvas-01-input-hover,
+    var(--canvas-01-input, var(--canvas-01))
+  );
+  --color-canvas-01-input-hover-border: var(
+    --canvas-01-input-hover-border,
+    var(--canvas-01-input-border, var(--canvas-01-border))
+  );
+  --color-ink-01-input-active: var(
+    --ink-01-input-active,
+    var(--ink-01-input, var(--ink-01))
+  );
+  --color-canvas-01-input-active: var(
+    --canvas-01-input-active,
+    var(--canvas-01-input, var(--canvas-01))
+  );
+  --color-canvas-01-input-active-border: var(
+    --canvas-01-input-active-border,
+    var(--accent-01-input-focus, var(--accent-01-focus))
+  );
   --color-ink-01-blockquote: var(--ink-01-blockquote, var(--ink-01-muted));
   --color-canvas-01-divider: var(--canvas-01-divider, var(--canvas-01-border));
 
