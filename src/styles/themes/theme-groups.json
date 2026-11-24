@@ -4638,7 +4638,7 @@
           },
           "page": {
             "background": "var(--color-coolsteel-50)",
-            "border": "theme",
+            "border": "transparent",
             "shadow": "theme",
             "accent1": "theme",
             "accent1Hover": "theme",

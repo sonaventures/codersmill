@@ -1934,7 +1934,8 @@
 :root:not([data-theme="dark"]) .sg-codersmill-page {
   --canvas-page: var(--color-coolsteel-50);
   --canvas-01: var(--color-coolsteel-50);
-  --canvas-01-border: var(--canvas-page-border);
+  --canvas-page-border: transparent;
+  --canvas-01-border: transparent;
   --canvas-01-shadow: var(--canvas-page-shadow);
   --accent-01-01: var(--accent-page-01);
   --accent-01-01-hover: var(--accent-page-01-hover);
