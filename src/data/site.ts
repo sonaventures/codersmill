@@ -121,7 +121,7 @@ export const navigation: NavSection[] = [
       },
       {
         label: "Docs",
-        href: "/resources/docs/",
+        href: "/docs/",
         description: "Documentation for the Coders Mill tools.",
       },
       {

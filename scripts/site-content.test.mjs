@@ -68,10 +68,14 @@ test("the layout, header, and footer use the shared site details", async () => {
 
 test("every page in the menu exists", async () => {
   const { navigation } = await import("../src/data/site.ts");
+  // A page is src/pages/<path>.astro or <path>/index.astro, except /docs/,
+  // which Starlight serves from src/content/docs/docs/.
   const page = (href) =>
-    `src/pages${href.replace(/\/$/, "")}${
-      navigation.some((section) => section.href === href) ? "/index" : ""
-    }.astro`;
+    href === "/docs/"
+      ? readProjectFile("src/content/docs/docs/index.mdx")
+      : readProjectFile(`src/pages${href.replace(/\/$/, "")}.astro`).catch(() =>
+          readProjectFile(`src/pages${href}index.astro`),
+        );
   for (const section of navigation) {
     assert.ok(section.items.length, `${section.label} has pages`);
     for (const { href, external } of [section, ...section.items]) {
@@ -79,7 +83,7 @@ test("every page in the menu exists", async () => {
         assert.match(href, /^https:\/\//);
         continue;
       }
-      await assert.doesNotReject(readProjectFile(page(href)), `${href}`);
+      await assert.doesNotReject(page(href), `${href}`);
     }
   }
 });

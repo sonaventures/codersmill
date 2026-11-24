@@ -1,0 +1,56 @@
+---
+import FpHero from "../../../components/codersmill/fp_hero.astro";
+import Layout from "../../../layouts/layout.astro";
+import { blogPath, formatDate, getPosts, postPath } from "../../../data/blog";
+import { findNavItem } from "../../../data/site";
+
+// The blog's own page: every post, newest first.
+const { item } = findNavItem(blogPath)!;
+const posts = await getPosts();
+---
+
+<Layout title={item.label} description={item.description}>
+  <FpHero
+    eyebrow="Resources"
+    title={item.label}
+    description={item.description}
+  />
+
+  <section class="container content-section" aria-labelledby="blog-posts-title">
+    <div class="section-heading section-heading-inline">
+      <div>
+        <p class="eyebrow">Latest posts</p>
+        <h2 id="blog-posts-title">From the blog</h2>
+      </div>
+      <p>
+        <a class="text-link" href={`${blogPath}rss.xml`}>
+          RSS feed <span aria-hidden="true">→</span>
+        </a>
+      </p>
+    </div>
+    {posts.length ? (
+      <ul class="company-grid">
+        {posts.map((post) => (
+          <li class="company-card">
+            <p class="pending-label">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate)}
+              </time>
+              {post.data.draft && <span>Draft</span>}
+            </p>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <a class="text-link" href={postPath(post)}>
+              Read the post <span aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div class="empty-state">
+        <p class="eyebrow">Coming soon</p>
+        <h2>No posts yet.</h2>
+      </div>
+    )}
+  </section>
+</Layout>

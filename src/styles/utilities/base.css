@@ -392,6 +392,95 @@
     @apply mx-auto;
   }
 
+  /* Blog posts: the header, then the Markdown body. */
+  .blog-post {
+    @apply mx-auto max-w-180;
+  }
+
+  .blog-post-header {
+    @apply mb-10 border-b border-canvas-page-border pb-8;
+  }
+
+  .blog-post-header .eyebrow a {
+    @apply no-underline hover:underline hover:underline-offset-4;
+  }
+
+  .blog-post-header h1 {
+    @apply font-display text-[clamp(2.4rem,5vw,3.6rem)] leading-[1.05] font-medium tracking-[-0.02em] text-ink-page-first-header;
+  }
+
+  .blog-post-meta {
+    @apply mt-4 text-[0.95rem] text-ink-page-muted;
+  }
+
+  .blog-post-tags {
+    @apply mt-4 flex list-none flex-wrap gap-2 p-0;
+  }
+
+  .blog-post-tags li {
+    @apply rounded-full border border-canvas-page-border px-3 py-0.5 text-[0.8rem];
+  }
+
+  .blog-post-body {
+    @apply text-[1.05rem] leading-[1.75];
+  }
+
+  .blog-post-body > * + * {
+    @apply mt-5;
+  }
+
+  .blog-post-body :is(h2, h3) {
+    @apply mt-10 font-display leading-tight font-medium text-ink-page-first-header;
+  }
+
+  .blog-post-body h2 {
+    @apply text-[1.9rem];
+  }
+
+  .blog-post-body h3 {
+    @apply text-[1.45rem];
+  }
+
+  .blog-post-body a {
+    @apply underline underline-offset-4;
+  }
+
+  .blog-post-body :is(ul, ol) {
+    @apply ps-6;
+  }
+
+  .blog-post-body ul {
+    @apply list-disc;
+  }
+
+  .blog-post-body ol {
+    @apply list-decimal;
+  }
+
+  .blog-post-body li + li {
+    @apply mt-2;
+  }
+
+  .blog-post-body blockquote {
+    @apply border-s-4 ps-5 italic;
+  }
+
+  .blog-post-body :not(pre) > code {
+    @apply rounded px-1.5 py-0.5 text-[0.9em];
+  }
+
+  .blog-post-body pre {
+    @apply overflow-x-auto rounded-lg p-4 text-[0.9rem];
+  }
+
+  .blog-post-body img {
+    @apply h-auto max-w-full rounded-lg;
+  }
+
+  .blog-post-back {
+    @apply mt-12;
+  }
+
   .about-copy {
     @apply max-w-210;
   }

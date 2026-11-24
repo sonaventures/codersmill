@@ -266,6 +266,39 @@ header and footer. The site's name, host, menu, and page descriptions are in
 `astro.config.mjs`. The layout uses it for canonical links and structured data
 naming Coders Mill as the publisher.
 
+## Blog
+
+The blog at `/resources/blog/` is built from a content collection: a Markdown
+or MDX file per post in [`src/content/blog/`](./src/content/blog/), served at
+`/resources/blog/<file name>/`. Each post starts with:
+
+```md
+---
+title: "Post title"
+description: "One sentence for the list, search results, and the feed."
+pubDate: 2026-11-24
+updatedDate: 2026-12-01 # optional
+author: "Coders Mill" # optional, the default
+tags: ["news"] # optional
+draft: true # optional: shown by the dev server, left out of the site
+---
+```
+
+The blog page lists the posts newest first, and `/resources/blog/rss.xml` is
+their RSS feed. The schema is in `src/content.config.ts`, and the post pages
+in `src/pages/resources/blog/`.
+
+## Documentation
+
+The documentation at `/docs/` is built with
+[Starlight](https://starlight.astro.build). Its pages are Markdown and MDX
+files in [`src/content/docs/docs/`](./src/content/docs/docs/): the overview in
+`index.mdx`, and a page per Website Builder tool in `website-builder/`, listed
+in the sidebar in their `sidebar.order`. Add a page by adding a file there;
+the sidebar, search, and light and dark mode come from Starlight, configured
+in `astro.config.mjs`. Resources › Docs in the menu links to it, and
+`/resources/docs/` redirects there.
+
 ## Project layout
 
 | Path                              | Contents                                                                                 |
@@ -276,6 +309,8 @@ naming Coders Mill as the publisher.
 | `src/scripts/website-builder/`    | Builder scripts                                                                          |
 | `src/styles/website-builder/`     | Builder styles                                                                           |
 | `src/data/website-builder/`       | Builder logic: theme groups, group CSS, sitewide CSS, page generation, component styling |
+| `src/content/docs/docs/`          | The documentation (Starlight)                                                            |
+| `src/content/blog/`               | The blog posts                                                                           |
 | `src/data/site.ts`                | The site's name, host, navigation, and page descriptions                                 |
 | `src/styles/themes/`              | `colors.css`, `fonts.css`, `sitewide.css`, `groups.css`, `theme-groups.json`, `id.css`   |
 | `src/styles/utilities/base.css`   | Base styles and the `max-w-site` and corner radius defaults                              |
