@@ -142,11 +142,12 @@ sitewide.css** and applied whatever group a page uses: the Global area's CTA
 01–03 colors, the header and footer (`sw-header`,
 `sw-footer`), and the site's content width.
 
-The header also has form field colors (label, input text, background, border,
-placeholder, and focus) and the SVG types, like a theme group's areas. In the
-preview, its menu headers show Accent 1 with Nav SVG arrows, Contact is Accent
-2 beside an Accent 3 link, and a search field and two icons (SVG icon 1 and 2)
-sit beside them; click any of them to edit its colors.
+The header and footer also have form field colors (label, input text,
+background, border, placeholder, and focus) and the SVG types, like a theme
+group's areas. In the preview, the header's menu headers and the footer's menu
+links show Accent 1 (the header's with Nav SVG arrows); Contact and Subscribe
+are Accent 2 beside an Accent 3 link; and each has a field and two icons (SVG
+icon 1 and 2). Click any of them to edit its colors.
 
 Groups are kept in the browser and in the project's `theme-groups.json`, and
 can be exported and imported as JSON (format version 34; older files still

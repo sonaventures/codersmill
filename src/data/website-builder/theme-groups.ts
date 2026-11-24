@@ -1227,11 +1227,11 @@ export function isSitewideColorRole(
 /** Whether an area's color controls include this role. Sitewide colors are
  * only edited in the Global area, which is not a theme group area. */
 /**
- * The header also styles its form fields (a search box, say) and its SVG
- * types (menu arrows and icons), which other areas outside a theme group's
- * page do not.
+ * The header and footer also style their form fields (a search box or a
+ * newsletter signup) and their SVG types (menu arrows and icons), like a
+ * theme group's areas.
  */
-export function isHeaderColorRole(role: string): boolean {
+export function isHeaderFooterColorRole(role: string): boolean {
   return (
     formColorRoles.some(({ key }) => key === role) || Boolean(svgTypeRole(role))
   );
@@ -1240,7 +1240,11 @@ export function isHeaderColorRole(role: string): boolean {
 export function isColorRoleVisible(region: Region, role: ColorRole): boolean {
   if (isSitewideColorRole(role)) return false;
   if (isGlobalColorRole(role)) return region === "page";
-  if (region === "header" && isHeaderColorRole(role)) return true;
+  if (
+    (region === "header" || region === "footer") &&
+    isHeaderFooterColorRole(role)
+  )
+    return true;
   if (
     role.startsWith("card") ||
     role.startsWith("subsection") ||
@@ -1286,13 +1290,13 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
   // Every area, including the header and footer, has its own SVG fills.
   const svg = svgFillRoles.find(({ key }) => key === role);
   if (svg) return `ink-${suffix}-svg-${svg.number}`;
-  // SVG types are for the page, hero, sections, and header, like the form
-  // colors.
+  // SVG types are for every area but the Global one, like the form colors.
   const svgType = svgTypeRole(role);
   if (svgType)
     return region === "page" ||
       region === "hero" ||
       region === "header" ||
+      region === "footer" ||
       region.startsWith("section")
       ? `ink-${suffix}-${svgTypeToken(svgType.type, svgType.state)}`
       : null;
@@ -1323,7 +1327,8 @@ export function semanticToken(region: Region, role: ColorRole): string | null {
     return region === "page" ||
       region === "hero" ||
       region.startsWith("section") ||
-      (region === "header" && isHeaderColorRole(role))
+      ((region === "header" || region === "footer") &&
+        isHeaderFooterColorRole(role))
       ? detailTokens[role as keyof typeof detailTokens].replace("%", suffix)
       : null;
   switch (role) {

@@ -146,7 +146,7 @@ test("sitewide.css keeps the content width and the header and footer widths", as
   );
 });
 
-test("the sitewide header styles its form fields and SVG types", async () => {
+test("the sitewide header and footer style their form fields and SVG types", async () => {
   const { createDefaultSitewideAreas, sitewideAreasCss } = await import(
     "../../src/data/website-builder/sitewide.ts"
   );
@@ -177,6 +177,12 @@ test("the sitewide header styles its form fields and SVG types", async () => {
     css,
     /:is\(a, button, summary\):is\(:hover, :focus-visible\) \[class\*="icon-\["\]\.nav-svg \{\n {4}color: var\(--ink-header-nav-svg-fill-hover\);/,
   );
-  // The footer does neither.
-  assert.doesNotMatch(css, /:where\(\.sw-footer\) label/);
+  // The footer does too, with its own colors.
+  assert.match(css, /:where\(\.sw-footer\) label \{/);
+  const footer = createDefaultSitewideAreas();
+  footer.colors.light.footer.svgIconFill = "var(--color-sky-200)";
+  assert.match(
+    sitewideAreasCss(footer),
+    /:where\(\.sw-footer\) \.svg \{\n {4}fill: var\(--ink-footer-svg-fill\);/,
+  );
 });

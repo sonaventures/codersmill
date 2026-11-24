@@ -749,14 +749,18 @@ test("form and content colors fall back to the colors components used before", (
     "var(--ink-hero-marker,currentColor)",
   );
   assert.ok(isColorRoleVisible("page", "selectionText"));
-  // The header styles its form fields too; the footer does not.
+  // The header and footer style their form fields too.
   assert.ok(isColorRoleVisible("header", "inputFocus"));
   assert.equal(semanticToken("header", "label"), "ink-header-label");
   assert.equal(
     defaultColorReference("header", "inputPlaceholder"),
     "var(--ink-header-placeholder,var(--ink-header))",
   );
-  assert.ok(!isColorRoleVisible("footer", "inputFocus"));
+  assert.ok(isColorRoleVisible("footer", "inputFocus"));
+  assert.equal(
+    semanticToken("footer", "inputBorder"),
+    "canvas-footer-input-border",
+  );
 });
 
 test("groups saved before version 24 drop their CTA colors, which are sitewide now", () => {
@@ -1053,7 +1057,7 @@ test("accent and CTA corner radii round-trip, and older groups get the defaults"
   );
 });
 
-test("SVG types have six colors each for the page, hero, sections, and header", async () => {
+test("SVG types have six colors each for every area", async () => {
   const {
     svgTypeColorRoles,
     semanticToken,
@@ -1079,7 +1083,8 @@ test("SVG types have six colors each for the page, hero, sections, and header", 
     semanticToken("section2", "svgIcon2FillActive"),
     "ink-02-svg-2-fill-active",
   );
-  assert.ok(!isColorRoleVisible("footer", "buttonSvgFill"));
+  assert.ok(isColorRoleVisible("footer", "buttonSvgFill"));
+  assert.equal(semanticToken("footer", "svgIconFill"), "ink-footer-svg-fill");
   assert.ok(isColorRoleVisible("section4", "buttonSvgFill"));
   // Active falls back to hover, hover to the base color, the base to the text.
   assert.equal(

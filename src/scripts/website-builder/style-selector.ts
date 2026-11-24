@@ -603,7 +603,8 @@ if (root) {
     if (target.matches(".sample-social-icons a")) return "iconBorder";
     // The menu headers are Accent 1; their arrows (Nav SVG) have their own
     // sample role.
-    if (target.matches(".sample-navigation summary")) return "accent1";
+    if (target.matches(".sample-navigation summary, .sample-footer-menu a"))
+      return "accent1";
     if (target.matches(".sample-submenu a")) return "text";
     if (target.matches("a")) return "linkColor";
     if (target.matches("h1")) return "h1";
@@ -902,7 +903,7 @@ if (root) {
   // The preview's menu headers and accent buttons, for the Menu header and
   // Accent 1-3 typography elements.
   const sampleAccents: Record<string, string> = {
-    menuHeader: ".sample-navigation summary",
+    menuHeader: ".sample-navigation summary, .sample-footer-menu a",
     accent1: ".sample-primary",
     accent2: ".sample-secondary",
     accent3: ".sample-action-link",

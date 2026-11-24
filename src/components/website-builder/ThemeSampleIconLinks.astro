@@ -1,0 +1,44 @@
+---
+// Two icon links, one of each icon SVG type (SVG icon 1 .svg, SVG icon 2
+// .svg-2), for the header and footer samples. Click one to edit its fill.
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<div class="sample-icon-links" role="group" aria-label={label}>
+  <a
+    href="#selector-sample-page"
+    aria-label="SVG icon 1"
+    data-sample-role="svgIconFill"
+  >
+    <svg
+      class="svg"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M12 20.5s-7.2-4.4-9.4-9A5.2 5.2 0 0 1 12 5.9a5.2 5.2 0 0 1 9.4 5.6c-2.2 4.6-9.4 9-9.4 9Z"></path>
+    </svg>
+  </a>
+  <a
+    href="#selector-sample-page"
+    aria-label="SVG icon 2"
+    data-sample-role="svgIcon2Fill"
+  >
+    <svg
+      class="svg-2"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M13.5 2.5 4.5 13.5h6.5l-1.5 8 9-11.5h-6.5Z"></path>
+    </svg>
+  </a>
+</div>

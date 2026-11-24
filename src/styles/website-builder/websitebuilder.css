@@ -183,6 +183,33 @@
 .selector-shell .sample-navigation summary:active {
   border-color: var(--sample-accent1ActiveBorder);
 }
+/* The footer's menu links take its Accent 1, like the header's menu
+   headers. */
+.selector-shell .sample-footer-menu {
+  @apply my-4 flex flex-wrap gap-2;
+}
+.selector-shell .sample-footer-menu a {
+  @apply rounded-sm px-3 py-2 text-[0.75rem] font-[650] no-underline;
+  background: var(--sample-accent1);
+  border: 1px solid var(--sample-accent1Border);
+  color: var(--sample-accent1Text);
+  box-shadow: 0 3px 10px
+    color-mix(in srgb, var(--sample-accent1Shadow) 20%, transparent);
+}
+.selector-shell .sample-footer-menu a:is(:hover, :focus-visible) {
+  background: var(--sample-accent1Hover);
+  border-color: var(--sample-accent1HoverBorder);
+  color: var(--sample-accent1HoverText);
+}
+.selector-shell .sample-footer-menu a:active {
+  border-color: var(--sample-accent1ActiveBorder);
+}
+.selector-shell .sample-footer-signup {
+  @apply my-4 flex flex-wrap items-end gap-4;
+}
+.selector-shell .sample-footer-signup .sample-buttons {
+  @apply m-0;
+}
 .selector-shell .sample-submenu {
   @apply absolute top-[calc(100%+0.25rem)] left-0 z-2 m-0 w-[min(12rem,70vw)] list-none p-[0.35rem];
   border: 1px solid var(--sample-accent1Border);
@@ -240,17 +267,17 @@
 .selector-shell .sample-header .sample-buttons {
   @apply m-0;
 }
-/* The header's search field and its two icons. */
-.selector-shell .sample-header-field {
+/* The header's and footer's fields and their two icons. */
+.selector-shell .sample-area-field {
   @apply w-full max-w-56 grid-cols-[auto_minmax(0,1fr)] items-center gap-2;
 }
-.selector-shell .sample-header-icons {
+.selector-shell .sample-icon-links {
   @apply flex items-center gap-1;
 }
-.selector-shell .sample-header-icons a {
+.selector-shell .sample-icon-links a {
   @apply inline-grid size-9 place-items-center rounded-full;
 }
-.selector-shell .sample-header-icons svg {
+.selector-shell .sample-icon-links svg {
   @apply size-5;
 }
 .selector-shell .sample-section {
@@ -1672,7 +1699,7 @@
 }
 /* SVG types, in the SVG types samples and the header (menu arrows and
    icons). Hover covers focus, as on the site. */
-.selector-shell :is(.sample-svg-types, .sample-header) .svg {
+.selector-shell :is(.sample-svg-types, .sample-header, .sample-footer) .svg {
   fill: var(--sample-svgIconFill);
   stroke: var(--sample-svgIconStroke);
 }
@@ -1690,7 +1717,7 @@
   fill: var(--sample-svgIconFillActive);
   stroke: var(--sample-svgIconStrokeActive);
 }
-.selector-shell :is(.sample-svg-types, .sample-header) .svg-2 {
+.selector-shell :is(.sample-svg-types, .sample-header, .sample-footer) .svg-2 {
   fill: var(--sample-svgIcon2Fill);
   stroke: var(--sample-svgIcon2Stroke);
 }
@@ -1708,7 +1735,9 @@
   fill: var(--sample-svgIcon2FillActive);
   stroke: var(--sample-svgIcon2StrokeActive);
 }
-.selector-shell :is(.sample-svg-types, .sample-header) .nav-svg {
+.selector-shell
+  :is(.sample-svg-types, .sample-header, .sample-footer)
+  .nav-svg {
   fill: var(--sample-navSvgFill);
   stroke: var(--sample-navSvgStroke);
 }
@@ -1726,7 +1755,9 @@
   fill: var(--sample-navSvgFillActive);
   stroke: var(--sample-navSvgStrokeActive);
 }
-.selector-shell :is(.sample-svg-types, .sample-header) .button-svg {
+.selector-shell
+  :is(.sample-svg-types, .sample-header, .sample-footer)
+  .button-svg {
   fill: var(--sample-buttonSvgFill);
   stroke: var(--sample-buttonSvgStroke);
 }
@@ -1744,7 +1775,9 @@
   fill: var(--sample-buttonSvgFillActive);
   stroke: var(--sample-buttonSvgStrokeActive);
 }
-.selector-shell :is(.sample-svg-types, .sample-header) .anchor-svg {
+.selector-shell
+  :is(.sample-svg-types, .sample-header, .sample-footer)
+  .anchor-svg {
   fill: var(--sample-anchorSvgFill);
   stroke: var(--sample-anchorSvgStroke);
 }

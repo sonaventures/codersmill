@@ -2,6 +2,7 @@
 import Layout from "../../layouts/website-builder.astro";
 import ThemeSampleCards from "../../components/website-builder/ThemeSampleCards.astro";
 import ThemeSampleIcon from "../../components/website-builder/ThemeSampleIcon.astro";
+import ThemeSampleIconLinks from "../../components/website-builder/ThemeSampleIconLinks.astro";
 import ThemeSampleSection from "../../components/website-builder/ThemeSampleSection.astro";
 import ThemeSampleExtras from "../../components/website-builder/ThemeSampleExtras.astro";
 import ThemeSampleSvg from "../../components/website-builder/ThemeSampleSvg.astro";
@@ -229,7 +230,7 @@ const sampleMenu = [
                   ))}
                 </ul>
               </nav>
-              <div class="sample-field sample-header-field">
+              <div class="sample-field sample-area-field">
                 <label
                   id="selector-header-search-label"
                   data-sample-role="label"
@@ -244,44 +245,7 @@ const sampleMenu = [
                   data-sample-role="inputBorder"
                 />
               </div>
-              <div
-                class="sample-header-icons"
-                role="group"
-                aria-label="Sample header icons"
-              >
-                <a
-                  href="#selector-sample-page"
-                  aria-label="SVG icon 1"
-                  data-sample-role="svgIconFill"
-                >
-                  <svg
-                    class="svg"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.8"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M12 20.5s-7.2-4.4-9.4-9A5.2 5.2 0 0 1 12 5.9a5.2 5.2 0 0 1 9.4 5.6c-2.2 4.6-9.4 9-9.4 9Z" />
-                  </svg>
-                </a>
-                <a
-                  href="#selector-sample-page"
-                  aria-label="SVG icon 2"
-                  data-sample-role="svgIcon2Fill"
-                >
-                  <svg
-                    class="svg-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.8"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M13.5 2.5 4.5 13.5h6.5l-1.5 8 9-11.5h-6.5Z" />
-                  </svg>
-                </a>
-              </div>
+              <ThemeSampleIconLinks label="Sample header icons" />
               <div class="sample-buttons">
                 <button type="button" class="sample-secondary">
                   Contact <ThemeSampleIcon />
@@ -379,18 +343,55 @@ const sampleMenu = [
             <div class="sample-container">
               <h2>Good things start with a little color.</h2>
               <p>Website Builder / Sample footer</p>
+              <nav
+                class="sample-footer-menu"
+                aria-label="Sample footer navigation"
+              >
+                {["About", "Services", "Projects", "Contact"].map((label) => (
+                  <a href="#selector-sample-page">{label}</a>
+                ))}
+              </nav>
               <ThemeSampleSvg />
-              <div class="sample-buttons">
-                <button type="button" class="sample-primary">
-                  Stay connected <ThemeSampleIcon />
-                </button>
-                <button type="button" class="sample-secondary">
-                  Find out more <ThemeSampleIcon />
-                </button>
+              <div class="sample-footer-signup">
+                <div class="sample-field sample-area-field">
+                  <label
+                    id="selector-footer-email-label"
+                    data-sample-role="label"
+                  >
+                    Newsletter
+                  </label>
+                  <input
+                    aria-labelledby="selector-footer-email-label"
+                    type="email"
+                    placeholder="Your email"
+                    autocomplete="off"
+                    data-sample-role="inputBorder"
+                  />
+                </div>
+                <div class="sample-buttons">
+                  <button type="button" class="sample-secondary">
+                    Subscribe <ThemeSampleIcon />
+                  </button>
+                  <a class="sample-action-link" href="#selector-sample-page">
+                    Contact us <ThemeSampleIcon />
+                  </a>
+                </div>
               </div>
+              <ThemeSampleIconLinks label="Sample footer icons" />
               <p>
                 <a class="sample-inline-link" href="#selector-sample-page">
-                  Back to the top <ThemeSampleIcon />
+                  Back to the top
+                  <svg
+                    class="nav-svg sample-nav-arrow"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.8"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    data-sample-role="navSvgFill"
+                  >
+                    <path d="M5.5 15h13L12 7.5Z" />
+                  </svg>
                 </a>
               </p>
             </div>
