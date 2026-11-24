@@ -1,147 +1,397 @@
 ---
 import Layout from "../../layouts/website-builder.astro";
 import { elementKinds } from "../../data/website-builder/component-styling.js";
+import { stylingPreviews } from "../../data/website-builder/styling-preview";
+
+// The components that can be shown on their own (no props or slots).
+const previewIds = JSON.stringify(stylingPreviews.map(({ id }) => id));
 ---
 
 <Layout
   title="Component Styling"
   description="Give the buttons, links, headings, and cards in a component their theme colors."
 >
-  <section class="container grid max-w-6xl gap-8 py-12" data-component-styling>
-    <header class="grid gap-3">
-      <p>
-        Load a page, choose one of its components, and give each element theme
-        classes: a CTA or accent button, a heading color, a card, and so on. The
-        classes use the shared <code>01</code> tokens, so they take their colors
-        from the theme group class the component sits in.
-      </p>
-      <p>
-        Saving rewrites the component file in <code>src/components</code>, so
-        every page that uses it changes. For styles on one page only, use
-        <strong>Make a copy</strong> in the
-        <a class="underline" href="/website-builder/page-builder/">
-          Page Builder
-        </a>{" "}
-        first and style the copy.
-      </p>
-      <p>
-        Folder access requires Chrome or Edge on localhost or HTTPS. Files stay
-        on your computer.
-      </p>
-    </header>
+  <section data-component-styling data-previews={previewIds}>
+    {/* The start: what this does and the project folder. It is hidden while a
+        component is open; the Setup tab of the palette takes its place. */}
+    <div id="styling-intro" class="container grid max-w-6xl gap-8 py-12">
+      <header class="grid gap-3">
+        <p>
+          Choose a component and it opens full screen. Click any element in it
+          (a button, a heading, a card) to give it theme classes in the floating
+          palette. The classes use the shared <code>01</code> tokens, so they
+          take their colors from the theme group class the component sits in.
+        </p>
+        <p>
+          Saving rewrites the component file in <code>src/components</code>, so
+          every page that uses it changes. For styles on one page only, use
+          <strong>Make a copy</strong> in the
+          <a class="underline" href="/website-builder/page-builder/">
+            Page Builder
+          </a>{" "}
+          first and style the copy.
+        </p>
+        <p>
+          Folder access requires Chrome or Edge on localhost or HTTPS. Files
+          stay on your computer.
+        </p>
+      </header>
 
-    <div class="flex flex-wrap items-center gap-4">
-      <button class="btn btn-filled" type="button" id="open-styling-project">
-        Choose project folder
-      </button>
-      <span id="styling-project-name">No project selected</span>
+      <div class="flex flex-wrap items-center gap-4">
+        <button class="btn btn-filled" type="button" id="open-styling-project">
+          Choose project folder
+        </button>
+        <span id="styling-project-name">No project selected</span>
+      </div>
+      <p id="styling-intro-status" role="status" aria-live="polite">
+        Choose the project folder to begin.
+      </p>
     </div>
-    <p id="styling-status" role="status" aria-live="polite">
-      Choose the project folder to begin.
-    </p>
 
-    <div id="styling-workspace" class="grid gap-6" hidden>
-      <div class="grid gap-4 rounded border border-canvas-page-border p-4 md:grid-cols-3">
-        <div class="grid content-start gap-2">
-          <label for="styling-page" class="font-semibold">
-            Page
-          </label>
-          <select
-            id="styling-page"
-            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
-          ></select>
-        </div>
-        <div class="grid content-start gap-2">
-          <label for="styling-component" class="font-semibold">
-            Component
-          </label>
-          <select
-            id="styling-component"
-            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
-          ></select>
-        </div>
-        <div class="grid content-start gap-2">
-          <label for="styling-group" class="font-semibold">
-            Theme group for the preview
-          </label>
-          <select
-            id="styling-group"
-            class="w-full rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
-          ></select>
-          <p class="text-sm">
-            Defaults to the class the component has on the page. It only changes
-            the swatches here, not the page.
-          </p>
-        </div>
-      </div>
+    {/* The component, full screen. */}
+    <div id="styling-stage" class="styling-stage" hidden>
+      <iframe id="styling-frame" title="Component preview"></iframe>
+      <p id="styling-no-preview" class="styling-no-preview" hidden>
+        This component takes props or has slots, so it can't be shown on its
+        own. Its elements are in the <strong>Elements</strong> tab.
+      </p>
+    </div>
 
-      <p id="styling-component-note" class="text-sm" hidden></p>
-
-      <div class="flex flex-wrap items-end gap-4">
-        <div class="grid gap-2">
-          <label for="styling-kind" class="font-semibold">
-            Show
-          </label>
-          <select
-            id="styling-kind"
-            class="rounded border border-canvas-page-border bg-canvas-page p-3 text-ink-page"
-          >
-            <option value="">All elements</option>
-            {elementKinds.map(({ key, label }) => (
-              <option value={key} selected={key === "actions"}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </div>
-        <label class="flex items-center gap-2 pb-3">
-          <input type="checkbox" id="styling-styled-only" />
-          Only elements with theme classes or markers
-        </label>
-        <span id="styling-count" class="pb-3 text-sm"></span>
-      </div>
-
-      <div id="styling-elements" class="grid gap-3"></div>
-
-      <div class="sticky bottom-0 z-30 flex flex-wrap items-center gap-3 rounded-t-xl border border-canvas-page-border bg-canvas-page p-3 text-ink-page shadow-lg">
-        <button class="btn btn-filled" type="button" id="styling-save" disabled>
-          Save component
-        </button>
+    <div
+      id="styling-palette"
+      class="styling-palette"
+      hidden
+      data-builder-ui
+      aria-label="Component Styling palette"
+      role="dialog"
+    >
+      <div class="styling-palette-bar" id="styling-palette-handle">
+        <strong title="Drag to move">Component Styling</strong>
+        <a href="/website-builder/" class="styling-palette-link">
+          Builder
+        </a>
         <button
-          class="btn btn-outline"
           type="button"
-          id="styling-discard"
-          disabled
+          id="styling-palette-collapse"
+          class="styling-palette-collapse"
+          aria-expanded="true"
+          aria-controls="styling-palette-content"
+          aria-label="Collapse the palette"
         >
-          Discard changes
+          –
         </button>
-        <span id="styling-pending" class="text-sm">
-          No unsaved changes.
-        </span>
       </div>
 
-      <details id="styling-preview" class="grid gap-3" open>
-        <summary class="cursor-pointer font-semibold">Page preview</summary>
-        <p class="text-sm">
-          The page as the dev server shows it. It reloads after each save.
+      <div id="styling-palette-content" class="styling-palette-content">
+        <div class="styling-tabs" role="tablist" aria-label="Palette sections">
+          <button
+            type="button"
+            role="tab"
+            id="styling-tab-element"
+            aria-controls="styling-panel-element"
+            data-tab="element"
+          >
+            Element
+          </button>
+          <button
+            type="button"
+            role="tab"
+            id="styling-tab-elements"
+            aria-controls="styling-panel-elements"
+            data-tab="elements"
+          >
+            Elements
+          </button>
+          <button
+            type="button"
+            role="tab"
+            id="styling-tab-setup"
+            aria-controls="styling-panel-setup"
+            data-tab="setup"
+          >
+            Setup
+          </button>
+        </div>
+
+        <div
+          id="styling-panel-element"
+          class="styling-panel"
+          role="tabpanel"
+          aria-labelledby="styling-tab-element"
+        >
+          <p id="styling-element-empty" class="text-sm">
+            Click an element in the component to style it.
+          </p>
+          <div id="styling-element"></div>
+        </div>
+
+        <div
+          id="styling-panel-elements"
+          class="styling-panel"
+          role="tabpanel"
+          aria-labelledby="styling-tab-elements"
+          hidden
+        >
+          <div class="grid gap-2">
+            <label class="grid gap-1 text-sm font-semibold">
+              Show
+              <select id="styling-kind" class="styling-input">
+                <option value="">All elements</option>
+                {elementKinds.map(({ key, label }) => (
+                  <option value={key}>{label}</option>
+                ))}
+              </select>
+            </label>
+            <label class="flex items-center gap-2 text-sm">
+              <input type="checkbox" id="styling-styled-only" />
+              Only elements with theme classes or markers
+            </label>
+            <span id="styling-count" class="text-sm"></span>
+          </div>
+          <ul id="styling-elements" class="styling-element-list"></ul>
+        </div>
+
+        <div
+          id="styling-panel-setup"
+          class="styling-panel"
+          role="tabpanel"
+          aria-labelledby="styling-tab-setup"
+          hidden
+        >
+          <div class="flex flex-wrap items-center gap-2 text-sm">
+            <span>
+              Project: <strong id="styling-project-label"></strong>
+            </span>
+            <button
+              type="button"
+              class="btn btn-outline"
+              id="styling-change-project"
+            >
+              Change folder
+            </button>
+          </div>
+          <label class="grid gap-1 text-sm font-semibold">
+            Page
+            <select id="styling-page" class="styling-input"></select>
+          </label>
           <a
             id="styling-page-link"
-            class="underline"
+            class="text-sm underline"
             target="_blank"
             rel="noopener"
+            hidden
           >
-            Open in a new tab
+            Open the page in a new tab
           </a>
-        </p>
-        <iframe
-          id="styling-frame"
-          title="Page preview"
-          class="h-[70vh] w-full rounded border border-canvas-page-border bg-canvas-page"
-        ></iframe>
-      </details>
+          <label class="grid gap-1 text-sm font-semibold">
+            Component
+            <select id="styling-component" class="styling-input"></select>
+          </label>
+          <label class="grid gap-1 text-sm font-semibold">
+            Theme group
+            <select id="styling-group" class="styling-input"></select>
+          </label>
+          <label class="grid gap-1 text-sm font-semibold">
+            Mode
+            <select id="styling-mode" class="styling-input">
+              <option value="">Builder setting</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+          </label>
+          <p class="text-sm">
+            The theme group defaults to the class the component has on the page.
+            It and the mode only change the preview, not the file.
+          </p>
+          <p id="styling-component-note" class="text-sm" hidden></p>
+        </div>
+
+        <div class="styling-palette-footer">
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              class="btn btn-filled"
+              type="button"
+              id="styling-save"
+              disabled
+            >
+              Save component
+            </button>
+            <button
+              class="btn btn-outline"
+              type="button"
+              id="styling-discard"
+              disabled
+            >
+              Discard
+            </button>
+            <span id="styling-pending" class="text-sm">
+              No unsaved changes.
+            </span>
+          </div>
+          <p
+            id="styling-status"
+            class="text-sm"
+            role="status"
+            aria-live="polite"
+          ></p>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>
+
+<style is:global>
+  .styling-stage {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: var(--builder-canvas);
+  }
+  .styling-stage iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .styling-stage.is-dragging iframe {
+    pointer-events: none;
+  }
+  .styling-no-preview {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+    text-align: center;
+    color: var(--builder-ink);
+  }
+  .styling-palette {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 70;
+    display: grid;
+    width: min(26rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    grid-template-rows: auto minmax(0, 1fr);
+    border: 1px solid var(--builder-border);
+    border-radius: 0.75rem;
+    background: var(--builder-surface);
+    color: var(--builder-ink);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.25);
+    font-family: var(--font-inter);
+  }
+  .styling-palette[hidden],
+  .styling-stage[hidden] {
+    display: none;
+  }
+  .styling-palette-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--builder-border);
+    cursor: move;
+    user-select: none;
+    touch-action: none;
+  }
+  .styling-palette-bar strong {
+    flex: 1;
+  }
+  .styling-palette-link {
+    font-size: 0.875rem;
+    text-decoration: underline;
+  }
+  .styling-palette-collapse {
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid var(--builder-border);
+    border-radius: 0.375rem;
+    cursor: pointer;
+  }
+  .styling-palette-content {
+    display: grid;
+    min-height: 0;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+  }
+  .styling-palette-content[hidden] {
+    display: none;
+  }
+  .styling-tabs {
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.5rem 0.75rem 0;
+    border-bottom: 1px solid var(--builder-border);
+  }
+  .styling-tabs button {
+    padding: 0.375rem 0.75rem;
+    border: 1px solid transparent;
+    border-bottom: 0;
+    border-radius: 0.375rem 0.375rem 0 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .styling-tabs button[aria-selected="true"] {
+    border-color: var(--builder-border);
+    background: var(--builder-subtle);
+  }
+  .styling-panel {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 0.75rem;
+  }
+  .styling-panel[hidden] {
+    display: none;
+  }
+  .styling-input {
+    width: 100%;
+    border: 1px solid var(--builder-border);
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    font-weight: 400;
+  }
+  .styling-element-list {
+    display: grid;
+    gap: 0.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .styling-element-list button {
+    display: grid;
+    width: 100%;
+    gap: 0.125rem;
+    padding: 0.375rem 0.5rem;
+    border: 1px solid var(--builder-border);
+    border-radius: 0.375rem;
+    text-align: left;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+  .styling-element-list button[aria-current="true"] {
+    outline: 2px solid #f97316;
+  }
+  .styling-element-list button[data-changed="true"] strong::after {
+    content: " · changed";
+    font-weight: 400;
+  }
+  .styling-element-list .muted {
+    opacity: 0.7;
+  }
+  .styling-palette-footer {
+    display: grid;
+    gap: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid var(--builder-border);
+  }
+  .styling-palette-footer p:empty {
+    display: none;
+  }
+</style>
 
 <script>
   import "../../scripts/website-builder/component-styling.js";

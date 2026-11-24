@@ -1,0 +1,34 @@
+---
+import Layout from "../../../../layouts/layout.astro";
+import {
+  stylingPreviews,
+  type StylingPreviewEntry,
+} from "../../../../data/website-builder/styling-preview";
+
+// One component on its own page, for Component Styling: a page class around
+// a <section> with an area class, as the Page Builder places it. Component
+// Styling shows it in an iframe, sets those classes, and makes its elements
+// clickable.
+export function getStaticPaths() {
+  return stylingPreviews.map((entry) => ({
+    params: { component: entry.id },
+    props: entry,
+  }));
+}
+
+const { id, slot, load } = Astro.props as StylingPreviewEntry;
+const { default: Component } = await load();
+---
+
+<Layout
+  title={`Component: ${id}`}
+  description={`A preview of ${id} for Component Styling.`}
+  showHeader={false}
+  showFooter={false}
+>
+  <div data-styling-page>
+    <section data-styling-section data-styling-slot={slot ?? undefined}>
+      <Component />
+    </section>
+  </div>
+</Layout>
