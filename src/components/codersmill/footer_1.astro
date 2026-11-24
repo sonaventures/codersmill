@@ -1,5 +1,12 @@
 ---
 import Logo from "./logo.astro";
+import { navigation } from "../../data/site";
+
+// The CodersMill menu from src/data/site.ts, as a column per section: the
+// section's link (Accent 1, menu-header) over its pages.
+const currentPath = Astro.url.pathname.replace(/\/?$/, "/");
+const accent1 =
+  "rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus";
 ---
 
 <footer class="p-4 md:p-8 lg:p-10">
@@ -12,42 +19,33 @@ import Logo from "./logo.astro";
       built for better web.
     </p>
     <nav aria-label="Footer">
-      <ul class="flex flex-wrap justify-center items-center mb-6">
-        <li>
-          <a href="#" class="mr-4 md:mr-6 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header inline-block px-2 py-1">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#" class="mr-4 md:mr-6 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header inline-block px-2 py-1">
-            Premium
-          </a>
-        </li>
-        <li>
-          <a href="#" class="mr-4 md:mr-6 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header inline-block px-2 py-1">
-            Campaigns
-          </a>
-        </li>
-        <li>
-          <a href="#" class="mr-4 md:mr-6 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header inline-block px-2 py-1">
-            Blog
-          </a>
-        </li>
-        <li>
-          <a href="#" class="mr-4 md:mr-6 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header inline-block px-2 py-1">
-            Affiliate Program
-          </a>
-        </li>
-        <li>
-          <a href="#" class="mr-4 md:mr-6 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header inline-block px-2 py-1">
-            FAQs
-          </a>
-        </li>
-        <li>
-          <a href="#" class="mr-4 md:mr-6 rounded-accent! bg-accent-01-01 text-accent-01-01-text inset-ring inset-ring-accent-01-01-border shadow-accent-01-01-shadow/20 hover:bg-accent-01-01-hover hover:text-accent-01-01-hover-text hover:inset-ring-accent-01-01-hover-border focus-visible:bg-accent-01-01-hover focus-visible:text-accent-01-01-hover-text focus-visible:inset-ring-accent-01-01-hover-border active:inset-ring-accent-01-01-active-border focus-visible:outline-accent-01-focus menu-header inline-block px-2 py-1">
-            Contact
-          </a>
-        </li>
+      <ul class="mx-auto mb-8 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-8 text-start sm:grid-cols-3 lg:grid-cols-5">
+        {navigation.map((section) => (
+          <li>
+            <a
+              href={section.href}
+              class={`${accent1} menu-header -mx-2 inline-block px-2 py-1`}
+              aria-current={currentPath === section.href ? "page" : undefined}
+            >
+              {section.label}
+            </a>
+            <ul class="mt-3 space-y-2 text-sm">
+              {section.items.map(({ label, href, external }) => (
+                <li>
+                  <a
+                    href={href}
+                    class="hover:underline hover:underline-offset-4"
+                    aria-current={currentPath === href ? "page" : undefined}
+                    {...(external ? { target: "_blank", rel: "noopener" } : {})}
+                  >
+                    {label}
+                    {external && <span aria-hidden="true"> ↗</span>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
       </ul>
     </nav>
     <span class="text-sm sm:text-center">
