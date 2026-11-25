@@ -331,6 +331,10 @@ export function radiusCss(slug: string, group: ThemeGroup): string {
 
 // Where each SVG type state applies: hover and focus, then active, of the
 // link, button or menu item the SVG sits in.
+// The SVG elements that draw something with a fill or stroke.
+const svgShapes =
+  ":is(path, circle, ellipse, rect, polygon, polyline, line, text)";
+
 const svgStateSelectors = {
   base: (svg: string) => [svg],
   hover: (svg: string) => [
@@ -365,6 +369,17 @@ export function svgTypeCss(
       rules.push(
         `${selectors} {\n    ${state.property}: var(--${token});\n  }`,
       );
+      // The shapes inside too: many SVGs (logos especially) set their own
+      // fill or stroke on each path, which wins over the <svg>'s. Shapes set
+      // to "none" keep it, and masks and clip paths are left alone.
+      const parts = svgStateSelectors[state.state](
+        `.${type.className} ${svgShapes}:not([${state.property}="none"], mask *, clipPath *)`,
+      )
+        .map(
+          (selector) => `  ${themeSelector} :where(.${className}) ${selector}`,
+        )
+        .join(",\n");
+      rules.push(`${parts} {\n    ${state.property}: var(--${token});\n  }`);
       // Iconify icons (class="icon-[tabler--search] nav-svg") are a mask
       // filled with the text color, so the fill colors set their color.
       if (state.property === "fill") {

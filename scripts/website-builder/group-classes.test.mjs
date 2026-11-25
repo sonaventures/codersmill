@@ -433,11 +433,24 @@ test("SVG type colors become rules for their marker classes, only once chosen", 
     css,
     /:root\[data-theme="dark"\] :where\(\.sg-coastal-calm-section-2\) :is\(a, button, summary\):active \.button-svg \{\n {4}fill: var\(--ink-02-button-svg-fill-active\);/,
   );
+  // The shapes inside get the color too (their own fill attributes would
+  // win over the <svg>'s), except those set to "none" and mask shapes.
+  assert.match(
+    css,
+    new RegExp(
+      `${light} :where\\(\\.sg-coastal-calm-hero\\) \\.nav-svg :is\\(path, circle, ellipse, rect, polygon, polyline, line, text\\):not\\(\\[fill="none"\\], mask \\*, clipPath \\*\\) \\{\\n    fill: var\\(--ink-hero-nav-svg-fill\\);`,
+    ),
+  );
+  assert.match(
+    css,
+    /:is\(:hover, :focus-visible\) \.nav-svg :is\([^)]*\):not\(\[stroke="none"\], mask \*, clipPath \*\) \{\n {4}stroke: var\(--ink-hero-nav-svg-stroke-hover\);/,
+  );
   // The colors themselves are set on the class like every other color.
   assert.match(css, /--ink-hero-nav-svg-fill: var\(--color-sky-500\);/);
   assert.match(css, /--ink-01-nav-svg-fill: var\(--color-sky-500\);/);
   // Nothing else gets an SVG type rule, so other SVGs keep their own colors.
-  assert.equal(css.match(/\n {4}(?:fill|stroke): var\(--ink-/g).length, 3);
+  // Each chosen color: the <svg> rule and the rule for its shapes.
+  assert.equal(css.match(/\n {4}(?:fill|stroke): var\(--ink-/g).length, 6);
   assert.doesNotMatch(
     generateGroupCss(group()),
     /\.(?:nav-|button-|anchor-)?svg \{/,
