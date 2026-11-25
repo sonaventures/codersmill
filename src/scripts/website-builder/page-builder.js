@@ -87,6 +87,20 @@ renderAvailableIds();
 // Theme group classes from src/styles/themes/groups.css (theme builder).
 let availableClasses = parseGroupClasses(groupsCssFallback);
 
+// In development, take saved changes to groups.css and id.css (from the Theme
+// Builder or this page) here. Without this, Vite reloads every open builder
+// tab whenever those files change.
+if (import.meta.hot) {
+  import.meta.hot.accept("../../styles/themes/groups.css?raw", (module) => {
+    if (module) availableClasses = parseGroupClasses(module.default);
+  });
+  import.meta.hot.accept("../../styles/themes/id.css?raw", (module) => {
+    if (!module) return;
+    availableIds = parseIdsFromCss(module.default);
+    renderAvailableIds();
+  });
+}
+
 // Fills a dropdown with theme group classes: the page classes ("page"), or
 // every other area's classes (grouped by theme group) for components
 // ("component").
@@ -259,8 +273,7 @@ function fillSlotSelect(select, slot, current = select.value) {
   );
   const matching = components.filter(
     (component) =>
-      isSlotComponent(component) &&
-      component.path.toLowerCase().includes(slot),
+      isSlotComponent(component) && component.path.toLowerCase().includes(slot),
   );
   if (matching.length) {
     const group = document.createElement("optgroup");
@@ -295,11 +308,16 @@ function renderSlotCopy(slot) {
   toggle.textContent = `Save a copy of this ${slot}`;
   toggle.setAttribute("aria-expanded", "false");
   toggle.setAttribute("aria-controls", `${slot}-component-copy`);
-  const panel = copyPanel(component, `${slot}-component`, toggle, (copy, from) => {
-    fillSlotSelect(select, slot, copy.path);
-    box.querySelector("button")?.focus();
-    status.textContent = `Saved src/components/${copy.path} as a copy of ${from}. This page's ${slot} now uses the copy.`;
-  });
+  const panel = copyPanel(
+    component,
+    `${slot}-component`,
+    toggle,
+    (copy, from) => {
+      fillSlotSelect(select, slot, copy.path);
+      box.querySelector("button")?.focus();
+      status.textContent = `Saved src/components/${copy.path} as a copy of ${from}. This page's ${slot} now uses the copy.`;
+    },
+  );
   box.append(toggle, panel);
 }
 
@@ -738,14 +756,19 @@ function renderSelection() {
     );
     row.append(
       actions,
-      copyPanel(item.component, `component-${index}`, copyToggle, (copy, from) => {
-        item.component = copy;
-        renderSelection();
-        list.children[index]
-          ?.querySelector('button[data-action="copy"]')
-          ?.focus();
-        status.textContent = `Saved src/components/${copy.path} as a copy of ${from}. This component now uses the copy.`;
-      }),
+      copyPanel(
+        item.component,
+        `component-${index}`,
+        copyToggle,
+        (copy, from) => {
+          item.component = copy;
+          renderSelection();
+          list.children[index]
+            ?.querySelector('button[data-action="copy"]')
+            ?.focus();
+          status.textContent = `Saved src/components/${copy.path} as a copy of ${from}. This component now uses the copy.`;
+        },
+      ),
     );
     list.append(row);
   }

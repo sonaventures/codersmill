@@ -62,6 +62,12 @@ const viewPath = (path) =>
 let components = []; // { path, handle, source }
 let pages = []; // { fileName, slug, page } for pages made by the Page Builder
 let groupClasses = parseGroupClasses(groupsCssFallback);
+// In development, take saved changes to groups.css (from the Theme Builder)
+// here. Without this, Vite reloads every open builder tab when it changes.
+if (import.meta.hot)
+  import.meta.hot.accept("../../styles/themes/groups.css?raw", (module) => {
+    if (module) groupClasses = parseGroupClasses(module.default);
+  });
 let current = null; // { component, option, source, elements }
 let pending = new Map(); // element index -> theme classes
 let selected = null; // the selected element's index

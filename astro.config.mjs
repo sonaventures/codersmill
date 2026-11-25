@@ -8,12 +8,31 @@ import cloudflare from "@astrojs/cloudflare";
 import react from "@astrojs/react";
 import { access, d1, r2 } from "@emdash-cms/cloudflare";
 import emdash from "emdash/astro";
+import { existsSync } from "node:fs";
 
 // Static pages are prerendered in Node, where Cloudflare's runtime module
 // (cloudflare:workers, imported by EmDash) does not exist. They never use
 // EmDash's database, so while prerendering it is replaced with a stand-in;
 // the Worker build uses the real module.
 const stubId = "\0codersmill:cloudflare-workers-prerender";
+// The builder tools save files from Chrome, which writes a temporary .crswap
+// file and renames it over the original. The dev server can see that as the
+// file being deleted and created again, and a delete reloads the whole page
+// (losing the Theme Builder's place). A delete of a file that is back a
+// moment later is ignored; the create that follows updates it as usual.
+function ignoreReplacedFileDeletes() {
+  return {
+    name: "ignore-replaced-file-deletes",
+    apply: "serve",
+    enforce: "pre",
+    async hotUpdate({ type, file }) {
+      if (type !== "delete") return;
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      if (existsSync(file)) return [];
+    },
+  };
+}
+
 function cloudflareWorkersPrerenderStub() {
   return {
     name: "codersmill:cloudflare-workers-prerender",
@@ -129,6 +148,18 @@ export default defineConfig({
     }),
   ],
   vite: {
-    plugins: [tailwindcss(), cloudflareWorkersPrerenderStub()],
+    plugins: [
+      ignoreReplacedFileDeletes(),
+      tailwindcss(),
+      cloudflareWorkersPrerenderStub(),
+    ],
+    server: {
+      watch: {
+        // theme-groups.json is only read from disk (never imported), and the
+        // .crswap files are Chrome's temporary copies while saving; watching
+        // either made the dev server reload the whole page.
+        ignored: ["**/src/styles/themes/theme-groups.json", "**/*.crswap"],
+      },
+    },
   },
 });
