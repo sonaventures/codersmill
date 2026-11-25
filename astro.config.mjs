@@ -33,6 +33,54 @@ function ignoreReplacedFileDeletes() {
   };
 }
 
+// Component Styling tells the dev server which component it is about to save
+// (the "codersmill:saving-component" event). Changing a component normally
+// reloads every open page, which threw Component Styling back to its start
+// screen after each save. For that file only, the server's copy is refreshed
+// without a reload; Component Styling reloads its own preview. Edits made
+// anywhere else still reload the page as usual.
+function quietComponentSaves() {
+  const saving = new Map(); // file -> when the save was announced
+  return {
+    name: "codersmill:quiet-component-saves",
+    apply: "serve",
+    enforce: "pre",
+    configureServer(server) {
+      server.environments.client.hot.on(
+        "codersmill:saving-component",
+        ({ path }) => {
+          if (typeof path !== "string" || path.includes("..")) return;
+          saving.set(
+            `${server.config.root}/src/components/${path}`,
+            Date.now(),
+          );
+        },
+      );
+    },
+    hotUpdate({ file, modules, timestamp }) {
+      const announced = saving.get(file);
+      if (!announced || Date.now() - announced > 10_000) return;
+      // The client's own updates (such as Tailwind's CSS) go ahead.
+      if (this.environment.name === "client") return;
+      const graph = this.environment.moduleGraph;
+      const invalidated = new Set();
+      for (const mod of modules)
+        graph.invalidateModule(mod, invalidated, timestamp, true);
+      // The per-page dev CSS, so the reloaded preview has the new styles.
+      for (const [id, mod] of graph.idToModuleMap)
+        if (id.startsWith("\0virtual:astro:dev-css:"))
+          graph.invalidateModule(mod, invalidated, timestamp, true);
+      const runner = this.environment.runner?.evaluatedModules;
+      if (runner)
+        for (const { id } of invalidated) {
+          const cached = id && runner.getModuleById(id);
+          if (cached) runner.invalidateModule(cached);
+        }
+      return [];
+    },
+  };
+}
+
 function cloudflareWorkersPrerenderStub() {
   return {
     name: "codersmill:cloudflare-workers-prerender",
@@ -150,6 +198,7 @@ export default defineConfig({
   vite: {
     plugins: [
       ignoreReplacedFileDeletes(),
+      quietComponentSaves(),
       tailwindcss(),
       cloudflareWorkersPrerenderStub(),
     ],

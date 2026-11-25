@@ -825,6 +825,11 @@ saveButton.addEventListener("click", async () => {
         `${component.path} changed on disk since it was loaded. Choose it again to load the latest version; your unsaved changes here are kept until then.`,
       );
     const next = applyThemeClasses(current.source, Object.fromEntries(pending));
+    // In development, so the save does not reload this page (see
+    // quietComponentSaves in astro.config.mjs).
+    import.meta.hot?.send("codersmill:saving-component", {
+      path: component.path,
+    });
     const writable = await component.handle.createWritable();
     try {
       await writable.write(next);
