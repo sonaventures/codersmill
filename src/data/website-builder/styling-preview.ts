@@ -5,7 +5,7 @@ import { inspectComponent } from "./page-builder.js";
  * The components Component Styling can show on their own: the blocks and the
  * CodersMill components that need no props and have no slots (the ones the
  * Page Builder can place). Each one's id is its path in src/components
- * without ".astro", e.g. "codersmill/hero_5".
+ * without ".astro", e.g. "codersmill/fp_hero-5".
  */
 const modules = import.meta.glob<{ default: AstroComponentFactory }>([
   "/src/components/blocks/*/*/*.astro",
@@ -39,6 +39,6 @@ export const stylingPreviews: StylingPreviewEntry[] = Object.entries(modules)
   })
   .filter((entry): entry is StylingPreviewEntry => Boolean(entry));
 
-/** The preview page for a component path such as "codersmill/hero_5.astro". */
+/** The preview page for a component path such as "codersmill/fp_hero-5.astro". */
 export const stylingViewPath = (path: string) =>
   `/website-builder/component-styling/view/${path.replace(/\.astro$/, "")}/`;
