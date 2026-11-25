@@ -2006,6 +2006,12 @@
   --ink-page-placeholder: var(--color-mutedteal-700);
   --ink-01-placeholder: var(--color-mutedteal-700);
   --accent-01-input-focus: var(--accent-page-input-focus);
+  --ink-01-input-hover: var(--ink-page-input-hover);
+  --canvas-01-input-hover: var(--canvas-page-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-page-input-hover-border);
+  --ink-01-input-active: var(--ink-page-input-active);
+  --canvas-01-input-active: var(--canvas-page-input-active);
+  --canvas-01-input-active-border: var(--canvas-page-input-active-border);
   --ink-01-blockquote: var(--ink-page-blockquote);
   --canvas-01-blockquote-border: var(--canvas-page-blockquote-border);
   --canvas-01-divider: var(--canvas-page-divider);
@@ -2108,6 +2114,12 @@
   --canvas-01-input-border: var(--canvas-page-input-border);
   --ink-01-placeholder: var(--ink-page-placeholder);
   --accent-01-input-focus: var(--accent-page-input-focus);
+  --ink-01-input-hover: var(--ink-page-input-hover);
+  --canvas-01-input-hover: var(--canvas-page-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-page-input-hover-border);
+  --ink-01-input-active: var(--ink-page-input-active);
+  --canvas-01-input-active: var(--canvas-page-input-active);
+  --canvas-01-input-active-border: var(--canvas-page-input-active-border);
   --ink-01-blockquote: var(--ink-page-blockquote);
   --canvas-01-blockquote-border: var(--canvas-page-blockquote-border);
   --canvas-01-divider: var(--canvas-page-divider);
@@ -2280,6 +2292,12 @@
   --ink-hero-placeholder: var(--color-mutedteal-500);
   --ink-01-placeholder: var(--color-mutedteal-500);
   --accent-01-input-focus: var(--accent-hero-input-focus);
+  --ink-01-input-hover: var(--ink-hero-input-hover);
+  --canvas-01-input-hover: var(--canvas-hero-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-hero-input-hover-border);
+  --ink-01-input-active: var(--ink-hero-input-active);
+  --canvas-01-input-active: var(--canvas-hero-input-active);
+  --canvas-01-input-active-border: var(--canvas-hero-input-active-border);
   --ink-hero-blockquote: var(--color-prusssianblue-600);
   --ink-01-blockquote: var(--color-prusssianblue-600);
   --canvas-01-blockquote-border: var(--canvas-hero-blockquote-border);
@@ -2374,6 +2392,12 @@
   --canvas-01-input-border: var(--canvas-hero-input-border);
   --ink-01-placeholder: var(--ink-hero-placeholder);
   --accent-01-input-focus: var(--accent-hero-input-focus);
+  --ink-01-input-hover: var(--ink-hero-input-hover);
+  --canvas-01-input-hover: var(--canvas-hero-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-hero-input-hover-border);
+  --ink-01-input-active: var(--ink-hero-input-active);
+  --canvas-01-input-active: var(--canvas-hero-input-active);
+  --canvas-01-input-active-border: var(--canvas-hero-input-active-border);
   --ink-01-blockquote: var(--ink-hero-blockquote);
   --canvas-01-blockquote-border: var(--canvas-hero-blockquote-border);
   --canvas-01-divider: var(--canvas-hero-divider);
@@ -2427,7 +2451,8 @@
   --canvas-01: var(--color-blaze-50);
   --canvas-01-border: var(--canvas-02-border);
   --canvas-01-shadow: var(--canvas-02-shadow);
-  --accent-01-01: var(--accent-02-01);
+  --accent-02-01: var(--color-energeticorange-100);
+  --accent-01-01: var(--color-energeticorange-100);
   --accent-01-01-hover: var(--accent-02-01-hover);
   --accent-01-01-border: var(--accent-02-01-border);
   --accent-01-01-hover-border: var(--accent-02-01-hover-border);
@@ -2435,7 +2460,8 @@
   --accent-01-01-hover-text: var(--accent-02-01-hover-text);
   --accent-01-01-shadow: var(--accent-02-01-shadow);
   --accent-01-01-active-border: var(--accent-02-01-active-border);
-  --accent-01-02: var(--accent-02-02);
+  --accent-02-02: var(--color-coolsteel-50);
+  --accent-01-02: var(--color-coolsteel-50);
   --accent-01-02-hover: var(--accent-02-02-hover);
   --accent-01-02-border: var(--accent-02-02-border);
   --accent-01-02-hover-border: var(--accent-02-02-hover-border);
@@ -2452,13 +2478,20 @@
   --accent-01-03-shadow: var(--accent-02-03-shadow);
   --accent-01-03-active-border: var(--accent-02-03-active-border);
   --accent-01-focus: var(--accent-02-focus);
-  --ink-01: var(--ink-02);
-  --ink-01-h1: var(--ink-02-h1);
-  --ink-01-h2: var(--ink-02-h2);
-  --ink-01-h3: var(--ink-02-h3);
-  --ink-01-h4: var(--ink-02-h4);
-  --ink-01-muted: var(--ink-02-muted);
-  --ink-01-highlight: var(--ink-02-highlight);
+  --ink-02: var(--color-limecream-900);
+  --ink-01: var(--color-limecream-900);
+  --ink-02-h1: var(--color-energeticorange-800);
+  --ink-01-h1: var(--color-energeticorange-800);
+  --ink-02-h2: var(--color-energeticorange-700);
+  --ink-01-h2: var(--color-energeticorange-700);
+  --ink-02-h3: var(--color-energeticorange-700);
+  --ink-01-h3: var(--color-energeticorange-700);
+  --ink-02-h4: var(--color-energeticorange-700);
+  --ink-01-h4: var(--color-energeticorange-700);
+  --ink-02-muted: var(--color-platinum-600);
+  --ink-01-muted: var(--color-platinum-600);
+  --ink-02-highlight: var(--color-smartblue-700);
+  --ink-01-highlight: var(--color-smartblue-700);
   --canvas-01-card-01: var(--canvas-02-card-01);
   --canvas-01-card-01-border: var(--canvas-02-card-01-border);
   --canvas-01-card-01-shadow: var(--canvas-02-card-01-shadow);
@@ -2471,31 +2504,53 @@
   --canvas-01-subsection: var(--canvas-02-subsection);
   --canvas-01-subsection-border: var(--canvas-02-subsection-border);
   --canvas-01-subsection-shadow: var(--canvas-02-subsection-shadow);
-  --ink-01-strong: var(--ink-02-strong);
-  --ink-01-em: var(--ink-02-em);
-  --ink-01-code: var(--ink-02-code);
+  --ink-02-strong: var(--color-platinum-950);
+  --ink-01-strong: var(--color-platinum-950);
+  --ink-02-em: var(--color-mutedteal-950);
+  --ink-01-em: var(--color-mutedteal-950);
+  --ink-02-code: var(--color-platinum-950);
+  --ink-01-code: var(--color-platinum-950);
   --canvas-01-code: var(--canvas-02-code);
-  --ink-01-pre: var(--ink-02-pre);
-  --canvas-01-pre: var(--canvas-02-pre);
-  --ink-01-label: var(--ink-02-label);
-  --ink-01-input: var(--ink-02-input);
-  --canvas-01-input: var(--canvas-02-input);
-  --canvas-01-input-border: var(--canvas-02-input-border);
-  --ink-01-placeholder: var(--ink-02-placeholder);
+  --ink-02-pre: var(--color-radioactive-300);
+  --ink-01-pre: var(--color-radioactive-300);
+  --canvas-02-pre: var(--color-radioactive-950);
+  --canvas-01-pre: var(--color-radioactive-950);
+  --ink-02-label: var(--color-energeticorange-500);
+  --ink-01-label: var(--color-energeticorange-500);
+  --ink-02-input: var(--color-softlinen-800);
+  --ink-01-input: var(--color-softlinen-800);
+  --canvas-02-input: var(--color-coolsteel-50);
+  --canvas-01-input: var(--color-coolsteel-50);
+  --canvas-02-input-border: var(--color-coolsteel-500);
+  --canvas-01-input-border: var(--color-coolsteel-500);
+  --ink-02-placeholder: var(--color-coolsteel-500);
+  --ink-01-placeholder: var(--color-coolsteel-500);
   --accent-01-input-focus: var(--accent-02-input-focus);
-  --ink-01-blockquote: var(--ink-02-blockquote);
+  --ink-01-input-hover: var(--ink-02-input-hover);
+  --canvas-01-input-hover: var(--canvas-02-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-02-input-hover-border);
+  --ink-01-input-active: var(--ink-02-input-active);
+  --canvas-01-input-active: var(--canvas-02-input-active);
+  --canvas-01-input-active-border: var(--canvas-02-input-active-border);
+  --ink-02-blockquote: var(--color-platinum-600);
+  --ink-01-blockquote: var(--color-platinum-600);
   --canvas-01-blockquote-border: var(--canvas-02-blockquote-border);
   --canvas-01-divider: var(--canvas-02-divider);
   --ink-01-marker: var(--ink-02-marker);
   --ink-01-svg-01: var(--ink-02-svg-01, currentColor);
   --ink-01-svg-02: var(--ink-02-svg-02, var(--canvas-01));
   --ink-01-svg-03: var(--ink-02-svg-03, currentColor);
-  --ink-01-svg-fill: var(--ink-02-svg-fill);
-  --ink-01-svg-stroke: var(--ink-02-svg-stroke);
+  --ink-02-svg-fill: var(--color-smartblue-700);
+  --ink-01-svg-fill: var(--color-smartblue-700);
+  --ink-02-svg-stroke: transparent;
+  --ink-01-svg-stroke: transparent;
   --ink-01-svg-fill-hover: var(--ink-02-svg-fill-hover);
-  --ink-01-svg-fill-active: var(--ink-02-svg-fill-active);
-  --ink-01-svg-stroke-hover: var(--ink-02-svg-stroke-hover);
-  --ink-01-svg-stroke-active: var(--ink-02-svg-stroke-active);
+  --ink-02-svg-fill-active: var(--color-smartblue-600);
+  --ink-01-svg-fill-active: var(--color-smartblue-600);
+  --ink-02-svg-stroke-hover: transparent;
+  --ink-01-svg-stroke-hover: transparent;
+  --ink-02-svg-stroke-active: transparent;
+  --ink-01-svg-stroke-active: transparent;
   --ink-01-svg-2-fill: var(--ink-02-svg-2-fill);
   --ink-01-svg-2-stroke: var(--ink-02-svg-2-stroke);
   --ink-01-svg-2-fill-hover: var(--ink-02-svg-2-fill-hover);
@@ -2514,9 +2569,12 @@
   --ink-01-button-svg-fill-active: var(--ink-02-button-svg-fill-active);
   --ink-01-button-svg-stroke-hover: var(--ink-02-button-svg-stroke-hover);
   --ink-01-button-svg-stroke-active: var(--ink-02-button-svg-stroke-active);
-  --ink-01-anchor-svg-fill: var(--ink-02-anchor-svg-fill);
-  --ink-01-anchor-svg-stroke: var(--ink-02-anchor-svg-stroke);
-  --ink-01-anchor-svg-fill-hover: var(--ink-02-anchor-svg-fill-hover);
+  --ink-02-anchor-svg-fill: var(--color-energeticorange-700);
+  --ink-01-anchor-svg-fill: var(--color-energeticorange-700);
+  --ink-02-anchor-svg-stroke: transparent;
+  --ink-01-anchor-svg-stroke: transparent;
+  --ink-02-anchor-svg-fill-hover: var(--color-energeticorange-600);
+  --ink-01-anchor-svg-fill-hover: var(--color-energeticorange-600);
   --ink-01-anchor-svg-fill-active: var(--ink-02-anchor-svg-fill-active);
   --ink-01-anchor-svg-stroke-hover: var(--ink-02-anchor-svg-stroke-hover);
   --ink-01-anchor-svg-stroke-active: var(--ink-02-anchor-svg-stroke-active);
@@ -2581,6 +2639,12 @@
   --canvas-01-input-border: var(--canvas-02-input-border);
   --ink-01-placeholder: var(--ink-02-placeholder);
   --accent-01-input-focus: var(--accent-02-input-focus);
+  --ink-01-input-hover: var(--ink-02-input-hover);
+  --canvas-01-input-hover: var(--canvas-02-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-02-input-hover-border);
+  --ink-01-input-active: var(--ink-02-input-active);
+  --canvas-01-input-active: var(--canvas-02-input-active);
+  --canvas-01-input-active-border: var(--canvas-02-input-active-border);
   --ink-01-blockquote: var(--ink-02-blockquote);
   --canvas-01-blockquote-border: var(--canvas-02-blockquote-border);
   --canvas-01-divider: var(--canvas-02-divider);
@@ -2679,6 +2743,12 @@
   --canvas-01-input-border: var(--canvas-03-input-border);
   --ink-01-placeholder: var(--ink-03-placeholder);
   --accent-01-input-focus: var(--accent-03-input-focus);
+  --ink-01-input-hover: var(--ink-03-input-hover);
+  --canvas-01-input-hover: var(--canvas-03-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-03-input-hover-border);
+  --ink-01-input-active: var(--ink-03-input-active);
+  --canvas-01-input-active: var(--canvas-03-input-active);
+  --canvas-01-input-active-border: var(--canvas-03-input-active-border);
   --ink-01-blockquote: var(--ink-03-blockquote);
   --canvas-01-blockquote-border: var(--canvas-03-blockquote-border);
   --canvas-01-divider: var(--canvas-03-divider);
@@ -2777,6 +2847,12 @@
   --canvas-01-input-border: var(--canvas-03-input-border);
   --ink-01-placeholder: var(--ink-03-placeholder);
   --accent-01-input-focus: var(--accent-03-input-focus);
+  --ink-01-input-hover: var(--ink-03-input-hover);
+  --canvas-01-input-hover: var(--canvas-03-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-03-input-hover-border);
+  --ink-01-input-active: var(--ink-03-input-active);
+  --canvas-01-input-active: var(--canvas-03-input-active);
+  --canvas-01-input-active-border: var(--canvas-03-input-active-border);
   --ink-01-blockquote: var(--ink-03-blockquote);
   --canvas-01-blockquote-border: var(--canvas-03-blockquote-border);
   --canvas-01-divider: var(--canvas-03-divider);
@@ -2875,6 +2951,12 @@
   --canvas-01-input-border: var(--canvas-04-input-border);
   --ink-01-placeholder: var(--ink-04-placeholder);
   --accent-01-input-focus: var(--accent-04-input-focus);
+  --ink-01-input-hover: var(--ink-04-input-hover);
+  --canvas-01-input-hover: var(--canvas-04-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-04-input-hover-border);
+  --ink-01-input-active: var(--ink-04-input-active);
+  --canvas-01-input-active: var(--canvas-04-input-active);
+  --canvas-01-input-active-border: var(--canvas-04-input-active-border);
   --ink-01-blockquote: var(--ink-04-blockquote);
   --canvas-01-blockquote-border: var(--canvas-04-blockquote-border);
   --canvas-01-divider: var(--canvas-04-divider);
@@ -2973,6 +3055,12 @@
   --canvas-01-input-border: var(--canvas-04-input-border);
   --ink-01-placeholder: var(--ink-04-placeholder);
   --accent-01-input-focus: var(--accent-04-input-focus);
+  --ink-01-input-hover: var(--ink-04-input-hover);
+  --canvas-01-input-hover: var(--canvas-04-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-04-input-hover-border);
+  --ink-01-input-active: var(--ink-04-input-active);
+  --canvas-01-input-active: var(--canvas-04-input-active);
+  --canvas-01-input-active-border: var(--canvas-04-input-active-border);
   --ink-01-blockquote: var(--ink-04-blockquote);
   --canvas-01-blockquote-border: var(--canvas-04-blockquote-border);
   --canvas-01-divider: var(--canvas-04-divider);
@@ -3071,6 +3159,12 @@
   --canvas-01-input-border: var(--canvas-05-input-border);
   --ink-01-placeholder: var(--ink-05-placeholder);
   --accent-01-input-focus: var(--accent-05-input-focus);
+  --ink-01-input-hover: var(--ink-05-input-hover);
+  --canvas-01-input-hover: var(--canvas-05-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-05-input-hover-border);
+  --ink-01-input-active: var(--ink-05-input-active);
+  --canvas-01-input-active: var(--canvas-05-input-active);
+  --canvas-01-input-active-border: var(--canvas-05-input-active-border);
   --ink-01-blockquote: var(--ink-05-blockquote);
   --canvas-01-blockquote-border: var(--canvas-05-blockquote-border);
   --canvas-01-divider: var(--canvas-05-divider);
@@ -3169,6 +3263,12 @@
   --canvas-01-input-border: var(--canvas-05-input-border);
   --ink-01-placeholder: var(--ink-05-placeholder);
   --accent-01-input-focus: var(--accent-05-input-focus);
+  --ink-01-input-hover: var(--ink-05-input-hover);
+  --canvas-01-input-hover: var(--canvas-05-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-05-input-hover-border);
+  --ink-01-input-active: var(--ink-05-input-active);
+  --canvas-01-input-active: var(--canvas-05-input-active);
+  --canvas-01-input-active-border: var(--canvas-05-input-active-border);
   --ink-01-blockquote: var(--ink-05-blockquote);
   --canvas-01-blockquote-border: var(--canvas-05-blockquote-border);
   --canvas-01-divider: var(--canvas-05-divider);
@@ -3267,6 +3367,12 @@
   --canvas-01-input-border: var(--canvas-06-input-border);
   --ink-01-placeholder: var(--ink-06-placeholder);
   --accent-01-input-focus: var(--accent-06-input-focus);
+  --ink-01-input-hover: var(--ink-06-input-hover);
+  --canvas-01-input-hover: var(--canvas-06-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-06-input-hover-border);
+  --ink-01-input-active: var(--ink-06-input-active);
+  --canvas-01-input-active: var(--canvas-06-input-active);
+  --canvas-01-input-active-border: var(--canvas-06-input-active-border);
   --ink-01-blockquote: var(--ink-06-blockquote);
   --canvas-01-blockquote-border: var(--canvas-06-blockquote-border);
   --canvas-01-divider: var(--canvas-06-divider);
@@ -3365,6 +3471,12 @@
   --canvas-01-input-border: var(--canvas-06-input-border);
   --ink-01-placeholder: var(--ink-06-placeholder);
   --accent-01-input-focus: var(--accent-06-input-focus);
+  --ink-01-input-hover: var(--ink-06-input-hover);
+  --canvas-01-input-hover: var(--canvas-06-input-hover);
+  --canvas-01-input-hover-border: var(--canvas-06-input-hover-border);
+  --ink-01-input-active: var(--ink-06-input-active);
+  --canvas-01-input-active: var(--canvas-06-input-active);
+  --canvas-01-input-active-border: var(--canvas-06-input-active-border);
   --ink-01-blockquote: var(--ink-06-blockquote);
   --canvas-01-blockquote-border: var(--canvas-06-blockquote-border);
   --canvas-01-divider: var(--canvas-06-divider);
@@ -3466,12 +3578,21 @@
     background-color: var(--canvas-01-input, var(--canvas-01));
     border-color: var(--canvas-01-input-border, var(--canvas-01-border));
   }
+  :where(.sg-codersmill-page) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]):hover,
+  :where(.sg-codersmill-page) textarea:hover,
+  :where(.sg-codersmill-page) select:hover {
+    color: var(--ink-01-input-hover, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-hover, var(--canvas-01-input, var(--canvas-01)));
+    border-color: var(--canvas-01-input-hover-border, var(--canvas-01-input-border, var(--canvas-01-border)));
+  }
   :where(.sg-codersmill-page) ::placeholder {
     color: var(--ink-01-placeholder, var(--ink-01-muted));
   }
   :where(.sg-codersmill-page) :is(input, textarea, select):focus-visible {
+    color: var(--ink-01-input-active, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-active, var(--canvas-01-input, var(--canvas-01)));
     outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
-    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--canvas-01-input-active-border, var(--accent-01-input-focus, var(--accent-01-focus)));
     --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
   }
   :where(.sg-codersmill-page) blockquote {
@@ -3532,12 +3653,21 @@
     background-color: var(--canvas-01-input, var(--canvas-01));
     border-color: var(--canvas-01-input-border, var(--canvas-01-border));
   }
+  :where(.sg-codersmill-hero) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]):hover,
+  :where(.sg-codersmill-hero) textarea:hover,
+  :where(.sg-codersmill-hero) select:hover {
+    color: var(--ink-01-input-hover, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-hover, var(--canvas-01-input, var(--canvas-01)));
+    border-color: var(--canvas-01-input-hover-border, var(--canvas-01-input-border, var(--canvas-01-border)));
+  }
   :where(.sg-codersmill-hero) ::placeholder {
     color: var(--ink-01-placeholder, var(--ink-01-muted));
   }
   :where(.sg-codersmill-hero) :is(input, textarea, select):focus-visible {
+    color: var(--ink-01-input-active, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-active, var(--canvas-01-input, var(--canvas-01)));
     outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
-    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--canvas-01-input-active-border, var(--accent-01-input-focus, var(--accent-01-focus)));
     --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
   }
   :where(.sg-codersmill-hero) blockquote {
@@ -3621,12 +3751,21 @@
     background-color: var(--canvas-01-input, var(--canvas-01));
     border-color: var(--canvas-01-input-border, var(--canvas-01-border));
   }
+  :where(.sg-codersmill-section-1) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]):hover,
+  :where(.sg-codersmill-section-1) textarea:hover,
+  :where(.sg-codersmill-section-1) select:hover {
+    color: var(--ink-01-input-hover, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-hover, var(--canvas-01-input, var(--canvas-01)));
+    border-color: var(--canvas-01-input-hover-border, var(--canvas-01-input-border, var(--canvas-01-border)));
+  }
   :where(.sg-codersmill-section-1) ::placeholder {
     color: var(--ink-01-placeholder, var(--ink-01-muted));
   }
   :where(.sg-codersmill-section-1) :is(input, textarea, select):focus-visible {
+    color: var(--ink-01-input-active, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-active, var(--canvas-01-input, var(--canvas-01)));
     outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
-    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--canvas-01-input-active-border, var(--accent-01-input-focus, var(--accent-01-focus)));
     --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
   }
   :where(.sg-codersmill-section-1) blockquote {
@@ -3687,12 +3826,21 @@
     background-color: var(--canvas-01-input, var(--canvas-01));
     border-color: var(--canvas-01-input-border, var(--canvas-01-border));
   }
+  :where(.sg-codersmill-section-2) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]):hover,
+  :where(.sg-codersmill-section-2) textarea:hover,
+  :where(.sg-codersmill-section-2) select:hover {
+    color: var(--ink-01-input-hover, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-hover, var(--canvas-01-input, var(--canvas-01)));
+    border-color: var(--canvas-01-input-hover-border, var(--canvas-01-input-border, var(--canvas-01-border)));
+  }
   :where(.sg-codersmill-section-2) ::placeholder {
     color: var(--ink-01-placeholder, var(--ink-01-muted));
   }
   :where(.sg-codersmill-section-2) :is(input, textarea, select):focus-visible {
+    color: var(--ink-01-input-active, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-active, var(--canvas-01-input, var(--canvas-01)));
     outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
-    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--canvas-01-input-active-border, var(--accent-01-input-focus, var(--accent-01-focus)));
     --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
   }
   :where(.sg-codersmill-section-2) blockquote {
@@ -3701,6 +3849,44 @@
   }
   :where(.sg-codersmill-section-2) hr {
     border-color: var(--canvas-01-divider, var(--canvas-01-border));
+  }
+}
+@layer base {
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) .svg {
+    fill: var(--ink-02-svg-fill);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) [class*="icon-["].svg {
+    color: var(--ink-02-svg-fill);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) .svg {
+    stroke: var(--ink-02-svg-stroke);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) :is(a, button, summary):active .svg {
+    fill: var(--ink-02-svg-fill-active);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) :is(a, button, summary):active [class*="icon-["].svg {
+    color: var(--ink-02-svg-fill-active);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) :is(a, button, summary):is(:hover, :focus-visible) .svg {
+    stroke: var(--ink-02-svg-stroke-hover);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) :is(a, button, summary):active .svg {
+    stroke: var(--ink-02-svg-stroke-active);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) .anchor-svg {
+    fill: var(--ink-02-anchor-svg-fill);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) [class*="icon-["].anchor-svg {
+    color: var(--ink-02-anchor-svg-fill);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) .anchor-svg {
+    stroke: var(--ink-02-anchor-svg-stroke);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) :is(a, button, summary):is(:hover, :focus-visible) .anchor-svg {
+    fill: var(--ink-02-anchor-svg-fill-hover);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-2) :is(a, button, summary):is(:hover, :focus-visible) [class*="icon-["].anchor-svg {
+    color: var(--ink-02-anchor-svg-fill-hover);
   }
 }
 @layer base {
@@ -3753,12 +3939,21 @@
     background-color: var(--canvas-01-input, var(--canvas-01));
     border-color: var(--canvas-01-input-border, var(--canvas-01-border));
   }
+  :where(.sg-codersmill-section-3) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]):hover,
+  :where(.sg-codersmill-section-3) textarea:hover,
+  :where(.sg-codersmill-section-3) select:hover {
+    color: var(--ink-01-input-hover, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-hover, var(--canvas-01-input, var(--canvas-01)));
+    border-color: var(--canvas-01-input-hover-border, var(--canvas-01-input-border, var(--canvas-01-border)));
+  }
   :where(.sg-codersmill-section-3) ::placeholder {
     color: var(--ink-01-placeholder, var(--ink-01-muted));
   }
   :where(.sg-codersmill-section-3) :is(input, textarea, select):focus-visible {
+    color: var(--ink-01-input-active, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-active, var(--canvas-01-input, var(--canvas-01)));
     outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
-    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--canvas-01-input-active-border, var(--accent-01-input-focus, var(--accent-01-focus)));
     --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
   }
   :where(.sg-codersmill-section-3) blockquote {
@@ -3819,12 +4014,21 @@
     background-color: var(--canvas-01-input, var(--canvas-01));
     border-color: var(--canvas-01-input-border, var(--canvas-01-border));
   }
+  :where(.sg-codersmill-section-4) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]):hover,
+  :where(.sg-codersmill-section-4) textarea:hover,
+  :where(.sg-codersmill-section-4) select:hover {
+    color: var(--ink-01-input-hover, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-hover, var(--canvas-01-input, var(--canvas-01)));
+    border-color: var(--canvas-01-input-hover-border, var(--canvas-01-input-border, var(--canvas-01-border)));
+  }
   :where(.sg-codersmill-section-4) ::placeholder {
     color: var(--ink-01-placeholder, var(--ink-01-muted));
   }
   :where(.sg-codersmill-section-4) :is(input, textarea, select):focus-visible {
+    color: var(--ink-01-input-active, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-active, var(--canvas-01-input, var(--canvas-01)));
     outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
-    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--canvas-01-input-active-border, var(--accent-01-input-focus, var(--accent-01-focus)));
     --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
   }
   :where(.sg-codersmill-section-4) blockquote {
@@ -3885,12 +4089,21 @@
     background-color: var(--canvas-01-input, var(--canvas-01));
     border-color: var(--canvas-01-input-border, var(--canvas-01-border));
   }
+  :where(.sg-codersmill-section-5) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]):hover,
+  :where(.sg-codersmill-section-5) textarea:hover,
+  :where(.sg-codersmill-section-5) select:hover {
+    color: var(--ink-01-input-hover, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-hover, var(--canvas-01-input, var(--canvas-01)));
+    border-color: var(--canvas-01-input-hover-border, var(--canvas-01-input-border, var(--canvas-01-border)));
+  }
   :where(.sg-codersmill-section-5) ::placeholder {
     color: var(--ink-01-placeholder, var(--ink-01-muted));
   }
   :where(.sg-codersmill-section-5) :is(input, textarea, select):focus-visible {
+    color: var(--ink-01-input-active, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-active, var(--canvas-01-input, var(--canvas-01)));
     outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
-    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--canvas-01-input-active-border, var(--accent-01-input-focus, var(--accent-01-focus)));
     --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
   }
   :where(.sg-codersmill-section-5) blockquote {
@@ -3951,12 +4164,21 @@
     background-color: var(--canvas-01-input, var(--canvas-01));
     border-color: var(--canvas-01-input-border, var(--canvas-01-border));
   }
+  :where(.sg-codersmill-section-6) input:not([type="button"], [type="submit"], [type="reset"], [type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="image"]):hover,
+  :where(.sg-codersmill-section-6) textarea:hover,
+  :where(.sg-codersmill-section-6) select:hover {
+    color: var(--ink-01-input-hover, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-hover, var(--canvas-01-input, var(--canvas-01)));
+    border-color: var(--canvas-01-input-hover-border, var(--canvas-01-input-border, var(--canvas-01-border)));
+  }
   :where(.sg-codersmill-section-6) ::placeholder {
     color: var(--ink-01-placeholder, var(--ink-01-muted));
   }
   :where(.sg-codersmill-section-6) :is(input, textarea, select):focus-visible {
+    color: var(--ink-01-input-active, var(--ink-01-input, var(--ink-01)));
+    background-color: var(--canvas-01-input-active, var(--canvas-01-input, var(--canvas-01)));
     outline-color: var(--accent-01-input-focus, var(--accent-01-focus));
-    border-color: var(--accent-01-input-focus, var(--accent-01-focus));
+    border-color: var(--canvas-01-input-active-border, var(--accent-01-input-focus, var(--accent-01-focus)));
     --tw-ring-color: var(--accent-01-input-focus, var(--accent-01-focus));
   }
   :where(.sg-codersmill-section-6) blockquote {
