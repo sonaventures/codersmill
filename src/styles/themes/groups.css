@@ -2453,8 +2453,10 @@
   --canvas-01-shadow: var(--canvas-02-shadow);
   --accent-02-01: var(--color-energeticorange-100);
   --accent-01-01: var(--color-energeticorange-100);
-  --accent-01-01-hover: var(--accent-02-01-hover);
-  --accent-01-01-border: var(--accent-02-01-border);
+  --accent-02-01-hover: var(--color-energeticorange-300);
+  --accent-01-01-hover: var(--color-energeticorange-300);
+  --accent-02-01-border: var(--color-energeticorange-500);
+  --accent-01-01-border: var(--color-energeticorange-500);
   --accent-01-01-hover-border: var(--accent-02-01-hover-border);
   --accent-01-01-text: var(--accent-02-01-text);
   --accent-01-01-hover-text: var(--accent-02-01-hover-text);
