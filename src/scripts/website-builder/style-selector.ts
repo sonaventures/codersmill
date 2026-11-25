@@ -114,17 +114,62 @@ if (root) {
   const fileInput = get<HTMLInputElement>("#import-file");
   const paletteFamily = get<HTMLSelectElement>("#palette-family");
   const tailwindOnly = usesTailwindPaletteOnly();
+  // The palette colors for the color lists, kept once in a <template>.
+  const paletteOptions = get<HTMLTemplateElement>(
+    "#palette-color-options",
+  ).content;
   if (tailwindOnly) {
     applyTailwindPaletteOnly(paletteFamily);
     const availableFamilies = new Set(
       Array.from(paletteFamily.options, (option) => option.value),
     );
-    for (const group of root.querySelectorAll<HTMLOptGroupElement>(
+    for (const group of paletteOptions.querySelectorAll<HTMLOptGroupElement>(
       "optgroup[data-palette-family]",
     )) {
       if (!availableFamilies.has(group.dataset.paletteFamily ?? ""))
         group.remove();
     }
+  }
+  const paletteValues = new Set(
+    Array.from(
+      paletteOptions.querySelectorAll("option"),
+      (option) => option.value,
+    ),
+  );
+  // A color list has only its first options until it is opened: then it
+  // gets a copy of the palette colors (hundreds of full lists made the page
+  // very slow). Until then it shows its color with one stand-in option.
+  const fillColorOptions = (control: HTMLSelectElement) => {
+    if (control.dataset.paletteFilled) return;
+    const value = control.value;
+    control
+      .querySelectorAll("[data-palette-stand-in]")
+      .forEach((option) => option.remove());
+    control.append(paletteOptions.cloneNode(true));
+    control.dataset.paletteFilled = "true";
+    setColorOption(control, value);
+  };
+  // Selects `value` in a color list, adding a disabled "Current:" option for
+  // a color the list does not offer (one hidden by the Tailwind-only setting).
+  function setColorOption(control: HTMLSelectElement, value: string) {
+    control.querySelector("[data-current-palette-color]")?.remove();
+    const listed = Array.from(control.options).some(
+      (option) => option.value === value,
+    );
+    if (!listed && !control.dataset.paletteFilled && paletteValues.has(value)) {
+      control
+        .querySelectorAll("[data-palette-stand-in]")
+        .forEach((option) => option.remove());
+      const standIn = new Option(value.slice(12, -1), value);
+      standIn.dataset.paletteStandIn = "";
+      control.add(standIn);
+    } else if (!listed) {
+      const current = new Option(`Current: ${value.slice(12, -1)}`, value);
+      current.disabled = true;
+      current.dataset.currentPaletteColor = "";
+      control.add(current, 0);
+    }
+    control.value = value;
   }
   const selectableFamilies = paletteFamilies.filter(({ key }) =>
     Array.from(paletteFamily.options).some((option) => option.value === key),
@@ -470,30 +515,30 @@ if (root) {
     }
     const element = get<HTMLElement>(`[data-region="${editingArea()}"]`);
     const computed = getComputedStyle(element);
+    // Read every swatch color before changing anything: a change between
+    // computed-style reads makes the browser recalculate the page's styles
+    // for each one, which took seconds here.
+    const swatchColors = new Map<ColorRole, string>();
+    for (const { key } of colorRoles) {
+      const color = readColor(key);
+      let swatchColor =
+        color === "transparent"
+          ? ""
+          : isGlobalColorRole(key) || isSitewideColorRole(key)
+            ? globalSwatchColor(key, semanticToken(editingArea(), key))
+            : computed.getPropertyValue(`--sample-${key}`).trim();
+      // Text formatting defaults to "currentColor": show the area's text.
+      if (/^currentcolor$/i.test(swatchColor))
+        swatchColor = computed.getPropertyValue("--sample-text").trim();
+      swatchColors.set(key, swatchColor);
+    }
     for (const { key } of colorRoles) {
       const visible = roleVisible(key);
       get<HTMLElement>(`[data-color-field="${key}"]`).hidden = !visible;
       const color = readColor(key);
       const custom = color.startsWith("#");
       const control = get<HTMLSelectElement>(`[data-role-value="${key}"]`);
-      const optionValue = custom ? "custom" : color;
-      if (tailwindOnly) {
-        control.querySelector("[data-current-palette-color]")?.remove();
-        if (
-          !Array.from(control.options).some(
-            (option) => option.value === optionValue,
-          )
-        ) {
-          const current = new Option(
-            `Current: ${color.slice(12, -1)}`,
-            optionValue,
-          );
-          current.disabled = true;
-          current.dataset.currentPaletteColor = "";
-          control.add(current, 0);
-        }
-      }
-      control.value = optionValue;
+      setColorOption(control, custom ? "custom" : color);
       control.disabled = !visible;
       const targetOption = get<HTMLOptionElement>(
         `#palette-target option[value="${key}"]`,
@@ -510,16 +555,7 @@ if (root) {
       get<HTMLElement>(`[data-role-token="${key}"]`).textContent =
         token ?? "Preview-only override";
       const swatch = get<HTMLElement>(`[data-role-swatch="${key}"]`);
-      swatch.dataset.transparent = String(color === "transparent");
-      let swatchColor =
-        color === "transparent"
-          ? ""
-          : isGlobalColorRole(key) || isSitewideColorRole(key)
-            ? globalSwatchColor(key, token)
-            : computed.getPropertyValue(`--sample-${key}`).trim();
-      // Text formatting defaults to "currentColor": show the area's text.
-      if (/^currentcolor$/i.test(swatchColor))
-        swatchColor = computed.getPropertyValue("--sample-text").trim();
+      const swatchColor = swatchColors.get(key) ?? "";
       swatch.dataset.transparent = String(
         color === "transparent" || swatchColor === "transparent",
       );
@@ -1184,6 +1220,9 @@ if (root) {
       }
     };
     select.addEventListener("focus", syncFocus);
+    // Add the palette colors before the list opens.
+    for (const type of ["pointerdown", "keydown", "focus"])
+      select.addEventListener(type, () => fillColorOptions(select));
     hex.addEventListener("focus", syncFocus);
     field.addEventListener("click", (event) => {
       if (

@@ -404,6 +404,25 @@ const sampleMenu = [
         aria-label="Color and theme group controls"
         data-studio-chrome
       >
+        {/* The palette colors for every color list, kept once here: the
+            page has hundreds of color lists, and a full copy in each made it
+            very slow. Each list gets a copy when it is first opened. */}
+        <template id="palette-color-options">
+          <optgroup label="Neutrals">
+            {["white", "black"].map((color) => (
+              <option value={`var(--color-${color})`}>{color}</option>
+            ))}
+          </optgroup>
+          {pickerFamilies.map(({ key: family, label }) => (
+            <optgroup label={label} data-palette-family={family}>
+              {paletteShades.map((shade) => (
+                <option value={`var(--color-${family}-${shade})`}>
+                  {family}-{shade}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </template>
         <form id="theme-group-form">
           <div class="panel-heading">
             <p class="selector-eyebrow">Your palette, your way</p>
@@ -439,22 +458,8 @@ const sampleMenu = [
                       </option>
                       <option value="transparent">None (transparent)</option>
                       <option value="custom">Custom hex…</option>
-                      <optgroup label="Neutrals">
-                        {["white", "black"].map((color) => (
-                          <option value={`var(--color-${color})`}>
-                            {color}
-                          </option>
-                        ))}
-                      </optgroup>
-                      {pickerFamilies.map(({ key: family, label }) => (
-                        <optgroup label={label} data-palette-family={family}>
-                          {paletteShades.map((shade) => (
-                            <option value={`var(--color-${family}-${shade})`}>
-                              {family}-{shade}
-                            </option>
-                          ))}
-                        </optgroup>
-                      ))}
+                      {/* The palette colors are added from
+                          #palette-color-options when the list is opened. */}
                     </select>
                     <input
                       type="text"
