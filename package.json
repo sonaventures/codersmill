@@ -78,7 +78,7 @@
     "tailwindcss-intersect": "^3.0.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^5.20261124.1",
+    "@cloudflare/workers-types": "^5.20261125.1",
     "@iconify/json": "^2.2.561",
     "@iconify/tailwind4": "^1.2.3",
     "@types/alpinejs": "^3.17.0",
