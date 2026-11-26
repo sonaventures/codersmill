@@ -5465,12 +5465,12 @@
             "background": "transparent",
             "border": "theme",
             "shadow": "theme",
-            "accent1": "var(--color-limecream-100)",
-            "accent1Hover": "theme",
-            "accent1Border": "theme",
-            "accent1HoverBorder": "theme",
-            "accent1Text": "theme",
-            "accent1HoverText": "theme",
+            "accent1": "var(--color-limecream-300)",
+            "accent1Hover": "var(--color-limecream-100)",
+            "accent1Border": "transparent",
+            "accent1HoverBorder": "transparent",
+            "accent1Text": "var(--color-radioactive-950)",
+            "accent1HoverText": "var(--color-radioactive-900)",
             "accent1Shadow": "theme",
             "accent1ActiveBorder": "theme",
             "accent2": "theme",
@@ -5490,13 +5490,13 @@
             "accent3Shadow": "theme",
             "accent3ActiveBorder": "theme",
             "accentFocus": "theme",
-            "text": "theme",
+            "text": "var(--color-prusssianblue-700)",
             "h1": "theme",
             "h2": "var(--color-smartblue-700)",
             "h3": "var(--color-smartblue-700)",
             "h4": "var(--color-smartblue-700)",
             "muted": "theme",
-            "highlight": "theme",
+            "highlight": "var(--color-energeticorange-500)",
             "card": "theme",
             "cardBorder": "theme",
             "cardShadow": "theme",
@@ -5683,10 +5683,10 @@
             "navSvgFillActive": "theme",
             "navSvgStrokeHover": "theme",
             "navSvgStrokeActive": "theme",
-            "buttonSvgFill": "theme",
-            "buttonSvgStroke": "theme",
-            "buttonSvgFillHover": "theme",
-            "buttonSvgFillActive": "theme",
+            "buttonSvgFill": "var(--color-radioactive-800)",
+            "buttonSvgStroke": "transparent",
+            "buttonSvgFillHover": "var(--color-radioactive-900)",
+            "buttonSvgFillActive": "var(--color-radioactive-900)",
             "buttonSvgStrokeHover": "theme",
             "buttonSvgStrokeActive": "theme",
             "anchorSvgFill": "theme",
@@ -5725,7 +5725,7 @@
             "accent3Shadow": "theme",
             "accent3ActiveBorder": "theme",
             "accentFocus": "theme",
-            "text": "var(--color-limecream-900)",
+            "text": "var(--color-platinum-900)",
             "h1": "var(--color-energeticorange-800)",
             "h2": "var(--color-energeticorange-700)",
             "h3": "var(--color-energeticorange-700)",
@@ -9482,15 +9482,16 @@
         "hero": {
           "h1": {
             "font-family": "var(--font-jetbrains-mono)",
-            "font-size": "3.75rem",
+            "font-size": "3rem",
             "font-weight": "700",
             "letter-spacing": "-0.025em"
           },
           "h2": {
             "font-family": "var(--font-roboto-condensed)",
-            "font-size": "2.25rem",
+            "font-size": "1.875rem",
             "font-weight": "500",
-            "letter-spacing": "0.025em"
+            "letter-spacing": "0.025em",
+            "line-height": "2.25rem"
           },
           "h3": {
             "font-family": "var(--font-roboto-condensed)",
@@ -9606,6 +9607,21 @@
             "font-size": "1.25rem",
             "font-weight": "600",
             "letter-spacing": "0.025em"
+          }
+        },
+        "section1": {
+          "p": {
+            "font-family": "var(--font-inter)",
+            "font-size": "0.875rem",
+            "font-weight": "400",
+            "letter-spacing": "0em",
+            "line-height": "1.5rem"
+          },
+          "h2": {
+            "font-size": "3rem"
+          },
+          "h3": {
+            "font-size": "1.5rem"
           }
         }
       },

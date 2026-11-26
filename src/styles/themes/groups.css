@@ -2594,10 +2594,21 @@
 }
 :root:not([data-theme="dark"]) .sg-codersmill-section-1 {
   --canvas-01: transparent;
-  --accent-01-01: var(--color-limecream-100);
+  --accent-01-01: var(--color-limecream-300);
+  --accent-01-01-hover: var(--color-limecream-100);
+  --accent-01-01-border: transparent;
+  --accent-01-01-hover-border: transparent;
+  --accent-01-01-text: var(--color-radioactive-950);
+  --accent-01-01-hover-text: var(--color-radioactive-900);
+  --ink-01: var(--color-prusssianblue-700);
   --ink-01-h2: var(--color-smartblue-700);
   --ink-01-h3: var(--color-smartblue-700);
   --ink-01-h4: var(--color-smartblue-700);
+  --ink-01-highlight: var(--color-energeticorange-500);
+  --ink-01-button-svg-fill: var(--color-radioactive-800);
+  --ink-01-button-svg-stroke: transparent;
+  --ink-01-button-svg-fill-hover: var(--color-radioactive-900);
+  --ink-01-button-svg-fill-active: var(--color-radioactive-900);
 }
 :root[data-theme="dark"] .sg-codersmill-section-1 {
 
@@ -2636,8 +2647,8 @@
   --accent-01-03-shadow: var(--accent-02-03-shadow);
   --accent-01-03-active-border: var(--accent-02-03-active-border);
   --accent-01-focus: var(--accent-02-focus);
-  --ink-02: var(--color-limecream-900);
-  --ink-01: var(--color-limecream-900);
+  --ink-02: var(--color-platinum-900);
+  --ink-01: var(--color-platinum-900);
   --ink-02-h1: var(--color-energeticorange-800);
   --ink-01-h1: var(--color-energeticorange-800);
   --ink-02-h2: var(--color-energeticorange-700);
@@ -3947,6 +3958,41 @@
   }
 }
 @layer base {
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) .button-svg {
+    fill: var(--ink-01-button-svg-fill);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) .button-svg :is(path, circle, ellipse, rect, polygon, polyline, line, text):not([fill="none"], mask *, clipPath *) {
+    fill: var(--ink-01-button-svg-fill);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) [class*="icon-["].button-svg {
+    color: var(--ink-01-button-svg-fill);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) .button-svg {
+    stroke: var(--ink-01-button-svg-stroke);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) .button-svg :is(path, circle, ellipse, rect, polygon, polyline, line, text):not([stroke="none"], mask *, clipPath *) {
+    stroke: var(--ink-01-button-svg-stroke);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) :is(a, button, summary):is(:hover, :focus-visible) .button-svg {
+    fill: var(--ink-01-button-svg-fill-hover);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) :is(a, button, summary):is(:hover, :focus-visible) .button-svg :is(path, circle, ellipse, rect, polygon, polyline, line, text):not([fill="none"], mask *, clipPath *) {
+    fill: var(--ink-01-button-svg-fill-hover);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) :is(a, button, summary):is(:hover, :focus-visible) [class*="icon-["].button-svg {
+    color: var(--ink-01-button-svg-fill-hover);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) :is(a, button, summary):active .button-svg {
+    fill: var(--ink-01-button-svg-fill-active);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) :is(a, button, summary):active .button-svg :is(path, circle, ellipse, rect, polygon, polyline, line, text):not([fill="none"], mask *, clipPath *) {
+    fill: var(--ink-01-button-svg-fill-active);
+  }
+  :root:not([data-theme="dark"]) :where(.sg-codersmill-section-1) :is(a, button, summary):active [class*="icon-["].button-svg {
+    color: var(--ink-01-button-svg-fill-active);
+  }
+}
+@layer base {
   :where(.sg-codersmill-section-2) {
     background-color: var(--canvas-01);
     border-color: var(--canvas-01-border);
@@ -4408,15 +4454,16 @@
 }
 .sg-codersmill-hero h1 {
   font-family: var(--font-jetbrains-mono);
-  font-size: 3.75rem;
+  font-size: 3rem;
   font-weight: 700;
   letter-spacing: -0.025em;
 }
 .sg-codersmill-hero h2 {
   font-family: var(--font-roboto-condensed);
-  font-size: 2.25rem;
+  font-size: 1.875rem;
   font-weight: 500;
   letter-spacing: 0.025em;
+  line-height: 2.25rem;
 }
 .sg-codersmill-hero h3 {
   font-family: var(--font-roboto-condensed);
@@ -4499,5 +4546,18 @@
   font-family: var(--font-inter);
   font-size: 1rem;
   font-weight: 400;
+}
+.sg-codersmill-section-1 h2 {
+  font-size: 3rem;
+}
+.sg-codersmill-section-1 h3 {
+  font-size: 1.5rem;
+}
+.sg-codersmill-section-1 p {
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0em;
+  line-height: 1.5rem;
 }
 /* end theme-group: codersmill */
