@@ -23,6 +23,10 @@ export function inspectComponent(path, source) {
   )?.[1];
   if (/<slot(?:\s|\/?>)/i.test(source))
     return { path, error: "Components with slots are not supported." };
+  // A whole page (such as codersmill/placeholder-page, which reads its own
+  // URL) brings its own layout and can't be placed inside another page.
+  if (/\bfrom\s*["'][^"'\n]*\/layouts\//.test(frontmatter ?? ""))
+    return { path, error: "Whole pages (with a layout) are not supported." };
   const usesProps =
     /\bAstro\s*(?:\.\s*props\b|\[\s*["']props["']\s*\])/.test(source) ||
     /=\s*Astro\b/.test(frontmatter ?? "");

@@ -55,6 +55,13 @@ const { title } = Astro.props;
   );
   assert.match(inspectComponent("Wrapper.astro", "<slot />").error, /slots/);
   assert.match(
+    inspectComponent(
+      "codersmill/placeholder-page.astro",
+      '---\nimport Layout from "../../layouts/layout.astro";\n---\n<Layout />',
+    ).error,
+    /Whole pages/,
+  );
+  assert.match(
     inspectComponent("Dynamic.astro", "---\nconst props = Astro['props'];\n---")
       .error,
     /interface/,
